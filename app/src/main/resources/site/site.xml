@@ -7,6 +7,12 @@
 		<config>
 		</config>
 	</input>
+  	<input name="mailsLocation" type="ContentSelector">
+		<label>Mails location</label>
+		<occurrences minimum="0" maximum="1"/>
+		<config>
+		</config>
+	</input>
 	<item-set name="social">
 	  <label>Social networks</label>
 	  <items>

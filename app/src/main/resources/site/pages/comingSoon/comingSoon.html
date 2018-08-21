@@ -14,16 +14,21 @@
                 <div class="comingSoonLogo">
                     <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
                 </div>
-                <div class="comingSoonText">
+                <div data-th-if="${showDescription}" class="comingSoonText">
                     <div class="comingSoonTitle">
                         Скоро будем!
                     </div>
                     <div class="comingSoonDescription">
                         Мы начнем совсем скоро! Вы можете поделиться своей почтой, чтобы мы держали вас в курсе.
                     </div>
-                    <div class="comingSoonMailBlock">
-                        <input class="comingSoonInput" type="email" placeholder="Ваш email">
-                        <button  class="comingSoonButton primary_button">Го </button>
+                    <form class="comingSoonMailBlock" method="post" data-th-action="${url}">
+                        <input class="comingSoonInput" type="email" name="email" placeholder="Ваш email">
+                        <button  class="comingSoonButton primary_button" name="submit">Го</button>
+                    </form>
+                </div>
+                <div data-th-unless="${showDescription}" class="comingSoonText">
+                    <div class="comingSoonTitle">
+                        Спасибо!
                     </div>
                 </div>
             </div>

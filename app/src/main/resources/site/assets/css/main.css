@@ -308,7 +308,9 @@ button {
   position: relative;
   z-index: 0;
   flex-shrink: 0;
-  min-height: 85%; }
+  min-height: 85%;
+  display: flex;
+  align-items: center; }
   .comingSoonBackground:after {
     width: 100%;
     height: 26px;

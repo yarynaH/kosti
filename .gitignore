@@ -3,3 +3,4 @@ frontend/package-lock.json
 app/build/*
 app/.gradle/*
 app/.xp/*
+frontend/npm-debug.log

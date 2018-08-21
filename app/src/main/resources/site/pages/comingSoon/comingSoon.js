@@ -3,12 +3,11 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
-var kostiUtils = require('kostiUtils');
-var helpers = require('helpers');
 
-exports.get = handleGet;
+exports.get = handleReq;
+exports.post = handleReq;
 
-function handleGet(req) {
+function handleReq(req) {
     var me = this;
 
     function renderView() {
@@ -29,13 +28,30 @@ function handleGet(req) {
         var content = portal.getContent();
         var response = [];
         var site = portal.getSiteConfig();
+        var showDescription = true;
+
+        if( up.email && up.email != '' ){
+            var mailsLocation = contentLib.get({ key: site.mailsLocation });
+            if( !mailsLocation.data.mail || mailsLocation.data.mail.indexOf(up.email) == -1 ){
+                var result = contentLib.modify({
+                    key: mailsLocation._id,
+                    editor: function(c){
+                        var newMail = norseUtils.forceArray( c.data.mail );
+                        newMail.push( up.email );
+                        c.data.mail = newMail;
+                        return c;
+                    }
+                });
+            }
+            showDescription = false;
+        }
 
         var model = {
-            //pageComponents: helpers.getPageComponents( req ),
             content: content,
-            mainRegion: content.page.regions['main'],
+            url: portal.pageUrl({ path: content._path }),
             app: app,
-            social: site.social
+            social: site.social,
+            showDescription: showDescription
         };
 
         return model;
