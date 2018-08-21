@@ -35,6 +35,16 @@
 	      <occurrences minimum="0" maximum="1"/>
 	    </input>
 	  </items>
+	    <input name="twitch" type="TextLine">
+	      <label>Twitch</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	  </items>
+	    <input name="telegram" type="TextLine">
+	      <label>Telegram</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	  </items>
 	  <occurrences minimum="0" maximum="1"/>
 	</item-set>
   </config>
