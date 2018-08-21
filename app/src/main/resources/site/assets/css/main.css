@@ -295,10 +295,30 @@ button {
   cursor: pointer;
   transition: all ease-out 0.2s; }
 
+.comingSoonMain {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between; }
+
 .comingSoonBackground {
-  background-image: url("../images/background.png");
+  background-image: url("../images/background-min.png");
   background-size: cover;
-  padding: 0 40px; }
+  padding: 0 40px;
+  position: relative;
+  z-index: 0;
+  flex-shrink: 0;
+  min-height: 85%; }
+  .comingSoonBackground:after {
+    width: 100%;
+    height: 26px;
+    background-image: url(../images/overlay-min.png);
+    background-repeat: repeat-x;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+    left: 0; }
 
 .comingSoonWrapper {
   width: 380px;
@@ -307,10 +327,12 @@ button {
   padding: 40px 0 60px 0; }
 
 .comingSoonText {
-  font-size: 48px;
-  font-weight: bold;
   color: #ffffff;
   margin: 47px auto 0 auto; }
+
+.comingSoonTitle {
+  font-weight: bold;
+  font-size: 48px; }
 
 .comingSoonDescription {
   width: 364px;
@@ -334,20 +356,20 @@ button {
 
 @media only screen and (max-width: 767px) {
   .comingSoonMailBlock .comingSoonInput, .comingSoonMailBlock .comingSoonButton, .comingSoonDescription, .comingSoonText, .comingSoonWrapper {
-    width: 100%; } }
+    width: 100%; }
+  .comingSoonInput {
+    margin-bottom: 25px; } }
 
 .comingSoonSocial {
   margin: 0 auto;
-  overflow: hidden;
   display: table;
-  margin-top: 55px;
-  padding-bottom: 60px; }
+  margin-top: 45px;
+  padding: 10px 10px 60px 10px; }
   .comingSoonSocial .comingSoonSocialBiggerWrapper div:first-child {
     margin-left: 0; }
   .comingSoonSocial .comingSoonSocialBiggerWrapper,
   .comingSoonSocial .comingSoonSocialSmallerWrapper {
-    float: left;
-    overflow: hidden; }
+    float: left; }
     .comingSoonSocial .comingSoonSocialBiggerWrapper div,
     .comingSoonSocial .comingSoonSocialSmallerWrapper div {
       width: 32px;

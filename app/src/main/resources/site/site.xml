@@ -7,5 +7,35 @@
 		<config>
 		</config>
 	</input>
+	<item-set name="social">
+	  <label>Social networks</label>
+	  <items>
+	    <input name="vk" type="TextLine">
+	      <label>VK</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	    <input name="instagram" type="TextLine">
+	      <label>Instagram</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	    <input name="discord" type="TextLine">
+	      <label>Discord</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	    <input name="fb" type="TextLine">
+	      <label>FB</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	    <input name="youtube" type="TextLine">
+	      <label>Youtube</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	    <input name="twitter" type="TextLine">
+	      <label>Twitter</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	  </items>
+	  <occurrences minimum="0" maximum="1"/>
+	</item-set>
   </config>
 </site>
