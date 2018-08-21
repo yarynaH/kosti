@@ -28,12 +28,14 @@ function handleGet(req) {
         var up = req.params;
         var content = portal.getContent();
         var response = [];
+        var site = portal.getSiteConfig();
 
         var model = {
             //pageComponents: helpers.getPageComponents( req ),
             content: content,
             mainRegion: content.page.regions['main'],
             app: app,
+            social: site.social
         };
 
         return model;

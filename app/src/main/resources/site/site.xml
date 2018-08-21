@@ -34,14 +34,12 @@
 	      <label>Twitter</label>
 	      <occurrences minimum="0" maximum="1"/>
 	    </input>
-	  </items>
-	    <input name="twitch" type="TextLine">
-	      <label>Twitch</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	  </items>
 	    <input name="telegram" type="TextLine">
 	      <label>Telegram</label>
+	      <occurrences minimum="0" maximum="1"/>
+	    </input>
+	    <input name="twitch" type="TextLine">
+	      <label>Twitch</label>
 	      <occurrences minimum="0" maximum="1"/>
 	    </input>
 	  </items>
