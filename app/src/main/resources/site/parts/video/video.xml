@@ -1,0 +1,17 @@
+<part>
+  <display-name>Video</display-name>
+  <config>
+    <input type="TextLine" name="VIDEO_URL">
+      <label>ID or URL</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="VIDEO_SOURCE" type="ComboBox">
+	  <label>Video source</label>
+	  <occurrences minimum="1" maximum="1"/>
+	  <config>
+	    <option value="vimeo">Vimeo</option>
+	    <option value="youtube">Youtube</option>
+	  </config>
+	</input>
+  </config>
+</part>

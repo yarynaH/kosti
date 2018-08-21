@@ -1,0 +1,97 @@
+//
+// Media Query
+//----------------------------------------------------------------------
+
+// Desktop
+//----------------------------------------------------------------------
+// >= 1025px
+@mixin desktop {
+    @media #{$desktop} {
+        @content;
+    }
+}
+// <= 1200px
+@mixin desktop-main {
+    @media #{$desktop-main} {
+        @content;
+    }
+}
+// >= 1201px
+@mixin desktop-large {
+    @media #{$desktop-large} {
+        @content;
+    }
+}
+// <= 1800px
+@mixin desktop-full-width {
+    @media #{$desktop-full-width} {
+        @content;
+    }
+}
+
+// Tablet
+//----------------------------------------------------------------------
+// >= 768px
+@mixin tablet-all {
+    @media #{$tablet-all} {
+        @content;
+    }
+}
+// 768px - 1024px
+@mixin tablet {
+    @media #{$tablet} {
+        @content;
+    }
+}
+// 768px - 960px
+@mixin tablet-portrait {
+    @media #{$tablet-portrait} {
+        @content;
+    }
+}
+// 961px - 1024px
+@mixin tablet-landscape {
+    @media #{$tablet-landscape} {
+        @content;
+    }
+}
+// >=961px
+@mixin tablet-landscape-all {
+    @media #{$tablet-landscape-all} {
+        @content;
+    }
+}
+
+// <= 1024px
+@mixin tablet-mobile {
+    @media #{$tablet-mobile} {
+        @content;
+    }
+}
+
+// Mobile
+//----------------------------------------------------------------------
+// <= 767px
+@mixin mobile {
+    @media #{$mobile} {
+        @content;
+    }
+}
+// >= 481px land
+@mixin mobile-landscape {
+    @media #{$mobile-landscape} {
+        @content;
+    }
+}
+// <= 480px port
+@mixin mobile-portrait {
+    @media #{$mobile-portrait} {
+        @content;
+    }
+}
+ 
+// REM  function
+//----------------------------------------------------------------------
+@function rem($px, $base: $base-font-size) {
+    @return ($px / $base) * 1rem;
+} 

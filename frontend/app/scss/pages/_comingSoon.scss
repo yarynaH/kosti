@@ -1,0 +1,121 @@
+.comingSoonBackground{
+	background-image: url('../images/background.png');
+	background-size: cover;
+	padding: 0 40px;
+}
+.comingSoonWrapper{
+	width: 380px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 40px 0 60px 0;
+}
+.comingSoonText{
+	font-size: 48px;
+	font-weight: bold;
+	color: $color-primary1;
+	margin: 47px auto 0 auto;
+}
+.comingSoonDescription{
+	width: 364px;
+	font-size: rem(14);
+	line-height: 1.43;
+	text-align: center;
+	color: $color-primary1;
+	margin: 25px auto 0 auto;
+}
+
+.comingSoonMailBlock{
+	margin: 32px auto 0 auto;
+
+	@media only screen and (min-width: $breakpoint-mobile-max) {
+		display: flex;
+		justify-content: center;
+	}
+
+	.comingSoonInput{
+		width: 240px;
+	}
+
+	.comingSoonButton {
+		@media only screen and (min-width: $breakpoint-mobile-max) {
+			margin-left: 15px;
+		}
+	}
+}
+
+@media only screen and (max-width: $breakpoint-mobile-max) {
+	.comingSoonMailBlock .comingSoonInput, .comingSoonMailBlock .comingSoonButton, .comingSoonDescription, .comingSoonText, .comingSoonWrapper{
+		width: 100%;
+	}
+}
+
+.comingSoonSocial{
+	margin: 0 auto;
+	overflow: hidden;
+	display: table;
+	margin-top: 55px;
+	padding-bottom: 60px;
+	.comingSoonSocialBiggerWrapper {
+		div:first-child{
+			margin-left: 0;
+		}
+	}
+	.comingSoonSocialBiggerWrapper, 
+	.comingSoonSocialSmallerWrapper{
+		float: left;
+		overflow: hidden;
+		div{
+			width: 32px;
+			height: 32px;
+			float: left;
+			margin-left: 32px;
+			background-size: contain;
+			a{
+				display: block;
+				height: 100%;
+			}
+			a:hover{
+				box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5);
+			}
+		}
+	}
+	@media only screen and (max-width: $breakpoint-mobile-max) {
+		margin-top: 40px;
+		div {
+			.comingSoonSocialSmaller{
+				width: 24px;
+				height: 24px;
+				margin: 24px 0 0 21px;
+
+				&:first-child{
+					margin-left: 0;
+				}
+			}
+		}
+		.comingSoonSocialBiggerWrapper,
+		.comingSoonSocialSmallerWrapper{
+			float: none;
+		}
+	}
+}
+.comingSoonTwitch{
+	background-image: url('../images/twitch.svg');
+}
+.comingSoonYoutube{
+	background-image: url('../images/youtube.svg');
+}
+.comingSoonDiscord{
+	background-image: url('../images/discord@3x.png');
+}
+.comingSoonVk{
+	background-image: url('../images/vk.svg');
+}
+.comingSoonFb{
+	background-image: url('../images/facebook.svg');
+}
+.comingSoonTw{
+	background-image: url('../images/twitter.svg');
+}
+.comingSoonIn{
+	background-image: url('../images/instagram.svg');
+}

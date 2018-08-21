@@ -1,0 +1,397 @@
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+object,
+section,
+summary {
+  display: block; }
+
+audio,
+canvas,
+video {
+  display: inline-block;
+  vertical-align: top; }
+
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+[hidden] {
+  display: none; }
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-repeat: no-repeat; }
+
+* {
+  min-height: 0;
+  min-width: 0; }
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation; }
+
+html, body, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit; }
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+  color: inherit; }
+
+a:focus {
+  outline: thin dotted; }
+
+a:active,
+a:hover {
+  outline: 0; }
+
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+b,
+strong {
+  font-weight: bold; }
+
+dfn {
+  font-style: italic; }
+
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0; }
+
+mark {
+  background: #ff0;
+  color: #000; }
+
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em; }
+
+pre {
+  white-space: pre-wrap; }
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019"; }
+
+small {
+  font-size: 80%; }
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+img {
+  border: 0;
+  max-width: 100%;
+  vertical-align: bottom;
+  -webkit-touch-callout: none; }
+
+svg:not(:root) {
+  overflow: hidden; }
+
+figure {
+  margin: 0; }
+
+textarea {
+  overflow: auto;
+  vertical-align: top; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0; }
+
+legend {
+  border: 0;
+  padding: 0; }
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0; }
+
+button,
+input {
+  line-height: normal; }
+
+button,
+select {
+  text-transform: none; }
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer; }
+
+button[disabled],
+html input[disabled] {
+  cursor: default; }
+
+input[type="checkbox"],
+input[type="radio"] {
+  padding: 0; }
+
+input[type="search"] {
+  -webkit-appearance: textfield; }
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+
+.clearfix:after {
+  content: '';
+  display: block;
+  width: 100%;
+  clear: both; }
+
+input,
+select,
+textarea {
+  height: 40px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5);
+  font-size: 0.875rem;
+  line-height: 40px;
+  color: #333333;
+  padding: 10px 15px;
+  border: 1px solid transparent; }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    box-shadow: 0 4px 16px 0 rgba(25, 122, 173, 0.5);
+    border: solid 1px #197aad; }
+  input::-webkit-input-placeholder,
+  select::-webkit-input-placeholder,
+  textarea::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #999999; }
+  input::-moz-placeholder,
+  select::-moz-placeholder,
+  textarea::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #999999; }
+  input:-ms-input-placeholder,
+  select:-ms-input-placeholder,
+  textarea:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #999999; }
+  input:-moz-placeholder,
+  select:-moz-placeholder,
+  textarea:-moz-placeholder {
+    /* Firefox 18- */
+    color: #999999; }
+
+textarea {
+  min-width: 100%;
+  min-height: 45px; }
+
+button,
+input,
+a {
+  outline: none; }
+
+.primary_button {
+  height: 40px;
+  border-radius: 4px;
+  background-color: #de4225;
+  box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5);
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #ffffff;
+  border: 0;
+  padding: 10px 24px; }
+  .primary_button:hover {
+    box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5);
+    background-color: #de3825; }
+  .primary_button:active, .primary_button:focus {
+    box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.5); }
+
+body {
+  color: #ffffff;
+  font-family: "Roboto", Arial;
+  font-size: 1.25rem;
+  font-weight: 300;
+  letter-spacing: 0.005em;
+  line-height: 1.2;
+  word-wrap: break-word;
+  position: relative; }
+
+html, body {
+  height: 100%;
+  background-color: #160d1d; }
+
+a,
+button {
+  cursor: pointer;
+  transition: all ease-out 0.2s; }
+
+.comingSoonBackground {
+  background-image: url("../images/background.png");
+  background-size: cover;
+  padding: 0 40px; }
+
+.comingSoonWrapper {
+  width: 380px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 40px 0 60px 0; }
+
+.comingSoonText {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 47px auto 0 auto; }
+
+.comingSoonDescription {
+  width: 364px;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  text-align: center;
+  color: #ffffff;
+  margin: 25px auto 0 auto; }
+
+.comingSoonMailBlock {
+  margin: 32px auto 0 auto; }
+  @media only screen and (min-width: 767px) {
+    .comingSoonMailBlock {
+      display: flex;
+      justify-content: center; } }
+  .comingSoonMailBlock .comingSoonInput {
+    width: 240px; }
+  @media only screen and (min-width: 767px) {
+    .comingSoonMailBlock .comingSoonButton {
+      margin-left: 15px; } }
+
+@media only screen and (max-width: 767px) {
+  .comingSoonMailBlock .comingSoonInput, .comingSoonMailBlock .comingSoonButton, .comingSoonDescription, .comingSoonText, .comingSoonWrapper {
+    width: 100%; } }
+
+.comingSoonSocial {
+  margin: 0 auto;
+  overflow: hidden;
+  display: table;
+  margin-top: 55px;
+  padding-bottom: 60px; }
+  .comingSoonSocial .comingSoonSocialBiggerWrapper div:first-child {
+    margin-left: 0; }
+  .comingSoonSocial .comingSoonSocialBiggerWrapper,
+  .comingSoonSocial .comingSoonSocialSmallerWrapper {
+    float: left;
+    overflow: hidden; }
+    .comingSoonSocial .comingSoonSocialBiggerWrapper div,
+    .comingSoonSocial .comingSoonSocialSmallerWrapper div {
+      width: 32px;
+      height: 32px;
+      float: left;
+      margin-left: 32px;
+      background-size: contain; }
+      .comingSoonSocial .comingSoonSocialBiggerWrapper div a,
+      .comingSoonSocial .comingSoonSocialSmallerWrapper div a {
+        display: block;
+        height: 100%; }
+      .comingSoonSocial .comingSoonSocialBiggerWrapper div a:hover,
+      .comingSoonSocial .comingSoonSocialSmallerWrapper div a:hover {
+        box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5); }
+  @media only screen and (max-width: 767px) {
+    .comingSoonSocial {
+      margin-top: 40px; }
+      .comingSoonSocial div .comingSoonSocialSmaller {
+        width: 24px;
+        height: 24px;
+        margin: 24px 0 0 21px; }
+        .comingSoonSocial div .comingSoonSocialSmaller:first-child {
+          margin-left: 0; }
+      .comingSoonSocial .comingSoonSocialBiggerWrapper,
+      .comingSoonSocial .comingSoonSocialSmallerWrapper {
+        float: none; } }
+
+.comingSoonTwitch {
+  background-image: url("../images/twitch.svg"); }
+
+.comingSoonYoutube {
+  background-image: url("../images/youtube.svg"); }
+
+.comingSoonDiscord {
+  background-image: url("../images/discord@3x.png"); }
+
+.comingSoonVk {
+  background-image: url("../images/vk.svg"); }
+
+.comingSoonFb {
+  background-image: url("../images/facebook.svg"); }
+
+.comingSoonTw {
+  background-image: url("../images/twitter.svg"); }
+
+.comingSoonIn {
+  background-image: url("../images/instagram.svg"); }

@@ -1,0 +1,7 @@
+<layout>
+  <display-name>Bleeding layout</display-name>
+  <config/>
+  <regions>
+    <region name="central"/>
+  </regions>
+</layout>

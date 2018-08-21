@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+  <config>
+  	<input name="menuItems" type="ContentSelector">
+		<label>Menu items</label>
+		<occurrences minimum="0" maximum="0"/>
+		<config>
+		</config>
+	</input>
+  </config>
+</site>

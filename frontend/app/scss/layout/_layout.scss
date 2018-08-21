@@ -1,0 +1,30 @@
+
+.content-width,
+.content-full-width {
+    clear: both;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-width {
+    @include desktop {
+        max-width: calc(#{$breakpoint-desktop-max} - 100px);
+        width: calc(100% - 100px);
+    }
+
+    @include tablet {
+        max-width: $breakpoint-tablet-max;
+        width: calc(100% - 60px);
+    }
+
+    @include mobile {
+        max-width: $breakpoint-mobile-max;
+        width: 100%;
+    }
+}
+
+.content-full-width {
+    @include desktop {
+        max-width: $breakpoint-desktop-large-max;
+    }
+}

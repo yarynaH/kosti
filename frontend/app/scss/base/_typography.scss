@@ -1,0 +1,22 @@
+
+body {
+    color: $color-primary1;
+    font-family: $font-main-regular;
+    font-size: rem($body-font-size);
+    font-weight: $body-font-weight;
+    letter-spacing: $body-letter-spacing;
+    line-height: 1.2;
+    word-wrap: break-word;
+    position: relative;
+}
+
+html, body {
+	height: 100%;
+	background-color: #160d1d;
+}
+
+a,
+button {
+	cursor: pointer;
+    transition: all ease-out 0.2s;
+}

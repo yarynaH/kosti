@@ -1,0 +1,8 @@
+<a data-th-href="${attachmentURL}" class="attachment">
+	<p class="title" data-th-text="${title}">Vedlegg til referansebruksberegninger</p>
+	<p data-th-text="${attachment.ATTACHMENT_TEXT}">Detaljer fra 2013</p>
+	<p class="meta">
+		<span data-th-text="${attachmentSize}" data-th-remove="tag"></span>
+		<span data-th-remove="tag" data-th-text=${fileType}></span>
+	</p>
+</a>

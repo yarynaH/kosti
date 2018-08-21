@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Article</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="mainImage" type="ImageSelector">
+      <label>Main image</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="intro" type="HtmlArea">
+      <label>Intro</label>
+      <config>
+        <exclude>*</exclude>
+        <include>alignleft alignright | bold italic</include>
+      </config>
+    </input>
+    <input name="rating" type="Long">
+      <label>Rating</label>
+      <default>0</default>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+  </form>
+</content-type>
