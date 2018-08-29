@@ -1,4 +1,7 @@
 var thymeleaf = require('/lib/xp/thymeleaf');
+var libs = {
+    context: require('/lib/xp/context')
+};
 
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
@@ -31,17 +34,25 @@ function handleReq(req) {
         var showDescription = true;
 
         if( up.email && up.email != '' ){
-            var mailsLocation = contentLib.get({ key: site.mailsLocation });
+            var mailsLocation = contentLib.get({ key: site.mailsLocation, branch: 'draft' });
             if( !mailsLocation.data.mail || mailsLocation.data.mail.indexOf(up.email) == -1 ){
-                var result = contentLib.modify({
-                    key: mailsLocation._id,
-                    editor: function(c){
-                        var newMail = norseUtils.forceArray( c.data.mail );
-                        newMail.push( up.email );
-                        c.data.mail = newMail;
-                        return c;
-                    }
-                });
+                var newMail = norseUtils.forceArray( mailsLocation.data.mail );
+                newMail.push(up.email);
+                var result = libs.context.run({
+                    user: {
+                        login: 'su'
+                    },
+                    principals: ["role:system.admin"]
+                }, function() {
+                    contentLib.modify({
+                        key: mailsLocation._id,
+                        branch: "draft",
+                        editor: function(c){
+                            c.data.mail = newMail;
+                            return c;
+                        }
+                    });
+                })
             }
             showDescription = false;
         }
