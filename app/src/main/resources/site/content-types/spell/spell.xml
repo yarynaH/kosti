@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Spell</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="source" type="ComboBox">
+      <label>Source</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="xanathar">Xanathar's guide to everything</option>
+        <option value="volo">Volo's guide to monsters</option>
+        <option value="handbook">Player's handbook</option>
+        <option value="adventurerGuide">Adventurer's guide to the sword coast</option>
+        <option value="elementalEvil">Elemental evil</option>
+        <option value="UAstarter">UA starter spells</option>
+        <option value="UAmodern">UA modern magic</option>
+        <option value="UAold">UA that old black magic</option>
+      </config>
+    </input>
+    <input name="level" type="ComboBox">
+      <label>Level</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="0">Cantrip</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+      </config>
+    </input>
+    <item-set name="classes">
+      <label>Classes</label>
+      <items>
+        <input name="artificier" type="CheckBox">
+          <label>Artificier</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="bard" type="CheckBox">
+          <label>Bard</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="cleric" type="CheckBox">
+          <label>Cleric</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="druid" type="CheckBox">
+          <label>Druid</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="paladin" type="CheckBox">
+          <label>Paladin</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="ranger" type="CheckBox">
+          <label>Ranger</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="sorcerer" type="CheckBox">
+          <label>Sorcerer</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="warlock" type="CheckBox">
+          <label>Warlock</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="wizard" type="CheckBox">
+          <label>Wizard</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+      <occurrences minimum="1" maximum="1"/>
+    </item-set>
+    <item-set name="misc">
+      <label>Components and Miscellaneous</label>
+      <items>
+        <input name="concentration" type="CheckBox">
+          <label>Concentration</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="verbal" type="CheckBox">
+          <label>Verbal</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="somatic" type="CheckBox">
+          <label>Somatic</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="material" type="CheckBox">
+          <label>Material</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="materialWCost" type="CheckBox">
+          <label>Material with cost</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="healing" type="CheckBox">
+          <label>Healing</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="permanent" type="CheckBox">
+          <label>Permanent effect</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="scaling" type="CheckBox">
+          <label>Scaling effect</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="ritual" type="CheckBox">
+          <label>Ritual</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="technomagic" type="CheckBox">
+          <label>Technomagic</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+      <occurrences minimum="1" maximum="1"/>
+    </item-set>
+    <item-set name="damageType">
+      <label>Damage type</label>
+      <items>
+        <input name="acid" type="CheckBox">
+          <label>Acid</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="bludgeoning" type="CheckBox">
+          <label>Bludgeoning</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="cold" type="CheckBox">
+          <label>Cold</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="fire" type="CheckBox">
+          <label>Fire</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="force" type="CheckBox">
+          <label>Force</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="lightning" type="CheckBox">
+          <label>Lightning</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="necrotic" type="CheckBox">
+          <label>Necrotic</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="piercing" type="CheckBox">
+          <label>Piercing</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="poison" type="CheckBox">
+          <label>Poison</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="psychic" type="CheckBox">
+          <label>Psychic</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="radiant" type="CheckBox">
+          <label>Radiant</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="slashing" type="CheckBox">
+          <label>Slashing</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="thunder" type="CheckBox">
+          <label>Thunder</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+      <occurrences minimum="1" maximum="1"/>
+    </item-set>
+    <input name="school" type="ComboBox">
+      <label>School</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="abjuration">Abjuration</option>
+        <option value="conjuration">Conjuration</option>
+        <option value="divination">Divination</option>
+        <option value="enchantment">Enchantment</option>
+        <option value="evocation">Evocation</option>
+        <option value="illusion">Illusion</option>
+        <option value="necromancy">Necromancy</option>
+        <option value="transmutation">Transmutation</option>
+      </config>
+    </input>
+    <input name="savingThrow" type="ComboBox">
+      <label>Saving throw</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="str">STR</option>
+        <option value="con">CON</option>
+        <option value="dex">DEX</option>
+        <option value="int">INT</option>
+        <option value="wis">WIS</option>
+        <option value="cha">CHA</option>
+      </config>
+    </input>
+    <input name="attackType" type="ComboBox">
+      <label>Attack type</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="melee">Melee</option>
+        <option value="ranger">Ranged</option>
+        <option value="Other">Other / unknown</option>
+      </config>
+    </input>
+    <input name="page" type="TextLine">
+      <label>Page in book</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="description" type="HtmlArea">
+      <label>Description</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+  </form>
+</content-type>
