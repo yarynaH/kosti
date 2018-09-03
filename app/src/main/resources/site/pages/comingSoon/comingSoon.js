@@ -31,6 +31,7 @@ function handleReq(req) {
         var content = portal.getContent();
         var response = [];
         var site = portal.getSiteConfig();
+        var description = portal.getSite().data.description;
         var showDescription = true;
 
         if( up.email && up.email != '' ){
@@ -61,6 +62,7 @@ function handleReq(req) {
             content: content,
             url: portal.pageUrl({ path: content._path }),
             app: app,
+            description: description,
             social: site.social,
             showDescription: showDescription
         };
