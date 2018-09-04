@@ -94,6 +94,10 @@
           <label>Material</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
+        <input name="materialComponent" type="TextLine">
+          <label>Material(if needed)</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
         <input name="materialWCost" type="CheckBox">
           <label>Material with cost</label>
           <occurrences minimum="0" maximum="1"/>
@@ -205,6 +209,58 @@
         <option value="cha">CHA</option>
       </config>
     </input>
+    <input name="castTime" type="ComboBox">
+      <label>Casting time</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="action">1 Action</option>
+        <option value="bonus">1 Bonus action</option>
+        <option value="reaction">Reaction</option>
+        <option value="minutes">Minutes</option>
+        <option value="hours">Hours</option>
+        <option value="days">Days</option>
+        <option value="other">Other</option>
+      </config>
+    </input>
+    <input name="otherCastTime" type="TextLine">
+      <label>Other cast time</label>
+      <help-text>E.g.: 10</help-text>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="castTimeDescr" type="TextLine">
+      <label>Cast time description</label>
+      <help-text>E.g.: , which you take when you or a creature within 60 feet of you falls</help-text>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="range" type="ComboBox">
+      <label>Range</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="self">Self</option>
+        <option value="touch">Touch</option>
+        <option value="point">Point</option>
+        <option value="selfArea">Self(Area)</option>
+        <option value="Special">Special</option>
+      </config>
+    </input>
+    <input name="rangeDistance" type="TextLine">
+      <label>Range distance</label>
+      <help-text>E.g.: 120</help-text>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="rangeDistanceUnits" type="ComboBox">
+      <label>Range distance units</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="feet">Feet</option>
+        <option value="miles">Miles</option>
+      </config>
+    </input>
+    <input name="rangeDescr" type="TextLine">
+      <label>Range description</label>
+      <help-text>E.g.: (30-foot radius)</help-text>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="attackType" type="ComboBox">
       <label>Attack type</label>
       <occurrences minimum="1" maximum="1"/>
@@ -213,6 +269,23 @@
         <option value="ranger">Ranged</option>
         <option value="Other">Other / unknown</option>
       </config>
+    </input>
+    <input name="duration" type="ComboBox">
+      <label>Duration</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="instant">Instant</option>
+        <option value="permanent">Permanent</option>
+        <option value="minutes">Minutes</option>
+        <option value="hours">Hours</option>
+        <option value="days">Days</option>
+        <option value="special">Special</option>
+      </config>
+    </input>
+    <input name="durationNumber" type="TextLine">
+      <label>Duration number</label>
+      <help-text>E.g.: 1</help-text>
+      <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="page" type="TextLine">
       <label>Page in book</label>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"  data-th-href="${portal.assetUrl({'_path=/css/main.css'})}">
+    <link rel="icon" type="image/png" data-th-href="${portal.assetUrl({'_path=/images/fav_icon.PNG'})}" sizes="16x16">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" data-th-attr="content=${description}">
+    <title>Вечерние кости</title>
+</head>
+
+<body>
+    <main class="comingSoonMain">
+        <div class="comingSoonBackground">
+            <div class="comingSoonWrapper">
+                <div class="comingSoonLogo">
+                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
+                </div>
+                <div data-th-if="${showDescription}" class="comingSoonText">
+                    <div class="comingSoonTitle" data-th-text="${content.displayName}">
+                    </div>
+                    <div class="comingSoonDescription">
+                        Уровень: <span data-th-text="${content.data.level}"></span>
+                        <br>
+                        Школа: <span  data-th-text="${portal.localize({'_key=spells.school.' + content.data.school, '_locale='+content.language})}"></span>
+                        <br>
+                        Время накладывания: <span data-th-text="${portal.localize({'_key=spells.' + content.data.castTime, '_locale='+content.language})}"></span>
+                        <br>
+                        Дистанция: <span data-th-text="${content.data.distance + ' фт.'}"></span>
+                        <br>
+                        <div data-th-utext="${content.data.description}"></div>
+                    </div>
+                </div>
+                <div data-th-unless="${showDescription}" class="comingSoonText">
+                    <div class="comingSoonTitle">
+                        Спасибо!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comingSoonFooterTexture"></div>
+        <div class="comingSoonSocial">
+            <div class="comingSoonSocialBiggerWrapper">
+                <div class="comingSoonTwitch"><a data-th-href="${social.twitch}" target="_blank" title="Twitch"></a></div>
+                <div class="comingSoonYoutube"><a data-th-href="${social.youtube}" target="_blank" title="YouTube"></a></div>
+                <div class="comingSoonDiscord"><a data-th-href="${social.discord}" target="_blank" title="Discord"></a></div>
+            </div>
+            <div class="comingSoonSocialSmallerWrapper">
+                <div class="comingSoonVk comingSoonSocialSmaller"><a data-th-href="${social.vk}" target="_blank" title="VK"></a></div>
+                <div class="comingSoonFb comingSoonSocialSmaller"><a data-th-href="${social.fb}" target="_blank" title="Facebook"></a></div>
+                <div class="comingSoonTw comingSoonSocialSmaller"><a data-th-href="${social.twitter}" target="_blank" title="Twitter"></a></div>
+                <div class="comingSoonIn comingSoonSocialSmaller"><a data-th-href="${social.instagram}" target="_blank" title="Instagram"></a></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124808103-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-124808103-1');
+        </script>
+    </footer>
+</body>
+
+</html>
