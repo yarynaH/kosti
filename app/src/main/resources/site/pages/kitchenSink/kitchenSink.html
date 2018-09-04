@@ -7,8 +7,17 @@
     <link rel="stylesheet" type="text/css"  data-th-href="${portal.assetUrl({'_path=/css/main.css'})}">
     <link rel="icon" type="image/png" data-th-href="${portal.assetUrl({'_path=/images/fav_icon.PNG'})}" sizes="16x16">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" data-th-attr="content=${description}">
+    <meta name="description" data-th-attr="content=${siteFull.data.description}">
     <title>Вечерние кости</title>
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Вечерние кости" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" data-th-attr="content=${portal.pageUrl({'_path=' + siteFull._path, '_type=absolute'})}" />
+    <meta property="og:image" data-th-attr="content=${portal.assetUrl({'_path=images/extended-logo-min.png','_type=absolute'})}" />
+    <meta property="og:description" data-th-attr="content=${siteFull.data.description}" />
+    <meta property="og:site_name" data-th-attr="content=${siteFull.displayName}" />
+    <meta property="fb:admins" content="2182806205310445" />
 </head>
 
 <body>
@@ -31,11 +40,6 @@
                         Дистанция: <span data-th-text="${content.data.distance + ' фт.'}"></span>
                         <br>
                         <div data-th-utext="${content.data.description}"></div>
-                    </div>
-                </div>
-                <div data-th-unless="${showDescription}" class="comingSoonText">
-                    <div class="comingSoonTitle">
-                        Спасибо!
                     </div>
                 </div>
             </div>

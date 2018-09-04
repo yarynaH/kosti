@@ -33,6 +33,7 @@ function handleReq(req) {
         var site = portal.getSiteConfig();
         var description = portal.getSite().data.description;
         var showDescription = true;
+        var siteFull = portal.getSite();
 
         if( up.email && up.email != '' ){
             var mailsLocation = contentLib.get({ key: site.mailsLocation, branch: 'draft' });
@@ -62,8 +63,8 @@ function handleReq(req) {
             content: content,
             url: portal.pageUrl({ path: content._path }),
             app: app,
-            description: description,
             social: site.social,
+            siteFull: siteFull,
             showDescription: showDescription
         };
 

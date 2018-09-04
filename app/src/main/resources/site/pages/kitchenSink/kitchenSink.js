@@ -6,6 +6,7 @@ var libs = {
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
+var mailLib = require('/lib/xp/mail');
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -31,16 +32,14 @@ function handleReq(req) {
         var content = portal.getContent();
         var response = [];
         var site = portal.getSiteConfig();
-        var description = portal.getSite().data.description;
-        var showDescription = true;
+        var siteFull = portal.getSite();
 
         var model = {
             content: content,
             url: portal.pageUrl({ path: content._path }),
             app: app,
-            description: description,
             social: site.social,
-            showDescription: showDescription
+            siteFull: siteFull
         };
 
         return model;
