@@ -4,42 +4,20 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var norseUtils = require('norseUtils');
 var userLib = require('user');
 
-exports.getPageComponents = function( req, headerAttributes ) {
+exports.getPageComponents = function( req ) {
   var pageComponents = {};
   var up = req.params;
   var site = portal.getSite();
   var siteConfig = portal.getSiteConfig();
   var content = portal.getContent();
 
-  var menu = getMenu(norseUtils.forceArray(siteConfig.menuItems));
-
-  pageComponents['header'] = thymeleaf.render( resolve('../pages/components/header.html'), {
+  pageComponents['pagehead'] = thymeleaf.render( resolve('../pages/components/head.html'), {
+    siteConfig: siteConfig,
     content: content,
-    userTopMenu: checkUser(),
-    site: site,
-    menu: menu,
-    headerAttributes: headerAttributes
-  } );
-
-
-  pageComponents['pagehead'] = thymeleaf.render( resolve('../pages/components/pagehead.html'), {
-    content: content
+    site: site
   });
 
-  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {
-    content: content
-  });
-
-  function getMenu( menuItems ){
-    var menu = [];
-    for ( var i = 0; i < menuItems.length; i++ ) {
-      menu.push({
-        url: portal.pageUrl({ id: menuItems[i]}),
-        title: contentLib.get({ key: menuItems[i] }).displayName
-      });
-    }
-    return menu;
-  }
+  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {});
 
   return pageComponents;
 };
