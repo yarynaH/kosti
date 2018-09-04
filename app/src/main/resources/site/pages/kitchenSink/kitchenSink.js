@@ -31,6 +31,7 @@ function handleReq(req) {
         var up = req.params;
         var content = portal.getContent();
         var response = [];
+        var site = portal.getSiteConfig();
 
         var model = {
             content: content,
