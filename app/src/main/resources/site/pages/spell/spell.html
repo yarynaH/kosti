@@ -6,28 +6,28 @@
 <body>
     <main class="comingSoonMain">
         <div class="comingSoonBackground">
-            <div class="comingSoonWrapper">
+            <div class="spellWrapper">
                 <div class="comingSoonLogo">
                     <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
                 </div>
                 <div class="comingSoonText">
                     <div class="comingSoonTitle" data-th-text="${content.displayName}"></div>
-                    <div class="comingSoonDescription">
+                    <div class="comingSoonDescription spellDescription">
                         <b>Уровень:</b> <span data-th-text="${content.data.level}"></span>
                         <br>
                         <b>Школа:</b> <span  data-th-text="${portal.localize({'_key=spells.school.' + content.data.school, '_locale='+content.language})}"></span>
                         <br>
-                        <b>Время накладывания:</b> <span data-th-text="${portal.localize({'_key=global.game.' + content.data.castTime, '_locale='+content.language})}"></span>
+                        <b>Время накладывания:</b> <span data-th-text="${castTime}"></span>
                         <br>
-                        <b>Дистанция:</b> <span data-th-text="${content.data.distance + ' фт.'}"></span>
+                        <b>Дистанция:</b> <span data-th-text="${range}"></span>
                         <br>
                         <b>Компоненты:</b>
                             <span data-th-each="component,status: ${components}" data-th-remove="tag">
                                 <span data-th-text="${portal.localize({'_key=spells.misc.' + component, '_locale='+content.language}) + ((status.index < (status.size-1)) ? ', ' : '')}" data-th-remove="tag"></span>
                             </span>
-                            <span data-th-if="${content.data.misc.materialComponent}" data-th-text="${'(' + content.data.misc.materialComponent + ')'}"></span>
+                            <span data-th-if="${content.data.misc and content.data.misc.materialComponent}" data-th-text="${'(' + content.data.misc.materialComponent + ')'}"></span>
                         <br>
-                        <b>Длительность:</b> <span data-th-if="${content.data.misc.concentration}">Концентрация </span> <span data-th-text="${portal.localize({'_key=spells.duration.' + content.data.duration, '_locale='+content.language})}"></span>
+                        <b>Длительность:</b> <span data-th-if="${content.data.misc and content.data.misc.concentration}">Концентрация </span> <span data-th-text="${portal.localize({'_key=spells.duration.' + content.data.duration, '_locale='+content.language})}"></span>
                         <br>
                         <hr>
                         <div data-th-utext="${content.data.description}"></div>
@@ -36,6 +36,9 @@
                             <span data-th-each="class,status: ${classes}" data-th-remove="tag">
                                 <span data-th-text="${portal.localize({'_key=global.classes.' + class, '_locale='+content.language}) + ((status.index < (status.size-1)) ? ', ' : '')}" data-th-remove="tag"></span>
                             </span>
+                        <br>
+                        <b>Источник: </b><span data-th-text="${portal.localize({'_key=global.source.' + content.data.source, '_locale='+content.language})}"></span>
+                        <span data-th-if="${content.data.page}" data-th-text="${', ст. ' + content.data.page}"></span>
                     </div>
                 </div>
             </div>

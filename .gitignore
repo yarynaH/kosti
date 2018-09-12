@@ -4,3 +4,4 @@ app/build/*
 app/.gradle/*
 app/.xp/*
 frontend/npm-debug.log
+app/src/main/resources/site/assets/*

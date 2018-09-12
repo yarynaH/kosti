@@ -16,7 +16,7 @@ function handleReq(req) {
     var me = this;
 
     function renderView() {
-        var view = resolve('kitchenSink.html');
+        var view = resolve('spell.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
          // Return the result
@@ -41,6 +41,8 @@ function handleReq(req) {
             social: site.social,
             classes: spellLib.generateClasses( content.data.classes ),
             components: spellLib.generateComponents( content.data.misc ),
+            castTime: spellLib.generateCastTime( content.data.castTime, content.data.otherCastTime, content.data.castTimeDescr, content.language ),
+            range: spellLib.generateDistance( content.data.range, content.data.rangeDistance, content.data.rangeDistanceUnits, content.data.rangeDescr, content.language ),
             pageComponents: helpers.getPageComponents(req)
         };
 

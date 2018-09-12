@@ -32,6 +32,12 @@
 	margin: 0 auto;
 	padding: 40px 0 60px 0;
 }
+.spellWrapper{
+	width: 980px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 40px 0 60px 0;
+}
 .comingSoonText{
 	color: $color-primary1;
 	margin: 47px auto 0 auto;
@@ -42,6 +48,14 @@
 }
 .comingSoonDescription{
 	width: 364px;
+	font-size: rem(14);
+	line-height: 1.43;
+	text-align: center;
+	color: $color-primary1;
+	margin: 25px auto 0 auto;
+}
+.spellDescription{
+	width: 980px;
 	font-size: rem(14);
 	line-height: 1.43;
 	text-align: center;
@@ -147,3 +161,4 @@
 .comingSoonIn{
 	background-image: url('../images/instagram.svg');
 }
+
