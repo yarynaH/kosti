@@ -43,6 +43,7 @@ function handleReq(req) {
             components: spellLib.generateComponents( content.data.misc ),
             castTime: spellLib.generateCastTime( content.data.castTime, content.data.otherCastTime, content.data.castTimeDescr, content.language ),
             range: spellLib.generateDistance( content.data.range, content.data.rangeDistance, content.data.rangeDistanceUnits, content.data.rangeDescr, content.language ),
+            duration: spellLib.generateDuration( content.data.duration, content.data.durationNumber, content.language ),
             pageComponents: helpers.getPageComponents(req)
         };
 

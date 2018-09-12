@@ -39,8 +39,6 @@ function handleReq(req) {
             url: portal.pageUrl({ path: content._path }),
             app: app,
             social: site.social,
-            classes: spellLib.generateClasses( content.data.classes ),
-            components: spellLib.generateComponents( content.data.misc ),
             pageComponents: helpers.getPageComponents(req)
         };
 

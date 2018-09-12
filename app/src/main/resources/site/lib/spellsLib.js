@@ -66,3 +66,18 @@ exports.generateDistance = function( range, rangeDistance, rangeDistanceUnits, r
 
   return result;
 }
+
+exports.generateDuration = function( duration, durationNumber, lang ){
+  var translatedRangeArr = ['instant', 'permanent', 'special'];
+  var result = '';
+  if( translatedRangeArr.indexOf(duration) != -1 ){
+    result += i18nLib.localize({
+      key: 'spells.duration.' + duration,
+      locale: lang
+    });
+  } else {
+    result += durationNumber + ' ' + i18nLib.localize({ key: 'spells.duration.' + duration, locale: lang });
+  }
+
+  return result;
+}

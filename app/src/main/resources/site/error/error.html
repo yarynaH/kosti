@@ -6,13 +6,14 @@
 <body>
     <main class="comingSoonMain">
         <div class="comingSoonBackground">
-            <div class="comingSoonWrapper">
+            <div class="spellWrapper">
                 <div class="comingSoonLogo">
                     <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
                 </div>
                 <div class="comingSoonText">
-                    <div class="comingSoonTitle" data-th-text="${content.displayName}"></div>
-                    <div class="comingSoonDescription">
+                    <div class="comingSoonTitle" data-th-text="${portal.localize({'_key=global.error.' + status, '_locale='+lang})}"></div>
+                    <div class="comingSoonDescription spellDescription" data-th-text="${portal.localize({'_key=global.error.' + status + 'Long', '_locale='+lang})}">
+                        Такой страницы не сущевствует.
                     </div>
                 </div>
             </div>
