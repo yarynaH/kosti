@@ -328,6 +328,12 @@ button {
   margin: 0 auto;
   padding: 40px 0 60px 0; }
 
+.spellWrapper {
+  width: 980px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 40px 0 60px 0; }
+
 .comingSoonText {
   color: #ffffff;
   margin: 47px auto 0 auto; }
@@ -338,6 +344,14 @@ button {
 
 .comingSoonDescription {
   width: 364px;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  text-align: center;
+  color: #ffffff;
+  margin: 25px auto 0 auto; }
+
+.spellDescription {
+  width: 980px;
   font-size: 0.875rem;
   line-height: 1.43;
   text-align: center;
