@@ -8,14 +8,21 @@
         <div class="comingSoonBackground">
             <div class="comingSoonWrapper">
                 <div class="comingSoonLogo">
-                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
+                    <img data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
                 </div>
                 <div class="comingSoonText">
-                    <div class="comingSoonTitle" data-th-text="${content.displayName}"></div>
-                    <div id="upvote" data-th-attr="data-id=${content._id}, data-uid=${user._id}">Upvote</div>
-                    <div>Downvote</div>
-                    <div class="comingSoonDescription">
+                    <div><img data-th-src="${image}"></div>
+                    <div data-th-text="${user.displayName}" class="comingSoonTitle">
                     </div>
+                    <div data-th-text="${user.email}" class="comingSoonDescription">
+                    </div>
+                    <a href="/_/idprovider/users/logout">Log out</a>
+                    <form action="/_/idprovider/users" method="POST" id="form" enctype="multipart/form-data">
+                      <input type="file" name="image" id="image">
+                      <input type="submit" name="submit">
+                      <input type="hidden" name="action" value="modify">
+                      <input type="hidden" name="email" data-th-value="${user.email}">
+                    </form>
                 </div>
             </div>
         </div>
@@ -34,25 +41,6 @@
             </div>
         </div>
     </main>
-    <footer data-th-utext="${pageComponents.footer}"></footer>
+<footer data-th-utext="${pageComponents.footer}"></footer>
 </body>
-
 </html>
-<script type="text/javascript">
-$( "#upvote" ).click(function() {
-    var data = {
-        id: $('#upvote').data('id'),
-        user: $('#upvote').data('uid')
-    };
-    $.ajax({
-        url: CONFIG.loginServiceUrl,
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: console.log('ok');,
-        data: JSON.stringify(data)
-    }).always(function () {
-        enableFormSubmit(true);
-    });
-});
-</script>

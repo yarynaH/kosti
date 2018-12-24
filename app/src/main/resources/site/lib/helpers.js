@@ -6,7 +6,11 @@ var userLib = require('user');
 
 exports.getPageComponents = function( req ) {
   var pageComponents = {};
-  var up = req.params;
+  if( req ){
+    var up = req.params;
+  } else {
+    var up = {};
+  }
   var site = portal.getSite();
   var siteConfig = portal.getSiteConfig();
   var content = portal.getContent();

@@ -54,6 +54,11 @@ function handleReq(req) {
                             return c;
                         }
                     });
+                    var result = contentLib.publish({
+                        keys: [mailsLocation._id],
+                        sourceBranch: 'draft',
+                        targetBranch: 'master'
+                    });
                 })
             }
             showDescription = false;

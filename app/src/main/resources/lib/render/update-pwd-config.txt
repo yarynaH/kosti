@@ -1,0 +1,6 @@
+<script>
+    var CONFIG = {
+        idProviderUrl: "{{{idProviderUrl}}}",
+        token: "{{token}}"
+    };
+</script>
