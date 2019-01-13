@@ -1,0 +1,62 @@
+@font-face {
+    font-family: "<%= fontName %>";
+    src: url('<%= fontPath %><%= fontName %>.woff2') format('woff2'),
+        url('<%= fontPath %><%= fontName %>.woff') format('woff'),
+        url('<%= fontPath %><%= fontName %>.ttf') format('truetype');
+}
+
+@mixin <%= cssClass%>-styles($size: 1rem) {
+    display: inline-block;
+    font-family: "<%= fontName %>";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    font-size: $size;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: none;
+    vertical-align: middle;
+}
+
+%<%= cssClass%> {
+    @include <%= cssClass%>-styles;
+}
+
+@function <%= cssClass%>-char($filename) {
+    $char: "";
+<% _.each(glyphs, function(glyph) { %>
+    @if $filename == <%= glyph.fileName %> {
+        $char: "\<%= glyph.codePoint %>";
+    }<% }); %>
+
+    @return $char;
+}
+
+@mixin <%= cssClass%>($filename, $insert: before, $extend: true, $size: 16px) {
+    &:#{$insert} {
+        @if $extend {
+            @extend %<%= cssClass%>;
+        } @else {
+            @include <%= cssClass%>-styles($size);
+        }
+        content: <%= cssClass%>-char($filename);
+    }
+}
+
+/*
+---
+name: Icons
+tag: icons
+category: Basic
+---
+
+```html<% _.each(glyphs, function(glyph) { %>
+    <div class="sg-icon <%= cssClass%>-<%= glyph.fileName %>" title="<%= glyph.fileName %>"></div><% }); %>
+```
+*/
+
+<% _.each(glyphs, function(glyph) { %>.<%= cssClass%>-<%= glyph.fileName %> {
+    @include <%= cssClass%>(<%= glyph.fileName %>);
+}
+<% }); %>

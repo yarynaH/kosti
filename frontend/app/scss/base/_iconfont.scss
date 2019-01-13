@@ -1,0 +1,152 @@
+@font-face {
+    font-family: "iconfont";
+    src: url('../fonts/iconfont/iconfont.woff2') format('woff2'),
+        url('../fonts/iconfont/iconfont.woff') format('woff'),
+        url('../fonts/iconfont/iconfont.ttf') format('truetype');
+}
+
+@mixin icon-styles($size: 1rem) {
+    display: inline-block;
+    font-family: "iconfont";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    font-size: $size;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: none;
+    vertical-align: middle;
+}
+
+%icon {
+    @include icon-styles;
+}
+
+@function icon-char($filename) {
+    $char: "";
+
+    @if $filename == bookmarks-saved {
+        $char: "\E001";
+    }
+    @if $filename == bookmarks {
+        $char: "\E002";
+    }
+    @if $filename == burn-tags {
+        $char: "\E003";
+    }
+    @if $filename == comments {
+        $char: "\E004";
+    }
+    @if $filename == fb {
+        $char: "\E005";
+    }
+    @if $filename == featured {
+        $char: "\E006";
+    }
+    @if $filename == instagram {
+        $char: "\E007";
+    }
+    @if $filename == repost {
+        $char: "\E008";
+    }
+    @if $filename == search {
+        $char: "\E009";
+    }
+    @if $filename == twitch {
+        $char: "\E00A";
+    }
+    @if $filename == twitter {
+        $char: "\E00B";
+    }
+    @if $filename == views {
+        $char: "\E00C";
+    }
+    @if $filename == vk {
+        $char: "\E00D";
+    }
+    @if $filename == youtube {
+        $char: "\E00E";
+    }
+
+    @return $char;
+}
+
+@mixin icon($filename, $insert: before, $extend: true, $size: 16px) {
+    &:#{$insert} {
+        @if $extend {
+            @extend %icon;
+        } @else {
+            @include icon-styles($size);
+        }
+        content: icon-char($filename);
+    }
+}
+
+/*
+---
+name: Icons
+tag: icons
+category: Basic
+---
+
+```html
+    <div class="sg-icon icon-bookmarks-saved" title="bookmarks-saved"></div>
+    <div class="sg-icon icon-bookmarks" title="bookmarks"></div>
+    <div class="sg-icon icon-burn-tags" title="burn-tags"></div>
+    <div class="sg-icon icon-comments" title="comments"></div>
+    <div class="sg-icon icon-fb" title="fb"></div>
+    <div class="sg-icon icon-featured" title="featured"></div>
+    <div class="sg-icon icon-instagram" title="instagram"></div>
+    <div class="sg-icon icon-repost" title="repost"></div>
+    <div class="sg-icon icon-search" title="search"></div>
+    <div class="sg-icon icon-twitch" title="twitch"></div>
+    <div class="sg-icon icon-twitter" title="twitter"></div>
+    <div class="sg-icon icon-views" title="views"></div>
+    <div class="sg-icon icon-vk" title="vk"></div>
+    <div class="sg-icon icon-youtube" title="youtube"></div>
+```
+*/
+
+.icon-bookmarks-saved {
+    @include icon(bookmarks-saved);
+}
+.icon-bookmarks {
+    @include icon(bookmarks);
+}
+.icon-burn-tags {
+    @include icon(burn-tags);
+}
+.icon-comments {
+    @include icon(comments);
+}
+.icon-fb {
+    @include icon(fb);
+}
+.icon-featured {
+    @include icon(featured);
+}
+.icon-instagram {
+    @include icon(instagram);
+}
+.icon-repost {
+    @include icon(repost);
+}
+.icon-search {
+    @include icon(search);
+}
+.icon-twitch {
+    @include icon(twitch);
+}
+.icon-twitter {
+    @include icon(twitter);
+}
+.icon-views {
+    @include icon(views);
+}
+.icon-vk {
+    @include icon(vk);
+}
+.icon-youtube {
+    @include icon(youtube);
+}
