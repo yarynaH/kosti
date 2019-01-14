@@ -7,7 +7,9 @@ var gulpSequence = require('gulp-sequence')
 
 var fontName = 'iconfont';
 
-gulp.task('build', gulpSequence(['sass', 'images', 'fonts', 'js'], 'copy'));
+gulp.task('build',  function(callback) {
+	gulpSequence(['sass', 'images', 'fonts', 'js'], 'copy')(callback)
+});
 
 gulp.task('sass', function() {
 	return gulp.src('app/scss/**/*.scss')
@@ -42,12 +44,13 @@ gulp.task('copy', function(){
 });*/
 
 gulp.task('iconfont', function(){
-	gulp.src(['app/icons/*.svg'])
+	return gulp.src(['app/icons/*.svg'])
 	.pipe(iconfontCss({
 		fontName: fontName,
 		path: 'app/scss/base/_iconfont_template.scss',
 		targetPath: '../scss/base/_iconfont.scss',
-		fontPath: '../fonts/iconfont/'
+		fontPath: '../fonts/iconfont/',
+		firstGlyph: 0xf120 // Codes for glyphs should be in area where are no icons by default on iOS and Android
 	}))
 	.pipe(iconfont({
 		fontName: fontName,

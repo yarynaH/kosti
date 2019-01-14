@@ -21,6 +21,7 @@ exports.getPageComponents = function( req ) {
     site: site
   });
 
+  pageComponents['header'] = thymeleaf.render( resolve('../pages/components/header.html'), {});
   pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {});
 
   return pageComponents;
