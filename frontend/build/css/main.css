@@ -207,6 +207,89 @@ ol {
   padding: 0;
   list-style: none; }
 
+@font-face {
+  font-family: "iconfont";
+  src: url("../fonts/iconfont.woff2") format("woff2"), url("../fonts/iconfont.woff") format("woff"), url("../fonts/iconfont.ttf") format("truetype"); }
+
+.icon-bookmarks:before, .icon-burn-tags:before, .icon-comments:before, .icon-fb:before, .icon-featured:before, .icon-instagram:before, .icon-notification:before, .icon-repost:before, .icon-search:before, .icon-twitch:before, .icon-twitter:before, .icon-views:before, .icon-vk:before, .icon-youtube:before, .search-icon:before, .notification-icon:before {
+  display: inline-block;
+  font-family: "iconfont";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 1rem;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-transform: none;
+  vertical-align: middle; }
+
+/*
+---
+name: Icons
+tag: icons
+category: Basic
+---
+
+```html
+    <div class="sg-icon icon-bookmarks" title="bookmarks"></div>
+    <div class="sg-icon icon-burn-tags" title="burn-tags"></div>
+    <div class="sg-icon icon-comments" title="comments"></div>
+    <div class="sg-icon icon-fb" title="fb"></div>
+    <div class="sg-icon icon-featured" title="featured"></div>
+    <div class="sg-icon icon-instagram" title="instagram"></div>
+    <div class="sg-icon icon-notification" title="notification"></div>
+    <div class="sg-icon icon-repost" title="repost"></div>
+    <div class="sg-icon icon-search" title="search"></div>
+    <div class="sg-icon icon-twitch" title="twitch"></div>
+    <div class="sg-icon icon-twitter" title="twitter"></div>
+    <div class="sg-icon icon-views" title="views"></div>
+    <div class="sg-icon icon-vk" title="vk"></div>
+    <div class="sg-icon icon-youtube" title="youtube"></div>
+```
+*/
+.icon-bookmarks:before {
+  content: ""; }
+
+.icon-burn-tags:before {
+  content: ""; }
+
+.icon-comments:before {
+  content: ""; }
+
+.icon-fb:before {
+  content: ""; }
+
+.icon-featured:before {
+  content: ""; }
+
+.icon-instagram:before {
+  content: ""; }
+
+.icon-notification:before {
+  content: ""; }
+
+.icon-repost:before {
+  content: ""; }
+
+.icon-search:before {
+  content: ""; }
+
+.icon-twitch:before {
+  content: ""; }
+
+.icon-twitter:before {
+  content: ""; }
+
+.icon-views:before {
+  content: ""; }
+
+.icon-vk:before {
+  content: ""; }
+
+.icon-youtube:before {
+  content: ""; }
+
 
 .clearfix:after {
   content: '';
@@ -301,41 +384,6 @@ textarea {
   .primary_button:active, .primary_button:focus {
     box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.5); }
 
-@font-face {
-  font-family: "iconfont";
-  src: url("../fonts/iconfont/iconfont.woff2") format("woff2"), url("../fonts/iconfont/iconfont.woff") format("woff"), url("../fonts/iconfont/iconfont.ttf") format("truetype"); }
-
-.icon-notification:before, .icon-search:before, .search-icon:before, .notification-icon:before {
-  display: inline-block;
-  font-family: "iconfont";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-size: 1rem;
-  font-style: normal;
-  font-variant: normal;
-  font-weight: normal;
-  text-decoration: none;
-  text-transform: none;
-  vertical-align: middle; }
-
-/*
----
-name: Icons
-tag: icons
-category: Basic
----
-
-```html
-    <div class="sg-icon icon-notification" title="notification"></div>
-    <div class="sg-icon icon-search" title="search"></div>
-```
-*/
-.icon-notification:before {
-  content: ""; }
-
-.icon-search:before {
-  content: ""; }
-
 .header:after {
   height: 2px;
   opacity: 0.24;
@@ -385,10 +433,10 @@ category: Basic
     color: #eeeeee; }
 
 .search-icon:before {
-  content: ""; }
+  content: ""; }
 
 .notification-icon:before {
-  content: ""; }
+  content: ""; }
 
 .comingSoonMain {
   display: flex;
