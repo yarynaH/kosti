@@ -2,7 +2,8 @@ var contentLib = require('/lib/xp/content');
 var portal = require('/lib/xp/portal');
 var thymeleaf = require('/lib/xp/thymeleaf');
 var norseUtils = require('norseUtils');
-var userLib = require('user');
+var userLib = require('userLib');
+var authLib = require('/lib/xp/auth');
 
 exports.getPageComponents = function( req ) {
   var pageComponents = {};
@@ -21,8 +22,29 @@ exports.getPageComponents = function( req ) {
     site: site
   });
 
-  pageComponents['header'] = thymeleaf.render( resolve('../pages/components/header.html'), {});
+  pageComponents['header'] = thymeleaf.render( resolve('../pages/components/header.html'), {
+    menuItems: getMenuItems(),
+    site: site,
+    user: userLib.getCurrentUser()
+  });
   pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {});
+
+  function getMenuItems() {
+    var result = [];
+    if ( siteConfig['menuItems'] ) {
+      var items = norseUtils.forceArray( siteConfig['menuItems'] );
+      items.forEach( function( itemID ) {
+        var tempContent = contentLib.get({ key: itemID });
+        result.push( {
+          url: portal.pageUrl({ id: itemID }),
+          title: tempContent.displayName,
+          active: tempContent._path === content._path ? true : false
+        } );
+      });
+    }
+    //libs.norseUtils.log( result );
+    return result;
+  }
 
   return pageComponents;
 };

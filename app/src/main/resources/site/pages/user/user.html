@@ -4,26 +4,13 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="comingSoonMain">
         <div class="comingSoonBackground">
             <div class="comingSoonWrapper">
                 <div class="comingSoonLogo">
                     <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
-                </div>
-                <div class="comingSoonText">
-                    <div class="comingSoonTitle" data-th-text="${content.displayName}"></div>
-                    <!--<div id="upvote" data-th-attr="data-id=${content._id}, data-uid=${user._id}">Upvote</div>
-                    <div>Downvote</div>-->
-                    <form id="payment" name="payment" method="post" action="https://sci.interkassa.com/" enctype="utf-8">
-                        <input type="hidden" name="ik_co_id" value="5c1cb5443c1eafde5b8b4567" />
-                        <input type="hidden" name="ik_pm_no" value="ID_4233" />
-                        <input type="hidden" name="ik_am" value="100.00" />
-                        <input type="hidden" name="ik_cur" value="RUB" />
-                        <input type="hidden" name="ik_desc" value="Event Description" />
-                        <input type="submit" value="Pay">
-                    </form>
-                    <div class="comingSoonDescription">
-                    </div>
+                    <span>Hi, </span><span data-th-text="${content.displayName}"></span>
                 </div>
             </div>
         </div>
@@ -42,25 +29,7 @@
             </div>
         </div>
     </main>
-    <footer data-th-utext="${pageComponents.footer}"></footer>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
 
 </html>
-<script type="text/javascript">
-$( "#upvote" ).click(function() {
-    var data = {
-        id: $('#upvote').data('id'),
-        user: $('#upvote').data('uid')
-    };
-    $.ajax({
-        url: CONFIG.loginServiceUrl,
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: console.log('ok');,
-        data: JSON.stringify(data)
-    }).always(function () {
-        enableFormSubmit(true);
-    });
-});
-</script>

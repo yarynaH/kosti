@@ -1,20 +1,13 @@
 <div class="site_width">
     <h1 class="header-logo">
+        <a data-th-href="${portal.pageUrl({'_path=' + site._path})}">
         <img src="#" data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}" alt="Vechernie kosti logo">Vechernie kosti
+        </a>
     </h1>
     <div class="header-utility">
         <ul class="nav-list">
-            <li class="nav-item">
-                <a href="#" class="nav-link nav-link_active" title="Блог">Блог</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" title="Библиотека">Библиотека</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" title="Магазин">Магазин</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" title="О нас">О нас</a>
+            <li data-th-each="menuItem: ${menuItems}" class="nav-item">
+                <a data-th-href="${menuItem.url}" class="nav-link" data-th-attr="title=${menuItem.title}" data-th-text="${menuItem.title}" data-th-classappend="${menuItem.active ? 'nav-link_active' : ''}">Блог</a>
             </li>
         </ul>
         <div class="header-search">
@@ -25,7 +18,7 @@
         </div>
         <div class="header-user">
             <div class="user-avatar-img_wrap">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/discord.png'})}" alt="User avatar">
+                <img src="#" data-th-src="${user.image.url}" data-th-attr="alt=${user.displayName}">
             </div>
         </div>
     </div>

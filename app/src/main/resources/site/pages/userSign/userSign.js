@@ -18,13 +18,11 @@ function handleReq(req) {
     var me = this;
 
     function renderView() {
-        var view = resolve('kitchenSink.html');
+        var view = resolve('userSign.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
-         // Return the result
         return {
           body: body,
-          //contentType: 'application/json',
           contentType: 'text/html'
         };
     }
@@ -35,14 +33,10 @@ function handleReq(req) {
         var content = portal.getContent();
         var response = [];
         var site = portal.getSiteConfig();
-        //var a = portal.loginUrl();
-        //var user = userLib.getCurrUser();
 
         var model = {
             content: content,
-            //url: portal.pageUrl({ path: content._path }),
             app: app,
-            //user: user,
             social: site.social,
             pageComponents: helpers.getPageComponents(req)
         };

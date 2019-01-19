@@ -9,24 +9,22 @@ var libs = {
     context: require('/lib/xp/context')
 };
 
-exports.getCurrUser = function(){
+exports.getCurrentUser = function(){
 	var user = authLib.getUser();
-	var usersRepo = this.getUserRepo();
-	if( user && user.email ){
-		var user = usersRepo.query({
-			start: 0,
-			count: 1,
-			query: "email = '" + user.email + "'",
-		}).hits[0].id;
-		return usersRepo.get(user);
+	var userObj = false;
+	if( user && user.email && user.displayName ){
+	  userObj = contentLib.query({
+	    query: "data.email = '" + user.email + "' AND displayName = '" + user.displayName + "'",
+	    contentTypes: [
+	        app.name + ":user"
+	    ]
+	  });
+	  if( userObj.hits && userObj.hits[0] ){
+	    userObj = userObj.hits[0];
+	    userObj.image = norseUtils.getImage( userObj.data.userImage, 'block(32,32)' );
+	  } else {
+	    userObj = false;
+	  }
 	}
-	return false;
-}
-
-exports.getUserRepo = function(){
-    return nodeLib.connect({
-        repoId: 'users',
-        branch: 'master',
-        principals: ["role:system.admin"]
-    });
+	return userObj;
 }

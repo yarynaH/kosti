@@ -7,11 +7,29 @@
       <label>Main image</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="shortIntro" type="HtmlArea">
+      <label>Short intro</label>
+      <config>
+        <exclude>*</exclude>
+        <include>alignleft alignright | bold italic</include>
+      </config>
+    </input>
     <input name="intro" type="HtmlArea">
       <label>Intro</label>
       <config>
         <exclude>*</exclude>
         <include>alignleft alignright | bold italic</include>
+      </config>
+    </input>
+    <input name="data" type="Date">
+      <label>Date</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="name" type="ContentSelector">
+      <label>Author</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowContentType>com.myurchenko.kostirpg:user</allowContentType>
       </config>
     </input>
     <input name="rating" type="Long">

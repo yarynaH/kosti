@@ -63,8 +63,9 @@ exports.generateUserPage = function(user){
         scale: 'block(120,120)'
     });
     return thymeleaf.render(view, {
-        social: site.social,
+        //social: site.social,
         user: user,
+        site: site,
         image: image,
         pageComponents: helpers.getPageComponents()
     });
