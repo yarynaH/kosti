@@ -1,7 +1,8 @@
 frontend/node_modules/*
 frontend/package-lock.json
+frontend/build/*
+frontend/npm-debug.log
 app/build/*
 app/.gradle/*
 app/.xp/*
-frontend/npm-debug.log
 app/src/main/resources/site/assets/*
