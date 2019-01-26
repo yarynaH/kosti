@@ -211,7 +211,7 @@ ol {
   font-family: "iconfont";
   src: url("../fonts/iconfont.woff2") format("woff2"), url("../fonts/iconfont.woff") format("woff"), url("../fonts/iconfont.ttf") format("truetype"); }
 
-.icon-bookmarks:before, .icon-burn-tags:before, .icon-comments:before, .icon-fb:before, .icon-featured:before, .icon-instagram:before, .icon-notification:before, .icon-repost:before, .icon-search:before, .icon-twitch:before, .icon-twitter:before, .icon-views:before, .icon-vk:before, .icon-youtube:before, .search-icon:before, .notification-icon:before, .blog-navigation .hotter-btn:before, .blog-navigation .bookmarks-btn:before {
+.icon-bookmarks:before, .icon-burn-tags:before, .icon-comments:before, .icon-fb:before, .icon-featured:before, .icon-instagram:before, .icon-notification:before, .icon-repost:before, .icon-search:before, .icon-twitch:before, .icon-twitter:before, .icon-views:before, .icon-vk:before, .icon-youtube:before, .search-icon:before, .notification-icon:before {
   display: inline-block;
   font-family: "iconfont";
   -webkit-font-smoothing: antialiased;
@@ -506,12 +506,6 @@ textarea {
 
 .tag-item + .tag-item {
   margin-left: 5px; }
-
-.blog-navigation .hotter-btn:before {
-  content: ""; }
-
-.blog-navigation .bookmarks-btn:before {
-  content: ""; }
 
 .comingSoonMain {
   display: flex;
