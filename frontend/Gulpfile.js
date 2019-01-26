@@ -54,7 +54,7 @@ gulp.task('iconfont', function(){
 		fontName: fontName,
 		path: 'app/scss/base/_iconfont_template.scss',
 		targetPath: '../scss/base/_iconfont.scss',
-		fontPath: '../fonts/iconfont/',
+		fontPath: '../fonts/',
 		firstGlyph: 0xf120 // Codes for glyphs should be in area where are no icons by default on iOS and Android
 	}))
 	.pipe(iconfont({
