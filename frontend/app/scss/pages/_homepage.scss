@@ -85,3 +85,19 @@
         margin-left: 5px;
     }
 }
+
+.blog {
+    &-navigation {
+        .hotter-btn {
+            @include icon(burn-tags);
+        }
+
+        .fresher-btn {
+
+        }
+
+        .bookmarks-btn {
+            @include icon(bookmarks);
+        }
+    }   
+}
