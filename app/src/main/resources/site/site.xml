@@ -13,6 +13,12 @@
 		<config>
 		</config>
 	</input>
+  	<input name="scheduleLocation" type="ContentSelector">
+		<label>Schedule location</label>
+		<occurrences minimum="0" maximum="1"/>
+		<config>
+		</config>
+	</input>
   	<input name="userImages" type="ContentSelector">
 		<label>User images location</label>
 		<occurrences minimum="0" maximum="1"/>

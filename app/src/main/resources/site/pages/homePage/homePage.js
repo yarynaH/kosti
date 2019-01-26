@@ -34,6 +34,7 @@ function handleReq(req) {
         var site = portal.getSiteConfig();
         var description = portal.getSite().data.description;
         var showDescription = true;
+        var schedule = getSchedule();
 
         if( up.email && up.email != '' ){
             var mailsLocation = contentLib.get({ key: site.mailsLocation, branch: 'draft' });
@@ -68,12 +69,30 @@ function handleReq(req) {
             content: content,
             url: portal.pageUrl({ path: content._path }),
             app: app,
+            schedule: schedule,
             social: site.social,
             pageComponents: helpers.getPageComponents(req),
             showDescription: showDescription
         };
 
         return model;
+
+        function getSchedule(){
+            var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
+            var result = contentLib.getChildren({
+                key: site.scheduleLocation,
+                start: 0,
+                count: 3,
+                sort: 'data.date ASC'
+            }).hits;
+            for( var i = 0; i < result.length; i++ ){
+                result[i].image = norseUtils.getImage( result[i].data.image, 'block(296, 104)' );
+                var itemDate = new Date(result[i].data.date);
+                result[i].month = norseUtils.getMonthName(itemDate);
+                result[i].day = itemDate.getDate().toFixed();
+            }
+            return result;
+        }
 
 
     }
