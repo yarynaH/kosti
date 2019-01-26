@@ -4,6 +4,7 @@
 
 @import 'utilities/variables';
 @import 'utilities/extends';
+@import 'utilities/mixins';
 @import 'utilities/mediaQuery';
 
 
@@ -14,4 +15,4 @@
 
 @import 'components/header';
 
-@import 'pages/comingSoon';
+@import 'pages/homepage';

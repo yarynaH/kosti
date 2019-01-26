@@ -5,43 +5,58 @@
 
 <body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="comingSoonMain">
-        <div class="comingSoonBackground">
-            <div class="comingSoonWrapper">
-                <div class="comingSoonLogo">
-                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
-                </div>
-                <div data-th-if="${showDescription}" class="comingSoonText">
-                    <div class="comingSoonTitle">
-                        111
-                    </div>
-                    <div class="comingSoonDescription">
-                        Мы начнем совсем скоро! Вы можете поделиться своей почтой, чтобы мы держали вас в курсе.
-                    </div>
-                    <form class="comingSoonMailBlock" method="post" data-th-action="${url}">
-                        <input class="comingSoonInput" type="email" name="email" placeholder="Ваш email">
-                        <button  class="comingSoonButton primary_button" name="submit" title="Го">Го</button>
-                    </form>
-                </div>
-                <div data-th-unless="${showDescription}" class="comingSoonText">
-                    <div class="comingSoonTitle">
-                        Спасибо!
+    <main class="latest_news">
+        <div class="latest_news-background">
+            <div class="blog_width clearfix">
+                <div class="freshest">
+                    <h4 class="latest_news-title">САМОЕ СВЕЖЕЕ </h4>
+                    <div class="latest_news-iframe_wrap">
+                        <iframe src="https://www.youtube.com/embed/9AuZqA8Sjo0">
+                        </iframe>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="comingSoonFooterTexture"></div>
-        <div class="comingSoonSocial">
-            <div class="comingSoonSocialBiggerWrapper">
-                <div class="comingSoonTwitch"><a data-th-href="${social.twitch}" target="_blank" title="Twitch"></a></div>
-                <div class="comingSoonYoutube"><a data-th-href="${social.youtube}" target="_blank" title="YouTube"></a></div>
-                <div class="comingSoonDiscord"><a data-th-href="${social.discord}" target="_blank" title="Discord"></a></div>
-            </div>
-            <div class="comingSoonSocialSmallerWrapper">
-                <div class="comingSoonVk comingSoonSocialSmaller"><a data-th-href="${social.vk}" target="_blank" title="VK"></a></div>
-                <div class="comingSoonFb comingSoonSocialSmaller"><a data-th-href="${social.fb}" target="_blank" title="Facebook"></a></div>
-                <div class="comingSoonTw comingSoonSocialSmaller"><a data-th-href="${social.twitter}" target="_blank" title="Twitter"></a></div>
-                <div class="comingSoonIn comingSoonSocialSmaller"><a data-th-href="${social.instagram}" target="_blank" title="Instagram"></a></div>
+                <div class="schedule">
+                    <h4 class="latest_news-title">РАСПИСАНИЕ</h4>
+                    <div class="schedule-item" style="background-image:  url('https://picsum.photos/300/110/?random')">
+                        <div class="schedule-date">
+                            <span class="date">7</span>
+                            <span class="month">Декабрь</span>
+                        </div>
+                        <h3 class="schedule-title">
+                            Дело Кобольдское 
+                        </h3>
+                        <div class="tag-list">
+                            <a href="#" class="tag-item">D&D</a>
+                            <a href="#" class="tag-item">5e</a>
+                        </div>
+                    </div>
+                    <div class="schedule-item" style="background-image:  url('https://picsum.photos/300/110/?random')">
+                        <div class="schedule-date">
+                            <span class="date">7</span>
+                            <span class="month">Декабрь</span>
+                        </div>
+                        <h3 class="schedule-title">
+                            Дело Кобольдское 
+                        </h3>
+                        <div class="tag-list">
+                            <a href="#" class="tag-item">D&D</a>
+                            <a href="#" class="tag-item">5e</a>
+                        </div>
+                    </div>
+                    <div class="schedule-item" style="background-image:  url('https://picsum.photos/300/110/?random')">
+                        <div class="schedule-date">
+                            <span class="date">7</span>
+                            <span class="month">Декабрь</span>
+                        </div>
+                        <h3 class="schedule-title">
+                            Дело Кобольдское 
+                        </h3>
+                        <div class="tag-list">
+                            <a href="#" class="tag-item">D&D</a>
+                            <a href="#" class="tag-item">5e</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
