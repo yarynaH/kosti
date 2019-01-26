@@ -497,21 +497,81 @@ textarea {
   font-weight: bold;
   margin-bottom: 5px; }
 
-.tag-item {
+.schedule .tag-item {
   opacity: 0.75;
   font-family: "Roboto", Arial;
   font-size: 0.625rem; }
-  .tag-item:hover {
+  .schedule .tag-item:hover {
     opacity: 1; }
 
-.tag-item + .tag-item {
+.schedule .tag-item + .schedule .tag-item {
   margin-left: 5px; }
 
-.blog-navigation .hotter-btn:before {
-  content: ""; }
+.main_blog {
+  background: #f9fafc; }
 
-.blog-navigation .bookmarks-btn:before {
-  content: ""; }
+.blog {
+  width: 66%; }
+  .blog-navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0; }
+    .blog-navigation .hotter-btn:before {
+      content: ""; }
+    .blog-navigation .bookmarks-btn:before {
+      content: ""; }
+  .blog-item {
+    font-size: 0.875rem;
+    background-color: #ffffff; }
+  .blog .fresher-btn,
+  .blog .hotter-btn,
+  .blog .bookmarks-btn {
+    font-family: Roboto;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #909090;
+    text-transform: capitalize; }
+    .blog .fresher-btn.active,
+    .blog .hotter-btn.active,
+    .blog .bookmarks-btn.active {
+      font-size: 1.5rem;
+      color: #e23d23; }
+
+.post {
+  padding: 25px 30px 15px;
+  border-bottom: 1px solid #e9e9e9; }
+  .post-user_name {
+    color: #e9462d;
+    margin-right: 5px; }
+  .post-date {
+    color: #909090; }
+  .post-user_avatar {
+    width: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px; }
+  .post-info {
+    margin-bottom: 10px; }
+  .post-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1d1f24;
+    margin-bottom: 20px; }
+  .post-text {
+    line-height: 1.71;
+    color: #505050;
+    margin-bottom: 15px; }
+  .post .tag-item {
+    color: #e9462d; }
+  .post-counters span {
+    margin-right: 25px; }
+  .post-footer {
+    color: #909090;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between; }
 
 .comingSoonMain {
   display: flex;

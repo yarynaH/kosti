@@ -67,27 +67,38 @@
         font-weight: bold;
         margin-bottom: 5px;
     }
+
+    .tag {
+        &-item {
+            opacity: 0.75;
+            font-family: $font-main-regular;
+            font-size: rem(10);
+            
+            &:hover {
+                opacity: 1;
+            }
+        }
+    
+        &-item + &-item {
+            margin-left: 5px;
+        }
+    }
 }
 
 
-.tag {
-    &-item {
-        opacity: 0.75;
-        font-family: $font-main-regular;
-        font-size: rem(10);
-        
-        &:hover {
-            opacity: 1;
-        }
-    }
 
-    &-item + &-item {
-        margin-left: 5px;
-    }
+.main_blog {
+    background: $color-primary13;
 }
 
 .blog {
+    width: 66%;
+
     &-navigation {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+
         .hotter-btn {
             @include icon(burn-tags);
         }
@@ -99,5 +110,82 @@
         .bookmarks-btn {
             @include icon(bookmarks);
         }
-    }   
+    }
+
+    &-item {
+        font-size: rem(14);
+        background-color: $color-primary1;
+    }
+
+    .fresher-btn,
+    .hotter-btn,
+    .bookmarks-btn {
+        font-family: Roboto;
+        font-size: rem(14);
+        font-weight: bold;
+        color: $color-primary12;
+        text-transform: capitalize;
+    
+        &.active {
+            font-size: rem(24);
+            color: $color-primary11;
+        }
+    }
+}
+
+.post {
+    padding: 25px 30px 15px;
+    border-bottom: 1px solid $color-primary14;
+
+    &-user_name {
+        color: $color-primary15;
+        margin-right: 5px;
+    }
+
+    &-date {
+        color: $color-primary12;
+    }
+
+    &-user_avatar {
+        width: 24px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    &-info {
+        margin-bottom: 10px;
+    }
+
+    &-title {
+        font-size: rem(24);
+        font-weight: bold;
+        color: $color-primary17;
+        margin-bottom: 20px;
+    }
+
+    &-text {
+        line-height: 1.71; 
+        color: $color-primary16;
+        margin-bottom: 15px;
+    }
+
+    .tag-item {
+        color: $color-primary15;
+    }
+    
+    &-counters {
+        span {
+            margin-right: 25px;
+        }
+    }
+
+    &-footer {
+        color: $color-primary12;
+        padding: 25px 30px;
+        display: flex;
+        justify-content: space-between;
+    }
 }
