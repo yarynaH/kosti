@@ -10,51 +10,51 @@ exports.getMonthName = function(date) {
 
     switch (month) {
         case 0 : monthName = i18n.localize({
-                    key: 'months.jan'
+                    key: 'months.jan.date'
                 });
         break;
         case 1 : monthName = i18n.localize({
-                    key: 'months.feb'
+                    key: 'months.feb.date'
                 });;
         break;
         case 2 : monthName = i18n.localize({
-                    key: 'months.mar'
+                    key: 'months.mar.date'
                 });;
         break;
         case 3 : monthName = i18n.localize({
-                    key: 'months.apr'
+                    key: 'months.apr.date'
                 });;
         break;
         case 4 : monthName = i18n.localize({
-                    key: 'months.may'
+                    key: 'months.may.date'
                 });;
         break;
         case 5 : monthName = i18n.localize({
-                    key: 'months.jun'
+                    key: 'months.jun.date'
                 });;
         break;
         case 6 : monthName = i18n.localize({
-                    key: 'months.jul'
+                    key: 'months.jul.date'
                 });;
         break;
         case 7 : monthName = i18n.localize({
-                    key: 'months.aug'
+                    key: 'months.aug.date'
                 });;
         break;
         case 8 : monthName = i18n.localize({
-                    key: 'months.sep'
+                    key: 'months.sep.date'
                 });;
         break;
         case 9 : monthName = i18n.localize({
-                    key: 'months.oct'
+                    key: 'months.oct.date'
                 });;
         break;
         case 10 : monthName = i18n.localize({
-                    key: 'months.nov'
+                    key: 'months.nov.date'
                 });;
         break;
         case 11 : monthName = i18n.localize({
-                    key: 'months.dec'
+                    key: 'months.dec.date'
                 });;
         break;
     }
