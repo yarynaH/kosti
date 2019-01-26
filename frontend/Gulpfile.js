@@ -8,7 +8,7 @@ var gulpSequence = require('gulp-sequence')
 var fontName = 'iconfont';
 
 gulp.task('build',  function(callback) {
-	gulpSequence(['sass', 'images', 'fonts', 'js'], 'copy')(callback)
+	gulpSequence(['sass', 'images', 'fonts', 'js', 'css'], 'copy')(callback)
 });
 
 gulp.task('sass', function() {
@@ -30,6 +30,11 @@ gulp.task('js', function(){
 gulp.task('fonts', function(){
 	return gulp.src('app/fonts/**/*')
 		.pipe(gulp.dest('build/fonts'));
+});
+
+gulp.task('css', function(){
+	return gulp.src('app/css/**/*')
+		.pipe(gulp.dest('build/css'));
 });
 
 gulp.task('copy', function(){
