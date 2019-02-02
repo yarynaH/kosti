@@ -4,6 +4,42 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body>
+    <div class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">
+                        Вход
+                    </h2>
+                    <a href="" class="modal-action">Зарегистрироваться</a>
+                </div>
+                <div class="modal-body">
+                    <form action="#" class="login-form">
+                        <div class="form-group">
+                            <label for="email-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+                            <input type="email" class="input-text" id="email-input">
+                        </div>
+
+                        <div class="form-group form-group__action">
+                            <label for="password-input" class="label">ПАРОЛЬ</label>
+                            <a href="" class="modal-action">Забыли пароль?</a>
+                            <input type="password" class="input-text" id="password-input">
+                        </div>
+
+                        <button class="modal-btn">ВОЙТИ</button>
+                    </form>
+                    <div class="social_login">
+                        <h5 class="social_login-title">ВХОД ЧЕРЕЗ СОЦИАЛЬНЫЕ СЕТИ</h5>
+                        <button class="social_login-fb">Facebook</button>
+                        <button class="social_login-twitter">Twitter</button>
+                        <button class="social_login-vk">Вконтакте</button>
+                        <button class="social_login-google">Google</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <div class="homepage_slider">
         <div>your content</div>

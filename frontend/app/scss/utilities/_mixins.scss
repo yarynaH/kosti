@@ -1,6 +1,48 @@
+///
+/// Mixin which truncate text
+///
 @mixin truncate($width: auto){
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: $width;
+}
+
+///
+/// Mixin which generates `top`/`right`/`bottom`/`left` properties
+///
+/// @param {String} $position - position property value
+///
+/// @param {List} $args [()] - `top`/`right`/`bottom`/`left` properties in a list type
+///
+@mixin position($position, $args: ()) {
+    position: $position;
+
+    $offsets: top right bottom left;
+
+    @each $offset in $offsets {
+        $index: index($args, $offset);
+
+        @if $index {
+            @if $index == length($args) {
+                #{$offset}: 0;
+            }
+
+            @else {
+                $next: nth($args, $index + 1);
+
+                @if is-valid-length($next) {
+                    #{$offset}: $next;
+                }
+
+                @else if index($offsets, $next) {
+                    #{$offset}: 0;
+                }
+
+                @else {
+                    @warn 'Invalid value #{$next} for offset #{$offset}';
+                }
+            }
+        }
+    }
 }
