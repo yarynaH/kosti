@@ -1,7 +1,7 @@
 <div class="site_width">
     <h1 class="header-logo">
         <a data-th-href="${portal.pageUrl({'_path=' + site._path})}">
-        <img src="#" data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}" alt="Vechernie kosti logo">Vechernie kosti
+            <img src="#" data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}" alt="Vechernie kosti logo">Vechernie kosti
         </a>
     </h1>
     <div class="header-utility">
@@ -19,6 +19,12 @@
         <div data-th-if="${user}" class="header-user">
             <div class="user-avatar-img_wrap">
                 <img src="#" data-th-src="${user.image.url}" data-th-attr="alt=${user.displayName}">
+            </div>
+        </div>
+        <div data-th-unless="${user}" class="header-user">
+            <div class="guest-btn">
+                <span class="guest-icon"></span>
+                <span class="guest-login">Войти</span>
             </div>
         </div>
     </div>

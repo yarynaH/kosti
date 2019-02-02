@@ -64,6 +64,7 @@
         font-size: rem(14);
         font-weight: bold;
         color: $color-primary8;
+        transition: transition(color);
 
         &:hover,
         &_active {
@@ -81,5 +82,26 @@
 .notification {
     &-icon {
         @include icon(bell-notification);
+    }
+}
+
+.guest {
+    &-btn {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.7;
+            transition: transition(opacity);
+        }
+    }
+
+    &-icon {
+        @include icon(share);
+    }
+
+    &-login {
+        font-size: rem(14);
+        font-weight: bold;
+        color: $color-primary9;
     }
 }
