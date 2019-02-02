@@ -16,7 +16,7 @@
         <div class="header-notification">
             <span class="notification-icon"></span>
         </div>
-        <div class="header-user">
+        <div data-th-if="${user}" class="header-user">
             <div class="user-avatar-img_wrap">
                 <img src="#" data-th-src="${user.image.url}" data-th-attr="alt=${user.displayName}">
             </div>
