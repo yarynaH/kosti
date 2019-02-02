@@ -4,7 +4,7 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body>
-    <div class="modal">
+    <div class="modal show">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,8 +28,12 @@
 
                         <button class="modal-btn">ВОЙТИ</button>
                     </form>
-                    <div class="social_login">
-                        <h5 class="social_login-title">ВХОД ЧЕРЕЗ СОЦИАЛЬНЫЕ СЕТИ</h5>
+                </div>
+                <div class="modal-footer social_login">
+                    <h5 class="social_login-title">
+                        <span>ВХОД ЧЕРЕЗ СОЦИАЛЬНЫЕ СЕТИ</span>
+                    </h5>
+                    <div class="social_login-action">
                         <button class="social_login-fb">Facebook</button>
                         <button class="social_login-twitter">Twitter</button>
                         <button class="social_login-vk">Вконтакте</button>
