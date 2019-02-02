@@ -69,12 +69,24 @@ exports.createUserContentType = function( name, mail ){
 }
 
 exports.login = function( name, pass ){
+	var user = false;
+	contextLib.runAsAdmin(function () {
+		user = findUser(name);
+	});
 	var loginResult = authLib.login({
-	    user: name,
+	    user: user.hits[0].login,
 	    password: pass,
 	    userStore: 'system'
 	});
 	if( loginResult.authenticated == true ){
 		return this.getCurrentUser();
+	}
+
+	function findUser( name ){
+		return authLib.findUsers({
+		    start: 0,
+		    count: 1,
+		    query: 'email="' + name + '" OR login="' + name + '"'
+		});
 	}
 }
