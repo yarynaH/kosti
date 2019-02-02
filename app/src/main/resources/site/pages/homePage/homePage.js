@@ -64,6 +64,7 @@ function handleReq(req) {
             }
             showDescription = false;
         }
+        norseUtils.log(getArticles);
 
         var model = {
             content: content,
@@ -72,7 +73,8 @@ function handleReq(req) {
             schedule: schedule,
             social: site.social,
             pageComponents: helpers.getPageComponents(req),
-            showDescription: showDescription
+            showDescription: showDescription,
+            articles: getArticles()
         };
 
         return model;
@@ -90,6 +92,24 @@ function handleReq(req) {
                 var itemDate = new Date(result[i].data.date);
                 result[i].month = norseUtils.getMonthName(itemDate);
                 result[i].day = itemDate.getDate().toFixed();
+            }
+            return result;
+        }
+
+        function getArticles(){
+            var result = contentLib.query({
+                query: '',
+                start: 0,
+                count: 3,
+                sort: 'data.date ASC',
+                contentTypes: [
+                    app.name + ':article'
+                ]
+            }).hits;
+            for( var i = 0; i < result.length; i++ ){
+                result[i].image = norseUtils.getImage( result[i].data.image, 'block(620, 240)' );
+                var itemDate = new Date(result[i].data.date);
+                result[i].author = contentLib.get({ key: result[i].data.author });
             }
             return result;
         }
