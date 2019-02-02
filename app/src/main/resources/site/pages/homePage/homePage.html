@@ -4,32 +4,32 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body>
-    <div class="modal">
+    <div class="modal modal-login">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title">
                         Вход
                     </h2>
-                    <a href="" class="modal-action">Зарегистрироваться</a>
+                    <a href="" class="modal-action modal-action-register">Зарегистрироваться</a>
                 </div>
                 <div class="modal-body">
                     <form action="#" class="login-form">
                         <div class="form-group">
                             <label for="email-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                            <input type="email" class="input-text" id="email-input">
+                            <input name="username" class="input-text" id="email-input">
                         </div>
 
                         <div class="form-group form-group__action">
                             <label for="password-input" class="label">ПАРОЛЬ</label>
-                            <a href="" class="modal-action">Забыли пароль?</a>
-                            <input type="password" class="input-text" id="password-input">
+                            <a href="" class="modal-action visually-hidden">Забыли пароль?</a>
+                            <input name="password" type="password" class="input-text" id="password-input">
                         </div>
 
-                        <button class="modal-btn">ВОЙТИ</button>
+                        <button class="modal-btn modal-btn-login">ВОЙТИ</button>
                     </form>
                 </div>
-                <div class="modal-footer social_login">
+                <div class="modal-footer social_login visually-hidden">
                     <h5 class="social_login-title">
                         <span>ВХОД ЧЕРЕЗ СОЦИАЛЬНЫЕ СЕТИ</span>
                     </h5>
@@ -44,47 +44,47 @@
         </div>
     </div>
 
-    <div class="modal">
+    <div class="modal modal-registration">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title">
                         Регистрация
                     </h2>
-                    <a href="" class="modal-action">Войти</a>
+                    <a href="" class="modal-action modal-action-login">Войти</a>
                 </div>
                 <div class="modal-body">
                     <form action="#" class="register-form">
                         <div class="form-group">
                             <label for="name-input" class="label">ИМЯ</label>
-                            <input type="text" class="input-text" id="name-input">
+                            <input name="username" type="text" class="input-text" id="name-input">
                         </div>
 
                         <div class="form-group">
                             <label for="email-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                            <input type="email" class="input-text" id="email-input">
+                            <input name="email" type="email" class="input-text" id="email-input">
                         </div>
 
                         <div class="form-group">
                             <label for="password-input" class="label">ПАРОЛЬ</label>
-                            <input type="password" class="input-text" id="password-input">
+                            <input name="password" type="password" class="input-text" id="password-input">
                         </div>
 
-                        <button class="modal-btn">РЕГИСТРАЦИЯ</button>
+                        <button class="modal-btn modal-btn-register">РЕГИСТРАЦИЯ</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal show">
+    <div class="modal modal-forgot-password">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h2 class="modal-title">
                         Забыли пароль?
                     </h2>
-                    <a href="" class="modal-action">Войти</a>
+                    <a href="" class="modal-action modal-action-login">Войти</a>
                 </div>
                 <div class="modal-body">
                     <form action="#" class="reset-form">

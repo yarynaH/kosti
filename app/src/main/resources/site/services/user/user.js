@@ -14,13 +14,13 @@ exports.get = function( req ) {
 
 exports.post = function( req ) {
 	var result = false;
-    var params = JSON.parse(req.body);
+    var params = req.params;
     if( params.action == 'register' ){
 	    contextLib.runAsAdmin(function () {
-		    result = userLib.register( params.name, params.email, params.pass );
+		    result = userLib.register( params.username, params.email, params.password );
 	    });
     } else if( params.action == 'login' ){
-	    result = userLib.login( params.name, params.pass );
+	    result = userLib.login( params.username, params.password );
 	}
     return {
         body: result,

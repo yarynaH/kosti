@@ -36,7 +36,7 @@ function handleReq(req) {
         var showDescription = true;
         var schedule = getSchedule();
 
-        if( up.email && up.email != '' ){
+        /*if( up.email && up.email != '' ){
             var mailsLocation = contentLib.get({ key: site.mailsLocation, branch: 'draft' });
             if( !mailsLocation.data.mail || mailsLocation.data.mail.indexOf(up.email) == -1 ){
                 var newMail = norseUtils.forceArray( mailsLocation.data.mail );
@@ -63,8 +63,7 @@ function handleReq(req) {
                 })
             }
             showDescription = false;
-        }
-        norseUtils.log(getArticles);
+        }*/
 
         var model = {
             content: content,

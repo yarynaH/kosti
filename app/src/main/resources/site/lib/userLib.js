@@ -40,7 +40,7 @@ exports.register = function( name, mail, pass ){
 	});
 	var userObj = this.createUserContentType( name, mail );
 	if( userObj ){
-		return true;
+		return this.login( name, pass );
 	} else {
 		return false;
 	}
