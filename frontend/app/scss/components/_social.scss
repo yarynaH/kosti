@@ -1,0 +1,79 @@
+.social {
+    .social-link::before {
+        font-size: rem(24);
+    }
+
+    &-link {
+        display: inline-flex;
+        align-items: center;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    &-list {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .facebook {
+        @include icon(fb);
+
+        color: $color-facebook;
+
+        &:before {
+            font-size: rem(22);
+        }
+    }
+
+    .vk {
+        @include icon(vk);
+
+        color: $color-vk;
+
+        &:before {
+            font-size: rem(18);
+        }
+    }
+
+    .twitter{
+        @include icon(twitter);
+
+        color: $color-twitter;
+
+        &:before {
+            font-size: rem(20);
+        }
+    }
+
+    .youtube {
+        @include icon(youtube);
+
+        color: $color-youtube;
+
+        &:before {
+            font-size: rem(22);
+        }
+    }
+
+    .instagram {
+        @include icon(instagram);
+
+        color: $color-instagram;
+
+        &:before {
+            font-size: rem(20);
+        }
+    } 
+
+    .twitch {
+        @include icon(twitch);
+
+        color: $color-twitch;
+
+        &:before {
+            font-size: rem(20);
+        }
+    }
+}

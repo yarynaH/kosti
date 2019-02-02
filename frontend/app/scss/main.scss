@@ -5,6 +5,7 @@
 @import 'utilities/variables';
 @import 'utilities/extends';
 @import 'utilities/mixins';
+@import 'utilities/helpers';
 @import 'utilities/mediaQuery';
 
 
@@ -14,6 +15,8 @@
 @import 'base/buttons';
 
 @import 'components/header';
+@import 'components/tags';
+@import 'components/social';
 
 @import 'pages/homepage';
 @import 'pages/comingSoon';
