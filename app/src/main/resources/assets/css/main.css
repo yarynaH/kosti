@@ -211,7 +211,7 @@ ol {
   font-family: "iconfont";
   src: url("../fonts/iconfont.woff2") format("woff2"), url("../fonts/iconfont.woff") format("woff"), url("../fonts/iconfont.ttf") format("truetype"); }
 
-.icon-bookmarks:before, .icon-burn-tags:before, .icon-comments:before, .icon-fb:before, .icon-featured:before, .icon-instagram:before, .icon-notification:before, .icon-repost:before, .icon-search:before, .icon-twitch:before, .icon-twitter:before, .icon-views:before, .icon-vk:before, .icon-youtube:before, .search-icon:before, .notification-icon:before, .blog-navigation .hotter-btn:before, .blog-navigation .bookmarks-btn:before {
+.icon-add:before, .icon-bell-notification:before, .icon-bookmark:before, .icon-comment:before, .icon-fb:before, .icon-fire:before, .icon-instagram:before, .icon-network:before, .icon-rock:before, .icon-search:before, .icon-searh:before, .icon-share:before, .icon-twitch:before, .icon-twitter:before, .icon-views:before, .icon-vk:before, .icon-youtube:before, .search-icon:before, .notification-icon:before, .social .facebook:before, .social .vk:before, .social .twitter:before, .social .youtube:before, .social .instagram:before, .social .twitch:before, .blog-navigation .hotter-btn:before, .blog-navigation .fresher-btn:before, .blog-navigation .bookmarks-btn:before, .hot_tags-title:before, .social-title:before {
   display: inline-block;
   font-family: "iconfont";
   -webkit-font-smoothing: antialiased;
@@ -232,15 +232,18 @@ category: Basic
 ---
 
 ```html
-    <div class="sg-icon icon-bookmarks" title="bookmarks"></div>
-    <div class="sg-icon icon-burn-tags" title="burn-tags"></div>
-    <div class="sg-icon icon-comments" title="comments"></div>
+    <div class="sg-icon icon-add" title="add"></div>
+    <div class="sg-icon icon-bell-notification" title="bell-notification"></div>
+    <div class="sg-icon icon-bookmark" title="bookmark"></div>
+    <div class="sg-icon icon-comment" title="comment"></div>
     <div class="sg-icon icon-fb" title="fb"></div>
-    <div class="sg-icon icon-featured" title="featured"></div>
+    <div class="sg-icon icon-fire" title="fire"></div>
     <div class="sg-icon icon-instagram" title="instagram"></div>
-    <div class="sg-icon icon-notification" title="notification"></div>
-    <div class="sg-icon icon-repost" title="repost"></div>
+    <div class="sg-icon icon-network" title="network"></div>
+    <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
+    <div class="sg-icon icon-searh" title="searh"></div>
+    <div class="sg-icon icon-share" title="share"></div>
     <div class="sg-icon icon-twitch" title="twitch"></div>
     <div class="sg-icon icon-twitter" title="twitter"></div>
     <div class="sg-icon icon-views" title="views"></div>
@@ -248,47 +251,56 @@ category: Basic
     <div class="sg-icon icon-youtube" title="youtube"></div>
 ```
 */
-.icon-bookmarks:before {
+.icon-add:before {
   content: ""; }
 
-.icon-burn-tags:before {
+.icon-bell-notification:before {
   content: ""; }
 
-.icon-comments:before {
+.icon-bookmark:before {
   content: ""; }
 
-.icon-fb:before {
+.icon-comment:before {
   content: ""; }
 
-.icon-featured:before {
+.icon-fb:before {
   content: ""; }
 
-.icon-instagram:before {
+.icon-fire:before {
   content: ""; }
 
-.icon-notification:before {
+.icon-instagram:before {
   content: ""; }
 
-.icon-repost:before {
+.icon-network:before {
   content: ""; }
 
-.icon-search:before {
+.icon-rock:before {
   content: ""; }
 
-.icon-twitch:before {
+.icon-search:before {
   content: ""; }
 
-.icon-twitter:before {
+.icon-searh:before {
   content: ""; }
 
-.icon-views:before {
+.icon-share:before {
   content: ""; }
 
-.icon-vk:before {
+.icon-twitch:before {
   content: ""; }
 
-.icon-youtube:before {
+.icon-twitter:before {
   content: ""; }
+
+.icon-views:before {
+  content: ""; }
+
+.icon-vk:before {
+  content: ""; }
+
+.icon-youtube:before {
+  content: ""; }
 
 
 .clearfix:after {
@@ -300,7 +312,7 @@ category: Basic
 body {
   color: #ffffff;
   font-family: "Roboto", Arial;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 300;
   letter-spacing: 0.005em;
   line-height: 1.2;
@@ -402,7 +414,7 @@ textarea {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 25px 0; }
+    padding: 15px 0; }
   .header-logo {
     font-size: 0;
     max-width: 101px; }
@@ -437,18 +449,108 @@ textarea {
     color: #eeeeee; }
 
 .search-icon:before {
-  content: ""; }
+  content: ""; }
 
 .notification-icon:before {
-  content: ""; }
+  content: ""; }
 
-.freshest {
-  width: 66%;
-  float: left; }
+.tag-item {
+  display: inline-block;
+  vertical-align: middle;
+  color: #e9462d;
+  font-size: 0.875rem;
+  transition: opacity 0.2s ease 0s;
+  margin: 8px 5px 0 0; }
+  .tag-item:last-child {
+    margin-right: 0; }
+  .tag-item:hover {
+    opacity: 0.7; }
 
-.schedule {
-  width: 32%;
-  float: right; }
+.tag-list__small .tag-item {
+  opacity: 0.75;
+  font-size: 0.625rem; }
+  .tag-list__small .tag-item:hover {
+    opacity: 1; }
+
+.tag-list__white .tag-item {
+  color: #ffffff;
+  font-weight: bold; }
+
+.tag-list__hot .tag-item {
+  padding: 8px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  transition: all 0.2s ease 0s; }
+  .tag-list__hot .tag-item:hover {
+    opacity: 1;
+    box-shadow: 0 4px 16px 0 rgba(226, 61, 36, 0.4);
+    color: #ffffff;
+    background-color: #e9462d; }
+
+.social .social-link::before {
+  font-size: 1.5rem; }
+
+.social-link {
+  display: inline-flex;
+  align-items: center; }
+  .social-link:hover {
+    opacity: 0.7; }
+
+.social-list {
+  display: flex;
+  justify-content: space-between; }
+
+.social .facebook {
+  color: #4460a0; }
+  .social .facebook:before {
+    content: ""; }
+  .social .facebook:before {
+    font-size: 1.375rem; }
+
+.social .vk {
+  color: #006df0; }
+  .social .vk:before {
+    content: ""; }
+  .social .vk:before {
+    font-size: 1.125rem; }
+
+.social .twitter {
+  color: #00aaec; }
+  .social .twitter:before {
+    content: ""; }
+  .social .twitter:before {
+    font-size: 1.25rem; }
+
+.social .youtube {
+  color: #ce1312; }
+  .social .youtube:before {
+    content: ""; }
+  .social .youtube:before {
+    font-size: 1.375rem; }
+
+.social .instagram {
+  color: #275a85; }
+  .social .instagram:before {
+    content: ""; }
+  .social .instagram:before {
+    font-size: 1.25rem; }
+
+.social .twitch {
+  color: #673ab7; }
+  .social .twitch:before {
+    content: ""; }
+  .social .twitch:before {
+    font-size: 1.25rem; }
+
+@media only screen and (min-width: 1025px) {
+  .freshest {
+    width: 66%;
+    float: left; } }
+
+@media only screen and (min-width: 1025px) {
+  .schedule {
+    width: 32%;
+    float: right; } }
 
 .latest_news-title {
   font-family: "Roboto", Arial;
@@ -494,22 +596,11 @@ textarea {
   width: auto;
   font-family: Roboto;
   font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 5px; }
-
-.schedule .tag-item {
-  opacity: 0.75;
-  font-family: "Roboto", Arial;
-  font-size: 0.625rem; }
-  .schedule .tag-item:hover {
-    opacity: 1; }
-
-.schedule .tag-item + .schedule .tag-item {
-  margin-left: 5px; }
+  font-weight: bold; }
 
 .main_blog {
   background: #f9fafc;
-  margin-bottom: 50px; }
+  padding-bottom: 50px; }
 
 .blog-navigation {
   display: flex;
@@ -517,13 +608,16 @@ textarea {
   align-items: center;
   padding: 20px 34% 20px 0; }
   .blog-navigation .hotter-btn:before {
-    content: ""; }
-  .blog-navigation .bookmarks-btn:before {
+    content: ""; }
+  .blog-navigation .fresher-btn:before {
     content: ""; }
+  .blog-navigation .bookmarks-btn:before {
+    content: ""; }
 
-.blog-list {
-  width: 66%;
-  float: left; }
+@media only screen and (min-width: 1025px) {
+  .blog-list {
+    width: 66%;
+    float: left; } }
 
 .blog-item {
   font-size: 0.875rem;
@@ -539,6 +633,14 @@ textarea {
   font-weight: bold;
   color: #909090;
   text-transform: capitalize; }
+  .blog .fresher-btn:before,
+  .blog .hotter-btn:before,
+  .blog .bookmarks-btn:before {
+    padding-right: 15px; }
+  .blog .fresher-btn:hover,
+  .blog .hotter-btn:hover,
+  .blog .bookmarks-btn:hover {
+    opacity: 0.7; }
   .blog .fresher-btn.active,
   .blog .hotter-btn.active,
   .blog .bookmarks-btn.active {
@@ -551,22 +653,30 @@ textarea {
 .blog .like-btn {
   font-family: Roboto;
   font-size: 0.875rem; }
+  .blog .share-counter:before,
+  .blog .views-counter:before,
+  .blog .comments-counter:before,
+  .blog .like-btn:before {
+    margin-right: 8px; }
 
 .blog .add_to_bookmarks-btn {
   margin-right: 25px; }
-  .blog .add_to_bookmarks-btn.active {
+  .blog .add_to_bookmarks-btn.active, .blog .add_to_bookmarks-btn:hover {
     color: #4a90e2; }
 
-.blog .like-btn.active {
-  color: #1d1f24;
-  font-weight: bold; }
-  .blog .like-btn.active::before {
+.blog .like-btn.active, .blog .like-btn:hover {
+  color: #1d1f24; }
+  .blog .like-btn.active span, .blog .like-btn:hover span {
+    text-shadow: 0 0 0.01px #1d1f24; }
+  .blog .like-btn.active::before, .blog .like-btn:hover::before {
     color: #f5a623; }
 
 .blog-sidebar {
-  float: right;
-  padding-left: 25px;
-  width: 34%; }
+  padding-left: 25px; }
+  @media only screen and (min-width: 1025px) {
+    .blog-sidebar {
+      width: 34%;
+      float: right; } }
 
 .post {
   padding: 25px 30px 15px;
@@ -577,11 +687,11 @@ textarea {
   .post-date {
     color: #909090; }
   .post-user_avatar {
+    display: inline-block;
+    vertical-align: middle;
     width: 24px;
     border-radius: 50%;
     overflow: hidden;
-    display: inline-block;
-    vertical-align: middle;
     margin-right: 5px; }
   .post-info {
     margin-bottom: 10px; }
@@ -593,9 +703,7 @@ textarea {
   .post-text {
     line-height: 1.71;
     color: #505050;
-    margin-bottom: 15px; }
-  .post .tag-item {
-    color: #e9462d; }
+    margin-bottom: 8px; }
   .post-counters span {
     margin-right: 25px; }
   .post-footer {
@@ -604,11 +712,13 @@ textarea {
     display: flex;
     justify-content: space-between; }
 
+.post_top,
 .library_top {
   padding: 140px 30px 30px;
   position: relative; }
+  .post_top-label,
   .library_top-label {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
     position: absolute;
     top: 25px;
@@ -617,20 +727,57 @@ textarea {
     height: 40px;
     line-height: 40px;
     background: #e9462d; }
-  .library_top-author .post-user_name {
-    font-weight: bold;
-    color: #ffffff; }
+  .post_top-title,
   .library_top-title {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 10px 0 20px; }
+  .post_top-text,
   .library_top-text {
     line-height: 1.71;
     font-size: 0.875rem;
-    margin-bottom: 20px; }
-  .library_top-tags-list .tag-item {
-    font-size: 0.875rem;
+    margin-bottom: 10px; }
+  .post_top .post-user_name,
+  .library_top .post-user_name {
     font-weight: bold; }
+
+.library_top .post-user_name {
+  color: #ffffff; }
+
+.post_top {
+  background: #ffffff;
+  border: 1px solid #e9462d;
+  padding-top: 90px; }
+  .post_top .post-user_name {
+    color: #e9462d; }
+  .post_top-title {
+    color: #1d1f24; }
+  .post_top-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: start; }
+  .post_top .like-btn {
+    margin-top: 8px; }
+
+.hot_tags,
+.social {
+  padding: 25px 0; }
+  .hot_tags-title,
+  .social-title {
+    color: #1d1f24;
+    font-weight: bold;
+    margin-bottom: 8px; }
+    .hot_tags-title:before,
+    .social-title:before {
+      margin-right: 8px; }
+
+.hot_tags-title:before {
+  content: ""; }
+
+.social-title {
+  margin-bottom: 18px; }
+  .social-title:before {
+    content: ""; }
 
 .comingSoonMain {
   display: flex;

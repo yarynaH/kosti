@@ -18,12 +18,24 @@ $color-primary17    : #1d1f24;
 $color-primary18    : #4a90e2;
 $color-primary19    : #f5a623;
 
+///
+///Social colors
+///
+
+$color-facebook     : #4460a0;
+$color-vk           : #006df0;
+$color-twitter      : #00aaec;
+$color-youtube      : #ce1312;
+$color-instagram    : #275a85;
+$color-twitch       : #673ab7;
+
+
 
 
 
 $font-main-regular  : 'Roboto', Arial;
 
-$body-font-size     : 20;
+$body-font-size     : 16;
 $body-font-size-rem : 1rem;
 $body-font-weight   : 300;
 $body-letter-spacing: 0.005em;
@@ -38,8 +50,9 @@ $space-xxl  : 50px;
 
 
 
+///
 // Primary Breakpoints (values)
-//----------------------------------------------------------------------
+///
 
 $breakpoint-mobile-small-max        : 320px;
 $breakpoint-mobile-min              : $breakpoint-mobile-small-max + 1;
@@ -69,8 +82,9 @@ $mobile1                : "only screen and (max-width : #{$breakpoint-mobile-max
 $mobile1-landscape      : "only screen and (min-width : #{$breakpoint-mobile-min})";
 $mobile-portrait        : "only screen and (max-width : #{$breakpoint-mobile-small-max})";
 
+///
 // Current Breakpoints assignment
-//----------------------------------------------------------------------
+///
 
 $desktop                : $desktop1;
 $desktop-main           : $desktop-main1;
@@ -88,3 +102,10 @@ $tablet-mobile          : $tablet-mobile1;
 $mobile                 : $mobile1;
 $mobile-landscape       : $mobile1-landscape;
 $mobile-portrait        : $mobile-portrait;
+
+///
+/// Transition duration
+///
+/// @type Number
+///
+$transitionDuration: 0.2s;

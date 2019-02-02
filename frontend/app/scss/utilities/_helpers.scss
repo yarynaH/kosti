@@ -1,0 +1,81 @@
+///
+/// Function to generate shorthand transition property
+///
+/// @param {String} $transition-property [all] - transition-property
+///
+/// @param {Number} $transition-duration [$transitionDuration] - transition-duration
+///
+/// @param {String} $transition-timing-function [ease] - transition-timing-function
+///
+/// @param {Number} $transition-delay [0s] - transition-delay
+///
+/// @return {List}
+///
+/// @example scss - Sass
+///     .block {
+///         transition: transition(width);
+///     }
+///
+/// @example css
+///     .block {
+///         transition: width 0.2s ease 0s;
+///     }
+///
+@function transition(
+    $transition-property: all,
+    $transition-duration: $transitionDuration,
+    $transition-timing-function: ease,
+    $transition-delay: 0s
+) {
+    @return $transition-property $transition-duration $transition-timing-function $transition-delay;
+}
+
+///
+/// Converts pixels to rem
+///
+/// @param {String} $key - font-size in pixels
+///
+/// @return {String}
+///
+/// @example scss - Sass
+///     .block {
+///         font-size: rem(14);
+///     }
+///
+@function rem($key) {
+    $base: $base-font-size;
+
+    @return ($key / $base) * 1rem;
+}
+
+///
+/// Function to generate shorthand transition property
+///
+/// @param {String} $transition-property [all] - transition-property
+///
+/// @param {Number} $transition-duration [$transitionDuration] - transition-duration
+///
+/// @param {String} $transition-timing-function [ease] - transition-timing-function
+///
+/// @param {Number} $transition-delay [0s] - transition-delay
+///
+/// @return {List}
+///
+/// @example scss - Sass
+///     .block {
+///         transition: transition(width);
+///     }
+///
+/// @example css
+///     .block {
+///         transition: width 0.2s ease 0s;
+///     }
+///
+@function transition(
+    $transition-property: all,
+    $transition-duration: $transitionDuration,
+    $transition-timing-function: ease,
+    $transition-delay: 0s
+) {
+    @return $transition-property $transition-duration $transition-timing-function $transition-delay;
+}

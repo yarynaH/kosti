@@ -1,11 +1,15 @@
 .freshest {
-    width: 66%;
-    float: left;
+    @include desktop() {
+        width: 66%;
+        float: left;
+    }
 }
 
 .schedule {
-    width: 32%;
-    float: right;
+    @include desktop() {
+        width: 32%;
+        float: right; 
+    }
 }
 
 .latest_news {
@@ -51,7 +55,7 @@
         font-size: rem(12);
     
         .month {
-            color: #e23d23;
+            color: $color-primary11;
             font-weight: 500;
         }
         
@@ -65,31 +69,12 @@
         font-family: Roboto;
         font-size: rem(18);
         font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .tag {
-        &-item {
-            opacity: 0.75;
-            font-family: $font-main-regular;
-            font-size: rem(10);
-            
-            &:hover {
-                opacity: 1;
-            }
-        }
-    
-        &-item + &-item {
-            margin-left: 5px;
-        }
     }
 }
 
-
-
 .main_blog {
     background: $color-primary13;
-    margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 
 .blog {
@@ -100,21 +85,23 @@
         padding: 20px 34% 20px 0;
 
         .hotter-btn {
-            @include icon(burn-tags);
+            @include icon(rock);
         }
 
         .fresher-btn {
-
+            @include icon(add);
         }
 
         .bookmarks-btn {
-            @include icon(bookmarks);
+            @include icon(bookmark);
         }
     }
 
     &-list {
-        width: 66%;
-        float: left;
+        @include desktop() {
+            width: 66%;
+            float: left;
+        }
     }
 
     &-item {
@@ -134,6 +121,14 @@
         font-weight: bold;
         color: $color-primary12;
         text-transform: capitalize;
+
+        &:before {
+            padding-right: 15px;
+        }
+    
+        &:hover {
+            opacity: 0.7;
+        }
     
         &.active {
             font-size: rem(24);
@@ -147,20 +142,29 @@
     .like-btn {
         font-family: Roboto;
         font-size: rem(14);
+
+        &:before {
+            margin-right: 8px;
+        }
     }
 
     .add_to_bookmarks-btn {
         margin-right: 25px;
 
-        &.active {
+        &.active,
+        &:hover {
             color: $color-primary18;
         }
     }
 
     .like-btn {
-        &.active {
+        &.active,
+        &:hover {
             color: $color-primary17;
-            font-weight: bold;
+
+            span {
+                text-shadow: 0 0 0.01px $color-primary17;
+            }
 
             &::before {
                 color: $color-primary19;
@@ -169,9 +173,12 @@
     }
 
     &-sidebar {
-        float: right;
+        @include desktop() {
+            width: 34%;
+            float: right;
+        }
+
         padding-left: 25px;
-        width: 34%;
     }
 }
 
@@ -189,11 +196,11 @@
     }
 
     &-user_avatar {
+        display: inline-block;
+        vertical-align: middle;
         width: 24px;
         border-radius: 50%;
         overflow: hidden;
-        display: inline-block;
-        vertical-align: middle;
         margin-right: 5px;
     }
 
@@ -211,11 +218,7 @@
     &-text {
         line-height: 1.71; 
         color: $color-primary16;
-        margin-bottom: 15px;
-    }
-
-    .tag-item {
-        color: $color-primary15;
+        margin-bottom: 8px;
     }
     
     &-counters {
@@ -232,12 +235,13 @@
     }
 }
 
+.post_top,
 .library_top {
     padding: 140px 30px 30px;
     position: relative;
 
     &-label {
-        font-size: 14px;
+        font-size: rem(14);
         font-weight: bold;
         position: absolute;
         top: 25px;
@@ -247,26 +251,79 @@
         line-height: 40px;
         background: $color-primary15;
     }
-    
-    &-author .post-user_name {
-        font-weight: bold;
-        color: $color-primary1;
-    }
-    
+
     &-title {
         font-size: rem(24);
         font-weight: bold;
         padding: 10px 0 20px;
     }
-    
+
     &-text {
         line-height: 1.71;
         font-size: rem(14);
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
-    
-    &-tags-list .tag-item {
-        font-size: rem(14);
+
+    .post-user_name {
         font-weight: bold;
+    }
+}
+
+.library_top {
+    .post-user_name {
+        color: $color-primary1;
+    }
+}
+
+.post_top {
+    background: $color-primary1;
+    border: 1px solid $color-primary15;
+    padding-top: 90px;
+
+    .post-user_name {
+        color: $color-primary15;
+    }
+
+    &-title {
+        color: $color-primary17;
+    }
+
+    &-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+    }
+
+    .like-btn {
+        margin-top: 8px;
+    }
+}
+
+.hot_tags,
+.social {
+    padding: 25px 0;
+
+    &-title {
+        color: $color-primary17;
+        font-weight: bold;
+        margin-bottom: 8px;
+
+        &:before {
+            margin-right: 8px;
+        }
+    }
+}
+
+.hot_tags{
+    &-title {
+        @include icon(fire);
+    }
+}
+
+.social {
+    &-title {
+        @include icon(network);
+
+        margin-bottom: 18px;
     }
 }
