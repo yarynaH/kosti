@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <form id="payment" name="payment" method="post" action="https://sci.interkassa.com/" enctype="utf-8">
+            <input type="hidden" name="ik_co_id" value="5c1cb5443c1eafde5b8b4567" />
+            <input type="hidden" name="ik_pm_no" value="ID_4234" />
+            <input type="hidden" name="ik_am" value="100.00" />
+            <input type="hidden" name="ik_cur" value="RUB" />
+            <input type="hidden" name="ik_desc" value="Event Description" />
+            <input type="submit" value="Pay">
+        </form>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>
