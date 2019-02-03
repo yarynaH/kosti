@@ -1,12 +1,12 @@
 .freshest {
-    @include desktop() {
+    @include tablet-all() {
         width: 66%;
         float: left;
     }
 }
 
 .schedule {
-    @include desktop() {
+    @include tablet-all() {
         width: 32%;
         float: right; 
     }
@@ -98,7 +98,7 @@
     }
 
     &-list {
-        @include desktop() {
+        @include tablet-all() {
             width: 66%;
             float: left;
         }
@@ -173,7 +173,7 @@
     }
 
     &-sidebar {
-        @include desktop() {
+        @include tablet-all() {
             width: 34%;
             float: right;
         }
@@ -271,6 +271,7 @@
 
 .library_top {
     color: $color-primary1;
+    background-size: cover;
 
     .post-user_name {
         color: $color-primary1;

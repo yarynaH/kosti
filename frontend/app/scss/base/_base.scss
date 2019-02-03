@@ -28,12 +28,20 @@ a {
 
 .site_width {
     margin: 0 auto;
-    max-width: 1240px;
+    max-width: 1280px;
     width: 100%;
+
+    @include tablet-all() {
+        padding: 0 20px;
+    }
 }
 
 .blog_width {
     margin: 0 auto;
-    max-width: 940px;
+    max-width: 980px;
     width: 100%;
+
+    @include tablet-all() {
+        padding: 0 20px;
+    }
 }

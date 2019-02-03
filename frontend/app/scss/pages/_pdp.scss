@@ -3,7 +3,7 @@
     padding-top: 40px;
 
     &-top {
-        @include desktop() {
+        @include tablet-all() {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -12,13 +12,9 @@
         padding-bottom: 40px;
     }
 
-    &-info {
-        width: 40%;
-        float: right;
-    }
-
     &-image {
         width: 48%;
+        max-width: 450px;
         float: left;
         border-radius: 4px;
         background-color: $color-primary1;
@@ -54,6 +50,12 @@
         margin-bottom: 40px;
     }
 
+    &-info {
+        width: 48%;
+        max-width: 380px;
+        float: right;
+    }
+
     &-title {
         font-size: rem(24);
         font-weight: bold;
@@ -80,7 +82,7 @@
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        margin-bottom: 15px;
+        flex-wrap: wrap;
     }
 
     &-form {
@@ -89,6 +91,7 @@
 
     &-size {
         width: 215px;
+        margin-bottom: 15px;
     }
 
     &-description {
@@ -102,7 +105,10 @@
             font-weight: bold;
         }
     }
-    
+
+    &-qty-field {
+        margin-bottom: 15px;
+    }
 }
 
 .breadcrumbs-element {
