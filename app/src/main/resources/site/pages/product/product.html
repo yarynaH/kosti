@@ -55,7 +55,7 @@
                             <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
                             <div class="pdp-swatches">
                                 <div class="swatches-list">
-                                    <span class="swatches-item">
+                                    <span class="swatches-item active">
                                         <img src="https://picsum.photos/20/20/?random" alt="">
                                     </span>
                                     <span class="swatches-item">
@@ -65,12 +65,18 @@
                             </div>
                             <div class="pdp-options">
                                 <div class="pdp-size">
-                                    <select name="" id="pdp-size-select" class="pdp-size_select select">
-                                        <option value="Выберите размер" disabled="disabled" selected>Выберите размер</option>
-                                        <option value="white">white</option>
-                                        <option value="black">black</option>
-                                    </select>
-                                    <input type="text" class="number-input" disabled>
+                                    <div class="select-field">
+                                        <select name="" id="pdp-size-select" class="pdp-size_select select">
+                                            <option value="Выберите размер" disabled="disabled" selected>Выберите размер</option>
+                                            <option value="white">white</option>
+                                            <option value="black">black</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="qty-field">
+                                    <span class="qty-increment">-</span>
+                                        <input type="text" class="qty-input" disabled placeholder="1">
+                                    <span class="qty-decrement">+</span>
                                 </div>
                             </div>
                             <button class="add_to_cart-btn">В КОРЗИНУ</button>
@@ -79,10 +85,10 @@
                             <p>Порадуйте себя хайповым мерчем от Вечерних Костей! Теперь все продавщицы в вашем продуктовом будуть знать, что вы фанат нашего канала! </p>
                             <h5>Особенности:</h5>
                             <ul>
-                                <li>Асимарский белый</li>
-                                <li>Материал мягкий как обьятия матери</li>
-                                <li>Комфортный unisex крой</li>
-                                <li>Настоящее золото древней Титании!</li>
+                                <li>*Асимарский белый</li>
+                                <li>*Материал мягкий как обьятия матери</li>
+                                <li>*Комфортный unisex крой</li>
+                                <li>*Настоящее золото древней Титании!</li>
                             </ul>
                         </div>
                         <div class="pdp-social social">

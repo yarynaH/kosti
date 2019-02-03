@@ -304,8 +304,12 @@
 .hot_tags,
 .social {
     padding: 25px 0;
+}
 
+.hot_tags{
     &-title {
+        @include icon(fire);
+
         color: $color-primary17;
         font-weight: bold;
         margin-bottom: 8px;
@@ -313,19 +317,5 @@
         &:before {
             margin-right: 8px;
         }
-    }
-}
-
-.hot_tags{
-    &-title {
-        @include icon(fire);
-    }
-}
-
-.social {
-    &-title {
-        @include icon(network);
-
-        margin-bottom: 18px;
     }
 }

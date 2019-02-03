@@ -13,7 +13,7 @@
     }
 
     &-info {
-        width: 37%;
+        width: 40%;
         float: right;
     }
 
@@ -23,6 +23,12 @@
         border-radius: 4px;
         background-color: $color-primary1;
         padding: 40px 10px;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+            height: 100%;
+        }
     }
 
     &-image-item {
@@ -48,9 +54,9 @@
     }
 
     &-title {
-        font-size: 24px;
+        font-size: rem(24);
         font-weight: bold;
-        color: #1d1f24;
+        color: $color-primary17;
     }
 
     &-info_header {
@@ -61,13 +67,41 @@
     }
 
     &-composition {
-        color: #505050;
-        margin-bottom: 10px;
+        color: $color-primary16;
+        margin-bottom: 20px;
     }
 
     &-swatches {
         margin-bottom: 20px;
     }
+
+    &-options {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 15px;
+    }
+
+    &-form {
+        margin-bottom: 30px;
+    }
+
+    &-size {
+        width: 215px;
+    }
+
+    &-description {
+        line-height: 1.7;
+    
+        p {
+            margin-bottom: 15px;
+        }
+    
+        h5 {
+            font-weight: bold;
+        }
+    }
+    
 }
 
 .breadcrumbs-element {
@@ -122,9 +156,9 @@
 }
 
 .price {
-    font-size: 24px;
+    font-size: rem(24);
     font-weight: bold;
-    color: #707070;
+    color: $color-primary28;
     white-space: nowrap;
     min-width: 120px;
     text-align: left;
@@ -136,10 +170,12 @@
     border-radius: 50%;
     padding: 2px;
     border: 2px solid transparent;
+    cursor: pointer;
+    transition: transition(border);
 
     &.active, 
     &:hover {
-        border-color: #000;
+        border-color: $color-primary21;
     }
 
     & + & {
@@ -147,7 +183,11 @@
     }
 
     img {
-        border: 1px solid #000000;
+        border: 1px solid $color-primary21;
         border-radius: 50%;
     }
+}
+
+.add_to_cart-btn {
+    @include button-style(global light);
 }
