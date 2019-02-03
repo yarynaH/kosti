@@ -47,6 +47,27 @@
         margin-bottom: 40px;
     }
 
+    &-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1d1f24;
+    }
+
+    &-info_header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    &-composition {
+        color: #505050;
+        margin-bottom: 10px;
+    }
+
+    &-swatches {
+        margin-bottom: 20px;
+    }
 }
 
 .breadcrumbs-element {
@@ -97,5 +118,36 @@
     &-text {
         font-weight: bold;
         color: $color-primary6;
+    }
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #707070;
+    white-space: nowrap;
+    min-width: 120px;
+    text-align: left;
+    margin-left: 5px;
+}
+
+.swatches-item {
+    display: inline-block;
+    border-radius: 50%;
+    padding: 2px;
+    border: 2px solid transparent;
+
+    &.active, 
+    &:hover {
+        border-color: #000;
+    }
+
+    & + & {
+        margin-left: 5px;
+    }
+
+    img {
+        border: 1px solid #000000;
+        border-radius: 50%;
     }
 }
