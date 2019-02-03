@@ -47,7 +47,6 @@
     }
 }
 
-
 ///
 /// Mixin for hiding element without `display: none` (e.g., to make it accessible)
 ///
@@ -65,4 +64,29 @@
 
 .visually-hidden {
     @include visually-hidden();
+}
+
+
+///
+/// Mixin for quantity notification
+///
+
+@mixin qty-notification ($selector) {
+    @if $selector == wrapper {
+        position: relative;
+    }
+
+    @if $selector == icon {
+        @include position(absolute, bottom -5px right -5px)
+
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+        border-radius: 50%;
+        background: $color-primary24;
+        color: $color-primary1;
+        text-align: center;
+        font-size: rem(10);
+        font-weight: bold;
+    }
 }

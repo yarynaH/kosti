@@ -6,16 +6,89 @@
 <body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <form id="payment" name="payment" method="post" action="https://sci.interkassa.com/" enctype="utf-8">
+        <!-- <form id="payment" name="payment" method="post" action="https://sci.interkassa.com/" enctype="utf-8">
             <input type="hidden" name="ik_co_id" value="5c1cb5443c1eafde5b8b4567" />
             <input type="hidden" name="ik_pm_no" value="ID_4234" />
             <input type="hidden" name="ik_am" value="100.00" />
             <input type="hidden" name="ik_cur" value="RUB" />
             <input type="hidden" name="ik_desc" value="Event Description" />
             <input type="submit" value="Pay">
-        </form>
+        </form> -->
+
+        <div class="pdp">
+            <div class="blog_width">
+                <div class="pdp-top">
+                    <div class="breadcrumbs">
+                        <span class="breadcrumbs-element active">Одежда</span>
+                    </div>
+                    <div class="minicart">
+                        <span class="minicart-icon">
+                            <span class="minicart-qty">1</span>
+                        </span>
+                        <span class="minicart-total">&#8381; 12000</span>
+                    </div>
+                </div>
+                <div class="pdp-wrap clearfix">
+                    <div class="pdp-image">
+                        <div class="product_bage">
+                            <span class="product_bage-icon"></span>
+                            <span class="product_bage-text">Новинка</span>
+                        </div>
+                        <div class="pdp-main_image">
+                            <img src="https://picsum.photos/440/440/?random" alt="">
+                        </div>
+                        <div class="pdp-image-list">
+                            <div class="pdp-image-item">
+                                <img src="https://picsum.photos/440/440/?random" alt="">
+                            </div>
+                            <div class="pdp-image-item">
+                                <img src="https://picsum.photos/440/440/?random" alt="">
+                            </div>
+                            <div class="pdp-image-item">
+                                <img src="https://picsum.photos/440/440/?random" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pdp-info">
+                        <form action="" class="pdp-form" method="POST">
+                            <div class="pdp-info_header">
+                                <h2 class="pdp-title">
+                                    Эксклюзивная.
+                                    Солнце Хранит Тебя.
+                                </h2>
+                                <div class="price">
+                                    <span class="price-curency">&#8381;</span>
+                                    <span class="price-value">1500</span>
+                                </div>
+                            </div>
+                            <div class="pdp-composition">100% Хлопок, Футболка, 175 г/кв.м.</div>
+                            <div class="pdp-swatches">
+                                <div class="swatches-list">
+                                    <span class="swatches-item">
+                                        <img src="https://picsum.photos/20/20/?random" alt="">
+                                    </span>
+                                    <span class="swatches-item">
+                                        <img src="https://picsum.photos/20/20/?random" alt="">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="pdp-options">
+                                <div class="pdp-size">
+                                    <select name="" id="pdp-size-select" class="pdp-size_select">
+                                        <option value="Выберите размер" disabled="disabled" selected>Выберите размер</option>
+                                        <option value="white">white</option>
+                                        <option value="black">black</option>
+                                    </select>
+                                    <input type="number" class="">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
 
-</html>
+</html> 
