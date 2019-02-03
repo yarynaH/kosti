@@ -1,6 +1,10 @@
 function initLoginRegisterForm(){
-	$('.header-user .guest-btn').on('click', function(){
+	$('.header-user .guest-btn').on('click', function(e){
+		e.stopPropagation();
 		$('body div.modal-login').addClass('show');
+	});
+	$(document).on('click', function(event) {
+		hideLoginRegisterModal();
 	});
 	$(document).keyup(function(e) {
 		if (e.key === "Escape") {
@@ -33,6 +37,9 @@ function initLoginRegisterForm(){
 				'<img src="' + data.image.url + '" alt="' + data.displayName + '"></div>');
 			hideLoginRegisterModal();
 		});
+	});
+	$('.modal-content').on('click', function(e){
+		e.stopPropagation();
 	});
 	$('.register-form .modal-btn-register').on('click', function(e){
 		e.preventDefault();
