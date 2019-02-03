@@ -73,6 +73,9 @@ exports.login = function( name, pass ){
 	contextLib.runAsAdmin(function () {
 		user = findUser(name);
 	});
+	if( !user || !user.hits || !user.hits[0] ){
+		return false;
+	}
 	var loginResult = authLib.login({
 	    user: user.hits[0].login,
 	    password: pass,

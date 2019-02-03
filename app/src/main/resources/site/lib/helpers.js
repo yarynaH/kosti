@@ -26,6 +26,8 @@ exports.getPageComponents = function( req ) {
     site: site
   });
 
+  pageComponents['loginRegisterModal'] = thymeleaf.render( resolve('../pages/components/loginRegisterModal.html'), {});
+
   pageComponents['header'] = thymeleaf.render( resolve('../pages/components/header.html'), {
     menuItems: getMenuItems(),
     site: site,
