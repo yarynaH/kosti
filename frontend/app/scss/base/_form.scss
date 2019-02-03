@@ -49,6 +49,7 @@ textarea {
 
         content: '';
         margin-top: -4px;
+        pointer-events: none;
     }
 }
 
@@ -56,6 +57,7 @@ select {
     color: $color-primary28;
     -webkit-appearance: none;
     padding-right: 25px;
+    cursor: pointer;
 }
 
 label {
