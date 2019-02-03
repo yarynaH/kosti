@@ -35,33 +35,24 @@
                             <span class="product_bage-text">Новинка</span>
                         </div>
                         <div class="pdp-main_image">
-                            <img src="https://picsum.photos/440/440/?random" alt="">
+                            <img data-th-src="${mainImage.url}" alt="">
                         </div>
                         <div class="pdp-image-list">
-                            <div class="pdp-image-item">
-                                <img src="https://picsum.photos/440/440/?random" alt="">
-                            </div>
-                            <div class="pdp-image-item">
-                                <img src="https://picsum.photos/440/440/?random" alt="">
-                            </div>
-                            <div class="pdp-image-item">
-                                <img src="https://picsum.photos/440/440/?random" alt="">
+                            <div data-th-each="image: ${images}" class="pdp-image-item">
+                                <img data-th-src="${image.url}" alt="">
                             </div>
                         </div>
                     </div>
                     <div class="pdp-info">
                         <form action="" class="pdp-form" method="POST">
                             <div class="pdp-info_header">
-                                <h2 class="pdp-title">
-                                    Эксклюзивная.
-                                    Солнце Хранит Тебя.
-                                </h2>
+                                <h2 class="pdp-title" data-th-text="${content.displayName}"></h2>
                                 <div class="price">
                                     <span class="price-curency">&#8381;</span>
-                                    <span class="price-value">1500</span>
+                                    <span class="price-value" data-th-text="${content.data.price}"></span>
                                 </div>
                             </div>
-                            <div class="pdp-composition">100% Хлопок, Футболка, 175 г/кв.м.</div>
+                            <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
                             <div class="pdp-swatches">
                                 <div class="swatches-list">
                                     <span class="swatches-item">

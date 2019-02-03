@@ -28,7 +28,6 @@ function handleReq(req) {
     }
 
     function createModel() {
-
         var up = req.params;
         var content = portal.getContent();
         var response = [];
@@ -37,13 +36,30 @@ function handleReq(req) {
         var model = {
             content: content,
             app: app,
+            mainImage: getMainImage( content.data ),
+            images: getImages( content.data ),
             social: site.social,
             pageComponents: helpers.getPageComponents(req)
         };
-
         return model;
+    }
 
+    function getImages( data ){
+        var images = [];
+        if( data.images ){
+            for( var i = 0; i < data.images.length; i++ ){
+                images.push( norseUtils.getImage( data.images[i], '(1, 1)' ));
+            }
+        }
+        return images;
+    }
 
+    function getMainImage( data ){
+        var image = null;
+        if( data.mainImage ){
+            image = norseUtils.getImage( data.mainImage, '(1, 1)' );
+        }
+        return image;
     }
 
     return renderView();
