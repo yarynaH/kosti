@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Product</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="composition" type="TextLine">
+      <label>Composition</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="price" type="Long">
+      <label>Price</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="mainImage" type="ImageSelector">
+      <label>Main image</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="images" type="ImageSelector">
+      <label>Images</label>
+      <occurrences minimum="0" maximum="3"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="description" type="HtmlArea">
+      <label>Description</label>
+      <config>
+        <exclude>*</exclude>
+        <include>alignleft alignright | bold italic | bullist numlist | link unlink</include>
+      </config>
+    </input>
+    <item-set name="sizes">
+      <label>Available sizes</label>
+      <items>
+        <input name="xs" type="CheckBox">
+          <label>XS</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="s" type="CheckBox">
+          <label>S</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="m" type="CheckBox">
+          <label>M</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="l" type="CheckBox">
+          <label>L</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="xl" type="CheckBox">
+          <label>XL</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+      <occurrences minimum="1" maximum="1"/>
+    </item-set>
+  </form>
+</content-type>
