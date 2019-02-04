@@ -82,8 +82,18 @@ function initPDPFunctions(){
 		e.preventDefault();
 		var prevImg = $('.pdp-main_image').find('img').attr('src');
 		$('.pdp-main_image').find('img').attr('src', $(this).attr('src'));
+		$('.pdp-main_image').zoom({url: $(this).attr('src')});
 		$(this).attr('src', prevImg);
 	});
+	$('.add_to_cart-btn').on('click', function(e){
+		if(!$('#pdp-size-select').val()){
+			e.preventDefault();
+			$('.pdp-validation').removeClass('visually-hidden');
+		} else {
+			$('.pdp-validation').addClass('visually-hidden');
+		}
+	});
+	$('.pdp-main_image').zoom({url: pdpImageUrl});
 }
 
 $( document ).ready(function() {
