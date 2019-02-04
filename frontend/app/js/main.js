@@ -78,6 +78,12 @@ function initPDPFunctions(){
 	$('.qty-increment').on('click', function(){
 		$('.qty-input').val(parseInt($('.qty-input').val()) + 1, 1);
 	});
+	$('.pdp-image-item img').on('click', function(e){
+		e.preventDefault();
+		var prevImg = $('.pdp-main_image').find('img').attr('src');
+		$('.pdp-main_image').find('img').attr('src', $(this).attr('src'));
+		$(this).attr('src', prevImg);
+	});
 }
 
 $( document ).ready(function() {
