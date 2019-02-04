@@ -45,6 +45,7 @@
         padding: 30px 30px 15px;
         box-shadow: 0 2px 8px 0 rgba(217, 144, 49, 0.24);
         height: 109px;
+        color: $color-primary1;
 
         & + & {
             margin-top: 10px;
@@ -127,7 +128,7 @@
         }
     
         &:hover {
-            opacity: 0.7;
+            opacity: 0.8;
         }
     
         &.active {
@@ -138,9 +139,7 @@
 
     .share-counter,
     .views-counter,
-    .comments-counter,
-    .like-btn {
-        font-family: Roboto;
+    .comments-counter {
         font-size: rem(14);
 
         &:before {
@@ -154,21 +153,6 @@
         &.active,
         &:hover {
             color: $color-primary18;
-        }
-    }
-
-    .like-btn {
-        &.active,
-        &:hover {
-            color: $color-primary17;
-
-            span {
-                text-shadow: 0 0 0.01px $color-primary17;
-            }
-
-            &::before {
-                color: $color-primary19;
-            }
         }
     }
 
@@ -317,6 +301,31 @@
 
         &:before {
             margin-right: 8px;
+        }
+    }
+}
+
+.like-btn {
+    font-size: rem(14);
+
+    &:before {
+        margin-right: 8px;
+    }
+
+    span {
+        vertical-align: middle;
+    }
+
+    &.active,
+    &:hover {
+        color: $color-primary17;
+
+        span {
+            text-shadow: 0 0 0.01px $color-primary17;
+        }
+
+        &::before {
+            color: $color-primary19;
         }
     }
 }

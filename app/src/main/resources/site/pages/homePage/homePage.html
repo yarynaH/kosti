@@ -8,7 +8,31 @@
 
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <div class="homepage_slider">
-        <div>your content</div>
+        <div>
+            <div class="slick-img_wrap">
+                <img src="" data-th-src="${portal.assetUrl({'_path=images/homepage-banner.jpg'})}" alt="" class="slick-img">
+            </div>
+            <div class="slick-content blog_width">
+                <div class="post-info">
+                    <span class="post-user_avatar">
+                        <img src="https://picsum.photos/30/30/?random" alt="">
+                    </span>
+                    <span class="post-user_name">Вечерние кости</span>
+                    <span class="post-date">2 дня назад</span>
+                </div>
+                <h2 class="slick-title">Чего ждать в новом сезоне?</h2>
+                <div class="slick-caption">В общем, мы решили рассказать вам чего ждать от нашего канала в новом сезоне.<br/>
+                    Итак, вы наверняка скучаете по Кровавым Ублюдкам? Так вот их у нас будет, а еще…
+                </div>
+                <div class="slick-action">
+                    <button class="slick-read_btn">ЧИТАТЬ</button>
+                    <button class="slick-add_to_bookmarks_btn">В ЗАКЛАДКИ</button>
+                    <a href="#" class="like-btn icon-rock active">
+                        <span>116</span>
+                    </a>
+                </div>
+            </div>
+        </div>
         <div>your content</div>
         <div>your content</div>
     </div>
@@ -32,7 +56,7 @@
                         <h3 class="schedule-title" data-th-text="${scheduleItem.displayName}">
                             Дело Кобольдское 
                         </h3>
-                        <div class="tag-list tag-list__small visually-hidden">
+                        <div class="tag-list tag-list__small hidden">
                             <a href="#" class="tag-item">D&D</a>
                             <a href="#" class="tag-item">5e</a>
                         </div>
@@ -44,8 +68,8 @@
             <div class="blog blog_width clearfix">
                 <div class="blog-navigation">
                     <a href="#" class="hotter-btn active">Горячее</a>
-                    <a href="#" class="fresher-btn visually-hidden">Свежее</a>
-                    <a href="#" class="bookmarks-btn visually-hidden">Закладочки</a>
+                    <a href="#" class="fresher-btn hidden">Свежее</a>
+                    <a href="#" class="bookmarks-btn hidden">Закладочки</a>
                 </div>
                 <div class="blog-list">
                     <div data-th-each="article: ${articles}" class="blog-item">
@@ -62,19 +86,19 @@
                             </div>
                             <h2 class="post-title" data-th-text="${article.displayName}"></h2>
                             <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
-                            <div class="tag-list visually-hidden">
+                            <div class="tag-list hidden">
                                 <a href="#" class="tag-item">WoD</a>
                                 <a href="#" class="tag-item">V5</a>
                                 <a href="#" class="tag-item">VtM</a>
                             </div>
                         </div>
-                        <div class="post-footer visually-hidden">
+                        <div class="post-footer hidden">
                             <div class="post-counters">
                                 <span class="share-counter icon-share">245</span>
                                 <span class="views-counter icon-views">314</span>
                                 <span class="comments-counter icon-comment">12</span>
                             </div>
-                            <div class="post-actions visually-hidden">
+                            <div class="post-actions hidden">
                                 <a href="#" class="add_to_bookmarks-btn icon-bookmark"></a>
                                 <a href="#" class="like-btn icon-rock active">
                                     <span>116</span>
@@ -84,7 +108,7 @@
                     </div>
                 </div>
                 <div class="blog-sidebar">
-                    <div class="library_top visually-hidden" style="background-image: url(https://picsum.photos/300/470?random);">
+                    <div class="library_top hidden" style="background-image: url(https://picsum.photos/300/470?random);">
                         <div class="library_top-label">Хит библиотеки</div>
                         <div class="library_top-author">
                             <span class="post-user_avatar">
@@ -100,7 +124,7 @@
                             <a href="#" class="tag-item">Homebrew</a>
                         </div>
                     </div>
-                    <div class="hot_tags visually-hidden">
+                    <div class="hot_tags hidden">
                         <h3 class="hot_tags-title">Горячие теги</h3>
                             <div class="tag-list tag-list__hot">
                                 <a href="#"  class="tag-item">V5</a>
@@ -124,9 +148,9 @@
                             <div class="tag-list">
                                 <a href="#" class="tag-item">Мерч</a>
                             </div>
-                            <span class="like-btn icon-rock active">
+                            <a href="#" class="like-btn icon-rock active">
                                 <span>112</span>
-                            </span>
+                            </a>
                         </div>
                     </div>
                     <div class="social">

@@ -1,5 +1,5 @@
 .header {
-    // position: fixed;
+    position: fixed;
     z-index: 11;
     width: 100%;
     color: $color-primary26;
@@ -92,7 +92,7 @@
         cursor: pointer;
 
         &:hover {
-            opacity: 0.7;
+            opacity: 0.8;
             transition: transition(opacity);
         }
     }
