@@ -39,6 +39,7 @@ function handleReq(req) {
             mainImage: getMainImage( content.data ),
             images: getImages( content.data ),
             social: site.social,
+            sizes: getSizes(content.data.sizes),
             pageComponents: helpers.getPageComponents(req)
         };
         return model;
@@ -60,6 +61,16 @@ function handleReq(req) {
             image = norseUtils.getImage( data.mainImage, '(1, 1)' );
         }
         return image;
+    }
+
+    function getSizes(sizes){
+        var result = [];
+        for ( var size in sizes ) {
+            if( sizes.hasOwnProperty(size) && sizes[size] == true ) {
+                result.push(size);
+            }
+        }
+        return result;
     }
 
     return renderView();

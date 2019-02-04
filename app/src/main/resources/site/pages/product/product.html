@@ -21,7 +21,7 @@
                     <div class="breadcrumbs">
                         <span class="breadcrumbs-element active">Одежда</span>
                     </div>
-                    <div class="minicart">
+                    <div class="minicart visually-hidden">
                         <span class="minicart-icon">
                             <span class="minicart-qty">1</span>
                         </span>
@@ -68,28 +68,19 @@
                                     <div class="select-field">
                                         <select name="" id="pdp-size-select" class="pdp-size_select select">
                                             <option value="Выберите размер" disabled="disabled" selected>Выберите размер</option>
-                                            <option value="white">white</option>
-                                            <option value="black">black</option>
+                                            <option data-th-each="size: ${sizes}" value="white" data-th-text="${size}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="qty-field pdp-qty-field ">
-                                    <span class="qty-increment">-</span>
-                                        <input type="text" class="qty-input" disabled placeholder="1">
-                                    <span class="qty-decrement">+</span>
+                                    <span class="qty-decrement">-</span>
+                                        <input type="text" class="qty-input" disabled placeholder="1" value="1">
+                                    <span class="qty-increment">+</span>
                                 </div>
                             </div>
                             <button class="add_to_cart-btn">В КОРЗИНУ</button>
                         </form>
-                        <div class="pdp-description">
-                            <p>Порадуйте себя хайповым мерчем от Вечерних Костей! Теперь все продавщицы в вашем продуктовом будуть знать, что вы фанат нашего канала! </p>
-                            <h5>Особенности:</h5>
-                            <ul>
-                                <li>*Асимарский белый</li>
-                                <li>*Материал мягкий как обьятия матери</li>
-                                <li>*Комфортный unisex крой</li>
-                                <li>*Настоящее золото древней Титании!</li>
-                            </ul>
+                        <div class="pdp-description" data-th-utext="${content.data.description}">
                         </div>
                         <div class="pdp-social social">
                             <h3 class="social-title">Поделись!</h3>

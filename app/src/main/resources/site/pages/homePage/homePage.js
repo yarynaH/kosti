@@ -87,7 +87,7 @@ function handleReq(req) {
                 sort: 'data.date ASC'
             }).hits;
             for( var i = 0; i < result.length; i++ ){
-                result[i].image = norseUtils.getImage( result[i].data.image, 'block(296, 104)' );
+                result[i].image = norseUtils.getImage( result[i].data.image, 'block(301, 109)' );
                 var itemDate = new Date(result[i].data.date);
                 result[i].month = norseUtils.getMonthName(itemDate);
                 result[i].day = itemDate.getDate().toFixed();

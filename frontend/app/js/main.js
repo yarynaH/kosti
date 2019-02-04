@@ -71,7 +71,17 @@ function initHomepageSlider(){
 	});
 }
 
+function initPDPFunctions(){
+	$('.qty-decrement').on('click', function(){
+		$('.qty-input').val(Math.max(parseInt($('.qty-input').val()) - 1, 1));
+	});
+	$('.qty-increment').on('click', function(){
+		$('.qty-input').val(parseInt($('.qty-input').val()) + 1, 1);
+	});
+}
+
 $( document ).ready(function() {
 	initLoginRegisterForm();
 	initHomepageSlider();
+	initPDPFunctions();
 });
