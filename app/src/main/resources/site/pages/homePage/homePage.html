@@ -32,7 +32,7 @@
                         <h3 class="schedule-title" data-th-text="${scheduleItem.displayName}">
                             Дело Кобольдское 
                         </h3>
-                        <div class="tag-list tag-list__small">
+                        <div class="tag-list tag-list__small visually-hidden">
                             <a href="#" class="tag-item">D&D</a>
                             <a href="#" class="tag-item">5e</a>
                         </div>
@@ -42,7 +42,7 @@
         </div>
         <div class="main_blog">
             <div class="blog blog_width clearfix">
-                <div class="blog-navigation">
+                <div class="blog-navigation visually-hidden">
                     <a href="#" class="hotter-btn active">Горячее</a>
                     <a href="#" class="fresher-btn">Свежее</a>
                     <a href="#" class="bookmarks-btn">Закладочки</a>
@@ -62,19 +62,19 @@
                             </div>
                             <h2 class="post-title" data-th-text="${article.displayName}"></h2>
                             <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
-                            <div class="tag-list">
+                            <div class="tag-list visually-hidden">
                                 <a href="#" class="tag-item">WoD</a>
                                 <a href="#" class="tag-item">V5</a>
                                 <a href="#" class="tag-item">VtM</a>
                             </div>
                         </div>
-                        <div class="post-footer">
+                        <div class="post-footer visually-hidden">
                             <div class="post-counters">
                                 <span class="share-counter icon-share">245</span>
                                 <span class="views-counter icon-views">314</span>
                                 <span class="comments-counter icon-comment">12</span>
                             </div>
-                            <div class="post-actions">
+                            <div class="post-actions visually-hidden">
                                 <a href="#" class="add_to_bookmarks-btn icon-bookmark"></a>
                                 <a href="#" class="like-btn icon-rock active">
                                     <span>116</span>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="blog-sidebar">
-                    <div class="library_top" style="background-image: url(https://picsum.photos/300/470?random);">
+                    <div class="library_top visually-hidden" style="background-image: url(https://picsum.photos/300/470?random);">
                         <div class="library_top-label">Хит библиотеки</div>
                         <div class="library_top-author">
                             <span class="post-user_avatar">
@@ -100,7 +100,7 @@
                             <a href="#" class="tag-item">Homebrew</a>
                         </div>
                     </div>
-                    <div class="hot_tags">
+                    <div class="hot_tags visually-hidden">
                         <h3 class="hot_tags-title">Горячие теги</h3>
                             <div class="tag-list tag-list__hot">
                                 <a href="#"  class="tag-item">V5</a>
@@ -132,12 +132,12 @@
                     <div class="social">
                         <h3 class="social-title social-icon">Мы в этих ваших сетях</h3>
                         <div class="social-list social-list__sides_align">
-                            <a href="#" class="social-link facebook"></a>
-                            <a href="#" class="social-link vk"></a>
-                            <a href="#" class="social-link twitter"></a>
-                            <a href="#" class="social-link youtube"></a>
-                            <a href="#" class="social-link instagram"></a>
-                            <a href="#" class="social-link twitch"></a>
+                            <a data-th-href="${social.fb}" class="social-link facebook"></a>
+                            <a data-th-href="${social.vk}" class="social-link vk"></a>
+                            <a data-th-href="${social.twitter}" class="social-link twitter"></a>
+                            <a data-th-href="${social.youtube}" class="social-link youtube"></a>
+                            <a data-th-href="${social.instagram}" class="social-link instagram"></a>
+                            <a data-th-href="${social.twitch}" class="social-link twitch"></a>
                         </div>
                     </div>
                 </div>
