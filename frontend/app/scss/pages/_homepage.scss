@@ -13,6 +13,24 @@
 }
 
 .latest_news {
+    position: relative;
+    background: $color-primary2;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-sizing: content-box;
+        z-index: 1;
+        height: 0%;
+        width: 100%;
+        margin-top: -150px;
+        padding-top: 150px;
+        background: linear-gradient(to bottom, transparent, $color-primary2);
+        pointer-events: none;
+    }
+
     &-title {
         font-family: $font-main-regular;
         font-size: rem(14);
@@ -37,6 +55,11 @@
             width: 100%;
             height: 100%;
         }
+    }
+    
+    .blog_width {
+        position: relative;
+        z-index: 2;
     }
 }
 
