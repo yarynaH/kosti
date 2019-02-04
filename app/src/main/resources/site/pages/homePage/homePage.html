@@ -8,22 +8,20 @@
 
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <div class="homepage_slider">
-        <div>
+        <div data-th-each="slide: ${slider}">
             <div class="slick-img_wrap">
-                <img src="" data-th-src="${portal.assetUrl({'_path=images/homepage-banner.jpg'})}" alt="" class="slick-img">
+                <img src="" data-th-src="${slide.image.url}" alt="" class="slick-img">
             </div>
             <div class="slick-content blog_width">
                 <div class="post-info">
                     <span class="post-user_avatar">
                         <img src="https://picsum.photos/30/30/?random" alt="">
                     </span>
-                    <span class="post-user_name">Вечерние кости</span>
+                    <span class="post-user_name" data-th-text="${slide.author.displayName}"></span>
                     <span class="post-date">2 дня назад</span>
                 </div>
-                <h2 class="slick-title">Чего ждать в новом сезоне?</h2>
-                <div class="slick-caption">В общем, мы решили рассказать вам чего ждать от нашего канала в новом сезоне.<br/>
-                    Итак, вы наверняка скучаете по Кровавым Ублюдкам? Так вот их у нас будет, а еще…
-                </div>
+                <h2 class="slick-title" data-th-text="${slide.displayName}"></h2>
+                <div class="slick-caption" data-th-utext="${slide.data.shortIntro}"></div>
                 <div class="slick-action">
                     <button class="slick-read_btn">ЧИТАТЬ</button>
                     <button class="slick-add_to_bookmarks_btn">В ЗАКЛАДКИ</button>
@@ -33,8 +31,6 @@
                 </div>
             </div>
         </div>
-        <div>your content</div>
-        <div>your content</div>
     </div>
     <main class="main">
         <div class="latest_news">
