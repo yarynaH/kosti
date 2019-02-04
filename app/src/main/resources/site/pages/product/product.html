@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <div class="pdp-info">
-                        <form action="" class="pdp-form" method="POST">
+                        <form data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}" class="pdp-form" method="POST">
                             <div class="pdp-info_header">
                                 <h2 class="pdp-title" data-th-text="${content.displayName}"></h2>
                                 <div class="price">
@@ -66,19 +66,21 @@
                             <div class="pdp-options">
                                 <div class="pdp-size">
                                     <div class="select-field">
-                                        <select name="" id="pdp-size-select" class="pdp-size_select select">
+                                        <select name="size" id="pdp-size-select" class="pdp-size_select select">
                                             <option value="Выберите размер" disabled="disabled" selected>Выберите размер</option>
-                                            <option data-th-each="size: ${sizes}" value="white" data-th-text="${size}"></option>
+                                            <option data-th-each="size: ${sizes}" data-th-attr="value=${size}" data-th-text="${size}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="qty-field pdp-qty-field ">
                                     <span class="qty-decrement">-</span>
-                                        <input type="text" class="qty-input" disabled placeholder="1" value="1">
+                                        <input name="quantity" type="text" class="qty-input" readonly placeholder="1" value="1">
                                     <span class="qty-increment">+</span>
                                 </div>
                             </div>
+                            <div class="pdp-validation visually-hidden">Выбери размер!</div>
                             <button class="add_to_cart-btn">В КОРЗИНУ</button>
+                            <input name="price" type="hidden" class="qty-input" data-th-attr="value=${content.data.price}">
                         </form>
                         <div class="pdp-description" data-th-utext="${content.data.description}">
                         </div>
@@ -97,5 +99,9 @@
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
+
+<script type="text/javascript" data-th-inline="javascript">
+  var pdpImageUrl = [[${mainImage.url}]];
+</script>
 
 </html> 
