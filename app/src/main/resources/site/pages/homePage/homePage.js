@@ -34,36 +34,7 @@ function handleReq(req) {
         var site = portal.getSiteConfig();
         var description = portal.getSite().data.description;
         var showDescription = true;
-        var schedule = getSchedule();
-
-        /*if( up.email && up.email != '' ){
-            var mailsLocation = contentLib.get({ key: site.mailsLocation, branch: 'draft' });
-            if( !mailsLocation.data.mail || mailsLocation.data.mail.indexOf(up.email) == -1 ){
-                var newMail = norseUtils.forceArray( mailsLocation.data.mail );
-                newMail.push(up.email);
-                var result = libs.context.run({
-                    user: {
-                        login: 'su'
-                    },
-                    principals: ["role:system.admin"]
-                }, function() {
-                    contentLib.modify({
-                        key: mailsLocation._id,
-                        branch: "draft",
-                        editor: function(c){
-                            c.data.mail = newMail;
-                            return c;
-                        }
-                    });
-                    var result = contentLib.publish({
-                        keys: [mailsLocation._id],
-                        sourceBranch: 'draft',
-                        targetBranch: 'master'
-                    });
-                })
-            }
-            showDescription = false;
-        }*/
+        var schedule = getSchedule(site.slider);
 
         var model = {
             content: content,
@@ -73,6 +44,7 @@ function handleReq(req) {
             social: site.social,
             pageComponents: helpers.getPageComponents(req),
             showDescription: showDescription,
+            slider: getSliderArticles(site.slider),
             articles: getArticles()
         };
 
@@ -107,6 +79,18 @@ function handleReq(req) {
             }).hits;
             for( var i = 0; i < result.length; i++ ){
                 result[i].image = norseUtils.getImage( result[i].data.image, 'block(620, 240)' );
+                var itemDate = new Date(result[i].data.date);
+                result[i].author = contentLib.get({ key: result[i].data.author });
+            }
+            return result;
+        }
+
+        function getSliderArticles( articles ){
+            var result = [];
+            for( var i = 0; i < articles.length; i++ ){
+                var temp = contentLib.get({ key: articles[i] });
+                result[i] = temp;
+                result[i].image = norseUtils.getImage( result[i].data.image, '(1, 1)' );
                 var itemDate = new Date(result[i].data.date);
                 result[i].author = contentLib.get({ key: result[i].data.author });
             }
