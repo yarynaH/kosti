@@ -38,6 +38,7 @@ function handleReq(req) {
             content: content,
             url: portal.pageUrl({ path: content._path }),
             app: app,
+            weeksPost: getWeeksPost(site.weeksPost),
             schedule: schedule,
             social: site.social,
             pageComponents: helpers.getPageComponents(req),
@@ -76,9 +77,7 @@ function handleReq(req) {
                 ]
             }).hits;
             for( var i = 0; i < result.length; i++ ){
-                result[i].image = norseUtils.getImage( result[i].data.image, 'block(620, 240)' );
-                var itemDate = new Date(result[i].data.date);
-                result[i].author = contentLib.get({ key: result[i].data.author });
+                result[i] = beautifyArticle(result[i]);
             }
             return result;
         }
@@ -87,12 +86,23 @@ function handleReq(req) {
             var result = [];
             for( var i = 0; i < articles.length; i++ ){
                 var temp = contentLib.get({ key: articles[i] });
-                result[i] = temp;
-                result[i].image = norseUtils.getImage( result[i].data.image, '(1, 1)' );
-                var itemDate = new Date(result[i].data.date);
-                result[i].author = contentLib.get({ key: result[i].data.author });
+                result[i] = beautifyArticle(temp);
             }
             return result;
+        }
+
+        function getWeeksPost( weeksPost ){
+            var weeksPost = contentLib.get({ key: weeksPost });
+            weeksPost = beautifyArticle(weeksPost);
+            return weeksPost;
+        }
+
+        function beautifyArticle( article ){
+            article.image = norseUtils.getImage( article.data.image, '(1, 1)' );
+            var itemDate = new Date(article.data.date);
+            article.author = contentLib.get({ key: article.data.author });
+            article.author.image = norseUtils.getImage( article.author.data.userImage, 'block(60, 60)' );
+            return article;
         }
 
 

@@ -25,6 +25,12 @@
 		<config>
 		</config>
 	</input>
+  	<input name="weeksPost" type="ContentSelector">
+		<label>Week's post</label>
+		<occurrences minimum="0" maximum="1"/>
+		<config>
+		</config>
+	</input>
   	<input name="userLocation" type="ContentSelector">
 		<label>User location</label>
 		<occurrences minimum="0" maximum="1"/>
