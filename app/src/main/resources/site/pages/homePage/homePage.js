@@ -7,6 +7,7 @@ var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
 var helpers = require('helpers');
+var mailLib = require('/lib/xp/mail');
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -18,16 +19,13 @@ function handleReq(req) {
         var view = resolve('homePage.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
-         // Return the result
         return {
           body: body,
-          //contentType: 'application/json',
           contentType: 'text/html'
         };
     }
 
     function createModel() {
-
         var up = req.params;
         var content = portal.getContent();
         var response = [];

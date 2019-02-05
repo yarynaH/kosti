@@ -67,7 +67,8 @@ function initLoginRegisterForm(){
 function initHomepageSlider(){
 	$('.homepage_slider').slick({
 		dots: true,
-		arrows: false
+		arrows: false,
+		autoplay: true
 	});
 }
 
@@ -93,7 +94,9 @@ function initPDPFunctions(){
 			$('.pdp-validation').addClass('visually-hidden');
 		}
 	});
-	$('.pdp-main_image').zoom({url: pdpImageUrl});
+	if (typeof pdpImageUrl !== 'undefined') {
+		$('.pdp-main_image').zoom({url: pdpImageUrl});
+	}
 }
 
 $( document ).ready(function() {
