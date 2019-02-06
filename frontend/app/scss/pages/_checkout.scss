@@ -94,7 +94,7 @@
                 content: '';
                 width: 32px;
                 height: 39px;
-                background-image: url("https://picsum.photos/200/300/?random");// fix  path ${portal.assetUrl({'_path=images/smal-logo.png'})}
+                background-image: url("../images/smal-logo.png");
             }
         }
     }
@@ -146,5 +146,24 @@
     &-product-list {
         padding-bottom: 50px;
         border-bottom: 1px solid #dedede;
+    }
+}
+
+.promo_code {
+    border-bottom: 1px solid #dedede;
+
+    &-title {
+        padding: 15px 0;
+        color:  #333333;
+        font-weight: bold;
+    }
+    
+    &-field {
+        display: flex;
+        padding-bottom: 15px;
+    }
+    
+    &-btn {
+        margin-left: 10px;
     }
 }
