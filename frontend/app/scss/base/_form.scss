@@ -71,11 +71,27 @@ label {
 .form-group {
     & + & {
         margin-top: 15px;
+
+        .form-group-column & {
+            margin-left: 20px;
+        }
     }
 
     &__action {
         justify-content: space-between;
         display: flex;
         flex-wrap: wrap;
+    }
+
+    &-column {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    
+        .form-group {
+            margin: 0;
+            flex: 0 1 50%;
+        }
     }
 }

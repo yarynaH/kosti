@@ -4,41 +4,112 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body>
-    <main class="comingSoonMain">
-        <div class="comingSoonBackground">
-            <div class="comingSoonWrapper">
-                <div class="comingSoonLogo">
-                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main" style="padding-top: 85px;">
+        <div class="checkout-wrap">
+            <div class="checkout-info">
+                <div class="step-list">
+                    <div class="step-item active">
+                        <!-- <img src="#" data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Vechernie kosti logo"> -->
+                        01 ИНФОРМАЦИЯ</div>
+                    <div class="step-item">02 ДОСТАВКА</div>
+                    <div class="step-item">03 ОПЛАТА</div>
                 </div>
-                <div class="comingSoonText">
-                    <div class="comingSoonTitle" data-th-text="${content.displayName}"></div>
-                    <!--<div id="upvote" data-th-attr="data-id=${content._id}, data-uid=${user._id}">Upvote</div>
-                    <div>Downvote</div>-->
-                    <form id="payment" name="payment" method="post" action="https://sci.interkassa.com/" enctype="utf-8">
-                        <input type="hidden" name="ik_co_id" value="5c1cb5443c1eafde5b8b4567" />
-                        <input type="hidden" name="ik_pm_no" value="ID_4233" />
-                        <input type="hidden" name="ik_am" value="100.00" />
-                        <input type="hidden" name="ik_cur" value="RUB" />
-                        <input type="hidden" name="ik_desc" value="Event Description" />
-                        <input type="submit" value="Pay">
+
+                <div class="checkout-step1">
+                    <h2 class="checkout-title">Ваша информация</h2>
+                    <form action="" class="checkout-form" method="POST">
+                        <div class="form-group-column">
+                            <div class="form-group">
+                                <label for="name-checkout-input" class="label">ИМЯ</label>
+                                <input name="name" type="text" class="input-text" id="name-checkout-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="surname-checkout-input" class="label">ФАМИЛИЯ</label>
+                                <input name="surname" type="text" class="input-text" id="surname-checkout-input">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-address">
+                            <label for="address-checkout-input" class="label">АДРЕС</label>
+                            <input name="address" type="text" class="input-text" id="address-checkout-input">
+                        </div>
+                        <div class="form-group-column">
+                            <div class="form-group">
+                                <label for="country-checkout-select" class="label">СТРАНА</label>
+                                <div class="select-field">
+                                    <select name="size" id="country-checkout-select">
+                                        <option value="Выберите страну" disabled="disabled" selected>Выберите страну</option>
+                                        <option value="Украина">Украина</option>
+                                        <option value="Беларусь">Беларусь</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="city-checkout-input" class="label">ГОРОД</label>
+                                <input name="city" type="text" class="input-text" id="city-checkout-input">
+                            </div>
+                        </div>
+                        <div class="form-group-column">
+                            <div class="form-group">
+                                <label for="zip-checkout-input" class="label">ИНДЕКС</label>
+                                <div class="search-field">
+                                    <input name="zip" type="text" class="input-text search-field-input" id="zip-checkout-input">
+                                    <button class="search-field-btn">НАЙТИ</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
+                                <input name="phone" type="text" class="input-text" id="phone-checkout-input">
+                            </div>
+                        </div>
+                        <div class="checkout-action">
+                            <button class="checkout-back">К покупкам</button>
+                            <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
+                        </div>
                     </form>
-                    <div class="comingSoonDescription">
+                </div>
+            </div>
+            <div class="checkout-summary">
+                <div class="summary-header">
+                    <h2 class="checkout-title">Корзина</h2>
+                    <div class="summary-cart_counter">1</div>
+                </div>
+                <div class="summary-product-list">
+                    <div class="summary-product-item">
+                        <div class="summary-product-img_wrap">
+                            <img src="https://picsum.photos/73/73/?random" alt="">
+                        </div>
+                        <div class="summary-product-info">
+                            <h5 class="summary-product-name">
+                                Эксклюзивная.
+                                Солнце Хранит Тебя.
+                            </h5>
+                            <div class="summary-product-price">₽ 1500</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="comingSoonFooterTexture"></div>
-        <div class="comingSoonSocial">
-            <div class="comingSoonSocialBiggerWrapper">
-                <div class="comingSoonTwitch"><a data-th-href="${social.twitch}" target="_blank" title="Twitch"></a></div>
-                <div class="comingSoonYoutube"><a data-th-href="${social.youtube}" target="_blank" title="YouTube"></a></div>
-                <div class="comingSoonDiscord"><a data-th-href="${social.discord}" target="_blank" title="Discord"></a></div>
-            </div>
-            <div class="comingSoonSocialSmallerWrapper">
-                <div class="comingSoonVk comingSoonSocialSmaller"><a data-th-href="${social.vk}" target="_blank" title="VK"></a></div>
-                <div class="comingSoonFb comingSoonSocialSmaller"><a data-th-href="${social.fb}" target="_blank" title="Facebook"></a></div>
-                <div class="comingSoonTw comingSoonSocialSmaller"><a data-th-href="${social.twitter}" target="_blank" title="Twitter"></a></div>
-                <div class="comingSoonIn comingSoonSocialSmaller"><a data-th-href="${social.instagram}" target="_blank" title="Instagram"></a></div>
+                <div class="summary-promo_cod">
+                    <h5 class="summary-promo_cod-title">
+                        Есть промо-код?
+                    </h5>
+                    <div class="summary-promo_cod-field">
+                        smth
+                    </div>
+                </div>
+                <div class="summary-purchase">
+                    <div class="summary-total">
+                        <span class="label">Товар</span>
+                        <span class="valu">₽ 1500</span>
+                    </div>
+                    <div class="summary-shipping">
+                        <span class="label">Доставка</span>
+                        <span class="valu">Бесплатно</span>
+                    </div>
+                    <div class="summary-subtotal">
+                        <span class="label">Всего</span>
+                        <span class="valu">₽ 1500</span>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

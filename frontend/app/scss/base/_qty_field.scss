@@ -39,10 +39,10 @@
 
 
     &-increment {
-        border-right: 1px solid  $color-primary20;
+        border-left: 1px solid  $color-primary20;
     }
 
     &-decrement {
-        border-left: 1px solid  $color-primary20;
+        border-right: 1px solid  $color-primary20;
     }
 }
