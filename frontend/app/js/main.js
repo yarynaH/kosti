@@ -99,8 +99,20 @@ function initPDPFunctions(){
 	}
 }
 
+function initCheckoutEvents(){
+	$('.checkout-action .checkout-continue').on('click', function(e){
+		$('form.checkout-form input').each(function(){
+			if( $(this).val() == null || $(this).val() == '' ){
+				e.preventDefault();
+				$(this).addClass('is-invalid');
+			}
+		});
+	})
+}
+
 $( document ).ready(function() {
 	initLoginRegisterForm();
 	initHomepageSlider();
 	initPDPFunctions();
+	initCheckoutEvents();
 });

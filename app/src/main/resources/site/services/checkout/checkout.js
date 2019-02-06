@@ -9,10 +9,10 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 exports.post = function( req ) {
 	var params = req.params;
 	if( params.step && params.step == '2' ){
-
-	} else if( params.step && params.step == '3' ){
 	    var view = resolve('stepTwo.html');
 	    var model = createStepTwoModel( params );
+	    norseUtils.log(params);
+	} else if( params.step && params.step == '3' ){
 	} else {
 	    var view = resolve('stepOne.html');
 	    var model = createStepOneModel( params );

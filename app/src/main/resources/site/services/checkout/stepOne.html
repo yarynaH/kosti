@@ -18,7 +18,7 @@
 
                 <div class="checkout-step1">
                     <h2 class="checkout-title">Ваша информация</h2>
-                    <form action="" class="checkout-form" method="POST">
+                    <form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
                         <div class="form-group-column">
                             <div class="form-group">
                                 <label for="name-checkout-input" class="label">ИМЯ</label>
