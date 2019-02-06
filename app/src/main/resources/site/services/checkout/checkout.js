@@ -11,7 +11,6 @@ exports.post = function( req ) {
 	if( params.step && params.step == '2' ){
 	    var view = resolve('stepTwo.html');
 	    var model = createStepTwoModel( params );
-	    norseUtils.log(params);
 	} else if( params.step && params.step == '3' ){
 	} else {
 	    var view = resolve('stepOne.html');
