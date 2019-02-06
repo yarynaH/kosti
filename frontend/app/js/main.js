@@ -89,9 +89,9 @@ function initPDPFunctions(){
 	$('.add_to_cart-btn').on('click', function(e){
 		if(!$('#pdp-size-select').val()){
 			e.preventDefault();
-			$('.pdp-validation').removeClass('visually-hidden');
+			$('.pdp-validation').removeClass('hidden');
 		} else {
-			$('.pdp-validation').addClass('visually-hidden');
+			$('.pdp-validation').addClass('hidden');
 		}
 	});
 	if (typeof pdpImageUrl !== 'undefined') {
