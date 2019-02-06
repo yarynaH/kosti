@@ -1,3 +1,3 @@
-set XP_HOME=D:\projects\enonic\enonic-xp-6.15.5\home
-cd D:\projects\Kosti\app
+set XP_HOME=C:\enonic-xp-6.15.5\home
+cd C:\Web\Kosti\app
 gradlew -t deploy

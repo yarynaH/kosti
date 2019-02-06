@@ -7,6 +7,7 @@ var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
 var helpers = require('helpers');
+var kostiUtils = require('kostiUtils');
 
 exports.get = handleReq;
 exports.post = handleReq;
