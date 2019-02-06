@@ -8,12 +8,12 @@
     <main class="main" style="padding-top: 85px;">
         <div class="checkout-wrap">
             <div class="checkout-info">
-                <div class="step-list">
-                    <div class="step-item active">
+                <div class="step-list step-list-two">
+                    <div class="step-item step-item-info active">
                         <!-- <img src="#" data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Vechernie kosti logo"> -->
                         01 ИНФОРМАЦИЯ</div>
-                    <div class="step-item">02 ДОСТАВКА</div>
-                    <div class="step-item">03 ОПЛАТА</div>
+                    <div class="step-item step-item-shipping">02 ДОСТАВКА</div>
+                    <div class="step-item step-item-payment">03 ОПЛАТА</div>
                 </div>
 
                 <div class="checkout-step1">
@@ -52,11 +52,8 @@
                         </div>
                         <div class="form-group-column">
                             <div class="form-group">
-                                <label for="zip-checkout-input" class="label">ИНДЕКС</label>
-                                <div class="search-field">
-                                    <input name="zip" type="text" class="input-text search-field-input" id="zip-checkout-input">
-                                    <button class="search-field-btn">НАЙТИ</button>
-                                </div>
+                                <label for="email-checkout-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+                                <input name="email" type="email" class="input-text" id="email-checkout-input">
                             </div>
                             <div class="form-group">
                                 <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
@@ -89,7 +86,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="promo_code">
+                <div class="promo_code hidden">
                     <h5 class="promo_code-title">
                         Есть промо-код?
                     </h5>

@@ -29,53 +29,62 @@
     @if $filename == add {
         $char: "\F120";
     }
-    @if $filename == bell-notification {
+    @if $filename == arrow {
         $char: "\F121";
     }
-    @if $filename == bookmark {
+    @if $filename == back-arrow {
         $char: "\F122";
     }
-    @if $filename == comment {
+    @if $filename == bell-notification {
         $char: "\F123";
     }
-    @if $filename == fb {
+    @if $filename == bookmark {
         $char: "\F124";
     }
-    @if $filename == fire {
+    @if $filename == comment {
         $char: "\F125";
     }
-    @if $filename == instagram {
+    @if $filename == fb {
         $char: "\F126";
     }
-    @if $filename == network {
+    @if $filename == fire {
         $char: "\F127";
     }
-    @if $filename == rock {
+    @if $filename == google {
         $char: "\F128";
     }
-    @if $filename == search {
+    @if $filename == guest {
         $char: "\F129";
     }
-    @if $filename == searh {
+    @if $filename == instagram {
         $char: "\F12A";
     }
-    @if $filename == share {
+    @if $filename == network {
         $char: "\F12B";
     }
-    @if $filename == twitch {
+    @if $filename == rock {
         $char: "\F12C";
     }
-    @if $filename == twitter {
+    @if $filename == search {
         $char: "\F12D";
     }
-    @if $filename == views {
+    @if $filename == share {
         $char: "\F12E";
     }
-    @if $filename == vk {
+    @if $filename == twitch {
         $char: "\F12F";
     }
-    @if $filename == youtube {
+    @if $filename == twitter {
         $char: "\F130";
+    }
+    @if $filename == views {
+        $char: "\F131";
+    }
+    @if $filename == vk {
+        $char: "\F132";
+    }
+    @if $filename == youtube {
+        $char: "\F133";
     }
 
     @return $char;
@@ -101,16 +110,19 @@ category: Basic
 
 ```html
     <div class="sg-icon icon-add" title="add"></div>
+    <div class="sg-icon icon-arrow" title="arrow"></div>
+    <div class="sg-icon icon-back-arrow" title="back-arrow"></div>
     <div class="sg-icon icon-bell-notification" title="bell-notification"></div>
     <div class="sg-icon icon-bookmark" title="bookmark"></div>
     <div class="sg-icon icon-comment" title="comment"></div>
     <div class="sg-icon icon-fb" title="fb"></div>
     <div class="sg-icon icon-fire" title="fire"></div>
+    <div class="sg-icon icon-google" title="google"></div>
+    <div class="sg-icon icon-guest" title="guest"></div>
     <div class="sg-icon icon-instagram" title="instagram"></div>
     <div class="sg-icon icon-network" title="network"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
-    <div class="sg-icon icon-searh" title="searh"></div>
     <div class="sg-icon icon-share" title="share"></div>
     <div class="sg-icon icon-twitch" title="twitch"></div>
     <div class="sg-icon icon-twitter" title="twitter"></div>
@@ -122,6 +134,12 @@ category: Basic
 
 .icon-add {
     @include icon(add);
+}
+.icon-arrow {
+    @include icon(arrow);
+}
+.icon-back-arrow {
+    @include icon(back-arrow);
 }
 .icon-bell-notification {
     @include icon(bell-notification);
@@ -138,6 +156,12 @@ category: Basic
 .icon-fire {
     @include icon(fire);
 }
+.icon-google {
+    @include icon(google);
+}
+.icon-guest {
+    @include icon(guest);
+}
 .icon-instagram {
     @include icon(instagram);
 }
@@ -149,9 +173,6 @@ category: Basic
 }
 .icon-search {
     @include icon(search);
-}
-.icon-searh {
-    @include icon(searh);
 }
 .icon-share {
     @include icon(share);
@@ -170,4 +191,4 @@ category: Basic
 }
 .icon-youtube {
     @include icon(youtube);
-}
+}
