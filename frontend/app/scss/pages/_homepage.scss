@@ -202,7 +202,6 @@
 
 .post {
     padding: 25px 30px 15px;
-    border-bottom: 1px solid $color-primary14;
 
     &-user_name {
         color: $color-primary15;
@@ -246,6 +245,7 @@
     }
 
     &-footer {
+        border-top: 1px solid $color-primary14;
         color: $color-primary12;
         padding: 25px 30px;
         display: flex;
