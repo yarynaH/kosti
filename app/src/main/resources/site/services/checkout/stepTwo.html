@@ -16,8 +16,17 @@
                         <div class="step-item step-item-shipping active">02 ДОСТАВКА</div>
                         <div class="step-item step-item-payment">03 ОПЛАТА</div>
                     </div>
-                    <div class="checkout-step1">
+                    <div class="checkout-step">
                         <h2 class="checkout-title">Ваша информация</h2>
+                        <form class="checkout-form" method="POST">
+                            <div class="checkout-action">
+                                <button class="checkout-back">К покупкам</button>
+                                <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
+                            </div>
+                            <input name="total" type="hidden" data-th-attr="value = ${total}">
+                            <input name="productId" type="hidden" data-th-attr="value = ${productId}">
+                            <input name="step" type="hidden" value="2">
+                        </form>
                     </div>
 
                 </div>
