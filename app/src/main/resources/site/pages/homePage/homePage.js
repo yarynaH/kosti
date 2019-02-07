@@ -103,7 +103,6 @@ function handleReq(req) {
             article.author = contentLib.get({ key: article.data.author });
             article.author.image = norseUtils.getImage( article.author.data.userImage, 'block(60, 60)' );
             article.date = kostiUtils.getTimePassedSincePostCreation(article.data.date);
-            norseUtils.log(article.data.date);
             return article;
         }
 
