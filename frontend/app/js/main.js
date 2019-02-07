@@ -75,9 +75,9 @@ function initHomepageSlider(){
 function initHomepageFunction(){
 	$(document).on('scroll', function(){
 		if( $(document).scrollTop() > 85 ){
-			$('header').addClass('header-scroll');
+			$('.homepage header').addClass('header-scroll');
 		} else {
-			$('header').removeClass('header-scroll');
+			$('.homepage header').removeClass('header-scroll');
 		}
 	});
 }
