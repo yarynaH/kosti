@@ -72,6 +72,16 @@ function initHomepageSlider(){
 	});
 }
 
+function initHomepageFunction(){
+	$(document).on('scroll', function(){
+		if( $(document).scrollTop() > 85 ){
+			$('header').addClass('header-scroll');
+		} else {
+			$('header').removeClass('header-scroll');
+		}
+	});
+}
+
 function initPDPFunctions(){
 	$('.qty-decrement').on('click', function(){
 		$('.qty-input').val(Math.max(parseInt($('.qty-input').val()) - 1, 1));
@@ -115,4 +125,5 @@ $( document ).ready(function() {
 	initHomepageSlider();
 	initPDPFunctions();
 	initCheckoutEvents();
+	initHomepageFunction();
 });
