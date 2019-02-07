@@ -1,14 +1,28 @@
 <h2 class="checkout-title">Адрес доставки</h2>
 <div class="delivery-address">
     <div class="delivery-shipto">
-        <p>Станислав Кальчук</p>
-        <p>ул. Дерибасовская 109 / 19а</p>
-        <p>Одесса</p>
-        <p>01928</p>
-        <p>Tel:  050 937 1903</p>
+        <div class="shipto-info">
+            <p>Станислав Кальчук</p>
+            <p>ул. Дерибасовская 109 / 19а</p>
+            <p>Одесса</p>
+            <p>01928</p>
+            <p>Tel:  050 937 1903</p>
+        </div>
+        <div class="shipto-actions">
+            <a href="#" class="shipto-link">Изменить</a>
+            <a href="#" class="shipto-link hidden">Добавить</a>
+        </div>
+    </div>
+    <div class="delivery-map">
+        <img src="https://picsum.photos/260/230/?random" alt="">
     </div>
 </div>
+<h2 class="checkout-title">Метод доставки</h2>
 <form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
+    <div class="form-group">
+        <label for="delivery-method-input" class="label">способ доставки</label>
+        <input name="delivery-method" type="text" class="input-text" id="delivery-method-input">
+    </div>
     <div class="checkout-action">
         <button class="checkout-back">К покупкам</button>
         <button class="checkout-continue">ПРОДОЛЖИТЬ</button>

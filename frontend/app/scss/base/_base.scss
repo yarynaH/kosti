@@ -26,6 +26,15 @@ a {
     outline:none;
 }
 
+a {
+    color: $color-primary22;
+    font-weight: bold;
+
+    &:hover {
+        opacity: 0.8; 
+    }
+}
+
 .site_width {
     margin: 0 auto;
     max-width: 1280px;
