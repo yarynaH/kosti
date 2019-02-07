@@ -1,125 +1,52 @@
-<!DOCTYPE html>
-<html>
-
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body>
-    <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main">
-        <div class="checkout-wrap">
-            <div class="site_width">
-                <div class="checkout-info">
-                    <div class="step-list step-list-two">
-                        <div class="step-item step-item-info active">
-                            <!-- <img src="#" data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Vechernie kosti logo"> -->
-                            01 ИНФОРМАЦИЯ</div>
-                        <div class="step-item step-item-shipping">02 ДОСТАВКА</div>
-                        <div class="step-item step-item-payment">03 ОПЛАТА</div>
-                    </div>
-
-                    <div class="checkout-step">
-                        <h2 class="checkout-title">Ваша информация</h2>
-                        <form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
-                            <div class="form-group-column">
-                                <div class="form-group">
-                                    <label for="name-checkout-input" class="label">ИМЯ</label>
-                                    <input name="name" type="text" class="input-text" id="name-checkout-input">
-                                </div>
-                                <div class="form-group">
-                                    <label for="surname-checkout-input" class="label">ФАМИЛИЯ</label>
-                                    <input name="surname" type="text" class="input-text" id="surname-checkout-input">
-                                </div>
-                            </div>
-                            <div class="form-group form-group-address">
-                                <label for="address-checkout-input" class="label">АДРЕС</label>
-                                <input name="address" type="text" class="input-text" id="address-checkout-input">
-                            </div>
-                            <div class="form-group-column">
-                                <div class="form-group">
-                                    <label for="country-checkout-select" class="label">СТРАНА</label>
-                                    <div class="select-field">
-                                        <select name="country" id="country-checkout-select">
-                                            <option value="Выберите страну" disabled="disabled" selected>Выберите страну</option>
-                                            <option value="ua">Украина</option>
-                                            <option value="by">Беларусь</option>
-                                            <option value="ru">Россия</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="city-checkout-input" class="label">ГОРОД</label>
-                                    <input name="city" type="text" class="input-text" id="city-checkout-input">
-                                </div>
-                            </div>
-                            <div class="form-group-column">
-                                <div class="form-group">
-                                    <label for="email-checkout-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                                    <input name="email" type="email" class="input-text" id="email-checkout-input">
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
-                                    <input name="phone" type="text" class="input-text" id="phone-checkout-input">
-                                </div>
-                            </div>
-                            <div class="checkout-action">
-                                <button class="checkout-back">К покупкам</button>
-                                <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
-                            </div>
-                            <input name="total" type="hidden" data-th-attr="value = ${total}">
-                            <input name="productId" type="hidden" data-th-attr="value = ${productId}">
-                            <input name="quantity" type="hidden" data-th-attr="value = ${quantity}">
-                            <input name="step" type="hidden" value="2">
-                        </form>
-                    </div>
-                </div>
-                <div class="checkout-summary">
-                    <div class="summary-header">
-                        <h2 class="checkout-title">Корзина</h2>
-                        <div class="summary-cart_counter" data-th-text="${cartProductsTotal}"></div>
-                    </div>
-                    <div class="summary-product-list">
-                        <div class="summary-product-item">
-                            <div class="summary-product-img_wrap">
-                                <img data-th-src="${product.image.url}" alt="">
-                            </div>
-                            <div class="summary-product-info">
-                                <h5 class="summary-product-name" data-th-text="${product.displayName}"></h5>
-                                <div class="summary-product-price">₽ <span data-th-text="${product.data.price}"></span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="promo_code hidden">
-                        <h5 class="promo_code-title">
-                            Есть промо-код?
-                        </h5>
-                        <div class="promo_code-field">
-                            <input name="promo_code" type="text" class="input-text" id="promo_code-input">
-                            <button class="promo_code-btn">ok</button>
-                        </div>
-                    </div>
-                    <div class="summary-purchase">
-                        <div class="summary-total">
-                            <span class="label">Товар</span>
-                            <span class="value">₽ <span data-th-text="${productsTotal}"></span></span>
-                        </div>
-                        <div class="summary-shipping">
-                            <span class="label">Доставка</span>
-                            <span class="value">Бесплатно</span>
-                        </div>
-                        <div class="summary-discount">
-                            <span class="label">Доставка</span>
-                            <span class="value">₽ 200</span>
-                        </div>
-                        <div class="summary-subtotal">
-                            <span class="label">Всего</span>
-                            <span class="value">₽ <span data-th-text="${total}"></span></span>
-                        </div>
-                    </div>
-                </div>
+<h2 class="checkout-title">Ваша информация</h2>
+<form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
+    <div class="form-group-column">
+        <div class="form-group">
+            <label for="name-checkout-input" class="label">ИМЯ</label>
+            <input name="name" type="text" class="input-text" id="name-checkout-input">
+        </div>
+        <div class="form-group">
+            <label for="surname-checkout-input" class="label">ФАМИЛИЯ</label>
+            <input name="surname" type="text" class="input-text" id="surname-checkout-input">
+        </div>
+    </div>
+    <div class="form-group form-group-address">
+        <label for="address-checkout-input" class="label">АДРЕС</label>
+        <input name="address" type="text" class="input-text" id="address-checkout-input">
+    </div>
+    <div class="form-group-column">
+        <div class="form-group">
+            <label for="country-checkout-select" class="label">СТРАНА</label>
+            <div class="select-field">
+                <select name="country" id="country-checkout-select">
+                    <option value="Выберите страну" disabled="disabled" selected>Выберите страну</option>
+                    <option value="ua">Украина</option>
+                    <option value="by">Беларусь</option>
+                    <option value="ru">Россия</option>
+                </select>
             </div>
         </div>
-    </main>
-    <footer data-th-utext="${pageComponents.footer}"></footer>
-</body>
-
-</html>
+        <div class="form-group">
+            <label for="city-checkout-input" class="label">ГОРОД</label>
+            <input name="city" type="text" class="input-text" id="city-checkout-input">
+        </div>
+    </div>
+    <div class="form-group-column">
+        <div class="form-group">
+            <label for="email-checkout-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+            <input name="email" type="email" class="input-text" id="email-checkout-input">
+        </div>
+        <div class="form-group">
+            <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
+            <input name="phone" type="text" class="input-text" id="phone-checkout-input">
+        </div>
+    </div>
+    <div class="checkout-action">
+        <button class="checkout-back">К покупкам</button>
+        <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
+    </div>
+    <input name="total" type="hidden" data-th-attr="value = ${total}">
+    <input name="productId" type="hidden" data-th-attr="value = ${productId}">
+    <input name="quantity" type="hidden" data-th-attr="value = ${quantity}">
+    <input name="step" type="hidden" value="2">
+</form>
