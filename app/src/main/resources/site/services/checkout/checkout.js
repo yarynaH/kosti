@@ -30,13 +30,21 @@ exports.post = function( req ) {
         	total: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
         	productsTotal: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
             pageComponents: helpers.getPageComponents(req),
+            quantity: params.quantity,
             product: product
         };
     }
 
     function createStepTwoModel( params ){
+        var product = contentLib.get({ key: params.productId });
+        product.image = norseUtils.getImage( product.data.mainImage, 'block(73, 73)' );
         return {
-            pageComponents: helpers.getPageComponents(req)
+            pageComponents: helpers.getPageComponents(req),
+            cartProductsTotal: params.quantity,
+            product: product,
+            total: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
+            productsTotal: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
+            productId: params.productId
         };
     }
 };

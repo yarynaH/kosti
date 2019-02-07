@@ -31,6 +31,48 @@
 
                 </div>
                 <div class="checkout-summary">
+                    <div class="summary-header">
+                        <h2 class="checkout-title">Корзина</h2>
+                        <div class="summary-cart_counter" data-th-text="${cartProductsTotal}"></div>
+                    </div>
+                    <div class="summary-product-list">
+                        <div class="summary-product-item">
+                            <div class="summary-product-img_wrap">
+                                <img data-th-src="${product.image.url}" alt="">
+                            </div>
+                            <div class="summary-product-info">
+                                <h5 class="summary-product-name" data-th-text="${product.displayName}"></h5>
+                                <div class="summary-product-price">₽ <span data-th-text="${product.data.price}"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="promo_code hidden">
+                        <h5 class="promo_code-title">
+                            Есть промо-код?
+                        </h5>
+                        <div class="promo_code-field">
+                            <input name="promo_code" type="text" class="input-text" id="promo_code-input">
+                            <button class="promo_code-btn">ok</button>
+                        </div>
+                    </div>
+                    <div class="summary-purchase">
+                        <div class="summary-total">
+                            <span class="label">Товар</span>
+                            <span class="value">₽ <span data-th-text="${productsTotal}"></span></span>
+                        </div>
+                        <div class="summary-shipping">
+                            <span class="label">Доставка</span>
+                            <span class="value">Бесплатно</span>
+                        </div>
+                        <div class="summary-discount">
+                            <span class="label">Доставка</span>
+                            <span class="value">₽ 200</span>
+                        </div>
+                        <div class="summary-subtotal">
+                            <span class="label">Всего</span>
+                            <span class="value">₽ <span data-th-text="${total}"></span></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
