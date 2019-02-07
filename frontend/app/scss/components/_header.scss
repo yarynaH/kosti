@@ -4,6 +4,7 @@
     width: 100%;
     color: $color-primary26;
     background-image: url(https://picsum.photos/2000/300/?blur);
+    height: 85px;
 
     &:after {
         height: 2px;
@@ -107,4 +108,8 @@
         font-weight: bold;
         color: $color-primary9;
     }
+}
+
+.main {
+    padding-top: 85px;
 }

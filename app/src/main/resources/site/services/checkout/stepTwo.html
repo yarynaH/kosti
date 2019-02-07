@@ -5,7 +5,26 @@
 
 <body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main" style="padding-top: 85px;">
+    <main class="main">
+        <div class="checkout-wrap">
+            <div class="site_width">
+                <div class="checkout-info">
+                    <div class="step-list step-list-two">
+                        <div class="step-item step-item-info">
+                            <!-- <img src="#" data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Vechernie kosti logo"> -->
+                            01 ИНФОРМАЦИЯ</div>
+                        <div class="step-item step-item-shipping active">02 ДОСТАВКА</div>
+                        <div class="step-item step-item-payment">03 ОПЛАТА</div>
+                    </div>
+                    <div class="checkout-step1">
+                        <h2 class="checkout-title">Ваша информация</h2>
+                    </div>
+
+                </div>
+                <div class="checkout-summary">
+                </div>
+            </div>
+        </div>
     </main>
     <footer data-th-utext="${pageComponents.footer}"></footer>
 </body>

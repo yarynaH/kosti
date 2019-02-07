@@ -3,6 +3,7 @@
         display: flex;
         align-items: stretch;
         justify-content: center;
+        background: $color-primary1;
 
         &:after,
         &:before {
@@ -17,13 +18,20 @@
         &:after {
             background: $color-primary26;
         }
+
+        .site_width {
+            flex: 1 0 100%;
+            display: flex;
+            padding: 0;
+            justify-content: space-between;
+        }
     }
 
     &-info {
         background: $color-primary1;
         flex: 1 0 71%;
-        max-width: 970px;
-        padding: 65px 7% 140px;
+        max-width: 900px;
+        padding: 65px 9% 140px 20px;
 
         .form-group-address {
             margin-bottom: 30px;
@@ -64,8 +72,8 @@
     &-summary {
         background: $color-primary26;
         flex: 1 0 29%;
-        max-width: 390px;
-        padding: 65px 2.5% 0;
+        max-width: 360px;
+        padding: 65px 20px 0 4%;
     }
 }
 

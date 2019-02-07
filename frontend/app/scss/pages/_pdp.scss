@@ -1,6 +1,6 @@
 .pdp {
     background-color: $color-primary26;
-    padding-top: 125px;
+    padding-top: 40px;
 
     &-top {
         @include tablet-all() {
@@ -112,6 +112,12 @@
     }
 
     &-qty-field {
+        margin-bottom: 15px;
+    }
+
+    &-validation {
+        font-weight: bold;
+        color: $color-primary32;
         margin-bottom: 15px;
     }
 }
