@@ -80,7 +80,8 @@
                             </div>
                             <div class="pdp-validation hidden">Выбери размер!</div>
                             <button class="add_to_cart-btn">В КОРЗИНУ</button>
-                            <input name="price" type="hidden" class="qty-input" data-th-attr="value=${content.data.price}">
+                            <input name="price" type="hidden" data-th-attr="value=${content.data.price}">
+                            <input name="productId" type="hidden" data-th-attr="value=${content._id}">
                         </form>
                         <div class="pdp-description" data-th-utext="${content.data.description}">
                         </div>
