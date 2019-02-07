@@ -67,5 +67,6 @@ gulp.task('iconfont', function(){
 });
 
 gulp.task('watch', function(){
+	gulp.start('build');
 	gulp.watch('app/**/*', ['build']);
 });

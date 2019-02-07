@@ -1,16 +1,15 @@
 
 input,
 select,
-textarea {
-    height: 40px;
+textarea { 
+    height: 56px;
+    width: 100%;
     border-radius: 4px;
     background-color: $color-primary1;
-    box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5);
     font-size: rem(14);
-    line-height: 40px;
-    color: $color-primary6;
+    line-height: 56px;
     padding: 0 15px;
-    border: 1px solid transparent;
+    border: 1px solid $color-primary20;
 
     &:focus{
         box-shadow: 0 4px 16px 0 rgba(25, 122, 173, 0.5);
@@ -34,4 +33,65 @@ textarea {
 textarea {
     min-width: 100%;
     min-height: 45px;
+}
+
+input,
+textarea {
+    color: $color-primary6;
+}
+
+.select-field {
+    position: relative;
+
+    &:after{
+        @include border-triangle(bottom, 4px, 6px, $color-primary29);
+        @include position(absolute, top 50% right 15px)
+
+        content: '';
+        margin-top: -4px;
+        pointer-events: none;
+    }
+}
+
+select {
+    color: $color-primary28;
+    -webkit-appearance: none;
+    padding-right: 25px;
+    cursor: pointer;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: $color-primary12;
+    font-size: rem(12);
+    text-transform: uppercase;
+}
+
+.form-group {
+    & + & {
+        margin-top: 15px;
+
+        .form-group-column & {
+            margin-left: 20px;
+        }
+    }
+
+    &__action {
+        justify-content: space-between;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &-column {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    
+        .form-group {
+            margin: 0;
+            flex: 0 1 50%;
+        }
+    }
 }

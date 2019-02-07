@@ -1,5 +1,5 @@
 $color-primary1     : #ffffff;
-$color-primary2     : #160d1d;
+$color-primary2     : #160d1d; //#1b2125
 $color-primary3     : #197aad;
 $color-primary4     : #de4225;
 $color-primary5     : #de3825;
@@ -17,14 +17,38 @@ $color-primary16    : #505050;
 $color-primary17    : #1d1f24;
 $color-primary18    : #4a90e2;
 $color-primary19    : #f5a623;
+$color-primary20    : #dde3e8; //#dedede
+$color-primary21    : #000000;
+$color-primary22    : #0095f8;
+$color-primary23    : #da3319;
+$color-primary24    : #eb4930;
+$color-primary25    : #cccccc;
+$color-primary26    : #fbfbfb;
+$color-primary27    : #dd361d;
+$color-primary28    : #707070;
+$color-primary29    : #555555;
+$color-primary30    : #929292;
+$color-primary31    : #f3f3f3;
+
+///
+///Social colors
+///
+
+$color-facebook     : #4460a0;
+$color-vk           : #006df0;
+$color-twitter      : #00aaec;
+$color-youtube      : #ce1312;
+$color-instagram    : #275a85;
+$color-twitch       : #673ab7;
+$color-google       : #afafaf;
+
 
 
 
 
 $font-main-regular  : 'Roboto', Arial;
 
-$body-font-size     : 20;
-$body-font-size-rem : 1rem;
+$body-font-size     : 14;
 $body-font-weight   : 300;
 $body-letter-spacing: 0.005em;
 $body-line-height   : 1.25rem;
@@ -38,8 +62,9 @@ $space-xxl  : 50px;
 
 
 
+///
 // Primary Breakpoints (values)
-//----------------------------------------------------------------------
+///
 
 $breakpoint-mobile-small-max        : 320px;
 $breakpoint-mobile-min              : $breakpoint-mobile-small-max + 1;
@@ -69,8 +94,9 @@ $mobile1                : "only screen and (max-width : #{$breakpoint-mobile-max
 $mobile1-landscape      : "only screen and (min-width : #{$breakpoint-mobile-min})";
 $mobile-portrait        : "only screen and (max-width : #{$breakpoint-mobile-small-max})";
 
+///
 // Current Breakpoints assignment
-//----------------------------------------------------------------------
+///
 
 $desktop                : $desktop1;
 $desktop-main           : $desktop-main1;
@@ -88,3 +114,10 @@ $tablet-mobile          : $tablet-mobile1;
 $mobile                 : $mobile1;
 $mobile-landscape       : $mobile1-landscape;
 $mobile-portrait        : $mobile-portrait;
+
+///
+/// Transition duration
+///
+/// @type Number
+///
+$transitionDuration: 0.2s;

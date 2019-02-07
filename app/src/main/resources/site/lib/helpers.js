@@ -16,18 +16,26 @@ exports.getPageComponents = function( req ) {
   var siteConfig = portal.getSiteConfig();
   var content = portal.getContent();
 
+  var userServiceUrl = portal.serviceUrl({
+    service: 'user'
+  });
+
   pageComponents['pagehead'] = thymeleaf.render( resolve('../pages/components/head.html'), {
     siteConfig: siteConfig,
     content: content,
     site: site
   });
 
+  pageComponents['loginRegisterModal'] = thymeleaf.render( resolve('../pages/components/loginRegisterModal.html'), {});
+
   pageComponents['header'] = thymeleaf.render( resolve('../pages/components/header.html'), {
     menuItems: getMenuItems(),
     site: site,
     user: userLib.getCurrentUser()
   });
-  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {});
+  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {
+    userServiceUrl: userServiceUrl
+  });
 
   function getMenuItems() {
     var result = [];
@@ -42,7 +50,6 @@ exports.getPageComponents = function( req ) {
         } );
       });
     }
-    //libs.norseUtils.log( result );
     return result;
   }
 

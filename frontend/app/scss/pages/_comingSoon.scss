@@ -72,12 +72,35 @@
 	}
 
 	.comingSoonInput{
+		height: 40px;
+		border-radius: 4px;
+		background-color: $color-primary1;
+		box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5);
+		font-size: rem(14);
+		line-height: 40px;
+		color: $color-primary6;
+		padding: 0 15px;
+		border: 1px solid transparent;
 		width: 240px;
 	}
 
 	.comingSoonButton {
+		height: 40px;
+		background-color: $color-primary4;
+		box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5);
+
 		@media only screen and (min-width: $breakpoint-mobile-max) {
 			margin-left: 15px;
+		}
+		
+		&:hover {
+			box-shadow: 0 4px 16px 0 rgba(165, 36, 20, 0.5);
+			background-color: $color-primary5;
+		}
+	
+		&:active,
+		&:focus {
+			box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.5);
 		}
 	}
 }

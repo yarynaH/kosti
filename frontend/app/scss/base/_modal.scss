@@ -1,0 +1,66 @@
+.modal {
+    @include position(fixed, top 0 right 0 bottom 0 left 0);
+
+    background-color: rgba($color-primary21, 0.3);
+    z-index: 99;
+    display: none;
+    opacity: 0;
+    overflow: hidden;
+    transition: transition(opacity);
+
+    &.show {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+    }
+
+    &-dialog {
+        max-width: 380px;
+        width: calc(100% - 20px);
+        max-height: 100%;
+        overflow: auto;
+        background-color: $color-primary1;
+        transform: scale(0.8);
+        transition: transition(transform);
+        will-change: transform;
+
+        .show & {
+            transform: scale(1);
+        }
+    }
+
+    &-title {
+        font-size: rem(24);
+        font-weight: bold;
+        color: $color-primary17;
+    }
+
+    &-action {
+        font-size: rem(14);
+        font-weight: bold;
+        color: $color-primary22;
+    }
+
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding: 40px 40px 0;
+    }
+
+    &-body {
+        padding: 0 40px;
+    }
+
+    &-footer {
+        padding: 0 40px 40px;
+    }
+
+    &-btn {
+        @include button-style(global light);
+
+        margin: 15px 0 40px;
+    }
+}

@@ -5,6 +5,7 @@
 @import 'utilities/variables';
 @import 'utilities/extends';
 @import 'utilities/mixins';
+@import 'utilities/helpers';
 @import 'utilities/mediaQuery';
 
 
@@ -12,8 +13,18 @@
 @import "base/form";
 @import 'base/typography';
 @import 'base/buttons';
+@import 'base/modal';
+@import 'base/qty_field';
+@import 'base/slick_slider';
+@import 'base/search_field';
 
 @import 'components/header';
+@import 'components/tags';
+@import 'components/social';
+@import 'components/social_login';
 
 @import 'pages/homepage';
 @import 'pages/comingSoon';
+@import 'pages/pdp';
+@import 'pages/checkout';
+

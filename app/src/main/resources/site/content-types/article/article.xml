@@ -3,7 +3,7 @@
   <display-name>Article</display-name>
   <super-type>base:structured</super-type>
   <form>
-    <input name="mainImage" type="ImageSelector">
+    <input name="image" type="ImageSelector">
       <label>Main image</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
@@ -21,11 +21,11 @@
         <include>alignleft alignright | bold italic</include>
       </config>
     </input>
-    <input name="data" type="Date">
+    <input name="date" type="Date">
       <label>Date</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
-    <input name="name" type="ContentSelector">
+    <input name="author" type="ContentSelector">
       <label>Author</label>
       <occurrences minimum="1" maximum="1"/>
       <config>

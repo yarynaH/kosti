@@ -6,3 +6,4 @@ app/build/*
 app/.gradle/*
 app/.xp/*
 app/src/main/resources/site/assets/*
+deploy.bat

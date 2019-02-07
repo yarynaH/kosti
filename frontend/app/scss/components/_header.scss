@@ -1,7 +1,9 @@
 .header {
-    // position: fixed;
+    position: fixed;
     z-index: 11;
     width: 100%;
+    color: $color-primary26;
+    background-image: url(https://picsum.photos/2000/300/?blur);
 
     &:after {
         height: 2px;
@@ -15,7 +17,8 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        padding: 25px 0;
+        padding-top: 15px;
+        padding-bottom: 15px;
     }
 
     &-logo {
@@ -64,6 +67,7 @@
         font-size: rem(14);
         font-weight: bold;
         color: $color-primary8;
+        transition: transition(color);
 
         &:hover,
         &_active {
@@ -80,6 +84,27 @@
 
 .notification {
     &-icon {
-        @include icon(notification);
+        @include icon(bell-notification);
+    }
+}
+
+.guest {
+    &-btn {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.8;
+            transition: transition(opacity);
+        }
+    }
+
+    &-icon {
+        @include icon(share);
+    }
+
+    &-login {
+        font-size: rem(14);
+        font-weight: bold;
+        color: $color-primary9;
     }
 }

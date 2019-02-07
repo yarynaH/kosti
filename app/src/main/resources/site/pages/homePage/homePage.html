@@ -4,11 +4,33 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body>
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <div class="homepage_slider">
-        <div>your content</div>
-        <div>your content</div>
-        <div>your content</div>
+        <div data-th-each="slide: ${slider}">
+            <div class="slick-img_wrap">
+                <img src="" data-th-src="${slide.image.url}" alt="" class="slick-img">
+            </div>
+            <div class="slick-content blog_width">
+                <div class="post-info">
+                    <span class="post-user_avatar">
+                        <img data-th-src="${slide.author.image.url}" alt="">
+                    </span>
+                    <span class="post-user_name" data-th-text="${slide.author.displayName}"></span>
+                    <span class="post-date" data-th-text="${slide.date}"></span>
+                </div>
+                <h2 class="slick-title" data-th-text="${slide.displayName}"></h2>
+                <div class="slick-caption" data-th-utext="${slide.data.shortIntro}"></div>
+                <div class="slick-action">
+                    <button class="slick-read_btn">ЧИТАТЬ</button>
+                    <button class="slick-add_to_bookmarks_btn">В ЗАКЛАДКИ</button>
+                    <a href="#" class="like-btn icon-rock active">
+                        <span>116</span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     <main class="main">
         <div class="latest_news">
@@ -30,7 +52,7 @@
                         <h3 class="schedule-title" data-th-text="${scheduleItem.displayName}">
                             Дело Кобольдское 
                         </h3>
-                        <div class="tag-list">
+                        <div class="tag-list tag-list__small hidden">
                             <a href="#" class="tag-item">D&D</a>
                             <a href="#" class="tag-item">5e</a>
                         </div>
@@ -42,77 +64,47 @@
             <div class="blog blog_width clearfix">
                 <div class="blog-navigation">
                     <a href="#" class="hotter-btn active">Горячее</a>
-                    <a href="#" class="fresher-btn">Свежее</a>
-                    <a href="#" class="bookmarks-btn">Закладочки</a>
+                    <a href="#" class="fresher-btn hidden">Свежее</a>
+                    <a href="#" class="bookmarks-btn hidden">Закладочки</a>
                 </div>
                 <div class="blog-list">
-                    <div class="blog-item">
+                    <div data-th-each="article: ${articles}" class="blog-item">
                         <div class="post-image_wrap">
-                            <img src="https://picsum.photos/620/240/?random" alt="">
+                            <img data-th-src="${article.image.url}" alt="">
                         </div>
                         <div class="post">
                             <div class="post-info">
                                 <span class="post-user_avatar">
-                                    <img src="https://picsum.photos/24/24/?random" alt="">
+                                    <img data-th-src="${article.author.image.url}" alt="">
                                 </span>
-                                <span class="post-user_name">Степан</span>
+                                <span class="post-user_name" data-th-text="${article.author.displayName}"></span>
                                 <span class="post-date">1 день назад</span>
                             </div>
-                            <h2 class="post-title">Свежая рецензия на Vampire the Masquerade V5</h2>
-                            <div class="post-text">Со дня выхода пятой редакции «Вампиров: Маскарад» прошло уже достаточно времени, чтобы все желающие вполне могли с ней ознакомиться. Особенного интереса у русскоязычных ролевиков она не вызвала. А зря! Благодаря…</div>
-                            <div class="tag-list">
+                            <h2 class="post-title" data-th-text="${article.displayName}"></h2>
+                            <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
+                            <div class="tag-list hidden">
                                 <a href="#" class="tag-item">WoD</a>
                                 <a href="#" class="tag-item">V5</a>
                                 <a href="#" class="tag-item">VtM</a>
                             </div>
                         </div>
-                        <div class="post-footer">
+                        <div class="post-footer hidden">
                             <div class="post-counters">
-                                <span class="share-counter icon-repost">245</span>
+                                <span class="share-counter icon-share">245</span>
                                 <span class="views-counter icon-views">314</span>
-                                <span class="comments-counter icon-comments">12</span>
+                                <span class="comments-counter icon-comment">12</span>
                             </div>
-                            <div class="post-actions">
-                                <span class="add_to_bookmarks-btn icon-bookmarks">bookmars</span>
-                                <span class="like-btn icon-burn-tags active">116</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-item">
-                        <div class="post-image_wrap">
-                            <img src="https://picsum.photos/620/240/?random" alt="">
-                        </div>
-                        <div class="post">
-                            <div class="post-info">
-                                <span class="post-user_avatar">
-                                    <img src="https://picsum.photos/24/24/?random" alt="">
-                                </span>
-                                <span class="post-user_name">Степан</span>
-                                <span class="post-date">1 день назад</span>
-                            </div>
-                            <h2 class="post-title">Свежая рецензия на Vampire the Masquerade V5</h2>
-                            <div class="post-text">Со дня выхода пятой редакции «Вампиров: Маскарад» прошло уже достаточно времени, чтобы все желающие вполне могли с ней ознакомиться. Особенного интереса у русскоязычных ролевиков она не вызвала. А зря! Благодаря…</div>
-                            <div class="tag-list">
-                                <a href="#" class="tag-item">WoD</a>
-                                <a href="#" class="tag-item">V5</a>
-                                <a href="#" class="tag-item">VtM</a>
-                            </div>
-                        </div>
-                        <div class="post-footer">
-                            <div class="post-counters">
-                                <span class="share-counter icon-repost">245</span>
-                                <span class="views-counter icon-views">314</span>
-                                <span class="comments-counter icon-comments">12</span>
-                            </div>
-                            <div class="post-actions">
-                                <span class="add_to_bookmarks-btn icon-bookmarks active">bookmars</span>
-                                <span class="like-btn icon-burn-tags">112</span>
+                            <div class="post-actions hidden">
+                                <a href="#" class="add_to_bookmarks-btn icon-bookmark"></a>
+                                <a href="#" class="like-btn icon-rock active">
+                                    <span>116</span>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="blog-sidebar">
-                    <div class="library_top" style="background-image: url(https://picsum.photos/300/470?random);">
+                    <div class="library_top hidden" style="background-image: url(https://picsum.photos/300/470?random);">
                         <div class="library_top-label">Хит библиотеки</div>
                         <div class="library_top-author">
                             <span class="post-user_avatar">
@@ -122,10 +114,50 @@
                         </div>
                         <h2 class="library_top-title">Коллос Сильваноса</h2>
                         <div class="library_top-text">Орки пробираются сквозь лес, оскверняя священную рощу. Вдруг глыба камней вместе с мхом и некоторыми растениями обретает форму гигантского существа. Лесные колосы - величественные и могущественные стражи лесов.</div>
-                        <div class="library_top-tags-list">
+                        <div class="tag-list tag-list__white">
                             <a href="#" class="tag-item">DnD</a>
                             <a href="#" class="tag-item">5e</a>
                             <a href="#" class="tag-item">Homebrew</a>
+                        </div>
+                    </div>
+                    <div class="hot_tags hidden">
+                        <h3 class="hot_tags-title">Горячие теги</h3>
+                            <div class="tag-list tag-list__hot">
+                                <a href="#"  class="tag-item">V5</a>
+                                <a href="#"  class="tag-item">Эноа</a>
+                                <a href="#"  class="tag-item active">ФиналХайпЭноа</a>
+                                <a href="#"  class="tag-item">Кровавые Ублюдки</a>
+                                <a href="#"  class="tag-item">Кибер Ожидание</a>
+                            </div>
+                    </div>
+                    <div class="post_top" data-th-if="${weeksPost}">
+                        <div class="post_top-label">Пост недели</div>
+                        <div class="post_top-author">
+                            <span class="post-user_avatar">
+                                <img data-th-src="${weeksPost.author.image.url}" alt="">
+                            </span>
+                            <span class="post-user_name" data-th-text="${weeksPost.author.displayName}"></span>
+                        </div>
+                        <h2 class="post_top-title" data-th-text="${weeksPost.displayName}"></h2>
+                        <div class="post_top-text"></div>
+                        <div class="post_top-footer hidden">
+                            <div class="tag-list">
+                                <a href="#" class="tag-item">Мерч</a>
+                            </div>
+                            <a href="#" class="like-btn icon-rock active">
+                                <span>112</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="social">
+                        <h3 class="social-title social-icon">Мы в этих ваших сетях</h3>
+                        <div class="social-list social-list__sides_align">
+                            <a data-th-href="${social.fb}" class="social-link facebook"></a>
+                            <a data-th-href="${social.vk}" class="social-link vk"></a>
+                            <a data-th-href="${social.twitter}" class="social-link twitter"></a>
+                            <a data-th-href="${social.youtube}" class="social-link youtube"></a>
+                            <a data-th-href="${social.instagram}" class="social-link instagram"></a>
+                            <a data-th-href="${social.twitch}" class="social-link twitch"></a>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ var norseUtils = require('norseUtils');
 
 // Takes date in '2014-10-10' string format as an argument
 // and returns difference in days between now and passed date.
-exports.getDaysDifference = function(dateString) {
+function getDaysDifference(dateString) {
 	if(!dateString && !typeof dateString === 'string' && !dateString instanceof String)
 		return null;
 
@@ -14,4 +14,25 @@ exports.getDaysDifference = function(dateString) {
 	return Math.round((now-creationDate)/24/60/60/1000);
 }
 
-// this.getDaysDifference();
+//Takes post creation date in '2014-10-10' string format as an argument
+//and return string with how much time past since creation date
+exports.getTimePassedSincePostCreation = function(postCreationDate){
+	var month = ['месяц','месяца','месяцев'],
+			day = ['день','дня','дней'],
+			year = ['год','года','лет'];
+
+	var daysPassed = getDaysDifference(postCreationDate),
+			result = null;
+
+	return daysPassed;
+
+	if(daysPassed === 1)
+		return 'меньше дня назад';
+	else if(daysPassed > 1 && daysPassed < 31){
+		return daysPassed + 'день назад';
+	}
+	else if(daysPassed >= 31 && daysPassed < 365)
+		return Math.round((daysPassed - 1)/30) + ' м назад';
+
+	return null;
+}
