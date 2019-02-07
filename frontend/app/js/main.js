@@ -75,9 +75,9 @@ function initHomepageSlider(){
 function initHomepageFunction(){
 	$(document).on('scroll', function(){
 		if( $(document).scrollTop() > 85 ){
-			$('header').addClass('header-scroll');
+			$('.homepage header').addClass('header-scroll');
 		} else {
-			$('header').removeClass('header-scroll');
+			$('.homepage header').removeClass('header-scroll');
 		}
 	});
 }
@@ -100,9 +100,15 @@ function initPDPFunctions(){
 		if(!$('#pdp-size-select').val()){
 			e.preventDefault();
 			$('.pdp-validation').removeClass('hidden');
+			$('#pdp-size-select').addClass('is-invalid');
 		} else {
 			$('.pdp-validation').addClass('hidden');
+			$('#pdp-size-select').removeClass('is-invalid');
 		}
+	});
+	$('#pdp-size-select').on('change', function(){
+		$('.pdp-validation').addClass('hidden');
+		$('#pdp-size-select').removeClass('is-invalid');
 	});
 	if (typeof pdpImageUrl !== 'undefined') {
 		$('.pdp-main_image').zoom({url: pdpImageUrl});

@@ -9,13 +9,15 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 exports.post = function( req ) {
 	var params = req.params;
     var view = resolve('checkout.html');
+    var model = getCheckoutMainModel( params );
 	if( params.step && params.step == '2' ){
         var stepView = thymeleaf.render( resolve('stepTwo.html'), createStepTwoModel( params ));
+        model.shipping = 'active';
 	} else if( params.step && params.step == '3' ){
 	} else {
         var stepView = thymeleaf.render( resolve('stepOne.html'), createStepOneModel( params ));
+        model.info = 'active';
 	}
-    var model = getCheckoutMainModel( params );
     model.stepView = stepView;
     return {
         body: thymeleaf.render(view, model),
@@ -26,30 +28,21 @@ exports.post = function( req ) {
     	var product = contentLib.get({ key: params.productId });
     	product.image = norseUtils.getImage( product.data.mainImage, 'block(73, 73)' );
         return {
-        	cartProductsTotal: params.quantity,
         	productId: params.productId,
-        	total: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
-        	productsTotal: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
             quantity: params.quantity,
-            product: product
+            product: getProduct(params.productId)
         };
     }
 
     function createStepTwoModel( params ){
-        var product = contentLib.get({ key: params.productId });
-        product.image = norseUtils.getImage( product.data.mainImage, 'block(73, 73)' );
         return {
-            cartProductsTotal: params.quantity,
-            product: product,
-            total: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
-            productsTotal: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
+            product: getProduct(params.productId),
             productId: params.productId
         };
     }
 
     function getCheckoutMainModel( params ){
-        var product = contentLib.get({ key: params.productId });
-        product.image = norseUtils.getImage( product.data.mainImage, 'block(73, 73)' );
+        var product = getProduct(params.productId);
         return {
             cartProductsTotal: params.quantity,
             product: product,
@@ -58,5 +51,11 @@ exports.post = function( req ) {
             productId: params.productId,
             pageComponents: helpers.getPageComponents(req)
         };
+    }
+
+    function getProduct(productId){
+        var product = contentLib.get({ key: params.productId });
+        product.image = norseUtils.getImage( product.data.mainImage, 'block(73, 73)' );
+        return product;
     }
 };
