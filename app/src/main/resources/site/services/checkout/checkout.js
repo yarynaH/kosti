@@ -5,6 +5,7 @@ var contextLib = require('/lib/contextLib');
 var contentLib = require('/lib/xp/content');
 var helpers = require('helpers');
 var thymeleaf = require('/lib/xp/thymeleaf');
+var nodeLib = require('/lib/xp/node');
 
 exports.post = function( req ) {
 	var params = req.params;
@@ -14,7 +15,13 @@ exports.post = function( req ) {
         var stepView = thymeleaf.render( resolve('stepTwo.html'), createStepTwoModel( params ));
         model.shipping = 'active';
 	} else if( params.step && params.step == '3' ){
-	} else {
+	} else if( params.step && params.step == 'submit' ){
+        var order = createOrder(params);
+        if( order.ik_id ){
+            model.pay = true;
+            model.ik_id = order.ik_id;
+        }
+    } else {
         var stepView = thymeleaf.render( resolve('stepOne.html'), createStepOneModel( params ));
         model.info = 'active';
 	}
@@ -35,8 +42,13 @@ exports.post = function( req ) {
     }
 
     function createStepTwoModel( params ){
+        norseUtils.log(params);
+        var product = getProduct(params.productId);
         return {
-            product: getProduct(params.productId),
+            params: params,
+            address: params.country.replaceAll(' ', '+') + ',' + params.city.replaceAll(' ', '+') + ',' + params.address.replaceAll(' ', '+'),
+            product: product,
+            total: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
             productId: params.productId
         };
     }
@@ -57,5 +69,15 @@ exports.post = function( req ) {
         var product = contentLib.get({ key: params.productId });
         product.image = norseUtils.getImage( product.data.mainImage, 'block(73, 73)' );
         return product;
+    }
+
+    function createOrder( params ){
+        var ordersRepo = nodeLib.connect({
+            repoId: "orders",
+            branch: "master"
+        });
+        params.step = 'created';
+        params.ik_id = params.surname.toLowerCase() + '_' + new Date().getTime();
+        return ordersRepo.create( params );
     }
 };

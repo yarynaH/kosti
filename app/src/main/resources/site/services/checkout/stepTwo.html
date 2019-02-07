@@ -2,11 +2,11 @@
 <div class="delivery-address">
     <div class="delivery-shipto">
         <div class="shipto-info">
-            <p>Станислав Кальчук</p>
-            <p>ул. Дерибасовская 109 / 19а</p>
-            <p>Одесса</p>
-            <p>01928</p>
-            <p>Tel:  050 937 1903</p>
+            <p data-th-text="${params.name + ' ' + params.surname}"></p>
+            <p data-th-text="${params.address}"></p>
+            <p data-th-text="${params.city}"></p>
+            <p data-th-text="${params.email}"></p>
+            <p data-th-text="${'Tel: ' + params.phone}"></p>
         </div>
         <div class="shipto-actions">
             <a href="#" class="shipto-link">Изменить</a>
@@ -14,7 +14,13 @@
         </div>
     </div>
     <div class="delivery-map">
-        <img src="https://picsum.photos/260/230/?random" alt="">
+        <iframe
+          width="380"
+          height="100%"
+          frameborder="0" style="border:0"
+          data-th-attr="src = ${'https://www.google.com/maps/embed/v1/place?key=AIzaSyCG80HuL0pNQZv9FvxQYQk4gJNBxt-cjOQ&q=' + address}"
+          allowfullscreen>
+        </iframe>
     </div>
 </div>
 <h2 class="checkout-title">Метод доставки</h2>
@@ -28,7 +34,14 @@
         <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
     </div>
     <input name="total" type="hidden" data-th-attr="value = ${total}">
-    <input name="productId" type="hidden" data-th-attr="value = ${productId}">
-    <input name="quantity" type="hidden" data-th-attr="value = ${quantity}">
-    <input name="step" type="hidden" value="2">
+    <input name="productId" type="hidden" data-th-attr="value = ${params.productId}">
+    <input name="quantity" type="hidden" data-th-attr="value = ${params.quantity}">
+    <input name="country" type="hidden" data-th-attr="value = ${params.country}">
+    <input name="address" type="hidden" data-th-attr="value = ${params.address}">
+    <input name="city" type="hidden" data-th-attr="value = ${params.city}">
+    <input name="phone" type="hidden" data-th-attr="value = ${params.phone}">
+    <input name="surname" type="hidden" data-th-attr="value = ${params.surname}">
+    <input name="name" type="hidden" data-th-attr="value = ${params.name}">
+    <input name="email" type="hidden" data-th-attr="value = ${params.email}">
+    <input name="step" type="hidden" value="submit">
 </form>

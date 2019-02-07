@@ -116,6 +116,9 @@ function initPDPFunctions(){
 }
 
 function initCheckoutEvents(){
+	if( $('form[name=payment]').length > 0 ){
+		$('form[name=payment]').submit();
+	}
 	$('.checkout-action .checkout-continue').on('click', function(e){
 		$('form.checkout-form input').each(function(){
 			if( $(this).val() == null || $(this).val() == '' ){
