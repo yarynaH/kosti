@@ -28,6 +28,10 @@ textarea {
     &:-moz-placeholder { /* Firefox 18- */
     color: $color-primary7;
     }
+    &.is-invalid{
+        border-color: $color-primary32;
+        color: $color-primary32;
+    }
 }
 
 textarea {
@@ -50,6 +54,12 @@ textarea {
         content: '';
         margin-top: -4px;
         pointer-events: none;
+    }
+    &.is-invalid{
+        select{
+            border-color: $color-primary32;
+            color: $color-primary32;
+        }
     }
 }
 
@@ -92,6 +102,14 @@ label {
         .form-group {
             margin: 0;
             flex: 0 1 50%;
+        }
+    }
+    &.is-invalid{
+        input, select, textarea{
+            border-color: $color-primary32;
+        }
+        label{
+            color: $color-primary32;
         }
     }
 }

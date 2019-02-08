@@ -120,13 +120,18 @@ function initCheckoutEvents(){
 		$('form[name=payment]').submit();
 	}
 	$('.checkout-action .checkout-continue').on('click', function(e){
-		$('form.checkout-form input').each(function(){
+		$('form.checkout-form input, form.checkout-form select').each(function(){
 			if( $(this).val() == null || $(this).val() == '' ){
 				e.preventDefault();
-				$(this).addClass('is-invalid');
+				$(this).parent().addClass('is-invalid');
 			}
 		});
 	})
+	$('.checkout-form input, .checkout-form select').on('change', function(){
+		if( $(this).val() != '' ){
+			$(this).parent().removeClass('is-invalid');
+		}
+	});
 }
 
 $( document ).ready(function() {
