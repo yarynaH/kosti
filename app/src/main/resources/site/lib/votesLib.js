@@ -30,25 +30,6 @@ function upvote( user, content ){
 	} else {
 		return false;
 	}
-
-	/*var content = checkIfVoteObjectExists(cid);
-	if( content && content.upvotes && content.upvotes.indexOf(uid) != -1 ){
-	    content = usersRepo.modify({
-	        key: user._id,
-	        editor: function( content ){
-	        	if( content.upvotes ){
-	        		var temp = content.upvotes;
-	        		temp.push(uid);
-	        		content.upvotes = temp;
-	        	} else {
-	        		content.upvotes = [uid];
-	        	}
-		        return content;
-	        }
-	    });
-	} else {
-		return false;
-	}*/
 }
 
 function checkIfVoteExist( user, node ){
