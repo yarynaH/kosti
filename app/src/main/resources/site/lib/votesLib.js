@@ -23,9 +23,9 @@ exports.countUpvotes = function( id ){
 
 function upvote( user, content ){
 	var node = getNode( content );
-	if( !checkIfVoteExist( user, node ) && node ){
+	if( !checkIfVoteExist( user, node ) && node && user ){
 		return editNode( user, node );
-	} else if( !node ){
+	} else if( !node && user ){
 		return createVote( user, content );
 	} else {
 		return false;
