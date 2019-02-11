@@ -18,7 +18,9 @@
         </div>
         <div data-th-if="${user}" class="header-user">
             <div class="user-avatar-img_wrap">
-                <img src="#" data-th-src="${user.image.url}" data-th-attr="alt=${user.displayName}">
+                <a data-th-href="${portal.pageUrl({'_path=' + user._path})}">
+                    <img src="#" data-th-src="${user.image.url}" data-th-attr="alt=${user.displayName}">
+                </a>
             </div>
         </div>
         <div data-th-unless="${user}" class="header-user">

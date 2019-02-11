@@ -5,29 +5,10 @@
 
 <body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="comingSoonMain">
-        <div class="comingSoonBackground">
-            <div class="comingSoonWrapper">
-                <div class="comingSoonLogo">
-                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
-                    <span>Hi, </span><span data-th-text="${content.displayName}"></span>
-                </div>
-            </div>
-        </div>
-        <div class="comingSoonFooterTexture"></div>
-        <div class="comingSoonSocial">
-            <div class="comingSoonSocialBiggerWrapper">
-                <div class="comingSoonTwitch"><a data-th-href="${social.twitch}" target="_blank" title="Twitch"></a></div>
-                <div class="comingSoonYoutube"><a data-th-href="${social.youtube}" target="_blank" title="YouTube"></a></div>
-                <div class="comingSoonDiscord"><a data-th-href="${social.discord}" target="_blank" title="Discord"></a></div>
-            </div>
-            <div class="comingSoonSocialSmallerWrapper">
-                <div class="comingSoonVk comingSoonSocialSmaller"><a data-th-href="${social.vk}" target="_blank" title="VK"></a></div>
-                <div class="comingSoonFb comingSoonSocialSmaller"><a data-th-href="${social.fb}" target="_blank" title="Facebook"></a></div>
-                <div class="comingSoonTw comingSoonSocialSmaller"><a data-th-href="${social.twitter}" target="_blank" title="Twitter"></a></div>
-                <div class="comingSoonIn comingSoonSocialSmaller"><a data-th-href="${social.instagram}" target="_blank" title="Instagram"></a></div>
-            </div>
-        </div>
+    <main class="main">
+        <form id="userImageUpload" enctype="multipart/form-data">
+            <input type="file" name="userImage" id="userImage">
+        </form>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>

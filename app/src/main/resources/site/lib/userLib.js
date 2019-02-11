@@ -3,6 +3,7 @@ var portal = require('/lib/xp/portal');
 var norseUtils = require('norseUtils');
 var authLib = require('/lib/xp/auth');
 var contextLib = require('/lib/contextLib');
+var common = require('/lib/xp/common');
 
 exports.getCurrentUser = function(){
 	var user = authLib.getUser();
@@ -30,7 +31,7 @@ exports.register = function( name, mail, pass ){
     var site = portal.getSite();
 	var user = authLib.createUser({
 	    userStore: 'system',
-	    name: name,
+	    name: common.sanitize(name),
 	    displayName: name,
 	    email: mail
 	});
@@ -51,7 +52,7 @@ exports.createUserContentType = function( name, mail ){
     var usersLocation = contentLib.get({ key: site.userLocation });
 	var user = contentLib.create({
 		parentPath: usersLocation._path,
-		name: encodeURI(name),
+		name: common.sanitize(name),
 		displayName: name,
 		branch: 'draft',
     	contentType: app.name + ':user',
@@ -92,4 +93,34 @@ exports.login = function( name, pass ){
 		    query: 'email="' + name + '" OR login="' + name + '"'
 		});
 	}
+}
+
+exports.uploadUserImage = function(){
+    var stream = portal.getMultipartStream('userImage');
+    var imageMetadata = portal.getMultipartItem('userImage');
+    var result = null;
+    var site = portal.getSiteConfig();
+    var user = this.getCurrentUser();
+    var image = contentLib.createMedia({
+        name: imageMetadata.fileName,
+        parentPath: user._path,
+        mimeType: imageMetadata.contentType,
+        branch: 'draft',
+        data: stream
+    });
+    user = contentLib.modify({
+        key: user._id,
+        editor: userImageEditor
+    });
+    var publishResult = contentLib.publish({
+        keys: [image._id, user._id],
+        sourceBranch: 'draft',
+        targetBranch: 'master'
+    });
+    return norseUtils.getImage( user.data.userImage, 'block(32,32)' );
+
+    function userImageEditor(user){
+        user.data.userImage = image._id;
+        return user;
+    }
 }

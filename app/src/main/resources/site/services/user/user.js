@@ -21,7 +21,9 @@ exports.post = function( req ) {
 	    });
     } else if( params.action == 'login' ){
 	    result = userLib.login( params.username, params.password );
-	}
+	} else if( params.action == 'image' ){
+        result = userLib.uploadUserImage();
+    }
     return {
         body: result,
         contentType: 'application/json'
