@@ -7,6 +7,7 @@ var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
 var helpers = require('helpers');
+var votesLib = require('votesLib');
 var kostiUtils = require('kostiUtils');
 var mailLib = require('/lib/xp/mail');
 
@@ -102,7 +103,9 @@ function handleReq(req) {
             article.image = norseUtils.getImage( article.data.image, '(1, 1)' );
             article.author = contentLib.get({ key: article.data.author });
             article.author.image = norseUtils.getImage( article.author.data.userImage, 'block(60, 60)' );
+            article.author.url = portal.pageUrl({ id: article.author._id });
             article.date = kostiUtils.getTimePassedSincePostCreation(article.data.date);
+            article.votes = votesLib.countUpvotes(article._id);
             return article;
         }
 

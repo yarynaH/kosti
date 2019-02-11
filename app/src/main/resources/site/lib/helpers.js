@@ -19,6 +19,9 @@ exports.getPageComponents = function( req ) {
   var userServiceUrl = portal.serviceUrl({
     service: 'user'
   });
+  var contentServiceUrl = portal.serviceUrl({
+    service: 'content'
+  });
 
   pageComponents['pagehead'] = thymeleaf.render( resolve('../pages/components/head.html'), {
     siteConfig: siteConfig,
@@ -34,7 +37,8 @@ exports.getPageComponents = function( req ) {
     user: userLib.getCurrentUser()
   });
   pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {
-    userServiceUrl: userServiceUrl
+    userServiceUrl: userServiceUrl,
+    contentServiceUrl: contentServiceUrl
   });
 
   function getMenuItems() {

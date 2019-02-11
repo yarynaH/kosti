@@ -161,6 +161,29 @@ function initUserPageFunctions(){
     });
 }
 
+function initSharedEvents(){
+	$('.like-btn').on('click', function(e){
+		e.preventDefault();
+		var data = {
+			content: $(this).data('contentid'),
+			user: $('.header-user').data('userid')
+		};
+		var btn = this;
+        $.ajax({
+            type:'POST',
+            url: contentServiceUrl,
+            data: data,
+            success:function(data){
+            	$(btn).html('<span>' + (Array.isArray(data.votes) ? data.votes.length : '1')  + '</span>');
+            },
+            error: function(data){
+                console.log("error");
+                console.log(data);
+            }
+        });
+	});
+}
+
 $( document ).ready(function() {
 	initLoginRegisterForm();
 	initHomepageSlider();
@@ -168,4 +191,5 @@ $( document ).ready(function() {
 	initCheckoutEvents();
 	initHomepageFunction();
 	initUserPageFunctions();
+	initSharedEvents();
 });

@@ -20,6 +20,7 @@ exports.getCurrentUser = function(){
 		if( userObj.hits && userObj.hits[0] ){
 			userObj = userObj.hits[0];
 			userObj.image = norseUtils.getImage( userObj.data.userImage, 'block(32,32)' );
+			userObj.key = user.key;
 		} else {
 			userObj = false;
 		}

@@ -6,6 +6,9 @@
 <script type="text/javascript" data-th-inline="javascript" data-th-if="${userServiceUrl}">
   var userServiceUrl = [[${userServiceUrl}]];
 </script>
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${contentServiceUrl}">
+  var contentServiceUrl = [[${contentServiceUrl}]];
+</script>
 <script data-th-src="${portal.assetUrl({'_path=js/main.js'})}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
