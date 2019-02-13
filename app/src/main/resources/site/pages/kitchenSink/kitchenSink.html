@@ -6,132 +6,33 @@
 <body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div class="checkout-wrap">
-            <div class="checkout-info">
-                <div class="step-list">
-                    <div class="step-item active">
-                        <!-- <img src="#" data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Vechernie kosti logo"> -->
-                        01 ИНФОРМАЦИЯ</div>
-                    <div class="step-item">02 ДОСТАВКА</div>
-                    <div class="step-item">03 ОПЛАТА</div>
-                </div>
-
-                <div class="checkout-step1">
-                    <h2 class="checkout-title">Ваша информация</h2>
-                    <form action="" class="checkout-form" method="POST">
-                        <div class="form-group-column">
-                            <div class="form-group">
-                                <label for="name-checkout-input" class="label">ИМЯ</label>
-                                <input name="name" type="text" class="input-text" id="name-checkout-input">
-                            </div>
-                            <div class="form-group">
-                                <label for="surname-checkout-input" class="label">ФАМИЛИЯ</label>
-                                <input name="surname" type="text" class="input-text" id="surname-checkout-input">
-                            </div>
-                        </div>
-                        <div class="form-group form-group-address">
-                            <label for="address-checkout-input" class="label">АДРЕС</label>
-                            <input name="address" type="text" class="input-text" id="address-checkout-input">
-                        </div>
-                        <div class="form-group-column">
-                            <div class="form-group">
-                                <label for="country-checkout-select" class="label">СТРАНА</label>
-                                <div class="select-field">
-                                    <select name="size" id="country-checkout-select">
-                                        <option value="Выберите страну" disabled="disabled" selected>Выберите страну</option>
-                                        <option value="Украина">Украина</option>
-                                        <option value="Беларусь">Беларусь</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="city-checkout-input" class="label">ГОРОД</label>
-                                <input name="city" type="text" class="input-text" id="city-checkout-input">
-                            </div>
-                        </div>
-                        <div class="form-group-column">
-                            <div class="form-group">
-                                <label for="zip-checkout-input" class="label">ИНДЕКС</label>
-                                <div class="search-field">
-                                    <input name="zip" type="text" class="input-text search-field-input" id="zip-checkout-input">
-                                    <button class="search-field-btn">НАЙТИ</button>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
-                                <input name="phone" type="text" class="input-text" id="phone-checkout-input">
-                            </div>
-                        </div>
-                        <div class="checkout-action">
-                            <button class="checkout-back">К покупкам</button>
-                            <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="checkout-summary">
-                <div class="summary-header">
-                    <h2 class="checkout-title">Корзина</h2>
-                    <div class="summary-cart_counter">1</div>
-                </div>
-                <div class="summary-product-list">
-                    <div class="summary-product-item">
-                        <div class="summary-product-img_wrap">
-                            <img src="https://picsum.photos/73/73/?random" alt="">
-                        </div>
-                        <div class="summary-product-info">
-                            <h5 class="summary-product-name">
-                                Эксклюзивная.
-                                Солнце Хранит Тебя.
-                            </h5>
-                            <div class="summary-product-price">₽ 1500</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="summary-promo_cod">
-                    <h5 class="summary-promo_cod-title">
-                        Есть промо-код?
-                    </h5>
-                    <div class="summary-promo_cod-field">
-                        smth
-                    </div>
-                </div>
-                <div class="summary-purchase">
-                    <div class="summary-total">
-                        <span class="label">Товар</span>
-                        <span class="valu">₽ 1500</span>
-                    </div>
-                    <div class="summary-shipping">
-                        <span class="label">Доставка</span>
-                        <span class="valu">Бесплатно</span>
-                    </div>
-                    <div class="summary-subtotal">
-                        <span class="label">Всего</span>
-                        <span class="valu">₽ 1500</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <button id="cart">Cart</button>
     </main>
     <footer data-th-utext="${pageComponents.footer}"></footer>
 </body>
 
 </html>
 <script type="text/javascript">
-$( "#upvote" ).click(function() {
-    var data = {
-        id: $('#upvote').data('id'),
-        user: $('#upvote').data('uid')
+$( "#cart" ).click(function() {
+    console.log(getCookieValue( 'cartId'));
+    var data={
+        action:'modify',
+        cartId: getCookieValue( 'cartId'),
+        itemId: 'shirtt',
+        amount: '7'
     };
     $.ajax({
-        url: CONFIG.loginServiceUrl,
-        type: 'post',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: console.log('ok');,
-        data: JSON.stringify(data)
-    }).always(function () {
-        enableFormSubmit(true);
+        url: 'http://kosti.local/_/service/com.myurchenko.kostirpg/cart',
+        type: 'POST',
+        data: data,
+        success: function(data){
+            document.cookie = "cartId=" + data._id + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        }
     });
 });
+
+function getCookieValue(a) {
+    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b ? b.pop() : '';
+}
 </script>

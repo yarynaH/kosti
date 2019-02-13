@@ -3,7 +3,10 @@ var sass = require('gulp-sass');
 //var fontAwesome = require('node-font-awesome');
 var iconfont = require('gulp-iconfont');
 var iconfontCss = require('gulp-iconfont-css');
-var gulpSequence = require('gulp-sequence')
+var gulpSequence = require('gulp-sequence');
+let cleanCSS = require('gulp-clean-css');
+var uglify = require('gulp-uglify');
+var pump = require('pump');
 
 var fontName = 'iconfont';
 
@@ -14,6 +17,7 @@ gulp.task('build',  function(callback) {
 gulp.task('sass', function() {
 	return gulp.src('app/scss/**/*.scss')
 		.pipe(sass())
+		.pipe(cleanCSS())
 		.pipe(gulp.dest('build/css'));
 });
 
@@ -22,9 +26,14 @@ gulp.task('images', function(){
 		.pipe(gulp.dest('build/images'));
 });
 
-gulp.task('js', function(){
-	return gulp.src('app/js/**/*')
-		.pipe(gulp.dest('build/js'));
+gulp.task('js', function(cb){
+	pump([
+		gulp.src('app/js/**/*'),
+		uglify(),
+		gulp.dest('build/js')
+	],
+	cb
+	);
 });
 
 gulp.task('fonts', function(){
