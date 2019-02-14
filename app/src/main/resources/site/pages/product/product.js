@@ -1,8 +1,6 @@
 var thymeleaf = require('/lib/xp/thymeleaf');
 var authLib = require('/lib/xp/auth');
-var libs = {
-    context: require('/lib/xp/context')
-};
+var cartLib = require('cartLib');
 
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
@@ -36,6 +34,7 @@ function handleReq(req) {
         var model = {
             content: content,
             app: app,
+            cart: cartLib.getCart(req.cookies.cartId),
             mainImage: getMainImage( content.data ),
             images: getImages( content.data ),
             social: site.social,

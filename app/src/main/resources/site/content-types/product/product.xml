@@ -18,6 +18,13 @@
         <allowPath>./*</allowPath>
       </config>
     </input>
+    <input name="variations" type="ContentSelector">
+      <label>Variations</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <allowContentType>product</allowContentType>
+      </config>
+    </input>
     <input name="images" type="ImageSelector">
       <label>Images</label>
       <occurrences minimum="0" maximum="3"/>

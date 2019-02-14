@@ -10,6 +10,7 @@ exports.getCart = function( cartId ){
     if( cart ){
       cart.total = calculateCart( cart.items );
       cart.items = getCartItems( cart.items );
+      cart.itemsNum = calculateCartItems(cart.items);
     } else {
       cart = createCart;
     }
@@ -96,7 +97,7 @@ function calculateCart( items ){
       result += item.data.price * parseInt(items[i].amount);
     }
   }
-  return result;
+  return result.toFixed();
 }
 
 function getCartItems( items ){
@@ -119,6 +120,21 @@ function getCartItems( items ){
         itemSize: items[i].itemSize
       });
     }
+  }
+  return result;
+}
+
+function calculateCartItems( items ){
+  if( !items ){
+    return 0;
+  }
+  items = norseUtils.forceArray( items );
+  if( items == [] ){
+    return 0;
+  }
+  var result = 0;
+  for( var i = 0; i < items.length; i++ ){
+    result += parseInt(items[i].amount);
   }
   return result;
 }

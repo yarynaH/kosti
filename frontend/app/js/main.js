@@ -99,10 +99,8 @@ function initPDPFunctions(){
 	$('.add_to_cart-btn').on('click', function(e){
 		if(!$('#pdp-size-select').val()){
 			e.preventDefault();
-			$('.pdp-validation').removeClass('hidden');
 			$('#pdp-size-select').addClass('is-invalid');
 		} else {
-			$('.pdp-validation').addClass('hidden');
 			$('#pdp-size-select').removeClass('is-invalid');
 		}
 	});
