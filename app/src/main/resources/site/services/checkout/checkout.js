@@ -16,7 +16,10 @@ exports.post = function( req ) {
         model.shipping = 'active';
 	} else if( params.step && params.step == '3' ){
 	} else if( params.step && params.step == 'submit' ){
-        var order = createOrder(params);
+        var order = {};
+        contextLib.runAsAdmin(function () {
+            order = createOrder(params);
+        });
         if( order.ik_id ){
             model.pay = true;
             model.ik_id = order.ik_id;
@@ -42,7 +45,6 @@ exports.post = function( req ) {
     }
 
     function createStepTwoModel( params ){
-        norseUtils.log(params);
         var product = getProduct(params.productId);
         return {
             params: params,
