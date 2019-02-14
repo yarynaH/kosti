@@ -9,6 +9,7 @@
         <form id="userImageUpload" enctype="multipart/form-data">
             <input type="file" name="userImage" id="userImage">
         </form>
+        <a data-th-href="${portal.serviceUrl({'_service=user','logout=true'})}">Logout</a>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>

@@ -34,7 +34,7 @@ function initLoginRegisterForm(){
 			data: data
 		}).done(function(data) {
 			$('.header-user').html('<div class="user-avatar-img_wrap">' + 
-				'<img src="' + data.image.url + '" alt="' + data.displayName + '"></div>');
+				'<a href=' + data.url + '><img src="' + data.image.url + '" alt="' + data.displayName + '"></a>');
 			hideLoginRegisterModal();
 		});
 	});

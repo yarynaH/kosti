@@ -19,6 +19,7 @@ exports.getCurrentUser = function(){
 		});
 		if( userObj.hits && userObj.hits[0] ){
 			userObj = userObj.hits[0];
+			userObj.url = portal.pageUrl({ id: userObj._id });
 			userObj.image = norseUtils.getImage( userObj.data.userImage, 'block(32,32)' );
 			userObj.key = user.key;
 		} else {
@@ -94,6 +95,10 @@ exports.login = function( name, pass ){
 		    query: 'email="' + name + '" OR login="' + name + '"'
 		});
 	}
+}
+
+exports.logout = function(){
+	return authLib.logout();
 }
 
 exports.uploadUserImage = function(){
