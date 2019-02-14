@@ -40,7 +40,8 @@ exports.post = function( req ) {
         return {
         	productId: params.productId,
             quantity: params.quantity,
-            product: getProduct(params.productId)
+            product: getProduct(params.productId),
+            params: params,
         };
     }
 

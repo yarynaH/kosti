@@ -4,6 +4,7 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var norseUtils = require('norseUtils');
 var userLib = require('userLib');
 var authLib = require('/lib/xp/auth');
+var cartLib = require('cartLib');
 
 exports.getPageComponents = function( req ) {
   var pageComponents = {};
@@ -38,7 +39,8 @@ exports.getPageComponents = function( req ) {
   });
   pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {
     userServiceUrl: userServiceUrl,
-    contentServiceUrl: contentServiceUrl
+    contentServiceUrl: contentServiceUrl,
+    cartId: cartLib.getCart( req.cookies.cartId )._id
   });
 
   function getMenuItems() {

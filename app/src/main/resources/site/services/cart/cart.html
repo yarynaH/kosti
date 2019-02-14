@@ -6,73 +6,15 @@
 <body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div class="checkout-wrap">
-            <div class="site_width">
-                <div class="checkout-info">
-                    <div class="step-list step-list-two">
-                        <div class="step-item step-item-info" data-th-classappend="${info}">01 ИНФОРМАЦИЯ</div>
-                        <div class="step-item step-item-shipping" data-th-classappend="${shipping}">02 ДОСТАВКА</div>
-                        <div class="step-item step-item-payment" data-th-classappend="${payment}">03 ОПЛАТА</div>
-                    </div>
-
-                    <div class="checkout-step" data-th-utext="${stepView}">
-                    </div>
-                </div>
-                <div class="checkout-summary">
-                    <div class="summary-header">
-                        <h2 class="checkout-title">Корзина</h2>
-                        <div class="summary-cart_counter" data-th-text="${cartProductsTotal}"></div>
-                    </div>
-                    <div class="summary-product-list">
-                        <div class="summary-product-item">
-                            <div class="summary-product-img_wrap">
-                                <img data-th-src="${product.image.url}" alt="">
-                            </div>
-                            <div class="summary-product-info">
-                                <h5 class="summary-product-name" data-th-text="${product.displayName}"></h5>
-                                <div class="summary-product-price">₽ <span data-th-text="${product.data.price}"></span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="promo_code hidden">
-                        <h5 class="promo_code-title">
-                            Есть промо-код?
-                        </h5>
-                        <div class="promo_code-field">
-                            <input name="promo_code" type="text" class="input-text" id="promo_code-input">
-                            <button class="promo_code-btn">ok</button>
-                        </div>
-                    </div>
-                    <div class="summary-purchase">
-                        <div class="summary-total">
-                            <span class="label">Товар</span>
-                            <span class="value">₽ <span data-th-text="${productsTotal}"></span></span>
-                        </div>
-                        <div class="summary-shipping">
-                            <span class="label">Доставка</span>
-                            <span class="value">Бесплатно</span>
-                        </div>
-                        <div class="summary-discount">
-                            <span class="label">Скидка</span>
-                            <span class="value">₽ 200</span>
-                        </div>
-                        <div class="summary-subtotal">
-                            <span class="label">Всего</span>
-                            <span class="value">₽ <span data-th-text="${total}"></span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div data-th-each="item: ${cart.items}">
+            <div data-th-text="${item.displayName}"></div>
+            <div data-th-text="${item._id}"></div>
+            <div data-th-text="${item.price}"></div>
+            <div data-th-text="${item.amount}"></div>
+            <div data-th-text="${item.itemSize}"></div>
+            <hr>
         </div>
     </main>
-    <form class="hidden" data-th-if="${pay}" name="payment" method="post" action="https://sci.interkassa.com/" accept-charset="UTF-8">
-        <input type="hidden" name="ik_co_id" value="5c1cb5443c1eafde5b8b4567"/>
-        <input type="hidden" name="ik_pm_no" data-th-attr="value=${ik_id}"/>
-        <input type="hidden" name="ik_am" data-th-attr="value=${total}"/>
-        <input type="hidden" name="ik_cur" value="rub"/>
-        <input type="hidden" name="ik_desc" data-th-attr="value=${product.displayName}"/>
-        <input type="submit" value="Pay">
-    </form>
     <footer data-th-utext="${pageComponents.footer}"></footer>
 </body>
 

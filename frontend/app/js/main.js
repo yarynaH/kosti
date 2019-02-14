@@ -182,6 +182,7 @@ function initSharedEvents(){
             }
         });
 	});
+	document.cookie = "cartId=" + cartId + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
 }
 
 $( document ).ready(function() {
@@ -193,3 +194,8 @@ $( document ).ready(function() {
 	initUserPageFunctions();
 	initSharedEvents();
 });
+
+function getCookieValue(a) {
+    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b ? b.pop() : '';
+}

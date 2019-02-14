@@ -14,12 +14,12 @@
 </html>
 <script type="text/javascript">
 $( "#cart" ).click(function() {
-    console.log(getCookieValue( 'cartId'));
     var data={
         action:'modify',
         cartId: getCookieValue( 'cartId'),
-        itemId: 'shirtt',
-        amount: '7'
+        itemId: '005afd72-f05d-4161-8784-a91ddf2016e4',
+        amount: '7',
+        size: 'xxl'
     };
     $.ajax({
         url: 'http://kosti.local/_/service/com.myurchenko.kostirpg/cart',
@@ -30,9 +30,4 @@ $( "#cart" ).click(function() {
         }
     });
 });
-
-function getCookieValue(a) {
-    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-    return b ? b.pop() : '';
-}
 </script>

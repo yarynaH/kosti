@@ -2,41 +2,52 @@ var norseUtils = require('norseUtils');
 var contentLib = require('/lib/xp/content');
 var portalLib = require('/lib/xp/portal');
 var nodeLib = require('/lib/xp/node');
+var contextLib = require('/lib/contextLib');
 
 exports.getCart = function( cartId ){
   if( cartId ){
-    return getCartById( cartId );
+    var cart = getCartById( cartId );
+    if( cart ){
+      cart.total = calculateCart( cart.items );
+      cart.items = getCartItems( cart.items );
+    } else {
+      cart = createCart;
+    }
+    return cart;
   } else {
     return createCart();
   }
 }
 
-exports.modify = function( cartId, id, amount ){
+exports.modify = function( cartId, id, amount, itemSize ){
   var cart = this.getCart(cartId);
   var cartRepo = connectCartRepo();
   var result = cartRepo.modify({
     key: cart._id,
     editor: editor
   });
+  result.total = calculateCart( result.items );
 
   function editor( node ){
     if( node.items ){
       node.items = norseUtils.forceArray(node.items);
       for( var i = 0; i < node.items.length; i++ ){
-        if( node.items[i].id == id ){
+        if( node.items[i].id == id && node.items[i].itemSize == itemSize ){
           node.items[i].amount = amount;
           return node;
         }
       }
       node.items.push({
         id: id,
-        amount: amount
+        amount: amount,
+        itemSize: itemSize
       });
       return node;
     } else {
       node.items = [{
         id: id,
-        amount: amount
+        amount: amount,
+        itemSize: itemSize
       }];
       return node;
     }
@@ -52,8 +63,12 @@ function connectCartRepo(){
 }
 
 function createCart(){
+  var cart = null;
+  contextLib.runAsAdmin(function () {
     var cartRepo = connectCartRepo();
-    return cartRepo.create({});
+    cart = cartRepo.create({});
+  });
+  return cart;
 }
 
 function getCartById( id ){
@@ -64,4 +79,46 @@ function getCartById( id ){
   } catch ( e ){
     return createCart();
   }
+}
+
+function calculateCart( items ){
+  if( !items ){
+    return 0;
+  }
+  items = norseUtils.forceArray( items );
+  if( items == [] ){
+    return 0;
+  }
+  var result = 0;
+  for( var i = 0; i < items.length; i++ ){
+    var item = contentLib.get({ key: items[i].id });
+    if( item && item.data && item.data.price ){
+      result += item.data.price * parseInt(items[i].amount);
+    }
+  }
+  return result;
+}
+
+function getCartItems( items ){
+  if( !items ){
+    return [];
+  }
+  items = norseUtils.forceArray( items );
+  if( items == [] ){
+    return [];
+  }
+  var result = [];
+  for( var i = 0; i < items.length; i++ ){
+    var item = contentLib.get({ key: items[i].id });
+    if( item && item.data ){
+      result.push({
+        _id: item._id,
+        displayName: item.displayName,
+        price: item.data.price,
+        amount: items[i].amount,
+        itemSize: items[i].itemSize
+      });
+    }
+  }
+  return result;
 }
