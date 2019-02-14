@@ -38,6 +38,7 @@ function handleReq(req) {
 
         var model = {
             content: content,
+            video: getVideoUrl( site.video ),
             url: portal.pageUrl({ path: content._path }),
             app: app,
             weeksPost: getWeeksPost(site.weeksPost),
@@ -107,6 +108,17 @@ function handleReq(req) {
             article.date = kostiUtils.getTimePassedSincePostCreation(article.data.date);
             article.votes = votesLib.countUpvotes(article._id);
             return article;
+        }
+
+        function getVideoUrl( url ){
+            url = url.split('/');
+            url = url[url.length-1];
+
+            if( url.split('?v=')[1] ){
+                return 'https://www.youtube.com/embed/' + url.split('?v=')[1];
+            }else{
+                return 'https://www.youtube.com/embed/' + url;
+            }
         }
 
 
