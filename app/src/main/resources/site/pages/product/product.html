@@ -21,12 +21,14 @@
                     <div class="breadcrumbs">
                         <span class="breadcrumbs-element active">Одежда</span>
                     </div>
-                    <div class="minicart">
-                        <span class="minicart-icon">
-                            <span class="minicart-qty" data-th-text="${cart.itemsNum}"></span>
-                        </span>
-                        <span class="minicart-total">&#8381; <span data-th-remove="tag" data-th-text="${cart.total}"></span></span>
-                    </div>
+                    <a data-th-href="${portal.serviceUrl({'_service=cart'})}">
+                        <div class="minicart">
+                            <span class="minicart-icon">
+                                <span class="minicart-qty" data-th-text="${cart.itemsNum}"></span>
+                            </span>
+                            <span class="minicart-total">&#8381; <span data-th-remove="tag" data-th-text="${cart.total}"></span></span>
+                        </div>
+                    </a>
                 </div>
                 <div class="pdp-wrap clearfix">
                     <div class="pdp-image">

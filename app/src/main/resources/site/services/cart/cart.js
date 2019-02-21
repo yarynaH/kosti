@@ -32,9 +32,6 @@ exports.get = function( req ) {
     var result = false;
     var view = resolve('cart.html');
     switch (params.action){
-        case 'modify':
-            result = cartLib.modify( params.cartId, params.itemId, params.amount, params.size );
-            break;
         default:
             result = cartLib.getCart( req.cookies.cartId );
             break;

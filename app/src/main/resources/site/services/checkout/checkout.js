@@ -6,6 +6,7 @@ var contentLib = require('/lib/xp/content');
 var helpers = require('helpers');
 var thymeleaf = require('/lib/xp/thymeleaf');
 var nodeLib = require('/lib/xp/node');
+var cartLib = require('cartLib');
 
 exports.post = function( req ) {
 	var params = req.params;
@@ -41,7 +42,7 @@ exports.post = function( req ) {
         	productId: params.productId,
             quantity: params.quantity,
             product: getProduct(params.productId),
-            params: params,
+            params: params
         };
     }
 
@@ -58,12 +59,15 @@ exports.post = function( req ) {
 
     function getCheckoutMainModel( params ){
         var product = getProduct(params.productId);
+        var cart = cartLib.getCart(req.cookies.cartId);
+        norseUtils.log(cart);
         return {
             cartProductsTotal: params.quantity,
             product: product,
             total: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
             productsTotal: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
             productId: params.productId,
+            cart: cart,
             pageComponents: helpers.getPageComponents(req)
         };
     }

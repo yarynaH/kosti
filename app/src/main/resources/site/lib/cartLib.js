@@ -114,6 +114,7 @@ function getCartItems( items ){
     if( item && item.data ){
       result.push({
         _id: item._id,
+        image: norseUtils.getImage( item.data.mainImage, 'block(73, 73)' ),
         displayName: item.displayName,
         price: item.data.price,
         amount: items[i].amount,
@@ -136,5 +137,5 @@ function calculateCartItems( items ){
   for( var i = 0; i < items.length; i++ ){
     result += parseInt(items[i].amount);
   }
-  return result;
+  return result.toFixed();
 }
