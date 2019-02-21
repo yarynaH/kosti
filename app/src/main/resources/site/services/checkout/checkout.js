@@ -60,7 +60,6 @@ exports.post = function( req ) {
     function getCheckoutMainModel( params ){
         var product = getProduct(params.productId);
         var cart = cartLib.getCart(req.cookies.cartId);
-        norseUtils.log(cart);
         return {
             cartProductsTotal: params.quantity,
             product: product,
