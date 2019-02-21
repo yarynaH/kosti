@@ -27,7 +27,7 @@ exports.modify = function( cartId, id, amount, itemSize ){
     key: cart._id,
     editor: editor
   });
-  result.total = calculateCart( result.items );
+  result = this.getCart(cartId);
 
   function editor( node ){
     if( node.items ){
@@ -35,6 +35,9 @@ exports.modify = function( cartId, id, amount, itemSize ){
       for( var i = 0; i < node.items.length; i++ ){
         if( node.items[i].id == id && node.items[i].itemSize == itemSize ){
           node.items[i].amount = amount;
+          if( parseInt(amount) < 1 ){
+            delete node.items[i];
+          }
           return node;
         }
       }

@@ -97,11 +97,12 @@ function initPDPFunctions(){
 		$(this).attr('src', prevImg);
 	});
 	$('.add_to_cart-btn').on('click', function(e){
+		e.preventDefault();
 		if(!$('#pdp-size-select').val()){
-			e.preventDefault();
 			$('#pdp-size-select').addClass('is-invalid');
 		} else {
 			$('#pdp-size-select').removeClass('is-invalid');
+			addToCart();
 		}
 	});
 	$('#pdp-size-select').on('change', function(){
@@ -110,6 +111,26 @@ function initPDPFunctions(){
 	});
 	if (typeof pdpImageUrl !== 'undefined') {
 		$('.pdp-main_image').zoom({url: pdpImageUrl});
+	}
+
+	function addToCart(){
+		var data = {
+			action:'modify',
+			cartId: getCookieValue( 'cartId'),
+			itemId: $('input[name=productId]').val(),
+			amount: $('input[name=quantity]').val(),
+			size: $('select[name=itemSize]').val()
+		};
+		$.ajax({
+			url: 'http://kosti.local/_/service/com.myurchenko.kostirpg/cart',
+			type: 'POST',
+			data: data,
+			success: function(data){
+				document.cookie = "cartId=" + data._id + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+				$('.minicart .minicart-total').html('&#8381; ' + data.total);
+				$('.minicart .minicart-qty').text(data.itemsNum);
+			}
+		});
 	}
 }
 

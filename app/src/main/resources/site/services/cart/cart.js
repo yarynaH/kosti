@@ -20,25 +20,17 @@ exports.post = function( req ) {
             break;
     }
     return {
-        body: thymeleaf.render(view, {
-            cart: result,
-            pageComponents: helpers.getPageComponents(req)
-        }),
-        contentType: 'text/html'
+        body: result,
+        contentType: 'application/json'
     }
 };
 exports.get = function( req ) {
     var params = req.params;
     var result = false;
     var view = resolve('cart.html');
-    switch (params.action){
-        default:
-            result = cartLib.getCart( req.cookies.cartId );
-            break;
-    }
     return {
         body: thymeleaf.render(view, {
-            cart: result,
+            cart: cartLib.getCart( req.cookies.cartId ),
             pageComponents: helpers.getPageComponents(req)
         }),
         contentType: 'text/html'
