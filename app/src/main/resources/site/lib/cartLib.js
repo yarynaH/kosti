@@ -12,7 +12,7 @@ exports.getCart = function( cartId ){
       cart.items = getCartItems( cart.items );
       cart.itemsNum = calculateCartItems(cart.items);
     } else {
-      cart = createCart;
+      cart = createCart();
     }
     return cart;
   } else {
@@ -88,6 +88,9 @@ function createCart(){
     var cartRepo = connectCartRepo();
     cart = cartRepo.create({});
   });
+  cart.total = calculateCart( cart.items );
+  cart.items = getCartItems( cart.items );
+  cart.itemsNum = calculateCartItems(cart.items);
   return cart;
 }
 

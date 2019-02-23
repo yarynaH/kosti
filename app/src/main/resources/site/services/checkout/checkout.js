@@ -38,6 +38,7 @@ function generateCheckoutPage(req){
         var order = {};
         contextLib.runAsAdmin(function () {
             if( model.cart && model.cart.orderId && model.cart.orderId != '' ){
+                params.step = 'created';
                 order = ordersLib.modifyOrder( model.cart.orderId, params );
             }
         });

@@ -126,7 +126,7 @@ function initPDPFunctions(){
 			type: 'POST',
 			data: data,
 			success: function(data){
-				document.cookie = "cartId=" + data._id + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+				setCookie(data._id);
 				$('.minicart .minicart-total').html('&#8381; ' + data.total);
 				$('.minicart .minicart-qty').text(data.itemsNum);
 			}
@@ -201,7 +201,11 @@ function initSharedEvents(){
             }
         });
 	});
-	document.cookie = "cartId=" + cartId + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+	setCookie(cartId);
+}
+
+function setCookie( cartId ){
+	document.cookie = "cartId=" + cartId + "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT";
 }
 
 $( document ).ready(function() {
