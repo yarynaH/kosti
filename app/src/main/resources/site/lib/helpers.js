@@ -23,6 +23,9 @@ exports.getPageComponents = function( req ) {
   var contentServiceUrl = portal.serviceUrl({
     service: 'content'
   });
+  var cartServiceUrl = portal.serviceUrl({
+    service: 'cart'
+  });
 
   pageComponents['pagehead'] = thymeleaf.render( resolve('../pages/components/head.html'), {
     siteConfig: siteConfig,
@@ -40,6 +43,7 @@ exports.getPageComponents = function( req ) {
   pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {
     userServiceUrl: userServiceUrl,
     contentServiceUrl: contentServiceUrl,
+    cartServiceUrl: cartServiceUrl,
     cartId: cartLib.getCart( req.cookies.cartId )._id
   });
 

@@ -122,7 +122,7 @@ function initPDPFunctions(){
 			size: $('select[name=itemSize]').val()
 		};
 		$.ajax({
-			url: 'http://kosti.local/_/service/com.myurchenko.kostirpg/cart',
+			url: cartServiceUrl,
 			type: 'POST',
 			data: data,
 			success: function(data){

@@ -10,6 +10,7 @@ var helpers = require('helpers');
 var votesLib = require('votesLib');
 var kostiUtils = require('kostiUtils');
 var mailLib = require('/lib/xp/mail');
+var httpClientLib = require('/lib/xp/http-client');
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -35,12 +36,13 @@ function handleReq(req) {
         var description = portal.getSite().data.description;
         var showDescription = true;
         var schedule = getSchedule(site.slider);
+        var video = getVideoViaApi();
 
         var model = {
             content: content,
-            video: getVideoUrl( site.video ),
             url: portal.pageUrl({ path: content._path }),
             app: app,
+            video: video ? "https://www.youtube.com/embed/" + video : getVideoUrl( site.video ),
             weeksPost: getWeeksPost(site.weeksPost),
             schedule: schedule,
             social: site.social,
@@ -109,6 +111,23 @@ function handleReq(req) {
             article.date = kostiUtils.getTimePassedSincePostCreation(article.publish.from.replace('Z', ''));
             article.votes = votesLib.countUpvotes(article._id);
             return article;
+        }
+
+        function getVideoViaApi(){
+            var response = JSON.parse(httpClientLib.request({
+                url: "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCETKVT-Uj-gAqdSTd2YNaMg&maxResults=1&order=date&type=video&key=AIzaSyAFVk-itBSO2i3F97_FASwIPexDhTr9Rg0",
+                method: "GET",
+                headers: {
+                    'X-Custom-Header': 'header-value'
+                },
+                connectionTimeout: 2000000,
+                readTimeout: 500000,
+                contentType: 'application/json'
+            }).body);
+            if( response.items && response.items[0] && response.items[0].id && response.items[0].id.videoId ){
+                return response.items[0].id.videoId;
+            }
+            return false;
         }
 
         function getVideoUrl( url ){
