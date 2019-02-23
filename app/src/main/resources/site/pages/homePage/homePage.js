@@ -36,7 +36,7 @@ function handleReq(req) {
         var description = portal.getSite().data.description;
         var showDescription = true;
         var schedule = getSchedule(site.slider);
-        var video = getVideoViaApi();
+        var video = getVideoViaApi( site.gApiKey );
 
         var model = {
             content: content,
@@ -113,9 +113,9 @@ function handleReq(req) {
             return article;
         }
 
-        function getVideoViaApi(){
+        function getVideoViaApi( key ){
             var response = JSON.parse(httpClientLib.request({
-                url: "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCETKVT-Uj-gAqdSTd2YNaMg&maxResults=1&order=date&type=video&key=AIzaSyAFVk-itBSO2i3F97_FASwIPexDhTr9Rg0",
+                url: "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCETKVT-Uj-gAqdSTd2YNaMg&maxResults=1&order=date&type=video&key=" + key,
                 method: "GET",
                 headers: {
                     'X-Custom-Header': 'header-value'
