@@ -7,26 +7,52 @@ var helpers = require('helpers');
 var thymeleaf = require('/lib/xp/thymeleaf');
 var nodeLib = require('/lib/xp/node');
 var cartLib = require('cartLib');
+var ordersLib = require('ordersLib');
+
+exports.get = function( req ) {
+    return generateCheckoutPage(req);
+}
 
 exports.post = function( req ) {
+    return generateCheckoutPage(req);
+}
+
+function generateCheckoutPage(req){
 	var params = req.params;
     var view = resolve('checkout.html');
     var model = getCheckoutMainModel( params );
 	if( params.step && params.step == '2' ){
-        var stepView = thymeleaf.render( resolve('stepTwo.html'), createStepTwoModel( params ));
+        var order = null;
+        contextLib.runAsAdmin(function () {
+            if( model.cart && model.cart.orderId && model.cart.orderId != '' ){
+                order = ordersLib.modifyOrder( model.cart.orderId, params );
+            } else {
+                order = ordersLib.createOrder( params );
+                model.cart = cartLib.setOrder( model.cart._id, order._id );
+            }
+        });
+        var stepView = thymeleaf.render( resolve('stepTwo.html'), createStepTwoModel( params, req ));
         model.shipping = 'active';
 	} else if( params.step && params.step == '3' ){
 	} else if( params.step && params.step == 'submit' ){
         var order = {};
         contextLib.runAsAdmin(function () {
-            order = createOrder(params);
+            if( model.cart && model.cart.orderId && model.cart.orderId != '' ){
+                order = ordersLib.modifyOrder( model.cart.orderId, params );
+            }
         });
-        if( order.ik_id ){
+        if( order && order.ik_id ){
             model.pay = true;
             model.ik_id = order.ik_id;
         }
     } else {
-        var stepView = thymeleaf.render( resolve('stepOne.html'), createStepOneModel( params ));
+        var order = {};
+        contextLib.runAsAdmin(function () {
+            if( model.cart && model.cart.orderId && model.cart.orderId != '' ){
+                order = ordersLib.getOrder( model.cart.orderId );
+            }
+        });
+        var stepView = thymeleaf.render( resolve('stepOne.html'), createStepOneModel( params, order ));
         model.info = 'active';
 	}
     model.stepView = stepView;
@@ -36,54 +62,24 @@ exports.post = function( req ) {
     };
 
     function createStepOneModel( params ) {
-    	var product = contentLib.get({ key: params.productId });
-    	product.image = norseUtils.getImage( product.data.mainImage, 'block(73, 73)' );
         return {
-        	productId: params.productId,
-            quantity: params.quantity,
-            product: getProduct(params.productId),
+            order: order,
             params: params
         };
     }
 
-    function createStepTwoModel( params ){
-        var product = getProduct(params.productId);
+    function createStepTwoModel( params, req ){
         return {
             params: params,
-            address: params.country.replaceAll(' ', '+') + ',' + params.city.replaceAll(' ', '+') + ',' + params.address.replaceAll(' ', '+'),
-            product: product,
-            total: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
-            productId: params.productId
+            address: params.country.replaceAll(' ', '+') + ',' + params.city.replaceAll(' ', '+') + ',' + params.address.replaceAll(' ', '+')
         };
     }
 
     function getCheckoutMainModel( params ){
-        var product = getProduct(params.productId);
         var cart = cartLib.getCart(req.cookies.cartId);
         return {
-            cartProductsTotal: params.quantity,
-            product: product,
-            total: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
-            productsTotal: (parseInt(params.quantity) * parseInt(product.data.price)).toFixed(),
-            productId: params.productId,
             cart: cart,
             pageComponents: helpers.getPageComponents(req)
         };
-    }
-
-    function getProduct(productId){
-        var product = contentLib.get({ key: params.productId });
-        product.image = norseUtils.getImage( product.data.mainImage, 'block(73, 73)' );
-        return product;
-    }
-
-    function createOrder( params ){
-        var ordersRepo = nodeLib.connect({
-            repoId: "orders",
-            branch: "master"
-        });
-        params.step = 'created';
-        params.ik_id = params.surname.toLowerCase() + '_' + new Date().getTime();
-        return ordersRepo.create( params );
     }
 };

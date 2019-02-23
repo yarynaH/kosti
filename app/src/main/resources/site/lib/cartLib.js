@@ -59,6 +59,22 @@ exports.modify = function( cartId, id, amount, itemSize ){
   return result;
 }
 
+exports.setOrder = function( cartId, orderId ){
+  var cart = this.getCart(cartId);
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.modify({
+    key: cart._id,
+    editor: editor
+  });
+  result = this.getCart(cartId);
+
+  function editor( node ){
+    node.orderId = orderId;
+    return node;
+  }
+  return result;
+}
+
 function connectCartRepo(){
   return nodeLib.connect({
       repoId: "cart",

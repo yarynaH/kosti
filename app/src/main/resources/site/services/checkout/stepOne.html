@@ -3,16 +3,16 @@
     <div class="form-group-column">
         <div class="form-group">
             <label for="name-checkout-input" class="label">ИМЯ</label>
-            <input name="name" type="text" class="input-text" id="name-checkout-input">
+            <input data-th-attr="value=${order.name} ? ${order.name} : ''" name="name" type="text" class="input-text" id="name-checkout-input">
         </div>
         <div class="form-group">
             <label for="surname-checkout-input" class="label">ФАМИЛИЯ</label>
-            <input name="surname" type="text" class="input-text" id="surname-checkout-input">
+            <input data-th-attr="value=${order.surname} ? ${order.surname} : ''" name="surname" type="text" class="input-text" id="surname-checkout-input">
         </div>
     </div>
     <div class="form-group form-group-address">
         <label for="address-checkout-input" class="label">АДРЕС</label>
-        <input name="address" type="text" class="input-text" id="address-checkout-input">
+        <input data-th-attr="value=${order.address} ? ${order.address} : ''" name="address" type="text" class="input-text" id="address-checkout-input">
     </div>
     <div class="form-group-column">
         <div class="form-group">
@@ -28,25 +28,22 @@
         </div>
         <div class="form-group">
             <label for="city-checkout-input" class="label">ГОРОД</label>
-            <input name="city" type="text" class="input-text" id="city-checkout-input">
+            <input data-th-attr="value=${order.city} ? ${order.city} : ''" name="city" type="text" class="input-text" id="city-checkout-input">
         </div>
     </div>
     <div class="form-group-column">
         <div class="form-group">
             <label for="email-checkout-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-            <input name="email" type="email" class="input-text" id="email-checkout-input">
+            <input data-th-attr="value=${order.email} ? ${order.email} : ''" name="email" type="email" class="input-text" id="email-checkout-input">
         </div>
         <div class="form-group">
             <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
-            <input name="phone" type="text" class="input-text" id="phone-checkout-input">
+            <input data-th-attr="value=${order.phone} ? ${order.phone} : ''" name="phone" type="text" class="input-text" id="phone-checkout-input">
         </div>
     </div>
     <div class="checkout-action">
         <button class="checkout-back">К покупкам</button>
         <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
     </div>
-    <input name="productId" type="hidden" data-th-attr="value = ${productId}">
-    <input name="quantity" type="hidden" data-th-attr="value = ${quantity}">
-    <input name="itemSize" type="hidden" data-th-attr="value = ${params.itemSize}">
     <input name="step" type="hidden" value="2">
 </form>

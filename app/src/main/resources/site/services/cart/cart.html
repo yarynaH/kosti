@@ -14,6 +14,9 @@
             <div data-th-text="${item.itemSize}"></div>
             <hr>
         </div>
+        <a data-th-href="${portal.serviceUrl({'_service=checkout'})}">
+            Checkout
+        </a>
     </main>
     <footer data-th-utext="${pageComponents.footer}"></footer>
 </body>

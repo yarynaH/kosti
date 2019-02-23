@@ -15,6 +15,9 @@ exports.post = function( req ) {
         case 'modify':
             result = cartLib.modify( params.cartId, params.itemId, params.amount, params.size );
             break;
+        case 'setOrder':
+            result = cartLib.setOrder( params.cartId, params.orderId );
+            break;
         default:
             result = cartLib.getCart( req.cookies.cartId );
             break;
