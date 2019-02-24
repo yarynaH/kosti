@@ -245,14 +245,11 @@
 
     &-map {
         text-align: center;
-    }
-
-    &-shipto { 
-        border-right: 1px solid $color-primary20;
+        border-left: 1px solid $color-primary20;
     }
 }
-.shipto {
 
+.shipto {
     &-info p {
         line-height: 1.71;
         color: $color-primary16;
@@ -269,16 +266,14 @@
     }
 }
 
-.delivery {
-    &-method {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
+.delivery_m {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 
-        .form-group {
-            width: 49%;
-            margin: 0;
-        }
+    .form-group {
+        width: 49%;
+        margin: 0;
     }
 
     &-title {
