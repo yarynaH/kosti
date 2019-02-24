@@ -33,7 +33,7 @@ function initLoginRegisterForm(){
 			method: "POST",
 			data: data
 		}).done(function(data) {
-			if( !data.exist ){
+			if( !data.exist && !data.data ){
 				$('.modal-login .form-group-error span').text(data.message);
 				$('.modal-login .form-group-error').removeClass('hidden');
 			} else {
