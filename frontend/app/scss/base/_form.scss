@@ -113,3 +113,51 @@ label {
         }
     }
 }
+
+.label-radio {
+    border: 1px solid $color-primary20;
+    border-radius: 3px;
+    padding: 35px 45px 35px 75px;
+    position: relative;
+    cursor: pointer;
+    transition: transition(border);
+    
+    &:hover {
+        border-color: $color-primary22;
+    }
+
+    [type="radio"]:checked + & {
+        border-color: $color-primary22;
+    }
+
+    &:before {
+        @include position(absolute, top 35px left 40px);
+
+        content: '';
+        height: 18px;
+        width: 18px;
+        border: 1px solid $color-primary20;
+        border-radius: 50%;
+        transition: transition(border);
+
+        [type="radio"]:checked + & {
+            border-color: $color-primary22;
+            border-width: 2px;
+        }
+    }
+    
+    &:after {
+        @include position(absolute, top 40px left 45px);
+
+        content: '';
+        width: 8px;
+        height: 8px;
+        background-color: transparent;
+        border-radius: 50%;
+        transition: transition(background);
+
+        [type="radio"]:checked + & {
+            background: $color-primary22;
+        }
+    }
+}
