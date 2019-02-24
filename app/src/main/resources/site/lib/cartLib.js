@@ -139,7 +139,7 @@ function getCartItems( items ){
         image: norseUtils.getImage( item.data.mainImage, 'block(73, 73)' ),
         displayName: item.displayName,
         price: item.data.price,
-        amount: items[i].amount,
+        amount: parseInt(items[i].amount).toFixed(),
         itemSize: items[i].itemSize
       });
     }
