@@ -70,8 +70,17 @@ function generateCheckoutPage(req){
     }
 
     function createStepTwoModel( params, req ){
+        var site = portal.getSiteConfig();
+        var shipping = contentLib.get({ key: site.shipping });
+        for( var i = 0; i < shipping.data.shipping.length; i++ ){
+            if( shipping.data.shipping[i].country == params.country ){
+                shipping = norseUtils.forceArray(shipping.data.shipping[i].methods);
+                break;
+            }
+        }
         return {
             params: params,
+            shipping: shipping,
             address: params.country.replaceAll(' ', '+') + ',' + params.city.replaceAll(' ', '+') + ',' + params.address.replaceAll(' ', '+')
         };
     }
