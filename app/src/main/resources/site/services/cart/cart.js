@@ -6,6 +6,7 @@ var contentLib = require('/lib/xp/content');
 var helpers = require('helpers');
 var thymeleaf = require('/lib/xp/thymeleaf');
 var nodeLib = require('/lib/xp/node');
+var contextLib = require('/lib/contextLib');
 
 exports.post = function( req ) {
     var params = req.params;
@@ -13,10 +14,14 @@ exports.post = function( req ) {
     var view = resolve('cart.html');
     switch (params.action){
         case 'modify':
-            result = cartLib.modify( params.cartId, params.itemId, params.amount, params.size );
+            contextLib.runAsAdmin(function () {
+                result = cartLib.modify( params.cartId, params.itemId, params.amount, params.size );
+            });
             break;
         case 'setOrder':
-            result = cartLib.setOrder( params.cartId, params.orderId );
+            contextLib.runAsAdmin(function () {
+                result = cartLib.setOrder( params.cartId, params.orderId );
+            });
             break;
         default:
             result = cartLib.getCart( req.cookies.cartId );
