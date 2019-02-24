@@ -146,7 +146,8 @@
     &-icon {
         @include icon(fire);
         @include qty-notification(wrapper);
-        
+
+        color: $color-primary17;
         margin-right: 15px;
 
         &:before { 

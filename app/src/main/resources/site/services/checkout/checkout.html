@@ -31,9 +31,14 @@
                             </div>
                             <div class="summary-product-info">
                                 <h5 class="summary-product-name" data-th-text="${product.displayName}"></h5>
+                                <div class="summary-product-size">
+                                    <span class="label">Размер:</span>
+                                    <span class="value" data-th-text="${product.itemSize}"></span></div>
+                                <div class="summary-product-qty">
+                                    <span class="label">Количество:</span>
+                                    <span class="value" data-th-text="${product.amount}"></span>
+                                </div>
                                 <div class="summary-product-price">₽ <span data-th-text="${product.price}"></span></div>
-                                <div class="summary-product-price">Размер <span data-th-text="${product.itemSize}"></span></div>
-                                <div class="summary-product-price">Количество <span data-th-text="${product.amount}"></span></div>
                             </div>
                         </div>
                     </div>

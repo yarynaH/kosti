@@ -7,17 +7,44 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div data-th-each="item: ${cart.items}">
-            <div data-th-text="${item.displayName}"></div>
-            <div data-th-text="${item._id}"></div>
-            <div data-th-text="${item.price}"></div>
-            <div data-th-text="${item.amount}"></div>
-            <div data-th-text="${item.itemSize}"></div>
-            <hr>
+        <div class="cart-wrap">
+            <div class="blog_width">
+                <h2 class="checkout-title">Ваша корзина</h2>
+                <div class="cart-list">
+                    <div data-th-each="item: ${cart.items}" class="cart-item">
+                        <div class="cart-product_img">
+                            <img data-th-src="${item.image.url}" alt="product image">
+                        </div>
+                        <div class="cart-product_description">
+                            <div data-th-text="${item.displayName}" class="cart-product_title"></div>
+                            <div class="cart-product_size">
+                                <span class="label">Размер: </span>
+                                <span class="value" data-th-text="${item.itemSize}"></span>
+                            </div>
+                            <div data-th-text="${item._id}" hidden></div>
+                        </div>
+                        <div class="cart-product_qty">
+                            <div class="qty-field">
+                                <span class="qty-decrement">-</span>
+                                    <input name="quantity" type="text" class="qty-input" readonly placeholder="1" data-th-attr="value=${item.amount}">
+                                <span class="qty-increment">+</span>
+                            </div>
+                        </div>
+                        <div class="cart-product_price">
+                            <span class="price-curency">&#8381;</span>
+                            <span data-th-text="${item.price}"></span>
+                        </div>
+                        <span class="cart-remove_btn"></span>
+                    </div>
+                </div>
+                <div class="checkout-action">
+                    <button class="checkout-back">К покупкам</button>
+                    <a class="checkout-continue" data-th-href="${portal.serviceUrl({'_service=checkout'})}">
+                        ПРОДОЛЖИТЬ
+                    </a>
+                </div>
+            </div>
         </div>
-        <a data-th-href="${portal.serviceUrl({'_service=checkout'})}">
-            Checkout
-        </a>
     </main>
     <footer data-th-utext="${pageComponents.footer}"></footer>
 </body>
