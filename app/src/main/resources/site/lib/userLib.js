@@ -4,6 +4,7 @@ var norseUtils = require('norseUtils');
 var authLib = require('/lib/xp/auth');
 var contextLib = require('/lib/contextLib');
 var common = require('/lib/xp/common');
+var i18nLib = require('/lib/xp/i18n');
 
 exports.getCurrentUser = function(){
 	var user = authLib.getUser();
@@ -31,6 +32,14 @@ exports.getCurrentUser = function(){
 
 exports.register = function( name, mail, pass ){
     var site = portal.getSite();
+    var exist = checkUserExists( name, mail );
+    if( exist.exist ){
+    	exist.message = i18nLib.localize({
+		    key: 'global.user.' + exist.type + 'Exists',
+		    locale: "ru"
+		});
+    	return exist;
+    }
 	var user = authLib.createUser({
 	    userStore: 'system',
 	    name: common.sanitize(name),
@@ -77,7 +86,13 @@ exports.login = function( name, pass ){
 		user = findUser(name);
 	});
 	if( !user || !user.hits || !user.hits[0] ){
-		return false;
+		return {
+			exist: false,
+			message: i18nLib.localize({
+			    key: 'global.user.userNotExists',
+			    locale: "ru"
+			})
+		};
 	}
 	var loginResult = authLib.login({
 	    user: user.hits[0].login,
@@ -86,6 +101,14 @@ exports.login = function( name, pass ){
 	});
 	if( loginResult.authenticated == true ){
 		return this.getCurrentUser();
+	} else {
+		return {
+			exist: false,
+			message: i18nLib.localize({
+			    key: 'global.user.incorrectPass',
+			    locale: "ru"
+			})
+		}
 	}
 
 	function findUser( name ){
@@ -129,4 +152,32 @@ exports.uploadUserImage = function(){
         user.data.userImage = image._id;
         return user;
     }
+}
+
+function checkUserExists( name, mail ){
+	var user = authLib.findUsers({
+		start: 0,
+		count: 1,
+		query: 'login="' + name + '"'
+	});
+	if( user.total > 0 ){
+		return {
+			exist: true,
+			type: 'name'
+		}
+	}
+	user = authLib.findUsers({
+		start: 0,
+		count: 1,
+		query: 'email="' + mail + '"'
+	});
+	if( user.total > 0 ){
+		return {
+			exist: true,
+			type: 'mail'
+		}
+	}
+	return {
+		exist: false
+	}
 }

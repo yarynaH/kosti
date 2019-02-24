@@ -9,11 +9,11 @@
             <p data-th-text="${'Tel: ' + params.phone}"></p>
         </div>
         <div class="shipto-actions">
-            <a href="#" class="shipto-link">Изменить</a>
+            <a data-th-href="${portal.serviceUrl({'_service=checkout'})}" class="shipto-link">Изменить</a>
             <a href="#" class="shipto-link hidden">Добавить</a>
         </div>
     </div>
-    <div class="delivery-map">
+    <!--<div class="delivery-map">
         <iframe
           width="380"
           height="100%"
@@ -21,7 +21,7 @@
           data-th-attr="src = ${'https://www.google.com/maps/embed/v1/place?key=AIzaSyCG80HuL0pNQZv9FvxQYQk4gJNBxt-cjOQ&q=' + address}"
           allowfullscreen>
         </iframe>
-    </div>
+    </div>-->
 </div>
 <h2 class="checkout-title">Метод доставки</h2>
 <form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
