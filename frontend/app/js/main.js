@@ -261,12 +261,12 @@ function validateCheckout(e){
 		}
 	});
 	var tel = $('#phone-checkout-input').val();
-	if( !validatePhone(tel)){
+	if( tel && !validatePhone(tel)){
 		e.preventDefault();
 		$('#phone-checkout-input').parent().addClass('is-invalid');
 	}
 	var email = $('#email-checkout-input').val();
-	if( !validateEmail(email)){
+	if( email && !validateEmail(email)){
 		e.preventDefault();
 		$('#email-checkout-input').parent().addClass('is-invalid');
 	}
