@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+	<display-name>Shipping</display-name>
+	<super-type>base:structured</super-type>
+	<form>
+		<item-set name="shipping">
+			<label>Shipping</label>
+			<items>
+				<input name="country" type="TextArea">
+					<label>Country code</label>
+					<config>
+					</config>
+				</input>
+				<item-set name="methods">
+					<label>Methods</label>
+					<items>
+						<input name="title" type="TextArea">
+							<label>Title</label>
+							<config>
+							</config>
+						</input>
+						<input name="price" type="TextArea">
+							<label>Price</label>
+							<config>
+							</config>
+						</input>
+						<input name="terms" type="TextArea">
+							<label>Terms</label>
+							<config>
+							</config>
+						</input>
+						<input name="id" type="TextArea">
+							<label>ID</label>
+							<config>
+							</config>
+						</input>
+					</items>
+					<occurrences minimum="0" maximum="0"/>
+				</item-set>
+			</items>
+			<occurrences minimum="0" maximum="0"/>
+		</item-set>
+	</form>
+</content-type>

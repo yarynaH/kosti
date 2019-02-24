@@ -43,6 +43,12 @@
 	  <config>
 	  </config>
 	</input>
+  	<input name="shipping" type="ContentSelector">
+		<label>Shipping</label>
+		<occurrences minimum="0" maximum="1"/>
+		<config>
+		</config>
+	</input>
     <input name="video" type="TextLine">
       <label>Homepage video</label>
       <occurrences minimum="1" maximum="1"/>
