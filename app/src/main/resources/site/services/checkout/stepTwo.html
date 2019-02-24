@@ -25,9 +25,31 @@
 </div>
 <h2 class="checkout-title">Метод доставки</h2>
 <form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
-    <div class="form-group">
-        <label for="delivery-method-input" class="label">способ доставки</label>
-        <input name="shipping" type="text" class="input-text" id="delivery-method-input">
+    <div class="delivery-method">
+        <div class="form-group">
+            <input name="shipping" type="radio" class="input-radio" id="delivery-method-1" checked hidden>
+            <label for="delivery-method-1" class="label-radio">
+                <div class="delivery-type">
+                    <div class="delivery-top">
+                        <span class="delivery-title">Укрпошта</span>
+                        <span class="delivery-cost">Бесплатно</span>
+                    </div>
+                    <div class="delivery-description">Ожидаемое время вашей доставки 7-21 дней.</div>
+                </div>
+            </label>
+        </div>
+        <div class="form-group">
+            <input name="shipping" type="radio" class="input-radio" id="delivery-method-2" hidden>
+            <label for="delivery-method-2" class="label-radio">
+                <div class="delivery-type">
+                    <div class="delivery-top">
+                        <span class="delivery-title">Нова Пошта</span>
+                        <span class="delivery-cost">€ 8.00</span>
+                    </div>
+                    <div class="delivery-description">Ожидаемое время вашей доставки 1-3 дней. </div>
+                </div>
+            </label>
+        </div>
     </div>
     <div class="checkout-action">
         <button class="checkout-back">К покупкам</button>
