@@ -19,10 +19,10 @@
             <label for="country-checkout-select" class="label">СТРАНА</label>
             <div class="select-field">
                 <select name="country" id="country-checkout-select">
-                    <option value="Выберите страну" disabled="disabled" selected>Выберите страну</option>
-                    <option value="ua">Украина</option>
-                    <option value="by">Беларусь</option>
-                    <option value="ru">Россия</option>
+                    <option value="Выберите страну" disabled="disabled" data-th-attr="selected=${order.contry} ? 'selected' : 'false'">Выберите страну</option>
+                    <option data-th-attr="selected=${order.contry == 'ua'} ? 'selected' : 'false'" value="ua">Украина</option>
+                    <option data-th-attr="selected=${order.contry == 'by'} ? 'selected' : 'false'" value="by">Беларусь</option>
+                    <option data-th-attr="selected=${order.contry == 'ru'} ? 'selected' : 'false'" value="ru">Россия</option>
                 </select>
             </div>
         </div>
