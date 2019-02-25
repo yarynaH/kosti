@@ -8,7 +8,7 @@ exports.getCart = function( cartId ){
   if( cartId ){
     var cart = getCartById( cartId );
     if( cart ){
-      cart.total = calculateCart( cart.items );
+      cart.price = calculateCart( cart );
       cart.items = getCartItems( cart.items );
       cart.itemsNum = calculateCartItems(cart.items);
     } else {
@@ -79,6 +79,22 @@ exports.setOrder = function( cartId, orderId ){
   return result;
 }
 
+exports.setShipping = function( cartId, shipping ){
+  var cart = this.getCart(cartId);
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.modify({
+    key: cart._id,
+    editor: editor
+  });
+  result = this.getCart(cartId);
+
+  function editor( node ){
+    node.shipping = shipping;
+    return node;
+  }
+  return result;
+}
+
 function connectCartRepo(){
   return nodeLib.connect({
       repoId: "cart",
@@ -92,7 +108,7 @@ function createCart(){
     var cartRepo = connectCartRepo();
     cart = cartRepo.create({});
   });
-  cart.total = calculateCart( cart.items );
+  cart.total = calculateCart( cart );
   cart.items = getCartItems( cart.items );
   cart.itemsNum = calculateCartItems(cart.items);
   return cart;
@@ -108,11 +124,11 @@ function getCartById( id ){
   }
 }
 
-function calculateCart( items ){
-  if( !items ){
+function calculateCart( cart ){
+  if( !cart || !cart.items ){
     return 0;
   }
-  items = norseUtils.forceArray( items );
+  var items = norseUtils.forceArray( cart.items );
   if( items == [] ){
     return 0;
   }
@@ -123,7 +139,15 @@ function calculateCart( items ){
       result += item.data.price * parseInt(items[i].amount);
     }
   }
-  return result.toFixed();
+  var shipping = 0;
+  if( cart.shipping && cart.shipping.price ){
+    shipping = parseInt(cart.shipping.price);
+  }
+  return { 
+    items: result.toFixed(),
+    shipping: parseInt(cart.shipping.price).toFixed(),
+    total: (result + parseInt(cart.shipping.price)).toFixed(),
+  }
 }
 
 function getCartItems( items ){
