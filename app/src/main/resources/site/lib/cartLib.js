@@ -145,8 +145,8 @@ function calculateCart( cart ){
   }
   return { 
     items: result.toFixed(),
-    shipping: parseInt(cart.shipping.price).toFixed(),
-    total: (result + parseInt(cart.shipping.price)).toFixed(),
+    shipping: shipping.toFixed(),
+    total: (result + shipping).toFixed(),
   }
 }
 

@@ -256,7 +256,7 @@ function addToCart( data ){
 		data: data,
 		success: function(data){
 			setCookie(data._id);
-			$('.minicart .minicart-total').html('&#8381; ' + data.total);
+			$('.minicart .minicart-total').html('&#8381; ' + data.price.items);
 			$('.minicart .minicart-qty').text(data.itemsNum);
 		}
 	});
