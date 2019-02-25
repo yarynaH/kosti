@@ -76,9 +76,9 @@
                                     </div>
                                 </div>
                                 <div class="qty-field pdp-qty-field ">
-                                    <span class="qty-decrement">-</span>
-                                        <input name="quantity" type="text" class="qty-input" readonly placeholder="1" value="1">
-                                    <span class="qty-increment">+</span>
+                                    <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-decrement">-</span>
+                                        <input data-th-attr="data-id=${content._id}, data-size=${content.data.size}" name="quantity" type="text" class="qty-input" readonly placeholder="1" value="1">
+                                    <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-increment">+</span>
                                 </div>
                             </div>
                             <button class="add_to_cart-btn">В КОРЗИНУ</button>

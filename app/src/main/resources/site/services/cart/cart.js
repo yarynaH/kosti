@@ -15,7 +15,7 @@ exports.post = function( req ) {
     switch (params.action){
         case 'modify':
             contextLib.runAsAdmin(function () {
-                result = cartLib.modify( params.cartId, params.itemId, params.amount, params.size );
+                result = cartLib.modify( params.cartId, params.itemId, params.amount, params.size, params.force );
             });
             break;
         case 'setOrder':

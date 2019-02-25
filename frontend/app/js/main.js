@@ -103,10 +103,18 @@ function initHomepageFunction(){
 
 function initPDPFunctions(){
 	$('.qty-decrement').on('click', function(){
-		$('.qty-input').val(Math.max(parseInt($('.qty-input').val()) - 1, 1));
+		var input = $('.qty-input[data-id=' + $(this).data().id + '][data-size=' + $(this).data().size + ']');
+		input.val(Math.max(parseInt(input.val()) - 1, 1));
+		if( $('.cart-list').length > 0 ){
+			addToCartOnclick( input );
+		}
 	});
 	$('.qty-increment').on('click', function(){
-		$('.qty-input').val(parseInt($('.qty-input').val()) + 1, 1);
+		var input = $('.qty-input[data-id=' + $(this).data().id + '][data-size=' + $(this).data().size + ']');
+		input.val(Math.max(parseInt(input.val()) + 1, 1));
+		if( $('.cart-list').length > 0 ){
+			addToCartOnclick( input );
+		}
 	});
 	$('.pdp-image-item img').on('click', function(e){
 		e.preventDefault();
@@ -130,26 +138,6 @@ function initPDPFunctions(){
 	});
 	if (typeof pdpImageUrl !== 'undefined') {
 		$('.pdp-main_image').zoom({url: pdpImageUrl});
-	}
-
-	function addToCart(){
-		var data = {
-			action:'modify',
-			cartId: getCookieValue( 'cartId'),
-			itemId: $('input[name=productId]').val(),
-			amount: $('input[name=quantity]').val(),
-			size: $('select[name=itemSize]').val()
-		};
-		$.ajax({
-			url: cartServiceUrl,
-			type: 'POST',
-			data: data,
-			success: function(data){
-				setCookie(data._id);
-				$('.minicart .minicart-total').html('&#8381; ' + data.total);
-				$('.minicart .minicart-qty').text(data.itemsNum);
-			}
-		});
 	}
 }
 
@@ -237,6 +225,41 @@ $( document ).ready(function() {
 function getCookieValue(a) {
     var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
     return b ? b.pop() : '';
+}
+
+function addToCartOnclick( input ){
+	var data = {
+		itemId: input.data().id,
+		size: input.data().size,
+		amount: input.val(),
+		cartId: getCookieValue( 'cartId'),
+		action:'modify',
+		force: true
+	}
+	addToCart(data);
+}
+
+function addToCart( data ){
+	var data = data;
+	if( !data ){
+		data = {
+			action:'modify',
+			cartId: getCookieValue( 'cartId'),
+			itemId: $('input[name=productId]').val(),
+			amount: $('input[name=quantity]').val(),
+			size: $('select[name=itemSize]').val()
+		};
+	}
+	$.ajax({
+		url: cartServiceUrl,
+		type: 'POST',
+		data: data,
+		success: function(data){
+			setCookie(data._id);
+			$('.minicart .minicart-total').html('&#8381; ' + data.total);
+			$('.minicart .minicart-qty').text(data.itemsNum);
+		}
+	});
 }
 
 function validateEmail(email) {

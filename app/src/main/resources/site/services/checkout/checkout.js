@@ -27,6 +27,7 @@ function generateCheckoutPage(req){
             if( model.cart && model.cart.orderId && model.cart.orderId != '' ){
                 order = ordersLib.modifyOrder( model.cart.orderId, params );
             } else {
+                params.cartId = model.cart._id;
                 order = ordersLib.createOrder( params );
                 model.cart = cartLib.setOrder( model.cart._id, order._id );
             }

@@ -20,7 +20,7 @@ exports.getCart = function( cartId ){
   }
 }
 
-exports.modify = function( cartId, id, amount, itemSize ){
+exports.modify = function( cartId, id, amount, itemSize, force ){
   var cart = this.getCart(cartId);
   var cartRepo = connectCartRepo();
   var result = cartRepo.modify({
@@ -34,7 +34,11 @@ exports.modify = function( cartId, id, amount, itemSize ){
       node.items = norseUtils.forceArray(node.items);
       for( var i = 0; i < node.items.length; i++ ){
         if( node.items[i].id == id && node.items[i].itemSize == itemSize ){
-          node.items[i].amount = parseInt(node.items[i].amount) + parseInt(amount);
+          if( force ){
+            node.items[i].amount = amount;
+          } else {
+            node.items[i].amount = parseInt(node.items[i].amount) + parseInt(amount);
+          }
           if( parseInt(amount) < 1 ){
             delete node.items[i];
           }

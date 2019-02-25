@@ -25,9 +25,9 @@
                         </div>
                         <div class="cart-product_qty">
                             <div class="qty-field">
-                                <span class="qty-decrement">-</span>
-                                    <input name="quantity" type="text" class="qty-input" readonly placeholder="1" data-th-attr="value=${item.amount}">
-                                <span class="qty-increment">+</span>
+                                <span data-th-attr="data-id=${item._id}, data-size=${item.itemSize}" class="qty-decrement">-</span>
+                                    <input name="quantity" type="text" class="qty-input" readonly placeholder="1" data-th-attr="value=${item.amount}, data-id=${item._id}, data-size=${item.itemSize}">
+                                <span data-th-attr="data-id=${item._id}, data-size=${item.itemSize}" class="qty-increment">+</span>
                             </div>
                         </div>
                         <div class="cart-product_price">
