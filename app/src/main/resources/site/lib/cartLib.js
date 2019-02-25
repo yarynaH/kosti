@@ -5,19 +5,26 @@ var nodeLib = require('/lib/xp/node');
 var contextLib = require('/lib/contextLib');
 
 exports.getCart = function( cartId ){
+  var cart = {};
   if( cartId ){
-    var cart = getCartById( cartId );
+    cart = getCartById( cartId );
     if( cart ){
       cart.price = calculateCart( cart );
       cart.items = getCartItems( cart.items );
       cart.itemsNum = calculateCartItems(cart.items);
     } else {
       cart = createCart();
+      cart.price = calculateCart( cart );
+      cart.items = getCartItems( cart.items );
+      cart.itemsNum = calculateCartItems(cart.items);
     }
-    return cart;
   } else {
-    return createCart();
+    cart = createCart();
+    cart.price = calculateCart( cart );
+    cart.items = getCartItems( cart.items );
+    cart.itemsNum = calculateCartItems(cart.items);
   }
+  return cart;
 }
 
 exports.modify = function( cartId, id, amount, itemSize, force ){
@@ -126,11 +133,19 @@ function getCartById( id ){
 
 function calculateCart( cart ){
   if( !cart || !cart.items ){
-    return 0;
+    return {
+      items: 0,
+      shipping: 0,
+      total: 0
+    }
   }
   var items = norseUtils.forceArray( cart.items );
   if( items == [] ){
-    return 0;
+    return {
+      items: 0,
+      shipping: 0,
+      total: 0
+    }
   }
   var result = 0;
   for( var i = 0; i < items.length; i++ ){
