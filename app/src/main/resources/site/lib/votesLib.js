@@ -6,11 +6,7 @@ var authLib = require('/lib/xp/auth');
 var nodeLib = require('/lib/xp/node');
 
 exports.vote = function(user, content){
-	//if( type == 'upvote' ){
-	return upvote(user, content);
-	/*} else if( type == 'downvote' ){
-		downvote(uid, cid);
-	}*/
+	return doVote(user, content);
 }
 
 exports.countUpvotes = function( id ){
@@ -21,10 +17,12 @@ exports.countUpvotes = function( id ){
 	return "0";
 }
 
-function upvote( user, content ){
+function doVote( user, content ){
 	var node = getNode( content );
 	if( !checkIfVoteExist( user, node ) && node && user ){
-		return editNode( user, node );
+		return upvote( user, node );
+	} else if(checkIfVoteExist( user, node ) && node && user) {
+		return downvote( user, node );
 	} else if( !node && user ){
 		return createVote( user, content );
 	} else {
@@ -33,7 +31,7 @@ function upvote( user, content ){
 }
 
 function checkIfVoteExist( user, node ){
-	if( node && node.votes && node.votes.indexOf(user) == -1 ){
+	if( node && ((node.votes && node.votes.indexOf(user) == -1) || !node.votes) ){
 		return false;
 	} else {
 		return true;
@@ -48,16 +46,32 @@ function createVote( user, content ){
 	});
 }
 
-function editNode( user, node ){
+function upvote( user, node ){
 	var votesRepo = getVotesRepo();
 	return votesRepo.modify({
 	    key: node._id,
 	    editor: editor
 	});
 	function editor(node) {
+		if(!node.votes){
+			node.votes = [];
+		}
 		var temp = node.votes;
 		temp.push( user );
 	    node.votes = temp;
+	    return node;
+	}
+}
+
+function downvote( user, node ){
+	var votesRepo = getVotesRepo();
+	return votesRepo.modify({
+	    key: node._id,
+	    editor: editor
+	});
+	function editor(node) {
+		node.votes = norseUtils.forceArray(node.votes);
+		node.votes.splice(node.votes.indexOf(user), 1);
 	    return node;
 	}
 }

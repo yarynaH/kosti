@@ -1,7 +1,6 @@
 function initLoginRegisterForm(){
 	$('.header-user .guest-btn').on('click', function(e){
-		e.stopPropagation();
-		$('body div.modal-login').addClass('show');
+		showLogin(e);
 	});
 	$(document).on('click', function(event) {
 		hideLoginRegisterModal();
@@ -142,9 +141,6 @@ function initPDPFunctions(){
 }
 
 function initCheckoutEvents(){
-	if( $('form[name=payment]').length > 0 ){
-		$('form[name=payment]').submit();
-	}
 	$('.checkout-action .checkout-continue').on('click', function(e){
 		validateCheckout(e);
 	});
@@ -191,25 +187,18 @@ function initUserPageFunctions(){
 function initSharedEvents(){
 	$('.like-btn').on('click', function(e){
 		e.preventDefault();
-		var data = {
-			content: $(this).data('contentid'),
-			user: $('.header-user').data('userid')
-		};
-		var btn = this;
-        $.ajax({
-            type:'POST',
-            url: contentServiceUrl,
-            data: data,
-            success:function(data){
-            	$(btn).html('<span>' + (Array.isArray(data.votes) ? data.votes.length : '1')  + '</span>');
-            },
-            error: function(data){
-                console.log("error");
-                console.log(data);
-            }
-        });
+		if( $('.header-user').data().userid && $('.header-user').data().userid != '' ){
+			doUpvote(this);
+		} else {
+			showLogin(e);
+		}
 	});
-	setCookie(cartId);
+	if( $('form[name=payment]').length > 0 ){
+		deleteCookie('cartId');
+		$('form[name=payment]').submit();
+	} else {
+		setCookie(cartId);
+	}
 }
 
 $( document ).ready(function() {
@@ -221,6 +210,35 @@ $( document ).ready(function() {
 	initUserPageFunctions();
 	initSharedEvents();
 });
+
+function doUpvote(el){
+	var data = {
+		content: $(el).data('contentid'),
+		user: $('.header-user').data('userid')
+	};
+	var btn = el;
+    $.ajax({
+        type:'POST',
+        url: contentServiceUrl,
+        data: data,
+        success:function(data){
+        	var result = '0';
+        	if( data.votes ){
+        		result = (Array.isArray(data.votes) ? data.votes.length : '1');
+        	}
+        	$(btn).html('<span>' + result + '</span>');
+        },
+        error: function(data){
+            console.log("error");
+            console.log(data);
+        }
+    });
+}
+
+function showLogin(e){
+	e.stopPropagation();
+	$('body div.modal-login').addClass('show');
+}
 
 function getCookieValue(a) {
     var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
@@ -274,6 +292,10 @@ function validatePhone(phone) {
 
 function setCookie( cartId ){
 	document.cookie = "cartId=" + cartId + "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+}
+
+function deleteCookie( name ) {
+  document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 function validateCheckout(e){
