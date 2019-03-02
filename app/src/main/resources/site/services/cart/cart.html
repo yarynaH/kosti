@@ -13,7 +13,7 @@
                 <div class="cart-list">
                     <div data-th-each="item: ${cart.items}" class="cart-item">
                         <div class="cart-product_img">
-                            <img data-th-src="${item.image.url}" alt="product image">
+                            <img data-th-src="${item.imageCart.url}" alt="product image">
                         </div>
                         <div class="cart-product_description">
                             <div data-th-text="${item.displayName}" class="cart-product_title"></div>
