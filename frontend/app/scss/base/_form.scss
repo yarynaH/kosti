@@ -19,15 +19,19 @@ textarea {
     &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
         color: $color-primary7;
     }
+
     &::-moz-placeholder { /* Firefox 19+ */
-    color: $color-primary7;
+        color: $color-primary7;
     }
+
     &:-ms-input-placeholder { /* IE 10+ */
-    color: $color-primary7;
+        color: $color-primary7;
     }
+
     &:-moz-placeholder { /* Firefox 18- */
-    color: $color-primary7;
+        color: $color-primary7;
     }
+
     &.is-invalid{
         border-color: $color-primary32;
         color: $color-primary32;
@@ -49,7 +53,7 @@ textarea {
 
     &:after{
         @include border-triangle(bottom, 4px, 6px, $color-primary29);
-        @include position(absolute, top 50% right 15px)
+        @include position(absolute, top 50% right 15px);
 
         content: '';
         margin-top: -4px;

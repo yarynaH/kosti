@@ -114,7 +114,7 @@
 
         &-info {
             &:before {
-                @include position(absolute, top -14px left 0px)
+                @include position(absolute, top -14px left 0px);
 
                 content: '';
                 width: 32px;

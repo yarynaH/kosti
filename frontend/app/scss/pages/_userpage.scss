@@ -1,0 +1,89 @@
+.user_page {
+    &-wrap {
+        padding-top: 50px;
+    }
+
+    &-title {
+        font-weight: bold;
+        color: $color-primary12;
+        padding-bottom: 25px;
+    }
+}
+
+.profile {
+    position: relative;
+    padding: 35px 35px 10px;
+    background: $color-primary1;
+    text-align: center;
+    box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+
+    &-avatar {
+        margin-bottom: 15px;
+        height: 140px;
+
+        img {
+            border-radius: 50%;
+        }
+    }
+
+    &-settings {
+        @include icon(rock);
+
+        color: $color-primary12;
+        padding-left: 8px;
+    }
+
+    &-name {
+        color:  #1d1f24;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    &-user {
+        padding-bottom: 8px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    &-registration {
+        color: $color-primary12;
+        padding-bottom: 15px;
+    }
+
+    &-liked {
+        @include icon(rock);
+
+        border-radius: 4px;
+        background-color: $color-primary18;
+        color: $color-primary1;
+        display: inline-block;
+        padding: 5px 8px;
+        margin-bottom: 35px;
+
+        &-qty {
+            padding-left: 8px;
+        }
+    }
+
+    &-action-link {
+        color: #1b2125;
+        font-weight: bold;
+    }
+    
+    &-action-link .value,
+    &-action-link.active,
+    &-action-link:hover {
+        color: $color-primary12;
+    }
+
+    &-action-item {
+        margin-bottom: 20px;
+    }
+
+    &-logout {
+        @include icon(rock);
+        @include position (absolute, top 25px right 35px);
+
+        color: $color-primary12;
+    }
+}

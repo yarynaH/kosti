@@ -7,10 +7,85 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <form id="userImageUpload" enctype="multipart/form-data">
-            <input type="file" name="userImage" id="userImage">
-        </form>
-        <a data-th-href="${portal.serviceUrl({'_service=user','logout=true'})}">Logout</a>
+        <div class="user_page-wrap">
+            <div class="blog blog_width clearfix">
+                <div class="user_page-blog blog-list">
+                    <div class="user_page-title">1 Статья</div>
+                    <div data-th-each="article: ${articles}" class="blog-item">
+                        <div class="post-image_wrap">
+                            <img data-th-src="${article.image.url}" alt="">
+                        </div>
+                        <div class="post">
+                            <div class="post-info">
+                                <a data-th-href="${article.author.url}">
+                                    <span class="post-user_avatar">
+                                        <img data-th-src="${article.author.image.url}" alt="">
+                                    </span>
+                                    <span class="post-user_name" data-th-text="${article.author.displayName}"></span>
+                                </a>
+                                <span class="post-date" data-th-text="${article.date}"></span>
+                            </div>
+                            <h2 class="post-title" data-th-text="${article.displayName}"></h2>
+                            <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
+                            <div class="tag-list hidden">
+                                <a href="#" class="tag-item">WoD</a>
+                                <a href="#" class="tag-item">V5</a>
+                                <a href="#" class="tag-item">VtM</a>
+                            </div>
+                        </div>
+                        <div class="post-footer">
+                            <div class="post-counters hidden">
+                                <span class="share-counter icon-share">245</span>
+                                <span class="views-counter icon-views">314</span>
+                                <span class="comments-counter icon-comment">12</span>
+                            </div>
+                            <div class="post-actions">
+                                <a href="#" class="hidden add_to_bookmarks-btn icon-bookmark"></a>
+                                <a data-th-attr="data-contentId=${article._id}" href="#" class="like-btn icon-rock active">
+                                    <span data-th-text="${article.votes}"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                <div class="user_page-profile blog-sidebar">
+                    <div class="user_page-title">Профиль</div>
+                    <div class="profile">
+                        <form id="userImageUpload" enctype="multipart/form-data" class="profile-form">
+                            <!-- <input type="file" name="userImage" id="userImage"> -->
+                            <div class="profile-avatar">
+                                <img src="https://picsum.photos/140/140/?random" alt="">
+                            </div>
+                            <div class="profile-user">
+                                <span class="profile-name">Степан</span>
+                                <a href"#" class="profile-settings"></a>
+                            </div>
+                            <div class="profile-registration">
+                                Костяшка с 19 января 2019
+                            </div>
+                            <div class="profile-liked">
+                                <span class="profile-liked-img"></span>
+                                <span class="profile-liked-qty">219</span>
+                            </div>
+                            <ul class="profile-action-list">
+                                <li class="profile-action-item">
+                                    <a href="" class="profile-action-link active">Статьи <span class="value">1</span></a>
+                                </li>
+                                <li class="profile-action-item">
+                                    <a href="" class="profile-action-link">Коментарии <span class="value">21</span></a>
+                                </li>
+                                <li class="profile-action-item">
+                                    <a href="" class="profile-action-link">Закладки <span class="value">31</span></a>
+                                </li>
+                                <li class="profile-action-item">
+                                    <a href="" class="profile-action-link">Уведомления <span class="value">1</span></a>
+                                </li>
+                            </ul>
+                        </form>
+                        <a data-th-href="${portal.serviceUrl({'_service=user','logout=true'})}" class="profile-logout" title="Logout"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>

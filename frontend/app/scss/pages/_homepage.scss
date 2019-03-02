@@ -5,13 +5,6 @@
     }
 }
 
-.schedule {
-    @include tablet-all() {
-        width: 32%;
-        float: right; 
-    }
-}
-
 .latest_news {
     position: relative;
     background: $color-primary2;
@@ -64,6 +57,11 @@
 }
 
 .schedule {
+    @include tablet-all() {
+        width: 32%;
+        float: right; 
+    }
+
     &-item {
         padding: 30px 30px 15px;
         box-shadow: 0 2px 8px 0 rgba(217, 144, 49, 0.24);
@@ -90,7 +88,6 @@
     
     &-title {
         @include truncate();
-        font-family: Roboto;
         font-size: rem(18);
         font-weight: bold;
     }
@@ -151,7 +148,6 @@
     .fresher-btn,
     .hotter-btn,
     .bookmarks-btn, {
-        font-family: Roboto;
         font-size: rem(14);
         font-weight: bold;
         color: $color-primary12;
@@ -233,7 +229,7 @@
     }
 
     &-text {
-        line-height: 1.71; 
+        line-height: 1.71;
         color: $color-primary16;
         margin-bottom: 8px;
     }
