@@ -87,7 +87,9 @@ label {
         margin-top: 15px;
 
         .form-group-column & {
-            margin-left: 20px;
+            @include tablet-all() {
+                margin-left: 20px;
+            }
         }
     }
 
@@ -98,14 +100,18 @@ label {
     }
 
     &-column {
-        display: flex;
-        align-items: stretch;
-        justify-content: space-between;
-        margin-bottom: 30px;
-    
-        .form-group {
-            margin: 0;
-            flex: 0 1 50%;
+        margin-bottom: 15px;
+
+        @include tablet-all() {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            margin-bottom: 30px;
+
+            .form-group {
+                margin: 0;
+                flex: 0 1 50%;
+            }
         }
     }
     &.is-invalid{
@@ -125,11 +131,15 @@ label {
     width: 100%;
     border: 1px solid $color-primary20;
     border-radius: 3px;
-    padding: 35px 45px 35px 75px;
+    padding: 35px 45px 35px 20%;
     position: relative;
     cursor: pointer;
     transition: transition(border);
-    
+
+    @include mobile {
+        padding-left: 60px;
+    }
+
     &:hover {
         border-color: $color-primary22;
     }
@@ -139,7 +149,7 @@ label {
     }
 
     &:before {
-        @include position(absolute, top 35px left 40px);
+        @include position(absolute, top 35px left 13%);
 
         content: '';
         height: 18px;
@@ -148,6 +158,10 @@ label {
         border-radius: 50%;
         transition: transition(border);
 
+        @include mobile {
+            left: 25px;
+        }
+
         [type="radio"]:checked + & {
             border-color: $color-primary22;
             border-width: 2px;
@@ -155,14 +169,19 @@ label {
     }
     
     &:after {
-        @include position(absolute, top 40px left 45px);
+        @include position(absolute, top 40px left 13%);
 
         content: '';
         width: 8px;
         height: 8px;
+        margin-left: 5px;
         background-color: transparent;
         border-radius: 50%;
         transition: transition(background);
+
+        @include mobile {
+            left: 25px;
+        }
 
         [type="radio"]:checked + & {
             background: $color-primary22;
@@ -180,6 +199,10 @@ label {
     &-type {
         font-size: rem(14);
         text-transform: none;
+
+        @include tablet {
+            padding-left: 15px;
+        }
     }
 
     &-top {

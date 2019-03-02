@@ -1,14 +1,18 @@
 .checkout {
     &-wrap {
-        display: flex;
-        align-items: stretch;
-        justify-content: center;
-        background: $color-primary1;
+        @include tablet-all() {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            background: $color-primary1;
+        }
 
         &:after,
         &:before {
-            content: '';
-            flex: 1 1 100%;
+            @include tablet-all() {
+                content: '';
+                flex: 1 1 100%;
+            }
         }
 
         &:before {
@@ -20,18 +24,29 @@
         }
 
         .site_width {
-            flex: 1 0 100%;
-            display: flex;
             padding: 0;
-            justify-content: space-between;
+
+            @include tablet-all() {
+                display: flex;
+                flex: 1 0 100%;
+                justify-content: space-between;
+            }
         }
     }
 
     &-info {
         background: $color-primary1;
-        flex: 1 0 71%;
-        max-width: 900px;
-        padding: 65px 9% 140px 20px;
+        padding: 35px 10px 45px;
+
+        @include tablet-all() {
+            flex: 1 0 71%;
+            max-width: 900px;
+            padding: 55px 9% 140px 20px;
+        }
+
+        @include tablet {
+            padding-right: 4%;
+        }
 
         .form-group-address {
             margin-bottom: 30px;
@@ -54,6 +69,10 @@
         justify-content: space-between;
         align-items: center;
         margin-top: 70px;
+
+        @include mobile() {
+            margin-top: 35px;
+        }
     }
 
     &-back {
@@ -74,16 +93,34 @@
 
     &-summary {
         background: $color-primary26;
-        flex: 1 0 29%;
-        max-width: 360px;
-        padding: 65px 20px 0 4%;
+        padding: 35px 10px 45px;
+
+        @include tablet-all() {
+            flex: 1 0 29%;
+            max-width: 360px;
+            padding: 65px 20px 0 4%;
+        }
     }
 }
 
 .step {
     &-list {
         display: flex;
-        margin-bottom: 70px;
+        margin-bottom: 35px;
+        position: relative;
+
+        @include tablet-all() {
+            margin-bottom: 70px;
+        }
+
+        &:before {
+            @include position(absolute, top 0 left 0px);
+
+            content: '';
+            width: 32px;
+            height: 39px;
+            background-image: url("../images/smal-logo.png");
+        }
 
         &-two {
             .step-item {
@@ -97,14 +134,18 @@
     }
 
     &-item {
-        position: relative;
-        flex: 1 0 calc(100% / 3);
-        padding-bottom: 32px;
+        flex: 1 0 auto;
+        padding: 10px 10px 32px;
         line-height: 1.5;
         border-bottom: 1px solid $color-primary20;
         color: $color-primary12;
         text-align: center;
         text-transform: uppercase;
+        white-space: nowrap;
+
+        @include mobile() {
+            padding-bottom: 25px;
+        }
 
         &.active {
             border-color: $color-primary15;
@@ -112,15 +153,14 @@
             font-weight: bold;
         }
 
-        &-info {
-            &:before {
-                @include position(absolute, top -14px left 0px);
-
-                content: '';
-                width: 32px;
-                height: 39px;
-                background-image: url("../images/smal-logo.png");
+        &:not(.active) {
+            @include mobile() {
+                display: none;
             }
+        }
+
+        &-info {
+            padding-left: 34px;
         }
     }
 }
@@ -157,10 +197,18 @@
     &-product-info {
         margin-left: 25px;
         line-height: 1.4;
+
+        @include tablet {
+            margin-left: 15px;
+        }
     }
 
     &-product-img_wrap {
         flex-shrink: 0;
+
+        @include tablet {
+            width: 31%;
+        }
     }
 
     &-product-name {
@@ -251,6 +299,7 @@
         border-radius: 3px;
         border: 1px solid $color-primary20;
         margin-bottom: 50px;
+
     }
 
     &-shipto {
@@ -286,13 +335,17 @@
 }
 
 .delivery_m {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+    @include tablet-all() {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
 
     .form-group {
-        width: 49%;
-        margin: 0;
+        @include tablet-all() {
+            width: 49%;
+            margin: 0;
+        }
     }
 }
 
