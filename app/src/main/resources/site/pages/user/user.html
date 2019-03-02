@@ -10,8 +10,14 @@
         <div class="user_page-wrap">
             <div class="blog blog_width clearfix">
                 <div class="user_page-blog blog-list">
-                    <div class="user_page-title">1 Статья</div>
-                    <div data-th-each="article: ${articles}" class="blog-item">
+                    <div class="user_page-title">
+                        <span data-th-remove="tag" data-th-text="${content.articles ? content.articles.size : '0'}"></span> 
+                        Статей
+                    </div>
+                    <div data-th-if="${!content.articles || content.articles.size < 1}">
+                        У этого пользователя пока нету статей
+                    </div>
+                    <div data-th-each="article: ${content.articles}" class="blog-item">
                         <div class="post-image_wrap">
                             <img data-th-src="${article.image.url}" alt="">
                         </div>
@@ -74,13 +80,13 @@
                                 <a href="" class="profile-action-link active">Статьи <span class="value">1</span></a>
                             </li>
                             <li class="profile-action-item">
-                                <a href="" class="profile-action-link">Коментарии <span class="value">21</span></a>
+                                <a href="" class="profile-action-link hidden">Коментарии <span class="value">21</span></a>
                             </li>
                             <li class="profile-action-item">
-                                <a href="" class="profile-action-link">Закладки <span class="value">31</span></a>
+                                <a href="" class="profile-action-link hidden">Закладки <span class="value">31</span></a>
                             </li>
                             <li class="profile-action-item">
-                                <a href="" class="profile-action-link">Уведомления <span class="value">1</span></a>
+                                <a href="" class="profile-action-link hidden">Уведомления <span class="value">1</span></a>
                             </li>
                         </ul>
                         <a data-th-href="${portal.serviceUrl({'_service=user','logout=true'})}" class="profile-logout" title="Logout"></a>

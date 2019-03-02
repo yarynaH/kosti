@@ -3,6 +3,7 @@ var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
 var votesLib = require('votesLib');
+var blogLib = require('blogLib');
 var userLib = require('userLib');
 var helpers = require('helpers');
 
@@ -33,6 +34,14 @@ function handleReq(req) {
         content.date = date.getDate() + ' ' + norseUtils.getMonthName(date) + ' ' + date.getFullYear();
         var response = [];
         var site = portal.getSiteConfig();
+        var articles = contentLib.query({
+            start: 0,
+            count: 999999,
+            query: "data.author = '" + content._id + "'"
+        });
+        if( articles && articles.hits && articles.hits.length > 0 ){
+            content.articles = blogLib.beautifyArticleArray(articles.hits);
+        }
 
         var model = {
             content: content,
