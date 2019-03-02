@@ -37,8 +37,10 @@ function initLoginRegisterForm(){
 				$('.modal-login .form-group-error').removeClass('hidden');
 			} else {
 				$('.header-user').html('<div class="user-avatar-img_wrap">' + 
-					'<a href=' + data.url + '><img src="' + data.image.url + '" alt="' + data.displayName + '"></a>');
+					'<a href=' + data.url + '><img src="' + data.image.url + 
+					'" alt="' + data.displayName + '"></a>');
 				hideLoginRegisterModal();
+				$('.header-user').attr("data-userid", data.key);
 				$('.modal-login .form-group-error').addClass('hidden');
 			}
 		});

@@ -35,7 +35,7 @@ function generateCheckoutPage(req){
         var stepView = thymeleaf.render( resolve('stepTwo.html'), createStepTwoModel( params, req ));
         model.shipping = 'active';
 	} else if( params.step && params.step == '3' ){
-	} else if( params.step && params.step == 'submit' ){
+        var stepView = thymeleaf.render( resolve('stepThree.html'), createStepThreeModel( params, req ));
         var order = {};
         contextLib.runAsAdmin(function () {
             if( model.cart && model.cart.orderId && model.cart.orderId != '' ){
@@ -47,6 +47,9 @@ function generateCheckoutPage(req){
                 order = ordersLib.modifyOrder( model.cart.orderId, params );
             }
         });
+        model.payment = 'active';
+	} else if( params.step && params.step == 'submit' ){
+        var order = ordersLib.getOrder( model.cart.orderId );
         if( order && order.ik_id ){
             model.pay = true;
             model.ik_id = order.ik_id;
@@ -82,6 +85,11 @@ function generateCheckoutPage(req){
             params: params,
             shipping: shipping,
             address: params.country.replaceAll(' ', '+') + ',' + params.city.replaceAll(' ', '+') + ',' + params.address.replaceAll(' ', '+')
+        };
+    }
+
+    function createStepThreeModel( params, req ){
+        return {
         };
     }
 
