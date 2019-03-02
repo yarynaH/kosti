@@ -136,10 +136,6 @@ exports.logout = function(){
 }
 
 exports.uploadUserImage = function(){
-	function userImageEditor(user){
-	    user.data.userImage = image._id;
-	    return user;
-	}
     var stream = portal.getMultipartStream('userImage');
     var imageMetadata = portal.getMultipartItem('userImage');
     var user = this.getCurrentUser();
@@ -152,13 +148,18 @@ exports.uploadUserImage = function(){
     });
     user = contentLib.modify({
         key: user._id,
-        editor: userImageEditor
+        editor: userImageEditor,
+        branch: 'draft'
     });
     var publishResult = contentLib.publish({
         keys: [image._id, user._id],
         sourceBranch: 'draft',
         targetBranch: 'master'
     });
+	function userImageEditor(user){
+	    user.data.userImage = image._id;
+	    return user;
+	}
     return norseUtils.getImage( user.data.userImage, 'block(32,32)' );
 }
 
