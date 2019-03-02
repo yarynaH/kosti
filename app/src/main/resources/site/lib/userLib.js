@@ -30,6 +30,17 @@ exports.getCurrentUser = function(){
 	return userObj;
 }
 
+exports.getSystemUser = function( name ){
+	var user = false;
+	contextLib.runAsAdmin(function () {
+		user = findUser(name);
+	});
+	if( user.hits && user.hits[0] ){
+		return user.hits[0];
+	}
+	return false;
+}
+
 exports.register = function( name, mail, pass ){
     var site = portal.getSite();
     var exist = checkUserExists( name, mail );
@@ -110,14 +121,14 @@ exports.login = function( name, pass ){
 			})
 		}
 	}
+}
 
-	function findUser( name ){
-		return authLib.findUsers({
-		    start: 0,
-		    count: 1,
-		    query: 'email="' + name + '" OR login="' + name + '"'
-		});
-	}
+function findUser( name ){
+	return authLib.findUsers({
+	    start: 0,
+	    count: 1,
+	    query: 'email="' + name + '" OR login="' + name + '"'
+	});
 }
 
 exports.logout = function(){
@@ -127,8 +138,6 @@ exports.logout = function(){
 exports.uploadUserImage = function(){
     var stream = portal.getMultipartStream('userImage');
     var imageMetadata = portal.getMultipartItem('userImage');
-    var result = null;
-    var site = portal.getSiteConfig();
     var user = this.getCurrentUser();
     var image = contentLib.createMedia({
         name: imageMetadata.fileName,
@@ -139,19 +148,19 @@ exports.uploadUserImage = function(){
     });
     user = contentLib.modify({
         key: user._id,
-        editor: userImageEditor
+        editor: userImageEditor,
+        branch: 'draft'
     });
     var publishResult = contentLib.publish({
         keys: [image._id, user._id],
         sourceBranch: 'draft',
         targetBranch: 'master'
     });
+	function userImageEditor(user){
+	    user.data.userImage = image._id;
+	    return user;
+	}
     return norseUtils.getImage( user.data.userImage, 'block(32,32)' );
-
-    function userImageEditor(user){
-        user.data.userImage = image._id;
-        return user;
-    }
 }
 
 function checkUserExists( name, mail ){

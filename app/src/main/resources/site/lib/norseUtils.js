@@ -3,6 +3,7 @@ var portal = require('/lib/xp/portal');
 var i18n = require('/lib/xp/i18n');
 
 // Returns the full month name from a Date object.
+
 exports.getMonthName = function(date) {
 
     var month = date.getMonth();

@@ -213,7 +213,7 @@ function initSharedEvents(){
 	}
 }
 
-function initUCartFunctions(){
+function initCartFunctions(){
 	$('.cart-remove_btn').on('click', function(){
 		var data = {
 			itemId: $(this).data().id,
@@ -231,14 +231,21 @@ function initUCartFunctions(){
 	});
 }
 
+function initUserPgaeFunction(){
+	$('.user_page-wrap .profile .profile-avatar').on( 'click', function(){
+		$('#userImageUpload input').click();
+	});
+}
+
 $( document ).ready(function() {
+	initUserPgaeFunction();
 	initLoginRegisterForm();
 	initHomepageSlider();
 	initPDPFunctions();
 	initCheckoutEvents();
 	initHomepageFunction();
 	initUserPageFunctions();
-	initUCartFunctions();
+	initCartFunctions();
 	initSharedEvents();
 });
 
