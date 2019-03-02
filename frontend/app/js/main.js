@@ -110,6 +110,13 @@ function initPDPFunctions(){
 			addToCartOnclick( input );
 		}
 	});
+	$('.qty-input').on('change', function(){
+		var input = $(this);
+		input.val(Math.max(parseInt(input.val()), 1));
+		if( $('.cart-list').length > 0 ){
+			addToCartOnclick( input );
+		}
+	});
 	$('.qty-increment').on('click', function(){
 		var input = $('.qty-input[data-id=' + $(this).data().id + '][data-size=' + $(this).data().size + ']');
 		input.val(Math.max(parseInt(input.val()) + 1, 1));
