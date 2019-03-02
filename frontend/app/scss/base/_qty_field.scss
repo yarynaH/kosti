@@ -1,6 +1,6 @@
 .qty {
     &-field {
-        font-size: 0;
+        width: 136px;
         border: 1px solid  $color-primary20;
         border-radius: 4px;
         overflow: hidden;
@@ -8,6 +8,7 @@
     }
 
     &-input {
+        float: left;
         width: 54px;
         border: 0;
         border-radius: 0;
@@ -19,10 +20,9 @@
         }
     }
 
-    &-increment, 
+    &-increment,
     &-decrement {
-        display: inline-block;
-        vertical-align: middle;
+        float: left;
         width: 40px;
         height: 56px;
         background-color: $color-primary31;

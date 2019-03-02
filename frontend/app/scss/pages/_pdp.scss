@@ -3,12 +3,9 @@
     padding-top: 40px;
 
     &-top {
-        @include tablet-all() {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding-bottom: 40px;
     }
 
