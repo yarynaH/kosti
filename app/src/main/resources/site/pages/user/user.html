@@ -48,11 +48,12 @@
                         </div>
                     </div>
                 <div class="user_page-profile blog-sidebar">
+                        <form id="userImageUpload" enctype="multipart/form-data" class="profile-form">
+                            <input type="file" name="userImage" id="userImage">
+                            <input type="hidden" name="action" value="image">
+                        </form>
                     <div class="user_page-title">Профиль</div>
                     <div class="profile">
-                        <form id="userImageUpload" enctype="multipart/form-data" class="profile-form">
-                            <input type="file" name="userImage" id="userImage" class="hidden">
-                        </form>
                         <div class="profile-avatar">
                             <img data-th-src="${content.image.url}" alt="">
                         </div>

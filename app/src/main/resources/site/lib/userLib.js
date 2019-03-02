@@ -136,10 +136,12 @@ exports.logout = function(){
 }
 
 exports.uploadUserImage = function(){
+	function userImageEditor(user){
+	    user.data.userImage = image._id;
+	    return user;
+	}
     var stream = portal.getMultipartStream('userImage');
     var imageMetadata = portal.getMultipartItem('userImage');
-    var result = null;
-    var site = portal.getSiteConfig();
     var user = this.getCurrentUser();
     var image = contentLib.createMedia({
         name: imageMetadata.fileName,
@@ -158,11 +160,6 @@ exports.uploadUserImage = function(){
         targetBranch: 'master'
     });
     return norseUtils.getImage( user.data.userImage, 'block(32,32)' );
-
-    function userImageEditor(user){
-        user.data.userImage = image._id;
-        return user;
-    }
 }
 
 function checkUserExists( name, mail ){
