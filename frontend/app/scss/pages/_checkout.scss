@@ -294,24 +294,10 @@
         width: 49%;
         margin: 0;
     }
+}
 
-    &-title {
-        color: $color-primary2;
-    }
-
-    &-type {
-        font-size: rem(14);
-        text-transform: none;
-    }
-
-    &-top {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 15px;
-        font-weight: bold;
-    }
-
-    &-description {
-        line-height: 1.7;
+.payment_m {
+    &-img_wrap {
+        width: 100px;
     }
 }
