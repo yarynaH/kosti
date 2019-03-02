@@ -51,36 +51,36 @@
                     <div class="user_page-title">Профиль</div>
                     <div class="profile">
                         <form id="userImageUpload" enctype="multipart/form-data" class="profile-form">
-                            <!-- <input type="file" name="userImage" id="userImage"> -->
-                            <div class="profile-avatar">
-                                <img src="https://picsum.photos/140/140/?random" alt="">
-                            </div>
-                            <div class="profile-user">
-                                <span class="profile-name">Степан</span>
-                                <a href"#" class="profile-settings"></a>
-                            </div>
-                            <div class="profile-registration">
-                                Костяшка с 19 января 2019
-                            </div>
-                            <div class="profile-liked">
-                                <span class="profile-liked-img"></span>
-                                <span class="profile-liked-qty">219</span>
-                            </div>
-                            <ul class="profile-action-list">
-                                <li class="profile-action-item">
-                                    <a href="" class="profile-action-link active">Статьи <span class="value">1</span></a>
-                                </li>
-                                <li class="profile-action-item">
-                                    <a href="" class="profile-action-link">Коментарии <span class="value">21</span></a>
-                                </li>
-                                <li class="profile-action-item">
-                                    <a href="" class="profile-action-link">Закладки <span class="value">31</span></a>
-                                </li>
-                                <li class="profile-action-item">
-                                    <a href="" class="profile-action-link">Уведомления <span class="value">1</span></a>
-                                </li>
-                            </ul>
+                            <input type="file" name="userImage" id="userImage" class="hidden">
                         </form>
+                        <div class="profile-avatar">
+                            <img data-th-src="${content.image.url}" alt="">
+                        </div>
+                        <div class="profile-user">
+                            <span class="profile-name" data-th-text="${content.displayName}"></span>
+                            <a href="#" class="profile-settings"></a>
+                        </div>
+                        <div class="profile-registration">
+                            Костяшка с <span data-th-remove="tag" data-th-text="${content.date}"></span>
+                        </div>
+                        <div class="profile-liked">
+                            <span class="profile-liked-img"></span>
+                            <span class="profile-liked-qty" data-th-text="${content.votes}"></span>
+                        </div>
+                        <ul class="profile-action-list">
+                            <li class="profile-action-item">
+                                <a href="" class="profile-action-link active">Статьи <span class="value">1</span></a>
+                            </li>
+                            <li class="profile-action-item">
+                                <a href="" class="profile-action-link">Коментарии <span class="value">21</span></a>
+                            </li>
+                            <li class="profile-action-item">
+                                <a href="" class="profile-action-link">Закладки <span class="value">31</span></a>
+                            </li>
+                            <li class="profile-action-item">
+                                <a href="" class="profile-action-link">Уведомления <span class="value">1</span></a>
+                            </li>
+                        </ul>
                         <a data-th-href="${portal.serviceUrl({'_service=user','logout=true'})}" class="profile-logout" title="Logout"></a>
                     </div>
                 </div>

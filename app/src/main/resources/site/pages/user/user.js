@@ -1,15 +1,10 @@
 var thymeleaf = require('/lib/xp/thymeleaf');
-var authLib = require('/lib/xp/auth');
-var libs = {
-    context: require('/lib/xp/context')
-};
-
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
-var helpers = require('helpers');
+var votesLib = require('votesLib');
 var userLib = require('userLib');
-var spellLib = require('spellsLib');
+var helpers = require('helpers');
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -31,6 +26,11 @@ function handleReq(req) {
 
         var up = req.params;
         var content = portal.getContent();
+        content.image = norseUtils.getImage( content.data.userImage, 'block(120,120)' );
+        var userSystemObj = userLib.getSystemUser(content.data.email);
+        content.votes = votesLib.countUserUpvotes(userSystemObj.key);
+        var date = new Date(content.publish.from.replace('Z', ''));
+        content.date = date.getDate() + ' ' + norseUtils.getMonthName(date) + ' ' + date.getFullYear();
         var response = [];
         var site = portal.getSiteConfig();
 
