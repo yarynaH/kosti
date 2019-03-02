@@ -112,6 +112,9 @@ function initPDPFunctions(){
 	});
 	$('.qty-input').on('change', function(){
 		var input = $(this);
+		if( isNaN(parseInt(input.val())) || parseInt(input.val()) < 1 ){
+			input.val('1');
+		}
 		input.val(Math.max(parseInt(input.val()), 1));
 		if( $('.cart-list').length > 0 ){
 			addToCartOnclick( input );
