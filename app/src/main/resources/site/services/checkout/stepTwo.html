@@ -29,12 +29,12 @@
         <div class="form-group" data-th-each="ship: ${shipping}">
             <input name="shipping" type="radio" class="input-radio" data-th-attr="id=${ship.id}, value=${ship.id}" checked hidden>
             <label data-th-attr="for=${ship.id}" class="label-radio">
-                <div class="delivery_m-type">
-                    <div class="delivery_m-top">
-                        <span class="delivery_m-title" data-th-text="${ship.title}"></span>
-                        <span class="delivery_m-cost" data-th-text="'&#8381; '+${ship.price}"></span>
+                <div class="radio_align-type">
+                    <div class="radio_align-top">
+                        <span class="radio_align-title" data-th-text="${ship.title}"></span>
+                        <span class="delivery_m-subtitle" data-th-text="'&#8381; '+${ship.price}"></span>
                     </div>
-                    <div class="delivery_m-description">Ожидаемое время вашей доставки <span data-th-text="${ship.terms}"></span> дней.</div>
+                    <div class="radio_align-description">Ожидаемое время вашей доставки <span data-th-text="${ship.terms}"></span> дней.</div>
                 </div>
             </label>
         </div>

@@ -118,6 +118,7 @@ label {
 }
 
 .label-radio {
+    width: 100%;
     border: 1px solid $color-primary20;
     border-radius: 3px;
     padding: 35px 45px 35px 75px;
@@ -162,5 +163,29 @@ label {
         [type="radio"]:checked + & {
             background: $color-primary22;
         }
+    }
+}
+
+
+
+.radio_align {
+    &-title {
+        color: $color-primary2;
+    }
+
+    &-type {
+        font-size: rem(14);
+        text-transform: none;
+    }
+
+    &-top {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    &-description {
+        line-height: 1.7;
     }
 }

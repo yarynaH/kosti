@@ -1,5 +1,21 @@
 <h2 class="checkout-title">Способ оплаты</h2>
 <form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
+    <div class="payment_m">
+        <div class="form-group">
+            <input name="shipping" type="radio" class="input-radio" id="intecasa-payment" checked hidden>
+            <label for="intecasa-payment" class="label-radio">
+                <div class="radio_align-type">
+                    <div class="radio_align-top">
+                        <span class="radio_align-title">Интеркасса</span>
+                        <span class="radio_align-subtitle payment_m-img_wrap">
+                            <img src="#" data-th-src="${portal.assetUrl({'_path=images/interkassa.png'})}" alt="interkassa image">
+                        </span>
+                    </div>
+                    <div class="radio_align-description">Вы будете перенаправлены на страницу сервиса для завершения безопасной оплаты</div>
+                </div>
+            </label>
+        </div>
+    </div>
     <div class="checkout-action">
         <a data-th-href="${shopUrl}" class="checkout-back">К покупкам</a>
         <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
