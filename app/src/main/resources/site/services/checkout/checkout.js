@@ -21,6 +21,10 @@ function generateCheckoutPage(req){
 	var params = req.params;
     var view = resolve('checkout.html');
     var model = getCheckoutMainModel( params );
+    var site = portal.getSiteConfig();
+    var shopUrl = portal.pageUrl({
+        id: site.shopLocation
+    });
 	if( params.step && params.step == '2' ){
         var order = null;
         contextLib.runAsAdmin(function () {
@@ -32,10 +36,14 @@ function generateCheckoutPage(req){
                 model.cart = cartLib.setOrder( model.cart._id, order._id );
             }
         });
-        var stepView = thymeleaf.render( resolve('stepTwo.html'), createStepTwoModel( params, req ));
+        var stepModel = createStepTwoModel( params, req );
+        stepModel.shopUrl = shopUrl;
+        var stepView = thymeleaf.render( resolve('stepTwo.html'), stepModel);
         model.shipping = 'active';
 	} else if( params.step && params.step == '3' ){
-        var stepView = thymeleaf.render( resolve('stepThree.html'), createStepThreeModel( params, req ));
+        var stepModel = createStepThreeModel( params, req );
+        stepModel.shopUrl = shopUrl;
+        var stepView = thymeleaf.render( resolve('stepThree.html'), stepModel);
         var order = {};
         contextLib.runAsAdmin(function () {
             if( model.cart && model.cart.orderId && model.cart.orderId != '' ){
@@ -61,7 +69,9 @@ function generateCheckoutPage(req){
                 order = ordersLib.getOrder( model.cart.orderId );
             }
         });
-        var stepView = thymeleaf.render( resolve('stepOne.html'), createStepOneModel( params, order ));
+        var stepModel = createStepOneModel( params, req );
+        stepModel.shopUrl = shopUrl;
+        var stepView = thymeleaf.render( resolve('stepOne.html'), stepModel);
         model.info = 'active';
 	}
     model.stepView = stepView;
