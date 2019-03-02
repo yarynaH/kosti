@@ -56,7 +56,7 @@ function upvote( user, node ){
 		if(!node.votes){
 			node.votes = [];
 		}
-		var temp = node.votes;
+		var temp = norseUtils.forceArray(node.votes);
 		temp.push( user );
 	    node.votes = temp;
 	    return node;
