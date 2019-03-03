@@ -21,4 +21,10 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'UA-124808103-1');
+  
+  $(document).ready(function(){
+        $('.mobile_menu').click(function(){
+            $(this).toggleClass('open');
+        });
+    });
 </script>

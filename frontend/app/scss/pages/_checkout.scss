@@ -354,3 +354,41 @@
         width: 100px;
     }
 }
+
+.confirmation {
+    &-wrap {
+        padding-top: 75px;
+        text-align: center;
+
+        .checkout-title {
+            display: inline-block;
+            border-bottom: 1px solid $color-primary15;
+            margin-bottom: 50px;
+        }
+
+        .checkout-back {
+            color: $color-primary28;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        .confirmation-msg {
+            width: 80%;
+            margin: 0 auto;
+
+            @include tablet-all() {
+                width: 43%;
+            }
+        }
+    }
+
+    &-msg {
+        color: $color-primary16;
+        margin-bottom: 50px;
+        line-height: 1.71;
+
+        @include tablet-all() {
+            width: 79%;
+        }
+    }
+}

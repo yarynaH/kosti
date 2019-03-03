@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body>
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <div class="confirmation-wrap">
+            <div class="site_width">
+                <h2 class="checkout-title">Спасибо за ваш заказ!</h2>
+                <div class="confirmation-msg">
+                    Все прошло как по маслу! Ваш заказ получен под номером #### и успешно оплачен. В ближайшее время мы свяжемся с вами для уточнения заказа. 
+                </div>
+                <a class="checkout-back">В магазин</a>
+            </div>
+        </div>
+    </main>
+    <footer data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

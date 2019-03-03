@@ -131,13 +131,13 @@ label {
     width: 100%;
     border: 1px solid $color-primary20;
     border-radius: 3px;
-    padding: 35px 45px 35px 20%;
+    padding: 35px 45px 35px 75px;
     position: relative;
     cursor: pointer;
     transition: transition(border);
 
     @include mobile {
-        padding-left: 60px;
+        padding: 35px 30px 35px 60px;
     }
 
     &:hover {
@@ -149,9 +149,9 @@ label {
     }
 
     &:before {
-        @include position(absolute, top 35px left 13%);
+        @include position(absolute, top 35px left 40px);
 
-        content: '';
+        content: '';    
         height: 18px;
         width: 18px;
         border: 1px solid $color-primary20;
@@ -169,18 +169,17 @@ label {
     }
     
     &:after {
-        @include position(absolute, top 40px left 13%);
+        @include position(absolute, top 40px left 45px);
 
         content: '';
         width: 8px;
         height: 8px;
-        margin-left: 5px;
         background-color: transparent;
         border-radius: 50%;
         transition: transition(background);
 
         @include mobile {
-            left: 25px;
+            left: 30px;
         }
 
         [type="radio"]:checked + & {
@@ -208,6 +207,7 @@ label {
     &-top {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 15px;
         font-weight: bold;
     }

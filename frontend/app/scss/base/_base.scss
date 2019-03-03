@@ -12,6 +12,7 @@ body {
 html, body {
     height: 100%;
     background-color: $color-primary26;
+    font-weight: normal;
 }
 
 a,
@@ -28,7 +29,6 @@ a {
 
 a {
     color: $color-primary22;
-    font-weight: bold;
 
     &:hover {
         opacity: 0.8; 
