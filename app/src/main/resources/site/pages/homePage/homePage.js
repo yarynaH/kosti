@@ -22,14 +22,6 @@ function handleReq(req) {
         var view = resolve('homePage.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
-        var flag1 = mailLib.send({
-            from: 'sales@kostirpg.com',
-            to: 'maxskywalker94@gmail.com',
-            subject: 'HTML email test',
-            body: '<h1>HTML Email!</h1><p>You can use the contentType parameter for HTML messages.</p>',
-            contentType: 'text/html; charset="UTF-8"'
-        });
-        norseUtils.log(flag1);
         return {
           body: body,
           contentType: 'text/html'
