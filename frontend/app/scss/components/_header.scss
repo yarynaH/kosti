@@ -89,6 +89,10 @@
         overflow: hidden;
         border: 2px solid $color-primary10;
         width: 36px;
+
+        @include mobile {
+            margin: 10px 25px;
+        }
     }
 }
 

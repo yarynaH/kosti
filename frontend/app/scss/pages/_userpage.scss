@@ -8,6 +8,12 @@
         color: $color-primary12;
         padding-bottom: 25px;
     }
+
+    &-blog {
+        @include mobile {
+            margin-top: 50px;
+        }
+    }
 }
 
 .profile {
