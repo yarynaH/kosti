@@ -1,6 +1,7 @@
 var contentLib = require('/lib/xp/content');
 var portal = require('/lib/xp/portal');
 var norseUtils = require('norseUtils');
+var hashLib = require('hashLib');
 var authLib = require('/lib/xp/auth');
 var contextLib = require('/lib/contextLib');
 var common = require('/lib/xp/common');
@@ -35,10 +36,7 @@ exports.getSystemUser = function( name ){
 	contextLib.runAsAdmin(function () {
 		user = findUser(name);
 	});
-	if( user.hits && user.hits[0] ){
-		return user.hits[0];
-	}
-	return false;
+	return user;
 }
 
 exports.register = function( name, mail, pass ){
@@ -96,7 +94,7 @@ exports.login = function( name, pass ){
 	contextLib.runAsAdmin(function () {
 		user = findUser(name);
 	});
-	if( !user || !user.hits || !user.hits[0] ){
+	if( !user ){
 		return {
 			exist: false,
 			message: i18nLib.localize({
@@ -106,7 +104,7 @@ exports.login = function( name, pass ){
 		};
 	}
 	var loginResult = authLib.login({
-	    user: user.hits[0].login,
+	    user: user.login,
 	    password: pass,
 	    userStore: 'system'
 	});
@@ -124,12 +122,18 @@ exports.login = function( name, pass ){
 }
 
 function findUser( name ){
-	return authLib.findUsers({
+	var user = authLib.findUsers({
 	    start: 0,
 	    count: 1,
 	    query: 'email="' + name + '" OR login="' + name + '"'
 	});
+	if( user && user.hits && user.hits[0] ){
+		return user.hits[0];
+	}
+	return false;
 }
+
+exports.findUser = findUser();
 
 exports.logout = function(){
 	return authLib.logout();
@@ -189,4 +193,8 @@ function checkUserExists( name, mail ){
 	return {
 		exist: false
 	}
+}
+
+function sendConfirmationMail( mail ){
+	var hash = hashLib.saveHashForUser( mail, "registerHash" );
 }
