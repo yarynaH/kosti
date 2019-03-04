@@ -3,7 +3,7 @@
 
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<body>
+<body class="page-wrapper">
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
@@ -81,7 +81,7 @@
         <input type="hidden" name="ik_desc" data-th-attr="value='Товары вечерних костей'"/>
         <input type="submit" value="Pay">
     </form>
-    <footer data-th-utext="${pageComponents.footer}"></footer>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
 
 </html>

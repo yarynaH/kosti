@@ -26,7 +26,6 @@
     }
 
     &-image-item {
-        display: inline-block;
         width: 94px;
         height: 94px;
         border-radius: 4px;
@@ -47,6 +46,8 @@
     }
 
     &-image-list {
+        display: flex;
+        justify-content: center;
         text-align: center;
     }
 
@@ -63,6 +64,10 @@
             max-width: 380px;
             float: right;
         }
+
+        @include mobile {
+            margin-top: 35px;
+        }
     }
 
     &-title {
@@ -76,6 +81,12 @@
         align-items: flex-end;
         justify-content: space-between;
         margin-bottom: 10px;
+
+        .price {
+            @include mobile {
+                text-align: right;
+            }
+        }
     }
 
     &-composition {
@@ -92,6 +103,10 @@
         justify-content: space-between;
         align-items: flex-end;
         flex-wrap: wrap;
+
+        @include mobile {
+            margin-bottom: 8px;
+        }
     }
 
     &-form {
@@ -101,6 +116,10 @@
     &-size {
         width: 215px;
         margin-bottom: 15px;
+
+        @include mobile {
+            margin-right: 10px;
+        }
     }
 
     &-description {

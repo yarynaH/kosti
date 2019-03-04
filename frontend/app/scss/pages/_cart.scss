@@ -27,6 +27,10 @@
         &:first-child {
             @include mobile() {
                 padding-top: 0;
+
+                .cart-product_img {
+                    top: 0;
+                }
             }
         }
     }
@@ -37,11 +41,10 @@
         }
 
         @include mobile() {
+            @include position(absolute, top 35px left 0);
+
             width: 35%;
             max-width: 140px;
-            position: absolute;
-            top: 35px;
-            left: 0;
         }
 
         img {
@@ -93,12 +96,24 @@
     &-remove_btn {
         @include button-style(icon);
         @include icon(rock);
-        @include position(absolute, top 35px right 0);
+        @include position(absolute, top 0 right 0);
 
         cursor: pointer;
 
+        @include tablet-all {
+            top: 35px;
+        }
         &:before {
             font-size: rem(20);
         }
+    }
+
+    &-total {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid $color-primary10;
+        padding: 35px 0;
+        font-size: rem(20);
+        font-weight: 700;
     }
 }
