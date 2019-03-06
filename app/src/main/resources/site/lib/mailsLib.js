@@ -8,11 +8,11 @@ var mailsTemplates = {
 	orderCreated: "../pages/mails/orderCreated.html"
 };
 
-function sendMail( type, email ){
+function sendMail( type, email, params ){
 	var mail = null;
 	switch (type){
 		case 'orderCreated':
-		mail = getorderCreatedMail();
+		mail = getorderCreatedMail( params );
 			break;
 		default:
 			break;
@@ -26,12 +26,15 @@ function sendMail( type, email ){
 	});
 }
 
-exports.sendMail = sendMail;
-
-function getorderCreatedMail(){
+function getorderCreatedMail( params ){
 	return{
-		body: thymeleaf.render( resolve(mailsTemplates.orderCreated), {}),
+		body: thymeleaf.render( resolve(mailsTemplates.orderCreated), {
+			order: params.order,
+			cart: params.cart
+		}),
 		subject: "Ваш заказ получен",
 		from: "sales@kostirpg.com"
 	}
 }
+
+exports.sendMail = sendMail;

@@ -63,7 +63,10 @@ function generateCheckoutPage(req){
             model.pay = true;
             model.ik_id = order.ik_id;
         }
-        mailsLib.sendMail('orderCreated', order.email);
+        mailsLib.sendMail('orderCreated', order.email, {
+            order: order,
+            cart: model.cart
+        });
     } else {
         var order = {};
         contextLib.runAsAdmin(function () {
