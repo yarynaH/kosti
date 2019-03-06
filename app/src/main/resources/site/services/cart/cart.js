@@ -36,10 +36,15 @@ exports.get = function( req ) {
     var params = req.params;
     var result = false;
     var view = resolve('cart.html');
+    var site = portal.getSiteConfig();
+    var shopUrl = portal.pageUrl({
+        id: site.shopLocation
+    });
     return {
         body: thymeleaf.render(view, {
             cart: cartLib.getCart( req.cookies.cartId ),
-            pageComponents: helpers.getPageComponents(req)
+            pageComponents: helpers.getPageComponents(req),
+            shopUrl: shopUrl
         }),
         contentType: 'text/html'
     }
