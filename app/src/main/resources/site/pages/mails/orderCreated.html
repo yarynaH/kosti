@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Спасибо за ваш заказ</title>
+</head>
+
+<body>
+    Ваш заказ принят. Скоро мы свяжемся с вами для уточнения всех нюансов.
+    <div data-th-text="${order.name}"></div>
+    <div data-th-text="${order.surname}"></div>
+    <div data-th-text="${order.country}"></div>
+    <div data-th-text="${order._id}"></div>
+    <div data-th-text="${order.phone}"></div>
+    <div data-th-text="${order.address}"></div>
+    <div data-th-text="${order.city}"></div>
+    <div data-th-text="${order.email}"></div>
+    <div data-th-text="${order.shipping}"></div>
+    <div data-th-each="item: ${cart.items}">
+        <div>
+            <div data-th-text="${item.displayName}"></div>
+            <div>
+                <span>Размер: </span>
+                <span data-th-text="${item.itemSize}"></span>
+            </div>
+        </div>
+        <div data-th-text="${item.amount}">
+        </div>
+        <div>
+            <span>&#8381;</span>
+            <span data-th-text="${item.price}"></span>
+        </div>
+    </div>
+    <div data-th-text="${cart.price.shipping}"></div>
+    <div data-th-text="${cart.price.total}"></div>
+</body>
+
+</html> 

@@ -8,6 +8,7 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var nodeLib = require('/lib/xp/node');
 var cartLib = require('cartLib');
 var ordersLib = require('ordersLib');
+var mailsLib = require('mailsLib');
 
 exports.get = function( req ) {
     return generateCheckoutPage(req);
@@ -62,6 +63,10 @@ function generateCheckoutPage(req){
             model.pay = true;
             model.ik_id = order.ik_id;
         }
+        mailsLib.sendMail('orderCreated', order.email, {
+            order: order,
+            cart: model.cart
+        });
     } else {
         var order = {};
         contextLib.runAsAdmin(function () {

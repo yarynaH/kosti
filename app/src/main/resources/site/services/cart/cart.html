@@ -41,11 +41,11 @@
                     <span class="label">Всего:</span>
                     <span class="value">
                         <span class="price-curency">₽</span>
-                        <span>155448</span>
+                        <span class="cart-items-price" data-th-text="${cart.price.items}"></span>
                     </span>
                 </div>
                 <div class="checkout-action">
-                    <button class="checkout-back">К покупкам</button>
+                    <a data-th-href="${shopUrl}" class="checkout-back">К покупкам</a>
                     <a class="checkout-continue" data-th-href="${portal.serviceUrl({'_service=checkout'})}">
                         ПРОДОЛЖИТЬ
                     </a>

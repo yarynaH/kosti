@@ -315,6 +315,7 @@ function addToCart( data ){
 			setCookie(data._id);
 			$('.minicart .minicart-total').html('&#8381; ' + data.price.items);
 			$('.minicart .minicart-qty').text(data.itemsNum);
+			$('.cart-total .value .cart-items-price').text(data.price.items);
 			result = data;
 		}
 	});
