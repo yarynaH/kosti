@@ -265,7 +265,7 @@ exports.getPlaceholder = function( placeholderType, size ){
         case 1 : {
             result = {
                 url: portal.assetUrl({
-                    path: "images/townPlaceholder.jpg"
+                    path: "images/default_avatar.png"
                 }),
                 alt: "City image",
                 caption: "",

@@ -22,7 +22,7 @@ exports.getCurrentUser = function(){
 		if( userObj.hits && userObj.hits[0] ){
 			userObj = userObj.hits[0];
 			userObj.url = portal.pageUrl({ id: userObj._id });
-			userObj.image = norseUtils.getImage( userObj.data.userImage, 'block(32,32)' );
+			userObj.image = norseUtils.getImage( userObj.data.userImage, 'block(32,32)', 1 );
 			userObj.key = user.key;
 		} else {
 			userObj = false;

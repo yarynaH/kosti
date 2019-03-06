@@ -27,7 +27,7 @@ function handleReq(req) {
 
         var up = req.params;
         var content = portal.getContent();
-        content.image = norseUtils.getImage( content.data.userImage, 'block(120,120)' );
+        content.image = norseUtils.getImage( content.data.userImage, 'block(140,140)', 1 );
         var userSystemObj = userLib.getSystemUser(content.data.email);
         content.votes = votesLib.countUserUpvotes(userSystemObj.key);
         var date = new Date(content.publish.from.replace('Z', ''));

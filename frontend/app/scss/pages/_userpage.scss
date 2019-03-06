@@ -24,11 +24,53 @@
     box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
 
     &-avatar {
-        margin-bottom: 15px;
+        @include icon(add);
+
+        position: relative;
         height: 140px;
+        width: 140px;
+        margin: 0 auto 15px auto;
+        cursor: pointer;
+        border-radius: 50%;
+        overflow: hidden;
+
+        &:after {
+            @include position(absolute, top 0 left 0);
+
+            content: '';
+            height: 100%;
+            width: 100%;
+            background: black;
+            opacity: 0;
+            transition: transition(opacity);
+        }
+
+        &:before {
+            @include position(absolute, top 50% left 50%);
+
+            margin-left: -12px;
+            margin-top: -14px;
+            color: $color-primary1;
+            font-size: 24px;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        &:hover {
+            &:after {
+                opacity: 0.5;
+            }
+
+            &:before {
+                opacity: 1;
+            }
+        }
 
         img {
-            border-radius: 50%;
+            @supports (object-fit: cover) {
+                height: 100%;
+                object-fit: cover;
+            }
         }
     }
 

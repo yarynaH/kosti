@@ -336,7 +336,10 @@
 }
 
 .like-btn {
+    display: inline-flex;
+    align-items: center;
     font-size: rem(14);
+    color: $color-primary12;
 
     &:before {
         margin-right: 8px;
