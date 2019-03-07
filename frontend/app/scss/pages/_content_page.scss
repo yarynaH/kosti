@@ -1,0 +1,50 @@
+.content_page {
+    padding-top: 50px;
+
+    h1 {
+        font-size: rem(24);
+        font-weight: bold;
+        color: $color-primary17;
+        margin-bottom: 25px;
+    }
+
+    h2 {
+        font-size: rem(20);
+        font-weight: bold;
+        color: $color-primary17;
+        margin-bottom: 25px;
+    }
+
+    h3 {
+        font-size: rem(18);
+        font-weight: bold;
+        color: $color-primary17;
+        margin-bottom: 25px;
+    }
+
+    h4 {
+        font-size: rem(16);
+        font-weight: bold;
+        color: $color-primary17;
+        margin-bottom: 15px;
+    }
+
+    h5 {
+        font-size: rem(14);
+        font-weight: bold;
+        color: $color-primary17;
+        margin-bottom: 15px;
+    }
+
+
+    p {
+        font-size: rem(14);
+        color: $color-primary16;
+        margin-bottom: 25px;
+        line-height: 1.5;
+    }
+
+    .attention {
+        color: $color-primary11;
+    }
+}
