@@ -205,6 +205,9 @@ function initSharedEvents(){
 			showLogin(e);
 		}
 	});
+    $('.mobile_menu').on('click', function(){
+        $(this).toggleClass('open');
+    });
 	if( $('form[name=payment]').length > 0 ){
 		$('form[name=payment]').submit();
 	}
