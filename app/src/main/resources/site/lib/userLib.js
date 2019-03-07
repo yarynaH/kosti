@@ -11,13 +11,11 @@ exports.getCurrentUser = function(){
 	var user = authLib.getUser();
 	var userObj = false;
 	if( user && user.email && user.displayName ){
-		contextLib.runAsAdmin(function () {
-			userObj = contentLib.query({
-				query: "data.email = '" + user.email + "' AND displayName = '" + user.displayName + "'",
-				contentTypes: [
-					app.name + ":user"
-				]
-			});
+		userObj = contentLib.query({
+			query: "data.email = '" + user.email + "' AND displayName = '" + user.displayName + "'",
+			contentTypes: [
+				app.name + ":user"
+			]
 		});
 		if( userObj.hits && userObj.hits[0] ){
 			userObj = userObj.hits[0];
@@ -59,7 +57,7 @@ exports.register = function( name, mail, pass ){
 	    userKey: user.key,
 	    password: pass
 	});
-	var userObj = this.createUserContentType( name, mail );
+	var userObj = this.createUserContentType( name, mail, user.key );
 	if( userObj ){
 		return this.login( name, pass );
 	} else {
@@ -67,7 +65,7 @@ exports.register = function( name, mail, pass ){
 	}
 }
 
-exports.createUserContentType = function( name, mail ){
+exports.createUserContentType = function( name, mail, userkey ){
     var site = portal.getSiteConfig();
     var usersLocation = contentLib.get({ key: site.userLocation });
 	var user = contentLib.create({
@@ -81,6 +79,23 @@ exports.createUserContentType = function( name, mail ){
     		email: mail
     	}
 	});
+	contentLib.setPermissions({
+	    key: user._id,
+    	inheritPermissions: false,
+    	overwriteChildPermissions: true,
+	    branch: "draft",
+	    permissions: [{
+	        principal: userkey,
+	        allow: ['READ','MODIFY','PUBLISH', 'CREATE'],
+            deny: ['DELETE']
+	    },
+        {
+            principal: 'role:system.everyone',
+            allow: ['READ'],
+            deny: []
+        }]
+	});
+
 	var result = contentLib.publish({
 	    keys: [user._id],
 	    sourceBranch: 'draft',

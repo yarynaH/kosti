@@ -206,10 +206,11 @@ function initSharedEvents(){
 		}
 	});
 	if( $('form[name=payment]').length > 0 ){
-		deleteCookie('cartId');
 		$('form[name=payment]').submit();
-	} else {
-		setCookie(cartId);
+	}
+	setCookie(cartId);
+	if( $('#payment-success').length > 0 ){
+		deleteCookie('cartId');
 	}
 }
 

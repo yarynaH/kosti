@@ -59,6 +59,10 @@
       <label>Homepage video</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
+    <input name="ik_id" type="TextLine">
+      <label>Interkassa ID</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
     <input name="gApiKey" type="TextLine">
       <label>Google API key</label>
       <occurrences minimum="1" maximum="1"/>
