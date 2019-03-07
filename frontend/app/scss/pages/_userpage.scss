@@ -23,16 +23,9 @@
     text-align: center;
     box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
 
-    &-avatar {
-        @include icon(add);
-
-        position: relative;
-        height: 140px;
-        width: 140px;
-        margin: 0 auto 15px auto;
+    &-upload-image {
         cursor: pointer;
-        border-radius: 50%;
-        overflow: hidden;
+        @include icon(add);
 
         &:after {
             @include position(absolute, top 0 left 0);
@@ -65,7 +58,16 @@
                 opacity: 1;
             }
         }
+    }
 
+    &-avatar {
+        position: relative;
+        height: 140px;
+        width: 140px;
+        margin: 0 auto 15px auto;
+        border-radius: 50%;
+        overflow: hidden;
+        
         img {
             @supports (object-fit: cover) {
                 height: 100%;

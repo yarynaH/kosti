@@ -28,6 +28,7 @@ function handleReq(req) {
         var up = req.params;
         var content = portal.getContent();
         content.image = norseUtils.getImage( content.data.userImage, 'block(140,140)', 1 );
+        var currUser = userLib.getCurrentUser();
         var userSystemObj = userLib.getSystemUser(content.data.email);
         content.votes = votesLib.countUserUpvotes(userSystemObj.key);
         var date = new Date(content.publish.from.replace('Z', ''));
@@ -45,6 +46,7 @@ function handleReq(req) {
 
         var model = {
             content: content,
+            currUser: currUser.key == userSystemObj.key,
             app: app,
             social: site.social,
             pageComponents: helpers.getPageComponents(req)

@@ -12,16 +12,16 @@
                 <div class="user_page-profile blog-sidebar">
                     <h3 class="user_page-title">Профиль</h3>
                     <div class="profile">
-                        <form id="userImageUpload" enctype="multipart/form-data" class="profile-form">
+                        <form data-th-if="${currUser}" id="userImageUpload" enctype="multipart/form-data" class="profile-form">
                             <input type="file" name="userImage" id="userImage" class="hidden">
                             <input type="hidden" name="action" value="image">
                         </form>
-                        <div class="profile-avatar">
+                        <div class="profile-avatar" data-th-classappend="${currUser} ? 'profile-upload-image' : ''">
                             <img data-th-src="${content.image.url}" alt="">
                         </div>
                         <div class="profile-user">
                             <span class="profile-name" data-th-text="${content.displayName}"></span>
-                            <a href="#" class="profile-settings"></a>
+                            <a href="#" class="profile-settings" data-th-if="${currUser}"></a>
                         </div>
                         <div class="profile-registration">
                             Костяшка с <span data-th-remove="tag" data-th-text="${content.date}"></span>
@@ -47,7 +47,7 @@
                                 <a href="" class="profile-action-link hidden">Уведомления <span class="value">1</span></a>
                             </li>
                         </ul>
-                        <a data-th-href="${portal.serviceUrl({'_service=user','logout=true'})}" class="profile-logout" title="Logout"></a>
+                        <a data-th-if="${currUser}" data-th-href="${portal.serviceUrl({'_service=user','logout=true'})}" class="profile-logout" title="Logout"></a>
                     </div>
                 </div>
                 <div class="user_page-blog blog-list">
