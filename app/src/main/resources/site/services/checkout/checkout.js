@@ -76,6 +76,7 @@ function generateCheckoutPage(req){
     function createStepOneModel( params, req, order ) {
         return {
             shopUrl: getShopUrl(),
+            agreementPage: portal.pageUrl({id: portal.getSiteConfig().agreementPage}),
             order: order,
             params: params
         };

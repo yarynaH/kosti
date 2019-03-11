@@ -361,4 +361,8 @@ function validateCheckout(e){
 		e.preventDefault();
 		$('#email-checkout-input').parent().addClass('is-invalid');
 	}
+	if( $('#agreement').length && !$('#agreement').is(":checked") ){
+		e.preventDefault();
+		$('#agreement').parent().addClass('is-invalid');
+	}
 }

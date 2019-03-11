@@ -41,6 +41,10 @@
             <input data-th-attr="value=${order.phone} ? ${order.phone} : ''" name="phone" type="text" class="input-text" id="phone-checkout-input">
         </div>
     </div>
+    <div class="form-group">
+        <input type="checkbox" id="agreement">
+        <label for="agreement">Я прочитал и принимаю <a data-th-href="${agreementPage}">условия пользования сайтом</a></label>
+    </div>
     <div class="checkout-action">
         <a data-th-href="${shopUrl}" class="checkout-back">К покупкам</a>
         <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
