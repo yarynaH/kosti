@@ -8,6 +8,7 @@ var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
 var helpers = require('helpers');
 var votesLib = require('votesLib');
+var userLib = require('userLib');
 var kostiUtils = require('kostiUtils');
 var mailLib = require('/lib/xp/mail');
 var httpClientLib = require('/lib/xp/http-client');
@@ -17,6 +18,7 @@ exports.post = handleReq;
 
 function handleReq(req) {
     var me = this;
+    var user = userLib.getCurrentUser();
 
     function renderView() {
         var view = resolve('homePage.html');
@@ -110,6 +112,10 @@ function handleReq(req) {
             article.author.url = portal.pageUrl({ id: article.author._id });
             article.date = kostiUtils.getTimePassedSincePostCreation(article.publish.from.replace('Z', ''));
             article.votes = votesLib.countUpvotes(article._id);
+            article.voted = false;
+            if( parseInt(article.votes) > 0 ){
+                article.voted = votesLib.checkIfVoted( user.key, article._id );
+            }
             return article;
         }
 

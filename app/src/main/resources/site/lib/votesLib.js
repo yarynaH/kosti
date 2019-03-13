@@ -40,12 +40,24 @@ function doVote( user, content ){
 	}
 }
 
-function checkIfVoteExist( user, node ){
-	if( node && ((node.votes && node.votes.indexOf(user) == -1) || !node.votes) ){
-		return false;
-	} else {
-		return true;
+function checkIfVoted( user, content ){
+	var node = getNode( content );
+	if( user && content && node ){
+		return checkIfVoteExist( user, node );
 	}
+	return false;
+}
+
+exports.checkIfVoted = checkIfVoted;
+
+function checkIfVoteExist( user, node ){
+	if( node ){
+		node.votes = norseUtils.forceArray(node.votes);
+		if( node.votes && node.votes.indexOf(user) != -1 ){
+			return true;
+		}
+	}
+	return false;
 }
 
 function createVote( user, content ){

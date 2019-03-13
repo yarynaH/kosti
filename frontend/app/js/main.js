@@ -268,6 +268,11 @@ function doUpvote(el){
         	if( data.votes ){
         		result = (Array.isArray(data.votes) ? data.votes.length : '1');
         	}
+    		if( parseInt($(btn).text().trim()) < result){
+    			$(btn).addClass('active');
+    		} else {
+    			$(btn).removeClass('active');
+    		}
         	$(btn).html('<span>' + result + '</span>');
         },
         error: function(data){
