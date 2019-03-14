@@ -2,10 +2,14 @@ var contentLib = require('/lib/xp/content');
 var portal = require('/lib/xp/portal');
 var norseUtils = require('norseUtils');
 var hashLib = require('hashLib');
+var mailsLib = require('mailsLib');
 var authLib = require('/lib/xp/auth');
 var contextLib = require('/lib/contextLib');
 var common = require('/lib/xp/common');
 var i18nLib = require('/lib/xp/i18n');
+
+exports.findUser = findUser;
+exports.activateUser = activateUser;
 
 exports.getCurrentUser = function(){
 	var user = authLib.getUser();
@@ -58,6 +62,8 @@ exports.register = function( name, mail, pass ){
 	    password: pass
 	});
 	var userObj = this.createUserContentType( name, mail, user.key );
+	var activationHash = hashLib.saveHashForUser( mail, "registerHash" );
+	mailsLib.sendMail( "userActivation", mail, { activationHash: activationHash } );
 	if( userObj ){
 		return this.login( name, pass );
 	} else {
@@ -148,10 +154,14 @@ function findUser( name ){
 	return false;
 }
 
-exports.findUser = findUser();
-
 exports.logout = function(){
 	return authLib.logout();
+}
+
+function activateUser( mail, hash ){
+    return contextLib.runAsAdmin(function () {
+		return hashLib.activateUserHash( mail, hash, 'registerHash' );
+    });
 }
 
 exports.uploadUserImage = function(){

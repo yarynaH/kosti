@@ -11,12 +11,13 @@ exports.get = function( req ) {
             return logout();
             break;
         case "confirmRegister":
+            userLib.activateUser( decodeURIComponent(params.mail), params.hash );
             break;
         default:
             break;
     }
     return {
-        body: "",
+        body: "test",
         contentType: 'text/html'
     }
 };

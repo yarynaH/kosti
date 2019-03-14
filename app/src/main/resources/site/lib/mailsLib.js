@@ -5,14 +5,18 @@ var norseUtils = require('norseUtils');
 var mailLib = require('/lib/xp/mail');
 
 var mailsTemplates = {
-	orderCreated: "../pages/mails/orderCreated.html"
+	orderCreated: "../pages/mails/orderCreated.html",
+	userActivation: "../pages/mails/userActivation.html"
 };
 
 function sendMail( type, email, params ){
 	var mail = null;
 	switch (type){
 		case 'orderCreated':
-		mail = getorderCreatedMail( params );
+			mail = getorderCreatedMail( params );
+			break;
+		case 'userActivation':
+			mail = getActivationMail( email, params );
 			break;
 		default:
 			break;
@@ -34,6 +38,25 @@ function getorderCreatedMail( params ){
 		}),
 		subject: "Ваш заказ получен",
 		from: "sales@kostirpg.com"
+	}
+}
+
+function getActivationMail( mail, params ){
+	var activationUrl = portal.serviceUrl({
+	    service: 'user',
+	    type: 'absolute',
+	    params: {
+	        mail: encodeURI(mail),
+	        action: "confirmRegister",
+	        hash: params.activationHash
+	    }
+	});
+	return{
+		body: thymeleaf.render( resolve(mailsTemplates.userActivation), {
+			activationUrl: activationUrl,
+		}),
+		subject: "Активация аккаунта",
+		from: "noreply@kostirpg.com"
 	}
 }
 

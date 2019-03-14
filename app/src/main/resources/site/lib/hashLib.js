@@ -1,6 +1,11 @@
 var authLib = require('/lib/xp/auth');
 var textEncoding = require('/lib/text-encoding');
 var norseUtils = require('norseUtils');
+var contextLib = require('/lib/contextLib');
+
+exports.activateUserHash = activateUserHash;
+exports.saveHashForUser = saveHashForUser;
+exports.getUserByHash = getUserByHash;
 
 function generateHash( name ){
 	var salt = "KostiCon-2019";
@@ -12,7 +17,6 @@ function saveHashForUser( email, hashType ){
 	var user = findUser(email);
     var profile = authLib.modifyProfile({
     	key: user.key,
-        scope: app.name,
     	editor: editor
     });
 
@@ -27,26 +31,47 @@ function saveHashForUser( email, hashType ){
     }
 }
 
-exports.saveHashForUser = saveHashForUser;
 
 function getUserByHash( mail, hash, hashType ) {
-	var result = null;	
 	var user = findUser( mail );
 	if ( !user ) {
 		return false;
 	}
-	var userProfile = authLib.getProfile({
-        key: user.key,
-        scope: app.name
+    var userProfile = authLib.getProfile({
+        key: user.key
     });
-    if ( !userProfile || ( userProfile && !userProfile[hashType]) || 
+    if( userProfile && userProfile[hashType] == '1' ){
+        return true;
+    } else if ( !userProfile || ( userProfile && !userProfile[hashType]) || 
     	 ( userProfile && userProfile[hashType] && userProfile[hashType] !== hash) ) {
     	return false;
+    }
+    return user;
+}
+
+
+function activateUserHash( mail, hash, hashType ){
+    var user = getUserByHash( mail, hash, hashType );
+    if( user === true ){
+        return true;
+    } else if( !user ){
+        return false;
+    }
+    var profile = authLib.modifyProfile({
+        key: user.key,
+        editor: editor
+    });
+
+    function editor(c) {
+        if (!c) {
+            c = {};
+        }
+        c[hashType] = "1";
+        return c;
     }
     return true;
 }
 
-exports.getUserByHash = getUserByHash;
 
 function findUser( name ){
 	var user = authLib.findUsers({
