@@ -118,9 +118,7 @@ label {
         input, select, textarea{
             border-color: $color-primary32;
         }
-        label{
-            color: $color-primary32;
-        }
+        label,
         span{
             color: $color-primary32;
         }
@@ -151,7 +149,7 @@ label {
     &:before {
         @include position(absolute, top 35px left 40px);
 
-        content: '';    
+        content: '';
         height: 18px;
         width: 18px;
         border: 1px solid $color-primary20;
@@ -184,6 +182,52 @@ label {
 
         [type="radio"]:checked + & {
             background: $color-primary22;
+        }
+    }
+}
+
+.label-checkbox {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    min-height: 20px;
+    line-height: 20px;
+    transition: transition(color);
+
+    &:hover,
+    [type="checkbox"]:checked + & {
+        &:before {
+            border-color: $color-primary22;
+        }
+    }
+
+    &:before {
+        @include position(absolute, top 0 left 0);
+
+        height: 20px;
+        width: 20px;
+        border: 1px solid $color-primary20;
+        content: '';
+        transition: transition(border-color);
+
+        .is-invalid & {
+            border-color: $color-primary32;
+        }
+    }
+
+    &:after {
+        @include position(absolute, top 4px left 4px);
+
+        height: 12px;
+        width: 12px;
+        content: '';
+        opacity: 0;
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' fill='%230095f8' x='0px' y='0px' viewBox='0 0 31 31' style='enable-background:new 0 0 31 31;' xml:space='preserve'%3E%3Cpath class='st0' d='M23,2'/%3E%3Cpath class='st0' d='M7,2'/%3E%3Cg%3E%3Cg id='chevron-right'%3E%3Cpolygon points='31,7.9 27.4,4.3 12.1,19.6 3.5,11 0,14.6 12.2,26.7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") no-repeat center;
+        transition: transition(all);
+
+        [type="checkbox"]:checked + & {
+            opacity: 1;
+            transform: scale(1);
         }
     }
 }

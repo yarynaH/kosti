@@ -30,6 +30,10 @@ a {
 a {
     color: $color-primary22;
 
+    .is-invalid & {
+        color: $color-primary32;
+    }
+
     &:hover {
         opacity: 0.8; 
     }
