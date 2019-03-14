@@ -7,11 +7,12 @@ function generateHash( name ){
 	return textEncoding.md5( salt + name + (new Date().getTime()) );
 }
 
-function saveHashForUser( name, hashType ){
-	var hash = generateHash(name);
-	var user = findUser(name);
+function saveHashForUser( email, hashType ){
+	var hash = generateHash(email);
+	var user = findUser(email);
     var profile = authLib.modifyProfile({
     	key: user.key,
+        scope: app.name,
     	editor: editor
     });
 
@@ -34,7 +35,7 @@ function getUserByHash( mail, hash, hashType ) {
 	if ( !user ) {
 		return false;
 	}
-	var userProfile = libs.auth.getProfile({
+	var userProfile = authLib.getProfile({
         key: user.key,
         scope: app.name
     });

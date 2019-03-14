@@ -6,16 +6,17 @@ var contentLib = require('/lib/xp/content');
 
 exports.get = function( req ) {
     var params = req.params;
-    var result = false;
-    if( params.logout ){
-        result = userLib.logout();
-        var site = portal.getSite();
-        return {
-            redirect: portal.pageUrl({ path: site._path })
-        }
+    switch( params.action ){
+        case "logout":
+            return logout();
+            break;
+        case "confirmRegister":
+            break;
+        default:
+            break;
     }
     return {
-        body: result,
+        body: "",
         contentType: 'text/html'
     }
 };
@@ -37,3 +38,11 @@ exports.post = function( req ) {
         contentType: 'application/json'
     }
 };
+
+function logout(){
+    userLib.logout();
+    var site = portal.getSite();
+    return {
+        redirect: portal.pageUrl({ path: site._path })
+    }
+}
