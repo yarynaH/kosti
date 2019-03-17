@@ -67,7 +67,7 @@
         margin: 0 auto 15px auto;
         border-radius: 50%;
         overflow: hidden;
-        
+
         img {
             @supports (object-fit: cover) {
                 height: 100%;

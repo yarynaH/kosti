@@ -102,6 +102,16 @@ function initHomepageFunction(){
 	});
 }
 
+function initArticleFunction(){
+	$(document).on('scroll', function(){
+		if( $(document).scrollTop() > 85 ){
+			$('.article-page header').addClass('header-scroll');
+		} else {
+			$('.article-page header').removeClass('header-scroll');
+		}
+	});
+}
+
 function initPDPFunctions(){
 	$('.qty-decrement').on('click', function(){
 		var input = $('.qty-input[data-id=' + $(this).data().id + '][data-size=' + $(this).data().size + ']');
@@ -251,6 +261,7 @@ $( document ).ready(function() {
 	initUserPageFunctions();
 	initCartFunctions();
 	initSharedEvents();
+	initArticleFunction();
 });
 
 function doUpvote(el){

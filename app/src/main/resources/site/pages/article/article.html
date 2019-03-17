@@ -3,13 +3,148 @@
 
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<body class="page-wrapper">
+<body class="page-wrapper article-page transparent-header">
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <textarea></textarea>
+        <div class="article-img_wrap">
+            <img src="https://picsum.photos/1440/540" alt="">
+        </div>
+        <div class="blog blog_width clearfix">
+            <div class="article-header">
+                <div class="post-info">
+                    <a data-th-href="${content.author.url}">
+                        <span class="post-user_avatar">
+                            <img data-th-src="${content.author.image.url}" alt="">
+                        </span>
+                        <span class="post-user_name" data-th-text="${content.author.displayName}"></span>
+                    </a>
+                    <span class="post-date" data-th-text="${content.date}"></span>
+                </div>
+                <h1 class="post-title" data-th-text="${content.displayName}"></h1>
+            </div>
+            <div class="article-body">
+                <div class="article-content">
+                    <section>
+                        <p>
+                            С 1991 года VtM пережила несколько редакций и перезапусков — в них авторы перекраивали сеттинг, игромеханику, философию и центральные темы. О поэтапной эволюции игры мы уже рассказывали, поэтому остановимся подробно на Vampire: The Masquerade. 20th Anniversary Edition (кратко — V20) от Onyx Path Publishing. Эта книга правил увидела свет в 2011 году после успешного краудфандинга.
+                        </p>
+                        <p>
+                            V20 стала чем-то вроде справочника с исправлениями по классическим «Вампирам» (фанаты его ещё называют «старый Мир Тьмы») — в ней авторы отполировали механику, обновили списки способностей и привели более подробное описание различных кланов. Onyx Path дала всем поклонникам «классики» возможность сыграть в «ту самую игру», пусть и немного обновлённую. А для тех, кто только ищет знакомства с «Вампирами», V20 стала отличной точкой входа — игра избавилась от части недостатков и вобрала в себя все главные находки прошлых редакций «классики».
+                        </p>
+                        <figure>
+                            <img src="https://picsum.photos/650/300" alt="">
+                            <figcaption>Так буду выглядеть подписи к картинкам</figcaption>
+                        </figure>
+                        <h2>Оглавление H2</h2>
+                        <p>
+                            «Маскарад» детально описывает общество вампиров, которое существует рядом с человеческим. Придуманные людьми фольклорные образы по большей части врут — вампирам плевать на чеснок, текущую воду и приглашения, зато они точно сгорают под солнечным светом. А вот по части приписываемых способностей почти всё правда — могут призывать на помощь животных и скрываться в сумраке.
+                        </p>
+                    </section>
+                    <blockquote>
+                        Кстати, о клане. По сути, это первое, с чего начинается создание персонажа. Выбор принадлежности к тому или иному клану определит отношение общества к персонажу, черты внешности и поведения, слабости и список дисциплин.
+                    </blockquote>
+                    <section>
+                        <h3>Оглавление H3</h3>
+                        <p>
+                            Впрочем, стричь всех под одну гребёнку было бы ошибкой. Кровопийцы «Маскарада» вобрали в себя, пожалуй, всевозможные архетипы из различных мифологий и верований. Они нашли воплощение в тринадцати кланах, каждый из которых отличается своими особенностями: внешностью, чертами характера, поведением и склонностью к сверхъестественным способностям.
+                        </p>
+                        <h4>Оглавление H4</h4>
+                        <p>
+                            Впрочем, стричь всех под одну гребёнку было бы ошибкой. Кровопийцы «Маскарада» вобрали в себя, пожалуй, всевозможные архетипы из различных мифологий и верований. Они нашли воплощение в тринадцати кланах, каждый из которых отличается своими особенностями: внешностью, чертами характера, поведением и склонностью к сверхъестественным способностям.
+                        </p>
+                        <h5>Оглавление H5</h5>
+                        <p>
+                            Авторы Vampire: The Masquerade придумали собственный жанр, соединяющий два очень разных аспекта, — «готик-панк». С одной стороны, создатели предлагают сыграть в ультрасовременное представление о готике — с романтизированным взглядом на прошлое и атмосферой мистического хоррора. Современные клубы, пентхаусы и особняки заменили собой замки и дворцы, но плетущиеся в них интриги никуда не делись. В то же время, игра подталкивает к «панку» — протесту, выраженному не через внешние атрибуты, а внутреннее желание выступить против существующего общества. Мятежный дух витает везде — от напряжённого противостояния неонатов и старейшин и до личной драмы одиночки, выселенного на улицу.
+                        </p>
+                    </section>
+
+                </div>
+                <div class="blog-item">
+                    <div class="post">
+                        <div class="tag-list ">
+                            <a href="#" class="tag-item">WoD</a>
+                            <a href="#" class="tag-item">V5</a>
+                            <a href="#" class="tag-item">VtM</a>
+                        </div>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-counters ">
+                            <span class="share-counter icon-share">245</span>
+                            <span class="views-counter icon-views">314</span>
+                            <span class="comments-counter icon-comment">12</span>
+                        </div>
+                        <div class="post-actions">
+                            <a href="#" class=" add_to_bookmarks-btn icon-bookmark"></a>
+                            <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                <span data-th-text="${content.votes}"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="blog-sidebar">
+                <div class="library_top " style="background-image: url(https://picsum.photos/300/470?random);">
+                    <div class="library_top-label">Хит библиотеки</div>
+                    <div class="library_top-author">
+                        <span class="post-user_avatar">
+                            <img src="https://picsum.photos/24/24/?random" alt="">
+                        </span>
+                        <span class="post-user_name">Rodue Latro</span>
+                    </div>
+                    <h2 class="library_top-title">Коллос Сильваноса</h2>
+                    <div class="library_top-text">Орки пробираются сквозь лес, оскверняя священную рощу. Вдруг глыба камней вместе с мхом и некоторыми растениями обретает форму гигантского существа. Лесные колосы - величественные и могущественные стражи лесов.</div>
+                    <div class="tag-list tag-list__white">
+                        <a href="#" class="tag-item">DnD</a>
+                        <a href="#" class="tag-item">5e</a>
+                        <a href="#" class="tag-item">Homebrew</a>
+                    </div>
+                </div>
+                <div class="hot_tags ">
+                    <h3 class="hot_tags-title">Горячие теги</h3>
+                        <div class="tag-list tag-list__hot">
+                            <a href="#"  class="tag-item">V5</a>
+                            <a href="#"  class="tag-item">Эноа</a>
+                            <a href="#"  class="tag-item active">ФиналХайпЭноа</a>
+                            <a href="#"  class="tag-item">Кровавые Ублюдки</a>
+                            <a href="#"  class="tag-item">Кибер Ожидание</a>
+                        </div>
+                </div>
+                <div class="post_top" data-th-if="${weeksPost}">
+                    <div class="post_top-label">Пост недели</div>
+                    <a data-th-href="${weeksPost.author.url}">
+                        <div class="post_top-author">
+                            <span class="post-user_avatar">
+                                <img data-th-src="${weeksPost.author.image.url}" alt="">
+                            </span>
+                            <span class="post-user_name" data-th-text="${weeksPost.author.displayName}"></span>
+                        </div>
+                    </a>
+                    <h2 class="post_top-title" data-th-text="${weeksPost.displayName}"></h2>
+                    <div class="post_top-text"></div>
+                    <div class="post_top-footer">
+                        <div class="tag-list" hidden>
+                            <a href="#" class="tag-item">Мерч</a>
+                        </div>
+                        <a data-th-attr="data-contentId=${weeksPost._id}" href="#" class="like-btn icon-rock" data-th-classappend="${weeksPost.voted} ? 'active' : ''">
+                            <span data-th-text="${weeksPost.votes}"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="social">
+                    <h3 class="social-title social-icon">Мы в этих ваших сетях</h3>
+                    <div class="social-list social-list__sides_align">
+                        <a data-th-href="${social.fb}" class="social-link facebook"></a>
+                        <a data-th-href="${social.vk}" class="social-link vk"></a>
+                        <a data-th-href="${social.twitter}" class="social-link twitter"></a>
+                        <a data-th-href="${social.youtube}" class="social-link youtube"></a>
+                        <a data-th-href="${social.instagram}" class="social-link instagram"></a>
+                        <a data-th-href="${social.twitch}" class="social-link twitch"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
-
 </html>

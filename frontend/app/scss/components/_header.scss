@@ -6,7 +6,7 @@
     color: $color-primary26;
     transition: transition(all);
 
-    body:not(.homepage) &,
+    body:not(.transparent-header) &,
     &.header-scroll {
         box-shadow: 0 2px 16px 0 rgba($color-primary21, 0.26);
         background-color: $color-primary33;
@@ -179,7 +179,8 @@
     padding-top: 85px;
     padding-bottom: 85px;
 
-    .homepage & {
+    .homepage &,
+    .article-page & {
         padding-top: 0;
     }
 }
