@@ -77,10 +77,14 @@
     }
 
     &-settings {
-        @include icon(rock);
+        @include icon(gear);
 
         color: $color-primary12;
         padding-left: 8px;
+
+        &:hover {
+            color: $color-primary22;
+        }
     }
 
     &-name {
@@ -131,9 +135,13 @@
     }
 
     &-logout {
-        @include icon(rock);
+        @include icon(logout);
         @include position (absolute, top 25px right 35px);
 
         color: $color-primary12;
+
+        &:hover {
+            color: $color-primary22;
+        }
     }
 }

@@ -88,7 +88,7 @@ function initHomepageSlider(){
 	$('.homepage_slider').slick({
 		dots: true,
 		arrows: false,
-		autoplay: true
+		autoplay: false
 	});
 }
 
@@ -323,7 +323,7 @@ function addToCart( data ){
 		success: function(data){
 			setCookie(data._id);
 			$('.minicart .minicart-total').html('&#8381; ' + data.price.items);
-			$('.minicart .minicart-qty').text(data.itemsNum);
+			$('.minicart .minicart-qty').text(parseInt(data.itemsNum) > 99 ? "9+" : data.itemsNum);
 			$('.cart-total .value .cart-items-price').text(data.price.items);
 			result = data;
 		}

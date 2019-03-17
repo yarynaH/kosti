@@ -167,7 +167,7 @@
 
 .summary {
     &-cart_counter {
-        width: 24px;
+        min-width: 24px;
         height: 24px;
         line-height: 24px;
         border-radius: 50%;
@@ -175,6 +175,7 @@
         color: $color-primary1;
         text-align: center;
         font-weight: bold;
+        padding: 0 5px;
     }
 
     &-header {
@@ -374,7 +375,7 @@
 
         .confirmation-msg {
             width: 80%;
-            margin: 0 auto;
+            margin: 0 auto 50px;
 
             @include tablet-all() {
                 width: 43%;

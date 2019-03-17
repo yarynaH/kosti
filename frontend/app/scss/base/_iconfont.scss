@@ -41,50 +41,62 @@
     @if $filename == bookmark {
         $char: "\F124";
     }
-    @if $filename == comment {
+    @if $filename == cart {
         $char: "\F125";
     }
-    @if $filename == fb {
+    @if $filename == comment {
         $char: "\F126";
     }
-    @if $filename == fire {
+    @if $filename == delete {
         $char: "\F127";
     }
-    @if $filename == google {
+    @if $filename == fb {
         $char: "\F128";
     }
-    @if $filename == guest {
+    @if $filename == fire {
         $char: "\F129";
     }
-    @if $filename == instagram {
+    @if $filename == gear {
         $char: "\F12A";
     }
-    @if $filename == network {
+    @if $filename == google {
         $char: "\F12B";
     }
-    @if $filename == rock {
+    @if $filename == guest {
         $char: "\F12C";
     }
-    @if $filename == search {
+    @if $filename == instagram {
         $char: "\F12D";
     }
-    @if $filename == share {
+    @if $filename == logout {
         $char: "\F12E";
     }
-    @if $filename == twitch {
+    @if $filename == network {
         $char: "\F12F";
     }
-    @if $filename == twitter {
+    @if $filename == rock {
         $char: "\F130";
     }
-    @if $filename == views {
+    @if $filename == search {
         $char: "\F131";
     }
-    @if $filename == vk {
+    @if $filename == share {
         $char: "\F132";
     }
-    @if $filename == youtube {
+    @if $filename == twitch {
         $char: "\F133";
+    }
+    @if $filename == twitter {
+        $char: "\F134";
+    }
+    @if $filename == views {
+        $char: "\F135";
+    }
+    @if $filename == vk {
+        $char: "\F136";
+    }
+    @if $filename == youtube {
+        $char: "\F137";
     }
 
     @return $char;
@@ -114,12 +126,16 @@ category: Basic
     <div class="sg-icon icon-back-arrow" title="back-arrow"></div>
     <div class="sg-icon icon-bell-notification" title="bell-notification"></div>
     <div class="sg-icon icon-bookmark" title="bookmark"></div>
+    <div class="sg-icon icon-cart" title="cart"></div>
     <div class="sg-icon icon-comment" title="comment"></div>
+    <div class="sg-icon icon-delete" title="delete"></div>
     <div class="sg-icon icon-fb" title="fb"></div>
     <div class="sg-icon icon-fire" title="fire"></div>
+    <div class="sg-icon icon-gear" title="gear"></div>
     <div class="sg-icon icon-google" title="google"></div>
     <div class="sg-icon icon-guest" title="guest"></div>
     <div class="sg-icon icon-instagram" title="instagram"></div>
+    <div class="sg-icon icon-logout" title="logout"></div>
     <div class="sg-icon icon-network" title="network"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
@@ -147,14 +163,23 @@ category: Basic
 .icon-bookmark {
     @include icon(bookmark);
 }
+.icon-cart {
+    @include icon(cart);
+}
 .icon-comment {
     @include icon(comment);
+}
+.icon-delete {
+    @include icon(delete);
 }
 .icon-fb {
     @include icon(fb);
 }
 .icon-fire {
     @include icon(fire);
+}
+.icon-gear {
+    @include icon(gear);
 }
 .icon-google {
     @include icon(google);
@@ -164,6 +189,9 @@ category: Basic
 }
 .icon-instagram {
     @include icon(instagram);
+}
+.icon-logout {
+    @include icon(logout);
 }
 .icon-network {
     @include icon(network);
