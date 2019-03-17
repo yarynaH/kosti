@@ -1,0 +1,10 @@
+<part>
+  <display-name>Quote</display-name>
+  <config>
+    <input name="text" type="TextArea">
+      <label>Text</label>
+      <config>
+      </config>
+    </input>
+  </config>
+</part>

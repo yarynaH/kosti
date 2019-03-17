@@ -25,7 +25,7 @@
                     <a data-th-href="${portal.serviceUrl({'_service=cart'})}">
                         <div class="minicart">
                             <span class="minicart-icon">
-                                <span class="minicart-qty" data-th-text="${cart.itemsNum}"></span>
+                                <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
                             </span>
                             <span class="minicart-total">&#8381; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
                         </div>
@@ -56,14 +56,11 @@
                                 </div>
                             </div>
                             <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
-                            <div class="pdp-swatches hidden">
+                            <div class="pdp-swatches">
                                 <div class="swatches-list">
-                                    <span class="swatches-item active">
-                                        <img src="https://picsum.photos/20/20/?random" alt="">
-                                    </span>
-                                    <span class="swatches-item">
-                                        <img src="https://picsum.photos/20/20/?random" alt="">
-                                    </span>
+                                    <a data-th-href="${variation.url}" class="swatches-item active" data-th-each="variation: ${variations}">
+                                        <img data-th-src="${variation.swatch.url}" alt="">
+                                    </a>
                                 </div>
                             </div>
                             <div class="pdp-options">

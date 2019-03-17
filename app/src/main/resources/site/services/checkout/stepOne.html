@@ -3,42 +3,42 @@
     <div class="form-group-column">
         <div class="form-group">
             <label for="name-checkout-input" class="label">ИМЯ</label>
-            <input data-th-attr="value=${order.name} ? ${order.name} : ''" name="name" type="text" class="input-text" id="name-checkout-input">
+            <input data-th-attr="value=${cart.name} ? ${cart.name} : ''" name="name" type="text" class="input-text" id="name-checkout-input">
         </div>
         <div class="form-group">
             <label for="surname-checkout-input" class="label">ФАМИЛИЯ</label>
-            <input data-th-attr="value=${order.surname} ? ${order.surname} : ''" name="surname" type="text" class="input-text" id="surname-checkout-input">
+            <input data-th-attr="value=${cart.surname} ? ${cart.surname} : ''" name="surname" type="text" class="input-text" id="surname-checkout-input">
         </div>
     </div>
     <div class="form-group form-group-address">
         <label for="address-checkout-input" class="label">АДРЕС</label>
-        <input data-th-attr="value=${order.address} ? ${order.address} : ''" name="address" type="text" class="input-text" id="address-checkout-input">
+        <input data-th-attr="value=${cart.address} ? ${cart.address} : ''" name="address" type="text" class="input-text" id="address-checkout-input">
     </div>
     <div class="form-group-column">
         <div class="form-group">
             <label for="country-checkout-select" class="label">СТРАНА</label>
             <div class="select-field">
                 <select name="country" id="country-checkout-select">
-                    <option value="Выберите страну" disabled="disabled" data-th-attr="selected=${order.contry} ? 'selected' : 'false'">Выберите страну</option>
-                    <option data-th-attr="selected=${order.contry == 'ua'} ? 'selected' : 'false'" value="ua">Украина</option>
-                    <option data-th-attr="selected=${order.contry == 'by'} ? 'selected' : 'false'" value="by">Беларусь</option>
-                    <option data-th-attr="selected=${order.contry == 'ru'} ? 'selected' : 'false'" value="ru">Россия</option>
+                    <option value="Выберите страну" disabled="disabled" data-th-attr="selected=${cart.contry} ? 'selected' : 'false'">Выберите страну</option>
+                    <option data-th-attr="selected=${cart.contry == 'ua'} ? 'selected' : 'false'" value="ua">Украина</option>
+                    <option data-th-attr="selected=${cart.contry == 'by'} ? 'selected' : 'false'" value="by">Беларусь</option>
+                    <option data-th-attr="selected=${cart.contry == 'ru'} ? 'selected' : 'false'" value="ru">Россия</option>
                 </select>
             </div>
         </div>
         <div class="form-group">
             <label for="city-checkout-input" class="label">ГОРОД</label>
-            <input data-th-attr="value=${order.city} ? ${order.city} : ''" name="city" type="text" class="input-text" id="city-checkout-input">
+            <input data-th-attr="value=${cart.city} ? ${cart.city} : ''" name="city" type="text" class="input-text" id="city-checkout-input">
         </div>
     </div>
     <div class="form-group-column">
         <div class="form-group">
             <label for="email-checkout-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-            <input data-th-attr="value=${order.email} ? ${order.email} : ''" name="email" type="email" class="input-text" id="email-checkout-input">
+            <input data-th-attr="value=${cart.email} ? ${cart.email} : ''" name="email" type="email" class="input-text" id="email-checkout-input">
         </div>
         <div class="form-group">
             <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
-            <input data-th-attr="value=${order.phone} ? ${order.phone} : ''" name="phone" type="text" class="input-text" id="phone-checkout-input">
+            <input data-th-attr="value=${cart.phone} ? ${cart.phone} : ''" name="phone" type="text" class="input-text" id="phone-checkout-input">
         </div>
     </div>
     <div class="form-group">

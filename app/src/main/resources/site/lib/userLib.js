@@ -63,7 +63,7 @@ exports.register = function( name, mail, pass ){
 	});
 	var userObj = this.createUserContentType( name, mail, user.key );
 	var activationHash = hashLib.saveHashForUser( mail, "registerHash" );
-	mailsLib.sendMail( "userActivation", mail, { activationHash: activationHash } );
+	var sent = mailsLib.sendMail( "userActivation", mail, { activationHash: activationHash } );
 	if( userObj ){
 		return this.login( name, pass );
 	} else {

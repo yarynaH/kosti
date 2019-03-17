@@ -39,6 +39,7 @@ function handleReq(req) {
             images: getImages( content.data ),
             social: site.social,
             sizes: getSizes(content.data.sizes),
+            variations: getVariations(content),
             pageComponents: helpers.getPageComponents(req)
         };
         return model;
@@ -67,6 +68,25 @@ function handleReq(req) {
         for ( var size in sizes ) {
             if( sizes.hasOwnProperty(size) && sizes[size] == true ) {
                 result.push(size);
+            }
+        }
+        return result;
+    }
+
+    function getVariations( product ){
+        var result = [];
+        if( product.data.variations ){
+            product.data.variations = norseUtils.forceArray(product.data.variations);
+            for( var i = 0; i < product.data.variations.length; i++ ){
+                var variation = contentLib.get({ key: product.data.variations[i] });
+                if( !variation || !variation.data || !variation.data.swatch ){
+                    continue;
+                }
+                result.push({
+                    swatch: norseUtils.getImage( variation.data.swatch, 'block(24, 24)' ),
+                    title: variation.displayName,
+                    url: portal.pageUrl({ id: variation._id })
+                });
             }
         }
         return result;

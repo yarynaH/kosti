@@ -1,13 +1,10 @@
 var norseUtils = require('norseUtils');
-var userLib = require('userLib');
 var portal = require('/lib/xp/portal');
 var contextLib = require('/lib/contextLib');
 var contentLib = require('/lib/xp/content');
 var helpers = require('helpers');
 var thymeleaf = require('/lib/xp/thymeleaf');
-var nodeLib = require('/lib/xp/node');
 var cartLib = require('cartLib');
-var ordersLib = require('ordersLib');
 var mailsLib = require('mailsLib');
 
 exports.get = function( req ) {
@@ -25,45 +22,41 @@ function generateCheckoutPage(req){
     if( params.ik_inv_st ){
         if( params.ik_inv_st == 'success' ){
             params.step = "success";
+            modifyCart( model.cart._id, { status: "paid", userId: cartLib.getNextId() });
         } else if( params.ik_inv_st == 'fail' || params.ik_inv_st == 'canceled' ){
             params.error = true;
             params.step = "3";
+            modifyCart( model.cart._id, { status: "failed" });
         }
     }
     switch(params.step){
         case '2':
-            if( !model.order || !model.order._id ){
-                contextLib.runAsAdmin(function () { 
-                    params.cartId = model.cart._id;
-                    model.order = ordersLib.createOrder( params );
-                    model.cart = cartLib.setOrder( model.cart._id, model.order._id );
-                });
+            if( !model.cart.ik_id || model.cart.ik_id == '' ){
+                params.ik_id = params.surname.toLowerCase() + '_' + new Date().getTime();
             }
-            var stepView = thymeleaf.render( resolve('stepTwo.html'), createStepTwoModel( params, req ));
+            model.cart = modifyCart( model.cart._id, params );
+            var stepView = thymeleaf.render( resolve('stepTwo.html'), createStepTwoModel( params, req, model.cart ));
             model.shipping = 'active';
             break;
         case '3':
-            contextLib.runAsAdmin(function () {
-                params.step = 'created';
-                var shipping = getShipping(model.order.country);
-                shipping = getShippingById( shipping, params.shipping );
-                model.cart = cartLib.setShipping( model.cart._id, shipping );
-                model.order = ordersLib.modifyOrder( model.cart.orderId, params );
-            });
+            params.status = 'created';
+            var shipping = getShipping(model.cart.country);
+            shipping = getShippingById( shipping, params.shipping );
+            model.cart = modifyCart( model.cart._id, params );
             var stepView = thymeleaf.render( resolve('stepThree.html'), createStepThreeModel( params, req ));
             model.payment = 'active';
             break;
         case 'submit':
-            if( model.order && model.order.ik_id ){
+            if( model.cart && model.cart.ik_id ){
                 model.pay = true;
-                model.ik_id = model.order.ik_id;
+                model.ik_id = model.cart.ik_id;
             }
             break;
         case 'success':
             return renderSuccessPage( req, model.cart );
             break;
         default:
-            var stepView = thymeleaf.render( resolve('stepOne.html'), createStepOneModel( params, req, model.order ));
+            var stepView = thymeleaf.render( resolve('stepOne.html'), createStepOneModel( params, model.cart, req ));
             model.info = 'active';
             break;
     }
@@ -73,19 +66,25 @@ function generateCheckoutPage(req){
         contentType: 'text/html'
     };
 
-    function createStepOneModel( params, req, order ) {
+    function modifyCart( id, params ){
+        return contextLib.runAsAdmin(function () {
+            return model.cart = cartLib.setUserDetails( id, params );
+        });
+    }
+
+    function createStepOneModel( params, cart, req ) {
         return {
             shopUrl: getShopUrl(),
             agreementPage: portal.pageUrl({id: portal.getSiteConfig().agreementPage}),
-            order: order,
-            params: params
+            params: params,
+            cart: cart
         };
     }
 
-    function createStepTwoModel( params, req, shopUrl ){
+    function createStepTwoModel( params, req, cart ){
         var site = portal.getSiteConfig();
         var shipping = contentLib.get({ key: site.shipping });
-        shipping = getShipping( params.country );
+        shipping = getShipping( params.country, cart.itemsWeight );
         return {
             params: params,
             shopUrl: getShopUrl(),
@@ -101,15 +100,34 @@ function generateCheckoutPage(req){
         };
     }
 
-    function getShipping( country ){
+    function getShipping( country, weight ){
         var site = portal.getSiteConfig();
         var shipping = contentLib.get({ key: site.shipping });
+        var result = [];
         for( var i = 0; i < shipping.data.shipping.length; i++ ){
             if( shipping.data.shipping[i].country == country ){
-                return norseUtils.forceArray(shipping.data.shipping[i].methods);
+                result = getShippingsWithPrices( shipping.data.shipping[i], country, weight );
             }
         }
-        return shipping;
+        return result;
+    }
+
+    function getShippingsWithPrices( shipping, country, weight ){
+        var result = [];
+        for( var j = 0; j < shipping.methods.length; j++ ){
+            var price = cartLib.getShippingPrice({ 
+                country: country,
+                itemsWeight: weight,
+                shipping: shipping.methods[j].id
+            });
+            result.push({
+                id: shipping.methods[j].id,
+                title: shipping.methods[j].title,
+                price: price.toFixed(),
+                terms: shipping.methods[j].terms
+            });
+        }
+        return result;
     }
 
     function getShippingById( shipping, id ){
@@ -122,16 +140,8 @@ function generateCheckoutPage(req){
 
     function getCheckoutMainModel( params ){
         var cart = cartLib.getCart(req.cookies.cartId);
-        var order = contextLib.runAsAdmin(function () {
-            if( cart && cart.orderId && cart.orderId != '' ){
-                return ordersLib.getOrder( cart.orderId );
-            } else {
-                return {};
-            }
-        });
         return {
             cart: cart,
-            order: order,
             pageComponents: helpers.getPageComponents(req)
         };
     }
@@ -144,15 +154,13 @@ function generateCheckoutPage(req){
     }
 
     function renderSuccessPage( req, cart ){
-        var order = ordersLib.getOrder( cart.orderId );
-        mailsLib.sendMail('orderCreated', order.email, {
-            order: order,
+        mailsLib.sendMail('orderCreated', cart.email, {
             cart: cart
         });
         return {
             body: thymeleaf.render( resolve('success.html'), {
                 pageComponents: helpers.getPageComponents(req),
-                order: order,
+                cart: cart,
                 shopUrl: getShopUrl()
             }),
             contentType: 'text/html'

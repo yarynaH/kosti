@@ -21,13 +21,17 @@ function sendMail( type, email, params ){
 		default:
 			break;
 	}
-	mailLib.send({
+	var sent = mailLib.send({
 	    from: mail.from,
 	    to: email,
 	    subject: mail.subject,
 	    body: mail.body,
 	    contentType: 'text/html; charset="UTF-8"'
 	});
+	norseUtils.log('test');
+	norseUtils.log(mail);
+	norseUtils.log(email);
+	norseUtils.log(sent);
 }
 
 function getorderCreatedMail( params ){
@@ -37,7 +41,7 @@ function getorderCreatedMail( params ){
 			cart: params.cart
 		}),
 		subject: "Ваш заказ получен",
-		from: "sales@kostirpg.com"
+		from: "noreply@kostirpg.com"
 	}
 }
 

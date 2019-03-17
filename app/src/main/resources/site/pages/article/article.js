@@ -5,11 +5,13 @@ var helpers = require('helpers');
 var kostiUtils = require('kostiUtils');
 var thymeleaf = require('/lib/xp/thymeleaf');
 var votesLib = require('votesLib');
+var userLib = require('userLib');
 
 exports.get = handleReq;
 
 function handleReq(req) {
     var me = this;
+    var user = userLib.getCurrentUser();
 
     function renderView() {
         var view = resolve('article.html');
@@ -29,10 +31,13 @@ function handleReq(req) {
         content = beautifyArticle(content);
         var response = [];
         var site = portal.getSiteConfig();
+        var mainRegion = content.page.regions.main;
 
         var model = {
             content: content,
             social: site.social,
+            mainRegion: mainRegion,
+            weeksPost: getWeeksPost(site.weeksPost),
             pageComponents: helpers.getPageComponents(req)
         };
 
@@ -52,6 +57,12 @@ function handleReq(req) {
             article.voted = votesLib.checkIfVoted( user.key, article._id );
         }
         return article;
+    }
+
+    function getWeeksPost( weeksPost ){
+        var weeksPost = contentLib.get({ key: weeksPost });
+        weeksPost = beautifyArticle(weeksPost);
+        return weeksPost;
     }
 
     return renderView();

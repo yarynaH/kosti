@@ -8,7 +8,7 @@
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
         <div class="article-img_wrap">
-            <img src="https://picsum.photos/1440/540" alt="">
+            <img data-th-src="${content.image.url}" alt="">
         </div>
         <div class="blog blog_width clearfix">
             <div class="article-header">
@@ -24,44 +24,13 @@
                 <h1 class="post-title" data-th-text="${content.displayName}"></h1>
             </div>
             <div class="article-body">
-                <div class="article-content">
-                    <section>
-                        <p>
-                            С 1991 года VtM пережила несколько редакций и перезапусков — в них авторы перекраивали сеттинг, игромеханику, философию и центральные темы. О поэтапной эволюции игры мы уже рассказывали, поэтому остановимся подробно на Vampire: The Masquerade. 20th Anniversary Edition (кратко — V20) от Onyx Path Publishing. Эта книга правил увидела свет в 2011 году после успешного краудфандинга.
-                        </p>
-                        <p>
-                            V20 стала чем-то вроде справочника с исправлениями по классическим «Вампирам» (фанаты его ещё называют «старый Мир Тьмы») — в ней авторы отполировали механику, обновили списки способностей и привели более подробное описание различных кланов. Onyx Path дала всем поклонникам «классики» возможность сыграть в «ту самую игру», пусть и немного обновлённую. А для тех, кто только ищет знакомства с «Вампирами», V20 стала отличной точкой входа — игра избавилась от части недостатков и вобрала в себя все главные находки прошлых редакций «классики».
-                        </p>
-                        <figure>
-                            <img src="https://picsum.photos/650/300" alt="">
-                            <figcaption>Так буду выглядеть подписи к картинкам</figcaption>
-                        </figure>
-                        <h2>Оглавление H2</h2>
-                        <p>
-                            «Маскарад» детально описывает общество вампиров, которое существует рядом с человеческим. Придуманные людьми фольклорные образы по большей части врут — вампирам плевать на чеснок, текущую воду и приглашения, зато они точно сгорают под солнечным светом. А вот по части приписываемых способностей почти всё правда — могут призывать на помощь животных и скрываться в сумраке.
-                        </p>
-                    </section>
-                    <blockquote>
-                        Кстати, о клане. По сути, это первое, с чего начинается создание персонажа. Выбор принадлежности к тому или иному клану определит отношение общества к персонажу, черты внешности и поведения, слабости и список дисциплин.
-                    </blockquote>
-                    <section>
-                        <h3>Оглавление H3</h3>
-                        <p>
-                            Впрочем, стричь всех под одну гребёнку было бы ошибкой. Кровопийцы «Маскарада» вобрали в себя, пожалуй, всевозможные архетипы из различных мифологий и верований. Они нашли воплощение в тринадцати кланах, каждый из которых отличается своими особенностями: внешностью, чертами характера, поведением и склонностью к сверхъестественным способностям.
-                        </p>
-                        <h4>Оглавление H4</h4>
-                        <p>
-                            Впрочем, стричь всех под одну гребёнку было бы ошибкой. Кровопийцы «Маскарада» вобрали в себя, пожалуй, всевозможные архетипы из различных мифологий и верований. Они нашли воплощение в тринадцати кланах, каждый из которых отличается своими особенностями: внешностью, чертами характера, поведением и склонностью к сверхъестественным способностям.
-                        </p>
-                        <h5>Оглавление H5</h5>
-                        <p>
-                            Авторы Vampire: The Masquerade придумали собственный жанр, соединяющий два очень разных аспекта, — «готик-панк». С одной стороны, создатели предлагают сыграть в ультрасовременное представление о готике — с романтизированным взглядом на прошлое и атмосферой мистического хоррора. Современные клубы, пентхаусы и особняки заменили собой замки и дворцы, но плетущиеся в них интриги никуда не делись. В то же время, игра подталкивает к «панку» — протесту, выраженному не через внешние атрибуты, а внутреннее желание выступить против существующего общества. Мятежный дух витает везде — от напряжённого противостояния неонатов и старейшин и до личной драмы одиночки, выселенного на улицу.
-                        </p>
-                    </section>
-
+                <div class="article-content" data-portal-region="main">
+                    <div data-th-each="component : ${mainRegion.components}" data-th-remove="tag">
+                        <div data-portal-component="${component.path}" data-th-remove="tag"></div>
+                    </div>
                 </div>
                 <div class="blog-item">
-                    <div class="post">
+                    <div class="post hidden">
                         <div class="tag-list ">
                             <a href="#" class="tag-item">WoD</a>
                             <a href="#" class="tag-item">V5</a>
@@ -69,13 +38,13 @@
                         </div>
                     </div>
                     <div class="post-footer">
-                        <div class="post-counters ">
+                        <div class="post-counters hidden">
                             <span class="share-counter icon-share">245</span>
                             <span class="views-counter icon-views">314</span>
                             <span class="comments-counter icon-comment">12</span>
                         </div>
                         <div class="post-actions">
-                            <a href="#" class=" add_to_bookmarks-btn icon-bookmark"></a>
+                            <a href="#" class="hidden add_to_bookmarks-btn icon-bookmark"></a>
                             <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
                                 <span data-th-text="${content.votes}"></span>
                             </a>
@@ -84,7 +53,7 @@
                 </div>
             </div>
             <div class="blog-sidebar">
-                <div class="library_top " style="background-image: url(https://picsum.photos/300/470?random);">
+                <div class="library_top hidden" style="background-image: url(https://picsum.photos/300/470?random);">
                     <div class="library_top-label">Хит библиотеки</div>
                     <div class="library_top-author">
                         <span class="post-user_avatar">
@@ -100,7 +69,7 @@
                         <a href="#" class="tag-item">Homebrew</a>
                     </div>
                 </div>
-                <div class="hot_tags ">
+                <div class="hot_tags hidden">
                     <h3 class="hot_tags-title">Горячие теги</h3>
                         <div class="tag-list tag-list__hot">
                             <a href="#"  class="tag-item">V5</a>

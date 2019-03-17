@@ -3,27 +3,22 @@ var contentLib = require('/lib/xp/content');
 var portalLib = require('/lib/xp/portal');
 var nodeLib = require('/lib/xp/node');
 var contextLib = require('/lib/contextLib');
+var portal = require('/lib/xp/portal');
 
 exports.getCart = function( cartId ){
   var cart = {};
   if( cartId ){
     cart = getCartById( cartId );
-    if( cart ){
-      cart.price = calculateCart( cart );
-      cart.items = getCartItems( cart.items );
-      cart.itemsNum = calculateCartItems(cart.items);
-    } else {
+    if( !cart ){
       cart = createCart();
-      cart.price = calculateCart( cart );
-      cart.items = getCartItems( cart.items );
-      cart.itemsNum = calculateCartItems(cart.items);
     }
   } else {
     cart = createCart();
-    cart.price = calculateCart( cart );
-    cart.items = getCartItems( cart.items );
-    cart.itemsNum = calculateCartItems(cart.items);
   }
+  cart.items = getCartItems( cart.items );
+  cart.itemsNum = calculateCartItems(cart.items);
+  cart.itemsWeight = caclculateCartWeight(cart.items);
+  cart.price = calculateCart( cart );
   return cart;
 }
 
@@ -70,36 +65,40 @@ exports.modify = function( cartId, id, amount, itemSize, force ){
   return result;
 }
 
-exports.setOrder = function( cartId, orderId ){
-  var cart = this.getCart(cartId);
+exports.setUserDetails = function( cartId, params ){
   var cartRepo = connectCartRepo();
   var result = cartRepo.modify({
-    key: cart._id,
+    key: cartId,
     editor: editor
   });
-  result = this.getCart(cartId);
 
   function editor( node ){
-    node.orderId = orderId;
+    node.country = params.country ? params.country : node.country;
+    node.address = params.address ? params.address : node.address;
+    node.city = params.city ? params.city : node.city;
+    node.phone = params.phone ? params.phone : node.phone;
+    node.surname = params.surname ? params.surname : node.surname;
+    node.name = params.name ? params.name : node.name;
+    node.shipping = params.shipping ? params.shipping : node.shipping;
+    node.email = params.email ? params.email : node.email;
+    node.cartId = params.cartId ? params.cartId : node.cartId;
+    node.step = params.step ? params.step : node.step;
+    node.status = params.status ? params.status : node.status;
+    node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
+    node.userId = params.userId ? params.userId : node.userId;
     return node;
   }
-  return result;
+  return this.getCart(cartId);
 }
 
-exports.setShipping = function( cartId, shipping ){
-  var cart = this.getCart(cartId);
+exports.getNextId = function(){
   var cartRepo = connectCartRepo();
-  var result = cartRepo.modify({
-    key: cart._id,
-    editor: editor
+  var result = cartRepo.query({
+    start: 0,
+    count: 0,
+    query: "step = 'paid'"
   });
-  result = this.getCart(cartId);
-
-  function editor( node ){
-    node.shipping = shipping;
-    return node;
-  }
-  return result;
+  return result.total;
 }
 
 function connectCartRepo(){
@@ -115,9 +114,6 @@ function createCart(){
     var cartRepo = connectCartRepo();
     cart = cartRepo.create({});
   });
-  cart.total = calculateCart( cart );
-  cart.items = getCartItems( cart.items );
-  cart.itemsNum = calculateCartItems(cart.items);
   return cart;
 }
 
@@ -149,15 +145,12 @@ function calculateCart( cart ){
   }
   var result = 0;
   for( var i = 0; i < items.length; i++ ){
-    var item = contentLib.get({ key: items[i].id });
+    var item = contentLib.get({ key: items[i]._id });
     if( item && item.data && item.data.price ){
       result += item.data.price * parseInt(items[i].amount);
     }
   }
-  var shipping = 0;
-  if( cart.shipping && cart.shipping.price ){
-    shipping = parseInt(cart.shipping.price);
-  }
+  var shipping = getShippingPrice(cart);
   return { 
     items: result.toFixed(),
     shipping: shipping.toFixed(),
@@ -205,3 +198,52 @@ function calculateCartItems( items ){
   }
   return result.toFixed();
 }
+
+function caclculateCartWeight( items ){
+  if( !items ){
+    return 0;
+  }
+  items = norseUtils.forceArray( items );
+  if( items == [] ){
+    return 0;
+  }
+  var result = 0;
+  for( var i = 0; i < items.length; i++ ){
+    var item = contentLib.get({ key: items[i]._id });
+    if( item && item.data && item.data.weight ){
+      result += parseInt( item.data.weight ) * parseInt( items[i].amount );
+    }
+  }
+  return result.toFixed();
+}
+
+function getShippingPrice( cart ){
+  var site = portal.getSiteConfig();
+  var shipping = contentLib.get({ key: site.shipping });
+  for( var i = 0; i < shipping.data.shipping.length; i++ ){
+      if( shipping.data.shipping[i].country == cart.country ){
+        var shippingMethods = norseUtils.forceArray(shipping.data.shipping[i].methods);
+        break;
+      }
+  }
+  if( !shippingMethods ){
+    return 0;
+  }
+  for( var i = 0; i < shippingMethods.length; i++ ){
+    if( shippingMethods[i].id == cart.shipping ){
+      var method = norseUtils.forceArray(shippingMethods[i].priceList);
+      break;
+    }
+  }
+  if( !method ){
+    return 0;
+  }
+  for( var i = 0; i < method.length; i++ ){
+    if( parseInt(cart.itemsWeight) < parseInt(method[i].weight) ){
+      return parseInt(method[i].price);
+    }
+  }
+  return method[method.length-1].price;
+}
+
+exports.getShippingPrice = getShippingPrice;

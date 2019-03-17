@@ -19,11 +19,6 @@
 							<config>
 							</config>
 						</input>
-						<input name="price" type="TextArea">
-							<label>Price</label>
-							<config>
-							</config>
-						</input>
 						<input name="terms" type="TextArea">
 							<label>Terms</label>
 							<config>
@@ -34,6 +29,22 @@
 							<config>
 							</config>
 						</input>
+						<item-set name="priceList">
+							<label>Price</label>
+							<items>
+								<input name="price" type="Long">
+									<label>Price</label>
+									<config>
+									</config>
+								</input>
+								<input name="weight" type="Long">
+									<label>Weight</label>
+									<config>
+									</config>
+								</input>
+							</items>
+							<occurrences minimum="0" maximum="0"/>
+						</item-set>
 					</items>
 					<occurrences minimum="0" maximum="0"/>
 				</item-set>

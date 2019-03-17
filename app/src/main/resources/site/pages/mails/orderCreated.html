@@ -9,15 +9,15 @@
 
 <body>
     Ваш заказ принят. Скоро мы свяжемся с вами для уточнения всех нюансов.
-    <div data-th-text="${order.name}"></div>
-    <div data-th-text="${order.surname}"></div>
-    <div data-th-text="${order.country}"></div>
-    <div data-th-text="${order._id}"></div>
-    <div data-th-text="${order.phone}"></div>
-    <div data-th-text="${order.address}"></div>
-    <div data-th-text="${order.city}"></div>
-    <div data-th-text="${order.email}"></div>
-    <div data-th-text="${order.shipping}"></div>
+    <div data-th-text="${cart.name}"></div>
+    <div data-th-text="${cart.surname}"></div>
+    <div data-th-text="${cart.country}"></div>
+    <div data-th-text="${cart._id}"></div>
+    <div data-th-text="${cart.phone}"></div>
+    <div data-th-text="${cart.address}"></div>
+    <div data-th-text="${cart.city}"></div>
+    <div data-th-text="${cart.email}"></div>
+    <div data-th-text="${cart.shipping}"></div>
     <div data-th-each="item: ${cart.items}">
         <div>
             <div data-th-text="${item.displayName}"></div>
