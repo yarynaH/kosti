@@ -95,10 +95,10 @@ exports.getNextId = function(){
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
-    count: 0,
-    query: "step = 'paid'"
+    count: 10,
+    query: "status = 'paid'"
   });
-  return result.total;
+  return (result.total + 1).toFixed();
 }
 
 function connectCartRepo(){
