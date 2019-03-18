@@ -22,7 +22,7 @@ function generateCheckoutPage(req){
     if( params.ik_inv_st ){
         if( params.ik_inv_st == 'success' ){
             params.step = "success";
-            modifyCart( model.cart._id, { status: "paid", userId: cartLib.getNextId() });
+            modifyCart( model.cart._id, { status: "paid" });
         } else if( params.ik_inv_st == 'fail' || params.ik_inv_st == 'canceled' ){
             params.error = true;
             params.step = "3";
@@ -39,6 +39,7 @@ function generateCheckoutPage(req){
             model.shipping = 'active';
             break;
         case '3':
+            params.userId = cartLib.getNextId();
             params.status = 'created';
             var shipping = getShipping(model.cart.country);
             shipping = getShippingById( shipping, params.shipping );

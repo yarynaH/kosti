@@ -75,7 +75,7 @@
     </main>
     <form class="hidden" data-th-if="${pay}" name="payment" method="post" action="https://sci.interkassa.com/" accept-charset="UTF-8">
         <input type="hidden" name="ik_co_id" data-th-attr="value=${ik_id}"/>
-        <input type="hidden" name="ik_pm_no" data-th-attr="value=${cart.ik_id}"/>
+        <input type="hidden" name="ik_pm_no" data-th-attr="value='ID_' + ${cart.userId}"/>
         <input type="hidden" name="ik_am" data-th-attr="value=${cart.price.total}"/>
         <input type="hidden" name="ik_cur" value="rub"/>
         <input type="hidden" name="ik_desc" data-th-attr="value='Товары вечерних костей'"/>
