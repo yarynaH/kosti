@@ -1,4 +1,8 @@
 .freshest {
+    @include mobile(){
+        margin-bottom: 25px;
+    }
+
     @include tablet-all() {
         width: 66%;
         float: left;
@@ -67,6 +71,7 @@
         box-shadow: 0 2px 8px 0 rgba(217, 144, 49, 0.24);
         height: 109px;
         color: $color-primary1;
+        background-size: cover;
 
         & + & {
             margin-top: 10px;
@@ -114,7 +119,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 34% 20px 0;
+        padding: 30px 0 20px;
+
+        @include tablet-all(){
+            padding: 20px 34% 20px 0;
+        }
 
         .hotter-btn {
             @include icon(rock);
@@ -187,6 +196,9 @@
     }
 
     &-sidebar {
+        @include mobile() {
+            margin-top: 15px;
+        }
         @include tablet-all() {
             width: 34%;
             float: right;
@@ -196,7 +208,11 @@
 }
 
 .post {
-    padding: 25px 30px 15px;
+    padding: 25px 15px;
+
+    @include tablet-all() {
+        padding: 25px 30px 15px;
+    }
 
     &-user_name {
         color: $color-primary15;
@@ -242,9 +258,13 @@
     &-footer {
         border-top: 1px solid $color-primary14;
         color: $color-primary12;
-        padding: 25px 30px;
+        padding: 25px 15px;
         display: flex;
         justify-content: space-between;
+
+        @include tablet-all() {
+            padding: 25px 30px;
+        }
     }
 }
 
@@ -318,7 +338,11 @@
 
 .hot_tags,
 .social {
-    padding: 25px 0;
+    padding: 25px 10px;
+
+    @include tablet-all() {
+        padding: 25px 0;
+    }
 }
 
 .hot_tags{
@@ -331,6 +355,7 @@
 
         &:before {
             margin-right: 8px;
+            font-size: (25);
         }
     }
 }
