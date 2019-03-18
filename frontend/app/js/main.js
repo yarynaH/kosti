@@ -33,7 +33,7 @@ function initLoginRegisterForm(){
 			data: data
 		}).done(function(data) {
 			if( !data.exist && !data.data ){
-				$('.modal-login .form-group-error span').text(data.message);
+			('.modal-login .form-group-error span').text(data.message);
 				$('.modal-login .form-group-error').removeClass('hidden');
 			} else {
 				$('.header-user').html('<div class="user-avatar-img_wrap">' + 
@@ -333,7 +333,7 @@ function addToCart( data ){
 		data: data,
 		success: function(data){
 			setCookie(data._id);
-			$('.minicart .minicart-total').html('&#8381; ' + data.price.items);
+			$('.minicart .minicart-total').html('&#8372; ' + data.price.items);
 			$('.minicart .minicart-qty').text(parseInt(data.itemsNum) > 99 ? "9+" : data.itemsNum);
 			$('.cart-total .value .cart-items-price').text(data.price.items);
 			result = data;

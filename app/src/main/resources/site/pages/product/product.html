@@ -27,7 +27,7 @@
                             <span class="minicart-icon">
                                 <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
                             </span>
-                            <span class="minicart-total">&#8381; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
+                            <span class="minicart-total">&#8372; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
                         </div>
                     </a>
                 </div>
@@ -51,7 +51,7 @@
                             <div class="pdp-info_header">
                                 <h2 class="pdp-title" data-th-text="${content.displayName}"></h2>
                                 <div class="price">
-                                    <span class="price-curency">&#8381;</span>
+                                    <span class="price-curency">&#8372;</span>
                                     <span class="price-value" data-th-text="${content.data.price}"></span>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="pdp-options">
-                                <div class="pdp-size">
+                                <div class="pdp-size" data-th-if="${sizes && sizes.size > 0}">
                                     <div class="select-field">
                                         <select name="itemSize" id="pdp-size-select" class="pdp-size_select select">
                                             <option value="Выберите размер" disabled="disabled" selected>Выберите размер</option>
