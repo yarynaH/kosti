@@ -31,7 +31,7 @@
                             </div>
                             <div class="summary-product-info">
                                 <h5 class="summary-product-name" data-th-text="${product.displayName}"></h5>
-                                <div class="summary-product-size">
+                                <div class="summary-product-size" data-th-if="${product.itemSize}">
                                     <span class="label">Размер:</span>
                                     <span class="value" data-th-text="${product.itemSize}"></span></div>
                                 <div class="summary-product-qty">
