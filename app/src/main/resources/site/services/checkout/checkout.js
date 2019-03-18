@@ -49,7 +49,6 @@ function generateCheckoutPage(req){
         case 'submit':
             if( model.cart && model.cart.ik_id ){
                 model.pay = true;
-                model.ik_id = model.cart.ik_id;
             }
             break;
         case 'success':
@@ -140,8 +139,10 @@ function generateCheckoutPage(req){
 
     function getCheckoutMainModel( params ){
         var cart = cartLib.getCart(req.cookies.cartId);
+        var site = portal.getSiteConfig();
         return {
             cart: cart,
+            ik_id: site.ik_id,
             pageComponents: helpers.getPageComponents(req)
         };
     }
