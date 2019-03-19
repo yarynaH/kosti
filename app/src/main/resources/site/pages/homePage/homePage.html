@@ -10,27 +10,32 @@
     <main class="main">
         <div class="homepage_slider">
             <div data-th-each="slide: ${slider}">
-                <div class="slick-img_wrap">
-                    <img src="" data-th-src="${slide.image.url}" alt="" class="slick-img">
-                </div>
-                <div class="slick-content blog_width">
-                    <div class="post-info">
-                        <a data-th-href="${slide.author.url}">
-                            <span class="post-user_avatar">
-                                <img data-th-src="${slide.author.image.url}" alt="">
-                            </span>
-                            <span class="post-user_name" data-th-text="${slide.author.displayName}"></span>
-                        </a>
-                        <span class="post-date" data-th-text="${slide.date}"></span>
+                <div class="slick-body">
+                    <div class="slick-img_wrap">
+                        <picture>
+                            <source data-th-srcset="${slide.image.url}" media="(min-width: 600px)">
+                            <img src="https://picsum.photos/375/560/?random" class="slick-img">
+                    </picture>
                     </div>
-                    <h2 class="slick-title" data-th-text="${slide.displayName}"></h2>
-                    <div class="slick-caption" data-th-utext="${slide.data.shortIntro}"></div>
-                    <div class="slick-action">
-                        <button class="slick-read_btn">ЧИТАТЬ</button>
-                        <button class="slick-add_to_bookmarks_btn hidden">В ЗАКЛАДКИ</button>
-                        <a data-th-attr="data-contentId=${slide._id}" href="#" class="like-btn icon-rock" data-th-classappend="${slide.voted} ? 'active' : ''">
-                            <span data-th-text="${slide.votes}"></span>
-                        </a>
+                    <div class="slick-content blog_width">
+                        <div class="post-info">
+                            <a data-th-href="${slide.author.url}">
+                                <span class="post-user_avatar">
+                                    <img data-th-src="${slide.author.image.url}" alt="">
+                                </span>
+                                <span class="post-user_name" data-th-text="${slide.author.displayName}"></span>
+                            </a>
+                            <span class="post-date" data-th-text="${slide.date}"></span>
+                        </div>
+                        <h2 class="slick-title" data-th-text="${slide.displayName}"></h2>
+                        <div class="slick-caption" data-th-utext="${slide.data.shortIntro}"></div>
+                        <div class="slick-action">
+                            <button class="slick-read_btn">ЧИТАТЬ</button>
+                            <button class="slick-add_to_bookmarks_btn hidden">В ЗАКЛАДКИ</button>
+                            <a data-th-attr="data-contentId=${slide._id}" href="#" class="like-btn icon-rock" data-th-classappend="${slide.voted} ? 'active' : ''">
+                                <span data-th-text="${slide.votes}"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

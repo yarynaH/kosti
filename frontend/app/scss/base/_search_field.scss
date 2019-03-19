@@ -12,7 +12,7 @@
     }
 
     &-btn {
-        @include position(absolute, top 1px right 1px)
+        @include position(absolute, top 1px right 1px);
 
         height: 54px;
         padding: 0 15px;

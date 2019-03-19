@@ -1,9 +1,10 @@
 <div class="site_width">
-    <h1 class="header-logo">
+    <div class="header-logo">
         <a data-th-href="${portal.pageUrl({'_path=' + site._path})}">
-            <img src="#" data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}" alt="Vechernie kosti logo">Vechernie kosti
+            <img src="#" data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}" alt="Vechernie kosti logo" class="header-logo-default">
+            <img src="#" data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Vechernie kosti logo" class="header-logo-scroll">
         </a>
-    </h1>
+    </div>
     <div class="mobile_menu">
         <span></span>
         <span></span>

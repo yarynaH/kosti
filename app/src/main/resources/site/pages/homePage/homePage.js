@@ -146,9 +146,6 @@ function handleReq(req) {
                 return 'https://www.youtube.com/embed/' + url;
             }
         }
-
-
     }
-
     return renderView();
 }

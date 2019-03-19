@@ -215,9 +215,14 @@ function initSharedEvents(){
 			showLogin(e);
 		}
 	});
-    $('.mobile_menu').on('click', function(){
-        $(this).toggleClass('open');
-    });
+
+	if ($(window).width() < 768) {
+		$('.mobile_menu').on('click', function(){
+			$(this).toggleClass('open');
+			$('.header').toggleClass('open');
+		});
+	}
+
 	if( $('form[name=payment]').length > 0 ){
 		$('form[name=payment]').submit();
 	}
