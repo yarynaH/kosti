@@ -1,13 +1,120 @@
 <!DOCTYPE html>
 <html>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body class="page-wrapper">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
-    <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main">
-    </main>
-    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Спасибо за ваш заказ</title>
+</head>
+<style>
+    body {
+        background: burlywood;
+    }
+</style>
+<body>
+    <table border="0" cellpadding="0" cellspacing="0" align="center" width="670" style="max-width: 670px; background: white;">
+        <tr>
+            <td style="padding: 40px 90px;">
+                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mail-logo.png'})}" alt="Vechernie kosti logo">
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 24px; font-family: Roboto; font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 90px 15px;">
+                Привет, Username
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 90px 25px;"></tdstyle>
+                Спасибо за ваш заказ! Гоблины и гномы-инженеры хаотично мечутся по нашей мастерской в попытке его обработать. Вы можете уточнить детали вашего заказа в любой момент.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 90px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #dedede; width: 100%; padding: 20px 40px;">
+                    <tr>
+                        <td style="padding-right: 15px;">
+                            <img src="https://picsum.photos/100/100/?random">
+                        </td>
+                        <td style="font-family: Roboto; font-size: 14px; line-height: 1.71;">
+                            <div style="color: #505050;">
+                                Эксклюзивная.<br/>
+                                Солнце Хранит Тебя.
+                            </div>
+                            <div style="color: #707070; font-weight: bold; ">
+                                ₽ 1500
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 90px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 25px 40px; font-family: Roboto; font-size: 14px; line-height: 1.71; color: #505050;">
+                    <tr>
+                        <td width="50%" style="padding-bottom: 25px;">
+                            <div style="font-weight: bold; color: #707070;">Номер заказа</div>
+                            <div>01010103</div>
+                        </td>
+                        <td width="50%" style="padding-bottom: 25px;">
+                            <div style="font-weight: bold; color: #707070;">Время заказа</div>
+                            <div>5 Марта, 2019, 12:58</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                            <div style="font-weight: bold; color: #707070;">Адресс доставки</div>
+                            <div>Станислав Кальчук</div>
+                            <div>ул. Дерибасовская </div>
+                            <div>дом. 109, кв. 19а</div>
+                            <div>Одесса</div>
+                            <div>01928</div>
+                            <div>Tel:  050 937 1903</div>
+                        </td>
+                        <td width="50%">
+                            <div style="font-weight: bold; color: #707070;">Способ оплаты</div>
+                            <div style="padding-bottom: 40px;">
+                                <img src="https://picsum.photos/100/25/?random">
+                            </div>
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td style="font-weight: bold; color: #707070;">
+                                        Товар
+                                    </td>
+                                    <td style="text-align: right;">₽ 1500</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; color: #707070;">Доставка</td>
+                                    <td style="text-align: right;">Бесплатно</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; color: #707070;">Скидка</td>
+                                    <td style="text-align: right;">₽ 200</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 90px 20px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 40px 25px; font-family: Roboto; font-size: 14px;border-top: 0;">
+                    <tr>
+                        <td width="50%">&nbsp;</td>
+                        <td width="50%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold;">
+                                <tr>
+                                    <td style="color: #333333;">Всего</td>
+                                    <td style="text-align: right; color: color: #1b2125;">₽ 1300</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
-</html>
+
+</html> 
