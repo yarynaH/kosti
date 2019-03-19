@@ -33,7 +33,7 @@ function initLoginRegisterForm(){
 			data: data
 		}).done(function(data) {
 			if( !data.exist && !data.data ){
-				$('.modal-login .form-group-error span').text(data.message);
+			('.modal-login .form-group-error span').text(data.message);
 				$('.modal-login .form-group-error').removeClass('hidden');
 			} else {
 				$('.header-user').html('<div class="user-avatar-img_wrap">' + 
@@ -114,7 +114,10 @@ function initArticleFunction(){
 
 function initPDPFunctions(){
 	$('.qty-decrement').on('click', function(){
-		var input = $('.qty-input[data-id=' + $(this).data().id + '][data-size=' + $(this).data().size + ']');
+		var selector = '.qty-input[data-id=' + $(this).data().id + ']';
+		console.log($(this).data().size);
+		$(this).data().size ? selector += '[data-size=' + $(this).data().size + ']':false;
+		var input = $(selector);
 		input.val(Math.max(parseInt(input.val()) - 1, 1));
 		if( $('.cart-list').length > 0 ){
 			addToCartOnclick( input );
@@ -131,7 +134,9 @@ function initPDPFunctions(){
 		}
 	});
 	$('.qty-increment').on('click', function(){
-		var input = $('.qty-input[data-id=' + $(this).data().id + '][data-size=' + $(this).data().size + ']');
+		var selector = '.qty-input[data-id=' + $(this).data().id + ']';
+		$(this).data().size ? selector += '[data-size=' + $(this).data().size + ']':false;
+		var input = $(selector);
 		input.val(Math.max(parseInt(input.val()) + 1, 1));
 		if( $('.cart-list').length > 0 ){
 			addToCartOnclick( input );
@@ -146,7 +151,7 @@ function initPDPFunctions(){
 	});
 	$('.add_to_cart-btn').on('click', function(e){
 		e.preventDefault();
-		if(!$('#pdp-size-select').val()){
+		if($('#pdp-size-select').length && !$('#pdp-size-select').val()){
 			$('#pdp-size-select').addClass('is-invalid');
 		} else {
 			$('#pdp-size-select').removeClass('is-invalid');
@@ -338,7 +343,7 @@ function addToCart( data ){
 		data: data,
 		success: function(data){
 			setCookie(data._id);
-			$('.minicart .minicart-total').html('&#8381; ' + data.price.items);
+			$('.minicart .minicart-total').html('&#8372; ' + data.price.items);
 			$('.minicart .minicart-qty').text(parseInt(data.itemsNum) > 99 ? "9+" : data.itemsNum);
 			$('.cart-total .value .cart-items-price').text(data.price.items);
 			result = data;

@@ -17,7 +17,7 @@
                         </div>
                         <div class="cart-product_description">
                             <div data-th-text="${item.displayName}" class="cart-product_title"></div>
-                            <div class="cart-product_size">
+                            <div data-th-if="${item.itemSize}" class="cart-product_size">
                                 <span class="label">Размер: </span>
                                 <span class="value" data-th-text="${item.itemSize}"></span>
                             </div>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="cart-product_price">
-                            <span class="price-curency">&#8381;</span>
+                            <span class="price-curency">&#8372;</span>
                             <span data-th-text="${item.price}"></span>
                         </div>
                         <span class="cart-remove_btn" data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"></span>
@@ -40,7 +40,7 @@
                 <div class="cart-total">
                     <span class="label">Всего:</span>
                     <span class="value">
-                        <span class="price-curency">₽</span>
+                        <span class="price-curency">&#8372;</span>
                         <span class="cart-items-price" data-th-text="${cart.price.items}"></span>
                     </span>
                 </div>

@@ -114,6 +114,7 @@ function generateCheckoutPage(req){
 
     function getShippingsWithPrices( shipping, country, weight ){
         var result = [];
+        shipping.methods = norseUtils.forceArray(shipping.methods);
         for( var j = 0; j < shipping.methods.length; j++ ){
             var price = cartLib.getShippingPrice({ 
                 country: country,
