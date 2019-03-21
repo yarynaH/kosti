@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <!-- <form id="payment" name="payment" method="post" action="https://sci.interkassa.com/" enctype="utf-8">
+            <input type="hidden" name="ik_co_id" value="5c1cb5443c1eafde5b8b4567" />
+            <input type="hidden" name="ik_pm_no" value="ID_4234" />
+            <input type="hidden" name="ik_am" value="100.00" />
+            <input type="hidden" name="ik_cur" value="RUB" />
+            <input type="hidden" name="ik_desc" value="Event Description" />
+            <input type="submit" value="Pay">
+        </form> -->
+
+        <div class="pdp">
+            <div class="blog_width">
+                <div class="pdp-top">
+                    <div class="breadcrumbs">
+                        <span class="breadcrumbs-element active">Одежда</span>
+                    </div>
+                    <a data-th-href="${portal.serviceUrl({'_service=cart'})}">
+                        <div class="minicart">
+                            <span class="minicart-icon">
+                                <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
+                            </span>
+                            <span class="minicart-total">&#8372; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="pdp-wrap clearfix">
+                    <div class="pdp-image">
+                        <div class="product_bage">
+                            <span class="product_bage-icon"></span>
+                            <span class="product_bage-text">Новинка</span>
+                        </div>
+                        <div class="pdp-main_image">
+                            <img data-th-src="${mainImage.url}" alt="">
+                        </div>
+                        <div class="pdp-image-list">
+                            <div data-th-each="image: ${images}" class="pdp-image-item">
+                                <img data-th-src="${image.url}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pdp-info">
+                        <form data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}" class="pdp-form" method="POST">
+                            <div class="pdp-info_header">
+                                <h2 class="pdp-title" data-th-text="${content.displayName}"></h2>
+                                <div class="price">
+                                    <span class="price-curency">&#8372;</span>
+                                    <span class="price-value" data-th-text="${content.data.price}"></span>
+                                </div>
+                            </div>
+                            <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
+                            <div class="pdp-swatches">
+                                <div class="swatches-list">
+                                    <a data-th-href="${variation.url}" class="swatches-item active" data-th-each="variation: ${variations}">
+                                        <img data-th-src="${variation.swatch.url}" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="pdp-options">
+                                <div class="pdp-size" data-th-if="${sizes && sizes.size > 0}">
+                                    <div class="select-field">
+                                        <select name="itemSize" id="pdp-size-select" class="pdp-size_select select">
+                                            <option value="Выберите размер" disabled="disabled" selected>Выберите размер</option>
+                                            <option data-th-each="size: ${sizes}" data-th-attr="value=${size}" data-th-text="${size}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="qty-field pdp-qty-field ">
+                                    <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-decrement">-</span>
+                                        <input data-th-attr="data-id=${content._id}, data-size=${content.data.size}" name="quantity" type="text" class="qty-input" placeholder="1" value="1">
+                                    <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-increment">+</span>
+                                </div>
+                            </div>
+                            <button class="add_to_cart-btn">В КОРЗИНУ</button>
+                            <input name="price" type="hidden" data-th-attr="value=${content.data.price}">
+                            <input name="productId" type="hidden" data-th-attr="value=${content._id}">
+                        </form>
+                        <div class="pdp-description" data-th-utext="${content.data.description}">
+                        </div>
+                        <div class="pdp-social social">
+                            <h3 class="social-title">Поделись!</h3>
+                            <div class="social-list">
+                                <a href="#" class="social-link facebook"></a>
+                                <a href="#" class="social-link vk"></a>
+                                <a href="#" class="social-link twitter"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+<script type="text/javascript" data-th-inline="javascript">
+  var pdpImageUrl = [[${mainImage.url}]];
+</script>
+
+</html> 

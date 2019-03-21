@@ -101,6 +101,14 @@ function generateCheckoutPage(req){
     }
 
     function getShipping( country, weight ){
+        if( parseInt(weight) === 0 ){
+            return [{
+                id: "digital",
+                title: "Цифровая доставка",
+                price: 0,
+                terms: "Ваш заказ будет отправлен на Вашу електронную почту как только вы пройдете этап оплаты"
+            }];
+        }
         var site = portal.getSiteConfig();
         var shipping = contentLib.get({ key: site.shipping });
         var result = [];
