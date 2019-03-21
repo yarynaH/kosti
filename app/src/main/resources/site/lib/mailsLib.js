@@ -28,10 +28,6 @@ function sendMail( type, email, params ){
 	    body: mail.body,
 	    contentType: 'text/html; charset="UTF-8"'
 	});
-	norseUtils.log('test');
-	norseUtils.log(mail);
-	norseUtils.log(email);
-	norseUtils.log(sent);
 }
 
 function getorderCreatedMail( params ){

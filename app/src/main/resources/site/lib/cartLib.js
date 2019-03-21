@@ -4,6 +4,7 @@ var portalLib = require('/lib/xp/portal');
 var nodeLib = require('/lib/xp/node');
 var contextLib = require('/lib/contextLib');
 var portal = require('/lib/xp/portal');
+var textEncoding = require('/lib/text-encoding');
 
 exports.getCart = function( cartId ){
   var cart = {};
@@ -86,6 +87,31 @@ exports.setUserDetails = function( cartId, params ){
     node.status = params.status ? params.status : node.status;
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = params.userId ? params.userId : node.userId;
+    return node;
+  }
+  return this.getCart(cartId);
+}
+
+exports.generateItemsIds = function( cartId ){
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.modify({
+    key: cartId,
+    editor: editor
+  });
+  function editor( node ){
+    if( node && node.items ){
+      node.items = norseUtils.forceArray(node.items);
+      for( var i = 0; i < node.items.length; i++ ){
+        if( !node.items[i].itemsIds ){
+          node.items[i].itemsIds = [];
+        }else if( node.items[i].itemsIds && node.items[i].itemsIds.length >= parseInt(node.items[i].amount) ){
+          continue;
+        }
+        for( var j = 0; j < parseInt(node.items[i].amount); j++ ){
+          node.items[i].itemsIds.push(textEncoding.md5( node.name + ' ' + node.surname + ' ' + node.items[i].id + ' ' + (new Date().getTime()) + ' ' + j + ' ' + i ));
+        }
+      } 
+    }
     return node;
   }
   return this.getCart(cartId);

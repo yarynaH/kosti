@@ -2,39 +2,144 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
     <title>Спасибо за ваш заказ</title>
 </head>
-
-<body>
-    Ваш заказ принят. Скоро мы свяжемся с вами для уточнения всех нюансов.
-    <div data-th-text="${cart.name}"></div>
-    <div data-th-text="${cart.surname}"></div>
-    <div data-th-text="${cart.country}"></div>
-    <div data-th-text="${cart._id}"></div>
-    <div data-th-text="${cart.phone}"></div>
-    <div data-th-text="${cart.address}"></div>
-    <div data-th-text="${cart.city}"></div>
-    <div data-th-text="${cart.email}"></div>
-    <div data-th-text="${cart.shipping}"></div>
-    <div data-th-each="item: ${cart.items}">
-        <div>
-            <div data-th-text="${item.displayName}"></div>
-            <div>
-                <span>Размер: </span>
-                <span data-th-text="${item.itemSize}"></span>
-            </div>
-        </div>
-        <div data-th-text="${item.amount}">
-        </div>
-        <div>
-            <span>&#8372;</span>
-            <span data-th-text="${item.price}"></span>
-        </div>
-    </div>
-    <div data-th-text="${cart.price.shipping}"></div>
-    <div data-th-text="${cart.price.total}"></div>
+<style>
+    body {
+        background: burlywood;
+    }
+</style>
+<body style="margin: 0px; padding: 0px">
+    <table border="0" cellpadding="0" cellspacing="0" align="center" width="670" style="max-width: 670px; background: white;">
+        <tr>
+            <td style="padding: 40px 90px;">
+                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mail-logo.png'})}" alt="Vechernie kosti logo" color="#707070">
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 24px; font-family: Roboto; font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 90px 15px;">
+                Привет, <span data-th-remove="tag" data-th-text="${cart.name}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 90px 25px;">
+                Спасибо за ваш заказ! Гоблины и гномы-инженеры хаотично мечутся по нашей мастерской в попытке его обработать. Вы можете уточнить детали вашего заказа в любой момент.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 90px 10px;">
+                <table data-th-each="item: ${cart.items}" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #dedede; width: 100%; padding: 20px 40px;">
+                    <tr>
+                        <td style="padding-right: 15px;">
+                            <img data-th-src="${item.imageCart.url}">
+                        </td>
+                        <td style="font-family: Roboto; font-size: 14px; line-height: 1.71;">
+                            <div style="color: #505050;" data-th-text="${item.displayName}">
+                            </div>
+                            <div style="color: #707070; font-weight: bold; " data-th-text="${'&#8372; ' + item.price}">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 90px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 25px 40px; line-height: 1.71; color: #505050;">
+                    <tr>
+                        <td width="50%" style="padding-bottom: 25px; font-family: Roboto; font-size: 14px;">
+                            <div style="font-weight: bold; color: #707070;">Номер заказа</div>
+                            <div data-th-text="${cart.userId}"></div>
+                        </td>
+                        <td width="50%" style="padding-bottom: 25px; font-family: Roboto; font-size: 14px;">
+                            <div style="font-weight: bold; color: #707070;">Время заказа</div>
+                            <div>5 Марта, 2019, 12:58</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%" style="font-family: Roboto; font-size: 14px;">
+                            <div style="font-weight: bold; color: #707070;">Адресс доставки</div>
+                            <div data-th-text="${cart.name + ' ' + cart.surname}"></div>
+                            <div data-th-text="${cart.address}"></div>
+                            <div data-th-text="${cart.city}"></div>
+                            <div data-th-text="${'Tel: ' + cart.phone}"></div>
+                        </td>
+                        <td width="50%" style="font-family: Roboto; font-size: 14px;">
+                            <div style="font-weight: bold; color: #707070;">Способ оплаты</div>
+                            <div style="padding-bottom: 40px;">
+                                <img src="https://picsum.photos/100/25/?random" alt="Способ оплаты" color="#707070">
+                            </div>
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
+                                        Товар
+                                    </td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.items}">₽ 1500</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Доставка</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.shipping}"></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Скидка</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">&#8372; 0</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 90px 20px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 40px 25px; border-top: 0;">
+                    <tr>
+                        <td width="50%">&nbsp;</td>
+                        <td width="50%">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold;">
+                                <tr>
+                                    <td style="color: #333333; font-family: Roboto; font-size: 14px;">Всего</td>
+                                    <td style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.total}">₽ 1300</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 85px 20px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td>
+                            <a href="" title="facebook" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/fb.svg'})}" alt="facebook" color="#707070">
+                            </a>
+                            <a href="" title="vk" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/vk.svg'})}" alt="vk" color="#707070">
+                            </a>
+                            <a href="" title="twitter" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/twitter.svg'})}" alt="twitter" color="#707070">
+                            </a>
+                            <a href="" title="youtube" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/youtube.svg'})}" alt="youtube" color="#707070">
+                            </a>
+                            <a href="" title="instagram" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/instagram.svg'})}" alt="instagram" color="#707070">
+                            </a>
+                            <a href="" title="twitch" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/twitch.svg'})}" alt="twitch" color="#707070">
+                            </a>
+                        </td>
+                        <td style="color: #505050; font-family: Roboto; font-size: 14px; text-align: right; padding-right: 5px;">Вечерние Кости 2019</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 
-</html> 
+</html>
