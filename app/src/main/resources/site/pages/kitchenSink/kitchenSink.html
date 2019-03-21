@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
     <title>Спасибо за ваш заказ</title>
 </head>
 <style>
@@ -11,11 +12,11 @@
         background: burlywood;
     }
 </style>
-<body>
+<body style="margin: 0px; padding: 0px">
     <table border="0" cellpadding="0" cellspacing="0" align="center" width="670" style="max-width: 670px; background: white;">
         <tr>
             <td style="padding: 40px 90px;">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mail-logo.png'})}" alt="Vechernie kosti logo">
+                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mail-logo.png'})}" alt="Vechernie kosti logo" color="#707070">
             </td>
         </tr>
         <tr>
@@ -24,7 +25,7 @@
             </td>
         </tr>
         <tr>
-            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 90px 25px;"></tdstyle>
+            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 90px 25px;">
                 Спасибо за ваш заказ! Гоблины и гномы-инженеры хаотично мечутся по нашей мастерской в попытке его обработать. Вы можете уточнить детали вашего заказа в любой момент.
             </td>
         </tr>
@@ -50,19 +51,19 @@
         </tr>
         <tr>
             <td style="padding: 0 90px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 25px 40px; font-family: Roboto; font-size: 14px; line-height: 1.71; color: #505050;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 25px 40px; line-height: 1.71; color: #505050;">
                     <tr>
-                        <td width="50%" style="padding-bottom: 25px;">
+                        <td width="50%" style="padding-bottom: 25px; font-family: Roboto; font-size: 14px;">
                             <div style="font-weight: bold; color: #707070;">Номер заказа</div>
                             <div>01010103</div>
                         </td>
-                        <td width="50%" style="padding-bottom: 25px;">
+                        <td width="50%" style="padding-bottom: 25px; font-family: Roboto; font-size: 14px;">
                             <div style="font-weight: bold; color: #707070;">Время заказа</div>
                             <div>5 Марта, 2019, 12:58</div>
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%">
+                        <td width="50%" style="font-family: Roboto; font-size: 14px;">
                             <div style="font-weight: bold; color: #707070;">Адресс доставки</div>
                             <div>Станислав Кальчук</div>
                             <div>ул. Дерибасовская </div>
@@ -71,25 +72,25 @@
                             <div>01928</div>
                             <div>Tel:  050 937 1903</div>
                         </td>
-                        <td width="50%">
+                        <td width="50%" style="font-family: Roboto; font-size: 14px;">
                             <div style="font-weight: bold; color: #707070;">Способ оплаты</div>
                             <div style="padding-bottom: 40px;">
-                                <img src="https://picsum.photos/100/25/?random">
+                                <img src="https://picsum.photos/100/25/?random" alt="Способ оплаты" color="#707070">
                             </div>
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td style="font-weight: bold; color: #707070;">
+                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
                                         Товар
                                     </td>
-                                    <td style="text-align: right;">₽ 1500</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">₽ 1500</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold; color: #707070;">Доставка</td>
-                                    <td style="text-align: right;">Бесплатно</td>
+                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Доставка</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">Бесплатно</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold; color: #707070;">Скидка</td>
-                                    <td style="text-align: right;">₽ 200</td>
+                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Скидка</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">₽ 200</td>
                                 </tr>
                             </table>
                         </td>
@@ -99,17 +100,46 @@
         </tr>
         <tr>
             <td style="padding: 0 90px 20px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 40px 25px; font-family: Roboto; font-size: 14px;border-top: 0;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 40px 25px; border-top: 0;">
                     <tr>
                         <td width="50%">&nbsp;</td>
                         <td width="50%">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold;">
                                 <tr>
-                                    <td style="color: #333333;">Всего</td>
-                                    <td style="text-align: right; color: color: #1b2125;">₽ 1300</td>
+                                    <td style="color: #333333; font-family: Roboto; font-size: 14px;">Всего</td>
+                                    <td style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;">₽ 1300</td>
                                 </tr>
                             </table>
                         </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 85px 20px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                        <td>
+                            <a href="" title="facebook" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/fb.svg'})}" alt="facebook" color="#707070">
+                            </a>
+                            <a href="" title="vk" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/vk.svg'})}" alt="vk" color="#707070">
+                            </a>
+                            <a href="" title="twitter" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/twitter.svg'})}" alt="twitter" color="#707070">
+                            </a>
+                            <a href="" title="youtube" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/youtube.svg'})}" alt="youtube" color="#707070">
+                            </a>
+                            <a href="" title="instagram" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/instagram.svg'})}" alt="instagram" color="#707070">
+                            </a>
+                            <a href="" title="twitch" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images//mails/twitch.svg'})}" alt="twitch" color="#707070">
+                            </a>
+                        </td>
+                        <td style="color: #505050; font-family: Roboto; font-size: 14px; text-align: right; padding-right: 5px;">Вечерние Кости 2019</td>
                     </tr>
                 </table>
             </td>
