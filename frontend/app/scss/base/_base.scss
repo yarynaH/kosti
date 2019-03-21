@@ -33,10 +33,6 @@ a {
     .is-invalid & {
         color: $color-primary32;
     }
-
-    &:hover {
-        opacity: 0.8; 
-    }
 }
 
 .page-wrapper {

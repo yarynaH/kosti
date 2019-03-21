@@ -7,6 +7,45 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
+        <div class="blog_width">
+            <div class="store">
+                <div class="store-top">
+                    <div class="breadcrumbs">
+                        <span class="breadcrumbs-element active">Магазин</span>
+                    </div>
+                    <a data-th-href="${portal.serviceUrl({'_service=cart'})}">
+                        <div class="minicart">
+                            <span class="minicart-icon">
+                                <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
+                            </span>
+                            <span class="minicart-total">&#8372; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="plp-list">
+                    <div class="plp-item">
+                        <div class="plp-prod_img">
+                            <img src="https://picsum.photos/270/270/?random">
+                            <div class="product_bage">
+                                <span class="product_bage-icon"></span>
+                                <span class="product_bage-text">Новинка</span>
+                            </div>
+                            <div class="plp-img_hover">
+                                <a href="" class="plp-prod_link">Посмотреть</a>
+                            </div>
+                        </div>
+                        <h2 class="plp-prod_name">
+                            Эксклюзивная.
+                            Солнце Хранит Тебя.
+                        </h2>
+                        <div class="plp-prod_price">
+                            <span class="sale">₽ 1500</span>
+                            <span class="default">₽ 1500</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>

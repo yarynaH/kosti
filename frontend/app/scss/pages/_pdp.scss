@@ -1,4 +1,4 @@
-.pdp {
+.store {
     background-color: $color-primary26;
     padding-top: 40px;
 
@@ -8,6 +8,9 @@
         align-items: center;
         padding-bottom: 40px;
     }
+}
+
+.pdp {
 
     &-image {
         border-radius: 4px;
