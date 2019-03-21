@@ -198,8 +198,8 @@ function getCartItems( items ){
     if( item && item.data ){
       result.push({
         _id: item._id,
-        imageCart: norseUtils.getImage( item.data.mainImage, 'block(140, 140)' ),
-        imageSummary: norseUtils.getImage( item.data.mainImage, 'block(90, 90)' ),
+        imageCart: norseUtils.getImage( item.data.mainImage, 'block(140, 140)', false, 'absolute' ),
+        imageSummary: norseUtils.getImage( item.data.mainImage, 'block(90, 90)', false, 'absolute' ),
         displayName: item.displayName,
         price: item.data.price,
         amount: parseInt(items[i].amount).toFixed(),

@@ -112,4 +112,13 @@
 	  <occurrences minimum="0" maximum="1"/>
 	</item-set>
   </config>
+
+  <mappings>
+    <mapping controller="/site/services/cart/cart.js" order="10">
+      <pattern>/cart</pattern>
+    </mapping>
+    <mapping controller="/site/services/checkout/checkout.js" order="10">
+      <pattern>/checkout</pattern>
+    </mapping>
+  </mappings>
 </site>

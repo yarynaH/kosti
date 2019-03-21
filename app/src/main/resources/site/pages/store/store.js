@@ -1,16 +1,12 @@
 var thymeleaf = require('/lib/xp/thymeleaf');
 var authLib = require('/lib/xp/auth');
 var cartLib = require('cartLib');
-
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
 var helpers = require('helpers');
-var userLib = require('userLib');
-var spellLib = require('spellsLib');
 
 exports.get = handleReq;
-exports.post = handleReq;
 
 function handleReq(req) {
     var me = this;
@@ -33,63 +29,38 @@ function handleReq(req) {
 
         var model = {
             content: content,
-            app: app,
             cart: cartLib.getCart(req.cookies.cartId),
-            mainImage: getMainImage( content.data ),
-            images: getImages( content.data ),
             social: site.social,
-            sizes: getSizes(content.data.sizes),
-            variations: getVariations(content),
+            products: getProducts(),
             pageComponents: helpers.getPageComponents(req)
         };
         return model;
     }
 
-    function getImages( data ){
-        var images = [];
-        if( data.images ){
-            for( var i = 0; i < data.images.length; i++ ){
-                images.push( norseUtils.getImage( data.images[i], '(1, 1)' ));
-            }
-        }
-        return images;
-    }
-
     function getMainImage( data ){
         var image = null;
         if( data.mainImage ){
-            image = norseUtils.getImage( data.mainImage, '(1, 1)' );
+            image = norseUtils.getImage( data.mainImage, 'block(264, 268)' );
         }
         return image;
     }
 
-    function getSizes(sizes){
-        var result = [];
-        for ( var size in sizes ) {
-            if( sizes.hasOwnProperty(size) && sizes[size] == true ) {
-                result.push(size);
-            }
+    function getProducts(){
+        var products = contentLib.query({
+            start: 0,
+            count: 999999,
+            contentTypes: [
+                app.name + ":product"
+            ]
+        });
+        if( products && products.hits ){
+            products = products.hits;
         }
-        return result;
-    }
-
-    function getVariations( product ){
-        var result = [];
-        if( product.data.variations ){
-            product.data.variations = norseUtils.forceArray(product.data.variations);
-            for( var i = 0; i < product.data.variations.length; i++ ){
-                var variation = contentLib.get({ key: product.data.variations[i] });
-                if( !variation || !variation.data || !variation.data.swatch ){
-                    continue;
-                }
-                result.push({
-                    swatch: norseUtils.getImage( variation.data.swatch, 'block(24, 24)' ),
-                    title: variation.displayName,
-                    url: portal.pageUrl({ id: variation._id })
-                });
-            }
+        for( var i = 0; i < products.length; i++ ){
+            products[i].image = getMainImage(products[i].data);
+            products[i].url = portal.pageUrl({ id: products[i]._id });
         }
-        return result;
+        return products;
     }
 
     return renderView();
