@@ -165,6 +165,7 @@ function generateCheckoutPage(req){
     }
 
     function renderSuccessPage( req, cart ){
+        cart = cartLib.generateItemsIds(cart._id);
         mailsLib.sendMail('orderCreated', cart.email, {
             cart: cart
         });
