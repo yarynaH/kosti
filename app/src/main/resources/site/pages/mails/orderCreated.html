@@ -35,13 +35,13 @@
             <td style="padding: 0 0 10px;">
                 <table border="0" cellpadding="0" cellspacing="0"  width="100%" style="border: 1px solid #dedede; border-bottom: 0;">
                     <tr data-th-each="item: ${cart.items}" >
-                        <td style="padding: 20px 0 20px 8%; border-bottom: 1px solid #dedede;">
+                        <td  width="100px"; style="padding: 20px 0 20px 8%; border-bottom: 1px solid #dedede;">
                             <img data-th-src="${item.imageCart.url}" alt="Product image" width="100px";>
                         </td>
-                        <td width="10px;">
+                        <td width="10px;"style="border-bottom: 1px solid #dedede;">
                             &nbsp;
                         </td>
-                        <td style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
+                        <td  width="100%"; style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
                             <div style="color: #505050;" data-th-text="${item.displayName}">
                             </div>
                             <div style="color: #707070; font-weight: bold; " data-th-text="${'&#8372; ' + item.price}">
@@ -85,18 +85,18 @@
                             </div>
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
+                                    <td width="50%" style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
                                         Товар
                                     </td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.items}">₽ 1500</td>
+                                    <td width="50%" style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.items}">₽ 1500</td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Доставка</td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.shipping}"></td>
+                                    <td width="50%" style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Доставка</td>
+                                    <td width="50%" style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.shipping}"></td>
                                 </tr>
                                 <tr>
-                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Скидка</td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">&#8372; 0</td>
+                                    <td width="50%" style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Скидка</td>
+                                    <td width="50%" style="text-align: right; font-family: Roboto; font-size: 14px;">&#8372; 0</td>
                                 </tr>
                             </table>
                         </td>
@@ -112,7 +112,7 @@
                         <td width="10px;">
                             &nbsp;
                         </td>
-                        <td width="50%" align="right">
+                        <td width="50%">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold;">
                                 <tr>
                                     <td style="color: #333333; font-family: Roboto; font-size: 14px;">Всего</td>
