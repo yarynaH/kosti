@@ -13,28 +13,28 @@
     }
 </style>
 <body style="margin: 0px; padding: 0px">
-    <table border="0" cellpadding="0" cellspacing="0" align="center" width="670" style="max-width: 670px; background: white;">
+    <table border="0" cellpadding="0" cellspacing="0" align="center" width="570" style="max-width: 570px; background: white;">
         <tr>
-            <td style="padding: 40px 90px;">
+            <td style="padding: 40px 40px;">
                 <img src="#" data-th-src="${portal.assetUrl({'_path=images/mail-logo.png', '_type=absolute'})}" alt="Vechernie kosti logo" color="#707070">
             </td>
         </tr>
         <tr>
-            <td style="font-size: 24px; font-family: Roboto; font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 90px 15px;">
+            <td style="font-size: 24px; font-family: Roboto; font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 40px 15px;">
                 Привет, <span data-th-remove="tag" data-th-text="${cart.name}"></span>
             </td>
         </tr>
         <tr>
-            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 90px 25px;">
+            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 40px 25px;">
                 Спасибо за ваш заказ! Гоблины и гномы-инженеры хаотично мечутся по нашей мастерской в попытке его обработать. Вы можете уточнить детали вашего заказа в любой момент.
             </td>
         </tr>
         <tr>
-            <td style="padding: 0 90px 10px;">
+            <td style="padding: 0 40px 10px;">
                 <table data-th-each="item: ${cart.items}" border="0" cellpadding="0" cellspacing="0" style="border: 1px solid #dedede; width: 100%; padding: 20px 40px;">
                     <tr>
-                        <td style="padding-right: 15px;">
-                            <img data-th-src="${item.imageCart.url}">
+                        <td style="padding-right: 15px; width: 100px;">
+                            <img data-th-src="${item.imageCart.url}" alt="Product image">
                         </td>
                         <td style="font-family: Roboto; font-size: 14px; line-height: 1.71;">
                             <div style="color: #505050;" data-th-text="${item.displayName}">
@@ -47,7 +47,7 @@
             </td>
         </tr>
         <tr>
-            <td style="padding: 0 90px;">
+            <td style="padding: 0 40px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 25px 40px; line-height: 1.71; color: #505050;">
                     <tr>
                         <td width="50%" style="padding-bottom: 25px; font-family: Roboto; font-size: 14px;">
@@ -60,17 +60,17 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="font-family: Roboto; font-size: 14px;">
+                        <td width="50%" style="font-family: Roboto; font-size: 14px; vertical-align: top;">
                             <div style="font-weight: bold; color: #707070;">Адресс доставки</div>
                             <div data-th-text="${cart.name + ' ' + cart.surname}"></div>
                             <div data-th-text="${cart.address}"></div>
                             <div data-th-text="${cart.city}"></div>
                             <div data-th-text="${'Tel: ' + cart.phone}"></div>
                         </td>
-                        <td width="50%" style="font-family: Roboto; font-size: 14px;">
+                        <td width="50%" style="font-family: Roboto; font-size: 14px; vertical-align: top;">
                             <div style="font-weight: bold; color: #707070;">Способ оплаты</div>
                             <div style="padding-bottom: 40px;">
-                                <img data-th-src="${portal.assetUrl({'_path=images/interkassa-1.png', '_type=absolute'})}" alt="Способ оплаты" color="#707070">
+                                <img data-th-src="${portal.assetUrl({'_path=images/interkassa-1.png', '_type=absolute'})}" alt="интеркаса" color="#707070">
                             </div>
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
@@ -94,7 +94,7 @@
             </td>
         </tr>
         <tr>
-            <td style="padding: 0 90px 20px;">
+            <td style="padding: 0 40px 20px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 40px 25px; border-top: 0;">
                     <tr>
                         <td width="50%">&nbsp;</td>
@@ -111,27 +111,27 @@
             </td>
         </tr>
         <tr>
-            <td style="padding: 0 85px 20px;">
+            <td style="padding: 0 35px 20px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                         <td>
                             <a href="" title="facebook" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/fb.svg', '_type=absolute'})}" alt="facebook" color="#707070">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/fb.gif', '_type=absolute'})}" alt="facebook" color="#707070" width="16px">
                             </a>
                             <a href="" title="vk" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/vk.svg', '_type=absolute'})}" alt="vk" color="#707070">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/vk.gif', '_type=absolute'})}" alt="vk" color="#707070" width="16px">
                             </a>
                             <a href="" title="twitter" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/twitter.svg', '_type=absolute'})}" alt="twitter" color="#707070">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/twitter.gif', '_type=absolute'})}" alt="twitter" color="#707070" width="16px">
                             </a>
                             <a href="" title="youtube" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/youtube.svg', '_type=absolute'})}" alt="youtube" color="#707070">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/youtube.gif', '_type=absolute'})}" alt="youtube" color="#707070" width="16px">
                             </a>
                             <a href="" title="instagram" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/instagram.svg', '_type=absolute'})}" alt="instagram" color="#707070">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/instagram.gif', '_type=absolute'})}" alt="instagram" color="#707070" width="16px">
                             </a>
                             <a href="" title="twitch" style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/twitch.svg', '_type=absolute'})}" alt="twitch" color="#707070">
+                                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/twitch.gif', '_type=absolute'})}" alt="twitch" color="#707070" width="16px">
                             </a>
                         </td>
                         <td style="color: #505050; font-family: Roboto; font-size: 14px; text-align: right; padding-right: 5px;">Вечерние Кости 2019</td>
