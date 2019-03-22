@@ -33,15 +33,12 @@
         </tr>
         <tr>
             <td style="padding: 0 0 10px;">
-                <table border="0" cellpadding="0" cellspacing="0"  width="100%" style="border: 1px solid #dedede; border-bottom: 0;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; border-bottom: 0;">
                     <tr data-th-each="item: ${cart.items}" >
-                        <td style="padding: 20px 0 20px 8%; border-bottom: 1px solid #dedede;">
-                            <img data-th-src="${item.imageCart.url}" alt="Product image" width="100px";>
+                        <td style="padding: 20px 15px 20px 8%; border-bottom: 1px solid #dedede;">
+                            <img data-th-src="${item.imageCart.url}" alt="Product image" style="width: 100%;">
                         </td>
-                        <td width="10px;"style="border-bottom: 1px solid #dedede;">
-                            &nbsp;
-                        </td>
-                        <td  width="100%"; style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
+                        <td style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
                             <div style="color: #505050;" data-th-text="${item.displayName}">
                             </div>
                             <div style="color: #707070; font-weight: bold; " data-th-text="${'&#8372; ' + item.price}">
@@ -55,30 +52,24 @@
             <td style="padding: 0 0;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 25px 8%; line-height: 1.71; color: #505050;">
                     <tr>
-                        <td width="50%" style="padding-bottom: 25px; font-family: Roboto; font-size: 14px; vertical-align: top;">
+                        <td width="50%" style="padding: 0 5px 25px 0; font-family: Roboto; font-size: 14px; vertical-align: top;">
                             <div style="font-weight: bold; color: #707070;">Номер заказа</div>
                             <div data-th-text="${cart.userId}"></div>
                         </td>
-                        <td width="10px;">
-                            &nbsp;
-                        </td>
-                        <td width="50%" style="padding-bottom: 25px; font-family: Roboto; font-size: 14px; vertical-align: top;">
+                        <td width="50%" style="padding: 0 0 25px 5px; font-family: Roboto; font-size: 14px; vertical-align: top;">
                             <div style="font-weight: bold; color: #707070;">Время заказа</div>
                             <div>5 Марта, 2019, 12:58</div>
                         </td>
                     </tr>
                     <tr>
-                        <td width="50%" style="font-family: Roboto; font-size: 14px; vertical-align: top;">
+                        <td width="50%" style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-right: 5px;">
                             <div style="font-weight: bold; color: #707070;">Адресс доставки</div>
                             <div style="color: #707070;" data-th-text="${cart.name + ' ' + cart.surname}"></div>
                             <div style="color: #707070;" data-th-text="${cart.address}"></div>
                             <div style="color: #707070;" data-th-text="${cart.city}"></div>
                             <div style="color: #707070;" data-th-text="${'Tel: ' + cart.phone}"></div>
                         </td>
-                        <td width="10px;">
-                            &nbsp;
-                        </td>
-                        <td width="50%" style="font-family: Roboto; font-size: 14px; vertical-align: top; background: green;">
+                        <td width="50%" style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-left: 5px; background: green; ">
                             <div style="font-weight: bold; color: #707070;">Способ оплаты</div>
                             <div style="padding-bottom: 0;">
                                 <img data-th-src="${portal.assetUrl({'_path=images/interkassa-1.png', '_type=absolute'})}" alt="интеркаса" color="#707070">
