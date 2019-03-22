@@ -35,10 +35,10 @@
             <td style="padding: 0 0 10px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; border-bottom: 0;">
                     <tr data-th-each="item: ${cart.items}" >
-                        <td style="padding: 20px 15px 20px 8%; border-bottom: 1px solid #dedede;">
-                            <img data-th-src="${item.imageCart.url}" alt="Product image" style="width: 100%;">
+                        <td width="30%" style="padding: 20px 15px 20px 8%; border-bottom: 1px solid #dedede;">
+                            <img data-th-src="${item.imageCart.url}" alt="Product image" width="100px">
                         </td>
-                        <td style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
+                        <td width="70%" style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
                             <div style="color: #505050;" data-th-text="${item.displayName}">
                             </div>
                             <div style="color: #707070; font-weight: bold; " data-th-text="${'&#8372; ' + item.price}">
@@ -99,11 +99,8 @@
             <td style="padding: 0 0 20px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 8% 25px; border-top: 0;">
                     <tr>
-                        <td width="50%">&nbsp;</td>
-                        <td width="10px;">
-                            &nbsp;
-                        </td>
-                        <td width="50%">
+                        <td width="50%" style="padding-right: 5px;">&nbsp;</td>
+                        <td width="50%" style="padding-left: 5px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold;">
                                 <tr>
                                     <td width="50%" style="color: #333333; font-family: Roboto; font-size: 14px;">Всего</td>
