@@ -15,8 +15,10 @@
 <body style="margin: 0px; padding: 0px">
     <table border="0" cellpadding="0" cellspacing="0" align="center" width="570" style="max-width: 570px; background: white;">
         <tr>
-            <td style="padding: 0 0;">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mail-logo.jpg', '_type=absolute'})}" alt="Vechernie kosti logo" color="#707070">
+            <td style="padding: 40px 0;">
+                <a data-th-href="${portal.pageUrl({'_path=' + site._path})}" title="Вечерние кости" style="text-decoration: none;">
+                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/mail-logo.jpg', '_type=absolute'})}" alt="Вечерние кости лого" color="#707070" height="38px">
+                </a>
             </td>
         </tr>
         <tr>
@@ -33,8 +35,11 @@
             <td style="padding: 0 0 10px;">
                 <table border="0" cellpadding="0" cellspacing="0"  width="100%" style="border: 1px solid #dedede; border-bottom: 0;">
                     <tr data-th-each="item: ${cart.items}" >
-                        <td style="padding: 20px 15px 20px 8%; width: 100px; border-bottom: 1px solid #dedede;">
-                            <img data-th-src="${item.imageCart.url}" alt="Product image">
+                        <td style="padding: 20px 0 20px 8%; border-bottom: 1px solid #dedede;">
+                            <img data-th-src="${item.imageCart.url}" alt="Product image" width="100px";>
+                        </td>
+                        <td width="10px;">
+                            &nbsp;
                         </td>
                         <td style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
                             <div style="color: #505050;" data-th-text="${item.displayName}">
@@ -103,12 +108,9 @@
             <td style="padding: 0 0 20px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 8% 25px; border-top: 0;">
                     <tr>
-                        <td width="50%">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" >
-                                <tr>
-                                    <td></td>
-                                </tr>
-                            </table>
+                        <td width="50%">&nbsp;</td>
+                        <td width="10px;">
+                            &nbsp;
                         </td>
                         <td width="50%" align="right">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold;">
