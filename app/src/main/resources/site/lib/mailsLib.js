@@ -34,6 +34,7 @@ function getorderCreatedMail( params ){
 	return{
 		body: thymeleaf.render( resolve(mailsTemplates.orderCreated), {
 			order: params.order,
+    		site: portal.getSite(),
 			cart: params.cart
 		}),
 		subject: "Ваш заказ получен",
