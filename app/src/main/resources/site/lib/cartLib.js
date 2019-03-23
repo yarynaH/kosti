@@ -203,7 +203,8 @@ function getCartItems( items ){
         displayName: item.displayName,
         price: item.data.price,
         amount: parseInt(items[i].amount).toFixed(),
-        itemSize: items[i].itemSize
+        itemSize: items[i].itemSize,
+        itemsIds: norseUtils.forceArray(items[i].itemsIds)
       });
     }
   }
