@@ -87,7 +87,7 @@ label {
         margin-top: 15px;
 
         .form-group-column & {
-            @include tablet-all() {
+            @include tablet-all {
                 margin-left: 20px;
             }
         }
@@ -102,7 +102,7 @@ label {
     &-column {
         margin-bottom: 15px;
 
-        @include tablet-all() {
+        @include tablet-all {
             display: flex;
             align-items: stretch;
             justify-content: space-between;

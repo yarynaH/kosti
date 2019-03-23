@@ -1,6 +1,6 @@
 .checkout {
     &-wrap {
-        @include tablet-all() {
+        @include tablet-all {
             display: flex;
             align-items: stretch;
             justify-content: center;
@@ -9,7 +9,7 @@
 
         &:after,
         &:before {
-            @include tablet-all() {
+            @include tablet-all {
                 content: '';
                 flex: 1 1 100%;
             }
@@ -26,7 +26,7 @@
         .site_width {
             padding: 0;
 
-            @include tablet-all() {
+            @include tablet-all {
                 display: flex;
                 flex: 1 0 100%;
                 justify-content: space-between;
@@ -38,7 +38,7 @@
         background: $color-primary1;
         padding: 35px 10px 45px;
 
-        @include tablet-all() {
+        @include tablet-all {
             flex: 1 0 71%;
             max-width: 900px;
             padding: 55px 9% 140px 20px;
@@ -95,7 +95,7 @@
         background: $color-primary26;
         padding: 35px 10px 45px;
 
-        @include tablet-all() {
+        @include tablet-all {
             flex: 1 0 29%;
             max-width: 360px;
             padding: 65px 20px 0 4%;
@@ -109,7 +109,7 @@
         margin-bottom: 35px;
         position: relative;
 
-        @include tablet-all() {
+        @include tablet-all {
             margin-bottom: 70px;
         }
 
@@ -336,14 +336,14 @@
 }
 
 .delivery_m {
-    @include tablet-all() {
+    @include tablet-all {
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
     }
 
     .form-group {
-        @include tablet-all() {
+        @include tablet-all {
             width: 49%;
             margin: 0;
         }
@@ -377,7 +377,7 @@
             width: 80%;
             margin: 0 auto 50px;
 
-            @include tablet-all() {
+            @include tablet-all {
                 width: 43%;
             }
         }
@@ -388,7 +388,7 @@
         margin-bottom: 50px;
         line-height: 1.71;
 
-        @include tablet-all() {
+        @include tablet-all {
             width: 79%;
         }
     }

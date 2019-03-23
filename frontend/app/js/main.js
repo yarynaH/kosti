@@ -112,6 +112,16 @@ function initArticleFunction(){
 	});
 }
 
+function initAnnouncePageFunction(){
+	$(document).on('scroll', function(){
+		if( $(document).scrollTop() > 85 ){
+			$('.announce-page header').addClass('header-scroll');
+		} else {
+			$('.announce-page header').removeClass('header-scroll');
+		}
+	});
+}
+
 function initPDPFunctions(){
 	$('.qty-decrement').on('click', function(){
 		var selector = '.qty-input[data-id=' + $(this).data().id + ']';
@@ -261,6 +271,13 @@ function initUserPgaeFunction(){
 	});
 }
 
+function initCountdown(){
+	(function () {
+		countdown('05/10/2019 06:00:00 PM');
+	}());
+}
+
+
 $( document ).ready(function() {
 	initUserPgaeFunction();
 	initLoginRegisterForm();
@@ -272,6 +289,8 @@ $( document ).ready(function() {
 	initCartFunctions();
 	initSharedEvents();
 	initArticleFunction();
+	initCountdown();
+	initAnnouncePageFunction();
 });
 
 function doUpvote(el){
@@ -390,5 +409,44 @@ function validateCheckout(e){
 	if( $('#agreement').length && !$('#agreement').is(":checked") ){
 		e.preventDefault();
 		$('#agreement').parent().addClass('is-invalid');
+	}
+}
+
+function countdown(endDate) {
+	var days, hours, minutes, seconds;
+	
+	endDate = new Date(endDate).getTime();
+	
+	if (isNaN(endDate)) {
+		return;
+	}
+	
+	setInterval(calculate, 1000);
+	
+	function calculate() {
+		var startDate = new Date();
+		startDate = startDate.getTime();
+		
+		var timeRemaining = parseInt((endDate - startDate) / 1000);
+		
+		if (timeRemaining >= 0) {
+			days = parseInt(timeRemaining / 86400);
+			timeRemaining = (timeRemaining % 86400);
+			
+			hours = parseInt(timeRemaining / 3600);
+			timeRemaining = (timeRemaining % 3600);
+			
+			minutes = parseInt(timeRemaining / 60);
+			timeRemaining = (timeRemaining % 60);
+			
+			seconds = parseInt(timeRemaining);
+			
+			document.getElementById("days").innerHTML = parseInt(days, 10);
+			document.getElementById("hours").innerHTML = ("0" + hours).slice(-2);
+			document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2);
+			document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
+		} else {
+		return;
+		}
 	}
 }

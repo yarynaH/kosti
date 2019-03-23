@@ -1,0 +1,181 @@
+.announce {
+    padding: 0 25px 50px;
+
+    @include tablet-all {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        padding-bottom: 75px;
+    }
+
+    img {
+        @include mobile {
+            margin: 0 auto;
+        }
+    }
+
+    &-page {
+
+        .main {
+            background-image: url("../images/announce/bg.png");
+            background-size: cover;
+            background-position: center center;
+            padding-top: 100px;
+
+            @include tablet-all {
+                padding-top: 150px;
+            }
+
+            @include desktop-large {
+                background-image: url("../images/announce/bg-extended.png");
+
+            }
+
+            @include desktop-main {
+                position: relative;
+                z-index: 1;
+
+                &:before,
+                &:after {
+                    @include position(absolute, top 0);
+
+                    height: 648px;
+                    width: 36.5%;
+                    mix-blend-mode: multiply;
+                    background-size: cover;
+                    z-index: -1;
+                }
+    
+                &:before {
+                    background-image: url("../images/announce/left-arc.png");
+                    left: 0;
+                    background-position: top left;
+                }
+    
+                &:after {
+                    background-image: url("../images/announce/right-arc.png");
+                    right: 0;
+                    background-position: top right;
+                }
+            }
+
+            @include tablet-all {
+                &:before,
+                &:after {
+                    content: '';
+                }
+            }
+
+        }
+
+        .latest_news {
+            background: none;
+        }
+    }
+
+    &-image {
+        @include tablet-all {
+            flex: 0 1 66%;
+        }
+    }
+
+    &-info {
+        @include tablet-all {
+            flex: 0 1 32%;
+        }
+    }
++
+    &-date {
+        text-align: center;
+        padding: 10% 0;
+
+        @include  tablet-all {
+            padding: 16px 15px 40px 0;
+        }
+    }
+
+    &-countdown_title {
+        text-align: center;
+        font-size: 24px;
+        padding-bottom: 6%;
+        font-weight: bold;
+        line-height: 1.13;
+        color: $color-primary1;
+
+        @include tablet-all {
+            padding-bottom: 30px;
+            font-size: 48px;
+        }
+    }
+
+    &-countdown {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 10%;
+
+        @include mobile {
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        @include tablet-all {
+            padding-bottom: 30px;
+        }
+    }
+
+    &-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &-value {
+        font-size: 40px;
+        font-weight: bold;
+        color: $color-primary1;
+        padding-bottom: 10px;
+
+        &-value__days {
+            color: $color-primary4;
+        }
+    }
+
+    &-label {
+        color: $color-primary34;
+    }
+
+    &-action {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-bottom: 26%;
+
+        @include tablet-all {
+            flex-direction: row;
+            padding-bottom: 85px;
+        }
+
+        @include tablet-mobile {
+            flex-wrap: wrap;
+        }
+    }
+
+    &-caption {
+        font-style: italic;
+        color: $color-primary1;
+    }
+
+    &-buy_ticket {
+        @include button-style(global light auto);
+
+
+        @include tablet-mobile {
+            margin-bottom: 6%;
+        }
+
+        @include tablet-all {
+            flex: 1 0 auto;
+            margin-right: 10px;
+        }
+    }
+}

@@ -2,7 +2,7 @@
     &-wrap {
         padding: 100px 0;
 
-        @include tablet-all() {
+        @include tablet-all {
             display: flex;
             align-items: stretch;
             justify-content: center;
@@ -14,7 +14,7 @@
     }
 
     &-item {
-        @include tablet-all() {
+        @include tablet-all {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -36,7 +36,7 @@
     }
 
     &-product_img {
-        @include tablet-all() {
+        @include tablet-all {
             flex: 0 1 140px;
         }
 
@@ -53,7 +53,7 @@
     }
 
     &-product_description {
-        @include tablet-all() {
+        @include tablet-all {
             flex: 1 1 300px;
         }
 

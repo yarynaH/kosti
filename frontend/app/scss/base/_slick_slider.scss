@@ -85,7 +85,7 @@
         color: $color-primary13;
         margin-bottom: 25px;
 
-        @include tablet-all(){
+        @include tablet-all {
             font-size: rem(48);
         }
     }
@@ -100,7 +100,7 @@
         -webkit-box-orient: vertical;
         max-height: 112px;
 
-        @include tablet-all(){
+        @include tablet-all {
             -webkit-line-clamp: 9;
             margin-bottom: 40px;
         }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="announce-page transparent-header">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <div class="announce blog_width">
+            <div class="announce-image">
+                <picture>
+                    <source data-th-srcset="${portal.assetUrl({'_path=images/announce/poster@3x.png'})}" media="(min-width: 1024px)">
+                    <source data-th-srcset="${portal.assetUrl({'_path=images/announce/poster@2x.png'})}" media="(min-width: 768px)">
+                    <img data-th-srcset="${portal.assetUrl({'_path=images/announce/poster.png'})}" alt="Картинка анонса">
+                </picture>
+            </div>
+            <div class="announce-info">
+                <div class="announce-date">
+                    <picture>
+                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/date@3x.png'})}" media="(min-width: 1024px)">
+                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/date@2x.png'})}" media="(min-width: 768px)">
+                        <img data-th-srcset="${portal.assetUrl({'_path=images/announce/date.png'})}" alt="10-12 Мая Ужгород">
+                    </picture>
+                </div>
+                <h3 class="announce-countdown_title">До начала осталось:</h3>
+                <div class="announce-countdown">
+                    <span class="announce-item">
+                        <span class="announce-value announce-value__days" id="days"></span>
+                        <span class="announce-label">ДНЕЙ</span>
+                    </span>
+                    <span class="announce-value">:</span>
+                    <span class="announce-item">
+                        <span class="announce-value" id="hours"></span>
+                        <span class="announce-label">ЧАСОВ</span>
+                    </span>
+                    <span class="announce-value">:</span>
+                    <span class="announce-item">
+                        <span class="announce-value" id="minutes"></span>
+                        <span class="announce-label">МИНУТ</span>
+                    </span>
+                    <span class="announce-value">:</span>
+                    <span class="announce-item">
+                        <span class="announce-value" id="seconds"></span>
+                        <span class="announce-label">СЕКУНД</span>
+                    </span>
+                </div>
+                <div class="announce-action">
+                    <a href="" class="announce-buy_ticket">КУПИТЬ БИЛЕТ</a>
+                    <span class="announce-caption">Билеты только по предпродаже!</span>
+                </div>
+                <div class="announce-details">
+                    <picture>
+                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/details@3x.png'})}" media="(min-width: 1024px)">
+                        <img data-th-srcset="${portal.assetUrl({'_path=images/announce/details@2x.png'})}" alt="10-12 Мая Ужгород">
+                    </picture>
+                </div>
+            </div>
+        </div>
+        <div class="latest_news">
+            <div class="blog_width clearfix">
+                <div class="freshest">
+                    <h4 class="latest_news-title">САМОЕ СВЕЖЕЕ </h4>
+                    <div class="latest_news-iframe_wrap">
+                        <iframe data-th-src="${video}">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="schedule">
+                    <h4 class="latest_news-title">РАСПИСАНИЕ</h4>
+                    <div data-th-each="scheduleItem: ${schedule}" class="schedule-item" data-th-style="${'background-image:url(\'' + scheduleItem.image.url} + '\')'">
+                        <div class="schedule-date">
+                            <span class="date" data-th-text="${scheduleItem.day}">7</span>
+                            <span class="month" data-th-text="${scheduleItem.month}">Декабрь</span>
+                        </div>
+                        <h3 class="schedule-title" data-th-text="${scheduleItem.displayName}">
+                            Дело Кобольдское 
+                        </h3>
+                        <div class="tag-list tag-list__small hidden">
+                            <a href="#" class="tag-item">D&D</a>
+                            <a href="#" class="tag-item">5e</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

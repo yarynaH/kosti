@@ -17,7 +17,7 @@
         background-color: $color-primary1;
         padding: 15px 10px 40px;
 
-        @include tablet-all() {
+        @include tablet-all {
             width: 48%;
             max-width: 450px;
             float: left;
@@ -62,7 +62,7 @@
     }
 
     &-info {
-        @include tablet-all() {
+        @include tablet-all {
             width: 48%;
             max-width: 380px;
             float: right;
