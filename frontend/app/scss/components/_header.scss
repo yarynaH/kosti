@@ -195,7 +195,13 @@
     }
 
     &-icon {
-        @include icon(guest);
+        background-image: url("../images/guest.svg");
+        display: inline-block;
+        vertical-align: middle;
+        background-size: contain;
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
     }
 
     &-login {
