@@ -8,6 +8,7 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var nodeLib = require('/lib/xp/node');
 var contextLib = require('/lib/contextLib');
 var qrLib = require('qrLib');
+var htmlExporter = require('/lib/openxp/html-exporter');
 
 exports.get = function( req ) {
     var params = req.params;
@@ -45,9 +46,9 @@ exports.get = function( req ) {
             qr.make();
             var code = qr.createTableTag(7);
             return {
-                body: htmlExporter.getStream(fileSource),
+                body: htmlExporter.getStream(htmlExporter.exportToPdf(thymeleaf.render(resolve("../../pages/pdfs/ticket.html"), {qrcode: code}))),
                 headers: {
-                    'Content-Disposition': 'attachment; filename="' + fileSource.name + '"'
+                    'Content-Disposition': 'attachment; filename="test.pdf"'
                 }
             } 
     }
