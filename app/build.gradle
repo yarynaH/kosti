@@ -37,7 +37,6 @@ dependencies {
     include "com.enonic.xp:lib-mail:${xpVersion}"
     include "com.enonic.xp:lib-repo:${xpVersion}"
     include "com.enonic.lib:idproviderdisplay:1.0.1"
-    include "com.enonic.lib:qrcode:1.0.0"
     include 'openxp.lib:htmlexporter:1.0.0'
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
 }
@@ -45,7 +44,6 @@ dependencies {
 repositories {
     mavenLocal()
     jcenter()
-    maven { url "https://jitpack.io" }
     maven {
         url 'http://repo.enonic.com/public'
     }
