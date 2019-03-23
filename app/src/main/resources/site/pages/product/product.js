@@ -38,6 +38,7 @@ function handleReq(req) {
             mainImage: getMainImage( content.data ),
             images: getImages( content.data ),
             social: site.social,
+            shopUrl: portal.pageUrl({id: site.shopLocation}),
             sizes: getSizes(content.data.sizes),
             variations: getVariations(content),
             pageComponents: helpers.getPageComponents(req)
