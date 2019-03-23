@@ -11,17 +11,17 @@
             <div class="blog_width">
                 <div class="store-top">
                     <div class="breadcrumbs">
-                        <a class="breadcrumbs-element" data-th-href="${shopUrl}">Магазин</a>
-                        <span class="breadcrumbs-element active" data-th-text="${portal.localize({'_key=product.type.' + content.data.type, '_locale='+content.language})}"></span>
-                        <span class="breadcrumbs-element" data-th-text="${content.displayName}"></span>
+                        <a class="breadcrumbs-element breadcrumbs-link" data-th-href="${shopUrl}">Магазин</a>
+                        <span class="breadcrumbs-element breadcrumbs-divider">/</span>
+                        <span class="breadcrumbs-element" data-th-text="${portal.localize({'_key=product.type.' + content.data.type, '_locale='+content.language})}"></span>
+                        <span class="breadcrumbs-element breadcrumbs-divider">/</span>
+                        <span class="breadcrumbs-element active" data-th-text="${content.displayName}"></span>
                     </div>
-                    <a data-th-href="${portal.serviceUrl({'_service=cart'})}">
-                        <div class="minicart">
-                            <span class="minicart-icon">
-                                <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
-                            </span>
-                            <span class="minicart-total">&#8372; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
-                        </div>
+                    <a class="minicart" data-th-href="${portal.serviceUrl({'_service=cart'})}">
+                        <span class="minicart-icon">
+                            <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
+                        </span>
+                        <span class="minicart-total">&#8372; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
                     </a>
                 </div>
                 <div class="pdp-wrap clearfix">

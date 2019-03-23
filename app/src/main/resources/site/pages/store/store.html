@@ -13,13 +13,11 @@
                     <div class="breadcrumbs">
                         <span class="breadcrumbs-element active">Магазин</span>
                     </div>
-                    <a data-th-href="${portal.serviceUrl({'_service=cart'})}">
-                        <div class="minicart">
-                            <span class="minicart-icon">
-                                <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
-                            </span>
-                            <span class="minicart-total">&#8372; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
-                        </div>
+                    <a class="minicart" data-th-href="${portal.serviceUrl({'_service=cart'})}">
+                        <span class="minicart-icon">
+                            <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
+                        </span>
+                        <span class="minicart-total">&#8372; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
                     </a>
                 </div>
                 <div class="plp-list">

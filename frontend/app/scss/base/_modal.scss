@@ -8,7 +8,7 @@
     opacity: 0;
     overflow: hidden;
     transition: transition(opacity);
-    z-index: 1;
+    z-index: 12;
     pointer-events: none;
 
     &.show {
