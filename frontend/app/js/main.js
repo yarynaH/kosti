@@ -356,6 +356,7 @@ function addToCart( data ){
 		};
 	}
 	var result = false;
+	$('.minicart .minicart-qty').removeClass('animate');
 	$.ajax({
 		url: cartServiceUrl,
 		type: 'POST',
@@ -366,6 +367,7 @@ function addToCart( data ){
 			$('.minicart .minicart-qty').text(parseInt(data.itemsNum) > 99 ? "9+" : data.itemsNum);
 			$('.cart-total .value .cart-items-price').text(data.price.items);
 			result = data;
+			$('.minicart .minicart-qty').addClass('animate');
 		}
 	});
 	return result;
