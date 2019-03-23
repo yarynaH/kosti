@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
-    <div>
-        <div data-th-utext="${qrcode}"></div>
-    </div>
-</body>
+    <body style="margin: 0px; padding: 0px">
+        <table border="0" cellpadding="0" cellspacing="0" align="center" width="570" style="max-width: 570px; background: white;">
+            <tr>
+                <td style="padding-bottom: 25px;">
+                    <div style="margin: 0 auto" data-th-utext="${qrcode}"></div>
+                </td>
+            </tr>
+            <tr>
+                <td style="font-size: 24px; font-family: Roboto; font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 0 25px;">
+                    Іван Іванов
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 25px;" align="center">
+                    <img xmlns="http://www.w3.org/1999/xhtml" src="#" data-th-src="${portal.assetUrl({'_path=images/mails/youtube.gif'})}" width="500px" height="100px" alt="КОСТИ КОН"/>
+                </td>
+            </tr>
+        </table>
+    </body>
 </html>
