@@ -51,11 +51,11 @@ function getorderCreatedMail( params ){
 		var qrs = [];
 	    var typeNumber = 4;
 	    var errorCorrectionLevel = 'L';
-	    var qr = qrLib(typeNumber, errorCorrectionLevel);
 		for( var i = 0; i < params.cart.items.length; i ++ ){
 			var item = contentLib.get({ key: params.cart.items[i]._id });
 			if( item && item.data && item.data.digital ){
 				for( var j = 0; j < params.cart.items[i].itemsIds.length; j++ ){
+	    			var qr = qrLib(typeNumber, errorCorrectionLevel);
 			        qr.addData(params.cart.items[i].itemsIds[j].id);
 			        qr.make();
 			        qrs.push(qr.createTableTag(7));

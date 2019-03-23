@@ -12,6 +12,7 @@ var userLib = require('userLib');
 var kostiUtils = require('kostiUtils');
 var mailLib = require('/lib/xp/mail');
 var httpClientLib = require('/lib/xp/http-client');
+var cache = require('/lib/cache');
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -19,6 +20,10 @@ exports.post = handleReq;
 function handleReq(req) {
     var me = this;
     var user = userLib.getCurrentUser();
+    var youtubeCache = cache.newCache({
+      size: 500,
+      expire: 60 * 60 * 24
+    });
 
     function renderView() {
         var view = resolve('landingpage.html');
@@ -56,11 +61,15 @@ function handleReq(req) {
 
         function getSchedule(){
             var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
-            var result = contentLib.getChildren({
-                key: site.scheduleLocation,
+            var now = new Date().toISOString();
+            var result = contentLib.query({
+                query: "data.date > dateTime('" + now + "')",
                 start: 0,
                 count: 3,
-                sort: 'data.date ASC'
+                sort: 'data.date ASC',
+                contentTypes: [
+                    app.name + ":schedule"
+                ]
             }).hits;
             for( var i = 0; i < result.length; i++ ){
                 result[i].image = norseUtils.getImage( result[i].data.image, 'block(301, 109)' );
@@ -69,6 +78,12 @@ function handleReq(req) {
                 result[i].day = itemDate.getDate().toFixed();
             }
             return result;
+        }
+
+        function getVideoFromCache( key ){
+            return youtubeCache.get('key', function(){
+                return getVideoViaApi( key );
+            });
         }
 
         function getVideoViaApi( key ){
