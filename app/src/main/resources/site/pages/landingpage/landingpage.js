@@ -44,14 +44,12 @@ function handleReq(req) {
             content: content,
             url: portal.pageUrl({ path: content._path }),
             app: app,
+            shopUrl: portal.pageUrl({id: site.shopLocation}),
             video: video ? "https://www.youtube.com/embed/" + video : getVideoUrl( site.video ),
-            weeksPost: getWeeksPost(site.weeksPost),
             schedule: schedule,
             social: site.social,
             pageComponents: helpers.getPageComponents(req),
-            showDescription: showDescription,
-            slider: getSliderArticles(site.slider),
-            articles: getArticles()
+            showDescription: showDescription
         };
 
         return model;
@@ -71,52 +69,6 @@ function handleReq(req) {
                 result[i].day = itemDate.getDate().toFixed();
             }
             return result;
-        }
-
-        function getArticles(){
-            var result = contentLib.query({
-                query: '',
-                start: 0,
-                count: 3,
-                sort: 'data.date ASC',
-                contentTypes: [
-                    app.name + ':article'
-                ]
-            }).hits;
-            for( var i = 0; i < result.length; i++ ){
-                result[i] = beautifyArticle(result[i]);
-            }
-            return result;
-        }
-
-        function getSliderArticles( articles ){
-            var result = [];
-            for( var i = 0; i < articles.length; i++ ){
-                var temp = contentLib.get({ key: articles[i] });
-                result[i] = beautifyArticle(temp);
-            }
-            return result;
-        }
-
-        function getWeeksPost( weeksPost ){
-            var weeksPost = contentLib.get({ key: weeksPost });
-            weeksPost = beautifyArticle(weeksPost);
-            return weeksPost;
-        }
-
-        function beautifyArticle( article ){
-            article.image = norseUtils.getImage( article.data.image, 'block(1920, 1080)' );
-            article.author = contentLib.get({ key: article.data.author });
-            article.url = portal.pageUrl({ id: article._id });
-            article.author.image = norseUtils.getImage( article.author.data.userImage, 'block(60, 60)' );
-            article.author.url = portal.pageUrl({ id: article.author._id });
-            article.date = kostiUtils.getTimePassedSincePostCreation(article.publish.from.replace('Z', ''));
-            article.votes = votesLib.countUpvotes(article._id);
-            article.voted = false;
-            if( parseInt(article.votes) > 0 ){
-                article.voted = votesLib.checkIfVoted( user.key, article._id );
-            }
-            return article;
         }
 
         function getVideoViaApi( key ){

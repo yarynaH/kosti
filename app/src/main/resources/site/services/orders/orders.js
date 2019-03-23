@@ -9,6 +9,7 @@ var nodeLib = require('/lib/xp/node');
 var contextLib = require('/lib/contextLib');
 var qrLib = require('qrLib');
 var htmlExporter = require('/lib/openxp/html-exporter');
+var textEncodingLib = require('/lib/text-encoding');
 
 exports.get = function( req ) {
     var params = req.params;
@@ -46,10 +47,24 @@ exports.get = function( req ) {
             qr.make();
             var code = qr.createTableTag(7);
             return {
-                body: htmlExporter.getStream(htmlExporter.exportToPdf(thymeleaf.render(resolve("../../pages/pdfs/ticket.html"), {qrcode: code}))),
+                body: getStream(htmlExporter.exportToPdf(thymeleaf.render(resolve("../../pages/pdfs/ticket.html"), {qrcode: code}))),
                 headers: {
                     'Content-Disposition': 'attachment; filename="test.pdf"'
                 }
-            } 
+            }
+    }
+
+    function getStream( fileSource, charsetDecode, encoding ){
+        var stream = textEncodingLib.base64Decode( fileSource.content );
+
+        if( encoding == undefined ){
+            encoding = "UTF-8";
+        }
+
+        if(charsetDecode != undefined && charsetDecode === true){
+            stream = textEncodingLib.charsetDecode(stream, encoding);
+        }
+
+        return stream;
     }
 };

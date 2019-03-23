@@ -272,9 +272,11 @@ function initUserPgaeFunction(){
 }
 
 function initCountdown(){
-	(function () {
-		countdown('05/10/2019 06:00:00 PM');
-	}());
+	if( $('#days').length && $('#hours').length && $('#minutes').length && $('#seconds').length ){
+		(function () {
+			countdown('05/10/2019 06:00:00 PM');
+		}());
+	}
 }
 
 
