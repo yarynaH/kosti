@@ -19,7 +19,7 @@
         .main {
             background-image: url("../images/announce/bg.png");
             background-size: cover;
-            background-position: center center;
+            background-position: top center;
             padding-top: 100px;
 
             @include tablet-all {
