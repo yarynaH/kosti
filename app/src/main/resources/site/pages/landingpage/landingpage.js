@@ -61,11 +61,15 @@ function handleReq(req) {
 
         function getSchedule(){
             var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
-            var result = contentLib.getChildren({
-                key: site.scheduleLocation,
+            var now = new Date().toISOString();
+            var result = contentLib.query({
+                query: "data.date > dateTime('" + now + "')",
                 start: 0,
                 count: 3,
-                sort: 'data.date ASC'
+                sort: 'data.date ASC',
+                contentTypes: [
+                    app.name + ":schedule"
+                ]
             }).hits;
             for( var i = 0; i < result.length; i++ ){
                 result[i].image = norseUtils.getImage( result[i].data.image, 'block(301, 109)' );
