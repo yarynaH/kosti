@@ -100,7 +100,7 @@ exports.generateItemsIds = function( cartId ){
   });
   function editor( node ){
     if( node && node.items ){
-      node.items = norseUtils.forceArray(node.items);
+      node.items = [];
       for( var i = 0; i < node.items.length; i++ ){
         if( !node.items[i].itemsIds ){
           node.items[i].itemsIds = [];
