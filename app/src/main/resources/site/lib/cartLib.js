@@ -100,15 +100,14 @@ exports.generateItemsIds = function( cartId ){
   });
   function editor( node ){
     if( node && node.items ){
-      node.items = [];
+      node.items = norseUtils.forceArray(node.items);
       for( var i = 0; i < node.items.length; i++ ){
-        if( !node.items[i].itemsIds ){
-          node.items[i].itemsIds = [];
-        }else if( node.items[i].itemsIds && node.items[i].itemsIds.length >= parseInt(node.items[i].amount) ){
-          continue;
-        }
+        node.items[i].itemsIds = [];
         for( var j = 0; j < parseInt(node.items[i].amount); j++ ){
-          node.items[i].itemsIds.push(textEncoding.md5( node.name + ' ' + node.surname + ' ' + node.items[i].id + ' ' + (new Date().getTime()) + ' ' + j + ' ' + i ));
+          node.items[i].itemsIds.push({
+            id: textEncoding.md5( node.name + ' ' + node.surname + ' ' + node.items[i].id + ' ' + (new Date().getTime()) + ' ' + j + ' ' + i ),
+            activated: false
+          });
         }
       } 
     }

@@ -56,7 +56,7 @@ function getorderCreatedMail( params ){
 			var item = contentLib.get({ key: params.cart.items[i]._id });
 			if( item && item.data && item.data.digital ){
 				for( var j = 0; j < params.cart.items[i].itemsIds.length; j++ ){
-			        qr.addData('Hi! Its me, Max!');
+			        qr.addData(params.cart.items[i].itemsIds[j].id);
 			        qr.make();
 			        qrs.push(qr.createTableTag(7));
 				}
