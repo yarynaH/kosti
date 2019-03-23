@@ -15,7 +15,6 @@ var mailsTemplates = {
 
 function sendMail( type, email, params ){
 	var mail = null;
-	norseUtils.log("Hi!");
 	switch (type){
 		case 'orderCreated':
 			mail = getorderCreatedMail( params );
