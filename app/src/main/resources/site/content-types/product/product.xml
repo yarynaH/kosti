@@ -88,5 +88,8 @@
         <option value="clothes">Clothes</option>
       </config>
     </input>
+    <input name="generateIds" type="Long">
+      <label>Ids amount</label>
+    </input>
   </form>
 </content-type>
