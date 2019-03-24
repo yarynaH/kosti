@@ -69,25 +69,29 @@
                             <div style="color: #707070;" data-th-text="${cart.city}"></div>
                             <div style="color: #707070;" data-th-text="${'Tel: ' + cart.phone}"></div>
                         </td>
-                        <td width="50%" style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-left: 5px; background: green; ">
-                            <div style="font-weight: bold; color: #707070;">Способ оплаты</div>
-                            <div style="padding-bottom: 0;">
-                                <img data-th-src="${portal.assetUrl({'_path=images/interkassa-1.png', '_type=absolute'})}" alt="интеркаса" color="#707070">
-                            </div>
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background: grey;">
+                        <td width="50%" style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-left: 5px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;">
                                 <tr>
-                                    <td width="50%" style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
+                                    <td colspan="2" style="font-family: Roboto; font-size: 14px;">
+                                        <div style="font-weight: bold; color: #707070;">Способ оплаты</div>
+                                        <div style="padding-bottom: 40px;">
+                                            <img data-th-src="${portal.assetUrl({'_path=images/interkassa-1.png', '_type=absolute'})}" alt="интеркаса" color="#707070">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
                                         Товар
                                     </td>
-                                    <td width="50%" style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.items}">₽ 1500</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.items}">₽ 1500</td>
                                 </tr>
                                 <tr>
-                                    <td width="50%" style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Доставка</td>
-                                    <td width="50%" style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.shipping}"></td>
+                                    <td tyle="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Доставка</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.shipping}"></td>
                                 </tr>
                                 <tr>
-                                    <td width="50%" style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Скидка</td>
-                                    <td width="50%" style="text-align: right; font-family: Roboto; font-size: 14px;">&#8372; 0</td>
+                                    <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Скидка</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">&#8372; 0</td>
                                 </tr>
                             </table>
                         </td>
@@ -97,14 +101,14 @@
         </tr>
         <tr>
             <td style="padding: 0 0 20px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 8% 25px; border-top: 0;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border: 1px solid #dedede; padding: 20px 8% 25px; border-top: 0; min-width: 100%;">
                     <tr>
                         <td width="50%" style="padding-right: 5px;">&nbsp;</td>
                         <td width="50%" style="padding-left: 5px;">
-                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold; min-width: 100%;">
                                 <tr>
-                                    <td width="50%" style="color: #333333; font-family: Roboto; font-size: 14px;">Всего</td>
-                                    <td width="50%" style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.total}">₽ 1300</td>
+                                    <td style="color: #333333; font-family: Roboto; font-size: 14px;">Всего</td>
+                                    <td style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.total}">₽ 1300</td>
                                 </tr>
                             </table>
                         </td>
