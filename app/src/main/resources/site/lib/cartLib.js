@@ -26,6 +26,10 @@ exports.getCart = function( cartId ){
 exports.modify = function( cartId, id, amount, itemSize, force ){
   var cart = this.getCart(cartId);
   var cartRepo = connectCartRepo();
+  var item = contentLib.get({ key: id });
+  if( item && item.data && item.data.generateIds ){
+    var generateIds = parseInt(item.data.generateIds);
+  }
   var result = cartRepo.modify({
     key: cart._id,
     editor: editor
@@ -42,6 +46,7 @@ exports.modify = function( cartId, id, amount, itemSize, force ){
           } else {
             node.items[i].amount = parseInt(node.items[i].amount) + parseInt(amount);
           }
+          node.items[i].generateIds = generateIds ? generateIds : node.items[i].generateIds;
           if( parseInt(amount) < 1 ){
             delete node.items[i];
           }
@@ -51,14 +56,16 @@ exports.modify = function( cartId, id, amount, itemSize, force ){
       node.items.push({
         id: id,
         amount: amount,
-        itemSize: itemSize
+        itemSize: itemSize,
+        generateIds: generateIds ? generateIds : null
       });
       return node;
     } else {
       node.items = [{
         id: id,
         amount: amount,
-        itemSize: itemSize
+        itemSize: itemSize,
+        generateIds: generateIds ? generateIds : null
       }];
       return node;
     }
@@ -103,7 +110,11 @@ exports.generateItemsIds = function( cartId ){
       node.items = norseUtils.forceArray(node.items);
       for( var i = 0; i < node.items.length; i++ ){
         node.items[i].itemsIds = [];
-        for( var j = 0; j < parseInt(node.items[i].amount); j++ ){
+        var idsCount = parseInt(node.items[i].amount);
+        if( node.items[i].generateIds ){
+          idsCount = idsCount * parseInt(node.items[i].generateIds);
+        }
+        for( var j = 0; j < idsCount; j++ ){
           node.items[i].itemsIds.push({
             id: textEncoding.md5( node.name + ' ' + node.surname + ' ' + node.items[i].id + ' ' + (new Date().getTime()) + ' ' + j + ' ' + i ),
             activated: false
