@@ -12,9 +12,11 @@
                 <h2 class="checkout-title">Ваша корзина</h2>
                 <div class="cart-list">
                     <div data-th-each="item: ${cart.items}" class="cart-item">
-                        <div class="cart-product_img">
-                            <img data-th-src="${item.imageCart.url}" alt="product image">
-                        </div>
+                        <a data-th-href="${portal.pageUrl({'_id='+item._id})}" data-th-attr="title=${item.displayName}">
+                            <div class="cart-product_img">
+                                <img data-th-src="${item.imageCart.url}" alt="product image">
+                            </div>
+                        </a>
                         <div class="cart-product_description">
                             <div data-th-text="${item.displayName}" class="cart-product_title"></div>
                             <div data-th-if="${item.itemSize}" class="cart-product_size">
@@ -45,8 +47,8 @@
                     </span>
                 </div>
                 <div class="checkout-action">
-                    <a data-th-href="${shopUrl}" class="checkout-back">К покупкам</a>
-                    <a class="checkout-continue" data-th-href="${portal.serviceUrl({'_service=checkout'})}">
+                    <a data-th-href="${shopUrl}" class="checkout-back" title="В магазин">В магазин</a>
+                    <a class="checkout-continue" data-th-href="${portal.serviceUrl({'_service=checkout'})}" title="Продолжить">
                         ПРОДОЛЖИТЬ
                     </a>
                 </div>

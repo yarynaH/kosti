@@ -23,8 +23,8 @@
         </div>
     </div>
     <div class="checkout-action">
-        <a data-th-href="${shopUrl}" class="checkout-back">К покупкам</a>
-        <button class="checkout-continue">ПРОДОЛЖИТЬ</button>
+        <a data-th-href="${portal.serviceUrl({'_service=cart'})}" class="checkout-back" title="К покупкам">К покупкам</a>
+        <button class="checkout-continue" title="Продолжить">ПРОДОЛЖИТЬ</button>
     </div>
     <input name="step" type="hidden" value="submit">
 </form>

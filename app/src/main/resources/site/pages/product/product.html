@@ -49,8 +49,8 @@
                             <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
                             <div class="pdp-swatches">
                                 <div class="swatches-list">
-                                    <a data-th-href="${variation.url}" class="swatches-item active" data-th-each="variation: ${variations}" title="Изменить вид">
-                                        <img data-th-src="${variation.swatch.url}" alt="">
+                                    <a data-th-href="${variation.url}" class="swatches-item active" data-th-each="variation: ${variations}" data-th-attr="title=${variation.title}">
+                                        <img data-th-src="${variation.swatch.url}" data-th-attr="alt=${variation.title}">
                                     </a>
                                 </div>
                             </div>

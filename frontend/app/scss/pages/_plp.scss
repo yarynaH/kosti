@@ -12,6 +12,7 @@
         background-color: $color-primary1;
         text-align: center;
         padding: 25px 15px;
+        margin: 15px 0;
 
         @include desktop {
             width: calc( ( 100% / 3) - 20px );
