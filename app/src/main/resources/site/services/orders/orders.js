@@ -8,8 +8,10 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var nodeLib = require('/lib/xp/node');
 var contextLib = require('/lib/contextLib');
 var qrLib = require('qrLib');
+var hashLib = require('hashLib');
 var htmlExporter = require('/lib/openxp/html-exporter');
 var textEncodingLib = require('/lib/text-encoding');
+var mailsLib = require('mailsLib');
 
 exports.get = function( req ) {
     var params = req.params;
@@ -52,6 +54,32 @@ exports.get = function( req ) {
                     'Content-Disposition': 'attachment; filename="test.pdf"'
                 }
             }
+        case 'checkSubscription':
+            mailsLib.prepareNewsletter();
+            break;
+        case 'importUsersToNode':
+            var site = portal.getSiteConfig();
+            var emails = contentLib.get({ key: site.mailsLocation });
+            emails = emails.data.mail;
+            var newsletterRepo = nodeLib.connect({
+                repoId: 'newsletter',
+                branch: "master"
+            });
+            for( var i = 0; i < emails.length; i++ ){
+                var created = newsletterRepo.query({
+                    start: 0,
+                    count: 1,
+                    query: "email = '" + emails[i] + "'",
+                });
+                if( created.total > 0 ){
+                    continue;
+                }
+                newsletterRepo.create({
+                    email: emails[i],
+                    subscriptionHash: hashLib.generateHash(emails[i])
+                });
+            }
+            break;
     }
 
     function getStream( fileSource, charsetDecode, encoding ){

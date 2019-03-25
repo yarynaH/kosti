@@ -6,6 +6,7 @@ var contextLib = require('/lib/contextLib');
 exports.activateUserHash = activateUserHash;
 exports.saveHashForUser = saveHashForUser;
 exports.getUserByHash = getUserByHash;
+exports.generateHash = generateHash;
 
 function generateHash( name ){
 	var salt = "KostiCon-2019";

@@ -132,7 +132,7 @@ exports.getNextId = function(){
   var result = cartRepo.query({
     start: 0,
     count: 10,
-    query: "status = 'paid'"
+    query: "status = 'paid' or status = 'created'"
   });
   return (result.total + 1).toFixed();
 }

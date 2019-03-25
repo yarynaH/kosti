@@ -6,10 +6,13 @@ var mailLib = require('/lib/xp/mail');
 var htmlExporter = require('/lib/openxp/html-exporter');
 var ioLib = require("/lib/xp/io");
 var qrLib = require('qrLib');
+var nodeLib = require('/lib/xp/node');
+var contextLib = require('/lib/contextLib');
 
 var mailsTemplates = {
 	orderCreated: "../pages/mails/orderCreated.html",
 	userActivation: "../pages/mails/userActivation.html",
+	newsletter: "../pages/mails/newsletter.html",
 	ticket: "../pages/pdfs/ticket.html"
 };
 
@@ -22,6 +25,10 @@ function sendMail( type, email, params ){
 		case 'userActivation':
 			mail = getActivationMail( email, params );
 			break;
+		case 'newsletter':
+			mail = sendNewsletter();
+			return ;
+			break;
 		default:
 			break;
 	}
@@ -33,6 +40,54 @@ function sendMail( type, email, params ){
 	    contentType: 'text/html; charset="UTF-8"',
 	    attachments: mail.attachments
 	});
+}
+
+function prepareNewsletter(){
+    var newsletterRepo = nodeLib.connect({
+        repoId: 'newsletter',
+        branch: "master"
+    });
+    var nodes = newsletterRepo.query({
+        start: 0,
+        count: 9999999,
+        query: "email != ''",
+    });
+    if( nodes.total < 1 ){
+    	return false;
+    }
+    nodes = norseUtils.forceArray(nodes.hits);
+    var emails = [];
+    for( var i = 0; i < nodes.length; i++ ){
+    	var tempEmail = newsletterRepo.get(nodes[i].id);
+    	emails.push({
+    		email: tempEmail.email,
+    		hash: tempEmail.subscriptionHash
+    	});
+    }
+}
+
+function sendNewsletter( email ){
+	
+}
+
+function unsubscribe( hash ){
+	var result = contextLib.runAsAdmin(function () {
+	    var newsletterRepo = nodeLib.connect({
+	        repoId: 'newsletter',
+	        branch: "master"
+	    });
+	    var node = newsletterRepo.query({
+	        start: 0,
+	        count: 1,
+	        query: "subscriptionHash = '" + hash + "'",
+	    });
+	    if( node.total < 1 ){
+	        return false;
+	    }
+	    newsletterRepo.delete( node.hits[0].id );
+	    return true;
+	});
+    return result;
 }
 
 function getorderCreatedMail( params ){
@@ -94,6 +149,8 @@ function getActivationMail( mail, params ){
 	return{
 		body: thymeleaf.render( resolve(mailsTemplates.userActivation), {
 			activationUrl: activationUrl,
+    		site: portal.getSite()
+
 		}),
 		subject: "Активация аккаунта",
 		from: "noreply@kostirpg.com"
@@ -101,3 +158,5 @@ function getActivationMail( mail, params ){
 }
 
 exports.sendMail = sendMail;
+exports.unsubscribe = unsubscribe;
+exports.prepareNewsletter = prepareNewsletter;
