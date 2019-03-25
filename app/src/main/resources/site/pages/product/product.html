@@ -11,9 +11,7 @@
             <div class="blog_width">
                 <div class="store-top">
                     <div class="breadcrumbs">
-                        <a class="breadcrumbs-element breadcrumbs-link" data-th-href="${shopUrl}">Магазин</a>
-                        <span class="breadcrumbs-element breadcrumbs-divider">/</span>
-                        <span class="breadcrumbs-element" data-th-text="${portal.localize({'_key=product.type.' + content.data.type, '_locale='+content.language})}"></span>
+                        <a class="breadcrumbs-element breadcrumbs-link" data-th-href="${shopUrl}" title="Магазин">Магазин</a>
                         <span class="breadcrumbs-element breadcrumbs-divider">/</span>
                         <span class="breadcrumbs-element active" data-th-text="${content.displayName}"></span>
                     </div>
@@ -33,7 +31,7 @@
                         <div class="pdp-main_image">
                             <img data-th-src="${mainImage.url}" alt="">
                         </div>
-                        <div class="pdp-image-list">
+                        <div class="pdp-image-list" data-th-if="${images.size > 0}">
                             <div data-th-each="image: ${images}" class="pdp-image-item">
                                 <img data-th-src="${image.url}" alt="">
                             </div>
@@ -51,7 +49,7 @@
                             <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
                             <div class="pdp-swatches">
                                 <div class="swatches-list">
-                                    <a data-th-href="${variation.url}" class="swatches-item active" data-th-each="variation: ${variations}">
+                                    <a data-th-href="${variation.url}" class="swatches-item active" data-th-each="variation: ${variations}" title="Изменить вид">
                                         <img data-th-src="${variation.swatch.url}" alt="">
                                     </a>
                                 </div>
@@ -66,12 +64,12 @@
                                     </div>
                                 </div>
                                 <div class="qty-field pdp-qty-field ">
-                                    <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-decrement">-</span>
+                                    <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-decrement" title="Уменьшить количество">-</span>
                                         <input data-th-attr="data-id=${content._id}, data-size=${content.data.size}" name="quantity" type="text" class="qty-input" placeholder="1" value="1">
-                                    <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-increment">+</span>
+                                    <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-increment" title="Увеличить количество">+</span>
                                 </div>
                             </div>
-                            <button class="add_to_cart-btn">В КОРЗИНУ</button>
+                            <button class="add_to_cart-btn" title="В корзину">В КОРЗИНУ</button>
                             <input name="price" type="hidden" data-th-attr="value=${content.data.price}">
                             <input name="productId" type="hidden" data-th-attr="value=${content._id}">
                         </form>
