@@ -1,5 +1,6 @@
 var norseUtils = require('norseUtils');
 var userLib = require('userLib');
+var mailsLib = require('mailsLib');
 var portal = require('/lib/xp/portal');
 var contextLib = require('/lib/contextLib');
 var contentLib = require('/lib/xp/content');
@@ -12,6 +13,9 @@ exports.get = function( req ) {
             break;
         case "confirmRegister":
             userLib.activateUser( decodeURIComponent(params.mail), params.hash );
+            break;
+        case "newsletterUnsubscribe":
+            mailsLib.unsubscribe( params.hash );
             break;
         default:
             break;

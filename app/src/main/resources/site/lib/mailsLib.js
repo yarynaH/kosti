@@ -6,11 +6,15 @@ var mailLib = require('/lib/xp/mail');
 var htmlExporter = require('/lib/openxp/html-exporter');
 var ioLib = require("/lib/xp/io");
 var qrLib = require('qrLib');
+var nodeLib = require('/lib/xp/node');
+var contextLib = require('/lib/contextLib');
 
 var mailsTemplates = {
 	orderCreated: "../pages/mails/orderCreated.html",
 	userActivation: "../pages/mails/userActivation.html",
-	ticket: "../pages/pdfs/ticket.html"
+	newsletter: "../pages/mails/newsletter.html",
+	regularTicket: "../pages/pdfs/regularTicket.html",
+	legendaryTicket: "../pages/pdfs/legendaryTicket.html"
 };
 
 function sendMail( type, email, params ){
@@ -21,6 +25,10 @@ function sendMail( type, email, params ){
 			break;
 		case 'userActivation':
 			mail = getActivationMail( email, params );
+			break;
+		case 'newsletter':
+			mail = sendNewsletter();
+			return ;
 			break;
 		default:
 			break;
@@ -33,6 +41,54 @@ function sendMail( type, email, params ){
 	    contentType: 'text/html; charset="UTF-8"',
 	    attachments: mail.attachments
 	});
+}
+
+function prepareNewsletter(){
+    var newsletterRepo = nodeLib.connect({
+        repoId: 'newsletter',
+        branch: "master"
+    });
+    var nodes = newsletterRepo.query({
+        start: 0,
+        count: 9999999,
+        query: "email != ''",
+    });
+    if( nodes.total < 1 ){
+    	return false;
+    }
+    nodes = norseUtils.forceArray(nodes.hits);
+    var emails = [];
+    for( var i = 0; i < nodes.length; i++ ){
+    	var tempEmail = newsletterRepo.get(nodes[i].id);
+    	emails.push({
+    		email: tempEmail.email,
+    		hash: tempEmail.subscriptionHash
+    	});
+    }
+}
+
+function sendNewsletter( email ){
+	
+}
+
+function unsubscribe( hash ){
+	var result = contextLib.runAsAdmin(function () {
+	    var newsletterRepo = nodeLib.connect({
+	        repoId: 'newsletter',
+	        branch: "master"
+	    });
+	    var node = newsletterRepo.query({
+	        start: 0,
+	        count: 1,
+	        query: "subscriptionHash = '" + hash + "'",
+	    });
+	    if( node.total < 1 ){
+	        return false;
+	    }
+	    newsletterRepo.delete( node.hits[0].id );
+	    return true;
+	});
+    return result;
 }
 
 function getorderCreatedMail( params ){
@@ -58,13 +114,16 @@ function getorderCreatedMail( params ){
 	    			var qr = qrLib(typeNumber, errorCorrectionLevel);
 			        qr.addData(params.cart.items[i].itemsIds[j].id);
 			        qr.make();
-			        qrs.push(qr.createTableTag(7));
+			        qrs.push({ 
+			        	qr: qr.createTableTag(7),
+			        	type: item.data.ticketType
+			        });
 				}
 			}
 		}
 		var pdfs = [];
 		for( var i = 0; i < qrs.length; i++ ){
-			var fileSource = htmlExporter.exportToPdf(thymeleaf.render(resolve(mailsTemplates.ticket), {qrcode: qrs[i]}));
+			var fileSource = htmlExporter.exportToPdf(thymeleaf.render(resolve(mailsTemplates[qrs[i].type]), {qrcode: qrs[i].qr}));
 			fileSource.name = 'ticket' + i + '.pdf';
 			var stream = htmlExporter.getStream(fileSource);
 			var tempData = {
@@ -94,6 +153,8 @@ function getActivationMail( mail, params ){
 	return{
 		body: thymeleaf.render( resolve(mailsTemplates.userActivation), {
 			activationUrl: activationUrl,
+    		site: portal.getSite()
+
 		}),
 		subject: "Активация аккаунта",
 		from: "noreply@kostirpg.com"
@@ -101,3 +162,5 @@ function getActivationMail( mail, params ){
 }
 
 exports.sendMail = sendMail;
+exports.unsubscribe = unsubscribe;
+exports.prepareNewsletter = prepareNewsletter;

@@ -3,7 +3,7 @@ var contextLib = require('/lib/xp/context');
 exports.runAsAdmin = function (callback) {
     return contextLib.run({
         user: {
-            login: 'su',
+            login: 'mvy',
             userStore: 'system'
         },
         principals: ["role:system.admin"]

@@ -88,6 +88,14 @@
         <option value="clothes">Clothes</option>
       </config>
     </input>
+    <input name="ticketType" type="ComboBox">
+      <label>Ticket type</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="regularTicket">Regular</option>
+        <option value="legendaryTicket">Legendary</option>
+      </config>
+    </input>
     <input name="generateIds" type="Long">
       <label>Ids amount</label>
     </input>

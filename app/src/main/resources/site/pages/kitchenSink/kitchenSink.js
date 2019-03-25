@@ -42,6 +42,7 @@ function handleReq(req) {
             content: content,
             //url: portal.pageUrl({ path: content._path }),
             app: app,
+            site: site,
             //user: user,
             social: site.social,
             pageComponents: helpers.getPageComponents(req)
