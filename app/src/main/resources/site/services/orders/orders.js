@@ -34,7 +34,7 @@ exports.get = function( req ) {
             var qr = qrLib(typeNumber, errorCorrectionLevel);
             qr.addData('Hi! Its me, Max!');
             qr.make();
-            var code = qr.createTableTag(7);
+            var code = qr.createTableTag(7,0);
             return {
                 body: thymeleaf.render(resolve("../../pages/pdfs/ticket.html"), {qrcode: code}),
                 contentType: 'text/html'
@@ -45,7 +45,7 @@ exports.get = function( req ) {
             var qr = qrLib(typeNumber, errorCorrectionLevel);
             qr.addData('Hi! Its me, Max!');
             qr.make();
-            var code = qr.createTableTag(7);
+            var code = qr.createTableTag(7,0);
             return {
                 body: getStream(htmlExporter.exportToPdf(thymeleaf.render(resolve("../../pages/pdfs/ticket.html"), {qrcode: code}))),
                 headers: {
