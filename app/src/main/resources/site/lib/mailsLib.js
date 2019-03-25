@@ -13,7 +13,8 @@ var mailsTemplates = {
 	orderCreated: "../pages/mails/orderCreated.html",
 	userActivation: "../pages/mails/userActivation.html",
 	newsletter: "../pages/mails/newsletter.html",
-	ticket: "../pages/pdfs/ticket.html"
+	regularTicket: "../pages/pdfs/regularTicket.html",
+	legendaryTicket: "../pages/pdfs/legendaryTicket.html"
 };
 
 function sendMail( type, email, params ){
@@ -113,13 +114,16 @@ function getorderCreatedMail( params ){
 	    			var qr = qrLib(typeNumber, errorCorrectionLevel);
 			        qr.addData(params.cart.items[i].itemsIds[j].id);
 			        qr.make();
-			        qrs.push(qr.createTableTag(7));
+			        qrs.push({ 
+			        	qr: qr.createTableTag(7),
+			        	type: item.data.ticketType
+			        });
 				}
 			}
 		}
 		var pdfs = [];
 		for( var i = 0; i < qrs.length; i++ ){
-			var fileSource = htmlExporter.exportToPdf(thymeleaf.render(resolve(mailsTemplates.ticket), {qrcode: qrs[i]}));
+			var fileSource = htmlExporter.exportToPdf(thymeleaf.render(resolve(mailsTemplates[qrs[i].type]), {qrcode: qrs[i].qr}));
 			fileSource.name = 'ticket' + i + '.pdf';
 			var stream = htmlExporter.getStream(fileSource);
 			var tempData = {
