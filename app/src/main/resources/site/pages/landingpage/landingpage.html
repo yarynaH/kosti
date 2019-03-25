@@ -11,17 +11,17 @@
         <div class="announce blog_width">
             <div class="announce-image">
                 <picture>
-                    <source data-th-srcset="${portal.assetUrl({'_path=images/announce/poster@3x.png'})}" media="(min-width: 1024px)">
-                    <source data-th-srcset="${portal.assetUrl({'_path=images/announce/poster@2x.png'})}" media="(min-width: 768px)">
-                    <img data-th-srcset="${portal.assetUrl({'_path=images/announce/poster.png'})}" alt="Картинка анонса">
+                    <source data-th-srcset="${portal.assetUrl({'_path=images/announce/poster.png'})}" media="(max-width: 767px)">
+                    <source data-th-srcset="${portal.assetUrl({'_path=images/announce/poster@2x.png'})}" media="(min-width: 1023px)">
+                    <img data-th-src="${portal.assetUrl({'_path=images/announce/poster@3x.png'})}" alt="Картинка анонса">
                 </picture>
             </div>
             <div class="announce-info">
                 <div class="announce-date">
                     <picture>
-                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/date@3x.png'})}" media="(min-width: 1024px)">
-                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/date@2x.png'})}" media="(min-width: 768px)">
-                        <img data-th-srcset="${portal.assetUrl({'_path=images/announce/date.png'})}" alt="10-12 Мая Ужгород">
+                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/date.png'})}" media="(max-width: 767px)">
+                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/date@2x.png'})}" media="(min-width: 1023px)">
+                        <img data-th-src="${portal.assetUrl({'_path=images/announce/date@3x.png'})}" alt="10-12 Мая Ужгород">
                     </picture>
                 </div>
                 <h3 class="announce-countdown_title">До начала осталось:</h3>
@@ -52,8 +52,8 @@
                 </div>
                 <div class="announce-details">
                     <picture>
-                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/details@3x.png'})}" media="(min-width: 1024px)">
-                        <img data-th-srcset="${portal.assetUrl({'_path=images/announce/details@2x.png'})}" alt="10-12 Мая Ужгород">
+                        <source data-th-srcset="${portal.assetUrl({'_path=images/announce/details@2x.png'})}" media="(max-width: 1023px)">
+                        <img data-th-src="${portal.assetUrl({'_path=images/announce/details@3x.png'})}" alt="Програма">
                     </picture>
                 </div>
             </div>
