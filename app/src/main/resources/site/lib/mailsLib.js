@@ -115,7 +115,7 @@ function getorderCreatedMail( params ){
 			        qr.addData(params.cart.items[i].itemsIds[j].id);
 			        qr.make();
 			        qrs.push({ 
-			        	qr: qr.createTableTag(7),
+			        	qr: qr.createTableTag(7, 0),
 			        	type: item.data.ticketType
 			        });
 				}
