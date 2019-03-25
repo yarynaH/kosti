@@ -2,12 +2,6 @@
     &-wrap {
         padding: 100px 0;
 
-        @include tablet-all {
-            display: flex;
-            align-items: stretch;
-            justify-content: center;
-        }
-
         @include mobile() {
             padding-top: 40px;
         }
