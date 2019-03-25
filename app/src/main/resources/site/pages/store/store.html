@@ -13,7 +13,7 @@
                     <div class="breadcrumbs">
                         <span class="breadcrumbs-element active">Магазин</span>
                     </div>
-                    <a class="minicart" data-th-href="${portal.serviceUrl({'_service=cart'})}">
+                    <a class="minicart" data-th-href="${portal.serviceUrl({'_service=cart'})}" title="К покупкам">
                         <span class="minicart-icon">
                             <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
                         </span>
@@ -21,7 +21,7 @@
                     </a>
                 </div>
                 <div class="plp-list">
-                    <div data-th-each="product: ${products}" class="plp-item">
+                    <div data-th-each="product: ${products}" class="plp-item" title="Посмотреть">
                         <div class="plp-prod_img">
                             <a data-th-href="${product.url}">
                                 <img data-th-src="${product.image.url}">

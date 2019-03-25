@@ -26,9 +26,9 @@
                     </div>
                     <div class="summary-product-list">
                         <div data-th-each="product: ${cart.items}" class="summary-product-item">
-                            <div class="summary-product-img_wrap">
-                                <img data-th-src="${product.imageSummary.url}" alt="">
-                            </div>
+                            <a data-th-href="${portal.pageUrl({'_id='+product._id})}" class="summary-product-img_wrap" data-th-attr="title=${product.displayName}">
+                                <img data-th-src="${product.imageSummary.url}" alt="Картинка продукта">
+                            </a>
                             <div class="summary-product-info">
                                 <h5 class="summary-product-name" data-th-text="${product.displayName}"></h5>
                                 <div class="summary-product-size" data-th-if="${product.itemSize}">

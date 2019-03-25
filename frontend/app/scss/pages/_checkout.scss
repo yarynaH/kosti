@@ -187,6 +187,7 @@
 
     &-product-item {
         display: flex;
+        align-items: flex-start;
         padding-bottom: 25px;
 
         & + & {
