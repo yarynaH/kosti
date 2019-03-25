@@ -49,23 +49,23 @@
     <item-set name="sizes">
       <label>Available sizes</label>
       <items>
-        <input name="xs" type="CheckBox">
+        <input name="XS" type="CheckBox">
           <label>XS</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
-        <input name="s" type="CheckBox">
+        <input name="S" type="CheckBox">
           <label>S</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
-        <input name="m" type="CheckBox">
+        <input name="M" type="CheckBox">
           <label>M</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
-        <input name="l" type="CheckBox">
+        <input name="L" type="CheckBox">
           <label>L</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
-        <input name="xl" type="CheckBox">
+        <input name="XL" type="CheckBox">
           <label>XL</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
