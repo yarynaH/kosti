@@ -2,19 +2,21 @@
     &-field {
         width: 136px;
         height: 56px;
-        border: 1px solid  $color-primary20;
         border-radius: 4px;
-        overflow: hidden;
+        display: flex;
+        align-items: center;
         text-align: center;
     }
 
     &-input {
-        float: left;
         width: 54px;
         border: 0;
         border-radius: 0;
         vertical-align: middle;
         text-align: center;
+        border-top: 1px solid  $color-primary20;
+        border-bottom: 1px solid  $color-primary20;
+        padding: 0 10px;
 
         @include placeholder {
             color: $color-primary6;
@@ -23,7 +25,6 @@
 
     &-increment,
     &-decrement {
-        float: left;
         width: 40px;
         height: 56px;
         background-color: $color-primary31;
@@ -32,6 +33,7 @@
         line-height: 56px;
         cursor: pointer;
         transition: transition(color);
+        border: 1px solid  $color-primary20;
 
         &:hover {
             color: $color-primary6;
@@ -40,10 +42,10 @@
 
 
     &-increment {
-        border-left: 1px solid  $color-primary20;
+        border-radius: 0 4px 4px 0;
     }
 
     &-decrement {
-        border-right: 1px solid  $color-primary20;
+        border-radius: 4px 0 0 4px;
     }
 }
