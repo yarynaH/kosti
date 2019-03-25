@@ -72,6 +72,10 @@ select {
     -webkit-appearance: none;
     padding-right: 25px;
     cursor: pointer;
+
+    &::-ms-expand { // hide the default arrow in ie10+
+        display: none;
+    }
 }
 
 label {
