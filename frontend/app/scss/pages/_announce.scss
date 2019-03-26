@@ -82,6 +82,10 @@
     &-info {
         @include tablet-all {
             flex: 0 1 32%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
     }
 
@@ -90,7 +94,7 @@
         padding: 10% 0;
 
         @include  tablet-all {
-            padding: 16px 15px 40px 0;
+            padding: 16px 15px 20px 0;
         }
     }
 
@@ -102,8 +106,12 @@
         color: $color-primary1;
 
         @include tablet-all {
-            padding-bottom: 30px;
+            padding-bottom: 20px;
             font-size: 48px;
+        }
+
+        @include tablet {
+            font-size: 30px;
         }
     }
 
@@ -118,7 +126,7 @@
         }
 
         @include tablet-all {
-            padding-bottom: 30px;
+            padding-bottom: 20px;
         }
     }
 
@@ -151,7 +159,7 @@
 
         @include tablet-all {
             flex-direction: row;
-            padding-bottom: 85px;
+            padding-bottom: 20px;
         }
 
         @include tablet-mobile {
