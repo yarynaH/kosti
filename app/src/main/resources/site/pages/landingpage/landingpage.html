@@ -70,16 +70,18 @@
                 <div class="schedule">
                     <h4 class="latest_news-title">РАСПИСАНИЕ</h4>
                     <div data-th-each="scheduleItem: ${schedule}" class="schedule-item" data-th-style="${'background-image:url(\'' + scheduleItem.image.url} + '\')'">
-                        <div class="schedule-date">
-                            <span class="date" data-th-text="${scheduleItem.day}">7</span>
-                            <span class="month" data-th-text="${scheduleItem.month}">Декабрь</span>
-                        </div>
-                        <h3 class="schedule-title" data-th-text="${scheduleItem.displayName}">
-                            Дело Кобольдское 
-                        </h3>
-                        <div class="tag-list tag-list__small hidden">
-                            <a href="#" class="tag-item">D&D</a>
-                            <a href="#" class="tag-item">5e</a>
+                        <div class="schedule-content">
+                            <div class="schedule-date">
+                                <span class="date" data-th-text="${scheduleItem.day}">7</span>
+                                <span class="month" data-th-text="${scheduleItem.month}">Декабрь</span>
+                            </div>
+                            <h3 class="schedule-title" data-th-text="${scheduleItem.displayName}">
+                                Дело Кобольдское 
+                            </h3>
+                            <div class="tag-list tag-list__small hidden">
+                                <a href="#" class="tag-item">D&D</a>
+                                <a href="#" class="tag-item">5e</a>
+                            </div>
                         </div>
                     </div>
                 </div>

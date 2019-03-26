@@ -9,8 +9,8 @@
             <p data-th-text="${'Tel: ' + params.phone}"></p>
         </div>
         <div class="shipto-actions">
-            <a data-th-href="${portal.serviceUrl({'_service=checkout'})}" class="shipto-link">Изменить</a>
-            <a href="#" class="shipto-link hidden">Добавить</a>
+            <a data-th-href="${portal.serviceUrl({'_service=checkout'})}" class="shipto-link" title="Изменить">Изменить</a>
+            <a href="#" class="shipto-link hidden" title="Добавить">Добавить</a>
         </div>
     </div>
     <!--<div class="delivery-map">
@@ -34,7 +34,11 @@
                         <span class="radio_align-title" data-th-text="${ship.title}"></span>
                         <span class="delivery_m-subtitle" data-th-text="'&#8372; '+${ship.price}"></span>
                     </div>
-                    <div class="radio_align-description">Ожидаемое время вашей доставки <span data-th-text="${ship.terms}"></span> дней.</div>
+                    <div class="radio_align-description">
+                        <span data-th-remove="tag" data-th-if="${ship.id != 'digital'}">Ожидаемое время вашей доставки </span>
+                        <span data-th-text="${ship.terms}"></span> 
+                        <span data-th-remove="tag" data-th-if="${ship.id != 'digital'}">дней.</span>
+                    </div>
                 </div>
             </label>
         </div>
