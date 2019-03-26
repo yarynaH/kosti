@@ -113,6 +113,10 @@
         @include tablet {
             font-size: 34px;
         }
+
+        @include mobile {
+            text-align: center;
+        }
     }
 
     &-countdown {
