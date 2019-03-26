@@ -4,8 +4,7 @@
     }
 
     @include tablet-all {
-        width: 66%;
-        float: left;
+        flex: 0 1 66%;
     }
 }
 
@@ -42,22 +41,43 @@
     .blog_width {
         position: relative;
         z-index: 2;
+
+        @include tablet-all {
+            display: flex;
+            justify-content: space-between;
+        }
     }
 }
 
 .schedule {
     @include tablet-all {
-        width: 32%;
-        float: right; 
+        flex: 0 1 31%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .latest_news-title {
+        @include tablet-all {
+            flex: 1 1 15%;
+        }
     }
 
     &-item {
         box-shadow: 0 2px 8px 0 rgba(0,0,0,0.16);
-        height: 109px;
         color: $color-primary1;
         background-size: cover;
+        background-position: center;
         border-radius: 4px;
         position: relative;
+
+        @include tablet-all {
+            flex: 1 1 100%;
+        }
+
+        @include mobile {
+            height: 109px;
+        }
 
         & + & {
             margin-top: 10px;
