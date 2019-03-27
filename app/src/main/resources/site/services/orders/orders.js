@@ -47,11 +47,11 @@ exports.get = function( req ) {
             var typeNumber = 4;
             var errorCorrectionLevel = 'L';
             var qr = qrLib(typeNumber, errorCorrectionLevel);
-            qr.addData('Hi! Its me, Max!');
+            qr.addData(params.hash);
             qr.make();
             var code = qr.createTableTag(7,0);
             return {
-                body: getStream(htmlExporter.exportToPdf(thymeleaf.render(resolve("../../pages/pdfs/regularTicket.html"), {qrcode: code}))),
+                body: getStream(htmlExporter.exportToPdf(thymeleaf.render(resolve("../../pages/pdfs/legendaryTicket.html"), {qrcode: code}))),
                 headers: {
                     'Content-Disposition': 'attachment; filename="test.pdf"'
                 }
