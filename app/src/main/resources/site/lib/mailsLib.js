@@ -92,7 +92,7 @@ function unsubscribe( hash ){
 }
 
 function getorderCreatedMail( params ){
-	var date = new Date();
+	var d = new Date();
 	var dateString = d.getDate() + ' ' + norseUtils.getMonthName(d) + ', ' + d.getFullYear() + ', ' + d.getHours() + ':' + d.getMinutes();
 	return{
 		body: thymeleaf.render( resolve(mailsTemplates.orderCreated), {
