@@ -92,10 +92,13 @@ function unsubscribe( hash ){
 }
 
 function getorderCreatedMail( params ){
+	var d = new Date();
+	var dateString = d.getDate() + ' ' + norseUtils.getMonthName(d) + ', ' + d.getFullYear() + ', ' + d.getHours() + ':' + d.getMinutes();
 	return{
 		body: thymeleaf.render( resolve(mailsTemplates.orderCreated), {
 			order: params.order,
     		site: portal.getSite(),
+    		dateString: dateString,
 			cart: params.cart
 		}),
 		subject: "Ваш заказ получен",
