@@ -1,0 +1,44 @@
+.order {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    background: $color-primary1;
+
+    &-info-item {
+        flex: 1 0 50%;
+        border: 1px solid $color-primary9;
+        border-top: 0;
+    }
+    
+    &-title {
+        flex: 1 1 100%;
+        padding: 20px 15px;
+        background: $color-primary5;
+        color: $color-primary1;
+        text-transform: uppercase;
+        border: 1px solid $color-primary5;
+        border-radius: 5px 5px 0 0;
+    }
+    
+    &-row {
+        border-top: 1px solid $color-primary9;
+        padding: 30px;
+    }
+    &-label {
+        margin-bottom: 5px;
+        color: $color-primary16;
+    }
+    
+    &-value {
+        color: $color-primary12;
+    }
+
+    button {
+        @include button-style(global light);
+    }
+
+    .form-group,
+    .select-field {
+        margin-bottom: 15px;
+    }
+}
