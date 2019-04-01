@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <div data-th-each="order: ${orders}">
+            <div data-th-text="${order._id}"></div>
+            <div data-th-text="${order.name} + ' ' + ${order.surname}"></div>
+            <div data-th-text="${order.country} + ' ' + ${order.city} + ' ' + ${order.address}"></div>
+            <div data-th-text="${order.phone}"></div>
+            <div data-th-text="${order.email}"></div>
+            <div data-th-text="${order.ik_id}"></div>
+            <div data-th-text="${order.step}"></div>
+            <div data-th-text="${order.total}"></div>
+            <hr>
+        </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

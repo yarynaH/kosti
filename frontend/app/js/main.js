@@ -238,7 +238,7 @@ function initCartFunctions(){
 			itemId: $(this).data().id,
 			size: $(this).data().size,
 			amount: 0,
-			cartId: getCookieValue( 'cartId'),
+			cartId: $('#ordersAdminCartID').length ? $('#ordersAdminCartID').val() : getCookieValue( 'cartId'),
 			action:'modify',
 			force: true
 		}
