@@ -1,8 +1,11 @@
 .order {
     margin-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    background: $color-primary1;
+
+    &-table {
+        display: flex;
+        flex-wrap: wrap;
+        background: $color-primary1;
+    }
 
     &-info-item {
         flex: 1 0 50%;
@@ -40,5 +43,16 @@
     .form-group,
     .select-field {
         margin-bottom: 15px;
+    }
+
+    .checkout-back {
+        display: inline-block;
+        margin-bottom: 30px;
+    }
+}
+
+.orders {
+    &-search {
+        margin-bottom: 30px;
     }
 }
