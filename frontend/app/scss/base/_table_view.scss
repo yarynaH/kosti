@@ -1,0 +1,167 @@
+
+@mixin table_view(
+    $views: ()
+) {
+    @each $view in $views {
+        @if $view == wrapper {
+            @include tablet-all {
+                display: block;
+                width: 100%;
+                background: $color-primary1;
+            }
+        }
+
+        @if $view == header_row {
+            display: none;
+
+            @include tablet-all {
+                display: flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+                background: $color-primary5;
+                color: $color-primary1;
+                text-transform: uppercase;
+                border: 1px solid $color-primary5;
+                border-radius: 5px 5px 0 0;
+                padding: 0;
+            }
+        }
+
+        @if $view == body_row {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            position: relative;
+            padding: 30px 20px;
+            margin-bottom: 20px;
+            background: $color-primary1;
+            border: 1px solid $color-primary9;
+            border-top: 0;
+            border-radius: 3px;
+
+            @include tablet-all {
+                margin: 0;
+                padding: 0;
+                background: none;
+                border-radius: 0;
+            }
+
+            @include tablet-mobile {
+                border-top: 1px solid $color-primary9;
+            }
+        }
+
+        @if $view == cell {
+            @include tablet-all {
+                display: flex;
+                flex-direction: column;
+                flex: 1; /* stylelint-disable-line */  // In DEV environment output flex: 1 1 0; for IE isn`t correct
+
+                &:first-child {
+                    padding-left: 20px;
+                }
+
+                &:last-child {
+                    padding-right: 20px;
+                }
+            }
+
+            @include tablet-mobile {
+                align-items: center;
+                flex: 1 1 100%;
+            }
+        }
+
+        @if $view == header_cell {
+            justify-content: center;
+            padding: 15px 10px 15px 0;
+            min-height: 60px;
+
+            .label {
+                color: $color-primary1;
+            }
+        }
+
+        @if $view == body_cell {
+            word-break: break-word;
+
+            @include tablet-all {
+                padding: 20px 10px 20px 0;
+
+                .label {
+                    display: none;
+                }
+
+                .value {
+                    color: $color-primary16;
+                }
+            }
+
+            .label {
+                color: $color-primary16;
+            }
+
+            .button {
+                @include button-style(global light);
+
+                margin-bottom: 25px;
+            }
+        }
+
+        @if $view == body_action_cell {
+            @include tablet-mobile {
+                @include position(absolute right 20px top 35px);
+            }
+        }
+
+        @if $view == sides_align {
+            @include tablet-mobile {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin-bottom: 15px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                .value {
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+.table {
+    &-wrap {
+        @include table_view(wrapper);
+    }
+    &-header_row {
+        @include table_view(header_row);
+    }
+
+    &-body_row {
+        @include table_view(body_row);
+    }
+
+    &-header_cell {
+        @include table_view(cell header_cell);
+    }
+
+    &-body_cell {
+        @include table_view(cell body_cell);
+    }
+
+    &-small_cell {
+        @include table_view(cell body_cell);
+    }
+
+    &-action_cell {
+        @include table_view(body_action_cell);
+    }
+
+    &-side_aligns {
+        @include table_view(sides_align);
+    }
+}
