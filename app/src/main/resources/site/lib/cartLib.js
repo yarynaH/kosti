@@ -23,6 +23,21 @@ exports.getCart = function( cartId ){
   return cart;
 }
 
+exports.getCreatedCarts = function(){
+  var cartRepo = connectCartRepo();
+  var result = [];
+  var carts = cartRepo.query({
+    start: 0,
+    count: 99999999,
+    query: "(status = 'paid' or status = 'failed' or status = 'created') and _timestamp > '2019-03-20T07:24:47.393Z'",
+    sort: "_timestamp desc"
+  });
+  for( var i = 0; i < carts.hits.length; i++ ){
+    result.push(this.getCart(carts.hits[i].id));
+  }
+  return result;
+}
+
 exports.modify = function( cartId, id, amount, itemSize, force ){
   var cart = this.getCart(cartId);
   var cartRepo = connectCartRepo();

@@ -33,10 +33,10 @@
             <input type="hidden" data-th-attr="value=${cart._id}" name="id">
             <input name="action" type="hidden" value="setStatus">
             <select name="status" id="pdp-size-select" class="pdp-size_select select">
-                <option value="created" selected>Created</option>
-                <option value="paid" selected>Paid</option>
-                <option value="failed" selected>Failed</option>
-                <option value="shipped" selected>Shipped</option>
+                <option value="created">Created</option>
+                <option value="paid">Paid</option>
+                <option value="failed">Failed</option>
+                <option value="shipped">Shipped</option>
             </select>
             <input name="submit" type="submit" value="Set status">
         </form>
@@ -44,6 +44,11 @@
             <input type="hidden" data-th-attr="value=${cart._id}" name="id">
             <input name="action" type="hidden" value="regenerateIds">
             <input name="submit" type="submit" value="Regenerate Ids">
+        </form>
+        <form method="GET" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
+            <input type="hidden" data-th-attr="value=${cart._id}" name="id">
+            <input name="action" type="hidden" value="resendConfirmationMail">
+            <input name="submit" type="submit" value="Resend order confirmation mail">
         </form>
 
         <div class="cart-list">

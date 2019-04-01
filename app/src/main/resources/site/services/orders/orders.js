@@ -15,6 +15,7 @@ var mailsLib = require('mailsLib');
 
 exports.get = function( req ) {
     var params = req.params;
+    var view = resolve('orders.html');
     switch( params.action ){
         case 'addItem':
             cartLib.modify( params.id, params.itemID, params.amount, params.size, true );
@@ -22,20 +23,31 @@ exports.get = function( req ) {
         case 'regenerateIds':
             cartLib.generateItemsIds(params.id);
             break;
+        case 'resendConfirmationMail':
+            var cart = cartLib.getCart(params.id);
+            mailsLib.sendMail('orderCreated', cart.email, {
+                cart: cart
+            });
+            break;
+        case 'details':
+            break;
         default:
+            var carts = cartLib.getCreatedCarts();
+            view = resolve('ordersList.html');
             break;
     }
-    var view = resolve('orders.html');
     return {
         body: thymeleaf.render(view, {
             pageComponents: helpers.getPageComponents(req),
-            cart: cartLib.getCart( params.id )
+            cart: cartLib.getCart( params.id ),
+            carts: carts
         }),
         contentType: 'text/html'
     }
 };
 exports.post = function( req ) {
     var params = req.params;
+    var view = resolve('orders.html');
     switch( params.action ){
         case 'addItem':
             if( params.size.trim() == '' ){
@@ -49,10 +61,18 @@ exports.post = function( req ) {
         case 'setStatus':
             cartLib.setUserDetails(params.id, {status: params.status});
             break;
+        case 'details':
+            break;
+        case 'resendConfirmationMail':
+            var cart = cartLib.getCart(params.id);
+            mailsLib.sendMail('orderCreated', cart.email, {
+                cart: cart
+            });
+            break;
         default:
+            view = resolve('ordersList.html');
             break;
     }
-    var view = resolve('orders.html');
     return {
         body: thymeleaf.render(view, {
             pageComponents: helpers.getPageComponents(req),
