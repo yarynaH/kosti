@@ -34,13 +34,21 @@ exports.get = function( req ) {
         default:
             var carts = cartLib.getCreatedCarts();
             view = resolve('ordersList.html');
+            return {
+                body: thymeleaf.render(view, {
+                    pageComponents: helpers.getPageComponents(req),
+                    carts: carts
+                }),
+                contentType: 'text/html'
+            }
             break;
     }
     return {
         body: thymeleaf.render(view, {
             pageComponents: helpers.getPageComponents(req),
             cart: cartLib.getCart( params.id ),
-            carts: carts
+            carts: carts,
+            products: contentLib.query({start: 0,count: 999999,contentTypes: [app.name + ":product"]}).hits
         }),
         contentType: 'text/html'
     }
@@ -71,12 +79,20 @@ exports.post = function( req ) {
             break;
         default:
             view = resolve('ordersList.html');
+            return {
+                body: thymeleaf.render(view, {
+                    pageComponents: helpers.getPageComponents(req),
+                    carts: carts
+                }),
+                contentType: 'text/html'
+            }
             break;
     }
     return {
         body: thymeleaf.render(view, {
             pageComponents: helpers.getPageComponents(req),
-            cart: cartLib.getCart( params.id )
+            cart: cartLib.getCart( params.id ),
+            products: contentLib.query({start: 0,count: 999999,contentTypes: [app.name + ":product"]}).hits
         }),
         contentType: 'text/html'
     }

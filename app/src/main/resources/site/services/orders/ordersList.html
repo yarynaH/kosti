@@ -11,6 +11,13 @@
 <body style="margin: 0px; padding: 0px">
     <main class="main">
         <div class="site_width">
+            <form method="GET" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
+                <div class="form-group">
+                    <label class="order-label">Search</label>
+                    <input name="search" type="text" class="input-text">
+                    <input name="action" type="hidden" value="search">
+                </div>
+            </form>
             <div class="table-wrap">
                 <div class="table-header_row">
                     <div class="table-header_cell">
