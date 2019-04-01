@@ -6,67 +6,131 @@
 <body class="page-wrapper">
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
-            <div class="form-group-column">
-                <div class="form-group">
-                    <input data-th-attr="value=${cart._id}" readonly id="ordersAdminCartID" name="id">
-                </div>
-            </div>
-            <div class="form-group-column">
-                <div class="form-group">
-                    <label for="email-checkout-input" class="label">ID</label>
-                    <input name="itemID" class="input-text">
-                </div>
-                <div class="form-group">
-                    <label for="phone-checkout-input" class="label">Amount</label>
-                    <input name="amount" type="text" class="input-text">
-                </div>
-                <div class="form-group">
-                    <label for="size-checkout-input" class="label">Size</label>
-                    <input name="size" type="text" class="input-text">
-                </div>
-            </div>
-            <input name="action" type="hidden" value="addItem">
-            <input name="submit" type="submit" value="Add item">
-        </form>
-        <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
-            <input type="hidden" data-th-attr="value=${cart._id}" name="id">
-            <input name="action" type="hidden" value="setStatus">
-            <select name="status" id="pdp-size-select" class="pdp-size_select select">
-                <option value="created">Created</option>
-                <option value="paid">Paid</option>
-                <option value="failed">Failed</option>
-                <option value="shipped">Shipped</option>
-            </select>
-            <input name="submit" type="submit" value="Set status">
-        </form>
-        <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
-            <input type="hidden" data-th-attr="value=${cart._id}" name="id">
-            <input name="action" type="hidden" value="regenerateIds">
-            <input name="submit" type="submit" value="Regenerate Ids">
-        </form>
-        <form method="GET" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
-            <input type="hidden" data-th-attr="value=${cart._id}" name="id">
-            <input name="action" type="hidden" value="resendConfirmationMail">
-            <input name="submit" type="submit" value="Resend order confirmation mail">
-        </form>
-
-        <div class="cart-list">
-            <div data-th-each="item: ${cart.items}" class="cart-item">
-                <a data-th-href="${portal.pageUrl({'_id='+item._id})}" data-th-attr="title=${item.displayName}">
-                    <div class="cart-product_img">
-                        <img data-th-src="${item.imageCart.url}" alt="product image">
+        <div class="site_width">
+            <div class="order">
+                <h2 class="order-title">
+                    Order details
+                </h2>
+                <div class="order-info-item">
+                    <div class="order-row">
+                        <h3 class="order-label">Status:</h3>
+                        <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
+                            <input type="hidden" data-th-attr="value=${cart._id}" name="id">
+                            <input name="action" type="hidden" value="setStatus">
+                            <div class="select-field">
+                                <select name="status" id="pdp-size-select" class="pdp-size_select select">
+                                    <option value="created" data-th-selected="${cart.status == 'created'}">Created</option>
+                                    <option value="paid" data-th-selected="${cart.status == 'paid'}">Paid</option>
+                                    <option value="failed" data-th-selected="${cart.status == 'failed'}">Failed</option>
+                                    <option value="shipped" data-th-selected="${cart.status == 'shipped'}">Shipped</option>
+                                </select>
+                            </div>
+                            <button name="submit" type="submit" value="Set status">Set status</button>
+                        </form>
                     </div>
-                </a>
-                <div class="cart-product_description">
-                    <div data-th-text="${item.displayName}" class="cart-product_title"></div>
-                    <div data-th-if="${item.itemSize}" class="cart-product_size">
-                        <span class="label">Размер: </span>
-                        <span class="value" data-th-text="${item.itemSize}"></span>
+                    <div class="order-row">
+                        <h3 class="order-label">Order Date:</h3>
+                        <div class="order-value">
+                            22.03.2018
+                        </div>
                     </div>
-                    <div data-th-text="${item._id}" hidden></div>
+                    <div class="order-row">
+                        <h3 class="order-label">Address:</h3>
+                        <div class="order-value">
+                            <p>вул.Декабристів 39</p>
+                            <p>xs5566</p>
+                        </div>
+                    </div>
+                    <div class="order-row">
+                        <h3 class="order-label">Name:</h3>
+                        <div class="order-value">
+                            Ярина Голод
+                        </div>
+                    </div>
+                    <div class="order-row">
+                        <h3 class="order-label">Email:</h3>
+                        <div class="order-value">
+                            yarynaholod@gmail.com
+                        </div>
+                    </div>
+                    <div class="order-row">
+                        <h3 class="order-label">Phone:</h3>
+                        <div class="order-value">
+                            1234567890
+                        </div>
+                    </div>
                 </div>
-                <span class="cart-remove_btn" data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"></span>
+                <div class="order-info-item">
+                    <div class="order-row">
+                        <h3 class="order-label">Actions:</h3>
+                        <div class="order-value">
+                            <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
+                                <div class="form-group">
+                                    <input data-th-attr="value=${cart._id}" readonly id="ordersAdminCartID" name="id">
+                                </div>
+                                <div class="form-group-column">
+                                    <div class="form-group">
+                                        <label for="email-checkout-input" class="order-label">ID</label>
+                                        <input name="itemID" type="text" class="input-text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone-checkout-input" class="order-label">Amount</label>
+                                        <input name="amount" type="text" class="input-text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="size-checkout-input" class="order-label">Size</label>
+                                        <input name="size" type="text" class="input-text">
+                                    </div>
+                                </div>
+                                <input name="action" type="hidden" value="addItem">
+                                <button name="submit" type="submit" value="Add item">Add item</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="order-row">
+                        <h3 class="order-label">Regenerate ID:</h3>
+                        <div class="order-value">
+                            <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
+                                <input type="hidden" data-th-attr="value=${cart._id}" name="id">
+                                <input name="action" type="hidden" value="regenerateIds">
+                                <button name="submit" type="submit" value="Regenerate Ids">Regenerate Ids</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="order-row">
+                        <h3 class="order-label">Resend confirmation mail:</h3>
+                        <div class="order-value">
+                            <form method="GET" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
+                                <input type="hidden" data-th-attr="value=${cart._id}" name="id">
+                                <input name="action" type="hidden" value="resendConfirmationMail">
+                                <button name="submit" type="submit" value="Resend order confirmation mail">Resend order confirmation mail</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="order-row">
+                        <h3 class="order-label">Items:</h3>
+                        <div class="order-value">
+                            <div class="cart-list">
+                                <div data-th-each="item: ${cart.items}" class="cart-item">
+                                    <a data-th-href="${portal.pageUrl({'_id='+item._id})}" data-th-attr="title=${item.displayName}">
+                                        <div class="cart-product_img">
+                                            <img data-th-src="${item.imageCart.url}" alt="product image">
+                                        </div>
+                                    </a>
+                                    <div class="cart-product_description">
+                                        <div data-th-text="${item.displayName}" class="cart-product_title"></div>
+                                        <div data-th-if="${item.itemSize}" class="cart-product_size">
+                                            <span class="label">Размер: </span>
+                                            <span class="value" data-th-text="${item.itemSize}"></span>
+                                        </div>
+                                        <div data-th-text="${item._id}" hidden></div>
+                                    </div>
+                                    <span class="cart-remove_btn" data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
