@@ -29,7 +29,7 @@ exports.getCreatedCarts = function(){
   var carts = cartRepo.query({
     start: 0,
     count: 99999999,
-    query: "(status = 'paid' or status = 'failed' or status = 'created') and _timestamp > '2019-03-26T07:24:47.393Z'",
+    query: "(status = 'paid' or status = 'failed' or status = 'created' or status = 'pending') and _timestamp > '2019-03-26T07:24:47.393Z'",
     sort: "_timestamp desc"
   });
   for( var i = 0; i < carts.hits.length; i++ ){
