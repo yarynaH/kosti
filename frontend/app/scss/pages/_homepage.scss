@@ -53,13 +53,13 @@
     @include tablet-all {
         flex: 0 1 31%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         flex-direction: column;
     }
 
     .latest_news-title {
         @include tablet-all {
-            flex: 1 1 15%;
+            min-height: 16px;
         }
     }
 
@@ -73,6 +73,7 @@
 
         @include tablet-all {
             flex: 1 1 100%;
+            max-height: calc((100% / 3) - 15px);
         }
 
         @include mobile {

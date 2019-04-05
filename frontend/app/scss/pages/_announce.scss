@@ -17,7 +17,7 @@
     &-page {
 
         .main {
-            background-image: url("../images/announce/bg.png");
+            background-image: url("../images/announce/bg.jpg");
             background-size: cover;
             background-position: top center;
             padding-top: 100px;
@@ -27,7 +27,7 @@
             }
 
             @include desktop-large {
-                background-image: url("../images/announce/bg-extended.png");
+                background-image: url("../images/announce/bg-extended.jpg");
 
             }
 
@@ -99,7 +99,7 @@
     }
 
     &-countdown_title {
-        font-size: 24px;
+        font-size: rem(24);
         padding-bottom: 6%;
         font-weight: bold;
         line-height: 1.13;
@@ -107,7 +107,7 @@
 
         @include tablet-all {
             padding-bottom: 20px;
-            font-size: 48px;
+            font-size: rem(40);
         }
 
         @include tablet {
@@ -188,5 +188,19 @@
             flex: 1 0 auto;
             margin-right: 10px;
         }
+    }
+
+    &-place {
+        color: #fff0dd;
+        margin-bottom: 90px;
+    }
+
+    &-place_name {
+        font-size: rem(24);
+        font-weight: bold;
+    }
+
+    &-place_street {
+        font-size: rem(16);
     }
 }
