@@ -27,6 +27,9 @@ function generateCheckoutPage(req){
             params.error = true;
             params.step = "3";
             modifyCart( model.cart._id, { status: "failed" });
+        } else if( params.ik_inv_st == 'waitAccept' ){
+            params.step = "pending";
+            modifyCart( model.cart._id, { status: "pending" });
         }
     }
     switch(params.step){
@@ -54,6 +57,9 @@ function generateCheckoutPage(req){
             break;
         case 'success':
             return renderSuccessPage( req, model.cart );
+            break;
+        case 'pending':
+            return renderSuccessPage( req, model.cart, true );
             break;
         default:
             var stepView = thymeleaf.render( resolve('stepOne.html'), createStepOneModel( params, model.cart, req ));
@@ -164,17 +170,20 @@ function generateCheckoutPage(req){
         });
     }
 
-    function renderSuccessPage( req, cart ){
-        contextLib.runAsAdmin(function () {
-            cart = cartLib.generateItemsIds(cart._id);
-        });
-        mailsLib.sendMail('orderCreated', cart.email, {
-            cart: cart
-        });
+    function renderSuccessPage( req, cart, pendingPage ){
+        if( !pendingPage ){
+            mailsLib.sendMail('orderCreated', cart.email, {
+                cart: cart
+            });
+            contextLib.runAsAdmin(function () {
+                cart = cartLib.generateItemsIds(cart._id);
+            });
+        }
         return {
             body: thymeleaf.render( resolve('success.html'), {
                 pageComponents: helpers.getPageComponents(req),
                 cart: cart,
+                pendingPage: pendingPage,
                 shopUrl: getShopUrl()
             }),
             contentType: 'text/html'
