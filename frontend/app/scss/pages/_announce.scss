@@ -1,11 +1,13 @@
 .announce {
-    padding: 0 25px 50px;
+    padding: 0 25px 20px;
 
     @include tablet-all {
         display: flex;
         flex-direction: row-reverse;
         justify-content: space-between;
-        padding-bottom: 75px;
+        padding-bottom: 25px;
+        position: relative;
+        z-index: 2;
     }
 
     img {
@@ -17,59 +19,90 @@
     &-page {
 
         .main {
-            background-image: url("../images/announce/bg.jpg");
-            background-size: cover;
-            background-position: top center;
-            padding-top: 100px;
+            padding-top: 0;
+            padding-bottom: 0;
 
-            @include tablet-all {
-                padding-top: 150px;
-            }
-
-            @include desktop-large {
-                background-image: url("../images/announce/bg-extended.jpg");
-
-            }
-
-            @include desktop-main {
+            &-top {
+                background-image: url("../images/announce/bg-top.jpg");
+                background-size: cover;
+                background-position: top center;
+                padding-top: 120px;
                 position: relative;
-                z-index: 1;
 
-                &:before,
-                &:after {
-                    @include position(absolute, top 0);
+                @include tablet-landscape-all {
+                    height: 640px;
+                }
 
-                    height: 648px;
-                    width: 36.5%;
-                    mix-blend-mode: multiply;
-                    background-size: cover;
-                    z-index: -1;
-                }
-    
-                &:before {
-                    background-image: url("../images/announce/left-arc.png");
-                    left: 0;
-                    background-position: top left;
-                }
-    
-                &:after {
-                    background-image: url("../images/announce/right-arc.png");
-                    right: 0;
-                    background-position: top right;
+                @include tablet-all {
+                    &:before,
+                    &:after {
+                        @include position(absolute, top 0);
+
+                        height: 100%;
+                        width: 36.5%;
+                        mix-blend-mode: multiply;
+                        background-size: cover;
+                        z-index: -1;
+                        content: '';
+                    }
+        
+                    &:before {
+                        background-image: url("../images/announce/left-arc.png");
+                        left: 0;
+                        background-position: top left;
+                    }
+        
+                    &:after {
+                        background-image: url("../images/announce/right-arc.png");
+                        right: 0;
+                        background-position: top right;
+                    }
                 }
             }
 
-            @include tablet-all {
-                &:before,
-                &:after {
-                    content: '';
+            &-bottom {
+                background-image: url("../images/announce/bg-bot.jpg");
+                background-size: cover;
+                background-position: top center;
+                padding-top: 100px;
+                padding-bottom: 85px;
+
+                @include tablet-portrait {
+                    padding-top: 80px;
+                    margin-top: -90px;
+                }
+
+                @include tablet-landscape-all {
+                    padding-top: 240px;
+                }
+
+                @include tablet-all {
+                    position: relative;
+
+                    &:after {
+                        @include position(absolute, bottom 0);
+
+                        height: 50%;
+                        width: 100%;
+                        opacity: 0.4;
+                        background: linear-gradient(to bottom, #00000000, #160e21);
+                        content: '';
+                    }
+                }
+
+                .announce-countdown_title {
+                    padding: 30px 0 40px;
                 }
             }
-
         }
 
         .latest_news {
             background: none;
+
+            @include tablet-all {
+                position: relative;
+                z-index: 2;
+            }
         }
     }
 
@@ -80,6 +113,10 @@
     }
 
     &-info {
+        @include mobile {
+            position: relative;
+        }
+
         @include tablet-all {
             flex: 0 1 32%;
 
@@ -91,7 +128,7 @@
 
     &-date {
         text-align: center;
-        padding: 10% 0;
+        padding: 25px 0;
 
         @include  tablet-all {
             padding: 16px 15px 20px 0;
@@ -99,19 +136,14 @@
     }
 
     &-countdown_title {
-        font-size: rem(24);
-        padding-bottom: 6%;
+        font-size: rem(36);
+        padding-bottom: 20px;
         font-weight: bold;
-        line-height: 1.13;
+        line-height: 1.28;
         color: $color-primary1;
 
         @include tablet-all {
-            padding-bottom: 20px;
             font-size: rem(40);
-        }
-
-        @include tablet {
-            font-size: 34px;
         }
 
         @include mobile {
@@ -119,18 +151,24 @@
         }
     }
 
+    &-countdown_subtitle {
+        color: $color-primary1;
+        font-size: rem(24);
+
+        @include mobile {
+            text-align: center;
+            padding-bottom: 40px;
+        }
+    }
+
     &-countdown {
         display: flex;
         justify-content: space-between;
-        padding-bottom: 10%;
+        padding-bottom: 20px;
 
         @include mobile {
             max-width: 320px;
             margin: 0 auto;
-        }
-
-        @include tablet-all {
-            padding-bottom: 20px;
         }
     }
 
@@ -159,7 +197,7 @@
         display: flex;
         align-items: center;
         flex-direction: column;
-        padding-bottom: 26%;
+        padding-bottom: 30px;
 
         @include tablet-all {
             flex-direction: row;
@@ -190,14 +228,47 @@
         }
     }
 
+    &-info-image {
+        @include mobile {
+            padding-bottom: 40px;
+        }
+    }
+
     &-place {
-        color: #fff0dd;
-        margin-bottom: 90px;
+        @include icon(pin-location);
+
+        display: flex;
+        align-items: center;
+        color: $color-primary1;
+
+        @include mobile {
+            @include position(absolute, bottom -100px left 0 right 0);
+
+            justify-content: center;
+        }
+
+        &:before {
+            color: $color-primary35;
+            font-size: rem(34);
+            margin-right: 25px;
+
+            @include tablet-portrait {
+                margin-right: 15px;
+            }
+        }
+
+        @include tablet-all {
+            margin-bottom: 90px;
+        }
     }
 
     &-place_name {
         font-size: rem(24);
         font-weight: bold;
+
+        @include tablet-portrait {
+            font-size: rem(18);
+        }
     }
 
     &-place_street {

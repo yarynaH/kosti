@@ -74,29 +74,32 @@
     @if $filename == network {
         $char: "\F12F";
     }
-    @if $filename == rock {
+    @if $filename == pin-location {
         $char: "\F130";
     }
-    @if $filename == search {
+    @if $filename == rock {
         $char: "\F131";
     }
-    @if $filename == share {
+    @if $filename == search {
         $char: "\F132";
     }
-    @if $filename == twitch {
+    @if $filename == share {
         $char: "\F133";
     }
-    @if $filename == twitter {
+    @if $filename == twitch {
         $char: "\F134";
     }
-    @if $filename == views {
+    @if $filename == twitter {
         $char: "\F135";
     }
-    @if $filename == vk {
+    @if $filename == views {
         $char: "\F136";
     }
-    @if $filename == youtube {
+    @if $filename == vk {
         $char: "\F137";
+    }
+    @if $filename == youtube {
+        $char: "\F138";
     }
 
     @return $char;
@@ -137,6 +140,7 @@ category: Basic
     <div class="sg-icon icon-instagram" title="instagram"></div>
     <div class="sg-icon icon-logout" title="logout"></div>
     <div class="sg-icon icon-network" title="network"></div>
+    <div class="sg-icon icon-pin-location" title="pin-location"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
     <div class="sg-icon icon-share" title="share"></div>
@@ -195,6 +199,9 @@ category: Basic
 }
 .icon-network {
     @include icon(network);
+}
+.icon-pin-location {
+    @include icon(pin-location);
 }
 .icon-rock {
     @include icon(rock);
