@@ -56,7 +56,7 @@ function generateCheckoutPage(req){
             }
             break;
         case 'success':
-            return renderSuccessPage( req, model.cart );
+            return renderSuccessPage( req, model.cart, false );
             break;
         case 'pending':
             return renderSuccessPage( req, model.cart, true );
@@ -172,11 +172,11 @@ function generateCheckoutPage(req){
 
     function renderSuccessPage( req, cart, pendingPage ){
         if( !pendingPage ){
+            cart = contextLib.runAsAdmin(function () {
+                return cart = cartLib.generateItemsIds(cart._id);
+            });
             mailsLib.sendMail('orderCreated', cart.email, {
                 cart: cart
-            });
-            contextLib.runAsAdmin(function () {
-                cart = cartLib.generateItemsIds(cart._id);
             });
         }
         return {
