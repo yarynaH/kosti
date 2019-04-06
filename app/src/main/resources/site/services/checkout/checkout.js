@@ -178,6 +178,10 @@ function generateCheckoutPage(req){
             mailsLib.sendMail('orderCreated', cart.email, {
                 cart: cart
             });
+        } else {
+            mailsLib.sendMail('pendingItem', ['maxskywalker94@gmail.com', 'demura.vi@gmail.com'], {
+                id: cart._id
+            });
         }
         return {
             body: thymeleaf.render( resolve('success.html'), {

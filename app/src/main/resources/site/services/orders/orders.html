@@ -22,6 +22,7 @@
                                 <div class="select-field">
                                     <select name="status" id="pdp-size-select" class="pdp-size_select select">
                                         <option value="created" data-th-selected="${cart.status == 'created'}">Created</option>
+                                        <option value="pending" data-th-selected="${cart.status == 'pending'}">Pending</option>
                                         <option value="paid" data-th-selected="${cart.status == 'paid'}">Paid</option>
                                         <option value="failed" data-th-selected="${cart.status == 'failed'}">Failed</option>
                                         <option value="shipped" data-th-selected="${cart.status == 'shipped'}">Shipped</option>

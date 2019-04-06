@@ -13,6 +13,7 @@ var mailsTemplates = {
 	orderCreated: "../pages/mails/orderCreated.html",
 	userActivation: "../pages/mails/userActivation.html",
 	newsletter: "../pages/mails/newsletter.html",
+	pendingItem: "../pages/mails/pendingItem.html",
 	regularTicket: "../pages/pdfs/regularTicket.html",
 	legendaryTicket: "../pages/pdfs/legendaryTicket.html"
 };
@@ -29,6 +30,9 @@ function sendMail( type, email, params ){
 		case 'newsletter':
 			mail = sendNewsletter();
 			return ;
+			break;
+		case 'pendingItem':
+			mail = getPendingItemMail( params );
 			break;
 		default:
 			break;
@@ -157,9 +161,25 @@ function getActivationMail( mail, params ){
 		body: thymeleaf.render( resolve(mailsTemplates.userActivation), {
 			activationUrl: activationUrl,
     		site: portal.getSite()
-
 		}),
 		subject: "Активация аккаунта",
+		from: "noreply@kostirpg.com"
+	}
+}
+
+function getPendingItemMail( params ){
+	return{
+		body: thymeleaf.render( resolve(mailsTemplates.pendingItem), {
+			orderUrl: portal.serviceUrl({
+				service: 'orders',
+				type: 'absolute',
+				params: {
+					action: 'details',
+					id: params.id,
+				}}),
+    		site: portal.getSite()
+		}),
+		subject: "Новый заказ ожидание",
 		from: "noreply@kostirpg.com"
 	}
 }
