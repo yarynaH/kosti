@@ -42,7 +42,6 @@
                         width: 36.5%;
                         mix-blend-mode: multiply;
                         background-size: cover;
-                        z-index: -1;
                         content: '';
                     }
         
@@ -92,6 +91,10 @@
 
                 .announce-countdown_title {
                     padding: 30px 0 40px;
+                }
+                
+                .announce {
+                    padding-bottom: 60px;
                 }
             }
         }
