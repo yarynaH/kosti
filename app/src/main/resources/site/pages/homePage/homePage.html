@@ -89,7 +89,7 @@
                                 </a>
                                 <span class="post-date" data-th-text="${article.date}"></span>
                             </div>
-                            <h2 class="post-title" data-th-text="${article.displayName}"></h2>
+                            <a class="post-title" data-th-text="${article.displayName}"></a>
                             <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
                             <div class="tag-list hidden">
                                 <a href="#" class="tag-item">WoD</a>
@@ -149,7 +149,7 @@
                                 <span class="post-user_name" data-th-text="${weeksPost.author.displayName}"></span>
                             </div>
                         </a>
-                        <h2 class="post_top-title" data-th-text="${weeksPost.displayName}"></h2>
+                        <a class="post_top-title" data-th-text="${weeksPost.displayName}"></a>
                         <div class="post_top-text"></div>
                         <div class="post_top-footer">
                             <div class="tag-list" hidden>

@@ -263,7 +263,12 @@
         font-size: rem(24);
         font-weight: bold;
         color: $color-primary17;
-        margin-bottom: 20px; 
+        margin-bottom: 20px;
+        display: block;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 
     &-text {
@@ -346,6 +351,11 @@
 
     &-title {
         color: $color-primary17;
+        display: block;
+
+        &:hover {
+            opacity: 0.8;
+        }
     }
 
     &-footer {

@@ -23,34 +23,139 @@
                 </div>
                 <h1 class="post-title" data-th-text="${content.displayName}"></h1>
             </div>
-            <div class="article-body">
-                <div class="article-content" data-portal-region="main">
-                    <section data-th-utext="${content.data.intro}"></section>
-                    <div data-th-each="component : ${mainRegion.components}" data-th-if="${mainRegion}" data-th-remove="tag">
-                        <div data-portal-component="${component.path}" data-th-remove="tag"></div>
+            <div class="blog-content"> 
+                <div class="article-body">
+                    <div class="article-content" data-portal-region="main">
+                        <section data-th-utext="${content.data.intro}"></section>
+                        <div data-th-each="component : ${mainRegion.components}" data-th-if="${mainRegion}" data-th-remove="tag">
+                            <div data-portal-component="${component.path}" data-th-remove="tag"></div>
+                        </div>
+                    </div>
+                    <div class="blog-item">
+                        <div class="post hidden">
+                            <div class="tag-list ">
+                                <a href="#" class="tag-item">WoD</a>
+                                <a href="#" class="tag-item">V5</a>
+                                <a href="#" class="tag-item">VtM</a>
+                            </div>
+                        </div>
+                        <div class="post-footer">
+                            <div class="post-counters hidden">
+                                <span class="share-counter icon-share">245</span>
+                                <span class="views-counter icon-views">314</span>
+                                <span class="comments-counter icon-comment">12</span>
+                            </div>
+                            <div class="post-actions">
+                                <a href="#" class="hidden add_to_bookmarks-btn icon-bookmark"></a>
+                                <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                    <span data-th-text="${content.votes}"></span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="blog-item">
-                    <div class="post hidden">
-                        <div class="tag-list ">
-                            <a href="#" class="tag-item">WoD</a>
-                            <a href="#" class="tag-item">V5</a>
-                            <a href="#" class="tag-item">VtM</a>
-                        </div>
-                    </div>
-                    <div class="post-footer">
-                        <div class="post-counters hidden">
-                            <span class="share-counter icon-share">245</span>
-                            <span class="views-counter icon-views">314</span>
-                            <span class="comments-counter icon-comment">12</span>
-                        </div>
-                        <div class="post-actions">
-                            <a href="#" class="hidden add_to_bookmarks-btn icon-bookmark"></a>
+                <div class="similar_posts">
+                    <h4 class="similar_posts-title">Похожие статьи</h4>
+                    <ul class="similar_posts-list">
+                        <li class="similar_posts-item">
+                            <a href="#" class="similar_posts-link">Почему Хесус такой плохой тореадор?</a>
                             <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
                                 <span data-th-text="${content.votes}"></span>
                             </a>
-                        </div>
+                        </li>
+                        <li class="similar_posts-item">
+                            <a href="#" class="similar_posts-link">У Львові відбулась якась хуйня</a>
+                            <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                <span data-th-text="${content.votes}"></span>
+                            </a>
+                        </li>
+                        <li class="similar_posts-item">
+                            <a href="#" class="similar_posts-link">Ожидания от 3-го сезона Кровавых Ублюдков</a>
+                            <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                <span data-th-text="${content.votes}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="comments">
+                    <h4 class="comments-title">Комментарии</h4>
+                    <div class="comments-write_comment-wrap">
+                        <textarea class="comments-write_comment-input" placeholder="Написать комментарий…" id="" cols="30" rows="10"></textarea>
+                        <button class="comments-write_comment-button">Отправить</button>
                     </div>
+                    <ul class="comments-list">
+                        <li class="comments-item">
+                            <div class="comments-header">
+                                <div class="post-info">
+                                    <a data-th-href="${content.author.url}">
+                                        <span class="post-user_avatar">
+                                            <img data-th-src="${content.author.image.url}" alt="">
+                                        </span>
+                                        <span class="post-user_name" data-th-text="${content.author.displayName}"></span>
+                                    </a>
+                                    <span class="post-date" data-th-text="${content.date}"></span>
+                                </div>
+                                <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                    <span data-th-text="${content.votes}"></span>
+                                </a>
+                            </div>
+                            <div class="comments-body">
+                                Я ничего не понимаю, какая-то тупая игра! Где скачать книгу правил на русском языке!? Как с вами поиграть? Слишком много кубиков! Тупая боевка! 
+                            </div>
+                            <div class="comments-footer">
+                                <a href="#" class="comments-link">Ответить</a>
+                                <a href="#" class="comments-link">Пожаловаться</a>
+                            </div>
+                        </li>
+                        <li class="comments-item">
+                            <div class="comments-header">
+                                <div class="post-info">
+                                    <a data-th-href="${content.author.url}">
+                                        <span class="post-user_avatar">
+                                            <img data-th-src="${content.author.image.url}" alt="">
+                                        </span>
+                                        <span class="post-user_name" data-th-text="${content.author.displayName}"></span>
+                                    </a>
+                                    <span class="post-date" data-th-text="${content.date}"></span>
+                                </div>
+                                <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                    <span data-th-text="${content.votes}"></span>
+                                </a>
+                            </div>
+                            <div class="comments-body">
+                                Я ничего не понимаю, какая-то тупая игра! Где скачать книгу правил на русском языке!? Как с вами поиграть? Слишком много кубиков! Тупая боевка! 
+                            </div>
+                            <div class="comments-footer">
+                                <a href="#" class="comments-link">Ответить</a>
+                                <a href="#" class="comments-link">Пожаловаться</a>
+                            </div>
+                            <ul class="comments-list">
+                                <li class="comments-item">
+                                    <div class="comments-header">
+                                        <div class="post-info">
+                                            <a data-th-href="${content.author.url}">
+                                                <span class="post-user_avatar">
+                                                    <img data-th-src="${content.author.image.url}" alt="">
+                                                </span>
+                                                <span class="post-user_name" data-th-text="${content.author.displayName}"></span>
+                                            </a>
+                                            <span class="post-date" data-th-text="${content.date}"></span>
+                                        </div>
+                                        <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                            <span data-th-text="${content.votes}"></span>
+                                        </a>
+                                    </div>
+                                    <div class="comments-body">
+                                        Я ничего не понимаю, какая-то тупая игра! Где скачать книгу правил на русском языке!? Как с вами поиграть? Слишком много кубиков! Тупая боевка! 
+                                    </div>
+                                    <div class="comments-footer">
+                                        <a href="#" class="comments-link">Ответить</a>
+                                        <a href="#" class="comments-link">Пожаловаться</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="blog-sidebar">
@@ -90,7 +195,7 @@
                             <span class="post-user_name" data-th-text="${weeksPost.author.displayName}"></span>
                         </div>
                     </a>
-                    <h2 class="post_top-title" data-th-text="${weeksPost.displayName}"></h2>
+                    <a class="post_top-title" data-th-text="${weeksPost.displayName}"></a>
                     <div class="post_top-text"></div>
                     <div class="post_top-footer">
                         <div class="tag-list" hidden>
