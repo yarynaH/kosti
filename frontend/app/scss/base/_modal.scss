@@ -12,7 +12,7 @@
     pointer-events: none;
 
     &.show {
-        opacity: 1;
+        opacity: 1 !important;
         pointer-events: auto;
     }
 
