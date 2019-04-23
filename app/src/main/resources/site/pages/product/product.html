@@ -89,7 +89,7 @@
                                     <a href="#" class="social-link facebook"></a>
                                 </li>
                                 <li class="social-item">
-                                    <a target="_blank" href="https://twitter.com/intent/tweet?text=Hello%20world" class="social-link twitter"></a>
+                                    <a target="_blank" data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+content._path, '_type=absolute'})}" class="social-link twitter"></a>
                                 </li>
                                 <li class="social-item">
                                     <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
