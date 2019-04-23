@@ -39,6 +39,11 @@
                                     <span class="value" data-th-text="${product.amount}"></span>
                                 </div>
                                 <div class="summary-product-price">&#8372; <span data-th-text="${product.price}"></span></div>
+                                <div class="summary-product-price sale"
+                                    data-th-if="${product.price and product.finalPrice and product.price < product.finalPrice}" >
+                                    &#8372;
+                                    <span data-th-text="${product.finalPrice}"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
