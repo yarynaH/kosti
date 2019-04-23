@@ -36,6 +36,11 @@
                             <span class="price-curency">&#8372;</span>
                             <span data-th-text="${item.price}"></span>
                         </div>
+                        <div class="cart-product_price sale"
+                            data-th-if="${item.price and item.finalPrice and item.price < item.finalPrice}" >
+                            <span class="price-curency">&#8372;</span>
+                            <span data-th-text="${item.finalPrice}"></span>
+                        </div>
                         <span class="cart-remove_btn" data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"></span>
                     </div>
                 </div>

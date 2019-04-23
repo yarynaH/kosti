@@ -37,7 +37,9 @@
                         <h2 class="plp-prod_name" data-th-text="${product.displayName}">
                         </h2>
                         <div class="plp-prod_price">
-                            <span class="sale hidden" data-th-text="${'&#8372; ' + product.data.price}"></span>
+                            <span 
+                                data-th-if="${product.data.price and product.data.finalPrice and product.data.price < product.data.finalPrice}" 
+                                class="sale" data-th-text="${'&#8372; ' + product.data.finalPrice}"></span>
                             <span class="default" data-th-text="${'&#8372; ' + product.data.price}"></span>
                         </div>
                     </div>

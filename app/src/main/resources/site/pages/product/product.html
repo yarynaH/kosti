@@ -41,6 +41,11 @@
                         <form data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}" class="pdp-form" method="POST">
                             <div class="pdp-info_header">
                                 <h2 class="pdp-title" data-th-text="${content.displayName}"></h2>
+                                <div class="price" 
+                                    data-th-if="${content.data.price and content.data.finalPrice and content.data.price < content.data.finalPrice}" >
+                                    <span class="price-curency">&#8372;</span>
+                                    <span class="price-value sale" data-th-text="${content.data.finalPrice}"></span>
+                                </div>
                                 <div class="price">
                                     <span class="price-curency">&#8372;</span>
                                     <span class="price-value" data-th-text="${content.data.price}"></span>

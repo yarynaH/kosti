@@ -8,8 +8,12 @@
       <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="price" type="Long">
-      <label>Price</label>
+      <label>Current price</label>
       <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="finalPrice" type="Long">
+      <label>Final price</label>
+      <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="mainImage" type="ImageSelector">
       <label>Main image</label>
