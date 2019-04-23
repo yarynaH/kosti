@@ -216,6 +216,11 @@ function initSharedEvents(){
 		}
 	});
 
+	$('a.social-link.facebook').on('click', function(e){
+		window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(window.location.href),'facebook-share-dialog','width=626,height=436');
+		return false;
+	});
+
 	if ($(window).width() < 768) {
 		$('.mobile_menu').on('click', function(){
 			$(this).toggleClass('open');
