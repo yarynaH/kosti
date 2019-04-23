@@ -31,6 +31,16 @@ exports.get = function( req ) {
             break;
         case 'details':
             break;
+        case 'readQr':
+            view = resolve('readQr.html');
+            return {
+                body: thymeleaf.render(view, {
+                    pageComponents: helpers.getPageComponents(req),
+                }),
+                contentType: 'text/html'
+            }
+            break;
+            break;
         default:
             var carts = cartLib.getCreatedCarts();
             view = resolve('ordersList.html');
@@ -70,6 +80,25 @@ exports.post = function( req ) {
             cartLib.setUserDetails(params.id, {status: params.status});
             break;
         case 'details':
+            break;
+        case 'findbyqr':
+            return {
+                body: thymeleaf.render(resolve('markQr.html'), {
+                    pageComponents: helpers.getPageComponents(req),
+                    cart: cartLib.getCartByQr( params.qr ),
+                }),
+                contentType: 'text/html'
+            }
+            break;
+        case 'markqr':
+            cartLib.markTicketUsed(params.qr);
+            return {
+                body: thymeleaf.render(resolve('markQr.html'), {
+                    pageComponents: helpers.getPageComponents(req),
+                    cart: cartLib.getCartByQr( params.qr ),
+                }),
+                contentType: 'text/html'
+            }
             break;
         case 'resendConfirmationMail':
             var cart = cartLib.getCart(params.id);

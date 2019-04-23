@@ -23,6 +23,62 @@ exports.getCart = function( cartId ){
   return cart;
 }
 
+exports.getCartByQr = function( qr ){
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: 1,
+    query: "fulltext('items.itemsIds.id', '" + qr + "', 'OR') or ngram('items.itemsIds.id', '" + qr + "', 'OR')"
+  });
+  if( result.total > 0 ){
+    var cart = this.getCart( result.hits[0].id );
+    cart.currentQrId = qr;
+    for( var i = 0; i < cart.items.length; i++ ){
+      cart.items = norseUtils.forceArray(cart.items);
+      for( var j = 0; j < cart.items[i].itemsIds.length; j++ ){
+        cart.items[i].itemsIds = norseUtils.forceArray(cart.items[i].itemsIds);
+        if( cart.items[i].itemsIds[j].id == qr ){
+          cart.currentQrStatus = cart.items[i].itemsIds[j].activated;
+        }
+      }
+    }
+    return cart;
+  }
+  return null;
+}
+
+
+exports.markTicketUsed = function( qr ){
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: 1,
+    query: "fulltext('items.itemsIds.id', '" + qr + "', 'OR') or ngram('items.itemsIds.id', '" + qr + "', 'OR')"
+  });
+  if( result.total > 0 ){
+    var result = cartRepo.modify({
+      key: result.hits[0].id,
+      editor: editor
+    });
+  }
+  function editor( node ){
+    if( node.items ){
+      node.items = norseUtils.forceArray(node.items);
+      for( var i = 0; i < node.items.length; i++ ){
+        node.items[i].itemsIds = norseUtils.forceArray(node.items[i].itemsIds);
+        for( var j = 0; j < node.items[i].itemsIds.length; j++ ){
+          if( node.items[i].itemsIds[j].id == qr ){
+            node.items[i].itemsIds[j].activated = true;
+            return node;
+          }
+        }
+      }
+    }
+    return node;
+  }
+}
+
+
 exports.getCreatedCarts = function(){
   var cartRepo = connectCartRepo();
   var result = [];
