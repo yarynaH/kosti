@@ -38,11 +38,13 @@
                                     <span class="label">Количество:</span>
                                     <span class="value" data-th-text="${product.amount}"></span>
                                 </div>
-                                <div class="summary-product-price">&#8372; <span data-th-text="${product.price}"></span></div>
-                                <div class="summary-product-price sale"
-                                    data-th-if="${product.price and product.finalPrice and product.price < product.finalPrice}" >
-                                    &#8372;
-                                    <span data-th-text="${product.finalPrice}"></span>
+                                <div class="summary-product-price-wrap">
+                                    <div class="summary-product-price price-sale"
+                                        data-th-if="${product.price and product.finalPrice and product.price < product.finalPrice}" >
+                                        UAH
+                                        <span data-th-text="${product.finalPrice}"></span>
+                                    </div>
+                                    <div class="summary-product-price">UAH <span data-th-text="${product.price}"></span></div>
                                 </div>
                             </div>
                         </div>
@@ -59,19 +61,19 @@
                     <div class="summary-purchase">
                         <div class="summary-total">
                             <span class="label">Товар</span>
-                            <span class="value">&#8372; <span data-th-text="${cart.price.items}"></span></span>
+                            <span class="value">UAH <span data-th-text="${cart.price.items}"></span></span>
                         </div>
                         <div class="summary-shipping">
                             <span class="label">Доставка</span>
-                            <span class="value" data-th-text="${cart.price.shipping == 0 ? 'Бесплатно' : '&#8372; ' + cart.price.shipping}"></span>
+                            <span class="value" data-th-text="${cart.price.shipping == 0 ? 'Бесплатно' : 'UAH ' + cart.price.shipping}"></span>
                         </div>
                         <div class="summary-discount">
                             <span class="label">Скидка</span>
-                            <span class="value">&#8372; 0</span>
+                            <span class="value">UAH 0</span>
                         </div>
                         <div class="summary-subtotal">
                             <span class="label">Всего</span>
-                            <span class="value">&#8372; <span data-th-text="${cart.price.total}"></span></span>
+                            <span class="value">UAH <span data-th-text="${cart.price.total}"></span></span>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@
                         <span class="minicart-icon">
                             <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
                         </span>
-                        <span class="minicart-total">&#8372; <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
+                        <span class="minicart-total">UAH <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
                     </a>
                 </div>
                 <div class="plp-list">
@@ -39,8 +39,8 @@
                         <div class="plp-prod_price">
                             <span 
                                 data-th-if="${product.data.price and product.data.finalPrice and product.data.price < product.data.finalPrice}" 
-                                class="sale" data-th-text="${'&#8372; ' + product.data.finalPrice}"></span>
-                            <span class="default" data-th-text="${'&#8372; ' + product.data.price}"></span>
+                                class="sale" data-th-text="${'UAH ' + product.data.finalPrice}"></span>
+                            <span class="default" data-th-text="${'UAH ' + product.data.price}"></span>
                         </div>
                     </div>
                 </div>

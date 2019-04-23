@@ -221,7 +221,10 @@
 
     &-product-price {
         font-weight: bold;
-        color: $color-primary28;
+
+        &-wrap {
+            color: $color-primary28;
+        }
     }
 
     &-product-size,

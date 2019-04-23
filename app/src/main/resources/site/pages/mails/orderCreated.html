@@ -42,7 +42,7 @@
                             <div>
                                 <span style="color: #707070; font-weight: bold;">Количество:</span> <span style="color: #505050;" data-th-text="${item.amount}">1</span>
                             </div>
-                            <div style="color: #707070; font-weight: bold;" data-th-text="${'&#8372; ' + item.price}">
+                            <div style="color: #707070; font-weight: bold;" data-th-text="${'UAH ' + item.price}">
                             </div>
                         </td>
                     </tr>
@@ -84,15 +84,15 @@
                                     <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
                                         Товар
                                     </td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.items}">₽ 1500</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'UAH ' + cart.price.items}">₽ 1500</td>
                                 </tr>
                                 <tr>
                                     <td tyle="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Доставка</td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.shipping}"></td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;" data-th-text="${'UAH ' + cart.price.shipping}"></td>
                                 </tr>
                                 <tr>
                                     <td style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">Скидка</td>
-                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">&#8372; 0</td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">UAH 0</td>
                                 </tr>
                             </table>
                         </td>
@@ -109,7 +109,7 @@
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="font-weight: bold; min-width: 100%;">
                                 <tr>
                                     <td style="color: #333333; font-family: Roboto; font-size: 14px;">Всего</td>
-                                    <td style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;" data-th-text="${'&#8372; ' + cart.price.total}">₽ 1300</td>
+                                    <td style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;" data-th-text="${'UAH ' + cart.price.total}">₽ 1300</td>
                                 </tr>
                             </table>
                         </td>

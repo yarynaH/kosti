@@ -19,7 +19,6 @@
 }
 
 .pdp {
-
     &-image {
         border-radius: 4px;
         background-color: $color-primary1;
@@ -64,9 +63,12 @@
     }
 
     &-main_image {
-        height: 445px;
         display: flex;
         align-items: center;
+
+        @include tablet-all {
+            min-height: 445px;
+        }
     }
 
     &-info {
@@ -156,6 +158,14 @@
         font-weight: bold;
         color: $color-primary32;
         margin-bottom: 15px;
+    }
+
+    &-price {
+        @include mobile {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
     }
 }
 
@@ -252,6 +262,11 @@
     min-width: 120px;
     text-align: left;
     margin-left: 5px;
+
+    &-sale {
+        color: $color-primary24;
+        text-decoration: line-through;
+    }
 }
 
 .swatches-item {

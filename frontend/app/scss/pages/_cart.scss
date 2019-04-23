@@ -78,12 +78,22 @@
     &-product_price {
         font-size: rem(20);
         font-weight: bold;
-        padding-left: 40px;
         text-align: right;
-        flex: 1 0 100px;
 
-        @include mobile() {
-            padding-left: 40%;
+        & + & {
+            padding-left: 15px;
+        }
+
+        &-wrap {
+            padding-left: 40px;
+            flex: 1 0 100px;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+
+            @include mobile() {
+                padding-left: 40%;
+            }
         }
     }
 

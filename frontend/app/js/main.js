@@ -348,7 +348,7 @@ function addToCart( data ){
 		data: data,
 		success: function(data){
 			setCookie(data._id);
-			$('.minicart .minicart-total').html('&#8372; ' + data.price.items);
+			$('.minicart .minicart-total').html('UAH ' + data.price.items);
 			$('.minicart .minicart-qty').text(parseInt(data.itemsNum) > 99 ? "9+" : data.itemsNum);
 			$('.cart-total .value .cart-items-price').text(data.price.items);
 			result = data;
