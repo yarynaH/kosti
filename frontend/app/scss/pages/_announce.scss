@@ -23,6 +23,7 @@
             padding-bottom: 0;
 
             &-top {
+                background-color: #362a40;
                 background-image: url("../images/announce/bg-top.jpg");
                 background-size: cover;
                 background-position: top center;
@@ -60,6 +61,7 @@
             }
 
             &-bottom {
+                background-color: #941012;
                 background-image: url("../images/announce/bg-bot.jpg");
                 background-size: cover;
                 background-position: top center;
@@ -186,6 +188,7 @@
         font-weight: bold;
         color: $color-primary1;
         padding-bottom: 10px;
+        min-height: 58px;
 
         &__days {
             color: $color-primary4;
