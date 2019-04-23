@@ -27,9 +27,23 @@ exports.getPageComponents = function( req ) {
     service: 'cart'
   });
 
+  if( content && content.data && content.data.mainImage ){
+    var ogImage = portal.imageUrl({
+      id: content.data.mainImage,
+      scale: 'block(600, 600)',
+      type: 'absolute'
+    });
+  } else {
+    var ogImage = portal.assetUrl({
+      path: 'images/extended-logo-min.png',
+      type: 'absolute'
+    });
+  }
+
   pageComponents['pagehead'] = thymeleaf.render( resolve('../pages/components/head.html'), {
     siteConfig: siteConfig,
     content: content,
+    ogImage: ogImage,
     site: site
   });
 

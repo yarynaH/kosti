@@ -11,17 +11,18 @@
 
     &-icon {
         @include icon(network);
+    }
 
-    } 
-
-    &-link {
+    &-item {
         display: inline-flex;
         align-items: center;
 
         & + & {
             margin-left: 25px;
         }
+    }
 
+    &-link {
         &:hover {
             opacity: 0.8;
         }
