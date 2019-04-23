@@ -49,16 +49,16 @@ exports.getPageComponents = function( req ) {
 
   function getMenuItems() {
     var result = [];
-    if ( siteConfig['menuItems'] ) {
-      var items = norseUtils.forceArray( siteConfig['menuItems'] );
-      items.forEach( function( itemID ) {
-        var tempContent = contentLib.get({ key: itemID });
+    if ( siteConfig.menuItems ) {
+      var items = norseUtils.forceArray( siteConfig.menuItems );
+      for( var i = 0; i < items.length; i++ ){
+        var tempContent = contentLib.get({ key: items[i] });
         result.push( {
-          url: portal.pageUrl({ id: itemID }),
+          url: portal.pageUrl({ id: items[i] }),
           title: tempContent.displayName,
           active: tempContent._path === content._path ? true : false
         } );
-      });
+      }
     }
     return result;
   }
