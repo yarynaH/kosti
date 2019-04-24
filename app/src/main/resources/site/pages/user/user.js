@@ -17,9 +17,15 @@ function handleReq(req) {
         var view = resolve('user.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
+        var fileName = portal.assetUrl({path:'js/userpage.js'});
         return {
           body: body,
-          contentType: 'text/html'
+          contentType: 'text/html',
+          pageContributions: {
+            bodyEnd: [
+                "<script src='"+fileName+"'></script>"
+            ]
+          }
         };
     }
 
