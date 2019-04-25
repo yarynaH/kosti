@@ -76,7 +76,7 @@
                                     <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-increment" title="Увеличить количество">+</span>
                                 </div>
                             </div>
-                            <button class="add_to_cart-btn" title="В корзину">В КОРЗИНУ</button>
+                            <button data-th-disable="${content.data.inventory and content.data.inventory == '0' ? 'true' : 'false'}" class="add_to_cart-btn" title="В корзину">В КОРЗИНУ</button>
                             <input name="price" type="hidden" data-th-attr="value=${content.data.price}">
                             <input name="productId" type="hidden" data-th-attr="value=${content._id}">
                         </form>
