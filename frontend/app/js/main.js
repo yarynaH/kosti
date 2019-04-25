@@ -33,7 +33,7 @@ function initLoginRegisterForm(){
 			data: data
 		}).done(function(data) {
 			if( !data.exist && !data.data ){
-			('.modal-login .form-group-error span').text(data.message);
+			$('.modal-login .form-group-error span').text(data.message);
 				$('.modal-login .form-group-error').removeClass('hidden');
 			} else {
 				$('.header-user').html('<div class="user-avatar-img_wrap">' + 

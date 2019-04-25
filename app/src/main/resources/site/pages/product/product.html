@@ -92,9 +92,11 @@
                                     <a target="_blank" data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+content._path, '_type=absolute'})}" class="social-link twitter"></a>
                                 </li>
                                 <li class="social-item">
-                                    <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
-                                    <script type="text/javascript"><!--
-                                    document.write(VK.Share.button(false,{type: "custom", text: "<span class='social-link vk'></span>"}));
+                                    <script data-th-src="${portal.assetUrl({'_path=js/vkshare.js'})}"></script>
+                                    <script async type="text/javascript"><!--
+                                    if(typeof VK !== 'undefined'){
+                                        document.write(VK.Share.button(false,{type: "custom", text: "<span class='social-link vk'></span>"}))
+                                    }
                                     --></script>
                                 </li>
                             </ul>
