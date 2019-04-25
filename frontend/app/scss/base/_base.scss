@@ -33,6 +33,10 @@ a {
     .is-invalid & {
         color: $color-primary32;
     }
+
+    &.not-active {
+        pointer-events: none;
+    }
 }
 
 .page-wrapper {
