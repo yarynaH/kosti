@@ -144,7 +144,7 @@ function initPDPFunctions(){
 	// 	$('.pdp-main_image').zoom({url: $(this).attr('src')});
 	// 	$(this).attr('src', prevImg);
 	// });
-	$('.add_to_cart-btn').on('click', function(e){
+	$('.add_to_cart-btn:not(disabled)').on('click', function(e){
 		e.preventDefault();
 		if($('#pdp-size-select').length && !$('#pdp-size-select').val()){
 			$('#pdp-size-select').addClass('is-invalid');

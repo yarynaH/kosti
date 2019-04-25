@@ -41,7 +41,7 @@
                         <form data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}" class="pdp-form" method="POST">
                             <div class="pdp-info_header">
                                 <h2 class="pdp-title" data-th-text="${content.displayName}"></h2>
-                                <div class="pdp-price">
+                                <div data-th-unless="${content.data.inventory == 0}" class="pdp-price">
                                     <div class="price price-sale" 
                                         data-th-if="${content.data.price and content.data.finalPrice and content.data.price < content.data.finalPrice}" >
                                         <span class="price-curency">UAH</span>
@@ -50,6 +50,11 @@
                                     <div class="price">
                                         <span class="price-curency">UAH</span>
                                         <span class="price-value" data-th-text="${content.data.price}"></span>
+                                    </div>
+                                </div>
+                                <div class="pdp-price" data-th-if="${content.data.inventory == 0}">
+                                    <div class="price">
+                                        <span class="price-value">Нет в наличии</span>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +81,7 @@
                                     <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-increment" title="Увеличить количество">+</span>
                                 </div>
                             </div>
-                            <button data-th-disable="${content.data.inventory and content.data.inventory == '0' ? 'true' : 'false'}" class="add_to_cart-btn" title="В корзину">В КОРЗИНУ</button>
+                            <button data-th-disabled="${content.data.inventory == 0}" class="add_to_cart-btn" title="В корзину">В КОРЗИНУ</button>
                             <input name="price" type="hidden" data-th-attr="value=${content.data.price}">
                             <input name="productId" type="hidden" data-th-attr="value=${content._id}">
                         </form>

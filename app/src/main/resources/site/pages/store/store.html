@@ -36,11 +36,14 @@
                         </div>
                         <h2 class="plp-prod_name" data-th-text="${product.displayName}">
                         </h2>
-                        <div class="plp-prod_price">
+                        <div data-th-unless="${product.data.inventory == 0}" class="plp-prod_price">
                             <span 
                                 data-th-if="${product.data.price and product.data.finalPrice and product.data.price < product.data.finalPrice}" 
                                 class="sale" data-th-text="${'UAH ' + product.data.finalPrice}"></span>
                             <span class="default" data-th-text="${'UAH ' + product.data.price}"></span>
+                        </div>
+                        <div data-th-if="${product.data.inventory == 0}" class="plp-prod_price">
+                            <span class="default">Нет в наличии</span>
                         </div>
                     </div>
                 </div>
