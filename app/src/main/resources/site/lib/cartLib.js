@@ -284,7 +284,7 @@ function getCartItems( items ){
         imageCart: norseUtils.getImage( item.data.mainImage, 'block(140, 140)', false, 'absolute' ),
         imageSummary: norseUtils.getImage( item.data.mainImage, 'block(90, 90)', false, 'absolute' ),
         displayName: item.displayName,
-        stock: item.data.inventory > parseInt(items[i].amount),
+        stock: item.data.inventory >= parseInt(items[i].amount),
         price: item.data.price,
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),
