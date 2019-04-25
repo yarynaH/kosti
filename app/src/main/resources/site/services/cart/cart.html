@@ -32,7 +32,7 @@
                                 <span data-th-attr="data-id=${item._id}, data-size=${item.itemSize}" class="qty-increment" title="Увеличить количество">+</span>
                             </div>
                         </div>
-                        <div class="cart-product_price-wrap">
+                        <div data-th-if="${item.stock}" class="cart-product_price-wrap">
                             <div class="cart-product_price price-sale"
                                 data-th-if="${item.price and item.finalPrice and item.price < item.finalPrice}" >
                                 <span class="price-curency">UAH</span>
@@ -41,6 +41,11 @@
                             <div class="cart-product_price">
                                 <span class="price-curency">UAH</span>
                                 <span data-th-text="${item.price}"></span>
+                            </div>
+                        </div>
+                        <div data-th-unless="${item.stock}" class="cart-product_price-wrap">
+                            <div class="cart-product_price">
+                                <span>Нет в Наличии</span>
                             </div>
                         </div>
                         <span class="cart-remove_btn" data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"></span>

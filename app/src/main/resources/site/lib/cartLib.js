@@ -277,13 +277,14 @@ function getCartItems( items ){
   var result = [];
   for( var i = 0; i < items.length; i++ ){
     var item = contentLib.get({ key: items[i].id });
+    if( typeof item.data.inventory === 'undefined' ){ item.data.inventory = 99999999 }
     if( item && item.data ){
       result.push({
         _id: item._id,
         imageCart: norseUtils.getImage( item.data.mainImage, 'block(140, 140)', false, 'absolute' ),
         imageSummary: norseUtils.getImage( item.data.mainImage, 'block(90, 90)', false, 'absolute' ),
         displayName: item.displayName,
-        inventory: item.data.inventory,
+        stock: item.data.inventory > parseInt(items[i].amount),
         price: item.data.price,
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),
@@ -361,7 +362,7 @@ exports.getShippingPrice = getShippingPrice;
 
 function checkCartStock( items ){
   for( var i = 0; i < items.length; i++ ){
-    if( items[i].inventory === 0 ){
+    if( !items[i].stock ){
       return false;
     }
   }
