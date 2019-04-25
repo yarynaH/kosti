@@ -50,6 +50,10 @@
         <include>alignleft alignright | bold italic | bullist numlist | link unlink</include>
       </config>
     </input>
+    <input name="inventory" type="Long">
+      <label>Inventory</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <item-set name="sizes">
       <label>Available sizes</label>
       <items>
