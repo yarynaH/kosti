@@ -36,6 +36,7 @@ a {
 
     &.not-active {
         pointer-events: none;
+        background: $color-primary30;
     }
 }
 
