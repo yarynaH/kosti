@@ -52,11 +52,9 @@
                                         <span class="price-value" data-th-text="${content.data.price}"></span>
                                     </div>
                                 </div>
-                                <div class="pdp-price" data-th-if="${content.data.inventory == 0}">
-                                    <div class="price">
-                                        <span class="price-value">Нет в наличии</span>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="out-of-stock-msg " data-th-if="${content.data.inventory == 0}">
+                                Нет в наличии
                             </div>
                             <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
                             <div class="pdp-swatches">

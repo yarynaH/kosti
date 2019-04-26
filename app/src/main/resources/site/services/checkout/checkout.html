@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="summary-product-price">UAH <span data-th-text="${product.price}"></span></div>
                                 </div>
-                                <div data-th-if="${product.inventory == 0}" class="summary-product-price-wrap">Нет в наличии</div>
+                                <div data-th-if="${product.inventory == 0}" class="out-of-stock-msg ">Нет в наличии</div>
                             </div>
                         </div>
                     </div>
