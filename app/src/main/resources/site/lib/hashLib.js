@@ -53,7 +53,6 @@ function getUserByHash( mail, hash, hashType ) {
 
 function activateUserHash( mail, hash, hashType ){
     var user = getUserByHash( mail, hash, hashType );
-    norseUtils.log(user);
     if( user === true ){
         return true;
     } else if( !user ){

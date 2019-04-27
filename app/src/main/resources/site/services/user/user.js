@@ -58,7 +58,7 @@ exports.post = function( req ) {
         result = userLib.resetPass( params.email );
     } else if( params.action == 'resetpass' ){
         if( userLib.setNewPass( params.password, params.email, params.hash ) ){
-            logout();
+            return logout();
         } else {
             return {
                 body: thymeleaf.render(resolve(templates.resetFailed), {
