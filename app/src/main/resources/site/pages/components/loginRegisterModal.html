@@ -16,7 +16,7 @@
 
                     <div class="form-group form-group__action">
                         <label for="password-login-input" class="label">ПАРОЛЬ</label>
-                        <a href="" class="modal-action hidden">Забыли пароль?</a>
+                        <a href="" class="modal-action modal-action-forgotpass">Забыли пароль?</a>
                         <input name="password" type="password" class="input-text" id="password-login-input">
                     </div>
                     <div class="form-group form-group-error is-invalid hidden">
@@ -90,10 +90,13 @@
                 <form action="#" class="reset-form">
                     <div class="form-group">
                         <label for="email-forgot-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                        <input type="email" class="input-text" id="email-forgot-input">
+                        <input name="email" type="email" class="input-text" id="email-forgot-input">
+                    </div>
+                    <div class="form-group form-group-error is-invalid hidden">
+                        <span></span>
                     </div>
 
-                    <button class="modal-btn">ОТПРАВИТЬ</button>
+                    <button class="modal-btn modal-btn-reset">ОТПРАВИТЬ</button>
                 </form>
             </div>
         </div>

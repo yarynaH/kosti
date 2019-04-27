@@ -1,8 +1,4 @@
 var thymeleaf = require('/lib/xp/thymeleaf');
-var libs = {
-    context: require('/lib/xp/context')
-};
-
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');

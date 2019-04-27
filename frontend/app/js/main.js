@@ -20,6 +20,25 @@ function initLoginRegisterForm(){
 		hideLoginRegisterModal();
 		$('.modal-login').addClass('show');
 	});
+	$('.modal-action-forgotpass').on('click', function(e){
+		e.preventDefault();
+		hideLoginRegisterModal();
+		$('.modal-forgot-password').addClass('show');
+	});
+	$('.reset-form .modal-btn-reset').on('click', function(e){
+		e.preventDefault();
+		var data = {
+			email: $('.modal-forgot-password').find("input[name=email]").val(),
+			action: 'forgotpass'
+		};
+		var request = $.ajax({
+			url: userServiceUrl,
+			method: "POST",
+			data: data
+		}).done(function(data) {
+			console.log(data);
+		});
+	});
 	$('.login-form .modal-btn-login').on('click', function(e){
 		e.preventDefault();
 		var data = {
@@ -76,6 +95,12 @@ function initLoginRegisterForm(){
 				$('.modal-registration .form-group-error').addClass('hidden');
 			}
 		});
+	});
+	$('.resetPassForm').on('submit', function( e ){
+		if( $('.resetPassInput').val() != $('.resetPassInputConfirm').val() ){
+			e.preventDefault();
+			$('.forgotPassValidation').removeClass('hidden');
+		}
 	});
 	function hideLoginRegisterModal(){
 		$('body div.modal').each(function(){

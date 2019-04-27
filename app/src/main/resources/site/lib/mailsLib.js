@@ -12,6 +12,7 @@ var contextLib = require('/lib/contextLib');
 var mailsTemplates = {
 	orderCreated: "../pages/mails/orderCreated.html",
 	userActivation: "../pages/mails/userActivation.html",
+	forgotPass: "../pages/mails/forgotPass.html",
 	newsletter: "../pages/mails/newsletter.html",
 	pendingItem: "../pages/mails/pendingItem.html",
 	regularTicket: "../pages/pdfs/regularTicket.html",
@@ -26,6 +27,9 @@ function sendMail( type, email, params ){
 			break;
 		case 'userActivation':
 			mail = getActivationMail( email, params );
+			break;
+		case 'forgotPass':
+			mail = getForgotPassMail( email, params );
 			break;
 		case 'newsletter':
 			mail = sendNewsletter();
@@ -160,6 +164,26 @@ function getActivationMail( mail, params ){
 	return{
 		body: thymeleaf.render( resolve(mailsTemplates.userActivation), {
 			activationUrl: activationUrl,
+    		site: portal.getSite()
+		}),
+		subject: "Активация аккаунта",
+		from: "noreply@kostirpg.com"
+	}
+}
+
+function getForgotPassMail( mail, params ){
+	var resetUrl = portal.serviceUrl({
+	    service: 'user',
+	    type: 'absolute',
+	    params: {
+	        action: "forgotPass",
+	        mail: encodeURI(mail),
+	        hash: params.forgotPassHash
+	    }
+	});
+	return{
+		body: thymeleaf.render( resolve(mailsTemplates.forgotPass), {
+			resetUrl: resetUrl,
     		site: portal.getSite()
 		}),
 		subject: "Активация аккаунта",
