@@ -186,7 +186,7 @@ function getForgotPassMail( mail, params ){
 			resetUrl: resetUrl,
     		site: portal.getSite()
 		}),
-		subject: "Активация аккаунта",
+		subject: "Смена пароля",
 		from: "noreply@kostirpg.com"
 	}
 }

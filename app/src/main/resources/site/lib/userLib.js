@@ -163,7 +163,7 @@ function forgotPass( email, hash ){
 		return hashLib.getUserByHash( email, hash, 'resetPassHash' );
     });
 	if( user && user !== true ){
-		return true;
+		return user.key;
 	}
 	return false;
 }
@@ -173,9 +173,9 @@ exports.forgotPass = forgotPass;
 function setNewPass( password, email, hash ){
 	return contextLib.runAsAdmin(function () {
 		var user = forgotPass(email, hash);
-		if( user && user !== true ){
+		if( user ){
 			authLib.changePassword({
-			    userKey: user.key,
+			    userKey: user,
 			    password: password
 			});
 			hashLib.activateUserHash( email, hash, 'resetPassHash' );
