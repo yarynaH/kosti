@@ -11,7 +11,7 @@ var pump = require('pump');
 var fontName = 'iconfont';
 
 gulp.task('build',  function(callback) {
-	gulpSequence(['sass', 'images', 'fonts', 'js', 'css'], 'copy')(callback)
+	gulpSequence(['sass', 'images', 'fonts', 'js', 'css', 'lib'], 'copy')(callback)
 });
 
 gulp.task('sass', function() {
@@ -26,9 +26,14 @@ gulp.task('images', function(){
 		.pipe(gulp.dest('build/images'));
 });
 
+gulp.task('lib', function(){
+	return gulp.src('app/lib/**/*')
+		.pipe(gulp.dest('build/lib'));
+});
+
 gulp.task('js', function(cb){
 	pump([
-		gulp.src('app/js/**/*'),
+		gulp.src('app/js/*'),
 		uglify(),
 		gulp.dest('build/js')
 	],
