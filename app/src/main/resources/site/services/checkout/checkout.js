@@ -23,7 +23,9 @@ function generateCheckoutPage(req){
         if( params.ik_inv_st == 'success' ){
             params.step = "success";
             modifyCart( model.cart._id, { status: "paid" });
-            cartLib.modifyInventory(model.cart.items);
+            contextLib.runAsAdmin(function () {
+                cartLib.modifyInventory(model.cart.items);
+            });
         } else if( params.ik_inv_st == 'fail' || params.ik_inv_st == 'canceled' ){
             params.error = true;
             params.step = "3";
@@ -31,7 +33,9 @@ function generateCheckoutPage(req){
         } else if( params.ik_inv_st == 'waitAccept' ){
             params.step = "pending";
             modifyCart( model.cart._id, { status: "pending" });
-            cartLib.modifyInventory(model.cart.items);
+            contextLib.runAsAdmin(function () {
+                cartLib.modifyInventory(model.cart.items);
+            });
         }
     }
     switch(params.step){
