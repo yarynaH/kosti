@@ -145,6 +145,33 @@ exports.modify = function( cartId, id, amount, itemSize, force ){
   return result;
 }
 
+function modifyInventory( items ){
+  items = norseUtils.forceArray(items);
+  for( var i = 0; i < items.length; i++ ){
+    var result = contentLib.modify({
+      key: items[i]._id,
+      requireValid: false,
+      branch: 'draft',
+      editor: (function (node) {
+        return editor(node, items[i].amount);
+      })
+    });
+    contentLib.publish({
+      keys: [items[i]._id],
+      sourceBranch: 'draft',
+      targetBranch: 'master'
+    });
+  }
+  function editor( node, amount ){
+    if( typeof node.data.inventory !== 'undefined' && node.data.inventory > 0 ){
+      node.data.inventory = node.data.inventory - amount;
+    }
+    return node;
+  }
+}
+
+exports.modifyInventory = modifyInventory;
+
 exports.setUserDetails = function( cartId, params ){
   var cartRepo = connectCartRepo();
   var result = cartRepo.modify({
