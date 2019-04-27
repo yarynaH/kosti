@@ -25,6 +25,7 @@
     "gulp-iconfont": "^9.0.0",
     "gulp-jquery": "^1.1.2",
     "jquery": "^3.2.1",
+    "jsqr": "^1.2.0",
     "node-font-awesome": "^1.0.2"
   }
 }
