@@ -25,7 +25,7 @@ dependencies {
     include 'com.enonic.lib:menu:2.0.1'
     include "com.enonic.xp:lib-node:${xpVersion}"
     include "com.enonic.xp:lib-context:${xpVersion}"
-    include 'com.enonic.xp:lib-mustache:6.1.0'
+    // include 'com.enonic.xp:lib-mustache:6.1.0'
     include 'com.enonic.lib:lib-router:1.0.0'
     include "com.enonic.xp:lib-value:${xpVersion}"
     include 'com.enonic.lib:text-encoding:1.1.0'
@@ -36,8 +36,8 @@ dependencies {
     include "com.enonic.xp:lib-io:${xpVersion}"
     include "com.enonic.xp:lib-mail:${xpVersion}"
     include "com.enonic.xp:lib-repo:${xpVersion}"
-    include "com.enonic.lib:idproviderdisplay:1.0.1"
-    include 'openxp.lib:htmlexporter:1.0.0'
+    // include "com.enonic.lib:idproviderdisplay:1.0.1"
+    // include 'openxp.lib:htmlexporter:1.0.0'
     include 'com.enonic.lib:lib-cache:1.1.0'
     //include "com.enonic.xp:lib-websocket:${xpVersion}"
 }
