@@ -34,7 +34,7 @@ exports.get = function( req ) {
             break;
         case "newsletterUnsubscribe":
             mailsLib.unsubscribe( params.hash );
-            view = resolve(templates.forgotPassForm);
+            view = resolve(templates.unsubscribe);
             break;
         default:
             break;
