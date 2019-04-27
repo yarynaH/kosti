@@ -38,7 +38,7 @@
                                     <span class="label">Количество:</span>
                                     <span class="value" data-th-text="${product.amount}"></span>
                                 </div>
-                                <div class="summary-product-price-wrap">
+                                <div data-th-if="${product.stock}" class="summary-product-price-wrap">
                                     <div class="summary-product-price price-sale"
                                         data-th-if="${product.price and product.finalPrice and product.price < product.finalPrice}" >
                                         UAH
@@ -46,6 +46,7 @@
                                     </div>
                                     <div class="summary-product-price">UAH <span data-th-text="${product.price}"></span></div>
                                 </div>
+                                <div data-th-unless="${product.stock}" class="out-of-stock-msg">Нет в наличии</div>
                             </div>
                         </div>
                     </div>

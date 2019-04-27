@@ -194,6 +194,10 @@
             border-top: 1px solid $color-primary20;
             padding-top: 25px;
         }
+
+        .out-of-stock-msg {
+            font-size: rem(16);
+        }
     }
 
     &-product-info {

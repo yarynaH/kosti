@@ -30,7 +30,7 @@ exports.getPageComponents = function( req ) {
   if( content && content.data && content.data.mainImage ){
     var ogImage = portal.imageUrl({
       id: content.data.mainImage,
-      scale: 'block(600, 600)',
+      scale: '(1,1)',
       type: 'absolute'
     });
   } else {

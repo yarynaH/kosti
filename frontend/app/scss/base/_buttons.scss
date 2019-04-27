@@ -18,6 +18,12 @@
             text-transform: uppercase;
             transition: transition();
             user-select: none;
+
+            &.not-active,
+            &[disabled] {
+                pointer-events: none;
+                background: $color-primary30;
+            }
         }
 
         @if $style == transparent {

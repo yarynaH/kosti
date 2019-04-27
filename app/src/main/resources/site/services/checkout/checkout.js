@@ -23,6 +23,7 @@ function generateCheckoutPage(req){
         if( params.ik_inv_st == 'success' ){
             params.step = "success";
             modifyCart( model.cart._id, { status: "paid" });
+            cartLib.modifyInventory(model.cart.items);
         } else if( params.ik_inv_st == 'fail' || params.ik_inv_st == 'canceled' ){
             params.error = true;
             params.step = "3";
@@ -30,6 +31,7 @@ function generateCheckoutPage(req){
         } else if( params.ik_inv_st == 'waitAccept' ){
             params.step = "pending";
             modifyCart( model.cart._id, { status: "pending" });
+            cartLib.modifyInventory(model.cart.items);
         }
     }
     switch(params.step){
@@ -47,7 +49,7 @@ function generateCheckoutPage(req){
             var shipping = getShipping(model.cart.country);
             shipping = getShippingById( shipping, params.shipping );
             model.cart = modifyCart( model.cart._id, params );
-            var stepView = thymeleaf.render( resolve('stepThree.html'), createStepThreeModel( params, req ));
+            var stepView = thymeleaf.render( resolve('stepThree.html'), createStepThreeModel( params, req, model.cart ));
             model.payment = 'active';
             break;
         case 'submit':
@@ -95,13 +97,15 @@ function generateCheckoutPage(req){
             params: params,
             shopUrl: getShopUrl(),
             shipping: shipping,
+            cart: cart,
             address: params.country.replaceAll(' ', '+') + ',' + params.city.replaceAll(' ', '+') + ',' + params.address.replaceAll(' ', '+')
         };
     }
 
-    function createStepThreeModel( params, req ){
+    function createStepThreeModel( params, req, cart ){
         return {
             shopUrl: getShopUrl(),
+            cart: cart,
             error: params.error
         };
     }

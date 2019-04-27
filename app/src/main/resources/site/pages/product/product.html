@@ -41,7 +41,7 @@
                         <form data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}" class="pdp-form" method="POST">
                             <div class="pdp-info_header">
                                 <h2 class="pdp-title" data-th-text="${content.displayName}"></h2>
-                                <div class="pdp-price">
+                                <div data-th-unless="${content.data.inventory == 0}" class="pdp-price">
                                     <div class="price price-sale" 
                                         data-th-if="${content.data.price and content.data.finalPrice and content.data.price < content.data.finalPrice}" >
                                         <span class="price-curency">UAH</span>
@@ -52,6 +52,9 @@
                                         <span class="price-value" data-th-text="${content.data.price}"></span>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="out-of-stock-msg" data-th-if="${content.data.inventory == 0}">
+                                Нет в наличии
                             </div>
                             <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
                             <div class="pdp-swatches">
@@ -76,7 +79,7 @@
                                     <span data-th-attr="data-id=${content._id}, data-size=${content.data.size}" class="qty-increment" title="Увеличить количество">+</span>
                                 </div>
                             </div>
-                            <button class="add_to_cart-btn" title="В корзину">В КОРЗИНУ</button>
+                            <button data-th-disabled="${content.data.inventory == 0}" class="add_to_cart-btn" title="В корзину">В КОРЗИНУ</button>
                             <input name="price" type="hidden" data-th-attr="value=${content.data.price}">
                             <input name="productId" type="hidden" data-th-attr="value=${content._id}">
                         </form>
@@ -92,9 +95,11 @@
                                     <a target="_blank" data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+content._path, '_type=absolute'})}" class="social-link twitter"></a>
                                 </li>
                                 <li class="social-item">
-                                    <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
-                                    <script type="text/javascript"><!--
-                                    document.write(VK.Share.button(false,{type: "custom", text: "<span class='social-link vk'></span>"}));
+                                    <script data-th-src="${portal.assetUrl({'_path=js/vkshare.js'})}"></script>
+                                    <script async type="text/javascript"><!--
+                                    if(typeof VK !== 'undefined'){
+                                        document.write(VK.Share.button(false,{type: "custom", text: "<span class='social-link vk'></span>"}))
+                                    }
                                     --></script>
                                 </li>
                             </ul>

@@ -32,15 +32,20 @@
                                 <span data-th-attr="data-id=${item._id}, data-size=${item.itemSize}" class="qty-increment" title="Увеличить количество">+</span>
                             </div>
                         </div>
-                        <div class="cart-product_price-wrap">
-                            <div class="cart-product_price price-sale"
-                                data-th-if="${item.price and item.finalPrice and item.price < item.finalPrice}" >
-                                <span class="price-curency">UAH</span>
-                                <span data-th-text="${item.finalPrice}"></span>
+                        <div class="cart-product_price-wrap" data-th-attr="data-id=${item._id}, data-size=${item.itemSize}">
+                            <div data-th-classappend="${item.stock ? '' : 'hidden'}" class="productPrice">
+                                <div class="cart-product_price price-sale"
+                                    data-th-if="${item.price and item.finalPrice and item.price < item.finalPrice}" >
+                                    <span class="price-curency">UAH</span>
+                                    <span data-th-text="${item.finalPrice}"></span>
+                                </div>
+                                <div class="cart-product_price">
+                                    <span class="price-curency">UAH</span>
+                                    <span data-th-text="${item.price}"></span>
+                                </div>
                             </div>
-                            <div class="cart-product_price">
-                                <span class="price-curency">UAH</span>
-                                <span data-th-text="${item.price}"></span>
+                            <div data-th-classappend="${item.stock ? 'hidden' : ''}" class="out-of-stock-msg productOutOfStock">
+                                Нет в наличии
                             </div>
                         </div>
                         <span class="cart-remove_btn" data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"></span>
@@ -55,7 +60,7 @@
                 </div>
                 <div class="checkout-action">
                     <a data-th-href="${shopUrl}" class="checkout-back" title="В магазин">В магазин</a>
-                    <a class="checkout-continue" data-th-href="${portal.serviceUrl({'_service=checkout'})}" title="Продолжить">
+                    <a class="checkout-continue" data-th-classappend="${cart.stock ? '' : 'not-active'}" data-th-href="${portal.serviceUrl({'_service=checkout'})}" title="Продолжить">
                         ПРОДОЛЖИТЬ
                     </a>
                 </div>

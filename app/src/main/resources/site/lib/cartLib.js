@@ -20,6 +20,7 @@ exports.getCart = function( cartId ){
   cart.itemsNum = calculateCartItems(cart.items);
   cart.itemsWeight = caclculateCartWeight(cart.items);
   cart.price = calculateCart( cart );
+  cart.stock = checkCartStock( cart.items );
   return cart;
 }
 
@@ -143,6 +144,33 @@ exports.modify = function( cartId, id, amount, itemSize, force ){
   }
   return result;
 }
+
+function modifyInventory( items ){
+  items = norseUtils.forceArray(items);
+  for( var i = 0; i < items.length; i++ ){
+    var result = contentLib.modify({
+      key: items[i]._id,
+      requireValid: false,
+      branch: 'draft',
+      editor: (function (node) {
+        return editor(node, items[i].amount);
+      })
+    });
+    contentLib.publish({
+      keys: [items[i]._id],
+      sourceBranch: 'draft',
+      targetBranch: 'master'
+    });
+  }
+  function editor( node, amount ){
+    if( typeof node.data.inventory !== 'undefined' && node.data.inventory > 0 ){
+      node.data.inventory = node.data.inventory - amount;
+    }
+    return node;
+  }
+}
+
+exports.modifyInventory = modifyInventory;
 
 exports.setUserDetails = function( cartId, params ){
   var cartRepo = connectCartRepo();
@@ -276,12 +304,14 @@ function getCartItems( items ){
   var result = [];
   for( var i = 0; i < items.length; i++ ){
     var item = contentLib.get({ key: items[i].id });
+    if( typeof item.data.inventory === 'undefined' ){ item.data.inventory = 99999999 }
     if( item && item.data ){
       result.push({
         _id: item._id,
         imageCart: norseUtils.getImage( item.data.mainImage, 'block(140, 140)', false, 'absolute' ),
         imageSummary: norseUtils.getImage( item.data.mainImage, 'block(90, 90)', false, 'absolute' ),
         displayName: item.displayName,
+        stock: item.data.inventory >= parseInt(items[i].amount),
         price: item.data.price,
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),
@@ -356,3 +386,12 @@ function getShippingPrice( cart ){
 }
 
 exports.getShippingPrice = getShippingPrice;
+
+function checkCartStock( items ){
+  for( var i = 0; i < items.length; i++ ){
+    if( !items[i].stock ){
+      return false;
+    }
+  }
+  return true;
+}
