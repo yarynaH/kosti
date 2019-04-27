@@ -19,9 +19,15 @@ function handleReq(req) {
         var view = resolve('product.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
+        var fileName = portal.assetUrl({path:'js/pdp.js'});
         return {
           body: body,
-          contentType: 'text/html'
+          contentType: 'text/html',
+          pageContributions: {
+            bodyEnd: [
+                "<script src='"+fileName+"'></script>"
+            ]
+          }
         };
     }
 
