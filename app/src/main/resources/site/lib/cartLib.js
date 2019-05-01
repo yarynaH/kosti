@@ -304,7 +304,7 @@ function getCartItems( items ){
   var result = [];
   for( var i = 0; i < items.length; i++ ){
     var item = contentLib.get({ key: items[i].id });
-    if( typeof item.data.inventory === 'undefined' ){ item.data.inventory = 99999999 }
+    if( item && item.data && typeof item.data.inventory === 'undefined' ){ item.data.inventory = 99999999 }
     if( item && item.data ){
       result.push({
         _id: item._id,
