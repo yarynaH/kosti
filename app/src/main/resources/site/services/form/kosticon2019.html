@@ -6,11 +6,273 @@
 <body class="page-wrapper">
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main form">
+    <main class="main site_width form">
+        <h1 class="game_reg-title">Запись на игры KostiC on 2019</h1>
+        <h3 class="game_reg-desc">
+            Обладатели Легендарного Билета имеют возможность записаться на 2 (ДВЕ) игры онлайн.
+        </h3>
+        <h3 class="game_reg-desc">
+            Обладатели Обычного Билета - на 1 (ОДНУ) игру онлайн.
+        </h3>
         <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=form'})}">
-            <input type="checkbox" name="game1" value="1">
-            <input type="checkbox" name="game2" value="2">
-            <input type="checkbox" name="game3" value="3">
+
+            <div class="form-group form-group-name">
+                <label for="game_reg-name-input" class="label">Ваше Имя.</label>
+                <input type="text" class="input-text" id="game_reg-name-input">
+            </div>
+
+            <div class="form-group form-group-id">
+                <label for="game_reg-id-input" class="label">Ваш ID (от Интеркассы)</label>
+                <input type="text" class="input-text" id="game_reg-id-input">
+            </div>
+
+            <div class="game_reg-game1">
+                <h2 class="game_reg-subtitle">
+                    Суббота Fantasy Блок (13:00 - 15:00)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option1" hidden>
+                    <label name="game1" for="game_reg-game1-option1" class="label-checkbox">Виталик \ Метрион \ D&D (Для новичков)</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option2" hidden>
+                    <label name="game1" for="game_reg-game1-option2" class="label-checkbox">Макс \ Метрион \ D&D (Для новичков)</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option3" hidden>
+                    <label name="game1" for="game_reg-game1-option3" class="label-checkbox">Денис \ Метрион \ D&D (Для новичков)</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option4" hidden>
+                    <label name="game1" for="game_reg-game1-option4" class="label-checkbox">Даша \ Мир Магии и Волшебства \ HP - D&D</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option5" hidden>
+                    <label name="game1" for="game_reg-game1-option5" class="label-checkbox">Стас \ Неприятности в форте Кебрамар \ D&D</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option6" hidden>
+                    <label name="game1" for="game_reg-game1-option6" class="label-checkbox">Леша \ "Пропавшая невеста" \ D&D</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option7" hidden>
+                    <label name="game1" for="game_reg-game1-option7" class="label-checkbox">Ярослав \ Сказки дедушки Салабима" \ D&D</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option8" hidden>
+                    <label name="game1" for="game_reg-game1-option8" class="label-checkbox">Paradox - Найти информатора\ D&D</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option9" hidden>
+                    <label name="game1" for="game_reg-game1-option9" class="label-checkbox">PyROmanSER \ Конец Одиссеи \ GURPS</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game1-option10" hidden>
+                    <label name="game1" for="game_reg-game1-option10" class="label-checkbox">Никита \ Защитники Короны \ 7е Море</label>
+                </div>
+            </div>
+
+            <div class="game_reg-game2">
+                <h2 class="game_reg-subtitle">
+                        Суббота ENOA EPIC Блок (16:00 - 18:30)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game2-option1" hidden>
+                    <label name="game2" for="game_reg-game2-option1" class="label-checkbox">Саша</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game2-option2" hidden>
+                    <label name="game2" for="game_reg-game2-option2" class="label-checkbox">Макс</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game2-option3" hidden>
+                    <label name="game2" for="game_reg-game2-option3" class="label-checkbox">Денис</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game2-option4" hidden>
+                    <label name="game2" for="game_reg-game2-option4" class="label-checkbox">Даша</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game2-option5" hidden>
+                    <label name="game2" for="game_reg-game2-option5" class="label-checkbox">Стас</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game2-option6" hidden>
+                    <label name="game2" for="game_reg-game2-option6" class="label-checkbox">Леша</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game2-option7" hidden>
+                    <label name="game2" for="game_reg-game2-option7" class="label-checkbox">Ярослав</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game2-option8" hidden>
+                    <label name="game2" for="game_reg-game2-option8" class="label-checkbox">Paradox</label>
+                </div>
+            </div>
+            
+
+            <div class="game_reg-game3">
+                <h2 class="game_reg-subtitle">
+                    Суббота DARK Блок (16:00 - 18:30)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option1" hidden>
+                    <label name="game3" for="game_reg-game3-option1" class="label-checkbox">Саша \ V:tM</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option2" hidden>
+                    <label name="game3" for="game_reg-game3-option2" class="label-checkbox">Макс \ Мыса Дьявола \ Trail of Cthulhu</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option3" hidden>
+                    <label name="game3" for="game_reg-game3-option3" class="label-checkbox">Олег Б. - Коли годинник проб'є на восьму \ D&D</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option4" hidden>
+                    <label name="game3" for="game_reg-game3-option4" class="label-checkbox">Никита \ Shades of Twilight \ Dark Heresy</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option5" hidden>
+                    <label name="game3" for="game_reg-game3-option5" class="label-checkbox">PyROmanSER \ Невесомость. Вакуум! Зомби? (GURPS)</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option6" hidden>
+                    <label name="game3" for="game_reg-game3-option6" class="label-checkbox">Стас - Будни Кургату \ D&D Ravenloft</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option7" hidden>
+                    <label name="game3" for="game_reg-game3-option7" class="label-checkbox">Леша \ Ужас во Тьме \ 10 Candles</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option8" hidden>
+                    <label name="game3" for="game_reg-game3-option8" class="label-checkbox">Ирина \ Вечная ночь в Детройте \ V:tM</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option9" hidden>
+                    <label name="game3" for="game_reg-game3-option9" class="label-checkbox">Антон Ш \ Архетерика Проблеми Ранньої Індустріалізації</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game3-option10" hidden>
+                    <label name="game3" for="game_reg-game3-option10" class="label-checkbox">Виталик \ Свешенное Время \ Runequest</label>
+                </div>
+            </div>
+
+            <div class="game_reg-game4">
+                <h2 class="game_reg-subtitle">
+                    Воскресение Cyber Блок (14:30 - 16:30)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game4-option1" hidden>
+                    <label name="game4" for="game_reg-game4-option1" class="label-checkbox">Макс \ Работа от Костецки \ CP2020</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game4-option2" hidden>
+                    <label name="game4" for="game_reg-game4-option2" class="label-checkbox">Стас - Цветок Небес \ Coriolis</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game4-option3" hidden>
+                    <label name="game4" for="game_reg-game4-option3" class="label-checkbox">Андрей С. \ Alien: Естественный отбор (GURPS)</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game4-option4" hidden>
+                    <label name="game4" for="game_reg-game4-option4" class="label-checkbox">Ярослав \ Дело на миллион \ Firefly SW</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game4-option5" hidden>
+                    <label name="game4" for="game_reg-game4-option5" class="label-checkbox">Никита - Ирина \ На секретной службе Ее Величества \ M:tA</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game4-option6" hidden>
+                    <label name="game4" for="game_reg-game4-option6" class="label-checkbox">PyROmanSER \ 88 миль в час \ GURPS</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game4-option7" hidden>
+                    <label name="game4" for="game_reg-game4-option7" class="label-checkbox">Tifion \ Реликвии прошлого \ Star Wars</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game4-option8" hidden>
+                    <label name="game4" for="game_reg-game4-option8" class="label-checkbox">Виталик \ Аркадия в опасности \ Blasters & Dragons</label>
+                </div>
+            </div>
+
+
+            <div class="game_reg-game5">
+                <h2 class="game_reg-subtitle">
+                    Воскресение Open Блок (16:45 - 18:45)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game5-option1" hidden>
+                    <label name="game5" for="game_reg-game5-option1" class="label-checkbox">Виталик \ Скелетная Пехота</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game5-option2" hidden>
+                    <label name="game5" for="game_reg-game5-option2" class="label-checkbox">Олег Б. \ Кошенята маєтку Ковель \ D&D (Adventure L.)</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game5-option3" hidden>
+                    <label name="game5" for="game_reg-game5-option3" class="label-checkbox">Макс \ Портал под звёздами \ DCC</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game5-option4" hidden>
+                    <label name="game5" for="game_reg-game5-option4" class="label-checkbox">Никита \ Toll of the Trolls \ M:tA</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game5-option5" hidden>
+                    <label name="game5" for="game_reg-game5-option5" class="label-checkbox">PyROmanSER \ Бензин и песок \ GURPS</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game5-option6" hidden>
+                    <label name="game5" for="game_reg-game5-option6" class="label-checkbox">Антон Б \ Tower of the Star Gazer \ LotFP</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game5-option7" hidden>
+                    <label name="game5" for="game_reg-game5-option7" class="label-checkbox">Антон Ш \ Проблеми Ранньої Індустріалізації \ Архетерика</label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="game_reg-game5-option8" hidden>
+                    <label name="game5" for="game_reg-game5-option8" class="label-checkbox">Андрей С. \ Ловите момент, друзья! \ (GURPS: Old West)</label>
+                </div>
+            </div>
+            
             <input type="hidden" name="action" value="submitForm">
             <input type="hidden" name="formType" value="kosticon2019">
             <input type="submit" name="submit" value="Submit">
