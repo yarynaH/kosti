@@ -10,6 +10,7 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var templates = {
     forgotPassForm: "forgotPassForm.html",
     resetFailed: "resetFailed.html",
+    unsubscribe: "unsubscribe.html",
     userActivation: "userActivation.html"
 }
 
@@ -33,6 +34,7 @@ exports.get = function( req ) {
             break;
         case "newsletterUnsubscribe":
             mailsLib.unsubscribe( params.hash );
+            view = resolve(templates.unsubscribe);
             break;
         default:
             break;

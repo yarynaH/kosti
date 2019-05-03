@@ -8,6 +8,7 @@ var ioLib = require("/lib/xp/io");
 var qrLib = require('qrLib');
 var nodeLib = require('/lib/xp/node');
 var contextLib = require('/lib/contextLib');
+var newsletter = require('/pages/newsletter/newsletter');
 
 var mailsTemplates = {
 	orderCreated: "../pages/mails/orderCreated.html",
@@ -73,10 +74,18 @@ function prepareNewsletter(){
     		hash: tempEmail.subscriptionHash
     	});
     }
+    return emails;
 }
 
 function sendNewsletter( email ){
-	
+	var newsletterView = newsletter.renderView();
+	var sent = mailLib.send({
+	    from: 'noreply@kostirpg.com',
+	    to: ['maxskywalker94@gmail.com'],
+	    subject: newsletterView.displayName,
+	    body: newsletterView.body,
+	    contentType: 'text/html; charset="UTF-8"'
+	});
 }
 
 function unsubscribe( hash ){
