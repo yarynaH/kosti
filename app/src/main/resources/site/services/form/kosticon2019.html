@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main form">
+        <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=form'})}">
+            <input type="checkbox" name="game1" value="1">
+            <input type="checkbox" name="game2" value="2">
+            <input type="checkbox" name="game3" value="3">
+            <input type="hidden" name="action" value="submitForm">
+            <input type="hidden" name="formType" value="kosticon2019">
+            <input type="submit" name="submit" value="Submit">
+        </form>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>
