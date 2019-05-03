@@ -158,6 +158,63 @@ exports.logout = function(){
 	return authLib.logout();
 }
 
+function forgotPass( email, hash ){
+	var user = contextLib.runAsAdmin(function () {
+		return hashLib.getUserByHash( email, hash, 'resetPassHash' );
+    });
+	if( user && user !== true ){
+		return user.key;
+	}
+	return false;
+}
+
+exports.forgotPass = forgotPass;
+
+function setNewPass( password, email, hash ){
+	return contextLib.runAsAdmin(function () {
+		var user = forgotPass(email, hash);
+		if( user ){
+			authLib.changePassword({
+			    userKey: user,
+			    password: password
+			});
+			hashLib.activateUserHash( email, hash, 'resetPassHash' );
+			return true;
+		}
+		return false;
+    });
+}
+
+exports.setNewPass = setNewPass;
+
+function resetPass( email ){
+	if( !email || email == '' ){
+		return { 
+			status: 404,
+			message: 'Пользователь не найден.'
+		};
+	}
+	var userExist = contextLib.runAsAdmin(function () {
+		return checkUserExists( false, email ).exist
+    });
+    if( !userExist ){
+		return { 
+			status: 404,
+			message: 'Пользователь не найден.'
+		};
+    }
+    var hash = contextLib.runAsAdmin(function () {
+		return hashLib.saveHashForUser( email, 'resetPassHash' );
+    });
+    mailsLib.sendMail( 'forgotPass', email, {forgotPassHash: hash} );
+	return { 
+		status: 200,
+		message: 'Инструкции отправленны вам на почту.'
+	};
+}
+
+exports.resetPass = resetPass;
+
 function activateUser( mail, hash ){
     return contextLib.runAsAdmin(function () {
 		return hashLib.activateUserHash( mail, hash, 'registerHash' );
@@ -193,26 +250,31 @@ exports.uploadUserImage = function(){
 }
 
 function checkUserExists( name, mail ){
-	var user = authLib.findUsers({
-		start: 0,
-		count: 1,
-		query: 'login="' + name + '"'
-	});
-	if( user.total > 0 ){
-		return {
-			exist: true,
-			type: 'name'
+	var user = false;
+	if( name ){
+		user = authLib.findUsers({
+			start: 0,
+			count: 1,
+			query: 'login="' + name + '"'
+		});
+		if( user.total > 0 ){
+			return {
+				exist: true,
+				type: 'name'
+			}
 		}
 	}
-	user = authLib.findUsers({
-		start: 0,
-		count: 1,
-		query: 'email="' + mail + '"'
-	});
-	if( user.total > 0 ){
-		return {
-			exist: true,
-			type: 'mail'
+	if( mail ){
+		user = authLib.findUsers({
+			start: 0,
+			count: 1,
+			query: 'email="' + mail + '"'
+		});
+		if( user.total > 0 ){
+			return {
+				exist: true,
+				type: 'mail'
+			}
 		}
 	}
 	return {
