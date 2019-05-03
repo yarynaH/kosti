@@ -66,7 +66,7 @@
                 }
             }
 
-            @include tablet-mobile {
+            @include mobile {
                 align-items: center;
                 flex: 1 1 100%;
             }
@@ -115,7 +115,7 @@
         }
 
         @if $view == sides_align {
-            @include tablet-mobile {
+            @include mobile {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-between;

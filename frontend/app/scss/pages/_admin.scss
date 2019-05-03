@@ -61,6 +61,13 @@
     height: 100%;
     background-color:red;
 }
-.readQrMain{
-    padding: 20px;
+
+.read-qr {
+    &-form {
+        padding: 25px 0;
+    }
+
+    &-block {
+        margin-top: 25px;
+    }
 }

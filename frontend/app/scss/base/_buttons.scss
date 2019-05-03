@@ -13,6 +13,7 @@
             cursor: pointer;
             border: 1px solid transparent;
             font-size: rem(14);
+            line-height: normal;
             font-weight: bold;
             text-align: center;
             text-transform: uppercase;
@@ -46,7 +47,7 @@
 
         @if $style == dark {
             box-shadow: 0 4px 16px 0 rgba($color-primary1, 0.16);
-            background-color: $color-primary21;
+            background-color: $color-primary17;
             color: $color-primary1;
         }
 
@@ -122,4 +123,8 @@
 
 .button-light {
     @include button-style(global light);
+}
+
+.button-dark {
+    @include button-style(global dark);
 }
