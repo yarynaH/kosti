@@ -77,10 +77,10 @@
             <div class="games_result-block">
                 <h4 class="games_result-subtitle title-4 h-mb-20">Open Блок (16:45 - 18:45)</h4>
                 <div class="master-list">
-                    <div class="master-item" data-th-each="game: ${results.game4}">
+                    <div class="master-item" data-th-each="game: ${results.game5}">
                         <h5 class="master-name title-5 h-mb-10" data-th-text="${portal.localize({'_key=kosticon2019.game5.' + game.key, '_locale=ru'})}"></h5>
                         <div class="master-table">
-                            <div data-th-each="player: ${results.game4[game.key]}" class="master-participant">
+                            <div data-th-each="player: ${results.game5[game.key]}" class="master-participant">
                                 <span class="master-participant-name" data-th-text="${player.name}"></span> 
                                 <span class="master-participant-id" data-th-text="${player.id}"></span>
                             </div>
