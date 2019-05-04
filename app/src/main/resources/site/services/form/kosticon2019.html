@@ -276,6 +276,10 @@
             <div class="form-group form-group-error is-invalid invalid-qauntity hidden">
                 <span>Вы выбрали слишком много игр!</span>
             </div>
+
+            <div class="form-group form-group-error is-invalid invalid-input hidden">
+                <span>Вы должны заполнить все обязательные поля.</span>
+            </div>
             
             <input type="hidden" name="action" value="submitForm">
             <input type="hidden" name="formType" value="kosticon2019">
@@ -284,6 +288,10 @@
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
+
+<script type="text/javascript" data-th-inline="javascript">
+  var legendary = [[${legendary}]];
+</script>
 
 <script type="text/javascript">
     var space = {

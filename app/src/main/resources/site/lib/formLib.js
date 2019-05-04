@@ -6,6 +6,7 @@ var contextLib = require('/lib/contextLib');
 
 exports.checkSpace = checkSpace;
 exports.submitForm = submitForm;
+exports.getForms = getForms;
 
 function submitForm( params ){
   contextLib.runAsAdmin(function () {
@@ -20,6 +21,21 @@ function checkSpace( params ){
     query: params.game + " = '" + params.name + "'"
   });
   return result.total;
+}
+
+function getForms( formType ){
+  var formNode = connectFormRepo();
+  var result = [];
+  var hits = formNode.query({
+    query: "formType = '" + formType + "'",
+    count: 99999999
+  }).hits;
+  for( var i = 0; i < hits.length; i++ ){
+    result.push(formNode.get(hits[i].id));
+  }
+  norseUtils.log(result);
+  return result;
+
 }
 
 function connectFormRepo(){

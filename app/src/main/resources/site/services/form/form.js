@@ -12,11 +12,13 @@ exports.get = function( req ) {
         case "games":
             var view = resolve('kosticon2019.html');
             var model = {
-                pageComponents: helpers.getPageComponents(req)
+                pageComponents: helpers.getPageComponents(req),
+                legendary: params.type == 'legendary' ? true : false
             };
             break;
         case "result":
             var view = resolve('formResults.html');
+            formLib.getForms("kosticon2019");
             var model = {
                 pageComponents: helpers.getPageComponents(req)
             };
@@ -24,7 +26,8 @@ exports.get = function( req ) {
         default: 
             var view = resolve('kosticon2019.html');
             var model = {
-                pageComponents: helpers.getPageComponents(req)
+                pageComponents: helpers.getPageComponents(req),
+                legendary: params.type == 'legendary' ? true : false
             };
             break;
     }
