@@ -245,6 +245,21 @@ label {
             transform: scale(1);
         }
     }
+
+    .error-msg {
+        display: none;
+    }
+
+    [type="checkbox"]:disabled + & {
+        color: $color-primary20;
+        pointer-events: none;
+
+        .error-msg {
+            display: inline-block;
+            color: $color-primary32;
+            padding-left: 15px;
+        }
+    }
 }
 
 
