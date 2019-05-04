@@ -15,6 +15,12 @@ exports.get = function( req ) {
                 pageComponents: helpers.getPageComponents(req)
             };
             break;
+        case "result":
+            var view = resolve('formResults.html');
+            var model = {
+                pageComponents: helpers.getPageComponents(req)
+            };
+            break;
         default: 
             var view = resolve('kosticon2019.html');
             var model = {
