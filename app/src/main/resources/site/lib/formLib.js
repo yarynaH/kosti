@@ -8,8 +8,8 @@ exports.checkSpace = checkSpace;
 exports.submitForm = submitForm;
 
 function submitForm( params ){
-  var formNode = connectFormRepo();
   contextLib.runAsAdmin(function () {
+    var formNode = connectFormRepo();
     formNode.create( params );
   });
 }

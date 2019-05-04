@@ -257,25 +257,13 @@ function initCartFunctions(){
 }
 
 function initFormEvents(){
-	$('input[type=checkbox]').on('click', function(){
+	$('input[type=checkbox]').on('click', function(e){
 		var curr = this;
-		var data = {
-			action: 'checkspace',
-			name: $(this).val(),
-			game: $(this).attr('name')
-		};
-		$.ajax({
-			url: '/_/service/com.myurchenko.kostirpg/form',
-			type: 'POST',
-			data: data,
-			success: function(serverData){
-				if( serverData.space >= space[data.game][data.name] ){
-					console.log('1');
-				} else {
-					console.log('2');
-				}
-			}
-		});
+		if( !checkSpace(this) ){
+			e.preventDefault();
+			$(this).attr("disabled", true);
+			return ;
+		}
 		$(this).parent().parent().find('input[type=checkbox]:checked').each(function(){
 			if(this != curr ){
 				$(this).prop('checked', false);
@@ -285,9 +273,37 @@ function initFormEvents(){
 	$('main.form input[type=submit]').on('click', function(e){
 		if( $('main.form [type=checkbox]:checked').length > 1 ){
 			e.preventDefault();
-		} else {
+			$('form .invalid-qauntity').removeClass('hidden');
 		}
 	});
+	$('input[type=checkbox]').each(function(){
+		if( !checkSpace(this)){
+			$(this).attr("disabled", true);
+		}
+	});
+}
+
+function checkSpace( el ){
+	var data = {
+		action: 'checkspace',
+		name: $(el).val(),
+		game: $(el).attr('name')
+	};
+	var result;
+	$.ajax({
+		url: '/_/service/com.myurchenko.kostirpg/form',
+		type: 'POST',
+		async: false,
+		data: data,
+		success: function(serverData){
+			if( serverData.space >= space[data.game][data.name] ){
+				result = false;
+			} else {
+				result = true;
+			}
+		}
+	});
+	return result;
 }
 
 $( document ).ready(function() {

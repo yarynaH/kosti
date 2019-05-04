@@ -37,7 +37,6 @@ exports.get = function( req ) {
 
 exports.post = function( req ) {
     var params = req.params;
-    norseUtils.log(params);
     switch( params.action ){
         case "submitForm":
             delete params.action;
