@@ -33,7 +33,6 @@ function getForms( formType ){
   for( var i = 0; i < hits.length; i++ ){
     result.push(formNode.get(hits[i].id));
   }
-  norseUtils.log(result);
   return result;
 
 }

@@ -281,8 +281,10 @@ function initFormEvents(){
 		$('main.form input[type=text]').each(function(){
 			if($(this).val() == '' ){
 				e.preventDefault();
+				$(this).addClass('is-invalid');
 				$('form .invalid-input').removeClass('hidden');
 			} else {
+				$(this).removeClass('is-invalid');
 				$('form .invalid-input').addClass('hidden');
 			}
 		});
