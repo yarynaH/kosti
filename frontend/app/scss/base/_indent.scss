@@ -1,0 +1,9 @@
+@for $i from 1 through 20 {
+    $indent: $i * 5;
+
+    @each $key, $key-value in (mt: margin-top, mr: margin-right, mb: margin-bottom, ml: margin-left) {
+        .h-#{$key}-#{$indent} {
+            #{$key-value}: #{$indent}px;
+        }
+    }
+}

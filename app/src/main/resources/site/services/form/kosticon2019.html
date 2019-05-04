@@ -7,11 +7,11 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main site_width form">
-        <h1 class="game_reg-title">Запись на игры KostiC on 2019</h1>
-        <h3 class="game_reg-desc">
+        <h1 class="game_reg-title title-1 h-mt-35 h-mb-20">Запись на игры KostiCon 2019</h1>
+        <h3 class="game_reg-desc h-mb-20">
             Обладатели Легендарного Билета имеют возможность записаться на 2 (ДВЕ) игры онлайн.
         </h3>
-        <h3 class="game_reg-desc">
+        <h3 class="game_reg-desc h-mb-20">
             Обладатели Обычного Билета - на 1 (ОДНУ) игру онлайн.
         </h3>
         <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=form'})}">
@@ -27,7 +27,7 @@
             </div>
 
             <div class="game_reg-game1">
-                <h2 class="game_reg-subtitle">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
                     Суббота Fantasy Блок (13:00 - 15:00)
                 </h2>
                 <div class="form-group">
@@ -82,7 +82,7 @@
             </div>
 
             <div class="game_reg-game2">
-                <h2 class="game_reg-subtitle">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
                         Суббота ENOA EPIC Блок (16:00 - 18:30)
                 </h2>
                 <div class="form-group">
@@ -128,7 +128,7 @@
             
 
             <div class="game_reg-game3">
-                <h2 class="game_reg-subtitle">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
                     Суббота DARK Блок (16:00 - 18:30)
                 </h2>
                 <div class="form-group">
@@ -183,7 +183,7 @@
             </div>
 
             <div class="game_reg-game4">
-                <h2 class="game_reg-subtitle">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
                     Воскресение Cyber Блок (14:30 - 16:30)
                 </h2>
                 <div class="form-group">
@@ -229,7 +229,7 @@
 
 
             <div class="game_reg-game5">
-                <h2 class="game_reg-subtitle">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
                     Воскресение Open Блок (16:45 - 18:45)
                 </h2>
                 <div class="form-group">
@@ -275,7 +275,7 @@
             
             <input type="hidden" name="action" value="submitForm">
             <input type="hidden" name="formType" value="kosticon2019">
-            <input type="submit" name="submit" value="Submit">
+            <input type="submit" name="submit" value="Submit" class="button button-light h-mt-20">
         </form>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
