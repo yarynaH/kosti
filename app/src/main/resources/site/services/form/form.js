@@ -4,6 +4,7 @@ var contextLib = require('/lib/contextLib');
 var contentLib = require('/lib/xp/content');
 var helpers = require('helpers');
 var thymeleaf = require('/lib/xp/thymeleaf');
+var formLib = require('formLib');
 
 exports.get = function( req ) {
     var params = req.params;
@@ -34,11 +35,18 @@ exports.post = function( req ) {
     switch( params.action ){
         case "submitForm":
             delete params.action;
-            norseUtils.log(params);
+            delete params.submit;
+            formLib.submitForm(params);
             var view = resolve('successSubmit.html');
             var model = {
                 pageComponents: helpers.getPageComponents(req)
             };
+            break;
+        case 'checkspace':
+            return {
+                body: {space: formLib.checkSpace(params)},
+                contentType: 'application/json'
+            }
             break;
         default: 
             var view = resolve('successSubmit.html');

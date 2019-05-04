@@ -256,6 +256,40 @@ function initCartFunctions(){
 	});
 }
 
+function initFormEvents(){
+	$('input[type=checkbox]').on('click', function(){
+		var curr = this;
+		var data = {
+			action: 'checkspace',
+			name: $(this).val(),
+			game: $(this).attr('name')
+		};
+		$.ajax({
+			url: '/_/service/com.myurchenko.kostirpg/form',
+			type: 'POST',
+			data: data,
+			success: function(serverData){
+				if( serverData.space >= space[data.game][data.name] ){
+					console.log('1');
+				} else {
+					console.log('2');
+				}
+			}
+		});
+		$(this).parent().parent().find('input[type=checkbox]:checked').each(function(){
+			if(this != curr ){
+				$(this).prop('checked', false);
+			}
+		});
+	});
+	$('main.form input[type=submit]').on('click', function(e){
+		if( $('main.form [type=checkbox]:checked').length > 1 ){
+			e.preventDefault();
+		} else {
+		}
+	});
+}
+
 $( document ).ready(function() {
 	initLoginRegisterForm();
 	initCheckoutEvents();
@@ -263,6 +297,9 @@ $( document ).ready(function() {
 	initSharedEvents();
 	initHeaderClasses();
 	initPDPFunctions();
+	if( $('main.form').length > 0 ){
+		initFormEvents();
+	}
 });
 
 function doUpvote(el){

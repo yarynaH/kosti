@@ -36,8 +36,8 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="checkbox" id="game_reg-game1-option2" hidden>
-                    <label name="game1" for="game_reg-game1-option2" class="label-checkbox">Макс \ Метрион \ D&D (Для новичков)</label>
+                    <input value="max" name="game1" type="checkbox" id="game_reg-game1-option2" hidden>
+                    <label for="game_reg-game1-option2" class="label-checkbox">Макс \ Метрион \ D&D (Для новичков)</label>
                 </div>
 
                 <div class="form-group">
@@ -280,5 +280,65 @@
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
+
+<script type="text/javascript">
+    var space = {
+        game1:{
+            max: 5,
+            vitalik: 5,
+            den: 5,
+            dasha: 4,
+            kivro: 5,
+            lesha: 5,
+            yaroslav: 5,
+            paradox: 5,
+            pyromanser: 4,
+            nikita: 5
+        },
+        game2:{
+            max: 5,
+            vitalik: 5,
+            den: 5,
+            dasha: 4,
+            kivro: 5,
+            lesha: 5,
+            yaroslav: 5,
+            paradox: 5,
+            sasha: 5
+        },
+        game3:{
+            sasha: 5,
+            max: 5,
+            vitalik: 5,
+            olegb: 4,
+            kivro: 4,
+            pyromanser: 4,
+            nikita: 5,
+            lesha: 5,
+            irina: 5,
+            antonsh: 5
+        },
+        game4:{
+            max: 5,
+            vitalik: 5,
+            kivro: 5,
+            sirak: 5,
+            yaroslav: 4,
+            pyromanser: 4,
+            nikita: 5,
+            tifion: 5
+        },
+        game5:{
+            max: 5,
+            vitalik: 5,
+            olegb: 4,
+            sirak: 5,
+            pyromanser: 4,
+            nikita: 5,
+            antonsh: 5,
+            antonb: 4
+        }
+    };
+</script>
 
 </html>
