@@ -79,6 +79,14 @@
                     <input type="checkbox" value="nikita" name="game1" id="game_reg-game1-option10" hidden>
                     <label for="game_reg-game1-option10" class="label-checkbox">Никита \ Защитники Короны \ 7е Море <span class="error-msg">ты не успел :( мест больше нету</span></label>
                 </div>
+                <div class="form-group">
+                    <input type="checkbox" value="sasha" name="game1" id="game_reg-game1-option11" hidden>
+                    <label for="game_reg-game1-option11" class="label-checkbox">Саша \ DCC <span class="error-msg">ты не успел :( мест больше нету</span></label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" value="romanpylypenko" name="game1" id="game_reg-game1-option12" hidden>
+                    <label for="game_reg-game1-option12" class="label-checkbox">Роман Пилипенко \ Сатурналии и безжалостные создания \ D&D5 <span class="error-msg">ты не успел :( мест больше нету</span></label>
+                </div>
             </div>
 
             <div class="game_reg-game2">
@@ -123,6 +131,11 @@
                 <div class="form-group">
                     <input type="checkbox" value="paradox" name="game2" id="game_reg-game2-option8" hidden>
                     <label for="game_reg-game2-option8" class="label-checkbox">Paradox <span class="error-msg">ты не успел :( мест больше нету</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="vitalik" name="game2" id="game_reg-game2-option9" hidden>
+                    <label for="game_reg-game2-option9" class="label-checkbox">Виталик <span class="error-msg">ты не успел :( мест больше нету</span></label>
                 </div>
             </div>
             
@@ -180,6 +193,11 @@
                     <input type="checkbox" value="vitalik" name="game3" id="game_reg-game3-option10" hidden>
                     <label for="game_reg-game3-option10" class="label-checkbox">Виталик \ Свешенное Время \ Runequest <span class="error-msg">ты не успел :( мест больше нету</span></label>
                 </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="natali" name="game3" id="game_reg-game3-option11" hidden>
+                    <label for="game_reg-game3-option11" class="label-checkbox">Natali \ WoD (Mortals) -  Истина в яблоке <span class="error-msg">ты не успел :( мест больше нету</span></label>
+                </div>
             </div>
 
             <div class="game_reg-game4">
@@ -224,6 +242,11 @@
                 <div class="form-group">
                     <input type="checkbox" value="vitalik" name="game4" id="game_reg-game4-option8" hidden>
                     <label for="game_reg-game4-option8" class="label-checkbox">Виталик \ Аркадия в опасности \ Blasters & Dragons <span class="error-msg">ты не успел :( мест больше нету</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="sasha" name="game4" id="game_reg-game4-option9" hidden>
+                    <label for="game_reg-game4-option9" class="label-checkbox">Саша \ CP2020 <span class="error-msg">ты не успел :( мест больше нету</span></label>
                 </div>
             </div>
 
@@ -271,6 +294,11 @@
                     <input type="checkbox" value="andreys" name="game5" id="game_reg-game5-option8" hidden>
                     <label for="game_reg-game5-option8" class="label-checkbox">Андрей С. \ Ловите момент, друзья! \ (GURPS: Old West) <span class="error-msg">ты не успел :( мест больше нету</span></label>
                 </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="sasha" name="game5" id="game_reg-game5-option9" hidden>
+                    <label for="game_reg-game5-option9" class="label-checkbox">Саша \ Mech Cavalry (OSR) <span class="error-msg">ты не успел :( мест больше нету</span></label>
+                </div>
             </div>
 
             <div class="form-group form-group-error is-invalid invalid-qauntity hidden h-mt-20">
@@ -279,6 +307,10 @@
 
             <div class="form-group form-group-error is-invalid invalid-input hidden h-mt-20">
                 <span>Вы должны заполнить все обязательные поля.</span>
+            </div>
+
+            <div class="form-group form-group-error is-invalid invalid-space hidden h-mt-20">
+                <span>Ты не успел :( твою игру уже заняли.</span>
             </div>
             
             <input type="hidden" name="action" value="submitForm">
@@ -296,6 +328,7 @@
 <script type="text/javascript">
     var space = {
         game1:{
+            sasha: 5,
             max: 5,
             vitalik: 5,
             denis: 5,
@@ -305,6 +338,7 @@
             yaroslav: 5,
             paradox: 5,
             pyromanser: 4,
+            romanpylypenko: 4,
             nikita: 5
         },
         game2:{
@@ -320,7 +354,7 @@
         },
         game3:{
             sasha: 5,
-            max: 5,
+            max: 4,
             vitalik: 5,
             olehb: 4,
             stas: 4,
@@ -328,10 +362,12 @@
             nikita: 5,
             lesha: 5,
             irina: 5,
-            antonsh: 5
+            antonsh: 5,
+            natali: 5
         },
         game4:{
             max: 5,
+            sasha: 5,
             vitalik: 5,
             stas: 5,
             andreys: 5,
@@ -344,6 +380,7 @@
             max: 5,
             vitalik: 5,
             olehb: 4,
+            sasha: 5,
             andreys: 5,
             pyromanser: 4,
             nikita: 5,
