@@ -42,6 +42,18 @@
                 </div>
             </label>
         </div>
+        <div class="delivery_np">
+            <div class="select-field">
+                <select class="delivery_np-select-region">
+                    <option value="Выберите область" disabled="disabled" selected>Выберите область</option>
+                </select>
+            </div>
+            <div class="select-field">
+                <select class="delivery_np-select-city">
+                    <option value="Выберите город" disabled="disabled" selected>Выберите город</option>
+                </select>
+            </div>
+        </div>
     </div>
     <div class="checkout-action">
         <a data-th-href="${portal.serviceUrl({'_service=cart'})}" class="checkout-back" title="К покупкам">К покупкам</a>

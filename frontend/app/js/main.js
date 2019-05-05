@@ -205,6 +205,59 @@ function initCheckoutEvents(){
 			$(this).parent().removeClass('is-invalid');
 		}
 	});
+	
+	var dataRegion = {
+		"apiKey": "8913262e83513c669457b8c48224f3ab",
+		"modelName": "Address",
+		"calledMethod": "getAreas",
+		"methodProperties": {
+			"Language": "ru"
+		}
+	};
+	
+	$.ajax({
+		url: 'https://api.novaposhta.ua/v2.0/json/',
+		type: 'POST',
+		contentType: "application/json",
+		dataType: "json",
+		data: JSON.stringify(dataRegion),
+		success: function(response){
+			// console.log(response.data[5].Description);
+			for (var i = 0; i < response.data.length; i++) {
+				$('.delivery_np-select-region').append(new Option(response.data[i].Description, response.data[i].Ref));
+			}
+		}
+	});
+	
+	var dataCity = {
+		"modelName": "AddressGeneral",
+		"calledMethod": "getSettlements",
+		"methodProperties": {
+			"AreaRef": "dcaadb64-4b33-11e4-ab6d-005056801329",
+			"Ref": "0e451e40-4b3a-11e4-ab6d-005056801329",
+			"RegionRef": "e4ade6ea-4b33-11e4-ab6d-005056801329",
+			"Page": "1"
+		},
+		"apiKey": "8913262e83513c669457b8c48224f3ab"
+		}
+	};
+
+	$('.delivery_np-select-region').on('change', function() {
+		$.ajax({
+			url: 'https://api.novaposhta.ua/v2.0/json/',
+			type: 'POST',
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(dataCity),
+			success: function(response){
+				for (var i = 0; i < response.data.length; i++) {
+					console.log(response);
+					// $('.delivery_np-select-city').append(new Option(response.data[i].Description, response.data[i].Ref));
+				}
+			}
+		});
+		// console.log('111111');
+	});
 }
 
 function initSharedEvents(){
