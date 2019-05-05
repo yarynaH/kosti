@@ -271,10 +271,31 @@ function initFormEvents(){
 		});
 	});
 	$('main.form input[type=submit]').on('click', function(e){
-		if( $('main.form [type=checkbox]:checked').length > 1 ){
+		var availableSeats = legendary ? 2 : 1;
+		if( $('main.form [type=checkbox]:checked').length > availableSeats ){
 			e.preventDefault();
 			$('form .invalid-qauntity').removeClass('hidden');
+		} else {
+			$('form .invalid-qauntity').addClass('hidden');
 		}
+		$('input[type=checkbox]:checked').each(function(){
+			if( !checkSpace(this) ){
+				$('form .invalid-space').removeClass('hidden');
+				e.preventDefault();
+			} else {
+				$('form .invalid-space').addClass('hidden');
+			}
+		});
+		$('main.form input[type=text]').each(function(){
+			if($(this).val() == '' ){
+				e.preventDefault();
+				$(this).addClass('is-invalid');
+				$('form .invalid-input').removeClass('hidden');
+			} else {
+				$(this).removeClass('is-invalid');
+				$('form .invalid-input').addClass('hidden');
+			}
+		});
 	});
 	$('input[type=checkbox]').each(function(){
 		if( !checkSpace(this)){
