@@ -205,60 +205,40 @@ function initCheckoutEvents(){
 			$(this).parent().removeClass('is-invalid');
 		}
 	});
-	
-	var dataRegion = {
+
+	var dataCity = {
 		"apiKey": "8913262e83513c669457b8c48224f3ab",
 		"modelName": "Address",
-		"calledMethod": "getAreas",
+		"calledMethod": "searchSettlements",
 		"methodProperties": {
-			"Language": "ru"
+			"CityName": "київ",
+			"Limit": 5
 		}
-	};
+	}	
 	
-	$.ajax({
-		url: 'https://api.novaposhta.ua/v2.0/json/',
-		type: 'POST',
-		contentType: "application/json",
-		dataType: "json",
-		data: JSON.stringify(dataRegion),
-		success: function(response){
-			// console.log(response.data[5].Description);
-			for (var i = 0; i < response.data.length; i++) {
-				$('.delivery_np-select-region').append(new Option(response.data[i].Description, response.data[i].Ref));
-			}
-		}
-	});
-	
-	var dataCity = {
-		"modelName": "AddressGeneral",
-		"calledMethod": "getSettlements",
-		"methodProperties": {
-			"AreaRef": "dcaadb64-4b33-11e4-ab6d-005056801329",
-			"Ref": "0e451e40-4b3a-11e4-ab6d-005056801329",
-			"RegionRef": "e4ade6ea-4b33-11e4-ab6d-005056801329",
-			"Page": "1"
-		},
-		"apiKey": "8913262e83513c669457b8c48224f3ab"
-		}
-	};
+	$('.delivery_np-input-city').on('input', function(){
+		if( $(this).val().length > 1 ){
+			dataCity.methodProperties.CityName = $('.delivery_np-input-city').val();
 
-	$('.delivery_np-select-region').on('change', function() {
-		$.ajax({
-			url: 'https://api.novaposhta.ua/v2.0/json/',
-			type: 'POST',
-			contentType: "application/json",
-			dataType: "json",
-			data: JSON.stringify(dataCity),
-			success: function(response){
-				for (var i = 0; i < response.data.length; i++) {
-					console.log(response);
-					// $('.delivery_np-select-city').append(new Option(response.data[i].Description, response.data[i].Ref));
+			$.ajax({
+				url: 'https://api.novaposhta.ua/v2.0/json/',
+				type: 'POST',
+				contentType: "application/json",
+				dataType: "json",
+				data: JSON.stringify(dataCity),
+				success: function(response){
+					var dataIncome =  response.data[0].Addresses;
+					for (var i = 0; i < dataIncome.length; i++) {
+						var liElement = document.createElement("LI");
+						var liText = document.createTextNode(dataIncome[i].Present);
+						liElement.appendChild(liText);
+						document.getElementById("suggestion-list").appendChild(liElement);
+					}
 				}
-			}
-		});
-		// console.log('111111');
+			});
+		}
 	});
-}
+};
 
 function initSharedEvents(){
 	$('.like-btn').on('click', function(e){

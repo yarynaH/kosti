@@ -43,15 +43,11 @@
             </label>
         </div>
         <div class="delivery_np">
-            <div class="select-field">
-                <select class="delivery_np-select-region">
-                    <option value="Выберите область" disabled="disabled" selected>Выберите область</option>
-                </select>
-            </div>
-            <div class="select-field">
-                <select class="delivery_np-select-city">
-                    <option value="Выберите город" disabled="disabled" selected>Выберите город</option>
-                </select>
+            <div class="form-group">
+                <label for="delivery_np-input-city" class="label">Введите город</label>
+                <input type="text" class="input-text delivery_np-input-city" id="delivery_np-input-city">
+                <ul id="suggestion-list">
+                </ul>
             </div>
         </div>
     </div>
