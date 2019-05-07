@@ -40,6 +40,18 @@ exports.get = function( req ) {
                 contentType: 'text/html'
             }
             break;
+        case 'emails':
+            var carts = cartLib.getCreatedCarts();
+            var result = [];
+            for( var i = 0; i < carts.length; i++ ){
+                if( carts[i].status == 'paid' ){
+                    result.push(carts[i]);
+                }
+            }
+            return {
+                body: thymeleaf.render(resolve('emails.html'), { orders: result, }),
+                contentType: 'text/html'
+            }
             break;
         default:
             var carts = cartLib.getCreatedCarts();
