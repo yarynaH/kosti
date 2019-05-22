@@ -290,3 +290,36 @@ label {
         line-height: 1.7;
     }
 }
+
+
+.suggestion {
+    &-wrap {
+        position: relative;
+    }
+
+    &-list {
+        position: absolute;
+        top: 100%;
+        
+        li {
+            background-color: #fff;
+            font-size: .875rem;
+            padding: 5px 15px;
+            border-radius: 0;
+            cursor: pointer;
+            color:#707070;
+            border: 1px solid #dde3e8;
+            border-top: 0;
+
+            &:hover {
+                background: #197aad;
+                color: white;
+            }
+
+            input:focus ~ & {
+                border-color: #197aad;
+            }
+    
+        }
+    }
+}
