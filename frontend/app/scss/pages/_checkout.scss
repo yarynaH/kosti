@@ -350,7 +350,7 @@
         justify-content: space-between;
     }
 
-    .form-group {
+    > .form-group {
         @include tablet-all {
             width: 49%;
             margin: 0;
