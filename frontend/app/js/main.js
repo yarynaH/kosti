@@ -225,6 +225,7 @@ function initCheckoutEvents(){
 				dataType: "json",
 				data: JSON.stringify(dataCity),
 				success: function(response){
+					$("#suggestion-list").html('');
 					var dataIncome =  response.data[0].Addresses;
 					for (var i = 0; i < dataIncome.length; i++) {
 						$("#suggestion-list").append("<li data-ref='" + dataIncome[i].DeliveryCity + "'>" + dataIncome[i].MainDescription + "</li>");
@@ -235,6 +236,7 @@ function initCheckoutEvents(){
 	});
 	$('#suggestion-list').on('click', 'li', function(){
 		$('.delivery_np-input-city').val($(this).text());
+		$('.delivery_np-input-city').data("ref", $(this).data('ref'));
 		$("#suggestion-list").html('');
 		var dataCity = {
 			"apiKey": "8913262e83513c669457b8c48224f3ab",
@@ -258,6 +260,33 @@ function initCheckoutEvents(){
 				for (var i = 0; i < response.data.length; i++) {
 					$('#delivery_np-warehouses').append('<option value="' + response.data[i].DescriptionRu + '">' + response.data[i].DescriptionRu + '</option>');
 				}
+			}
+		});
+	});
+	$('#delivery_np-warehouses').on('change', function(){
+		var dataCity = {
+			"apiKey": "8913262e83513c669457b8c48224f3ab",
+			"modelName": "InternetDocument",
+			"calledMethod": "getDocumentPrice",
+			"methodProperties": {
+				"CitySender": "e221d627-391c-11dd-90d9-001a92567626",
+				"CityRecipient": $('.delivery_np-input-city').data("ref"),
+				"Weight": $('#cartWeight').val(),
+				"ServiceType": "WarehouseWarehouse",
+				"Cost": "100",
+				"CargoType": "Parcel",
+				"SeatsAmount": "1"
+			}
+		}
+
+		$.ajax({
+			url: 'https://api.novaposhta.ua/v2.0/json/',
+			type: 'POST',
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(dataCity),
+			success: function(response){
+				$('.delivery_m-subtitle').text('UAH ' + response.data[0].Cost);
 			}
 		});
 	});

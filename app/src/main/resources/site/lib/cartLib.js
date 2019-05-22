@@ -350,10 +350,10 @@ function caclculateCartWeight( items ){
   for( var i = 0; i < items.length; i++ ){
     var item = contentLib.get({ key: items[i]._id });
     if( item && item.data && item.data.weight ){
-      result += parseInt( item.data.weight ) * parseInt( items[i].amount );
+      result += parseFloat( item.data.weight ) * parseInt( items[i].amount );
     }
   }
-  return result.toFixed();
+  return result;
 }
 
 function getShippingPrice( cart ){

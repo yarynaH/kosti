@@ -80,7 +80,7 @@
       </items>
       <occurrences minimum="1" maximum="1"/>
     </item-set>
-    <input name="weight" type="Long">
+    <input name="weight" type="Double">
       <label>Weight</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
