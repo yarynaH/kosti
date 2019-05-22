@@ -35,7 +35,9 @@ function getCyrilicDay(daysNum){
 	var day = ['день','дня','дней'];
 	if(daysNum % 10 === 1 && daysNum % 1000 != 11)
 		return day[0];
-	else if((daysNum % 10 === 2 && daysNum % 1000 != 12) || (daysNum % 10 === 3 && daysNum % 1000 != 13) || (daysNum % 10 === 4 && daysNum % 1000 != 14))
+	else if((daysNum % 10 === 2 && daysNum % 1000 != 12)
+		 || (daysNum % 10 === 3 && daysNum % 1000 != 13)
+	  	 || (daysNum % 10 === 4 && daysNum % 1000 != 14))
 		return day[1];
 	else
 		return day[2];
@@ -51,7 +53,9 @@ function getCyrilicMonth(monthNum){
 
 	if(monthNum % 10 === 1 && monthNum % 1000 != 11)
 		return month[0];
-	else if((monthNum % 10 === 2 && monthNum % 1000 != 12) || (monthNum % 10 === 3 && monthNum % 1000 != 13) || (monthNum % 10 === 4 && monthNum % 1000 != 14))
+	else if((monthNum % 10 === 2 && monthNum % 1000 != 12)
+		 || (monthNum % 10 === 3 && monthNum % 1000 != 13)
+		 || (monthNum % 10 === 4 && monthNum % 1000 != 14))
 		return month[1];
 	else
 		return month[2];
@@ -60,14 +64,16 @@ function getCyrilicMonth(monthNum){
 //Takes Number of years
 // and return cyrilic "year/years" word with correct ending
 function getCyrilicYear(yearNum){
-	if(isNaN(yearsNum))
+	if(isNaN(yearNum))
 		return null;
 
 	var year = ['год','года','лет'];
 
 	if(yearNum % 10 === 1 && yearNum % 1000 != 11)
 		return year[0];
-	else if((yearNum % 10 === 2 && yearNum%1000 != 12) || (yearNum % 10 === 3 && yearNum % 1000 != 13) || (yearNum % 10 === 4 && yearNum % 1000 != 14))
+	else if((yearNum % 10 === 2 && yearNum % 1000 != 12)
+		 || (yearNum % 10 === 3 && yearNum % 1000 != 13)
+		 || (yearNum % 10 === 4 && yearNum % 1000 != 14))
 		return year[1];
 	else
 		return year[2];
