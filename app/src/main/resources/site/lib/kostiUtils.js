@@ -10,8 +10,18 @@ exports.getTimePassedSincePostCreation = function(postCreationDate){
 
 	var daysPassed = getDaysDifference(postCreationDate);
 
-	if(daysPassed === 0)
-		return 'меньше дня назад';
+	if(daysPassed === 0){
+		var hoursPassed = getHoursDifference(postCreationDate);
+		if(hoursPassed === 0){
+			var minutesPassed = getMinutesDifference(postCreationDate);
+			if(minutesPassed === 0)
+				return 'меньше минуты назад';
+			else if(minutesPassed >= 1 && minutesPassed < 60)
+				return minutesPassed + ' ' + getCyrilicMinute(minutesPassed) + ' назад'; 
+		}
+		else if(hoursPassed >= 1 && hoursPassed < 24)
+			return hoursPassed + ' ' + getCyrilicHour(hoursPassed) + ' назад';
+	}
 	else if(daysPassed >= 1 && daysPassed < 31)
 		return daysPassed + ' ' + getCyrilicDay(daysPassed) + ' назад';
 	else if(daysPassed >= 31 && daysPassed < 366){
@@ -24,6 +34,40 @@ exports.getTimePassedSincePostCreation = function(postCreationDate){
 	}
 
 	return null;
+}
+
+//Takes Number of minutes
+// and return cyrilic "minute/minutes" word with correct ending
+function getCyrilicMinute(minutesNum){
+	if(isNaN(minutesNum))
+		return null;
+
+	var minute = ['минуту', 'минуты', 'минут'];
+	if(minutesNum % 10 === 1 && minutesNum % 1000 != 11)
+		return minute[0];
+	else if((minutesNum % 10 === 2 && minutesNum % 1000 != 12)
+		 || (minutesNum % 10 === 3 && minutesNum % 1000 != 13)
+	  	 || (minutesNum % 10 === 4 && minutesNum % 1000 != 14))
+		return minute[1];
+	else
+		return minute[2];
+}
+
+//Takes Number of hours
+// and return cyrilic "hour/hours" word with correct ending
+function getCyrilicHour(hoursNum){
+	if(isNaN(hoursNum))
+		return null;
+
+	var hour = ['час', 'часа', 'часов'];
+	if(hoursNum % 10 === 1 && hoursNum % 1000 != 11)
+		return hour[0];
+	else if((hoursNum % 10 === 2 && hoursNum % 1000 != 12)
+		 || (hoursNum % 10 === 3 && hoursNum % 1000 != 13)
+	  	 || (hoursNum % 10 === 4 && hoursNum % 1000 != 14))
+		return hour[1];
+	else
+		return hour[2];
 }
 
 //Takes Number of days
@@ -89,4 +133,28 @@ function getDaysDifference(dateString) {
 			now = new Date().getTime();
 
 	return Math.round((now-creationDate)/24/60/60/1000);
+}
+
+// Takes date in '2014-10-10' string format as an argument
+// and returns difference in hours between now and passed date.
+function getHoursDifference(dateString) {
+	if(!dateString || (!typeof dateString === 'string' && !dateString instanceof String))
+		return null;
+
+	var creationDate = new Date(dateString).getTime(),
+			now = new Date().getTime();
+
+	return Math.round((now-creationDate)/60/60/1000);
+}
+
+// Takes date in '2014-10-10' string format as an argument
+// and returns difference in minutes between now and passed date.
+function getMinutesDifference(dateString) {
+	if(!dateString || (!typeof dateString === 'string' && !dateString instanceof String))
+		return null;
+
+	var creationDate = new Date(dateString).getTime(),
+			now = new Date().getTime();
+
+	return Math.round((now-creationDate)/60/1000);
 }
