@@ -213,7 +213,7 @@ function initCheckoutEvents(){
 				"modelName": "Address",
 				"calledMethod": "searchSettlements",
 				"methodProperties": {
-					"Limit": 10
+					"Limit": "10"
 				}
 			}
 			dataCity.methodProperties.CityName = $('.delivery_np-input-city').val();
@@ -234,6 +234,8 @@ function initCheckoutEvents(){
 		}
 	});
 	$('#suggestion-list').on('click', 'li', function(){
+		$('.delivery_np-input-city').val($(this).text());
+		$("#suggestion-list").html('');
 		var dataCity = {
 			"apiKey": "8913262e83513c669457b8c48224f3ab",
 			"modelName": "AddressGeneral",
@@ -252,6 +254,7 @@ function initCheckoutEvents(){
 			dataType: "json",
 			data: JSON.stringify(dataCity),
 			success: function(response){
+				$('#delivery_np-warehouses').html('<option disabled="disabled" selected="selected">Выберите отделение</option>');
 				for (var i = 0; i < response.data.length; i++) {
 					$('#delivery_np-warehouses').append('<option value="' + response.data[i].DescriptionRu + '">' + response.data[i].DescriptionRu + '</option>');
 				}
