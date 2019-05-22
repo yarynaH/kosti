@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main site_width">
+        <div class="games_result-day h-mt-30">
+            <h3 class="games_result-title title-3 h-mb-20">СУББОТА</h3>
+            <div class="games_result-block">
+                <h4 class="games_result-subtitle title-4 h-mb-20">Fantasy Блок (13:00 - 15:00)</h4>
+                <div class="master-list">
+                    <div class="master-item" data-th-each="game: ${results.game1}">
+                        <h5 class="master-name title-5 h-mb-10" data-th-text="${portal.localize({'_key=kosticon2019.game1.' + game.key, '_locale=ru'})}"></h5>
+                        <div class="master-table">
+                            <div data-th-each="player: ${results.game1[game.key]}" class="master-participant">
+                                <span class="master-participant-name" data-th-text="${player.name}"></span> 
+                                <span class="master-participant-id" data-th-text="${player.id}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="games_result-day h-mt-30">
+            <div class="games_result-block">
+                <h4 class="games_result-subtitle title-4 h-mb-20">ENOA EPIC Блок (16:00 - 18:30)</h4>
+                <div class="master-list">
+                    <div class="master-item" data-th-each="game: ${results.game2}">
+                        <h5 class="master-name title-5 h-mb-10" data-th-text="${portal.localize({'_key=kosticon2019.game2.' + game.key, '_locale=ru'})}"></h5>
+                        <div class="master-table">
+                            <div data-th-each="player: ${results.game2[game.key]}" class="master-participant">
+                                <span class="master-participant-name" data-th-text="${player.name}"></span> 
+                                <span class="master-participant-id" data-th-text="${player.id}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="games_result-day h-mt-30">
+            <div class="games_result-block">
+                <h4 class="games_result-subtitle title-4 h-mb-20">DARK Блок (20:00 - 22:00)</h4>
+                <div class="master-list">
+                    <div class="master-item" data-th-each="game: ${results.game3}">
+                        <h5 class="master-name title-5 h-mb-10" data-th-text="${portal.localize({'_key=kosticon2019.game3.' + game.key, '_locale=ru'})}"></h5>
+                        <div class="master-table">
+                            <div data-th-each="player: ${results.game3[game.key]}" class="master-participant">
+                                <span class="master-participant-name" data-th-text="${player.name}"></span> 
+                                <span class="master-participant-id" data-th-text="${player.id}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="games_result-day h-mt-30">
+            <h3 class="games_result-title title-3 h-mb-20">ВОСРЕСЕНЬЕ</h3>
+            <div class="games_result-block">
+                <h4 class="games_result-subtitle title-4 h-mb-20">Fantasy Блок (13:00 - 15:00)</h4>
+                <div class="master-list">
+                    <div class="master-item" data-th-each="game: ${results.game4}">
+                        <h5 class="master-name title-5 h-mb-10" data-th-text="${portal.localize({'_key=kosticon2019.game4.' + game.key, '_locale=ru'})}"></h5>
+                        <div class="master-table">
+                            <div data-th-each="player: ${results.game4[game.key]}" class="master-participant">
+                                <span class="master-participant-name" data-th-text="${player.name}"></span> 
+                                <span class="master-participant-id" data-th-text="${player.id}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="games_result-day h-mt-30">
+            <div class="games_result-block">
+                <h4 class="games_result-subtitle title-4 h-mb-20">Open Блок (16:45 - 18:45)</h4>
+                <div class="master-list">
+                    <div class="master-item" data-th-each="game: ${results.game5}">
+                        <h5 class="master-name title-5 h-mb-10" data-th-text="${portal.localize({'_key=kosticon2019.game5.' + game.key, '_locale=ru'})}"></h5>
+                        <div class="master-table">
+                            <div data-th-each="player: ${results.game5[game.key]}" class="master-participant">
+                                <span class="master-participant-name" data-th-text="${player.name}"></span> 
+                                <span class="master-participant-id" data-th-text="${player.id}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+@mixin title($styles: ()) {
+    @each $style in $styles {
+        @if $style == global {
+            font-family: $font-main-regular;
+            font-weight: bold;
+            color: $color-primary17;
+        }
+
+        @if $style == title1 {
+            font-size: rem(32);
+        }
+
+        @if $style == title2 {
+            font-size: rem(24);
+        }
+
+        @if $style == title3 {
+            font-size: rem(20);
+        }
+
+        @if $style == title4 {
+            font-size: rem(18);
+        }
+
+        @if $style == title5 {
+            font-size: rem(16);
+        }
+    }
+}
+
+.title-1 {
+    @include title(global title1);
+}
+
+.title-2 {
+    @include title(global title2);
+}
+
+.title-3 {
+    @include title(global title3);
+}
+
+.title-4 {
+    @include title(global title4);
+}
+
+.title-5 {
+    @include title(global title5);
+}

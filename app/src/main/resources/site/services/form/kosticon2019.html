@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main blog_width form game_reg-wrap">
+        <h1 class="game_reg-title title-1 h-mt-35 h-mb-20">Запись на игры KostiCon 2019</h1>
+        <h3 class="game_reg-desc h-mb-20">
+            Обладатели Легендарного Билета имеют возможность записаться на 2 (ДВЕ) игры онлайн.
+        </h3>
+        <h3 class="game_reg-desc h-mb-20">
+            Обладатели Обычного Билета - на 1 (ОДНУ) игру онлайн.
+        </h3>
+        <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=form'})}">
+
+            <div class="form-group form-group-name">
+                <label for="game_reg-name-input" class="label">Ваше Имя.</label>
+                <input type="text" class="input-text" name="name" id="game_reg-name-input">
+            </div>
+
+            <div class="form-group form-group-id">
+                <label for="game_reg-id-input" class="label">Ваш ID (от Интеркассы)</label>
+                <input type="text" class="input-text" name="id" id="game_reg-id-input">
+            </div>
+
+            <div class="game_reg-game1">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
+                    Суббота Fantasy Блок (13:00 - 15:00)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" value="vitalik" name="game1" id="game_reg-game1-option1" hidden>
+                    <label for="game_reg-game1-option1" class="label-checkbox">Виталик \ Метрион \ D&D (Для новичков) <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="max" name="game1" id="game_reg-game1-option2" hidden>
+                    <label for="game_reg-game1-option2" class="label-checkbox">Макс \ Метрион \ D&D (Для новичков) <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="denis" name="game1" id="game_reg-game1-option3" hidden>
+                    <label for="game_reg-game1-option3" class="label-checkbox">Денис \ Метрион \ D&D (Для новичков) <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="dasha" name="game1" id="game_reg-game1-option4" hidden>
+                    <label for="game_reg-game1-option4" class="label-checkbox">Даша \ Мир Магии и Волшебства \ HP - D&D <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="stas" name="game1" id="game_reg-game1-option5" hidden>
+                    <label for="game_reg-game1-option5" class="label-checkbox">Стас \ Неприятности в форте Кебрамар \ D&D <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="lesha" name="game1" id="game_reg-game1-option6" hidden>
+                    <label for="game_reg-game1-option6" class="label-checkbox">Леша \ "Пропавшая невеста" \ D&D <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="yaroslav" name="game1" id="game_reg-game1-option7" hidden>
+                    <label for="game_reg-game1-option7" class="label-checkbox">Ярослав \ Сказки дедушки Салабима" \ D&D <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="paradox" name="game1" id="game_reg-game1-option8" hidden>
+                    <label for="game_reg-game1-option8" class="label-checkbox">Paradox - Найти информатора\ D&D <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="pyromanser" name="game1" id="game_reg-game1-option9" hidden>
+                    <label for="game_reg-game1-option9" class="label-checkbox">PyROmanSER \ Конец Одиссеи \ GURPS <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="nikita" name="game1" id="game_reg-game1-option10" hidden>
+                    <label for="game_reg-game1-option10" class="label-checkbox">Никита \ Защитники Короны \ 7е Море <span class="error-msg">Мест больше нет</span></label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" value="sasha" name="game1" id="game_reg-game1-option11" hidden>
+                    <label for="game_reg-game1-option11" class="label-checkbox">Саша \ DCC <span class="error-msg">Мест больше нет</span></label>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" value="romanpylypenko" name="game1" id="game_reg-game1-option12" hidden>
+                    <label for="game_reg-game1-option12" class="label-checkbox">Роман Пилипенко \ Сатурналии и безжалостные создания \ D&D5 <span class="error-msg">Мест больше нет</span></label>
+                </div>
+            </div>
+
+            <div class="game_reg-game2">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
+                        Суббота ENOA EPIC Блок (16:00 - 18:30)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" value="sasha" name="game2" id="game_reg-game2-option1" hidden>
+                    <label for="game_reg-game2-option1" class="label-checkbox">Саша <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="max" name="game2" id="game_reg-game2-option2" hidden>
+                    <label for="game_reg-game2-option2" class="label-checkbox">Макс <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="denis" name="game2" id="game_reg-game2-option3" hidden>
+                    <label for="game_reg-game2-option3" class="label-checkbox">Денис <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="dasha" name="game2" id="game_reg-game2-option4" hidden>
+                    <label for="game_reg-game2-option4" class="label-checkbox">Даша <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="stas" name="game2" id="game_reg-game2-option5" hidden>
+                    <label for="game_reg-game2-option5" class="label-checkbox">Стас <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="lesha" name="game2" id="game_reg-game2-option6" hidden>
+                    <label for="game_reg-game2-option6" class="label-checkbox">Леша <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="yaroslav" name="game2" id="game_reg-game2-option7" hidden>
+                    <label for="game_reg-game2-option7" class="label-checkbox">Ярослав <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="paradox" name="game2" id="game_reg-game2-option8" hidden>
+                    <label for="game_reg-game2-option8" class="label-checkbox">Paradox <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="vitalik" name="game2" id="game_reg-game2-option9" hidden>
+                    <label for="game_reg-game2-option9" class="label-checkbox">Виталик <span class="error-msg">Мест больше нет</span></label>
+                </div>
+            </div>
+            
+
+            <div class="game_reg-game3">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
+                    Суббота DARK Блок (20:00 - 22:00)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" value="sasha" name="game3" id="game_reg-game3-option1" hidden>
+                    <label for="game_reg-game3-option1" class="label-checkbox">Саша \ Vampire: Tha Masquerade <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="max" name="game3" id="game_reg-game3-option2" hidden>
+                    <label for="game_reg-game3-option2" class="label-checkbox">Макс \ Тайна Мыса Дьявола \ Trail of Cthulhu <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="olehb" name="game3" id="game_reg-game3-option3" hidden>
+                    <label for="game_reg-game3-option3" class="label-checkbox">Олег Б. - Коли годинник проб'є на восьму \ D&D <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="nikita" name="game3" id="game_reg-game3-option4" hidden>
+                    <label for="game_reg-game3-option4" class="label-checkbox">Никита \ Shades of Twilight \ Dark Heresy <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="pyromanser" name="game3" id="game_reg-game3-option5" hidden>
+                    <label for="game_reg-game3-option5" class="label-checkbox">PyROmanSER \ Невесомость. Вакуум! Зомби? \ GURPS <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="stas" name="game3" id="game_reg-game3-option6" hidden>
+                    <label for="game_reg-game3-option6" class="label-checkbox">Стас - Будни Кургату \ D&D Ravenloft <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="lesha" name="game3" id="game_reg-game3-option7" hidden>
+                    <label for="game_reg-game3-option7" class="label-checkbox">Леша \ Ужас во Тьме \ 10 Candles <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="irina" name="game3" id="game_reg-game3-option8" hidden>
+                    <label for="game_reg-game3-option8" class="label-checkbox">Ирина \ Вечная ночь в Детройте \ Vampire: Tha Masquerade <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="antonsh" name="game3" id="game_reg-game3-option9" hidden>
+                    <label for="game_reg-game3-option9" class="label-checkbox">Антон Ш \ Архетерика Проблеми Ранньої Індустріалізації <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="vitalik" name="game3" id="game_reg-game3-option10" hidden>
+                    <label for="game_reg-game3-option10" class="label-checkbox">Виталик \ Свешенное Время \ Runequest <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="natali" name="game3" id="game_reg-game3-option11" hidden>
+                    <label for="game_reg-game3-option11" class="label-checkbox">Natali \ WoD (Mortals) -  Истина в яблоке <span class="error-msg">Мест больше нет</span></label>
+                </div>
+            </div>
+
+            <div class="game_reg-game4">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
+                    Воскресенье Cyber Блок (14:30 - 16:30)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" value="max" name="game4" id="game_reg-game4-option1" hidden>
+                    <label for="game_reg-game4-option1" class="label-checkbox">Макс \ Работа от Костецки \ CP2020 <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="stas" name="game4" id="game_reg-game4-option2" hidden>
+                    <label for="game_reg-game4-option2" class="label-checkbox">Стас - Цветок Небес \ Coriolis <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="andreys" name="game4" id="game_reg-game4-option3" hidden>
+                    <label for="game_reg-game4-option3" class="label-checkbox">Андрей С. \ Alien: Естественный отбор (GURPS) <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="yaroslav" name="game4" id="game_reg-game4-option4" hidden>
+                    <label for="game_reg-game4-option4" class="label-checkbox">Ярослав \ Дело на миллион FIREFLY \ Savage Worlds <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="nikita" name="game4" id="game_reg-game4-option5" hidden>
+                    <label for="game_reg-game4-option5" class="label-checkbox">Никита - Ирина \ На секретной службе Ее Величества \ Mage: The Ascension <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="pyromanser" name="game4" id="game_reg-game4-option6" hidden>
+                    <label for="game_reg-game4-option6" class="label-checkbox">PyROmanSER \ 88 миль в час \ GURPS <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="tifion" name="game4" id="game_reg-game4-option7" hidden>
+                    <label for="game_reg-game4-option7" class="label-checkbox">Tifion \ Реликвии прошлого \ Star Wars <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="vitalik" name="game4" id="game_reg-game4-option8" hidden>
+                    <label for="game_reg-game4-option8" class="label-checkbox">Виталик \ Аркадия в опасности \ Blasters & Dragons <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="sasha" name="game4" id="game_reg-game4-option9" hidden>
+                    <label for="game_reg-game4-option9" class="label-checkbox">Саша \ CP2020 <span class="error-msg">Мест больше нет</span></label>
+                </div>
+            </div>
+
+
+            <div class="game_reg-game5">
+                <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
+                    Воскресенье Open Блок (16:45 - 18:45)
+                </h2>
+                <div class="form-group">
+                    <input type="checkbox" value="vitalik" name="game5" id="game_reg-game5-option1" hidden>
+                    <label for="game_reg-game5-option1" class="label-checkbox">Виталик \ Скелетная Пехота <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="olehb" name="game5" id="game_reg-game5-option2" hidden>
+                    <label for="game_reg-game5-option2" class="label-checkbox">Олег Б. \ Кошенята маєтку Ковель \ D&D (Adventure L.) <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="max" name="game5" id="game_reg-game5-option3" hidden>
+                    <label for="game_reg-game5-option3" class="label-checkbox">Макс \ Портал под звёздами \ DCC <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="nikita" name="game5" id="game_reg-game5-option4" hidden>
+                    <label for="game_reg-game5-option4" class="label-checkbox">Никита \ Toll for the Trolls \ Mage: The Ascension <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="pyromanser" name="game5" id="game_reg-game5-option5" hidden>
+                    <label for="game_reg-game5-option5" class="label-checkbox">PyROmanSER \ Бензин и песок \ GURPS <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="antonb" name="game5" id="game_reg-game5-option6" hidden>
+                    <label for="game_reg-game5-option6" class="label-checkbox">Антон Б \ Tower of the Star Gazer \ Lamentation of the Flame Princess <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="antonsh" name="game5" id="game_reg-game5-option7" hidden>
+                    <label for="game_reg-game5-option7" class="label-checkbox">Антон Ш \ Проблеми Ранньої Індустріалізації \ Архетерика <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="andreys" name="game5" id="game_reg-game5-option8" hidden>
+                    <label for="game_reg-game5-option8" class="label-checkbox">Андрей С. \ Ловите момент, друзья! \ (GURPS: Old West) <span class="error-msg">Мест больше нет</span></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" value="sasha" name="game5" id="game_reg-game5-option9" hidden>
+                    <label for="game_reg-game5-option9" class="label-checkbox">Саша \ Mech Cavalry (OSR) <span class="error-msg">Мест больше нет</span></label>
+                </div>
+            </div>
+
+            <div class="form-group form-group-error is-invalid invalid-qauntity hidden h-mt-20">
+                <span>Вы выбрали слишком много игр!</span>
+            </div>
+
+            <div class="form-group form-group-error is-invalid invalid-input hidden h-mt-20">
+                <span>Вы должны заполнить все обязательные поля.</span>
+            </div>
+
+            <div class="form-group form-group-error is-invalid invalid-space hidden h-mt-20">
+                <span>Ты не успел :( твою игру уже заняли.</span>
+            </div>
+            
+            <input type="hidden" name="action" value="submitForm">
+            <input type="hidden" name="formType" value="kosticon2019">
+            <input type="submit" name="submit" value="Поехали!" class="button button-light h-mt-20">
+        </form>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+<script type="text/javascript" data-th-inline="javascript">
+  var legendary = [[${legendary}]];
+</script>
+
+<script type="text/javascript">
+    var space = {
+        game1:{
+            sasha: 5,
+            max: 5,
+            vitalik: 5,
+            denis: 7,
+            dasha: 4,
+            stas: 5,
+            lesha: 5,
+            yaroslav: 5,
+            paradox: 5,
+            pyromanser: 4,
+            romanpylypenko: 5,
+            nikita: 6
+        },
+        game2:{
+            max: 5,
+            vitalik: 5,
+            denis: 5,
+            dasha: 4,
+            stas: 5,
+            lesha: 5,
+            yaroslav: 5,
+            paradox: 5,
+            sasha: 6
+        },
+        game3:{
+            sasha: 6,
+            max: 4,
+            vitalik: 5,
+            olehb: 4,
+            stas: 4,
+            pyromanser: 4,
+            nikita: 5,
+            lesha: 5,
+            irina: 5,
+            antonsh: 5,
+            natali: 5
+        },
+        game4:{
+            max: 5,
+            sasha: 5,
+            vitalik: 5,
+            stas: 5,
+            andreys: 5,
+            yaroslav: 4,
+            pyromanser: 4,
+            nikita: 5,
+            tifion: 5
+        },
+        game5:{
+            max: 5,
+            vitalik: 5,
+            olehb: 4,
+            sasha: 5,
+            andreys: 5,
+            pyromanser: 4,
+            nikita: 5,
+            antonsh: 5,
+            antonb: 4
+        }
+    };
+</script>
+
+</html>

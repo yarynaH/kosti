@@ -69,19 +69,19 @@
                                         <input data-th-attr="value=${cart._id}" readonly id="ordersAdminCartID" name="id">
                                     </div>
                                     <div class="select-field">
-                                        <label class="order-label">Item</label>
-                                        <select name="itemID" class="pdp-size_select select">
+                                        <label class="order-label" for="item-orders-select">Item</label>
+                                        <select name="itemID" class="pdp-size_select select" id="item-orders-select">
                                             <option data-th-each="product: ${products}" data-th-attr="value=${product._id}" data-th-text="${product.displayName}"></option>
                                         </select>
                                     </div>
                                     <div class="form-group-column">
                                         <div class="form-group">
-                                            <label for="phone-checkout-input" class="order-label">Amount</label>
-                                            <input name="amount" type="text" class="input-text">
+                                            <label for="amount-orders-input" class="order-label">Amount</label>
+                                            <input name="amount" id="amount-orders-input" type="text" class="input-text">
                                         </div>
                                         <div class="form-group">
-                                            <label for="size-checkout-input" class="order-label">Size</label>
-                                            <input name="size" type="text" class="input-text">
+                                            <label for="size-orders-input" class="order-label">Size</label>
+                                            <input name="size" id="size-orders-input" type="text" class="input-text">
                                         </div>
                                     </div>
                                     <input name="action" type="hidden" value="addItem">

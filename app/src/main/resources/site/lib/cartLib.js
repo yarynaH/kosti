@@ -29,7 +29,7 @@ exports.getCartByQr = function( qr ){
   var result = cartRepo.query({
     start: 0,
     count: 1,
-    query: "fulltext('items.itemsIds.id', '" + qr + "', 'OR') or ngram('items.itemsIds.id', '" + qr + "', 'OR')"
+    query: "fulltext('items.itemsIds.id', '\"" + qr + "\"', 'OR') or ngram('items.itemsIds.id', '\"" + qr + "\"', 'OR')"
   });
   if( result.total > 0 ){
     var cart = this.getCart( result.hits[0].id );
@@ -54,7 +54,7 @@ exports.markTicketUsed = function( qr ){
   var result = cartRepo.query({
     start: 0,
     count: 1,
-    query: "fulltext('items.itemsIds.id', '" + qr + "', 'OR') or ngram('items.itemsIds.id', '" + qr + "', 'OR')"
+    query: "fulltext('items.itemsIds.id', '\"" + qr + "\"', 'OR') or ngram('items.itemsIds.id', '\"" + qr + "\"', 'OR')"
   });
   if( result.total > 0 ){
     var result = cartRepo.modify({
@@ -304,7 +304,7 @@ function getCartItems( items ){
   var result = [];
   for( var i = 0; i < items.length; i++ ){
     var item = contentLib.get({ key: items[i].id });
-    if( typeof item.data.inventory === 'undefined' ){ item.data.inventory = 99999999 }
+    if( item && item.data && typeof item.data.inventory === 'undefined' ){ item.data.inventory = 99999999 }
     if( item && item.data ){
       result.push({
         _id: item._id,

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <div class="confirmation-wrap">
+            <div class="site_width">
+                <h2 class="checkout-title">Спасибо за регистрацию!</h2>
+                <div class="confirmation-msg">
+                    Мы приняли вашу заявку на игры, теперь дело за малым - приехать и поиграть!
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>
