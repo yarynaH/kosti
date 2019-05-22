@@ -29,7 +29,7 @@ exports.getCartByQr = function( qr ){
   var result = cartRepo.query({
     start: 0,
     count: 1,
-    query: "fulltext('items.itemsIds.id', '" + qr + "', 'OR') or ngram('items.itemsIds.id', '" + qr + "', 'OR')"
+    query: "fulltext('items.itemsIds.id', '\"" + qr + "\"', 'OR') or ngram('items.itemsIds.id', '\"" + qr + "\"', 'OR')"
   });
   if( result.total > 0 ){
     var cart = this.getCart( result.hits[0].id );
@@ -54,7 +54,7 @@ exports.markTicketUsed = function( qr ){
   var result = cartRepo.query({
     start: 0,
     count: 1,
-    query: "fulltext('items.itemsIds.id', '" + qr + "', 'OR') or ngram('items.itemsIds.id', '" + qr + "', 'OR')"
+    query: "fulltext('items.itemsIds.id', '\"" + qr + "\"', 'OR') or ngram('items.itemsIds.id', '\"" + qr + "\"', 'OR')"
   });
   if( result.total > 0 ){
     var result = cartRepo.modify({

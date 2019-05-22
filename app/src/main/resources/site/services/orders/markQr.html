@@ -29,7 +29,7 @@
  
                     <div class="order-row">
                         <div class="order-label">Статус билета: </div>
-                        <div class="order-value" data-th-text="${cart.currentQrStatus}"></div>
+                        <div class="order-value"  data-th-text="${portal.localize({'_key=order.ticket.status.' + cart.currentQrStatus, '_locale=ru'})}"></div>
                     </div>
 
                     <div class="order-row">
