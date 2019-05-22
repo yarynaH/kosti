@@ -24,13 +24,15 @@ exports.getTimePassedSincePostCreation = function(postCreationDate){
 	}
 	else if(daysPassed >= 1 && daysPassed < 31)
 		return daysPassed + ' ' + getCyrilicDay(daysPassed) + ' назад';
-	else if(daysPassed >= 31 && daysPassed < 366){
-		var m = Math.floor((daysPassed - 1)/30.4166);
-		return m + ' ' + getCyrilicMonth(m) + ' назад';
+	else if(daysPassed >= 31 && daysPassed < 365){
+		var month = Math.floor((daysPassed - 1)/30.4166);
+		if(month === 0)
+			month = 1;
+		return month + ' ' + getCyrilicMonth(month) + ' назад';
 	}
-	else if(daysPassed >= 366){
-		var y = Math.floor((daysPassed - 1)/365.25);
-		return y + ' ' + getCyrilicYear(y) + ' назад';
+	else if(daysPassed >= 365){
+		var year = Math.round((daysPassed - 1)/365.25);
+		return year + ' ' + getCyrilicYear(year) + ' назад';
 	}
 
 	return null;
