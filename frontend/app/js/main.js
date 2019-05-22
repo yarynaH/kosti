@@ -205,19 +205,17 @@ function initCheckoutEvents(){
 			$(this).parent().removeClass('is-invalid');
 		}
 	});
-
-	var dataCity = {
-		"apiKey": "8913262e83513c669457b8c48224f3ab",
-		"modelName": "Address",
-		"calledMethod": "searchSettlements",
-		"methodProperties": {
-			"CityName": "київ",
-			"Limit": 5
-		}
-	}	
 	
 	$('.delivery_np-input-city').on('input', function(){
 		if( $(this).val().length > 1 ){
+			var dataCity = {
+				"apiKey": "8913262e83513c669457b8c48224f3ab",
+				"modelName": "Address",
+				"calledMethod": "searchSettlements",
+				"methodProperties": {
+					"Limit": 10
+				}
+			}
 			dataCity.methodProperties.CityName = $('.delivery_np-input-city').val();
 
 			$.ajax({
@@ -229,14 +227,36 @@ function initCheckoutEvents(){
 				success: function(response){
 					var dataIncome =  response.data[0].Addresses;
 					for (var i = 0; i < dataIncome.length; i++) {
-						var liElement = document.createElement("LI");
-						var liText = document.createTextNode(dataIncome[i].Present);
-						liElement.appendChild(liText);
-						document.getElementById("suggestion-list").appendChild(liElement);
+						$("#suggestion-list").append("<li data-ref='" + dataIncome[i].DeliveryCity + "'>" + dataIncome[i].MainDescription + "</li>");
 					}
 				}
 			});
 		}
+	});
+	$('#suggestion-list').on('click', 'li', function(){
+		var dataCity = {
+			"apiKey": "8913262e83513c669457b8c48224f3ab",
+			"modelName": "AddressGeneral",
+			"calledMethod": "getWarehouses",
+			"methodProperties": {
+				"Language": "ru",
+				"Limit": "99999",
+				"CityRef": $(this).data('ref')
+			}
+		}
+
+		$.ajax({
+			url: 'https://api.novaposhta.ua/v2.0/json/',
+			type: 'POST',
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(dataCity),
+			success: function(response){
+				for (var i = 0; i < response.data.length; i++) {
+					// TODO: add options to select
+				}
+			}
+		});
 	});
 };
 
