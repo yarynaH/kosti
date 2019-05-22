@@ -253,7 +253,7 @@ function initCheckoutEvents(){
 			data: JSON.stringify(dataCity),
 			success: function(response){
 				for (var i = 0; i < response.data.length; i++) {
-					// TODO: add options to select
+					$('#delivery_np-warehouses').append('<option value="' + response.data[i].DescriptionRu + '">' + response.data[i].DescriptionRu + '</option>');
 				}
 			}
 		});
