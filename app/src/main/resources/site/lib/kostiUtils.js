@@ -8,31 +8,30 @@ exports.getTimePassedSincePostCreation = function(postCreationDate){
 	if(!postCreationDate || (!typeof postCreationDate === 'string' && !postCreationDate instanceof String))
 		return null;
 
-	var daysPassed = getDaysDifference(postCreationDate);
-
-	if(daysPassed === 0){
-		var hoursPassed = getHoursDifference(postCreationDate);
-		if(hoursPassed === 0){
-			var minutesPassed = getMinutesDifference(postCreationDate);
-			if(minutesPassed === 0)
-				return 'меньше минуты назад';
-			else if(minutesPassed >= 1 && minutesPassed < 60)
-				return minutesPassed + ' ' + getCyrilicMinute(minutesPassed) + ' назад'; 
-		}
-		else if(hoursPassed >= 1 && hoursPassed < 24)
+	var minutesPassed = getMinutesDifference(postCreationDate);
+	if(minutesPassed === 0)
+		return 'меньше минуты назад';
+	else if(minutesPassed >= 1 && minutesPassed < 60)
+		return minutesPassed + ' ' + getCyrilicMinute(minutesPassed) + ' назад';
+	else{
+		var hoursPassed = Math.round(minutesPassed/60)
+		if(hoursPassed >= 1 && hoursPassed < 24)
 			return hoursPassed + ' ' + getCyrilicHour(hoursPassed) + ' назад';
-	}
-	else if(daysPassed >= 1 && daysPassed < 31)
-		return daysPassed + ' ' + getCyrilicDay(daysPassed) + ' назад';
-	else if(daysPassed >= 31 && daysPassed < 365){
-		var month = Math.floor((daysPassed - 1)/30.4166);
-		if(month === 0)
-			month = 1;
-		return month + ' ' + getCyrilicMonth(month) + ' назад';
-	}
-	else if(daysPassed >= 365){
-		var year = Math.round((daysPassed - 1)/365.25);
-		return year + ' ' + getCyrilicYear(year) + ' назад';
+		else{
+	    	var daysPassed = Math.round(hoursPassed/24);
+	    	if(daysPassed >= 1 && daysPassed < 31)
+				return daysPassed + ' ' + getCyrilicDay(daysPassed) + ' назад';
+			else if(daysPassed >= 31 && daysPassed < 365){
+				var month = Math.floor((daysPassed - 1)/30.4166);
+				if(month === 0)
+					month = 1;
+				return month + ' ' + getCyrilicMonth(month) + ' назад';
+			}
+			else if(daysPassed >= 365){
+				var year = Math.round((daysPassed - 1)/365.25);
+				return year + ' ' + getCyrilicYear(year) + ' назад';
+			}
+		}	
 	}
 
 	return null;
