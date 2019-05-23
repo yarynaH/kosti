@@ -45,14 +45,8 @@ function getCyrilicMinute(minutesNum){
 		return null;
 
 	var minute = ['минуту', 'минуты', 'минут'];
-	if(minutesNum % 10 === 1 && minutesNum % 1000 != 11)
-		return minute[0];
-	else if((minutesNum % 10 === 2 && minutesNum % 1000 != 12)
-		 || (minutesNum % 10 === 3 && minutesNum % 1000 != 13)
-	  	 || (minutesNum % 10 === 4 && minutesNum % 1000 != 14))
-		return minute[1];
-	else
-		return minute[2];
+	var num = getWordNumber(minutesNum);
+	return minute[num];
 }
 
 //Takes Number of hours
@@ -62,14 +56,8 @@ function getCyrilicHour(hoursNum){
 		return null;
 
 	var hour = ['час', 'часа', 'часов'];
-	if(hoursNum % 10 === 1 && hoursNum % 1000 != 11)
-		return hour[0];
-	else if((hoursNum % 10 === 2 && hoursNum % 1000 != 12)
-		 || (hoursNum % 10 === 3 && hoursNum % 1000 != 13)
-	  	 || (hoursNum % 10 === 4 && hoursNum % 1000 != 14))
-		return hour[1];
-	else
-		return hour[2];
+	var num = getWordNumber(hoursNum);
+	return hour[num];
 }
 
 //Takes Number of days
@@ -79,14 +67,8 @@ function getCyrilicDay(daysNum){
 		return null;
 
 	var day = ['день','дня','дней'];
-	if(daysNum % 10 === 1 && daysNum % 1000 != 11)
-		return day[0];
-	else if((daysNum % 10 === 2 && daysNum % 1000 != 12)
-		 || (daysNum % 10 === 3 && daysNum % 1000 != 13)
-	  	 || (daysNum % 10 === 4 && daysNum % 1000 != 14))
-		return day[1];
-	else
-		return day[2];
+	var num = getWordNumber(daysNum);
+	return day[num];
 }
 
 //Takes Number of month
@@ -96,15 +78,8 @@ function getCyrilicMonth(monthNum){
 		return null;
 
 	var month = ['месяц','месяца','месяцев'];
-
-	if(monthNum % 10 === 1 && monthNum % 1000 != 11)
-		return month[0];
-	else if((monthNum % 10 === 2 && monthNum % 1000 != 12)
-		 || (monthNum % 10 === 3 && monthNum % 1000 != 13)
-		 || (monthNum % 10 === 4 && monthNum % 1000 != 14))
-		return month[1];
-	else
-		return month[2];
+	var num = getWordNumber(monthNum);
+	return month[num];
 }
 
 //Takes Number of years
@@ -114,15 +89,20 @@ function getCyrilicYear(yearNum){
 		return null;
 
 	var year = ['год','года','лет'];
+	var num = getWordNumber(yearNum);
+	return year[num];
+}
 
-	if(yearNum % 10 === 1 && yearNum % 1000 != 11)
-		return year[0];
-	else if((yearNum % 10 === 2 && yearNum % 1000 != 12)
-		 || (yearNum % 10 === 3 && yearNum % 1000 != 13)
-		 || (yearNum % 10 === 4 && yearNum % 1000 != 14))
-		return year[1];
+//Take a number and return number of correct word from vector
+function getWordNumber(num){
+	if(num % 10 === 1 && num % 1000 != 11)
+		return 0;
+	else if((num % 10 === 2 && num % 1000 != 12)
+		 || (num % 10 === 3 && num % 1000 != 13)
+		 || (num % 10 === 4 && num % 1000 != 14))
+		return 1;
 	else
-		return year[2];
+		return 2;
 }
 
 // Takes date in '2014-10-10' string format as an argument
