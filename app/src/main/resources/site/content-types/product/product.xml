@@ -57,28 +57,16 @@
     <item-set name="sizes">
       <label>Available sizes</label>
       <items>
-        <input name="XS" type="CheckBox">
-          <label>XS</label>
-          <occurrences minimum="0" maximum="1"/>
+        <input name="title" type="TextLine">
+          <label>Size</label>
+          <occurrences minimum="1" maximum="1"/>
         </input>
-        <input name="S" type="CheckBox">
-          <label>S</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="M" type="CheckBox">
-          <label>M</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="L" type="CheckBox">
-          <label>L</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="XL" type="CheckBox">
-          <label>XL</label>
+        <input name="amount" type="Long">
+          <label>Amount</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
       </items>
-      <occurrences minimum="1" maximum="1"/>
+      <occurrences minimum="0" maximum="0"/>
     </item-set>
     <input name="weight" type="Long">
       <label>Weight</label>

@@ -427,7 +427,7 @@ function addToCart( data ){
 			for( var i = 0; i < data.items.length; i++ ){
 				var selector = '.cart-product_price-wrap[data-id=' + data.items[i]._id + ']';
 				data.items[i].itemSize ? selector += '[data-size=' + data.items[i].itemSize + ']':false;
-				if( data.items[i].stock ){
+				if( data.items[i].stock && data.items[i].itemSizeStock ){
 					$(selector).find('.productPrice').removeClass('hidden');
 					$(selector).find('.productOutOfStock').addClass('hidden');
 				} else {

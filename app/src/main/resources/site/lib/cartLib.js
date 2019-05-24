@@ -316,6 +316,7 @@ function getCartItems( items ){
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),
         itemSize: items[i].itemSize,
+        itemSizeStock: checkItemSizeStock( items[i].itemSize, parseInt(items[i].amount), item._id),
         itemsIds: norseUtils.forceArray(items[i].itemsIds)
       });
     }
@@ -389,9 +390,25 @@ exports.getShippingPrice = getShippingPrice;
 
 function checkCartStock( items ){
   for( var i = 0; i < items.length; i++ ){
-    if( !items[i].stock ){
+    if( !items[i].stock || !items[i].itemSizeStock ){
       return false;
     }
   }
   return true;
+}
+
+function checkItemSizeStock( size, amount, id ) {
+  var item = contentLib.get({ key: id });
+  if( item && item.data && item.data.sizes ){
+    var sizes = norseUtils.forceArray(item.data.sizes);
+    for( var i = 0; i < sizes.length; i++ ){
+      if( sizes[i].title == size ){
+        if( parseInt(amount) <= parseInt(sizes[i].amount) ){
+          return true;
+        }
+      }
+      break;
+    }
+  }
+  return false;
 }

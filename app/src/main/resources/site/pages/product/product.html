@@ -65,11 +65,11 @@
                                 </div>
                             </div>
                             <div class="pdp-options">
-                                <div class="pdp-size" data-th-if="${sizes && sizes.size > 0}">
+                                <div class="pdp-size" data-th-if="${content.data.sizes && content.data.sizes.size > 0}">
                                     <div class="select-field">
                                         <select name="itemSize" id="pdp-size-select" class="pdp-size_select select">
                                             <option value="Выберите размер" disabled="disabled" selected>Выберите размер</option>
-                                            <option data-th-each="size: ${sizes}" data-th-attr="value=${size}" data-th-text="${size}"></option>
+                                            <option data-th-each="size: ${content.data.sizes}" data-th-if="${size.amount > 0}" data-th-attr="value=${size.title}" data-th-text="${size.title}"></option>
                                         </select>
                                     </div>
                                 </div>
