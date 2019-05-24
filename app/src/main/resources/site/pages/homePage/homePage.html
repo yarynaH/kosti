@@ -74,43 +74,7 @@
                     <a href="#" class="fresher-btn hidden">Свежее</a>
                     <a href="#" class="bookmarks-btn hidden">Закладочки</a>
                 </div>
-                <div class="blog-list">
-                    <div data-th-each="article: ${articles}" class="blog-item">
-                        <div class="post-image_wrap">
-                            <img data-th-src="${article.image.url}" alt="">
-                        </div>
-                        <div class="post">
-                            <div class="post-info">
-                                <a data-th-href="${article.author.url}">
-                                    <span class="post-user_avatar">
-                                        <img data-th-src="${article.author.image.url}" alt="">
-                                    </span>
-                                    <span class="post-user_name" data-th-text="${article.author.displayName}"></span>
-                                </a>
-                                <span class="post-date" data-th-text="${article.date}"></span>
-                            </div>
-                            <a class="post-title" data-th-text="${article.displayName}"></a>
-                            <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
-                            <div class="tag-list hidden">
-                                <a href="#" class="tag-item">WoD</a>
-                                <a href="#" class="tag-item">V5</a>
-                                <a href="#" class="tag-item">VtM</a>
-                            </div>
-                        </div>
-                        <div class="post-footer">
-                            <div class="post-counters hidden">
-                                <span class="share-counter icon-share">245</span>
-                                <span class="views-counter icon-views">314</span>
-                                <span class="comments-counter icon-comment">12</span>
-                            </div>
-                            <div class="post-actions">
-                                <a href="#" class="hidden add_to_bookmarks-btn icon-bookmark"></a>
-                                <a data-th-attr="data-contentId=${article._id}" href="#" class="like-btn icon-rock" data-th-classappend="${article.voted} ? 'active' : ''">
-                                    <span data-th-text="${article.votes}"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="blog-list" data-th-utext="${articles}">
                 </div>
                 <div class="blog-sidebar">
                     <div class="library_top hidden" style="background-image: url(https://picsum.photos/300/470?random);">

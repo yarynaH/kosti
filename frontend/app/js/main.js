@@ -236,6 +236,25 @@ function initSharedEvents(){
 	if( $('#payment-success').length > 0 ){
 		deleteCookie('cartId');
 	}
+	$('.add_to_bookmarks-btn').on('click', function() {
+		var btn = $(this);
+		$.ajax({
+			url: '/_/service/com.myurchenko.kostirpg/user',
+			type: 'POST',
+			async: true,
+			data: {
+				id: $(this).data().contentid,
+				action: 'addBookmark'
+			},
+			success: function(data){
+				if( data === true ){
+					btn.addClass('active');
+				} else {
+					btn.removeClass('active');
+				}
+			}
+		});
+	});
 }
 
 function initCartFunctions(){

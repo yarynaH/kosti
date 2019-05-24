@@ -4,6 +4,7 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var norseUtils = require('norseUtils');
 var authLib = require('/lib/xp/auth');
 var nodeLib = require('/lib/xp/node');
+var userLib = require('userLib');
 
 exports.vote = function(user, content){
 	return doVote(user, content);
@@ -40,10 +41,11 @@ function doVote( user, content ){
 	}
 }
 
-function checkIfVoted( user, content ){
+function checkIfVoted( content ){
+    var user = userLib.getCurrentUser();
 	var node = getNode( content );
-	if( user && content && node ){
-		return checkIfVoteExist( user, node );
+	if( user && user.key && content && node ){
+		return checkIfVoteExist( user.key, node );
 	}
 	return false;
 }
