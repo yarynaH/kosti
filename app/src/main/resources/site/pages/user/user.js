@@ -54,9 +54,17 @@ function handleReq(req) {
         if( bookmarks && bookmarks.length > 0 ){
             content.bookmarks = blogLib.beautifyArticleArray(bookmarks);
         }
+        var active = {
+            bookmarks: '',
+            articles: '',
+            comments: '',
+            notifications: ''
+        }
         if( up.action == 'bookmarks' ){
+            active.bookmarks = 'active';
             var articlesView = blogLib.getArticlesView(bookmarks);
         } else {
+            active.articles = 'active';
             var articlesView = blogLib.getArticlesView(articles);
         }
 
@@ -64,6 +72,7 @@ function handleReq(req) {
             content: content,
             currUser: currUser.key == userSystemObj.key,
             app: app,
+            active: active,
             social: site.social,
             articlesView: articlesView,
             pageComponents: helpers.getPageComponents(req)
