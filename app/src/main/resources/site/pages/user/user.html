@@ -32,7 +32,7 @@
                         </div>
                         <ul class="profile-action-list">
                             <li class="profile-action-item">
-                                <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="profile-action-link active">
+                                <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="profile-action-link" data-th-classappend="${active.articles}">
                                     Статьи 
                                     <span class="value" data-th-remove="tag" data-th-text="${content.articles ? content.articles.size : '0'}"></span>
                                 </a>
@@ -41,7 +41,7 @@
                                 <a class="profile-action-link hidden">Коментарии <span class="value">21</span></a>
                             </li>
                             <li class="profile-action-item">
-                                <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}" class="profile-action-link">Закладки <span  data-th-text="${content.bookmarks ? content.bookmarks.size : '0'}"></span></a>
+                                <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}" class="profile-action-link"  data-th-classappend="${active.bookmarks}">Закладки <span  data-th-text="${content.bookmarks ? content.bookmarks.size : '0'}"></span></a>
                             </li>
                             <li class="profile-action-item">
                                 <a href="" class="profile-action-link hidden">Уведомления <span class="value">1</span></a>
