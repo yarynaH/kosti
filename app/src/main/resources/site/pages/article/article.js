@@ -32,13 +32,15 @@ function handleReq(req) {
         var response = [];
         var site = portal.getSiteConfig();
         var mainRegion = content.page.regions.main;
+        var similarArticles = getSimilar( content.data.similarArticles );
 
         var model = {
             content: content,
             social: site.social,
             mainRegion: mainRegion,
             weeksPost: getWeeksPost(site.weeksPost),
-            pageComponents: helpers.getPageComponents(req)
+            pageComponents: helpers.getPageComponents(req),
+            similarArticles: similarArticles
         };
 
         return model;
@@ -63,6 +65,28 @@ function handleReq(req) {
         var weeksPost = contentLib.get({ key: weeksPost });
         weeksPost = beautifyArticle(weeksPost);
         return weeksPost;
+    }
+
+    function getSimilar( ids ){
+        if( ids ){
+            var result = [];
+            ids = norseUtils.forceArray(ids);
+            for( var i = 0; i < ids.length; i++ ){
+                var article = contentLib.get({ key: ids[i] });
+                if( article ){
+                    result.push({
+                        _id: article._id,
+                        url: portal.pageUrl({ path: article._path }),
+                        displayName: article.displayName,
+                        votes: votesLib.countUpvotes( article._id ),
+                        voted: votesLib.checkIfVoted( user.key, article._id )
+                    });
+                }
+            }
+            return result;
+        } else {
+            return false;
+        }
     }
 
     return renderView();
