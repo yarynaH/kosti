@@ -43,15 +43,15 @@
             </label>
         </div>
     </div>
-    <div class="delivery_details">
+    <div data-th-if="${cart.country == 'ua'}" class="delivery_details">
         <div class="form-group suggestion-wrap">
             <label for="delivery_np-input-city" class="label">Введите город</label>
-            <input autocomplete="off" type="text" class="input-text delivery_np-input-city" id="delivery_np-input-city">
+            <input name="novaPoshtaСity" autocomplete="off" type="text" class="input-text delivery_np-input-city" id="delivery_np-input-city">
             <ul id="suggestion-list" class="suggestion-list">
             </ul>
         </div>
         <div class="select-field">
-            <select id="delivery_np-warehouses">
+            <select name="novaPoshtaWarehouse" id="delivery_np-warehouses">
                 <option disabled="disabled" selected="selected">Выберите отделение</option>
             </select>
         </div>

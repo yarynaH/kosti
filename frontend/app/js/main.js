@@ -544,4 +544,12 @@ function validateCheckout(e){
 		e.preventDefault();
 		$('#agreement').parent().addClass('is-invalid');
 	}
+	if( $('#delivery_np-warehouses').length && (!$('#delivery_np-warehouses').val() || $('#delivery_np-warehouses').val() == '' )){
+		e.preventDefault();
+		$('#delivery_np-warehouses').addClass('is-invalid');
+	}
+	if( $('#delivery_np-input-city').length && (!$('#delivery_np-input-city').val() || $('#delivery_np-input-city').val() == '' )){
+		e.preventDefault();
+		$('#delivery_np-input-city').parent().addClass('is-invalid');
+	}
 }
