@@ -405,9 +405,9 @@ function checkItemSizeStock( size, amount, id ) {
       if( sizes[i].title == size ){
         if( parseInt(amount) <= parseInt(sizes[i].amount) ){
           return true;
+          break;
         }
       }
-      break;
     }
   }
   return false;
