@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="cart-product_price-wrap" data-th-attr="data-id=${item._id}, data-size=${item.itemSize}">
-                            <div data-th-classappend="${item.stock ? '' : 'hidden'}" class="productPrice">
+                            <div data-th-classappend="${item.stock and item.itemSizeStock ? '' : 'hidden'}" class="productPrice">
                                 <div class="cart-product_price price-sale"
                                     data-th-if="${item.price and item.finalPrice and item.price < item.finalPrice}" >
                                     <span class="price-curency">UAH</span>
@@ -44,7 +44,7 @@
                                     <span data-th-text="${item.price}"></span>
                                 </div>
                             </div>
-                            <div data-th-classappend="${item.stock ? 'hidden' : ''}" class="out-of-stock-msg productOutOfStock">
+                            <div data-th-classappend="${item.stock and item.itemSizeStock ? 'hidden' : ''}" class="out-of-stock-msg productOutOfStock">
                                 Нет в наличии
                             </div>
                         </div>
