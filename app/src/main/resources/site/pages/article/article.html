@@ -46,7 +46,7 @@
                                 <span class="comments-counter icon-comment">12</span>
                             </div>
                             <div class="post-actions">
-                                <a href="#" class="hidden add_to_bookmarks-btn icon-bookmark"></a>
+                                <a class="add_to_bookmarks-btn icon-bookmark" data-th-attr="data-contentId=${content._id}" data-th-classappend="${bookmarked} ? 'active' : ''"></a>
                                 <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
                                     <span data-th-text="${content.votes}"></span>
                                 </a>
@@ -54,25 +54,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="similar_posts hidden">
+                <div data-th-if="${similarArticles}" class="similar_posts">
                     <h4 class="similar_posts-title">Похожие статьи</h4>
                     <ul class="similar_posts-list">
-                        <li class="similar_posts-item">
-                            <a href="#" class="similar_posts-link">Почему Хесус такой плохой тореадор?</a>
-                            <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
-                                <span data-th-text="${content.votes}"></span>
-                            </a>
-                        </li>
-                        <li class="similar_posts-item">
-                            <a href="#" class="similar_posts-link">У Львові відбулась якась хуйня</a>
-                            <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
-                                <span data-th-text="${content.votes}"></span>
-                            </a>
-                        </li>
-                        <li class="similar_posts-item">
-                            <a href="#" class="similar_posts-link">Ожидания от 3-го сезона Кровавых Ублюдков</a>
-                            <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
-                                <span data-th-text="${content.votes}"></span>
+                        <li class="similar_posts-item" data-th-each="article : ${similarArticles}">
+                            <a data-th-href="${article.url}" class="similar_posts-link" data-th-text="${article.displayName}"></a>
+                            <a data-th-attr="data-contentId=${article._id}" href="#" class="like-btn icon-rock" data-th-classappend="${article.voted} ? 'active' : ''">
+                                <span data-th-text="${article.votes}"></span>
                             </a>
                         </li>
                     </ul>
@@ -195,7 +183,7 @@
                             <span class="post-user_name" data-th-text="${weeksPost.author.displayName}"></span>
                         </div>
                     </a>
-                    <a class="post_top-title" data-th-text="${weeksPost.displayName}"></a>
+                    <a class="post_top-title" data-th-text="${weeksPost.displayName}" data-th-href="${weeksPost.url}"></a>
                     <div class="post_top-text"></div>
                     <div class="post_top-footer">
                         <div class="tag-list" hidden>

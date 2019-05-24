@@ -10,8 +10,11 @@ var i18nLib = require('/lib/xp/i18n');
 
 exports.findUser = findUser;
 exports.activateUser = activateUser;
+exports.getCurrentUser = getCurrentUser;
+exports.addBookmark = addBookmark;
+exports.checkIfBookmarked = checkIfBookmarked;
 
-exports.getCurrentUser = function(){
+function getCurrentUser(){
 	var user = authLib.getUser();
 	var userObj = false;
 	if( user && user.email && user.displayName ){
@@ -140,6 +143,42 @@ exports.login = function( name, pass ){
 			})
 		}
 	}
+}
+
+function addBookmark( contentId ) {
+	var user = getCurrentUser();
+    user = contentLib.modify({
+        key: user._id,
+        editor: userEditor,
+        branch: 'draft'
+    });
+    var publishResult = contentLib.publish({
+        keys: [user._id],
+        sourceBranch: 'draft',
+        targetBranch: 'master'
+    });
+	function userEditor(user){
+		var temp = norseUtils.forceArray(user.data.bookmarks);
+		if( !temp ){
+			temp = [];
+		}
+		if( temp.indexOf(contentId) == -1 ){
+		    temp.push(contentId);
+		} else {
+			temp.splice(temp.indexOf(contentId), 1);
+		}
+	    user.data.bookmarks = temp;
+	    return user;
+	}
+	return checkIfBookmarked(contentId);
+}
+
+function checkIfBookmarked( contentId ){
+	var user = getCurrentUser();
+	if( user && user.data && user.data.bookmarks && user.data.bookmarks.indexOf(contentId) != -1 ){
+		return true;
+	}
+	return false;
 }
 
 function findUser( name ){

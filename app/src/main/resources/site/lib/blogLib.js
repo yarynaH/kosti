@@ -3,6 +3,12 @@ var portal = require('/lib/xp/portal');
 var norseUtils = require('norseUtils');
 var kostiUtils = require('kostiUtils');
 var votesLib = require('votesLib');
+var thymeleaf = require('/lib/xp/thymeleaf');
+var userLib = require('userLib');
+
+exports.beautifyArticle = beautifyArticle;
+exports.beautifyArticleArray = beautifyArticleArray;
+exports.getArticlesView = getArticlesView;
 
 function beautifyArticleArray( articles ){
 	articles = norseUtils.forceArray(articles);
@@ -20,8 +26,14 @@ function beautifyArticle( article ){
     article.author.url = portal.pageUrl({ id: article.author._id });
     article.date = kostiUtils.getTimePassedSincePostCreation(article.publish.from.replace('Z', ''));
     article.votes = votesLib.countUpvotes(article._id);
+    article.voted = false;
+    article.bookmarked = userLib.checkIfBookmarked(article._id);
+    if( parseInt(article.votes) > 0 ){
+        article.voted = votesLib.checkIfVoted( article._id );
+    }
     return article;
 }
 
-exports.beautifyArticle = beautifyArticle;
-exports.beautifyArticleArray = beautifyArticleArray;
+function getArticlesView( articles ){
+    return thymeleaf.render(resolve('../pages/homePage/articleList.html'), {articles: articles});
+}
