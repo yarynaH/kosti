@@ -369,6 +369,7 @@ function loadMoreArticles(){
 		page = 0;
 	}
 	var type = $('.blog-list').data('feedType');
+	$('.js_lazyload-icon').removeClass('hidden');
 	$.ajax({
 		url: contentServiceUrl,
 		type: 'GET',
@@ -385,6 +386,7 @@ function loadMoreArticles(){
 			} else {
 				$('.blog-list').append(data);
 			}
+			$('.js_lazyload-icon').addClass('hidden');
 			$('.blog-list').data('page', page + 1);
 		}
 	});
