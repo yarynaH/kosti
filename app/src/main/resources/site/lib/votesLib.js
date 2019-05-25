@@ -11,6 +11,7 @@ exports.vote = vote;
 exports.countUpvotes = countUpvotes;
 exports.countUserUpvotes = countUserUpvotes;
 exports.checkIfVoted = checkIfVoted;
+exports.getHotIds = getHotIds;
 
 function vote(user, content){
 	var result = doVote(user, content);
@@ -72,7 +73,8 @@ function createBlankVote( node ){
 	var votesRepo = getVotesRepo();
 	return votesRepo.create({
 	    id: node,
-	    votes: []
+	    votes: [],
+	    rate: 0
 	});
 }
 
@@ -97,6 +99,7 @@ function upvote( user, node ){
 		var temp = norseUtils.forceArray(node.votes);
 		temp.push( user );
 	    node.votes = temp;
+	    node.rate = node.votes.length;
 	    return node;
 	}
 }
@@ -110,6 +113,7 @@ function downvote( user, node ){
 	function editor(node) {
 		node.votes = norseUtils.forceArray(node.votes);
 		node.votes.splice(node.votes.indexOf(user), 1);
+	    node.rate = node.votes.length;
 	    return node;
 	}
 }
@@ -125,6 +129,26 @@ function getNode( id ){
 		return votesRepo.get(result.hits[0].id);
 	}
 	return false;
+}
+
+function getHotIds(){
+	var votesRepo = getVotesRepo();
+	var date = new Date();
+	date = new Date(date.getTime() - (3 * 24 * 60 * 60 * 1000));
+	var hits = votesRepo.query({
+	    start: 0,
+	    count: 5,
+	    sort: '_timestamp DESC, rate DESC'
+	}).hits;
+	var result = [];
+	for( var i = 0; i < hits.length; i++ ){
+		var temp = votesRepo.get(hits[i].id);
+		if( temp && temp._id){
+			result.push(temp.id);
+		}
+	}
+	return result;
+
 }
 
 function getVotesRepo(){

@@ -9,7 +9,7 @@ var userLib = require('userLib');
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
 exports.getArticlesView = getArticlesView;
-exports.getUserBookmarks = getUserBookmarks;
+exports.getArticlesByIds = getArticlesByIds;
 
 function beautifyArticleArray( articles ){
 	articles = norseUtils.forceArray(articles);
@@ -39,12 +39,17 @@ function getArticlesView( articles ){
     return thymeleaf.render(resolve('../pages/homePage/articleList.html'), {articles: articles});
 }
 
-function getUserBookmarks( ids ){
+function getArticlesByIds( ids ){
     if( ids ){
         var result = [];
         ids = norseUtils.forceArray(ids);
         for( var i = 0; i < ids.length; i++ ){
-            result.push(contentLib.get({ key: ids[i] }));
+            if( ids[i] ){
+                var temp = contentLib.get({ key: ids[i] });
+                if(temp){
+                    result.push(temp);
+                }
+            }
         }
         result = beautifyArticleArray(result);
         return result;

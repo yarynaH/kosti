@@ -45,15 +45,16 @@ function handleReq(req) {
         switch(up.feed){
             case 'new':
                 active.new = 'active';
-                var articles = blogLib.beautifyArticleArray(getNewArticles());
+                var articles = blogLib.beautifyArticleArray(getArticles());
                 break;
             case 'bookmarks':
                 active.bookmarks = 'active';
-                var articles = blogLib.getUserBookmarks( user.data.bookmarks );
+                var articles = blogLib.getArticlesByIds( user.data.bookmarks );
                 break;
             default:
                 active.hot = 'active';
-                var articles = blogLib.beautifyArticleArray(getArticles());
+                var hotIds = votesLib.getHotIds();
+                var articles = blogLib.getArticlesByIds(hotIds);
                 break;
         }
 
@@ -95,12 +96,12 @@ function handleReq(req) {
             return result;
         }
 
-        function getArticles( ){
+        function getArticles(){
             var result = contentLib.query({
                 query: '',
                 start: 0,
                 count: 3,
-                sort: 'data.date ASC',
+                sort: 'publish.from ASC',
                 contentTypes: [
                     app.name + ':article'
                 ]

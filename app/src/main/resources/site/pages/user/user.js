@@ -42,7 +42,7 @@ function handleReq(req) {
         var response = [];
         var site = portal.getSiteConfig();
 
-        var bookmarks = blogLib.getUserBookmarks( content.data.bookmarks );
+        var bookmarks = blogLib.getArticlesByIds( content.data.bookmarks );
         var articles = contentLib.query({
             start: 0,
             count: 999999,
