@@ -355,10 +355,30 @@ function initSharedEvents(){
 	if($('.blog-list').length > 0){
 		$(document).on('scroll', function(){
 			if( ($(document).scrollTop() + $(window).height() + 150) > $( document ).height() ){
-				console.log('now');
+				loadMoreArticles();
 			}
 		});
 	}
+}
+
+function loadMoreArticles(){
+	var page = $('.blog-list').data('page');
+	if( !page ){
+		page = 0;
+	}
+	var type = $('.blog-list').data('feedType');
+	$.ajax({
+		url: contentServiceUrl,
+		type: 'GET',
+		async: false,
+		data: {
+			page: page
+		},
+		success: function(data){
+			$('.blog-list').append(data);
+			$('.blog-list').data('page', page + 1);
+		}
+	});
 }
 
 function initCartFunctions(){

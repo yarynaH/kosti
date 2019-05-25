@@ -22,7 +22,9 @@ function beautifyArticleArray( articles ){
 }
 
 function beautifyArticle( article ){
-    article.image = norseUtils.getImage( article.data.image, 'block(1920, 1080)' );
+    article.image = norseUtils.getImage( article.data.image, 'block(767, 350)' );
+    article.imageMobile = norseUtils.getImage( article.data.image, 'block(767, 350)' );
+    article.imageDesktop = norseUtils.getImage( article.data.image, 'block(1920, 1080)' );
     article.author = contentLib.get({ key: article.data.author });
     article.url = portal.pageUrl({ id: article._id });
     article.author.image = norseUtils.getImage( article.author.data.userImage, 'block(60, 60)' );
