@@ -58,6 +58,8 @@ exports.post = function( req ) {
         result = userLib.uploadUserImage();
     } else if( params.action == 'forgotpass' ){
         result = userLib.resetPass( params.email );
+    } else if( params.action == 'addBookmark' ){
+        result = userLib.addBookmark( params.id );
     } else if( params.action == 'resetpass' ){
         if( userLib.setNewPass( params.password, params.email, params.hash ) ){
             return logout();

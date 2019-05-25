@@ -40,7 +40,8 @@ function handleReq(req) {
             mainRegion: mainRegion,
             weeksPost: getWeeksPost(site.weeksPost),
             pageComponents: helpers.getPageComponents(req),
-            similarArticles: similarArticles
+            similarArticles: similarArticles,
+            bookmarked: userLib.checkIfBookmarked(content._id)
         };
 
         return model;
@@ -56,7 +57,7 @@ function handleReq(req) {
         article.votes = votesLib.countUpvotes(article._id);
         article.voted = false;
         if( parseInt(article.votes) > 0 ){
-            article.voted = votesLib.checkIfVoted( user.key, article._id );
+            article.voted = votesLib.checkIfVoted( article._id );
         }
         return article;
     }
@@ -79,7 +80,7 @@ function handleReq(req) {
                         url: portal.pageUrl({ path: article._path }),
                         displayName: article.displayName,
                         votes: votesLib.countUpvotes( article._id ),
-                        voted: votesLib.checkIfVoted( user.key, article._id )
+                        voted: votesLib.checkIfVoted( article._id )
                     });
                 }
             }

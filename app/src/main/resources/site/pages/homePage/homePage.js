@@ -1,8 +1,4 @@
 var thymeleaf = require('/lib/xp/thymeleaf');
-var libs = {
-    context: require('/lib/xp/context')
-};
-
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
@@ -10,8 +6,8 @@ var helpers = require('helpers');
 var votesLib = require('votesLib');
 var userLib = require('userLib');
 var kostiUtils = require('kostiUtils');
-var mailLib = require('/lib/xp/mail');
 var httpClientLib = require('/lib/xp/http-client');
+var blogLib = require('blogLib');
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -57,7 +53,7 @@ function handleReq(req) {
             pageComponents: helpers.getPageComponents(req),
             showDescription: showDescription,
             slider: getSliderArticles(site.slider),
-            articles: getArticles()
+            articles: blogLib.getArticlesView(getArticles())
         };
 
         return model;
@@ -94,7 +90,7 @@ function handleReq(req) {
                 ]
             }).hits;
             for( var i = 0; i < result.length; i++ ){
-                result[i] = beautifyArticle(result[i]);
+                result[i] = blogLib.beautifyArticle(result[i]);
             }
             return result;
         }
@@ -103,30 +99,15 @@ function handleReq(req) {
             var result = [];
             for( var i = 0; i < articles.length; i++ ){
                 var temp = contentLib.get({ key: articles[i] });
-                result[i] = beautifyArticle(temp);
+                result[i] = blogLib.beautifyArticle(temp);
             }
             return result;
         }
 
         function getWeeksPost( weeksPost ){
             var weeksPost = contentLib.get({ key: weeksPost });
-            weeksPost = beautifyArticle(weeksPost);
+            weeksPost = blogLib.beautifyArticle(weeksPost);
             return weeksPost;
-        }
-
-        function beautifyArticle( article ){
-            article.image = norseUtils.getImage( article.data.image, 'block(1920, 1080)' );
-            article.author = contentLib.get({ key: article.data.author });
-            article.url = portal.pageUrl({ id: article._id });
-            article.author.image = norseUtils.getImage( article.author.data.userImage, 'block(60, 60)' );
-            article.author.url = portal.pageUrl({ id: article.author._id });
-            article.date = kostiUtils.getTimePassedSincePostCreation(article.publish.from.replace('Z', ''));
-            article.votes = votesLib.countUpvotes(article._id);
-            article.voted = false;
-            if( parseInt(article.votes) > 0 ){
-                article.voted = votesLib.checkIfVoted( user.key, article._id );
-            }
-            return article;
         }
 
         function getVideoViaApi( key ){

@@ -22,5 +22,12 @@
         <allowPath>./*</allowPath>
       </config>
     </input>
+    <input name="bookmarks" type="ContentSelector">
+      <label>Bookmarks</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <allowContentType>article</allowContentType>
+      </config>
+    </input>
   </form>
 </content-type>

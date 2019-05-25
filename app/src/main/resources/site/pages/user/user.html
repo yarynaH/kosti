@@ -32,16 +32,16 @@
                         </div>
                         <ul class="profile-action-list">
                             <li class="profile-action-item">
-                                <a href="" class="profile-action-link active">
+                                <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="profile-action-link" data-th-classappend="${active.articles}">
                                     Статьи 
                                     <span class="value" data-th-remove="tag" data-th-text="${content.articles ? content.articles.size : '0'}"></span>
                                 </a>
                             </li>
                             <li class="profile-action-item">
-                                <a href="" class="profile-action-link hidden">Коментарии <span class="value">21</span></a>
+                                <a class="profile-action-link hidden">Коментарии <span class="value">21</span></a>
                             </li>
                             <li class="profile-action-item">
-                                <a href="" class="profile-action-link hidden">Закладки <span class="value">31</span></a>
+                                <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}" class="profile-action-link"  data-th-classappend="${active.bookmarks}">Закладки <span  data-th-text="${content.bookmarks ? content.bookmarks.size : '0'}"></span></a>
                             </li>
                             <li class="profile-action-item">
                                 <a href="" class="profile-action-link hidden">Уведомления <span class="value">1</span></a>
@@ -58,42 +58,7 @@
                     <div data-th-if="${!content.articles || content.articles.size < 1}">
                         У этого пользователя пока нету статей
                     </div>
-                    <div data-th-each="article: ${content.articles}" class="blog-item">
-                        <div class="post-image_wrap">
-                            <img data-th-src="${article.image.url}" alt="">
-                        </div>
-                        <div class="post">
-                            <div class="post-info">
-                                <a data-th-href="${article.author.url}">
-                                    <span class="post-user_avatar">
-                                        <img data-th-src="${article.author.image.url}" alt="">
-                                    </span>
-                                    <span class="post-user_name" data-th-text="${article.author.displayName}"></span>
-                                </a>
-                                <span class="post-date" data-th-text="${article.date}"></span>
-                            </div>
-                            <h2 class="post-title" data-th-text="${article.displayName}"></h2>
-                            <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
-                            <div class="tag-list hidden">
-                                <a href="#" class="tag-item">WoD</a>
-                                <a href="#" class="tag-item">V5</a>
-                                <a href="#" class="tag-item">VtM</a>
-                            </div>
-                        </div>
-                        <div class="post-footer">
-                            <div class="post-counters hidden">
-                                <span class="share-counter icon-share">245</span>
-                                <span class="views-counter icon-views">314</span>
-                                <span class="comments-counter icon-comment">12</span>
-                            </div>
-                            <div class="post-actions">
-                                <a href="#" class="hidden add_to_bookmarks-btn icon-bookmark"></a>
-                                <a data-th-attr="data-contentId=${article._id}" href="#" class="like-btn icon-rock active">
-                                    <span data-th-text="${article.votes}"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
                 </div>
             </div>
         </div>
