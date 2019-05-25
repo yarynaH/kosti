@@ -335,8 +335,16 @@ function initSharedEvents(){
 				success: function(data){
 					if( data === true ){
 						btn.addClass('active');
+
+						if (!isEmpty(btn)) {
+							btn.text('В ЗАКЛАДКАХ');
+						}
 					} else {
 						btn.removeClass('active');
+
+						if (!isEmpty(btn)) {
+							btn.text('В ЗАКЛАДКИ');
+						}
 					}
 				}
 			});
@@ -575,4 +583,8 @@ function validateCheckout(e){
 		e.preventDefault();
 		$('#delivery_np-input-city').parent().addClass('is-invalid');
 	}
+}
+
+function isEmpty( el ){
+	return !$.trim(el.html())
 }
