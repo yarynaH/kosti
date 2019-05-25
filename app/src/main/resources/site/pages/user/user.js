@@ -47,9 +47,11 @@ function handleReq(req) {
         var active = {};
         if( up.action == 'bookmarks' ){
             active.bookmarks = 'active';
+            totalArticles.curr = content.data.bookmarks.length;
             var articles = blogLib.getArticlesByIds( content.data.bookmarks );
         } else {
             active.articles = 'active';
+            totalArticles.curr = totalArticles.articles;
             var articles = blogLib.getArticlesByUser(content._id);
         }
 
