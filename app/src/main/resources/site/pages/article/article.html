@@ -8,7 +8,10 @@
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
         <div class="article-img_wrap">
-            <img data-th-src="${content.image.url}" alt="">
+            <picture>
+                <source data-th-srcset="${content.imageDesktop.url}" media="(min-width: 767px)">
+                <img data-th-src="${content.imageMobile.url}">
+            </picture>
         </div>
         <div class="blog blog_width clearfix">
             <div class="article-header">
