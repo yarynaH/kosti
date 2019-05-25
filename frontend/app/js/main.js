@@ -375,7 +375,8 @@ function loadMoreArticles(){
 		async: false,
 		data: {
 			feedType: $('.js_blog-navigation .active').data('type'),
-			page: page
+			page: page,
+			userId: $('.js_user-page-id').data('userid'),
 		},
 		success: function(data){
 			if( data == '' ){
@@ -383,8 +384,8 @@ function loadMoreArticles(){
 				$('.blog-list').data('noMoreArticles', true);
 			} else {
 				$('.blog-list').append(data);
-				$('.blog-list').data('page', page + 1);
 			}
+			$('.blog-list').data('page', page + 1);
 		}
 	});
 }

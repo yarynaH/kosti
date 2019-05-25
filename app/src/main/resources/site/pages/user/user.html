@@ -7,7 +7,7 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div class="user_page-wrap">
+        <div class="user_page-wrap js_user-page-id" data-th-attr="data-userid=${content._id}">
             <div class="blog blog_width clearfix">
                 <div class="user_page-profile blog-sidebar">
                     <h3 class="user_page-title">Профиль</h3>
@@ -30,9 +30,10 @@
                             <span class="profile-liked-img"></span>
                             <span class="profile-liked-qty" data-th-text="${content.votes}"></span>
                         </div>
-                        <ul class="profile-action-list">
+                        <ul class="profile-action-list js_blog-navigation">
                             <li class="profile-action-item">
-                                <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="profile-action-link" data-th-classappend="${active.articles}">
+                                <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="profile-action-link" 
+                                    data-type="userArticles" data-th-classappend="${active.articles}">
                                     Статьи 
                                     <span class="value" data-th-remove="tag" data-th-text="${content.articles ? content.articles.size : '0'}"></span>
                                 </a>
@@ -41,7 +42,11 @@
                                 <a class="profile-action-link hidden">Коментарии <span class="value">21</span></a>
                             </li>
                             <li class="profile-action-item">
-                                <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}" class="profile-action-link"  data-th-classappend="${active.bookmarks}">Закладки <span  data-th-text="${content.bookmarks ? content.bookmarks.size : '0'}"></span></a>
+                                <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}" class="profile-action-link"  
+                                    data-th-classappend="${active.bookmarks}" data-type="bookmarks">
+                                    Закладки 
+                                    <span  data-th-text="${bookmarks ? bookmarks.size : '0'}"></span>
+                                </a>
                             </li>
                             <li class="profile-action-item">
                                 <a href="" class="profile-action-link hidden">Уведомления <span class="value">1</span></a>
@@ -52,10 +57,10 @@
                 </div>
                 <div class="user_page-blog blog-list">
                     <h3 class="user_page-title">
-                        <span data-th-remove="tag" data-th-text="${content.articles ? content.articles.size : '0'}"></span> 
+                        <span data-th-remove="tag" data-th-text="${articles ? articles.size : '0'}"></span> 
                         Статей
                     </h3>
-                    <div data-th-if="${!content.articles || content.articles.size < 1}">
+                    <div data-th-if="${!articles || articles.size < 1}">
                         У этого пользователя пока нету статей
                     </div>
                     <div data-th-utext="${articlesView}" data-th-remove="tag"></div>

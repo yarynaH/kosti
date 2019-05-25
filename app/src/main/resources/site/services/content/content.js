@@ -32,6 +32,9 @@ exports.get = function(req){
 			var user = userLib.getCurrentUser();
             var articles = blogLib.getArticlesByIds( user.data.bookmarks, page );
 			break;
+		case 'userArticles':
+			var articles = blogLib.getArticlesByUser(params.userId, page);
+			break;
 		default:
             var articles = blogLib.getHotArticles( page );
 			break;

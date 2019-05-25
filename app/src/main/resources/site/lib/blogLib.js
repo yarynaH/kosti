@@ -12,6 +12,7 @@ exports.getArticlesView = getArticlesView;
 exports.getArticlesByIds = getArticlesByIds;
 exports.getNewArticles = getNewArticles;
 exports.getHotArticles = getHotArticles;
+exports.getArticlesByUser = getArticlesByUser;
 
 function beautifyArticleArray( articles ){
 	articles = norseUtils.forceArray(articles);
@@ -90,4 +91,18 @@ function getHotArticles( page ){
     }
     var hotIds = votesLib.getHotIds( page );
     return getArticlesByIds(hotIds);
+}
+
+function getArticlesByUser( id, page ){
+    var pageSize = 10;
+    if( !page ){
+        page = 0;
+    }
+    var articles = contentLib.query({
+        start: page * pageSize,
+        count: pageSize,
+        query: "data.author = '" + id + "'"
+    }).hits;
+    articles = beautifyArticleArray(articles);
+    return articles;
 }

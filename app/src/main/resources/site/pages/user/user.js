@@ -43,17 +43,7 @@ function handleReq(req) {
         var site = portal.getSiteConfig();
 
         var bookmarks = blogLib.getArticlesByIds( content.data.bookmarks );
-        var articles = contentLib.query({
-            start: 0,
-            count: 999999,
-            query: "data.author = '" + content._id + "'"
-        }).hits;
-        if( articles && articles.length > 0 ){
-            content.articles = blogLib.beautifyArticleArray(articles);
-        }
-        if( bookmarks && bookmarks.length > 0 ){
-            content.bookmarks = blogLib.beautifyArticleArray(bookmarks);
-        }
+        var articles = blogLib.getArticlesByUser(content._id);
         var active = {
             bookmarks: '',
             articles: '',
@@ -72,6 +62,8 @@ function handleReq(req) {
             content: content,
             currUser: currUser.key == userSystemObj.key,
             app: app,
+            articles: articles,
+            bookmarks: bookmarks,
             active: active,
             social: site.social,
             articlesView: articlesView,
