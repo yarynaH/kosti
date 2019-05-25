@@ -358,6 +358,18 @@
     }
 }
 
+.delivery_details {
+    margin-top: 30px;
+
+    @include tablet-all {
+        width: 49%;
+    }
+
+    .suggestion-wrap {
+        margin-bottom: 15px;
+    }
+}
+
 .payment_m {
     &-img_wrap {
         width: 100px;
