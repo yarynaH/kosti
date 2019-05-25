@@ -34,6 +34,7 @@ function handleReq(req) {
         var site = portal.getSiteConfig();
         var mainRegion = content.page.regions.main;
         var similarArticles = getSimilar( content.data.similarArticles );
+        var comments = thymeleaf.render(resolve('comments.html'), {content: content});
 
         var model = {
             content: content,
@@ -42,6 +43,7 @@ function handleReq(req) {
             weeksPost: getWeeksPost(site.weeksPost),
             pageComponents: helpers.getPageComponents(req),
             similarArticles: similarArticles,
+            comments: comments,
             bookmarked: userLib.checkIfBookmarked(content._id)
         };
 
