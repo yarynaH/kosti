@@ -205,7 +205,92 @@ function initCheckoutEvents(){
 			$(this).parent().removeClass('is-invalid');
 		}
 	});
-}
+	
+	$('.delivery_np-input-city').on('input', function(){
+		if( $(this).val().length > 1 ){
+			var dataCity = {
+				"apiKey": "8913262e83513c669457b8c48224f3ab",
+				"modelName": "Address",
+				"calledMethod": "searchSettlements",
+				"methodProperties": {
+					"Limit": "10"
+				}
+			}
+			dataCity.methodProperties.CityName = $('.delivery_np-input-city').val();
+
+			$.ajax({
+				url: 'https://api.novaposhta.ua/v2.0/json/',
+				type: 'POST',
+				contentType: "application/json",
+				dataType: "json",
+				data: JSON.stringify(dataCity),
+				success: function(response){
+					$("#suggestion-list").html('');
+					var dataIncome =  response.data[0].Addresses;
+					for (var i = 0; i < dataIncome.length; i++) {
+						$("#suggestion-list").append("<li data-ref='" + dataIncome[i].DeliveryCity + "'>" + dataIncome[i].MainDescription + "</li>");
+					}
+				}
+			});
+		}
+	});
+	$('#suggestion-list').on('click', 'li', function(){
+		$('.delivery_np-input-city').val($(this).text());
+		$('.delivery_np-input-city').data("ref", $(this).data('ref'));
+		$("#suggestion-list").html('');
+		var dataCity = {
+			"apiKey": "8913262e83513c669457b8c48224f3ab",
+			"modelName": "AddressGeneral",
+			"calledMethod": "getWarehouses",
+			"methodProperties": {
+				"Language": "ru",
+				"Limit": "99999",
+				"CityRef": $(this).data('ref')
+			}
+		}
+
+		$.ajax({
+			url: 'https://api.novaposhta.ua/v2.0/json/',
+			type: 'POST',
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(dataCity),
+			success: function(response){
+				$('#delivery_np-warehouses').html('<option disabled="disabled" selected="selected">Выберите отделение</option>');
+				for (var i = 0; i < response.data.length; i++) {
+					$('#delivery_np-warehouses').append('<option value="' + response.data[i].DescriptionRu + '">' + response.data[i].DescriptionRu + '</option>');
+				}
+			}
+		});
+	});
+	$('#delivery_np-warehouses').on('change', function(){
+		var dataCity = {
+			"apiKey": "8913262e83513c669457b8c48224f3ab",
+			"modelName": "InternetDocument",
+			"calledMethod": "getDocumentPrice",
+			"methodProperties": {
+				"CitySender": "e221d627-391c-11dd-90d9-001a92567626",
+				"CityRecipient": $('.delivery_np-input-city').data("ref"),
+				"Weight": $('#cartWeight').val(),
+				"ServiceType": "WarehouseWarehouse",
+				"Cost": "100",
+				"CargoType": "Parcel",
+				"SeatsAmount": "1"
+			}
+		}
+
+		$.ajax({
+			url: 'https://api.novaposhta.ua/v2.0/json/',
+			type: 'POST',
+			contentType: "application/json",
+			dataType: "json",
+			data: JSON.stringify(dataCity),
+			success: function(response){
+				$('.delivery_m-subtitle').text('UAH ' + response.data[0].Cost);
+			}
+		});
+	});
+};
 
 function initSharedEvents(){
 	$('.like-btn').on('click', function(e){
@@ -477,5 +562,13 @@ function validateCheckout(e){
 	if( $('#agreement').length && !$('#agreement').is(":checked") ){
 		e.preventDefault();
 		$('#agreement').parent().addClass('is-invalid');
+	}
+	if( $('#delivery_np-warehouses').length && (!$('#delivery_np-warehouses').val() || $('#delivery_np-warehouses').val() == '' )){
+		e.preventDefault();
+		$('#delivery_np-warehouses').addClass('is-invalid');
+	}
+	if( $('#delivery_np-input-city').length && (!$('#delivery_np-input-city').val() || $('#delivery_np-input-city').val() == '' )){
+		e.preventDefault();
+		$('#delivery_np-input-city').parent().addClass('is-invalid');
 	}
 }

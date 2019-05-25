@@ -43,9 +43,23 @@
             </label>
         </div>
     </div>
+    <div data-th-if="${cart.country == 'ua'}" class="delivery_details">
+        <div class="form-group suggestion-wrap">
+            <label for="delivery_np-input-city" class="label">Введите город</label>
+            <input name="novaPoshtaСity" autocomplete="off" type="text" class="input-text delivery_np-input-city" id="delivery_np-input-city">
+            <ul id="suggestion-list" class="suggestion-list">
+            </ul>
+        </div>
+        <div class="select-field">
+            <select name="novaPoshtaWarehouse" id="delivery_np-warehouses">
+                <option disabled="disabled" selected="selected">Выберите отделение</option>
+            </select>
+        </div>
+    </div>
     <div class="checkout-action">
         <a data-th-href="${portal.serviceUrl({'_service=cart'})}" class="checkout-back" title="К покупкам">К покупкам</a>
         <button class="checkout-continue" title="Продолжить" data-th-disabled="${!cart.stock}">ПРОДОЛЖИТЬ</button>
     </div>
     <input name="step" type="hidden" value="3">
+    <input type="hidden" id="cartWeight" data-th-value="${cart.itemsWeight}">
 </form>

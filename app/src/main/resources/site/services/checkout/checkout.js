@@ -115,7 +115,7 @@ function generateCheckoutPage(req){
     }
 
     function getShipping( country, weight ){
-        if( parseInt(weight) === 0 ){
+        if( parseFloat(weight) === 0 ){
             return [{
                 id: "digital",
                 title: "Цифровая доставка",
@@ -127,7 +127,7 @@ function generateCheckoutPage(req){
         var shipping = contentLib.get({ key: site.shipping });
         var result = [];
         for( var i = 0; i < shipping.data.shipping.length; i++ ){
-            if( shipping.data.shipping[i].country == country ){
+            if( shipping.data.shipping[i].country.indexOf(country) != -1 ){
                 result = getShippingsWithPrices( shipping.data.shipping[i], country, weight );
             }
         }
