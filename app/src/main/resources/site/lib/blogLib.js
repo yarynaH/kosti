@@ -43,11 +43,15 @@ function getArticlesView( articles ){
     return thymeleaf.render(resolve('../pages/homePage/articleList.html'), {articles: articles});
 }
 
-function getArticlesByIds( ids ){
+function getArticlesByIds( ids, page ){
+    var pageSize = 10;
+    if( !page ){
+        page = 0;
+    }
     if( ids ){
         var result = [];
         ids = norseUtils.forceArray(ids);
-        for( var i = 0; i < ids.length; i++ ){
+        for( var i = page * pageSize; i < pageSize; i++ ){
             if( ids[i] ){
                 var temp = contentLib.get({ key: ids[i] });
                 if(temp){

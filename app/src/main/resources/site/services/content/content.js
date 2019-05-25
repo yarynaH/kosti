@@ -3,6 +3,7 @@ var contentLib = require('/lib/xp/content');
 var votesLib = require('votesLib');
 var contextLib = require('/lib/contextLib');
 var blogLib = require('blogLib');
+var userLib = require('userLib');
 
 exports.post = function(req){
     var params = req.params;
@@ -28,7 +29,8 @@ exports.get = function(req){
             var articles = blogLib.getNewArticles( page );
 			break;
 		case 'bookmarks':
-            var articles = blogLib.getArticlesByIds( user.data.bookmarks );
+			var user = userLib.getCurrentUser();
+            var articles = blogLib.getArticlesByIds( user.data.bookmarks, page );
 			break;
 		default:
             var articles = blogLib.getHotArticles( page );
