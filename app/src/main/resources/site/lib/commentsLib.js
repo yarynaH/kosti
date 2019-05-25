@@ -9,6 +9,7 @@ var kostiUtils = require('kostiUtils');
 exports.addComment = addComment;
 exports.getCommentsByParent = getCommentsByParent;
 exports.voteForComment = voteForComment;
+exports.removeComment = removeComment;
 
 function addComment( parent, body ){
 	var commentsRepo = connectCommentsRepo();
@@ -18,11 +19,24 @@ function addComment( parent, body ){
     } else {
     	return false;
     }
-	return commentsRepo.create({
+	var comment = commentsRepo.create({
 	    body: body,
 	    parent: parent,
 	    user: user
 	});
+	return beautifyComment(comment);
+}
+
+function removeComment( id ){
+	var commentsRepo = connectCommentsRepo();
+	return commentsRepo.modify({
+	    key: id,
+	    editor: editor
+	});
+	function editor(node) {
+	    node.deleted = true;
+	    return node;
+	}
 }
 
 function voteForComment( id ){
@@ -100,8 +114,8 @@ function getComment( id ){
 function beautifyComment(comment){
     comment.date = kostiUtils.getTimePassedSincePostCreation(comment._timestamp.replace('Z', ''));
     comment.author = userLib.getUserDataById(comment.user);
-    norseUtils.log(comment.author);
     comment.voted = comment.votes && comment.votes.indexOf(comment.author.key) != -1;
+    comment.children = getCommentsByParent(comment._id);
     return comment;
 }
 

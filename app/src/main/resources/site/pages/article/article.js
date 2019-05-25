@@ -36,7 +36,11 @@ function handleReq(req) {
         var mainRegion = content.page.regions.main;
         var similarArticles = getSimilar( content.data.similarArticles );
         var comments = commentsLib.getCommentsByParent(content._id);
-        comments = thymeleaf.render(resolve('commentsDev.html'), {comments: comments});
+        comments = thymeleaf.render(resolve('comments.html'), {
+            comments: comments, 
+            articleId: content._id, 
+            moderator: user.moderator
+        });
 
         var model = {
             content: content,

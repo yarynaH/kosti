@@ -361,35 +361,47 @@ function initSharedEvents(){
 			}
 		});
 	}
-	if($('.js_comment-form').length > 0){
-		$('.js_comment-form').on('submit', function( e ){
+	if($('.comments').length > 0){
+		$('.comments').on('submit', '.js_comment-form', function( e ){
 			e.preventDefault();
+			var el = this;
 			var result = { };
 			$.each($(this).serializeArray(), function() {
 			    result[this.name] = this.value;
 			});
+			var parentId = $(el).data('parentid') ? $(el).data('parentid') : $('.js_article-id').data('articleid');
 			$.ajax({
 				url: '/_/service/com.myurchenko.kostirpg/comments',
 				type: 'POST',
 				async: true,
 				data: {
 					body: result.body,
-					parent: $('.js_article-id').data('articleid'),
+					parent: parentId,
 					action: 'addComment'
 				},
 				success: function(data){
+					if( parentId != $('.js_article-id').data('articleid') ){
+						$('form[data-parentid=' + parentId + ']').addClass('hidden');
+					}
+					if(parentId == $('.js_article-id').data('articleid') && !$('ul.js_comments-list[data-parentid=' + parentId + ']').length){
+						$('.js_article-comments').append('<ul class="comments-list js_comments-list" data-parentid="' + parentId + '"></ul>');
+					} else if(!$('ul.js_comments-list[data-parentid=' + parentId + ']').length) {
+						$('li.js_comment[data-id=' + parentId + ']').append('<ul class="comments-list js_comments-list" data-parentid="' + parentId + '"></ul>');
+					}
+					$('ul.js_comments-list[data-parentid=' + parentId + ']').append(data);
+					$('form[data-parentid=' + parentId + '] textarea').val('');
 				}
 			});
 		});
-	}
-	if($('.js_comment-like').length > 0){
-		$('.js_comment-like').on('click', function( e ){
+		$('.comments').on('click', '.js_answer-comment', function( e ){
+			$('form[data-parentid=' + $(this).data('id') + ']').toggleClass('hidden');
+		});
+		$('.comments').on('click', '.js_comment-like', function( e ){
 			e.preventDefault();
 			var el = this;
 			$.ajax({
 				url: '/_/service/com.myurchenko.kostirpg/comments',
 				type: 'POST',
-				async: true,
 				data: {
 					action: 'vote',
 					id: $(el).data('id')
@@ -401,6 +413,20 @@ function initSharedEvents(){
 					} else {
 						$(el).removeClass('active');
 					}
+				}
+			});
+		});
+		$('.comments').on('click', '.js_comment-remove_btn', function( e ){
+			var el = this;
+			$.ajax({
+				url: '/_/service/com.myurchenko.kostirpg/comments',
+				type: 'POST',
+				data: {
+					action: 'remove',
+					id: $(el).data('id')
+				},
+				success: function(data){
+					$('li[data-id=' + $(el).data('id') + '] > .comments-body').text('Комментарий удален');
 				}
 			});
 		});
@@ -449,7 +475,7 @@ function loadMoreArticles(){
 }
 
 function initCartFunctions(){
-	$('.cart-remove_btn').on('click', function(){
+	$('.js_cart-remove_btn').on('click', function(){
 		var data = {
 			itemId: $(this).data().id,
 			size: $(this).data().size,
