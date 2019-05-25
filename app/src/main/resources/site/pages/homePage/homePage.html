@@ -77,7 +77,10 @@
                     <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=new'})}" data-type="new" class="fresher-btn" data-th-classappend="${active.new}">Свежее</a>
                     <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}" data-type="bookmarks" class="bookmarks-btn" data-th-classappend="${active.bookmarks}">Закладочки</a>
                 </div>
-                <div class="blog-list" data-th-utext="${articles}">
+                <div class="blog-list-wrap">
+                    <div class="blog-list" data-th-utext="${articles}">
+                    </div>
+                    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                 </div>
                 <div class="blog-sidebar">
                     <div class="library_top hidden" style="background-image: url(https://picsum.photos/300/470?random);">

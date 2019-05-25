@@ -379,7 +379,7 @@ function loadMoreArticles(){
 		},
 		success: function(data){
 			if( data == '' ){
-				$('.blog-list').append("<span>Статей больше нет.</span>");
+				$('.blog-list').append("<div class='blog-list-empty'>Статей больше нет.</div>");
 				$('.blog-list').data('noMoreArticles', true);
 			} else {
 				$('.blog-list').append(data);
