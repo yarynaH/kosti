@@ -35,7 +35,7 @@
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="profile-action-link" 
                                     data-type="userArticles" data-th-classappend="${active.articles}">
                                     Статьи 
-                                    <span class="value" data-th-remove="tag" data-th-text="${content.articles ? content.articles.size : '0'}"></span>
+                                    <span class="value" data-th-remove="tag" data-th-text="${totalArticles.articles ? totalArticles.articles : '0'}"></span>
                                 </a>
                             </li>
                             <li class="profile-action-item">
@@ -45,7 +45,7 @@
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}" class="profile-action-link"  
                                     data-th-classappend="${active.bookmarks}" data-type="bookmarks">
                                     Закладки 
-                                    <span  data-th-text="${bookmarks ? bookmarks.size : '0'}"></span>
+                                    <span  data-th-text="${content.data.bookmarks ? content.data.bookmarks.size : '0'}"></span>
                                 </a>
                             </li>
                             <li class="profile-action-item">

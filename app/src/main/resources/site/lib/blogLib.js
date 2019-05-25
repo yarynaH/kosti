@@ -93,7 +93,7 @@ function getHotArticles( page ){
     return getArticlesByIds(hotIds);
 }
 
-function getArticlesByUser( id, page ){
+function getArticlesByUser( id, page, count ){
     var pageSize = 10;
     if( !page ){
         page = 0;
@@ -102,7 +102,11 @@ function getArticlesByUser( id, page ){
         start: page * pageSize,
         count: pageSize,
         query: "data.author = '" + id + "'"
-    }).hits;
+    });
+    if( count ){
+        return articles.total;
+    }
+    articles = articles.hits;
     articles = beautifyArticleArray(articles);
     return articles;
 }

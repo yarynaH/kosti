@@ -40,33 +40,27 @@ function handleReq(req) {
         var date = new Date(content.publish.from.replace('Z', ''));
         content.date = date.getDate() + ' ' + norseUtils.getMonthName(date) + ' ' + date.getFullYear();
         var response = [];
-        var site = portal.getSiteConfig();
+        var totalArticles = {
+            articles: blogLib.getArticlesByUser(content._id, 0, true)
+        };
 
-        var bookmarks = blogLib.getArticlesByIds( content.data.bookmarks );
-        var articles = blogLib.getArticlesByUser(content._id);
-        var active = {
-            bookmarks: '',
-            articles: '',
-            comments: '',
-            notifications: ''
-        }
+        var active = {};
         if( up.action == 'bookmarks' ){
             active.bookmarks = 'active';
-            var articlesView = blogLib.getArticlesView(bookmarks);
+            var articles = blogLib.getArticlesByIds( content.data.bookmarks );
         } else {
             active.articles = 'active';
-            var articlesView = blogLib.getArticlesView(articles);
+            var articles = blogLib.getArticlesByUser(content._id);
         }
 
         var model = {
             content: content,
             currUser: currUser.key == userSystemObj.key,
             app: app,
+            totalArticles: totalArticles,
             articles: articles,
-            bookmarks: bookmarks,
             active: active,
-            social: site.social,
-            articlesView: articlesView,
+            articlesView: blogLib.getArticlesView(articles),
             pageComponents: helpers.getPageComponents(req)
         };
 
