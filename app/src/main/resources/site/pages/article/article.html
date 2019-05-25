@@ -46,10 +46,10 @@
                                 <span class="comments-counter icon-comment">12</span>
                             </div>
                             <div class="post-actions">
-                                <a class="add_to_bookmarks-btn icon-bookmark" data-th-attr="data-contentId=${content._id}" data-th-classappend="${bookmarked} ? 'active' : ''"></a>
-                                <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                <span class="add_to_bookmarks-btn icon-bookmark" data-th-attr="data-contentId=${content._id}" data-th-classappend="${bookmarked} ? 'active' : ''"></span>
+                                <span data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
                                     <span data-th-text="${content.votes}"></span>
-                                </a>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -59,9 +59,9 @@
                     <ul class="similar_posts-list">
                         <li class="similar_posts-item" data-th-each="article : ${similarArticles}">
                             <a data-th-href="${article.url}" class="similar_posts-link" data-th-text="${article.displayName}"></a>
-                            <a data-th-attr="data-contentId=${article._id}" href="#" class="like-btn icon-rock" data-th-classappend="${article.voted} ? 'active' : ''">
+                            <span data-th-attr="data-contentId=${article._id}" href="#" class="like-btn icon-rock" data-th-classappend="${article.voted} ? 'active' : ''">
                                 <span data-th-text="${article.votes}"></span>
-                            </a>
+                            </span>
                         </li>
                     </ul>
                 </div>
@@ -83,9 +83,9 @@
                                     </a>
                                     <span class="post-date" data-th-text="${content.date}"></span>
                                 </div>
-                                <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                <span data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
                                     <span data-th-text="${content.votes}"></span>
-                                </a>
+                                </span>
                             </div>
                             <div class="comments-body">
                                 Я ничего не понимаю, какая-то тупая игра! Где скачать книгу правил на русском языке!? Как с вами поиграть? Слишком много кубиков! Тупая боевка! 
@@ -106,9 +106,9 @@
                                     </a>
                                     <span class="post-date" data-th-text="${content.date}"></span>
                                 </div>
-                                <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                <span data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
                                     <span data-th-text="${content.votes}"></span>
-                                </a>
+                                </span>
                             </div>
                             <div class="comments-body">
                                 Я ничего не понимаю, какая-то тупая игра! Где скачать книгу правил на русском языке!? Как с вами поиграть? Слишком много кубиков! Тупая боевка! 
@@ -129,9 +129,9 @@
                                             </a>
                                             <span class="post-date" data-th-text="${content.date}"></span>
                                         </div>
-                                        <a data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                        <span data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
                                             <span data-th-text="${content.votes}"></span>
-                                        </a>
+                                        </span>
                                     </div>
                                     <div class="comments-body">
                                         Я ничего не понимаю, какая-то тупая игра! Где скачать книгу правил на русском языке!? Как с вами поиграть? Слишком много кубиков! Тупая боевка! 
@@ -189,9 +189,9 @@
                         <div class="tag-list" hidden>
                             <a href="#" class="tag-item">Мерч</a>
                         </div>
-                        <a data-th-attr="data-contentId=${weeksPost._id}" href="#" class="like-btn icon-rock" data-th-classappend="${weeksPost.voted} ? 'active' : ''">
+                        <span data-th-attr="data-contentId=${weeksPost._id}" href="#" class="like-btn icon-rock" data-th-classappend="${weeksPost.voted} ? 'active' : ''">
                             <span data-th-text="${weeksPost.votes}"></span>
-                        </a>
+                        </span>
                     </div>
                 </div>
                 <div class="social">

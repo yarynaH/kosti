@@ -210,7 +210,11 @@
     }
 
     .add_to_bookmarks-btn {
+        display: inline-flex;
+        align-items: center;
         margin-right: 25px;
+        cursor: pointer;
+        transition: transition(color);
 
         &.active,
         &:hover {
@@ -266,7 +270,7 @@
         margin-bottom: 20px;
         display: block;
 
-        &:hover {
+        body:not(.article-page) &:hover {
             opacity: 0.8;
         }
     }
@@ -397,7 +401,9 @@
     display: inline-flex;
     align-items: center;
     font-size: rem(14);
+    cursor: pointer;
     color: $color-primary12;
+    transition: transition(color);
 
     &:before {
         margin-right: 8px;
