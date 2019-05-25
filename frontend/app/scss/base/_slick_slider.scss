@@ -72,6 +72,7 @@
         @include mobile {
             justify-content: space-between;
             display: flex;
+            flex-wrap: wrap;
         }
     }
 
@@ -112,20 +113,34 @@
 
     &-read_btn {
         @include button-style(global light auto);
+
+        @include mobile {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        @include tablet-all {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 25px;
+        }
     }
 
     &-add_to_bookmarks_btn {
         @include button-style(global dark auto);
         @include icon(bookmark);
 
+        display: inline-flex;
+        align-items: center;
+        margin-right: 25px;
+
         &:before {
             margin-right: 8px;
         }
-    }
 
-    &-read_btn,
-    &-add_to_bookmarks_btn {
-        margin-right: 25px;
+        &.active {
+            color: $color-primary18;
+        }
     }
 
     &-dots {

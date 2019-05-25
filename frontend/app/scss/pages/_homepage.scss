@@ -226,6 +226,7 @@
         @include mobile() {
             margin-top: 15px;
         }
+
         @include tablet-all {
             width: 34%;
             float: right;
@@ -415,10 +416,9 @@
 
     &.active,
     &:hover {
-        color: $color-primary17;
-
         span {
             text-shadow: 0 0 0.01px $color-primary17;
+            color: $color-primary17;
         }
 
         &::before {

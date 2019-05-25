@@ -14,7 +14,7 @@
                     <div class="slick-img_wrap">
                         <picture>
                             <source data-th-srcset="${slide.image.url}" media="(min-width: 600px)">
-                            <img src="https://picsum.photos/375/560/?random" class="slick-img">
+                            <img data-th-src="${slide.image.url}" class="slick-img">
                         </picture>
                     </div>
                     <div class="slick-content blog_width">
@@ -31,7 +31,8 @@
                         <div class="slick-caption" data-th-utext="${slide.data.shortIntro}"></div>
                         <div class="slick-action">
                             <a data-th-href="${slide.url}" class="slick-read_btn">ЧИТАТЬ</a>
-                            <span class="slick-add_to_bookmarks_btn js_bookmarks" data-th-classappend="${slide.bookmarked} ? 'active' : ''"  data-th-attr="data-contentId=${slide._id}">В ЗАКЛАДКИ</span>
+                            <span class="slick-add_to_bookmarks_btn js_bookmarks" data-th-classappend="${slide.bookmarked} ? 'active' : ''" 
+                                  data-th-attr="data-contentId=${slide._id}" data-th-text="${slide.bookmarked} ? 'В ЗАКЛАДКАХ' : 'В ЗАКЛАДКИ'"></span>
                             <span data-th-attr="data-contentId=${slide._id}" href="#" class="like-btn icon-rock" data-th-classappend="${slide.voted} ? 'active' : ''">
                                 <span data-th-text="${slide.votes}"></span>
                             </span>
