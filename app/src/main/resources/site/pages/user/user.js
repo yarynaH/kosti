@@ -42,7 +42,7 @@ function handleReq(req) {
         var response = [];
         var site = portal.getSiteConfig();
 
-        var bookmarks = getUserBookmarks( content.data.bookmarks );
+        var bookmarks = blogLib.getUserBookmarks( content.data.bookmarks );
         var articles = contentLib.query({
             start: 0,
             count: 999999,
@@ -77,19 +77,6 @@ function handleReq(req) {
             articlesView: articlesView,
             pageComponents: helpers.getPageComponents(req)
         };
-
-        function getUserBookmarks( ids ){
-            if( ids ){
-                var result = [];
-                ids = norseUtils.forceArray(ids);
-                for( var i = 0; i < ids.length; i++ ){
-                    result.push(contentLib.get({ key: ids[i] }));
-                }
-                return result;
-            } else {
-                return [];
-            }
-        }
 
         return model;
 

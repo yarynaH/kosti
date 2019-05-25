@@ -41,6 +41,21 @@ function handleReq(req) {
         var showDescription = true;
         var schedule = getSchedule(site.slider);
         var video = getVideoViaApi( site.gApiKey );
+        var active = {};
+        switch(up.feed){
+            case 'new':
+                active.new = 'active';
+                var articles = blogLib.beautifyArticleArray(getNewArticles());
+                break;
+            case 'bookmarks':
+                active.bookmarks = 'active';
+                var articles = blogLib.getUserBookmarks( user.data.bookmarks );
+                break;
+            default:
+                active.hot = 'active';
+                var articles = blogLib.beautifyArticleArray(getArticles());
+                break;
+        }
 
         var model = {
             content: content,
@@ -50,10 +65,11 @@ function handleReq(req) {
             weeksPost: getWeeksPost(site.weeksPost),
             schedule: schedule,
             social: site.social,
+            active: active,
             pageComponents: helpers.getPageComponents(req),
             showDescription: showDescription,
             slider: getSliderArticles(site.slider),
-            articles: blogLib.getArticlesView(getArticles())
+            articles: blogLib.getArticlesView(articles)
         };
 
         return model;
@@ -79,7 +95,7 @@ function handleReq(req) {
             return result;
         }
 
-        function getArticles(){
+        function getArticles( ){
             var result = contentLib.query({
                 query: '',
                 start: 0,
@@ -89,9 +105,6 @@ function handleReq(req) {
                     app.name + ':article'
                 ]
             }).hits;
-            for( var i = 0; i < result.length; i++ ){
-                result[i] = blogLib.beautifyArticle(result[i]);
-            }
             return result;
         }
 

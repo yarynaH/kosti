@@ -6,11 +6,19 @@ var authLib = require('/lib/xp/auth');
 var nodeLib = require('/lib/xp/node');
 var userLib = require('userLib');
 
-exports.vote = function(user, content){
-	return doVote(user, content);
+exports.createBlankVote = createBlankVote;
+exports.vote = vote;
+exports.countUpvotes = countUpvotes;
+exports.countUserUpvotes = countUserUpvotes;
+exports.checkIfVoted = checkIfVoted;
+
+function vote(user, content){
+	var result = doVote(user, content);
+
+	return result;
 }
 
-exports.countUpvotes = function( id ){
+function countUpvotes( id ){
 	var node = getNode( id );
 	if( node && node.votes ){
 		return norseUtils.forceArray(node.votes).length;
@@ -18,7 +26,7 @@ exports.countUpvotes = function( id ){
 	return "0";
 }
 
-exports.countUserUpvotes = function( id ){
+function countUserUpvotes( id ){
 	var votesRepo = getVotesRepo();
 	var result = votesRepo.query({
 	    start: 0,
@@ -50,8 +58,6 @@ function checkIfVoted( content ){
 	return false;
 }
 
-exports.checkIfVoted = checkIfVoted;
-
 function checkIfVoteExist( user, node ){
 	if( node ){
 		node.votes = norseUtils.forceArray(node.votes);
@@ -60,6 +66,14 @@ function checkIfVoteExist( user, node ){
 		}
 	}
 	return false;
+}
+
+function createBlankVote( node ){
+	var votesRepo = getVotesRepo();
+	return votesRepo.create({
+	    id: node,
+	    votes: []
+	});
 }
 
 function createVote( user, content ){

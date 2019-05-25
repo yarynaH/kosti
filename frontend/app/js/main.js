@@ -321,24 +321,28 @@ function initSharedEvents(){
 	if( $('#payment-success').length > 0 ){
 		deleteCookie('cartId');
 	}
-	$('.add_to_bookmarks-btn').on('click', function() {
-		var btn = $(this);
-		$.ajax({
-			url: '/_/service/com.myurchenko.kostirpg/user',
-			type: 'POST',
-			async: true,
-			data: {
-				id: $(this).data().contentid,
-				action: 'addBookmark'
-			},
-			success: function(data){
-				if( data === true ){
-					btn.addClass('active');
-				} else {
-					btn.removeClass('active');
+	$('.add_to_bookmarks-btn').on('click', function(e) {
+		if( $('.header-user').data().userid && $('.header-user').data().userid != '' ){
+			var btn = $(this);
+			$.ajax({
+				url: '/_/service/com.myurchenko.kostirpg/user',
+				type: 'POST',
+				async: true,
+				data: {
+					id: $(this).data().contentid,
+					action: 'addBookmark'
+				},
+				success: function(data){
+					if( data === true ){
+						btn.addClass('active');
+					} else {
+						btn.removeClass('active');
+					}
 				}
-			}
-		});
+			});
+		} else {
+			showLogin(e);
+		}
 	});
 }
 

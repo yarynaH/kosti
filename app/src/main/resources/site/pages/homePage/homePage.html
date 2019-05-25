@@ -70,9 +70,9 @@
         <div class="main_blog">
             <div class="blog blog_width clearfix">
                 <div class="blog-navigation">
-                    <a href="#" class="hotter-btn active">Горячее</a>
-                    <a href="#" class="fresher-btn hidden">Свежее</a>
-                    <a href="#" class="bookmarks-btn hidden">Закладочки</a>
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="hotter-btn" data-th-classappend="${active.hot}">Горячее</a>
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=new'})}" class="fresher-btn" data-th-classappend="${active.new}">Свежее</a>
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}" class="bookmarks-btn" data-th-classappend="${active.bookmarks}">Закладочки</a>
                 </div>
                 <div class="blog-list" data-th-utext="${articles}">
                 </div>
