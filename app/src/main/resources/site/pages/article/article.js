@@ -50,7 +50,7 @@ function handleReq(req) {
 
     function getWeeksPost( weeksPost ){
         var weeksPost = contentLib.get({ key: weeksPost });
-        weeksPost = blogLib.beautifyArticle((weeksPost);
+        weeksPost = blogLib.beautifyArticle(weeksPost);
         return weeksPost;
     }
 
