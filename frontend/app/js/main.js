@@ -367,6 +367,7 @@ function loadMoreArticles(){
 		page = 0;
 	}
 	var type = $('.blog-list').data('feedType');
+	console.log($('.js_blog-navigation .active').data('type'));
 	$.ajax({
 		url: contentServiceUrl,
 		type: 'GET',
