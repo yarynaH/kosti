@@ -131,13 +131,14 @@ function getNode( id ){
 	return false;
 }
 
-function getHotIds(){
+function getHotIds( page ){
+    var pageSize = 10;
 	var votesRepo = getVotesRepo();
 	var date = new Date();
 	date = new Date(date.getTime() - (3 * 24 * 60 * 60 * 1000));
 	var hits = votesRepo.query({
-	    start: 0,
-	    count: 5,
+        start: page * pageSize,
+        count: pageSize,
 	    sort: '_timestamp DESC, rate DESC'
 	}).hits;
 	var result = [];

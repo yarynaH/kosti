@@ -344,6 +344,13 @@ function initSharedEvents(){
 			showLogin(e);
 		}
 	});
+	if($('.blog-list').length > 0){
+		$(document).on('scroll', function(){
+			if( ($(document).scrollTop() + $(window).height() + 150) > $( document ).height() ){
+				console.log('now');
+			}
+		});
+	}
 }
 
 function initCartFunctions(){

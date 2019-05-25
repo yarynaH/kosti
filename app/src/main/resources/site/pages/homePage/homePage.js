@@ -3,7 +3,6 @@ var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var norseUtils = require('norseUtils');
 var helpers = require('helpers');
-var votesLib = require('votesLib');
 var userLib = require('userLib');
 var kostiUtils = require('kostiUtils');
 var httpClientLib = require('/lib/xp/http-client');
@@ -45,7 +44,7 @@ function handleReq(req) {
         switch(up.feed){
             case 'new':
                 active.new = 'active';
-                var articles = blogLib.beautifyArticleArray(getArticles());
+                var articles = blogLib.getNewArticles();
                 break;
             case 'bookmarks':
                 active.bookmarks = 'active';
@@ -53,8 +52,7 @@ function handleReq(req) {
                 break;
             default:
                 active.hot = 'active';
-                var hotIds = votesLib.getHotIds();
-                var articles = blogLib.getArticlesByIds(hotIds);
+                var articles = blogLib.getHotArticles();
                 break;
         }
 
@@ -93,19 +91,6 @@ function handleReq(req) {
                 result[i].month = norseUtils.getMonthName(itemDate);
                 result[i].day = itemDate.getDate().toFixed();
             }
-            return result;
-        }
-
-        function getArticles(){
-            var result = contentLib.query({
-                query: '',
-                start: 0,
-                count: 3,
-                sort: 'publish.from ASC',
-                contentTypes: [
-                    app.name + ':article'
-                ]
-            }).hits;
             return result;
         }
 

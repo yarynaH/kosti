@@ -2,6 +2,7 @@ var norseUtils = require('norseUtils');
 var contentLib = require('/lib/xp/content');
 var votesLib = require('votesLib');
 var contextLib = require('/lib/contextLib');
+var blogLib = require('blogLib');
 
 exports.post = function(req){
     var params = req.params;
@@ -10,7 +11,31 @@ exports.post = function(req){
         result = votesLib.vote( params.user, params.content );
     });
     return {
-        body: result,
-        contentType: 'application/json'
+	    body: result,
+	    contentType: 'application/json'
+    }
+}
+
+exports.get = function(req){
+	var params = req.params;
+	if( params.page ){
+		var page = parseInt(params.page);
+	} else {
+		var page = 0;
+	}
+	switch(params.feedType){
+		case 'new':
+            var articles = blogLib.getNewArticles( page );
+			break;
+		case 'bookmarks':
+            var articles = blogLib.getArticlesByIds( user.data.bookmarks );
+			break;
+		default:
+            var articles = blogLib.getHotArticles( page );
+			break;
+	}
+    return {
+        body: blogLib.getArticlesView(articles),
+        contentType: 'text/html'
     }
 }

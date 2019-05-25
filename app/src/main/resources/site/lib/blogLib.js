@@ -10,6 +10,8 @@ exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
 exports.getArticlesView = getArticlesView;
 exports.getArticlesByIds = getArticlesByIds;
+exports.getNewArticles = getNewArticles;
+exports.getHotArticles = getHotArticles;
 
 function beautifyArticleArray( articles ){
 	articles = norseUtils.forceArray(articles);
@@ -56,4 +58,30 @@ function getArticlesByIds( ids ){
     } else {
         return [];
     }
+}
+
+function getNewArticles( page ){
+    var pageSize = 10;
+    if( !page ){
+        page = 0;
+    }
+    var result = contentLib.query({
+        query: '',
+        start: page * pageSize,
+        count: pageSize,
+        sort: 'publish.from DESC',
+        contentTypes: [
+            app.name + ':article'
+        ]
+    }).hits;
+    result = beautifyArticleArray(result);
+    return result;
+}
+
+function getHotArticles( page ){
+    if( !page ){
+        page = 0;
+    }
+    var hotIds = votesLib.getHotIds( page );
+    return getArticlesByIds(hotIds);
 }
