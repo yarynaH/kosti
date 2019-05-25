@@ -55,17 +55,19 @@
                         <a data-th-if="${currUser}" data-th-href="${portal.serviceUrl({'_service=user','action=logout'})}" class="profile-logout" title="Logout"></a>
                     </div>
                 </div>
-                <div class="user_page-blog blog-list">
-                    <h3 class="user_page-title">
-                        <span data-th-remove="tag" data-th-text="${articles ? articles.size : '0'}"></span> 
-                        Статей
-                    </h3>
-                    <div data-th-if="${!articles || articles.size < 1}">
-                        У этого пользователя пока нету статей
+                <div class="user_page-blog blog-list-wrap">
+                    <div class="blog-list">
+                        <h3 class="user_page-title">
+                            <span data-th-remove="tag" data-th-text="${articles ? articles.size : '0'}"></span> 
+                            Статей
+                        </h3>
+                        <div data-th-if="${!articles || articles.size < 1}">
+                            У этого пользователя пока нету статей
+                        </div>
+                        <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
                     </div>
-                    <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
+                    <div class="lds-ring js_lazyload-icon hidden"><div></div><div></div><div></div><div></div></div>
                 </div>
-                <div class="lds-ring js_lazyload-icon hidden"><div></div><div></div><div></div><div></div></div>
             </div>
         </div>
     </main>
