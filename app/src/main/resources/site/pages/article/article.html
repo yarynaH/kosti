@@ -46,7 +46,7 @@
                                 <span class="comments-counter icon-comment">12</span>
                             </div>
                             <div class="post-actions">
-                                <span class="add_to_bookmarks-btn icon-bookmark" data-th-attr="data-contentId=${content._id}" data-th-classappend="${bookmarked} ? 'active' : ''"></span>
+                                <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${content._id}" data-th-classappend="${bookmarked} ? 'active' : ''"></span>
                                 <span data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
                                     <span data-th-text="${content.votes}"></span>
                                 </span>

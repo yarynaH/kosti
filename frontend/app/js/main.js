@@ -321,7 +321,7 @@ function initSharedEvents(){
 	if( $('#payment-success').length > 0 ){
 		deleteCookie('cartId');
 	}
-	$('.add_to_bookmarks-btn').on('click', function(e) {
+	$('.js_bookmarks').on('click', function(e) {
 		if( $('.header-user').data().userid && $('.header-user').data().userid != '' ){
 			var btn = $(this);
 			$.ajax({
