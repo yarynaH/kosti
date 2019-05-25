@@ -1,0 +1,32 @@
+<div class="comments">
+    <h4 class="comments-title">Комментарии</h4>
+    <form class="comments-write_comment-wrap js_comment-form">
+        <textarea class="comments-write_comment-input" name="body" placeholder="Написать комментарий…" id="" cols="30" rows="10"></textarea>
+        <button class="comments-write_comment-button" type="submit">Отправить</button>
+        <input value="addComment" type="hidden" name="action">
+    </form>
+    <ul class="comments-list">
+        <li data-th-each="comment : ${comments}" class="comments-item">
+            <div class="comments-header">
+                <div class="post-info">
+                    <a data-th-href="${comment.author.url}">
+                        <span class="post-user_avatar">
+                            <img data-th-src="${comment.author.image.url}" alt="">
+                        </span>
+                        <span class="post-user_name" data-th-text="${comment.author.displayName}"></span>
+                    </a>
+                    <span class="post-date" data-th-text="${comment.date}"></span>
+                </div>
+                <span data-th-attr="data-id=${comment._id}" class="like-btn icon-rock js_comment-like" data-th-classappend="${comment.voted} ? 'active' : ''">
+                    <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
+                </span>
+            </div>
+            <div class="comments-body" data-th-utext="${comment.body}">
+            </div>
+            <div class="comments-footer">
+                <a href="#" class="comments-link">Ответить</a>
+                <a href="#" class="comments-link">Пожаловаться</a>
+            </div>
+        </li>
+    </ul>
+</div>

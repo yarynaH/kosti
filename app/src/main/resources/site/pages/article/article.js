@@ -7,6 +7,7 @@ var thymeleaf = require('/lib/xp/thymeleaf');
 var votesLib = require('votesLib');
 var userLib = require('userLib');
 var blogLib = require('blogLib');
+var commentsLib = require('commentsLib');
 
 exports.get = handleReq;
 
@@ -34,7 +35,8 @@ function handleReq(req) {
         var site = portal.getSiteConfig();
         var mainRegion = content.page.regions.main;
         var similarArticles = getSimilar( content.data.similarArticles );
-        var comments = thymeleaf.render(resolve('comments.html'), {content: content});
+        var comments = commentsLib.getCommentsByParent(content._id);
+        comments = thymeleaf.render(resolve('commentsDev.html'), {comments: comments});
 
         var model = {
             content: content,

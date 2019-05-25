@@ -13,6 +13,7 @@ exports.activateUser = activateUser;
 exports.getCurrentUser = getCurrentUser;
 exports.addBookmark = addBookmark;
 exports.checkIfBookmarked = checkIfBookmarked;
+exports.getUserDataById = getUserDataById;
 
 function getCurrentUser(){
 	var user = authLib.getUser();
@@ -42,6 +43,16 @@ exports.getSystemUser = function( name ){
 		user = findUser(name);
 	});
 	return user;
+}
+
+function getUserDataById( id ){
+	var user = getCurrentUser();
+	return {
+		displayName: user.displayName,
+		url: user.url,
+		image: user.image,
+		key: user.key
+	};
 }
 
 exports.register = function( name, mail, pass ){

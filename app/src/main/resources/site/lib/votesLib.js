@@ -12,6 +12,7 @@ exports.countUpvotes = countUpvotes;
 exports.countUserUpvotes = countUserUpvotes;
 exports.checkIfVoted = checkIfVoted;
 exports.getHotIds = getHotIds;
+exports.checkIfVoteExist = checkIfVoteExist;
 
 function vote(user, content){
 	var result = doVote(user, content);

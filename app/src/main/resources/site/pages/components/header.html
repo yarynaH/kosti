@@ -25,7 +25,7 @@
         <div class="header-notification hidden">
             <span class="notification-icon"></span>
         </div>
-        <div data-th-if="${user}" class="header-user" data-th-attr="data-userId=${user.key}">
+        <div data-th-if="${user}" class="header-user" data-th-attr="data-userid=${user.key}, data-usercontentid=${user._id}">
             <div class="user-avatar-img_wrap">
                 <a data-th-href="${portal.pageUrl({'_path=' + user._path})}">
                     <img src="#" data-th-src="${user.image.url}" data-th-attr="alt=${user.displayName}">

@@ -6,7 +6,7 @@
 <body class="page-wrapper article-page transparent-header">
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main">
+    <main class="main js_article-id" data-th-attr="data-articleid=${content._id}">
         <div class="article-img_wrap">
             <picture>
                 <source data-th-srcset="${content.imageDesktop.url}" media="(min-width: 767px)">
@@ -50,7 +50,7 @@
                             </div>
                             <div class="post-actions">
                                 <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${content._id}" data-th-classappend="${bookmarked} ? 'active' : ''"></span>
-                                <span data-th-attr="data-contentId=${content._id}" href="#" class="like-btn icon-rock" data-th-classappend="${content.voted} ? 'active' : ''">
+                                <span data-th-attr="data-contentId=${content._id}" class="like-btn icon-rock js_like-article" data-th-classappend="${content.voted} ? 'active' : ''">
                                     <span data-th-text="${content.votes}"></span>
                                 </span>
                             </div>
@@ -62,7 +62,7 @@
                     <ul class="similar_posts-list">
                         <li class="similar_posts-item" data-th-each="article : ${similarArticles}">
                             <a data-th-href="${article.url}" class="similar_posts-link" data-th-text="${article.displayName}"></a>
-                            <span data-th-attr="data-contentId=${article._id}" href="#" class="like-btn icon-rock" data-th-classappend="${article.voted} ? 'active' : ''">
+                            <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article" data-th-classappend="${article.voted} ? 'active' : ''">
                                 <span data-th-text="${article.votes}"></span>
                             </span>
                         </li>
@@ -114,7 +114,7 @@
                         <div class="tag-list" hidden>
                             <a href="#" class="tag-item">Мерч</a>
                         </div>
-                        <span data-th-attr="data-contentId=${weeksPost._id}" href="#" class="like-btn icon-rock" data-th-classappend="${weeksPost.voted} ? 'active' : ''">
+                        <span data-th-attr="data-contentId=${weeksPost._id}" class="like-btn icon-rock js_like-article" data-th-classappend="${weeksPost.voted} ? 'active' : ''">
                             <span data-th-text="${weeksPost.votes}"></span>
                         </span>
                     </div>
