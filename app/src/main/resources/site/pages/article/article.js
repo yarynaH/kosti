@@ -46,11 +46,15 @@ function handleReq(req) {
             articleId: content._id, 
             moderator: user.moderator
         });
+        if( user.moderator ){
+            var removeCommentModal = thymeleaf.render(resolve('../components/comments/removeCommentModal.html'), {});
+        }
 
         var model = {
             content: content,
             socialLinks: blogLib.getSolialLinks(),
             mainRegion: mainRegion,
+            removeCommentModal: removeCommentModal,
             weeksPost: blogLib.getWeeksPost(),
             pageComponents: helpers.getPageComponents(req),
             similarArticles: similarArticles,

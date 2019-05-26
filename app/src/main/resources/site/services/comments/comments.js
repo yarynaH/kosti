@@ -19,7 +19,7 @@ exports.post = function(req){
 		    result = commentsLib.voteForComment( params.id, params.user );
 		    break;
 		case 'remove':
-		    result = commentsLib.removeComment( params.id );
+		    result = commentsLib.removeComment( params.id, params.reason );
 		    break;
     }
     return {

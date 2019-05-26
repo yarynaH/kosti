@@ -37,7 +37,7 @@ function addComment( parent, body ){
 	return beautifyComment(comment);
 }
 
-function removeComment( id ){
+function removeComment( id, reason ){
 	var user = userLib.getCurrentUser();
 	if( !user.moderator ){
 		return false;
@@ -49,6 +49,7 @@ function removeComment( id ){
 	});
 	function editor(node) {
 	    node.deleted = true;
+	    node.reason = reason;
 	    return node;
 	}
 }

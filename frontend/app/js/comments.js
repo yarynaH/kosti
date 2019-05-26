@@ -15,6 +15,18 @@ function initComments(){
 				addComment(this, formData);
 			}
 		});
+		$('.js_remove_comment-form').on('submit', function( e ){
+			e.preventDefault();
+			if( !checkUserLoggedIn() ){
+				showLogin(e);
+			} else{
+				var formData = { };
+				$.each($(this).serializeArray(), function() {
+				    formData[this.name] = this.value;
+				});
+				removeComment(formData);
+			}
+		});
 		$('.comments').on('click', '.js_comment-like', function( e ){
 			e.preventDefault();
 			if( !checkUserLoggedIn() ){
@@ -27,7 +39,7 @@ function initComments(){
 			if( !checkUserLoggedIn() ){
 				showLogin(e);
 			} else {
-				removeComment(this);
+				showRemoveFunction(this, e);
 			}
 		});
 	}
@@ -71,15 +83,24 @@ function addComment( el, formData ){
 	});
 }
 
-function removeComment( el ){
+function showRemoveFunction( el, e ){
+	e.stopPropagation();
+	$('.modal-remove_comment').addClass('show');
+	$('input.js_comment-remove-id').val($(el).data('id'));
+}
+
+function removeComment(formData){
 	var data = {
 		action: 'remove',
-		id: $(el).data('id')
+		id: formData.id,
+		reason: formData.reason
 	};
 	var call = makeAjaxCall( commentsServiceUrl, 'POST', data, true );
 	call.done( function(data){
+		$('input.js_comment-remove-id').val('');
 		if( data ){
-			$('li[data-id=' + $(el).data('id') + '] > .comments-body').text('Комментарий удален');
+			$('li[data-id=' + formData.id + '] > .comments-body').addClass('deleted').text('Комментарий удален');
+			$('.modal-remove_comment').removeClass('show');
 		}
 	});
 }
