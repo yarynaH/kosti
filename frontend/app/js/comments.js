@@ -1,9 +1,9 @@
 function initComments(){
-	if($('.comments').length > 0){
-		$('.comments').on('click', '.js_answer-comment', function( e ){
+	if($('.js_article-comments').length > 0){
+		$('.js_article-comments').on('click', '.js_answer-comment', function( e ){
 			$('form[data-parentid=' + $(this).data('id') + ']').toggleClass('hidden');
 		});
-		$('.comments').on('submit', '.js_comment-form', function( e ){
+		$('.js_article-comments').on('submit', '.js_comment-form', function( e ){
 			e.preventDefault();
 			if( !checkUserLoggedIn() ){
 				showLogin(e);
@@ -27,7 +27,7 @@ function initComments(){
 				removeComment(formData);
 			}
 		});
-		$('.comments').on('click', '.js_comment-like', function( e ){
+		$('.js_article-comments').on('click', '.js_comment-like', function( e ){
 			e.preventDefault();
 			if( !checkUserLoggedIn() ){
 				showLogin(e);
@@ -35,7 +35,7 @@ function initComments(){
 				likeComment(this);
 			}
 		});
-		$('.comments').on('click', '.js_comment-remove_btn', function( e ){
+		$('.js_article-comments').on('click', '.js_comment-remove_btn', function( e ){
 			if( !checkUserLoggedIn() ){
 				showLogin(e);
 			} else {

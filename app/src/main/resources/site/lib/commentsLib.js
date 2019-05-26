@@ -10,6 +10,7 @@ exports.addComment = addComment;
 exports.getCommentsByParent = getCommentsByParent;
 exports.voteForComment = voteForComment;
 exports.removeComment = removeComment;
+exports.getCommentsByUser = getCommentsByUser;
 
 function addComment( parent, body ){
 	var commentsRepo = connectCommentsRepo();
@@ -37,6 +38,23 @@ function addComment( parent, body ){
 	return beautifyComment(comment);
 }
 
+function getCommentsByUser( id ){
+	var commentsRepo = connectCommentsRepo();
+	var temp = commentsRepo.query({
+		start: 0,
+		count: 9999999,
+		query: "user = '" + id + "'",
+		sort: "deleted DESC, rate ASC, _timestamp ASC"
+	}).hits;
+	var result = [];
+	for( var i = 0; i < temp.length; i++ ){
+		var comment = commentsRepo.get(temp[i].id);
+		comment = beautifyComment(comment);
+		result.push(comment);
+	}
+	return result;
+}
+
 function removeComment( id, reason ){
 	var user = userLib.getCurrentUser();
 	if( !user.moderator ){
@@ -48,7 +66,7 @@ function removeComment( id, reason ){
 	    editor: editor
 	});
 	function editor(node) {
-	    node.deleted = true;
+	    node.deleted = 1;
 	    node.reason = reason;
 	    return node;
 	}
@@ -61,7 +79,7 @@ function voteForComment( id ){
 	if( !comment || !comment._id || !user || !user.key ){
 		return false;
 	}
-	if( !comment.votes || (comment.votes && comment.votes.indexOf(user.key) != -1) ){
+	if( !comment.votes || (comment.votes && comment.votes.indexOf(user.key) == -1) ){
 		comment = upvote( user.key, comment._id );
 	} else {
 		comment = downvote( user.key, comment._id );

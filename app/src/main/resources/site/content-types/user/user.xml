@@ -15,6 +15,14 @@
       <label>Last name</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="city" type="TextLine">
+      <label>City</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="phone" type="TextLine">
+      <label>Phone</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="userImage" type="ImageSelector">
       <label>User image</label>
       <occurrences minimum="0" maximum="1"/>

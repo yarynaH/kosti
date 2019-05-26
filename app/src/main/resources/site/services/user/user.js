@@ -56,6 +56,8 @@ exports.post = function( req ) {
 	    result = userLib.login( params.username, params.password );
 	} else if( params.action == 'image' ){
         result = userLib.uploadUserImage();
+    } else if( params.action == 'edit' ){
+        result = userLib.editUser(params);
     } else if( params.action == 'forgotpass' ){
         result = userLib.resetPass( params.email );
     } else if( params.action == 'addBookmark' ){

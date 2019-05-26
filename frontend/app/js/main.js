@@ -467,6 +467,29 @@ function initFormEvents(){
 	});
 }
 
+function initUserPageEvents(){
+	$('.js_profile-settings').on('click', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		$('.modal-edit_user').addClass('show');
+	});
+	$('.js_edit_user-form').on('submit', function( e ){
+		e.preventDefault();
+		var formData = {};
+		$.each($(this).serializeArray(), function() {
+		    formData[this.name] = this.value;
+		});
+		editUserData(formData);
+	});
+}
+
+function editUserData(formData){
+	var call = makeAjaxCall( userServiceUrl, 'POST', formData, true );
+	call.done( function(data){
+		$('.modal-edit_user').removeClass('show');
+	});
+}
+
 function checkSpace( el ){
 	var data = {
 		action: 'checkspace',
@@ -497,6 +520,7 @@ $( document ).ready(function() {
 	initSharedEvents();
 	initHeaderClasses();
 	initPDPFunctions();
+	initUserPageEvents();
 	if( $('main.form').length > 0 ){
 		initFormEvents();
 	}

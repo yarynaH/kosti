@@ -22,21 +22,24 @@ exports.get = function(req){
 	}
 	switch(params.feedType){
 		case 'new':
-            var articles = blogLib.getNewArticles( page );
+            var articles = blogLib.getArticlesView(blogLib.getNewArticles( page ));
 			break;
 		case 'bookmarks':
 			var user = userLib.getCurrentUser();
-            var articles = blogLib.getArticlesByIds( user.data.bookmarks, page );
+            var articles = blogLib.getArticlesView(blogLib.getArticlesByIds( user.data.bookmarks, page ));
 			break;
 		case 'userArticles':
-			var articles = blogLib.getArticlesByUser(params.userId, page);
+			var articles = blogLib.getArticlesView(blogLib.getArticlesByUser(params.userId, page));
+			break;
+		case 'comments':
+			var articles = "";
 			break;
 		default:
-            var articles = blogLib.getHotArticles( page );
+            var articles = blogLib.getArticlesView(blogLib.getHotArticles( page ));
 			break;
 	}
     return {
-        body: blogLib.getArticlesView(articles),
+        body: articles,
         contentType: 'text/html'
     }
 }

@@ -17,6 +17,7 @@ exports.checkIfBookmarked = checkIfBookmarked;
 exports.getUserDataById = getUserDataById;
 exports.checkRole = checkRole;
 exports.getSystemUser = getSystemUser;
+exports.editUser = editUser;
 
 function getCurrentUser(){
 	var user = authLib.getUser();
@@ -39,6 +40,33 @@ function getCurrentUser(){
 		}
 	}
 	return userObj;
+}
+
+function editUser( data ){
+	var user = getCurrentUser();
+	norseUtils.log(user);
+	norseUtils.log(data);
+	if( user._id != data.id ){
+		return false;
+	}
+    user = contentLib.modify({
+        key: user._id,
+        editor: userEditor,
+        branch: 'draft'
+    });
+    var publishResult = contentLib.publish({
+        keys: [user._id],
+        sourceBranch: 'draft',
+        targetBranch: 'master'
+    });
+	function userEditor(user){
+		user.data.firstName = data.firstName ? data.firstName : user.data.firstName;
+		user.data.lastName = data.lastName ? data.lastName : user.data.lastName;
+		user.data.city = data.city ? data.city : user.data.city;
+		user.data.phone = data.phone ? data.phone : user.data.phone;
+	    return user;
+	}
+	return true;
 }
 
 function checkRole( roles ){

@@ -5,6 +5,7 @@
 
 <body class="page-wrapper">
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <div data-th-remove="tag" data-th-if="${currUser}" data-th-utext="${editUserModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
         <div class="user_page-wrap js_user-page-id" data-th-attr="data-userid=${content._id}">
@@ -21,7 +22,7 @@
                         </div>
                         <div class="profile-user">
                             <span class="profile-name" data-th-text="${content.displayName}"></span>
-                            <a href="#" class="profile-settings hidden" data-th-if="${currUser}"></a>
+                            <a class="profile-settings js_profile-settings" data-th-if="${currUser}"></a>
                         </div>
                         <div class="profile-registration">
                             Костяшка с <span data-th-remove="tag" data-th-text="${content.date}"></span>
@@ -39,7 +40,11 @@
                                 </a>
                             </li>
                             <li class="profile-action-item">
-                                <a class="profile-action-link hidden">Коментарии <span class="value">21</span></a>
+                                <a class="profile-action-link" data-th-href="${portal.pageUrl({'_path='+content._path,'action=comments'})}"
+                                    data-th-classappend="${active.comments}" data-type="comments">
+                                    Коментарии 
+                                    <span data-th-text="${userComments.size}" class="value"></span>
+                                </a>
                             </li>
                             <li class="profile-action-item">
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}" class="profile-action-link"  
@@ -56,12 +61,12 @@
                     </div>
                 </div>
                 <div class="user_page-blog blog-list-wrap">
-                    <div class="blog-list" data-page="1">
+                    <div class="blog-list js_article-comments" data-page="1">
                         <h3 class="user_page-title">
                             <span data-th-remove="tag" data-th-text="${totalArticles.curr ? totalArticles.curr : '0'}"></span> 
                             Статей
                         </h3>
-                        <div data-th-if="${!articles || articles.size < 1}">
+                        <div data-th-if="${!totalArticles.curr}">
                             У этого пользователя пока нету статей
                         </div>
                         <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
