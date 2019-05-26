@@ -17,10 +17,14 @@
 <script type="text/javascript" data-th-inline="javascript" data-th-if="${cartServiceUrl}">
   var cartServiceUrl = [[${cartServiceUrl}]];
 </script>
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${commentsServiceUrl}">
+  var commentsServiceUrl = [[${commentsServiceUrl}]];
+</script>
 <script type="text/javascript" data-th-inline="javascript" data-th-if="${cartId}">
 	var cartId = [[${cartId}]];
 </script>
 <script data-th-src="${portal.assetUrl({'_path=js/main.js'})}"></script>
+<script data-th-src="${portal.assetUrl({'_path=js/sharedLib.js'})}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
