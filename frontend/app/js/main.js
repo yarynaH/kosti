@@ -319,7 +319,7 @@ function initSharedEvents(){
 		deleteCookie('cartId');
 	}
 	$('.js_bookmarks').on('click', function(e) {
-		if( $('.js_header-user').data().userid && $('.js_header-user').data().userid != '' ){
+		if( checkUserLoggedIn() ){
 			var btn = $(this);
 			$.ajax({
 				url: '/_/service/com.myurchenko.kostirpg/user',
