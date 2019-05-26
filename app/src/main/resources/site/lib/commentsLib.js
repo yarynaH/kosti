@@ -95,7 +95,7 @@ function getCommentsByParent( id ){
 		start: 0,
 		count: 9999999,
 		query: "parent = '" + id + "'",
-		sort: ""
+		sort: "rate ASC, _timestamp ASC"
 	}).hits;
 	var result = [];
 	for( var i = 0; i < temp.length; i++ ){

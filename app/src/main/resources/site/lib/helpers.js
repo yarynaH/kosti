@@ -26,6 +26,9 @@ exports.getPageComponents = function( req ) {
   var cartServiceUrl = portal.serviceUrl({
     service: 'cart'
   });
+  var commentsServiceUrl = portal.serviceUrl({
+    service: 'comments'
+  });
 
   if( content && content.data && content.data.mainImage ){
     var ogImage = portal.imageUrl({
@@ -58,6 +61,7 @@ exports.getPageComponents = function( req ) {
     userServiceUrl: userServiceUrl,
     contentServiceUrl: contentServiceUrl,
     cartServiceUrl: cartServiceUrl,
+    commentsServiceUrl: commentsServiceUrl,
     cartId: cartLib.getCart( req.cookies.cartId )._id
   });
 

@@ -361,76 +361,6 @@ function initSharedEvents(){
 			}
 		});
 	}
-	if($('.comments').length > 0){
-		$('.comments').on('submit', '.js_comment-form', function( e ){
-			e.preventDefault();
-			var el = this;
-			var result = { };
-			$.each($(this).serializeArray(), function() {
-			    result[this.name] = this.value;
-			});
-			var parentId = $(el).data('parentid') ? $(el).data('parentid') : $('.js_article-id').data('articleid');
-			$.ajax({
-				url: '/_/service/com.myurchenko.kostirpg/comments',
-				type: 'POST',
-				async: true,
-				data: {
-					body: result.body,
-					parent: parentId,
-					action: 'addComment'
-				},
-				success: function(data){
-					if( parentId != $('.js_article-id').data('articleid') ){
-						$('form[data-parentid=' + parentId + ']').addClass('hidden');
-					}
-					if(parentId == $('.js_article-id').data('articleid') && !$('ul.js_comments-list[data-parentid=' + parentId + ']').length){
-						$('.js_article-comments').append('<ul class="comments-list js_comments-list" data-parentid="' + parentId + '"></ul>');
-					} else if(!$('ul.js_comments-list[data-parentid=' + parentId + ']').length) {
-						$('li.js_comment[data-id=' + parentId + ']').append('<ul class="comments-list js_comments-list" data-parentid="' + parentId + '"></ul>');
-					}
-					$('ul.js_comments-list[data-parentid=' + parentId + ']').append(data);
-					$('form[data-parentid=' + parentId + '] textarea').val('');
-				}
-			});
-		});
-		$('.comments').on('click', '.js_answer-comment', function( e ){
-			$('form[data-parentid=' + $(this).data('id') + ']').toggleClass('hidden');
-		});
-		$('.comments').on('click', '.js_comment-like', function( e ){
-			e.preventDefault();
-			var el = this;
-			$.ajax({
-				url: '/_/service/com.myurchenko.kostirpg/comments',
-				type: 'POST',
-				data: {
-					action: 'vote',
-					id: $(el).data('id')
-				},
-				success: function(data){
-					$(el).text(data.rate);
-					if( data.voted ){
-						$(el).addClass('active');
-					} else {
-						$(el).removeClass('active');
-					}
-				}
-			});
-		});
-		$('.comments').on('click', '.js_comment-remove_btn', function( e ){
-			var el = this;
-			$.ajax({
-				url: '/_/service/com.myurchenko.kostirpg/comments',
-				type: 'POST',
-				data: {
-					action: 'remove',
-					id: $(el).data('id')
-				},
-				success: function(data){
-					$('li[data-id=' + $(el).data('id') + '] > .comments-body').addClass('deleted').text('Комментарий удален');
-				}
-			});
-		});
-	}
 	$(document).on('scroll', function(){
 		if($(document).scrollTop() > 1200){
 			$('.js_back_to_top').removeClass('hidden');
@@ -604,16 +534,6 @@ function doUpvote(el){
     });
 }
 
-function showLogin(e){
-	e.stopPropagation();
-	$('body div.modal-login').addClass('show');
-}
-
-function getCookieValue(a) {
-    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-    return b ? b.pop() : '';
-}
-
 function addToCart( data ){
 	var data = data;
 	if( !data ){
@@ -656,24 +576,6 @@ function addToCart( data ){
 	});
 }
 
-function validateEmail(email) {
-    var re = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-    return re.test(String(email).toLowerCase());
-}
-
-function validatePhone(phone) {
-    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    return re.test(String(phone).toLowerCase());
-}
-
-function setCookie( cartId ){
-	document.cookie = "cartId=" + cartId + "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT";
-}
-
-function deleteCookie( name ) {
-  document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-}
-
 function validateCheckout(e){
 	$('form.checkout-form input, form.checkout-form select').each(function(){
 		if( $(this).val() == null || $(this).val() == '' ){
@@ -703,8 +605,4 @@ function validateCheckout(e){
 		e.preventDefault();
 		$('#delivery_np-input-city').parent().addClass('is-invalid');
 	}
-}
-
-function isEmpty( el ){
-	return !$.trim(el.html())
 }

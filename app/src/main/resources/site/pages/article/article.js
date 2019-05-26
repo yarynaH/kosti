@@ -19,10 +19,16 @@ function handleReq(req) {
         var view = resolve('article.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
+        var fileName = portal.assetUrl({path:'js/comments.js'});
          // Return the result
         return {
           body: body,
-          contentType: 'text/html'
+          contentType: 'text/html',
+          pageContributions: {
+            bodyEnd: [
+                "<script src='"+fileName+"'></script>"
+            ]
+          }
         };
     }
 
