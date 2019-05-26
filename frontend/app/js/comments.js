@@ -80,6 +80,11 @@ function addComment( el, formData ){
 		}
 		$('ul.js_comments-list[data-parentid=' + parentId + ']').append(data);
 		$('form[data-parentid=' + parentId + '] textarea').val('');
+
+		var scroll_value = ($('.js_comment_scroll').offset().top - (window.innerHeight / 2) );
+		$('html, body').scrollTop(scroll_value);
+
+		$('.js_comment').removeClass('js_comment_scroll');
 	});
 }
 
@@ -101,6 +106,7 @@ function removeComment(formData){
 		if( data ){
 			$('li[data-id=' + formData.id + '] > .comments-body').addClass('deleted').text('Комментарий удален');
 			$('.modal-remove_comment').removeClass('show');
+			$(el).remove();
 		}
 	});
 }
