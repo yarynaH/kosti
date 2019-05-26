@@ -180,9 +180,9 @@ function generateCheckoutPage(req){
 
     function renderSuccessPage( req, cart, pendingPage ){
         if( !pendingPage ){
-            cart = contextLib.runAsAdmin(function () {
+            /*cart = contextLib.runAsAdmin(function () {
                 return cart = cartLib.generateItemsIds(cart._id);
-            });
+            });*/
             mailsLib.sendMail('orderCreated', cart.email, {
                 cart: cart
             });
