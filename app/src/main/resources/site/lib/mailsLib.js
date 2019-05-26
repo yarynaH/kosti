@@ -120,7 +120,7 @@ function getorderCreatedMail( params ){
 		}),
 		subject: "Ваш заказ получен",
 		from: "noreply@kostirpg.com", 
-		//attachments: getTickets(params)
+		attachments: getTickets(params)
 	}
 
 	function getTickets( params ){
