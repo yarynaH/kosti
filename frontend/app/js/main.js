@@ -1,5 +1,5 @@
 function initLoginRegisterForm(){
-	$('.header-user .guest-btn').on('click', function(e){
+	$('.js_header-user .guest-btn').on('click', function(e){
 		showLogin(e);
 	});
 	$(document).on('click', function(event) {
@@ -51,15 +51,12 @@ function initLoginRegisterForm(){
 			method: "POST",
 			data: data
 		}).done(function(data) {
-			if( !data.exist && !data.data ){
-			$('.modal-login .form-group-error span').text(data.message);
+			if( !data.exist && !data.html ){
+				$('.modal-login .form-group-error span').text(data.message);
 				$('.modal-login .form-group-error').removeClass('hidden');
 			} else {
-				$('.header-user').html('<div class="user-avatar-img_wrap">' + 
-					'<a href=' + data.url + '><img src="' + data.image.url + 
-					'" alt="' + data.displayName + '"></a>');
+				$('.js_header-user-wrap').html(data.html);
 				hideLoginRegisterModal();
-				$('.header-user').attr("data-userid", data.key);
 				$('.modal-login .form-group-error').addClass('hidden');
 			}
 		});
@@ -322,7 +319,7 @@ function initSharedEvents(){
 		deleteCookie('cartId');
 	}
 	$('.js_bookmarks').on('click', function(e) {
-		if( $('.header-user').data().userid && $('.header-user').data().userid != '' ){
+		if( $('.js_header-user').data().userid && $('.js_header-user').data().userid != '' ){
 			var btn = $(this);
 			$.ajax({
 				url: '/_/service/com.myurchenko.kostirpg/user',

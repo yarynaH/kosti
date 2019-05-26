@@ -40,7 +40,7 @@ function makeAjaxCall( url, method, data, async ){
 }
 
 function checkUserLoggedIn(){
-	if( $('.header-user').data().userid && $('.header-user').data().userid != '' ){
+	if( $('.js_header-user').data().userid && $('.js_header-user').data().userid != '' ){
 		return true;
 	}
 	return false;

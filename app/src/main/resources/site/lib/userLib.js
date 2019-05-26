@@ -7,6 +7,7 @@ var authLib = require('/lib/xp/auth');
 var contextLib = require('/lib/contextLib');
 var common = require('/lib/xp/common');
 var i18nLib = require('/lib/xp/i18n');
+var thymeleaf = require('/lib/xp/thymeleaf');
 
 exports.findUser = findUser;
 exports.activateUser = activateUser;
@@ -176,7 +177,10 @@ exports.login = function( name, pass ){
 	    userStore: 'system'
 	});
 	if( loginResult.authenticated == true ){
-		return this.getCurrentUser();
+		return {
+			html: thymeleaf.render(resolve('../pages/components/headerUser.html'), { user: getCurrentUser()}),
+			exist: true
+		};
 	} else {
 		return {
 			exist: false,

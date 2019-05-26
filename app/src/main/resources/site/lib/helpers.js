@@ -58,7 +58,7 @@ exports.getPageComponents = function( req ) {
   pageComponents['header'] = thymeleaf.render( resolve('../pages/components/header.html'), {
     menuItems: getMenuItems(),
     site: site,
-    user: userLib.getCurrentUser()
+    headerUser: thymeleaf.render( resolve('../pages/components/headerUser.html'), {user: userLib.getCurrentUser()})
   });
   pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {
     userServiceUrl: userServiceUrl,
