@@ -2,6 +2,7 @@ var norseUtils = require('norseUtils');
 var event = require('/lib/xp/event');
 var content = require('/lib/xp/content');
 var votesLib = require('votesLib');
+var contextLib = require('/lib/contextLib');
 
 // catch events
 event.listener({
@@ -13,8 +14,10 @@ event.listener({
                 affectedSubjectNodes = [];
             for( var i = 0; i < nodes.length; i++ ){
                 var node = content.get({key: nodes[0].id});
-                if( node.type == app.name + ':article' ){
-                    votesLib.createBlankVote(node._id);
+                if( node && node.type && node.type == app.name + ':article' ){
+                    contextLib.runAsAdmin(function () {
+                        votesLib.createBlankVote(node._id);
+                    });
                 }
             }
         }

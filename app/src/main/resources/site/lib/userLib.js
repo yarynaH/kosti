@@ -15,6 +15,7 @@ exports.addBookmark = addBookmark;
 exports.checkIfBookmarked = checkIfBookmarked;
 exports.getUserDataById = getUserDataById;
 exports.checkRole = checkRole;
+exports.getSystemUser = getSystemUser;
 
 function getCurrentUser(){
 	var user = authLib.getUser();
@@ -31,7 +32,7 @@ function getCurrentUser(){
 			userObj.url = portal.pageUrl({ id: userObj._id });
 			userObj.image = norseUtils.getImage( userObj.data.userImage, 'block(32,32)', 1 );
 			userObj.key = user.key;
-			userObj.moderator = checkRole(['moderator', 'role:system.admin']);
+			userObj.moderator = checkRole(['role:moderator', 'role:system.admin']);
 		} else {
 			userObj = false;
 		}
@@ -48,23 +49,31 @@ function checkRole( roles ){
 	return false
 }
 
-exports.getSystemUser = function( name ){
+function getSystemUser( name, keyOnly ){
 	var user = false;
 	contextLib.runAsAdmin(function () {
 		user = findUser(name);
 	});
+	if( !user ){
+		return false;
+	}
+	if( keyOnly ){
+		return user.key;
+	}
 	return user;
 }
 
 function getUserDataById( id ){
-	var user = contextLib.runAsAdmin(function () {
-		return getCurrentUser();
-	});
+	var user = contentLib.get({ key: id });
+	if( !user || !user.data ){
+		return false;
+	}
 	return {
 		displayName: user.displayName,
-		url: user.url,
-		image: user.image,
-		key: user.key
+		url: portal.pageUrl({ id: user._id }),
+		image: norseUtils.getImage( user.data.userImage, 'block(32,32)', 1 ),
+		_id: user._id,
+		key: getSystemUser(user.data.email, true)
 	};
 }
 
