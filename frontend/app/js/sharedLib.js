@@ -38,3 +38,10 @@ function makeAjaxCall( url, method, data, async ){
 		data: data
 	});
 }
+
+function checkUserLoggedIn(){
+	if( $('.header-user').data().userid && $('.header-user').data().userid != '' ){
+		return true;
+	}
+	return false;
+}

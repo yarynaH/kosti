@@ -38,6 +38,10 @@ function addComment( parent, body ){
 }
 
 function removeComment( id ){
+	var user = userLib.getCurrentUser();
+	if( !user.moderator ){
+		return false;
+	}
 	var commentsRepo = connectCommentsRepo();
 	return commentsRepo.modify({
 	    key: id,

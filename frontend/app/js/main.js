@@ -295,7 +295,7 @@ function initCheckoutEvents(){
 function initSharedEvents(){
 	$('.js_like-article').on('click', function(e){
 		e.preventDefault();
-		if( $('.header-user').data().userid && $('.header-user').data().userid != '' ){
+		if( checkUserLoggedIn() ){
 			doUpvote(this);
 		} else {
 			showLogin(e);
