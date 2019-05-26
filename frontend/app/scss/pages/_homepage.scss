@@ -405,32 +405,3 @@
         }
     }
 }
-
-.like-btn {
-    display: inline-flex;
-    align-items: center;
-    font-size: rem(14);
-    cursor: pointer;
-    color: $color-primary12;
-    transition: transition(color);
-
-    &:before {
-        margin-right: 8px;
-    }
-
-    span {
-        vertical-align: middle;
-    }
-
-    &.active,
-    &:hover {
-        span {
-            text-shadow: 0 0 0.01px $color-primary17;
-            color: $color-primary17;
-        }
-
-        &::before {
-            color: $color-primary19;
-        }
-    }
-}

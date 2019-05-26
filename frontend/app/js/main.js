@@ -426,7 +426,7 @@ function initSharedEvents(){
 					id: $(el).data('id')
 				},
 				success: function(data){
-					$('li[data-id=' + $(el).data('id') + '] > .comments-body').text('Комментарий удален');
+					$('li[data-id=' + $(el).data('id') + '] > .comments-body').addClass('deleted').text('Комментарий удален');
 				}
 			});
 		});

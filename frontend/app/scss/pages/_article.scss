@@ -209,16 +209,26 @@
     &-header {
         display: flex;
         justify-content: space-between;
-    
-        .like-btn {
-            margin-bottom: 10px;
-        }
+    }
+
+    &-actions {
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    &-remove_btn {
+        padding: 0;
+        margin-left: 20px;
     }
 
     &-body {
         line-height: 1.71;
         color: $color-primary16;
         padding-bottom: 10px;
+
+        &.deleted {
+            color: $color-primary8;
+        }
     }
 
     &-link {

@@ -17,12 +17,14 @@
                     </a>
                     <span class="post-date" data-th-text="${comment.date}"></span>
                 </div>
-                <span data-th-attr="data-id=${comment._id}" class="like-btn icon-rock js_comment-like" data-th-classappend="${comment.voted} ? 'active' : ''">
-                    <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
-                </span>
-                <span data-th-if="${moderator}" data-th-attr="data-id=${comment._id}" class="cart-remove_btn js_comment-remove_btn"></span>
+                <div data-th-if="${!comment.deleted}" class="comments-actions">
+                    <span data-th-attr="data-id=${comment._id}" class="like-btn icon-rock js_comment-like" data-th-classappend="${comment.voted} ? 'active' : ''">
+                        <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
+                    </span>
+                    <span data-th-if="${moderator}" data-th-attr="data-id=${comment._id}" class="comments-remove_btn remove-btn js_comment-remove_btn"></span>
+                </div>
             </div>
-            <div class="comments-body" data-th-utext="${comment.deleted? 'Комментарий удален.' : comment.body}">
+            <div class="comments-body" data-th-classappend="${comment.deleted? 'deleted' : ''}" data-th-utext="${comment.deleted? 'Комментарий удален.' : comment.body}">
             </div>
             <div class="comments-footer">
                 <a class="comments-link js_answer-comment" data-th-attr="data-id=${comment._id}">Ответить</a>
