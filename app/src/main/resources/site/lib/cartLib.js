@@ -153,7 +153,7 @@ function modifyInventory( items ){
       requireValid: false,
       branch: 'draft',
       editor: (function (node) {
-        return editor(node, items[i].amount);
+        return editor(node, items[i]);
       })
     });
     contentLib.publish({
@@ -162,9 +162,18 @@ function modifyInventory( items ){
       targetBranch: 'master'
     });
   }
-  function editor( node, amount ){
+  function editor( node, item ){
     if( typeof node.data.inventory !== 'undefined' && node.data.inventory > 0 ){
-      node.data.inventory = node.data.inventory - amount;
+      node.data.inventory = node.data.inventory - item.amount;
+    }
+    if( node.data.sizes ){
+      node.data.sizes = norseUtils.forceArray(node.data.sizes);
+      for( var j = 0; j < node.data.sizes.length; j++ ){
+        if( node.data.sizes[j].title == item.itemSize ){
+          node.data.sizes[j].amount = node.data.sizes[j].amount - item.amount;
+          break;
+        }
+      }
     }
     return node;
   }
