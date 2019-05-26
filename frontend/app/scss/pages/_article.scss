@@ -195,8 +195,13 @@
     }
 
     &-item {
+        position: relative;
+        z-index: 1;
+        padding: 5px 0;
+        margin: -5px 0px;
+
         & + & {
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         & .comments-list {
@@ -204,6 +209,22 @@
             padding-left: 25px;
             margin-top: 10px;
             padding: 15px 0 0 25px;
+        }
+    }
+
+    &-new {
+        &:before {
+            @include position(absolute, top 0 right -30px left -27px);
+    
+            content: '';
+            height: 100%;
+            z-index: -1;
+            border-left: 3px solid $color-primary15;
+            background-color: rgba($color-primary15,.1);
+            animation-duration: 2000ms;
+            animation-fill-mode: forwards;        
+            animation-name: animate__comment-highlight;
+            animation-timing-function: ease-out;
         }
     }
 
@@ -245,5 +266,12 @@
         &:hover {
             color: $color-primary22;
         }
+    }
+}
+
+@keyframes animate__comment-highlight {
+    to {
+        background-color: transparent;
+        border-color: transparent
     }
 }
