@@ -11,12 +11,28 @@ exports.getCommentsByParent = getCommentsByParent;
 exports.voteForComment = voteForComment;
 exports.removeComment = removeComment;
 
-function addComment( parent, body, user ){
+function addComment( parent, body ){
 	var commentsRepo = connectCommentsRepo();
+    var user = userLib.getCurrentUser();
+    if( user ){
+    	user = user._id;
+    } else {
+    	return false;
+    }
 	var comment = commentsRepo.create({
 	    body: body,
 	    parent: parent,
-	    user: user
+	    user: user,
+	    _permissions:[{
+            "principal": "role:system.authenticated",
+            "allow": [
+                "READ",
+                "MODIFY",
+                "READ_PERMISSIONS",
+                "WRITE_PERMISSIONS"
+            ],
+            "deny": []
+        }]
 	});
 	return beautifyComment(comment);
 }
@@ -33,20 +49,21 @@ function removeComment( id ){
 	}
 }
 
-function voteForComment( id, user ){
+function voteForComment( id ){
 	var commentsRepo = connectCommentsRepo();
+    var user = userLib.getCurrentUser();
 	var comment = commentsRepo.get(id);
-	if( !comment || !comment._id || !user ){
+	if( !comment || !comment._id || !user || !user.key ){
 		return false;
 	}
-	if( !comment.votes || (comment.votes && comment.votes.indexOf(user) != -1) ){
-		comment = upvote( user, comment._id );
+	if( !comment.votes || (comment.votes && comment.votes.indexOf(user.key) != -1) ){
+		comment = upvote( user.key, comment._id );
 	} else {
-		comment = downvote( user, comment._id );
+		comment = downvote( user.key, comment._id );
 	}
 	return {
 		rate: comment.rate,
-		voted: comment.votes && comment.votes.indexOf(user) != -1
+		voted: comment.votes && comment.votes.indexOf(user.key) != -1
 	};
 }
 

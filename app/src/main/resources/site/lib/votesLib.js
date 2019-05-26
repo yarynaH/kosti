@@ -5,6 +5,8 @@ var norseUtils = require('norseUtils');
 var authLib = require('/lib/xp/auth');
 var nodeLib = require('/lib/xp/node');
 var userLib = require('userLib');
+var contentLib = require('/lib/xp/content');
+var contextLib = require('/lib/contextLib');
 
 exports.createBlankVote = createBlankVote;
 exports.vote = vote;
@@ -14,8 +16,14 @@ exports.checkIfVoted = checkIfVoted;
 exports.getHotIds = getHotIds;
 exports.checkIfVoteExist = checkIfVoteExist;
 
-function vote(user, content){
-	var result = doVote(user, content);
+function vote(content){
+	var user = userLib.getCurrentUser();
+	if( !user || !user.key ){
+		return false;
+	}
+    var result = contextLib.runAsAdmin(function () {
+		return doVote(user.key, content);
+    });
 
 	return result;
 }

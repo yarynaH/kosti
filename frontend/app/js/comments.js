@@ -12,7 +12,7 @@ function initComments(){
 				body: formData.body,
 				parent: parentId,
 				action: 'addComment',
-				user: $('.header-user').data('usercontentid')
+				//user: $('.header-user').data('usercontentid')
 			};
 			var call = makeAjaxCall( commentsServiceUrl, 'POST', data, true );
 			call.done( function(data){
@@ -37,7 +37,7 @@ function initComments(){
 			var data = {
 				action: 'vote',
 				id: $(el).data('id'),
-				user: $('.header-user').data('userid')
+				//user: $('.header-user').data('userid')
 			};
 			var call = makeAjaxCall( commentsServiceUrl, 'POST', data, true );
 			call.done( function(data){

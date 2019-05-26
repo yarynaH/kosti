@@ -5,6 +5,9 @@ var norseUtils = require('norseUtils');
 var userLib = require('userLib');
 var authLib = require('/lib/xp/auth');
 var cartLib = require('cartLib');
+var nodeLib = require('/lib/xp/node');
+
+exports.fixPermissions = fixPermissions;
 
 exports.getPageComponents = function( req ) {
   var pageComponents = {};
@@ -91,4 +94,36 @@ function checkUser(){
     result.user = user;
   }
   return result;
+}
+
+function fixPermissions( repo, role ){
+  if( !role ){
+    role = 'role:system.authenticated';
+  }
+  var repoConn = connectRepo(repo);
+  repoConn.setRootPermissions({
+      _permissions: [
+          {
+              "principal": role,
+              "allow": [
+                  "READ",
+                  "CREATE",
+                  "MODIFY",
+                  "DELETE",
+                  "PUBLISH",
+                  "READ_PERMISSIONS",
+                  "WRITE_PERMISSIONS"
+              ],
+              "deny": []
+          }
+      ],
+      _inheritsPermissions: true
+  });
+}
+
+function connectRepo( repo ){
+  return nodeLib.connect({
+      repoId: repo,
+      branch: "master"
+  });
 }

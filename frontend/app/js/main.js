@@ -507,8 +507,7 @@ $( document ).ready(function() {
 
 function doUpvote(el){
 	var data = {
-		content: $(el).data('contentid'),
-		user: $('.header-user').data('userid')
+		content: $(el).data('contentid')
 	};
 	var btn = el;
     $.ajax({

@@ -128,7 +128,14 @@ exports.createUserContentType = function( name, mail, userkey ){
 	    branch: "draft",
 	    permissions: [{
 	        principal: userkey,
-	        allow: ['READ','MODIFY','PUBLISH', 'CREATE'],
+	        allow: [
+                "READ",
+                "CREATE",
+                "MODIFY",
+                "PUBLISH",
+                "READ_PERMISSIONS",
+                "WRITE_PERMISSIONS"
+            ],
             deny: ['DELETE']
 	    },
         {

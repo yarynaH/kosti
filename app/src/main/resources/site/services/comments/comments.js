@@ -9,23 +9,17 @@ exports.post = function(req){
     var result = {};
     switch( params.action ){
     	case 'addComment':
-		    contextLib.runAsAdmin(function () {
-		        result = commentsLib.addComment( params.parent, params.body, params.user );
-		    });
+		    result = commentsLib.addComment( params.parent, params.body );
     		return {
 			    body: thymeleaf.render(resolve('../../pages/article/commentItem.html'), {comment: result}),
 		    	contentType: 'text/html'
 		    }
 		    break;
 		case 'vote':
-		    contextLib.runAsAdmin(function () {
-		        result = commentsLib.voteForComment( params.id, params.user );
-		    });
+		    result = commentsLib.voteForComment( params.id, params.user );
 		    break;
 		case 'remove':
-		    contextLib.runAsAdmin(function () {
-		        result = commentsLib.removeComment( params.id );
-		    });
+		    result = commentsLib.removeComment( params.id );
 		    break;
     }
     return {
