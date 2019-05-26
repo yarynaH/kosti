@@ -9,7 +9,7 @@
         <li data-th-each="comment : ${comments}" class="comments-item js_comment" data-th-attr="data-id=${comment._id}">
             <div class="comments-header">
                 <div class="post-info">
-                    <a data-th-href="${comment.author.url}">
+                    <a data-th-if="${comment.author}" data-th-href="${comment.author.url}">
                         <span class="post-user_avatar">
                             <img data-th-src="${comment.author.image.url}" alt="">
                         </span>

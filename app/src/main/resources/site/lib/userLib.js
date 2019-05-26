@@ -64,6 +64,9 @@ function getSystemUser( name, keyOnly ){
 }
 
 function getUserDataById( id ){
+	if( !id ){
+		return null;
+	}
 	var user = contentLib.get({ key: id });
 	if( !user || !user.data ){
 		return false;
