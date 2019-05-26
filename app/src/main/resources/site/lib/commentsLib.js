@@ -11,14 +11,8 @@ exports.getCommentsByParent = getCommentsByParent;
 exports.voteForComment = voteForComment;
 exports.removeComment = removeComment;
 
-function addComment( parent, body ){
+function addComment( parent, body, user ){
 	var commentsRepo = connectCommentsRepo();
-    var user = userLib.getCurrentUser();
-    if( user ){
-    	user = user._id;
-    } else {
-    	return false;
-    }
 	var comment = commentsRepo.create({
 	    body: body,
 	    parent: parent,
@@ -39,21 +33,20 @@ function removeComment( id ){
 	}
 }
 
-function voteForComment( id ){
+function voteForComment( id, user ){
 	var commentsRepo = connectCommentsRepo();
-    var user = userLib.getCurrentUser();
 	var comment = commentsRepo.get(id);
-	if( !comment || !comment._id || !user || !user.key ){
+	if( !comment || !comment._id || !user ){
 		return false;
 	}
 	if( !comment.votes || (comment.votes && comment.votes.indexOf(user) != -1) ){
-		comment = upvote( user.key, comment._id );
+		comment = upvote( user, comment._id );
 	} else {
-		comment = downvote( user.key, comment._id );
+		comment = downvote( user, comment._id );
 	}
 	return {
 		rate: comment.rate,
-		voted: comment.votes && comment.votes.indexOf(user.key) != -1
+		voted: comment.votes && comment.votes.indexOf(user) != -1
 	};
 }
 

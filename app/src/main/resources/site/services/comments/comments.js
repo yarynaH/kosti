@@ -10,7 +10,7 @@ exports.post = function(req){
     switch( params.action ){
     	case 'addComment':
 		    contextLib.runAsAdmin(function () {
-		        result = commentsLib.addComment( params.parent, params.body );
+		        result = commentsLib.addComment( params.parent, params.body, params.user );
 		    });
     		return {
 			    body: thymeleaf.render(resolve('../../pages/article/commentItem.html'), {comment: result}),
@@ -19,7 +19,7 @@ exports.post = function(req){
 		    break;
 		case 'vote':
 		    contextLib.runAsAdmin(function () {
-		        result = commentsLib.voteForComment( params.id );
+		        result = commentsLib.voteForComment( params.id, params.user );
 		    });
 		    break;
 		case 'remove':
