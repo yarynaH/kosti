@@ -411,6 +411,8 @@ function checkItemSizeStock( size, amount, id ) {
         }
       }
     }
+  } else {
+    return true;
   }
   return false;
 }
