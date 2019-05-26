@@ -61,9 +61,9 @@ function handleReq(req) {
             url: portal.pageUrl({ path: content._path }),
             app: app,
             video: video ? "https://www.youtube.com/embed/" + video : getVideoUrl( site.video ),
-            weeksPost: getWeeksPost(site.weeksPost),
+            weeksPost: blogLib.getWeeksPost(),
             schedule: schedule,
-            social: site.social,
+            socialLinks: blogLib.getSolialLinks(),
             active: active,
             pageComponents: helpers.getPageComponents(req),
             showDescription: showDescription,
@@ -101,12 +101,6 @@ function handleReq(req) {
                 result[i] = blogLib.beautifyArticle(temp);
             }
             return result;
-        }
-
-        function getWeeksPost( weeksPost ){
-            var weeksPost = contentLib.get({ key: weeksPost });
-            weeksPost = blogLib.beautifyArticle(weeksPost);
-            return weeksPost;
         }
 
         function getVideoViaApi( key ){

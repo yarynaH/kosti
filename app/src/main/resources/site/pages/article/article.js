@@ -38,7 +38,6 @@ function handleReq(req) {
         var content = portal.getContent();
         content = blogLib.beautifyArticle(content);
         var response = [];
-        var site = portal.getSiteConfig();
         var mainRegion = content.page.regions.main;
         var similarArticles = getSimilar( content.data.similarArticles );
         var comments = commentsLib.getCommentsByParent(content._id);
@@ -50,9 +49,9 @@ function handleReq(req) {
 
         var model = {
             content: content,
-            social: site.social,
+            socialLinks: blogLib.getSolialLinks(),
             mainRegion: mainRegion,
-            weeksPost: getWeeksPost(site.weeksPost),
+            weeksPost: blogLib.getWeeksPost(),
             pageComponents: helpers.getPageComponents(req),
             similarArticles: similarArticles,
             comments: comments,
@@ -60,12 +59,6 @@ function handleReq(req) {
         };
 
         return model;
-    }
-
-    function getWeeksPost( weeksPost ){
-        var weeksPost = contentLib.get({ key: weeksPost });
-        weeksPost = blogLib.beautifyArticle(weeksPost);
-        return weeksPost;
     }
 
     function getSimilar( ids ){
