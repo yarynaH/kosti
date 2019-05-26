@@ -12,6 +12,10 @@
     cursor: pointer;
     transition: transition(background);
 
+    @include mobile{
+        display: none;
+    }
+
     &:hover {
         background: rgba($color-primary10, 0.8);
     }
