@@ -22,13 +22,11 @@ exports.getTimePassedSincePostCreation = function(postCreationDate){
 	    	if(daysPassed >= 1 && daysPassed < 31)
 				return daysPassed + ' ' + getCyrilicDay(daysPassed) + ' назад';
 			else if(daysPassed >= 31 && daysPassed < 365){
-				var month = Math.floor((daysPassed - 1)/30.4166);
-				if(month === 0)
-					month = 1;
+				var month = Math.floor(daysPassed/31);
 				return month + ' ' + getCyrilicMonth(month) + ' назад';
 			}
 			else if(daysPassed >= 365){
-				var year = Math.round((daysPassed - 1)/365.25);
+				var year = Math.round(daysPassed/365);
 				return year + ' ' + getCyrilicYear(year) + ' назад';
 			}
 		}	
@@ -94,12 +92,15 @@ function getCyrilicYear(yearNum){
 
 //Take a number and return number of correct word from vector
 function getWordNumber(num){
+	//for numbers that end with '1' but not 11
 	if(num % 10 === 1 && num % 1000 != 11)
 		return 0;
+	//for numbers that end with '2', '3', '4' but not '12', '13', '14'
 	else if((num % 10 === 2 && num % 1000 != 12)
 		 || (num % 10 === 3 && num % 1000 != 13)
 		 || (num % 10 === 4 && num % 1000 != 14))
 		return 1;
+	//for rest numbers
 	else
 		return 2;
 }
