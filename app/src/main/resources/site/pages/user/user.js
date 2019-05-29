@@ -8,7 +8,7 @@ var votesLib = require(libLocation + 'votesLib');
 var blogLib = require(libLocation + 'blogLib');
 var userLib = require(libLocation + 'userLib');
 var helpers = require(libLocation + 'helpers');
-var commentsLib = require('commentsLib');
+var commentsLib = require(libLocation + 'commentsLib');
 
 exports.get = handleReq;
 exports.post = handleReq;
