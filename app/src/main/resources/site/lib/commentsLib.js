@@ -2,7 +2,7 @@ var norseUtils = require('norseUtils');
 var contentLib = require('/lib/xp/content');
 var portalLib = require('/lib/xp/portal');
 var nodeLib = require('/lib/xp/node');
-var contextLib = require('/lib/contextLib');
+var contextLib = require('contextLib');
 var userLib = require('userLib');
 var kostiUtils = require('kostiUtils');
 
@@ -42,9 +42,9 @@ function getCommentsByUser( id ){
 	var commentsRepo = connectCommentsRepo();
 	var temp = commentsRepo.query({
 		start: 0,
-		count: 9999999,
+		count: -1,
 		query: "user = '" + id + "'",
-		sort: "deleted DESC, rate ASC, _timestamp ASC"
+		sort: "deleted DESC, rate ASC, _ts ASC"
 	}).hits;
 	var result = [];
 	for( var i = 0; i < temp.length; i++ ){
@@ -126,9 +126,9 @@ function getCommentsByParent( id ){
 	var commentsRepo = connectCommentsRepo();
 	var temp = commentsRepo.query({
 		start: 0,
-		count: 9999999,
+		count: -1,
 		query: "parent = '" + id + "'",
-		sort: "rate ASC, _timestamp ASC"
+		sort: "rate ASC, _ts ASC"
 	}).hits;
 	var result = [];
 	for( var i = 0; i < temp.length; i++ ){
@@ -145,7 +145,7 @@ function getComment( id ){
 }
 
 function beautifyComment(comment){
-    comment.date = kostiUtils.getTimePassedSincePostCreation(comment._timestamp.replace('Z', ''));
+    comment.date = kostiUtils.getTimePassedSincePostCreation(comment._ts.replace('Z', ''));
     comment.author = userLib.getUserDataById(comment.user);
     comment.voted = comment.votes && comment.votes.indexOf(comment.author.key) != -1;
     comment.children = getCommentsByParent(comment._id);

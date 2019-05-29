@@ -6,7 +6,7 @@ var authLib = require('/lib/xp/auth');
 var nodeLib = require('/lib/xp/node');
 var userLib = require('userLib');
 var contentLib = require('/lib/xp/content');
-var contextLib = require('/lib/contextLib');
+var contextLib = require('contextLib');
 
 exports.createBlankVote = createBlankVote;
 exports.vote = vote;
@@ -148,7 +148,7 @@ function getHotIds( page ){
 	var hits = votesRepo.query({
         start: page * pageSize,
         count: pageSize,
-	    sort: '_timestamp DESC, rate DESC'
+	    sort: '_ts DESC, rate DESC'
 	}).hits;
 	var result = [];
 	for( var i = 0; i < hits.length; i++ ){

@@ -1,6 +1,6 @@
-var norseUtils = require('norseUtils');
-var contentLib = require('/lib/xp/content');
-var helpers = require('helpers');
+var libLocation = '../../site/lib/';
+var norseUtils = require(libLocation + 'norseUtils');
+var helpers = require(libLocation + 'helpers');
 
 exports.get = function(req){
 	var params = req.params;

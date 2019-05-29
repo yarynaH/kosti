@@ -1,8 +1,9 @@
-var norseUtils = require('norseUtils');
-var contentLib = require('/lib/xp/content');
-var contextLib = require('/lib/contextLib');
-var commentsLib = require('commentsLib');
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
+
+var libLocation = '../../site/lib/';
+var contextLib = require(libLocation + 'contextLib');
+var commentsLib = require(libLocation + 'commentsLib');
+var norseUtils = require(libLocation + 'norseUtils');
 
 exports.post = function(req){
     var params = req.params;
@@ -11,7 +12,7 @@ exports.post = function(req){
     	case 'addComment':
 		    result = commentsLib.addComment( params.parent, params.body );
     		return {
-			    body: thymeleaf.render(resolve('../../pages/article/commentItem.html'), {comment: result}),
+			    body: thymeleaf.render(resolve('../../site/pages/article/commentItem.html'), {comment: result}),
 		    	contentType: 'text/html'
 		    }
 		    break;

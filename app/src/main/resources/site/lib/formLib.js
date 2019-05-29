@@ -32,7 +32,7 @@ function getForms( formType ){
     var formNode = connectFormRepo();
     var hits = formNode.query({
       query: "formType = '" + formType + "'",
-      count: 99999999
+      count: -1
     }).hits;
     for( var i = 0; i < hits.length; i++ ){
       result.push(formNode.get(hits[i].id));

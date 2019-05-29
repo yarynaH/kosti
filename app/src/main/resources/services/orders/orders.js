@@ -72,7 +72,7 @@ exports.get = function( req ) {
             pageComponents: helpers.getPageComponents(req),
             cart: cartLib.getCart( params.id ),
             carts: carts,
-            products: contentLib.query({start: 0,count: 999999,contentTypes: [app.name + ":product"]}).hits
+            products: contentLib.query({start: 0,count: -1,contentTypes: [app.name + ":product"]}).hits
         }),
         contentType: 'text/html'
     }
@@ -135,7 +135,7 @@ exports.post = function( req ) {
         body: thymeleaf.render(view, {
             pageComponents: helpers.getPageComponents(req),
             cart: cartLib.getCart( params.id ),
-            products: contentLib.query({start: 0,count: 999999,contentTypes: [app.name + ":product"]}).hits
+            products: contentLib.query({start: 0,count: -1,contentTypes: [app.name + ":product"]}).hits
         }),
         contentType: 'text/html'
     }

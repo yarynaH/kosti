@@ -59,7 +59,7 @@ function prepareNewsletter(){
     });
     var nodes = newsletterRepo.query({
         start: 0,
-        count: 9999999,
+        count: -1,
         query: "email != ''",
     });
     if( nodes.total < 1 ){

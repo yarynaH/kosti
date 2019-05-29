@@ -7,7 +7,7 @@ var authLib = require('/lib/xp/auth');
 var contextLib = require('contextLib');
 var common = require('/lib/xp/common');
 var i18nLib = require('/lib/xp/i18n');
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 
 exports.findUser = findUser;
 exports.activateUser = activateUser;
