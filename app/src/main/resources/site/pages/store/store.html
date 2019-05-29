@@ -13,7 +13,7 @@
                     <div class="breadcrumbs">
                         <span class="breadcrumbs-element active">Магазин</span>
                     </div>
-                    <a class="minicart" data-th-href="${portal.serviceUrl({'_service=cart'})}" title="К покупкам">
+                    <a class="minicart" href="/cart" title="К покупкам">
                         <span class="minicart-icon">
                             <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
                         </span>

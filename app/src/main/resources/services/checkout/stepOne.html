@@ -1,5 +1,5 @@
 <h2 class="checkout-title">Ваша информация</h2>
-<form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
+<form class="checkout-form" method="POST" action="/checkout">
     <div class="form-group-column">
         <div class="form-group">
             <label for="name-checkout-input" class="label">ИМЯ</label>
@@ -47,7 +47,7 @@
         <label for="agreement" class="label-checkbox">Я прочитал и принимаю <a data-th-href="${agreementPage}" target="_blank">условия пользования сайтом</a></label>
     </div>
     <div class="checkout-action">
-        <a data-th-href="${portal.serviceUrl({'_service=cart'})}" class="checkout-back" title="К покупкам">К покупкам</a>
+        <a href="/cart" class="checkout-back" title="К покупкам">К покупкам</a>
         <button class="checkout-continue" title="Продолжить" data-th-disabled="${!cart.stock}">ПРОДОЛЖИТЬ</button>
     </div>
     <input name="step" type="hidden" value="2">

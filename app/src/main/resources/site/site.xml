@@ -120,13 +120,13 @@
   </config>
 
   <mappings>
-    <mapping controller="/site/services/cart/cart.js" order="10">
+    <mapping controller="/services/cart/cart.js" order="10">
       <pattern>/cart</pattern>
     </mapping>
-    <mapping controller="/site/services/checkout/checkout.js" order="10">
+    <mapping controller="/services/checkout/checkout.js" order="10">
       <pattern>/checkout</pattern>
     </mapping>
-    <mapping controller="/site/services/form/form.js" order="10">
+    <mapping controller="/services/form/form.js" order="10">
       <pattern>/form</pattern>
     </mapping>
   </mappings>

@@ -24,7 +24,7 @@
     </div>-->
 </div>
 <h2 class="checkout-title">Метод доставки</h2>
-<form class="checkout-form" method="POST" data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}">
+<form class="checkout-form" method="POST" action="/checkout">
     <div class="delivery_m">
         <div class="form-group" data-th-each="ship: ${shipping}">
             <input name="shipping" type="radio" class="input-radio" data-th-attr="id=${ship.id}, value=${ship.id}" checked hidden>
@@ -57,7 +57,7 @@
         </div>
     </div>
     <div class="checkout-action">
-        <a data-th-href="${portal.serviceUrl({'_service=cart'})}" class="checkout-back" title="К покупкам">К покупкам</a>
+        <a href="/cart" class="checkout-back" title="К покупкам">К покупкам</a>
         <button class="checkout-continue" title="Продолжить" data-th-disabled="${!cart.stock}">ПРОДОЛЖИТЬ</button>
     </div>
     <input name="step" type="hidden" value="3">
