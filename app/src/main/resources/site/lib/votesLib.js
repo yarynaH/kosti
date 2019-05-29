@@ -15,6 +15,7 @@ exports.countUserUpvotes = countUserUpvotes;
 exports.checkIfVoted = checkIfVoted;
 exports.getHotIds = getHotIds;
 exports.checkIfVoteExist = checkIfVoteExist;
+exports.addView = addView;
 
 function vote(content){
 	var user = userLib.getCurrentUser();
@@ -26,6 +27,42 @@ function vote(content){
     });
 
 	return result;
+}
+
+function addView( content, id ){
+    var result = contextLib.runAsAdmin(function () {
+		return doAddView(content, id);
+    });
+
+	return result;
+}
+
+function doAddView( content, id ){
+	var node = getNode( content );
+	var votesRepo = getVotesRepo();
+	return votesRepo.modify({
+	    key: node._id,
+	    editor: editor
+	});
+	function editor(node) {
+		if(!node.views){
+			node.views = [];
+		}
+		var temp = norseUtils.forceArray(node.views);
+		if( temp.indexOf(id) === -1 ){
+			temp.push( id );
+		}
+		node.views = temp;
+	    return node;
+	}
+}
+
+function countViews(id){
+	var node = getNode( id );
+	if( node && node.votes ){
+		return norseUtils.forceArray(node.views).length;
+	}
+	return "0";
 }
 
 function countUpvotes( id ){

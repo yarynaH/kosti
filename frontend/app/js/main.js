@@ -524,11 +524,23 @@ $( document ).ready(function() {
 	if( $('main.form').length > 0 ){
 		initFormEvents();
 	}
+	if($('body.article-page').length > 0){
+		addArticleViews();
+	}
 });
+
+function addArticleViews(){
+	var call = makeAjaxCall( contentServiceUrl, 'POST', {
+		id: getCookieValue('cartId'),
+		content: $('.js_article-id').data('articleid'),
+		action: 'addView'
+	}, true );
+}
 
 function doUpvote(el){
 	var data = {
-		content: $(el).data('contentid')
+		content: $(el).data('contentid'),
+		action: 'vote'
 	};
 	var btn = el;
     $.ajax({
