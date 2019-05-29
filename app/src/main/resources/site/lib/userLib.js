@@ -4,7 +4,7 @@ var norseUtils = require('norseUtils');
 var hashLib = require('hashLib');
 var mailsLib = require('mailsLib');
 var authLib = require('/lib/xp/auth');
-var contextLib = require('/lib/contextLib');
+var contextLib = require('contextLib');
 var common = require('/lib/xp/common');
 var i18nLib = require('/lib/xp/i18n');
 

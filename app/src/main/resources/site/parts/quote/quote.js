@@ -1,5 +1,5 @@
 var portal = require('/lib/xp/portal'); // Import the portal functions
-var thymeleaf = require('/lib/xp/thymeleaf'); // Import the thymeleaf render function
+var thymeleaf = require('/lib/thymeleaf'); // Import the thymeleaf render function
 var contentLib = require('/lib/xp/content');
 
 exports.get = function(req) {

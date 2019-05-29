@@ -1,14 +1,16 @@
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
-var norseUtils = require('norseUtils');
-var helpers = require('helpers');
-var votesLib = require('votesLib');
-var userLib = require('userLib');
-var kostiUtils = require('kostiUtils');
 var mailLib = require('/lib/xp/mail');
 var httpClientLib = require('/lib/xp/http-client');
 var cache = require('/lib/cache');
+
+var libLocation = '../../lib/';
+var norseUtils = require(libLocation + 'norseUtils');
+var helpers = require(libLocation + 'helpers');
+var votesLib = require(libLocation + 'votesLib');
+var userLib = require(libLocation + 'userLib');
+var kostiUtils = require(libLocation + 'kostiUtils');
 
 exports.get = handleReq;
 exports.post = handleReq;

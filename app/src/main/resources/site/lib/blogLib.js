@@ -3,7 +3,7 @@ var portal = require('/lib/xp/portal');
 var norseUtils = require('norseUtils');
 var kostiUtils = require('kostiUtils');
 var votesLib = require('votesLib');
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var userLib = require('userLib');
 
 exports.beautifyArticle = beautifyArticle;

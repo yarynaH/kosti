@@ -1,7 +1,9 @@
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
-var norseUtils = require('norseUtils');
+
+var libLocation = '../../lib/';
+var norseUtils = require(libLocation + 'norseUtils');
 
 exports.get = renderView;
 exports.renderView = renderView;

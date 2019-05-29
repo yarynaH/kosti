@@ -2,7 +2,7 @@ var norseUtils = require('norseUtils');
 var contentLib = require('/lib/xp/content');
 var portalLib = require('/lib/xp/portal');
 var nodeLib = require('/lib/xp/node');
-var contextLib = require('/lib/contextLib');
+var contextLib = require('contextLib');
 var portal = require('/lib/xp/portal');
 var textEncoding = require('/lib/text-encoding');
 

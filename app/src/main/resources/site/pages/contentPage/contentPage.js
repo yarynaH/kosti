@@ -1,15 +1,8 @@
-var thymeleaf = require('/lib/xp/thymeleaf');
-var authLib = require('/lib/xp/auth');
-var libs = {
-    context: require('/lib/xp/context')
-};
-
+var thymeleaf = require('/lib/thymeleaf');
 var portal = require('/lib/xp/portal');
-var contentLib = require('/lib/xp/content');
-var norseUtils = require('norseUtils');
-var helpers = require('helpers');
-var userLib = require('userLib');
-var spellLib = require('spellsLib');
+
+var libLocation = '../../lib/';
+var helpers = require(libLocation + 'helpers');
 
 exports.get = handleReq;
 exports.post = handleReq;

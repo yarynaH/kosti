@@ -1,6 +1,6 @@
 var contentLib = require('/lib/xp/content');
 var portal = require('/lib/xp/portal');
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var norseUtils = require('norseUtils');
 var i18nLib = require('/lib/xp/i18n');
 
