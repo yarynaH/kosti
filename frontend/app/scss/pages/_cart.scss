@@ -98,19 +98,10 @@
     }
 
     &-remove_btn {
-        @include button-style(icon);
-        @include icon(delete);
         @include position(absolute, top 0 right 0);
-
-        color: $color-primary28;
-        cursor: pointer;
 
         @include tablet-all {
             top: 35px;
-        }
-
-        &:before {
-            font-size: rem(22);
         }
     }
 

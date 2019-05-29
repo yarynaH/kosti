@@ -23,7 +23,7 @@
             &.not-active,
             &[disabled] {
                 pointer-events: none;
-                background: $color-primary30;
+                background: $color-primary12;
             }
         }
 
@@ -49,6 +49,10 @@
             box-shadow: 0 4px 16px 0 rgba($color-primary1, 0.16);
             background-color: $color-primary17;
             color: $color-primary1;
+
+            &:hover {
+                background: lighten($color-primary17, 5%);
+            }
         }
 
         @if $style == fb {
@@ -93,10 +97,6 @@
             padding: 5px 0;
             color: $color-primary12;
             transition: transition(color);
-
-            &:before {
-                padding-right: 8px;
-            }
 
             &:hover {
                 color: $color-primary22;

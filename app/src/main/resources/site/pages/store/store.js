@@ -1,10 +1,12 @@
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var authLib = require('/lib/xp/auth');
-var cartLib = require('cartLib');
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
-var norseUtils = require('norseUtils');
-var helpers = require('helpers');
+
+var libLocation = '../../lib/';
+var cartLib = require(libLocation + 'cartLib');
+var norseUtils = require(libLocation + 'norseUtils');
+var helpers = require(libLocation + 'helpers');
 
 exports.get = handleReq;
 
@@ -48,7 +50,7 @@ function handleReq(req) {
     function getProducts(){
         var products = contentLib.query({
             start: 0,
-            count: 999999,
+            count: -1,
             contentTypes: [
                 app.name + ":product"
             ]

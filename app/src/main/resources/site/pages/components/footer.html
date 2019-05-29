@@ -1,19 +1,5 @@
-<div class="site_width">
-  <ul class="footer_nav-list">
-    <li class="footer_nav-item">
-      <a href="" class="footer_nav-link">Условия возврата</a>
-    </li>
-    <li class="footer_nav-item">
-      <a href="" class="footer_nav-link">Пользовательское соглашение</a>
-    </li>
-    <li class="footer_nav-item">
-      <a href="" class="footer_nav-link">Политика конфиденциальности</a>
-    </li>
-    <li class="footer_nav-item">
-      <a href="" class="footer_nav-link">Контакты</a>
-    </li>
-  </ul>
-</div>
+
+<div class="back_to_top js_back_to_top hidden"></div>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/uk_UA/sdk.js#xfbml=1&version=v3.2"></script>
 
@@ -31,10 +17,14 @@
 <script type="text/javascript" data-th-inline="javascript" data-th-if="${cartServiceUrl}">
   var cartServiceUrl = [[${cartServiceUrl}]];
 </script>
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${commentsServiceUrl}">
+  var commentsServiceUrl = [[${commentsServiceUrl}]];
+</script>
 <script type="text/javascript" data-th-inline="javascript" data-th-if="${cartId}">
 	var cartId = [[${cartId}]];
 </script>
 <script data-th-src="${portal.assetUrl({'_path=js/main.js'})}"></script>
+<script data-th-src="${portal.assetUrl({'_path=js/sharedLib.js'})}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

@@ -1,11 +1,15 @@
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
-var norseUtils = require('norseUtils');
-var helpers = require('helpers');
-var kostiUtils = require('kostiUtils');
-var thymeleaf = require('/lib/xp/thymeleaf');
-var votesLib = require('votesLib');
-var userLib = require('userLib');
+var thymeleaf = require('/lib/thymeleaf');
+
+var libLocation = '../../lib/';
+var norseUtils = require(libLocation + 'norseUtils');
+var helpers = require(libLocation + 'helpers');
+var kostiUtils = require(libLocation + 'kostiUtils');
+var votesLib = require(libLocation + 'votesLib');
+var userLib = require(libLocation + 'userLib');
+var blogLib = require(libLocation + 'blogLib');
+var commentsLib = require(libLocation + 'commentsLib');
 
 exports.get = handleReq;
 
@@ -17,10 +21,16 @@ function handleReq(req) {
         var view = resolve('article.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
+        var fileName = portal.assetUrl({path:'js/comments.js'});
          // Return the result
         return {
           body: body,
-          contentType: 'text/html'
+          contentType: 'text/html',
+          pageContributions: {
+            bodyEnd: [
+                "<script src='"+fileName+"'></script>"
+            ]
+          }
         };
     }
 
@@ -28,44 +38,33 @@ function handleReq(req) {
 
         var up = req.params;
         var content = portal.getContent();
-        content = beautifyArticle(content);
+        content = blogLib.beautifyArticle(content);
         var response = [];
-        var site = portal.getSiteConfig();
         var mainRegion = content.page.regions.main;
         var similarArticles = getSimilar( content.data.similarArticles );
+        var comments = commentsLib.getCommentsByParent(content._id);
+        comments = thymeleaf.render(resolve('comments.html'), {
+            comments: comments, 
+            articleId: content._id, 
+            moderator: user.moderator
+        });
+        if( user.moderator ){
+            var removeCommentModal = thymeleaf.render(resolve('../components/comments/removeCommentModal.html'), {});
+        }
 
         var model = {
             content: content,
-            social: site.social,
+            socialLinks: blogLib.getSolialLinks(),
             mainRegion: mainRegion,
-            weeksPost: getWeeksPost(site.weeksPost),
+            removeCommentModal: removeCommentModal,
+            weeksPost: blogLib.getWeeksPost(),
             pageComponents: helpers.getPageComponents(req),
             similarArticles: similarArticles,
+            comments: comments,
             bookmarked: userLib.checkIfBookmarked(content._id)
         };
 
         return model;
-    }
-
-    function beautifyArticle( article ){
-        article.image = norseUtils.getImage( article.data.image, 'block(1920, 1080)' );
-        article.author = contentLib.get({ key: article.data.author });
-        article.url = portal.pageUrl({ id: article._id });
-        article.author.image = norseUtils.getImage( article.author.data.userImage, 'block(60, 60)' );
-        article.author.url = portal.pageUrl({ id: article.author._id });
-        article.date = kostiUtils.getTimePassedSincePostCreation(article.publish.from.replace('Z', ''));
-        article.votes = votesLib.countUpvotes(article._id);
-        article.voted = false;
-        if( parseInt(article.votes) > 0 ){
-            article.voted = votesLib.checkIfVoted( article._id );
-        }
-        return article;
-    }
-
-    function getWeeksPost( weeksPost ){
-        var weeksPost = contentLib.get({ key: weeksPost });
-        weeksPost = beautifyArticle(weeksPost);
-        return weeksPost;
     }
 
     function getSimilar( ids ){

@@ -12,7 +12,7 @@
             </a>
             <span class="post-date" data-th-text="${article.date}"></span>
         </div>
-        <a class="post-title" data-th-text="${article.displayName}"></a>
+        <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}"></a>
         <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
         <div class="tag-list hidden">
             <a href="#" class="tag-item">WoD</a>
@@ -27,10 +27,10 @@
             <span class="comments-counter icon-comment">12</span>
         </div>
         <div class="post-actions">
-            <a class="add_to_bookmarks-btn icon-bookmark" data-th-attr="data-contentId=${article._id}" data-th-classappend="${article.bookmarked} ? 'active' : ''"></a>
-            <a data-th-attr="data-contentId=${article._id}" href="#" class="like-btn icon-rock" data-th-classappend="${article.voted} ? 'active' : ''">
+            <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${article._id}" data-th-classappend="${article.bookmarked} ? 'active' : ''"></span>
+            <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article" data-th-classappend="${article.voted} ? 'active' : ''">
                 <span data-th-text="${article.votes}"></span>
-            </a>
+            </span>
         </div>
     </div>
 </div>

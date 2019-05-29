@@ -1,0 +1,27 @@
+.back_to_top {
+    @include icon(arrow);
+    @include position(fixed, top 0 left 0);
+
+    height: 100%;
+    width: 40px;
+    background: rgba($color-primary10, 0.2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-primary1;
+    cursor: pointer;
+    transition: transition(background);
+
+    @include mobile{
+        display: none;
+    }
+
+    &:hover {
+        background: rgba($color-primary10, 0.8);
+    }
+
+    &:before {
+        font-size: rem(22);
+        transform: rotate(-90deg);
+    }
+}

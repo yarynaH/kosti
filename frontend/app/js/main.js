@@ -1,5 +1,5 @@
 function initLoginRegisterForm(){
-	$('.header-user .guest-btn').on('click', function(e){
+	$('.js_header-user .guest-btn').on('click', function(e){
 		showLogin(e);
 	});
 	$(document).on('click', function(event) {
@@ -51,15 +51,12 @@ function initLoginRegisterForm(){
 			method: "POST",
 			data: data
 		}).done(function(data) {
-			if( !data.exist && !data.data ){
-			$('.modal-login .form-group-error span').text(data.message);
+			if( !data.exist && !data.html ){
+				$('.modal-login .form-group-error span').text(data.message);
 				$('.modal-login .form-group-error').removeClass('hidden');
 			} else {
-				$('.header-user').html('<div class="user-avatar-img_wrap">' + 
-					'<a href=' + data.url + '><img src="' + data.image.url + 
-					'" alt="' + data.displayName + '"></a>');
+				$('.js_header-user-wrap').html(data.html);
 				hideLoginRegisterModal();
-				$('.header-user').attr("data-userid", data.key);
 				$('.modal-login .form-group-error').addClass('hidden');
 			}
 		});
@@ -293,9 +290,9 @@ function initCheckoutEvents(){
 };
 
 function initSharedEvents(){
-	$('.like-btn').on('click', function(e){
+	$('.js_like-article').on('click', function(e){
 		e.preventDefault();
-		if( $('.header-user').data().userid && $('.header-user').data().userid != '' ){
+		if( checkUserLoggedIn() ){
 			doUpvote(this);
 		} else {
 			showLogin(e);
@@ -321,29 +318,91 @@ function initSharedEvents(){
 	if( $('#payment-success').length > 0 ){
 		deleteCookie('cartId');
 	}
-	$('.add_to_bookmarks-btn').on('click', function() {
-		var btn = $(this);
-		$.ajax({
-			url: '/_/service/com.myurchenko.kostirpg/user',
-			type: 'POST',
-			async: true,
-			data: {
-				id: $(this).data().contentid,
-				action: 'addBookmark'
-			},
-			success: function(data){
-				if( data === true ){
-					btn.addClass('active');
-				} else {
-					btn.removeClass('active');
+	$('.js_bookmarks').on('click', function(e) {
+		if( checkUserLoggedIn() ){
+			var btn = $(this);
+			$.ajax({
+				url: '/_/service/com.myurchenko.kostirpg/user',
+				type: 'POST',
+				async: true,
+				data: {
+					id: $(this).data().contentid,
+					action: 'addBookmark'
+				},
+				success: function(data){
+					if( data === true ){
+						btn.addClass('active');
+
+						if (!isEmpty(btn)) {
+							btn.text('В ЗАКЛАДКАХ');
+						}
+					} else {
+						btn.removeClass('active');
+
+						if (!isEmpty(btn)) {
+							btn.text('В ЗАКЛАДКИ');
+						}
+					}
+				}
+			});
+		} else {
+			showLogin(e);
+		}
+	});
+	if($('.blog-list').length > 0){
+		$(document).on('scroll', function(){
+			if( ($(document).scrollTop() + $(window).height() + 150) > $( document ).height() ){
+				if( !$('.blog-list').data('noMoreArticles') ){
+					loadMoreArticles();
 				}
 			}
 		});
+	}
+	$(document).on('scroll', function(){
+		if($(document).scrollTop() > 1200){
+			$('.js_back_to_top').removeClass('hidden');
+		} else {
+			$('.js_back_to_top').addClass('hidden');
+		}
+	});
+	$('.js_back_to_top').on('click', function(){
+        $('html,body').animate({ scrollTop: 0 }, 'slow');
+		$('.js_back_to_top').addClass('hidden');
+        return false; 
+	});
+}
+
+function loadMoreArticles(){
+	var page = $('.blog-list').data('page');
+	if( !page ){
+		page = 0;
+	}
+	var type = $('.blog-list').data('feedType');
+	$('.js_lazyload-icon').removeClass('hidden');
+	$.ajax({
+		url: contentServiceUrl,
+		type: 'GET',
+		async: false,
+		data: {
+			feedType: $('.js_blog-navigation .active').data('type'),
+			page: page,
+			userId: $('.js_user-page-id').data('userid'),
+		},
+		success: function(data){
+			if( data == '' ){
+				$('.blog-list').append("<div class='blog-list-empty'>Статей больше нет.</div>");
+				$('.blog-list').data('noMoreArticles', true);
+			} else {
+				$('.blog-list').append(data);
+			}
+			$('.js_lazyload-icon').addClass('hidden');
+			$('.blog-list').data('page', page + 1);
+		}
 	});
 }
 
 function initCartFunctions(){
-	$('.cart-remove_btn').on('click', function(){
+	$('.js_cart-remove_btn').on('click', function(){
 		var data = {
 			itemId: $(this).data().id,
 			size: $(this).data().size,
@@ -408,6 +467,29 @@ function initFormEvents(){
 	});
 }
 
+function initUserPageEvents(){
+	$('.js_profile-settings').on('click', function(e){
+		e.preventDefault();
+		e.stopPropagation();
+		$('.modal-edit_user').addClass('show');
+	});
+	$('.js_edit_user-form').on('submit', function( e ){
+		e.preventDefault();
+		var formData = {};
+		$.each($(this).serializeArray(), function() {
+		    formData[this.name] = this.value;
+		});
+		editUserData(formData);
+	});
+}
+
+function editUserData(formData){
+	var call = makeAjaxCall( userServiceUrl, 'POST', formData, true );
+	call.done( function(data){
+		$('.modal-edit_user').removeClass('show');
+	});
+}
+
 function checkSpace( el ){
 	var data = {
 		action: 'checkspace',
@@ -438,6 +520,7 @@ $( document ).ready(function() {
 	initSharedEvents();
 	initHeaderClasses();
 	initPDPFunctions();
+	initUserPageEvents();
 	if( $('main.form').length > 0 ){
 		initFormEvents();
 	}
@@ -445,8 +528,7 @@ $( document ).ready(function() {
 
 function doUpvote(el){
 	var data = {
-		content: $(el).data('contentid'),
-		user: $('.header-user').data('userid')
+		content: $(el).data('contentid')
 	};
 	var btn = el;
     $.ajax({
@@ -470,16 +552,6 @@ function doUpvote(el){
             console.log(data);
         }
     });
-}
-
-function showLogin(e){
-	e.stopPropagation();
-	$('body div.modal-login').addClass('show');
-}
-
-function getCookieValue(a) {
-    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-    return b ? b.pop() : '';
 }
 
 function addToCart( data ){
@@ -522,24 +594,6 @@ function addToCart( data ){
 			}
 		}
 	});
-}
-
-function validateEmail(email) {
-    var re = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-    return re.test(String(email).toLowerCase());
-}
-
-function validatePhone(phone) {
-    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-    return re.test(String(phone).toLowerCase());
-}
-
-function setCookie( cartId ){
-	document.cookie = "cartId=" + cartId + "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT";
-}
-
-function deleteCookie( name ) {
-  document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
 function validateCheckout(e){

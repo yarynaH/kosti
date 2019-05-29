@@ -54,7 +54,7 @@ gulp.task('css', function(){
 gulp.task('copy', function(){
 	return gulp
     .src('build/**/*')
-    .pipe(gulp.dest('../app/src/main/resources/site/assets'))
+    .pipe(gulp.dest('../app/src/main/resources/assets'))
 });
 
 /*gulp.task('fontawesome', function() {

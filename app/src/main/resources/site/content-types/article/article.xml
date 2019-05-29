@@ -21,21 +21,12 @@
         <include>alignleft alignright | bold italic</include>
       </config>
     </input>
-    <input name="date" type="Date">
-      <label>Date</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
     <input name="author" type="ContentSelector">
       <label>Author</label>
       <occurrences minimum="1" maximum="1"/>
       <config>
         <allowContentType>com.myurchenko.kostirpg:user</allowContentType>
       </config>
-    </input>
-    <input name="rating" type="Long">
-      <label>Rating</label>
-      <default>0</default>
-      <occurrences minimum="1" maximum="1"/>
     </input>
     <input name="similarArticles" type="ContentSelector">
       <label>Similar articles</label>

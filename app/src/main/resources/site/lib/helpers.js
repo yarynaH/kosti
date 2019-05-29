@@ -1,10 +1,13 @@
 var contentLib = require('/lib/xp/content');
 var portal = require('/lib/xp/portal');
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var norseUtils = require('norseUtils');
 var userLib = require('userLib');
 var authLib = require('/lib/xp/auth');
 var cartLib = require('cartLib');
+var nodeLib = require('/lib/xp/node');
+
+exports.fixPermissions = fixPermissions;
 
 exports.getPageComponents = function( req ) {
   var pageComponents = {};
@@ -25,6 +28,9 @@ exports.getPageComponents = function( req ) {
   });
   var cartServiceUrl = portal.serviceUrl({
     service: 'cart'
+  });
+  var commentsServiceUrl = portal.serviceUrl({
+    service: 'comments'
   });
 
   if( content && content.data && content.data.mainImage ){
@@ -52,12 +58,13 @@ exports.getPageComponents = function( req ) {
   pageComponents['header'] = thymeleaf.render( resolve('../pages/components/header.html'), {
     menuItems: getMenuItems(),
     site: site,
-    user: userLib.getCurrentUser()
+    headerUser: thymeleaf.render( resolve('../pages/components/headerUser.html'), {user: userLib.getCurrentUser()})
   });
   pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {
     userServiceUrl: userServiceUrl,
     contentServiceUrl: contentServiceUrl,
     cartServiceUrl: cartServiceUrl,
+    commentsServiceUrl: commentsServiceUrl,
     cartId: cartLib.getCart( req.cookies.cartId )._id
   });
 
@@ -87,4 +94,36 @@ function checkUser(){
     result.user = user;
   }
   return result;
+}
+
+function fixPermissions( repo, role ){
+  if( !role ){
+    role = 'role:system.authenticated';
+  }
+  var repoConn = connectRepo(repo);
+  repoConn.setRootPermissions({
+      _permissions: [
+          {
+              "principal": role,
+              "allow": [
+                  "READ",
+                  "CREATE",
+                  "MODIFY",
+                  "DELETE",
+                  "PUBLISH",
+                  "READ_PERMISSIONS",
+                  "WRITE_PERMISSIONS"
+              ],
+              "deny": []
+          }
+      ],
+      _inheritsPermissions: true
+  });
+}
+
+function connectRepo( repo ){
+  return nodeLib.connect({
+      repoId: repo,
+      branch: "master"
+  });
 }

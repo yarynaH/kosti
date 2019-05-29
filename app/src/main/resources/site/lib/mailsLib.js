@@ -1,14 +1,14 @@
 var contentLib = require('/lib/xp/content');
 var portal = require('/lib/xp/portal');
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var norseUtils = require('norseUtils');
 var mailLib = require('/lib/xp/mail');
 var htmlExporter = require('/lib/openxp/html-exporter');
 var ioLib = require("/lib/xp/io");
 var qrLib = require('qrLib');
 var nodeLib = require('/lib/xp/node');
-var contextLib = require('/lib/contextLib');
-var newsletter = require('/pages/newsletter/newsletter');
+var contextLib = require('contextLib');
+var newsletter = require('../pages/newsletter/newsletter');
 
 var mailsTemplates = {
 	orderCreated: "../pages/mails/orderCreated.html",
@@ -59,7 +59,7 @@ function prepareNewsletter(){
     });
     var nodes = newsletterRepo.query({
         start: 0,
-        count: 9999999,
+        count: -1,
         query: "email != ''",
     });
     if( nodes.total < 1 ){

@@ -32,12 +32,12 @@
 						<item-set name="priceList">
 							<label>Price</label>
 							<items>
-								<input name="price" type="Long">
+								<input name="price" type="Double">
 									<label>Price</label>
 									<config>
 									</config>
 								</input>
-								<input name="weight" type="Long">
+								<input name="weight" type="Double">
 									<label>Weight</label>
 									<config>
 									</config>

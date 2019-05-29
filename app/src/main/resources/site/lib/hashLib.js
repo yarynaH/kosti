@@ -1,7 +1,6 @@
 var authLib = require('/lib/xp/auth');
 var textEncoding = require('/lib/text-encoding');
 var norseUtils = require('norseUtils');
-var contextLib = require('/lib/contextLib');
 
 exports.activateUserHash = activateUserHash;
 exports.saveHashForUser = saveHashForUser;

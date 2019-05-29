@@ -1,11 +1,14 @@
-var thymeleaf = require('/lib/xp/thymeleaf');
+var thymeleaf = require('/lib/thymeleaf');
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
-var norseUtils = require('norseUtils');
-var votesLib = require('votesLib');
-var blogLib = require('blogLib');
-var userLib = require('userLib');
-var helpers = require('helpers');
+
+var libLocation = '../../lib/';
+var norseUtils = require(libLocation + 'norseUtils');
+var votesLib = require(libLocation + 'votesLib');
+var blogLib = require(libLocation + 'blogLib');
+var userLib = require(libLocation + 'userLib');
+var helpers = require(libLocation + 'helpers');
+var commentsLib = require('commentsLib');
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -17,13 +20,15 @@ function handleReq(req) {
         var view = resolve('user.html');
         var model = createModel();
         var body = thymeleaf.render(view, model);
-        var fileName = portal.assetUrl({path:'js/userpage.js'});
+        var commentsScript = portal.assetUrl({path:'js/comments.js'});
+        var userPageScript = portal.assetUrl({path:'js/userpage.js'});
         return {
           body: body,
           contentType: 'text/html',
           pageContributions: {
             bodyEnd: [
-                "<script src='"+fileName+"'></script>"
+                "<script src='"+userPageScript+"'></script>",
+                "<script src='"+commentsScript+"'></script>",
             ]
           }
         };
@@ -40,56 +45,42 @@ function handleReq(req) {
         var date = new Date(content.publish.from.replace('Z', ''));
         content.date = date.getDate() + ' ' + norseUtils.getMonthName(date) + ' ' + date.getFullYear();
         var response = [];
-        var site = portal.getSiteConfig();
+        var userComments = commentsLib.getCommentsByUser(content._id);
+        var totalArticles = {
+            articles: blogLib.getArticlesByUser(content._id, 0, true)
+        };
 
-        var bookmarks = getUserBookmarks( content.data.bookmarks );
-        var articles = contentLib.query({
-            start: 0,
-            count: 999999,
-            query: "data.author = '" + content._id + "'"
-        }).hits;
-        if( articles && articles.length > 0 ){
-            content.articles = blogLib.beautifyArticleArray(articles);
-        }
-        if( bookmarks && bookmarks.length > 0 ){
-            content.bookmarks = blogLib.beautifyArticleArray(bookmarks);
-        }
-        var active = {
-            bookmarks: '',
-            articles: '',
-            comments: '',
-            notifications: ''
-        }
+        var active = {};
         if( up.action == 'bookmarks' ){
             active.bookmarks = 'active';
-            var articlesView = blogLib.getArticlesView(bookmarks);
+            totalArticles.curr = content.data.bookmarks.length;
+            var articles = blogLib.getArticlesView(blogLib.getArticlesByIds( content.data.bookmarks ));
+        } else if( up.action == 'comments' ){
+            active.comments = 'active';
+            totalArticles.curr = userComments.length;
+            var articles = thymeleaf.render(resolve('commentsView.html'), {comments: userComments});
         } else {
             active.articles = 'active';
-            var articlesView = blogLib.getArticlesView(articles);
+            totalArticles.curr = totalArticles.articles;
+            var articles = blogLib.getArticlesView(blogLib.getArticlesByUser(content._id));
+        }
+        var currUser = currUser.key == userSystemObj.key;
+        if( currUser ){
+            var editUserModal = thymeleaf.render(resolve('userEditModal.html'), {user: content});
         }
 
         var model = {
             content: content,
-            currUser: currUser.key == userSystemObj.key,
+            currUser: currUser,
             app: app,
+            userComments: userComments,
+            totalArticles: totalArticles,
+            articles: articles,
             active: active,
-            social: site.social,
-            articlesView: articlesView,
+            editUserModal: editUserModal,
+            articlesView: articles,
             pageComponents: helpers.getPageComponents(req)
         };
-
-        function getUserBookmarks( ids ){
-            if( ids ){
-                var result = [];
-                ids = norseUtils.forceArray(ids);
-                for( var i = 0; i < ids.length; i++ ){
-                    result.push(contentLib.get({ key: ids[i] }));
-                }
-                return result;
-            } else {
-                return [];
-            }
-        }
 
         return model;
 
