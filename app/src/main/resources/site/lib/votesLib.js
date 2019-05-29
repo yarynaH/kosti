@@ -5,12 +5,30 @@ var norseUtils = require('norseUtils');
 var authLib = require('/lib/xp/auth');
 var nodeLib = require('/lib/xp/node');
 var userLib = require('userLib');
+var contentLib = require('/lib/xp/content');
+var contextLib = require('/lib/contextLib');
 
-exports.vote = function(user, content){
-	return doVote(user, content);
+exports.createBlankVote = createBlankVote;
+exports.vote = vote;
+exports.countUpvotes = countUpvotes;
+exports.countUserUpvotes = countUserUpvotes;
+exports.checkIfVoted = checkIfVoted;
+exports.getHotIds = getHotIds;
+exports.checkIfVoteExist = checkIfVoteExist;
+
+function vote(content){
+	var user = userLib.getCurrentUser();
+	if( !user || !user.key ){
+		return false;
+	}
+    var result = contextLib.runAsAdmin(function () {
+		return doVote(user.key, content);
+    });
+
+	return result;
 }
 
-exports.countUpvotes = function( id ){
+function countUpvotes( id ){
 	var node = getNode( id );
 	if( node && node.votes ){
 		return norseUtils.forceArray(node.votes).length;
@@ -18,7 +36,7 @@ exports.countUpvotes = function( id ){
 	return "0";
 }
 
-exports.countUserUpvotes = function( id ){
+function countUserUpvotes( id ){
 	var votesRepo = getVotesRepo();
 	var result = votesRepo.query({
 	    start: 0,
@@ -50,8 +68,6 @@ function checkIfVoted( content ){
 	return false;
 }
 
-exports.checkIfVoted = checkIfVoted;
-
 function checkIfVoteExist( user, node ){
 	if( node ){
 		node.votes = norseUtils.forceArray(node.votes);
@@ -60,6 +76,15 @@ function checkIfVoteExist( user, node ){
 		}
 	}
 	return false;
+}
+
+function createBlankVote( node ){
+	var votesRepo = getVotesRepo();
+	return votesRepo.create({
+	    id: node,
+	    votes: [],
+	    rate: 0
+	});
 }
 
 function createVote( user, content ){
@@ -83,6 +108,7 @@ function upvote( user, node ){
 		var temp = norseUtils.forceArray(node.votes);
 		temp.push( user );
 	    node.votes = temp;
+	    node.rate = node.votes.length;
 	    return node;
 	}
 }
@@ -96,6 +122,7 @@ function downvote( user, node ){
 	function editor(node) {
 		node.votes = norseUtils.forceArray(node.votes);
 		node.votes.splice(node.votes.indexOf(user), 1);
+	    node.rate = node.votes.length;
 	    return node;
 	}
 }
@@ -111,6 +138,27 @@ function getNode( id ){
 		return votesRepo.get(result.hits[0].id);
 	}
 	return false;
+}
+
+function getHotIds( page ){
+    var pageSize = 10;
+	var votesRepo = getVotesRepo();
+	var date = new Date();
+	date = new Date(date.getTime() - (3 * 24 * 60 * 60 * 1000));
+	var hits = votesRepo.query({
+        start: page * pageSize,
+        count: pageSize,
+	    sort: '_timestamp DESC, rate DESC'
+	}).hits;
+	var result = [];
+	for( var i = 0; i < hits.length; i++ ){
+		var temp = votesRepo.get(hits[i].id);
+		if( temp && temp._id){
+			result.push(temp.id);
+		}
+	}
+	return result;
+
 }
 
 function getVotesRepo(){

@@ -1,8 +1,9 @@
-var libLocation = '../../lib/';
 var thymeleaf = require('/lib/thymeleaf');
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
 var httpClientLib = require('/lib/http-client');
+
+var libLocation = '../../lib/';
 var norseUtils = require(libLocation + 'norseUtils');
 var helpers = require(libLocation + 'helpers');
 var votesLib = require(libLocation + 'votesLib');
@@ -42,19 +43,35 @@ function handleReq(req) {
         var showDescription = true;
         var schedule = getSchedule(site.slider);
         var video = getVideoViaApi( site.gApiKey );
+        var active = {};
+        switch(up.feed){
+            case 'new':
+                active.new = 'active';
+                var articles = blogLib.getNewArticles();
+                break;
+            case 'bookmarks':
+                active.bookmarks = 'active';
+                var articles = blogLib.getArticlesByIds( user.data.bookmarks );
+                break;
+            default:
+                active.hot = 'active';
+                var articles = blogLib.getHotArticles();
+                break;
+        }
 
         var model = {
             content: content,
             url: portal.pageUrl({ path: content._path }),
             app: app,
             video: video ? "https://www.youtube.com/embed/" + video : getVideoUrl( site.video ),
-            weeksPost: getWeeksPost(site.weeksPost),
+            weeksPost: blogLib.getWeeksPost(),
             schedule: schedule,
-            social: site.social,
+            socialLinks: blogLib.getSolialLinks(),
+            active: active,
             pageComponents: helpers.getPageComponents(req),
             showDescription: showDescription,
             slider: getSliderArticles(site.slider),
-            articles: blogLib.getArticlesView(getArticles())
+            articles: blogLib.getArticlesView(articles)
         };
 
         return model;
@@ -80,22 +97,6 @@ function handleReq(req) {
             return result;
         }
 
-        function getArticles(){
-            var result = contentLib.query({
-                query: '',
-                start: 0,
-                count: 3,
-                sort: 'data.date ASC',
-                contentTypes: [
-                    app.name + ':article'
-                ]
-            }).hits;
-            for( var i = 0; i < result.length; i++ ){
-                result[i] = blogLib.beautifyArticle(result[i]);
-            }
-            return result;
-        }
-
         function getSliderArticles( articles ){
             var result = [];
             for( var i = 0; i < articles.length; i++ ){
@@ -103,12 +104,6 @@ function handleReq(req) {
                 result[i] = blogLib.beautifyArticle(temp);
             }
             return result;
-        }
-
-        function getWeeksPost( weeksPost ){
-            var weeksPost = contentLib.get({ key: weeksPost });
-            weeksPost = blogLib.beautifyArticle(weeksPost);
-            return weeksPost;
         }
 
         function getVideoViaApi( key ){

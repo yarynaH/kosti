@@ -7,12 +7,17 @@ var authLib = require('/lib/xp/auth');
 var contextLib = require('contextLib');
 var common = require('/lib/xp/common');
 var i18nLib = require('/lib/xp/i18n');
+var thymeleaf = require('/lib/xp/thymeleaf');
 
 exports.findUser = findUser;
 exports.activateUser = activateUser;
 exports.getCurrentUser = getCurrentUser;
 exports.addBookmark = addBookmark;
 exports.checkIfBookmarked = checkIfBookmarked;
+exports.getUserDataById = getUserDataById;
+exports.checkRole = checkRole;
+exports.getSystemUser = getSystemUser;
+exports.editUser = editUser;
 
 function getCurrentUser(){
 	var user = authLib.getUser();
@@ -29,6 +34,7 @@ function getCurrentUser(){
 			userObj.url = portal.pageUrl({ id: userObj._id });
 			userObj.image = norseUtils.getImage( userObj.data.userImage, 'block(32,32)', 1 );
 			userObj.key = user.key;
+			userObj.moderator = checkRole(['role:moderator', 'role:system.admin']);
 		} else {
 			userObj = false;
 		}
@@ -36,12 +42,71 @@ function getCurrentUser(){
 	return userObj;
 }
 
-exports.getSystemUser = function( name ){
+function editUser( data ){
+	var user = getCurrentUser();
+	norseUtils.log(user);
+	norseUtils.log(data);
+	if( user._id != data.id ){
+		return false;
+	}
+    user = contentLib.modify({
+        key: user._id,
+        editor: userEditor,
+        branch: 'draft'
+    });
+    var publishResult = contentLib.publish({
+        keys: [user._id],
+        sourceBranch: 'draft',
+        targetBranch: 'master'
+    });
+	function userEditor(user){
+		user.data.firstName = data.firstName ? data.firstName : user.data.firstName;
+		user.data.lastName = data.lastName ? data.lastName : user.data.lastName;
+		user.data.city = data.city ? data.city : user.data.city;
+		user.data.phone = data.phone ? data.phone : user.data.phone;
+	    return user;
+	}
+	return true;
+}
+
+function checkRole( roles ){
+	for( var i = 0; i < roles.length; i++ ){
+		if(authLib.hasRole(roles[i])){
+			return true;
+		}
+	}
+	return false
+}
+
+function getSystemUser( name, keyOnly ){
 	var user = false;
 	contextLib.runAsAdmin(function () {
 		user = findUser(name);
 	});
+	if( !user ){
+		return false;
+	}
+	if( keyOnly ){
+		return user.key;
+	}
 	return user;
+}
+
+function getUserDataById( id ){
+	if( !id ){
+		return null;
+	}
+	var user = contentLib.get({ key: id });
+	if( !user || !user.data ){
+		return false;
+	}
+	return {
+		displayName: user.displayName,
+		url: portal.pageUrl({ id: user._id }),
+		image: norseUtils.getImage( user.data.userImage, 'block(32,32)', 1 ),
+		_id: user._id,
+		key: getSystemUser(user.data.email, true)
+	};
 }
 
 exports.register = function( name, mail, pass ){
@@ -95,7 +160,14 @@ exports.createUserContentType = function( name, mail, userkey ){
 	    branch: "draft",
 	    permissions: [{
 	        principal: userkey,
-	        allow: ['READ','MODIFY','PUBLISH', 'CREATE'],
+	        allow: [
+                "READ",
+                "CREATE",
+                "MODIFY",
+                "PUBLISH",
+                "READ_PERMISSIONS",
+                "WRITE_PERMISSIONS"
+            ],
             deny: ['DELETE']
 	    },
         {
@@ -133,7 +205,10 @@ exports.login = function( name, pass ){
 	    userStore: 'system'
 	});
 	if( loginResult.authenticated == true ){
-		return this.getCurrentUser();
+		return {
+			html: thymeleaf.render(resolve('../pages/components/headerUser.html'), { user: getCurrentUser()}),
+			exist: true
+		};
 	} else {
 		return {
 			exist: false,

@@ -162,9 +162,17 @@
     }
 
     &-list {
-        @include tablet-all {
-            width: 66%;
-            float: left;
+        &-wrap {
+            @include tablet-all {
+                width: 66%;
+                float: left;
+            }
+        }
+
+        &-empty {
+            margin: 30px;
+            font-size: rem(16);
+            text-align: center;
         }
     }
 
@@ -210,7 +218,11 @@
     }
 
     .add_to_bookmarks-btn {
+        display: inline-flex;
+        align-items: center;
         margin-right: 25px;
+        cursor: pointer;
+        transition: transition(color);
 
         &.active,
         &:hover {
@@ -222,10 +234,14 @@
         @include mobile() {
             margin-top: 15px;
         }
+
         @include tablet-all {
             width: 34%;
             float: right;
             padding-left: 25px;
+
+            position: sticky;
+            top: 105px;
         }
     }
 }
@@ -266,7 +282,7 @@
         margin-bottom: 20px;
         display: block;
 
-        &:hover {
+        body:not(.article-page) &:hover {
             opacity: 0.8;
         }
     }
@@ -389,34 +405,6 @@
         &:before {
             margin-right: 8px;
             font-size: (25);
-        }
-    }
-}
-
-.like-btn {
-    display: inline-flex;
-    align-items: center;
-    font-size: rem(14);
-    color: $color-primary12;
-
-    &:before {
-        margin-right: 8px;
-    }
-
-    span {
-        vertical-align: middle;
-    }
-
-    &.active,
-    &:hover {
-        color: $color-primary17;
-
-        span {
-            text-shadow: 0 0 0.01px $color-primary17;
-        }
-
-        &::before {
-            color: $color-primary19;
         }
     }
 }
