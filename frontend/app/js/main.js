@@ -202,6 +202,15 @@ function initCheckoutEvents(){
 			$(this).parent().removeClass('is-invalid');
 		}
 	});
+	$('.promo_code-title').on('click', function(){
+		$('.js_promo_code-field').toggleClass('hidden');
+	});
+	$('.js_promo-form').on('submit', function(e){
+		e.preventDefault();
+		var formData = getFormData(this);
+		formData.cartId = getCookieValue('cartId');
+		var call = makeAjaxCall( '/promos', 'POST', formData, true );
+	});
 	
 	$('.delivery_np-input-city').on('input', function(){
 		if( $(this).val().length > 1 ){
@@ -475,10 +484,7 @@ function initUserPageEvents(){
 	});
 	$('.js_edit_user-form').on('submit', function( e ){
 		e.preventDefault();
-		var formData = {};
-		$.each($(this).serializeArray(), function() {
-		    formData[this.name] = this.value;
-		});
+		var formData = getFormData(this);
 		editUserData(formData);
 	});
 }

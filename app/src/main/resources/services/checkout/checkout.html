@@ -50,15 +50,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="promo_code hidden">
+                    <form class="promo_code js_promo-form" action="/promos">
                         <h5 class="promo_code-title">
                             Есть промо-код?
                         </h5>
-                        <div class="promo_code-field">
-                            <input name="promo_code" type="text" class="input-text" id="promo_code-input">
-                            <button class="promo_code-btn">ok</button>
+                        <div class="promo_code-field js_promo_code-field">
+                            <input name="promoCode" type="text" class="input-text" id="promo_code-input">
+                            <button type="submit" class="promo_code-btn">ok</button>
                         </div>
-                    </div>
+                        <input type="hidden" name="action" value="activatePromo">
+                    </form>
                     <div class="summary-purchase">
                         <div class="summary-total">
                             <span class="label">Товар</span>

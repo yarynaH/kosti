@@ -45,3 +45,11 @@ function checkUserLoggedIn(){
 	}
 	return false;
 }
+
+function getFormData(el){
+	var formData = {};
+	$.each($(el).serializeArray(), function() {
+	    formData[this.name] = this.value;
+	});
+	return formData;
+}

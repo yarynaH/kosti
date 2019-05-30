@@ -6,7 +6,10 @@ var contextLib = require('contextLib');
 var portal = require('/lib/xp/portal');
 var textEncoding = require('/lib/text-encoding');
 
-exports.getCart = function( cartId ){
+exports.addPromo = addPromo;
+exports.getCart = getCart;
+
+function getCart( cartId ){
   var cart = {};
   if( cartId ){
     cart = getCartById( cartId );
@@ -21,6 +24,7 @@ exports.getCart = function( cartId ){
   cart.itemsWeight = caclculateCartWeight(cart.items);
   cart.price = calculateCart( cart );
   cart.stock = checkCartStock( cart.items );
+  cart.discount = checkCartDiscount(cart);
   return cart;
 }
 
@@ -424,4 +428,34 @@ function checkItemSizeStock( size, amount, id ) {
     return true;
   }
   return false;
+}
+
+function checkCartDiscount(cart){
+  if( !cart.promos ){
+    return 0;
+  }
+  var discount = 0;
+  var promosLib = require('promosLib');
+  var promos = promosLib.getPromosArray(cart.promos);
+  for( var i = 0; i < promos.length; i++ ){
+    discount += parseInt(promos[i].discount);
+  }
+  return discount;
+}
+
+function addPromo( code, cartId ){
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.modify({
+    key: cartId,
+    editor: editor
+  });
+  return getCart(result._id);
+  function editor( node ){
+    if( !node.promos ){
+      node.promos = [];
+    }
+    node.promos = norseUtils.forceArray(node.promos);
+    node.promos.push(code);
+    return node;
+  }
 }
