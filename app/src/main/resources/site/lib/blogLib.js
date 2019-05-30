@@ -47,6 +47,7 @@ function beautifyArticle( article ){
     article.date = kostiUtils.getTimePassedSincePostCreation(article.publish.from.replace('Z', ''));
     article.votes = votesLib.countUpvotes(article._id);
     article.voted = false;
+    article.views = votesLib.countViews(article._id);
     article.bookmarked = userLib.checkIfBookmarked(article._id);
     if( parseInt(article.votes) > 0 ){
         article.voted = votesLib.checkIfVoted( article._id );

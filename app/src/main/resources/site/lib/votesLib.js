@@ -16,6 +16,7 @@ exports.checkIfVoted = checkIfVoted;
 exports.getHotIds = getHotIds;
 exports.checkIfVoteExist = checkIfVoteExist;
 exports.addView = addView;
+exports.countViews = countViews;
 
 function vote(content){
 	var user = userLib.getCurrentUser();
@@ -59,8 +60,9 @@ function doAddView( content, id ){
 
 function countViews(id){
 	var node = getNode( id );
-	if( node && node.votes ){
-		return norseUtils.forceArray(node.views).length;
+	if( node && node.views ){
+		node.views = norseUtils.forceArray(node.views);
+		return node.views.length;
 	}
 	return "0";
 }
