@@ -24,7 +24,6 @@ function getCart( cartId ){
   cart.itemsWeight = caclculateCartWeight(cart.items);
   cart.price = calculateCart( cart );
   cart.stock = checkCartStock( cart.items );
-  cart.discount = checkCartDiscount(cart);
   return cart;
 }
 
@@ -304,6 +303,7 @@ function calculateCart( cart ){
   return { 
     items: result.toFixed(),
     shipping: shipping.toFixed(),
+    discount: checkCartDiscount(cart),
     total: (result + shipping).toFixed(),
   }
 }
@@ -440,7 +440,7 @@ function checkCartDiscount(cart){
   for( var i = 0; i < promos.length; i++ ){
     discount += parseInt(promos[i].discount);
   }
-  return discount;
+  return discount.toFixed();
 }
 
 function addPromo( code, cartId ){
