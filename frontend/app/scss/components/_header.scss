@@ -136,21 +136,6 @@
         @include mobile {
             padding-top: 10px;
         }
-
-        &:after {
-            @include tablet-all {
-                @include position (absolute, bottom 0);
-
-                width: 8px;
-                height: 8px;
-                content: '';
-                box-shadow: 0 2px 4px 0 rgba($color-primary23, 0.5);
-                background-color: $color-primary24;
-                border-radius: 50%;
-                margin-bottom: -3px;
-                z-index: 2;
-            }
-        }
     }
 
     &-item {
@@ -178,9 +163,24 @@
         }
 
         &:hover,
-        &_active {
+        &.active {
             color: $color-primary9;
         }
+    }
+}
+
+.active_element {
+    @include tablet-all {
+        @include position (absolute, bottom 0);
+
+        width: 8px;
+        height: 8px;
+        content: '';
+        box-shadow: 0 2px 4px 0 rgba($color-primary23, 0.5);
+        background-color: $color-primary24;
+        border-radius: 50%;
+        margin-bottom: -3px;
+        z-index: 2;
     }
 }
 
