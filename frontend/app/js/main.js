@@ -202,14 +202,34 @@ function initCheckoutEvents(){
 			$(this).parent().removeClass('is-invalid');
 		}
 	});
-	$('.promo_code-title').on('click', function(){
+	$('.js_promo_code-title').on('click', function(){
 		$('.js_promo_code-field').toggleClass('hidden');
+	});
+	$('.js_promo-remove').on('click', function(e){
+		e.preventDefault();
+		var code = $(this).data('code');
+		var call = makeAjaxCall( '/promos', 'POST', {
+			action: 'removePromo',
+			cartId: getCookieValue('cartId'),
+			code: code
+		}, true );
+		call.done(function(data){
+			if( !data.promos || data.promos.indexOf(code) == -1 || data.promos == code ){
+				$('.js_promo-remove[data-code="' + code + '"]').parent().remove();
+			}
+			$('.js_summary-discount .value span').text(data.price.discount.discount);
+			$('.js_summary-total .value span').text(data.price.totalDiscount);
+		});
 	});
 	$('.js_promo-form').on('submit', function(e){
 		e.preventDefault();
 		var formData = getFormData(this);
 		formData.cartId = getCookieValue('cartId');
 		var call = makeAjaxCall( '/promos', 'POST', formData, true );
+		call.done(function( data ){
+			$('.js_summary-discount .value span').text(data.price.discount.discount);
+			$('.js_summary-total .value span').text(data.price.totalDiscount);
+		});
 	});
 	
 	$('.delivery_np-input-city').on('input', function(){
