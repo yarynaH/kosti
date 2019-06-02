@@ -8,9 +8,9 @@
 <title>Вечерние кости</title>
 
 <!-- Open Graph data -->
-<meta property="og:title" data-th-attr="content=${content.displayName}" />
+<meta property="og:title" data-th-attr="content=${content && content.displayName} ? ${content.displayName} : site.displayName"/>
 <meta property="og:type" content="article" />
-<meta property="og:url" data-th-attr="content=${portal.pageUrl({'_path=' + content._path, '_type=absolute'})}" />
+<meta property="og:url" data-th-attr="content=${portal.pageUrl({'_path=' + content && content._path ? content._path : site._path, '_type=absolute'})}" />
 <meta property="og:image" data-th-attr="content=${ogImage}" />
 <meta property="og:description" data-th-attr="content=${site.data.description}" />
 <meta property="og:site_name" data-th-attr="content=${site.displayName}" />
