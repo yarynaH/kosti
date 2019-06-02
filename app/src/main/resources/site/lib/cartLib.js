@@ -301,7 +301,7 @@ function calculateCart( cart ){
     }
   }
   var shipping = getShippingPrice(cart);
-  var discount = checkCartDiscount(cart);
+  var discount = checkCartDiscount(cart, result);
   return { 
     items: result.toFixed(),
     shipping: shipping.toFixed(),
@@ -433,7 +433,7 @@ function checkItemSizeStock( size, amount, id ) {
   return false;
 }
 
-function checkCartDiscount(cart){
+function checkCartDiscount(cart, itemsTotal){
   if( !cart.promos ){
     return {
       discount: 0,
@@ -445,9 +445,14 @@ function checkCartDiscount(cart){
   var promos = promosLib.getPromosArray(cart.promos);
   var cartCodes = [];
   for( var i = 0; i < promos.length; i++ ){
-    discount += parseInt(promos[i].discount);
+    if( promos[i].type == 'percent' ){
+      discount += itemsTotal * (promos[i].discount / 100);
+    } else {
+      discount += parseInt(promos[i].discount);
+    }
     cartCodes.push({
       displayName: promos[i].displayName,
+      type: promos[i].type,
       discount: promos[i].discount,
       code: promos[i].promoCode
     });
