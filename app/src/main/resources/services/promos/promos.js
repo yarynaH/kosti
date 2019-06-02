@@ -4,6 +4,7 @@ var libLocation = '../../site/lib/';
 var norseUtils = require(libLocation + 'norseUtils');
 var helpers = require(libLocation + 'helpers');
 var promosLib = require(libLocation + 'promosLib');
+var cartLib = require(libLocation + 'cartLib');
 
 exports.get = function(req){
 	var params = req.params;
@@ -40,6 +41,11 @@ exports.post = function(req){
         case 'activatePromo':
             return {
                 body: promosLib.activatePromo(params.promoCode, params.cartId),
+                contentType: 'application/json'
+            }
+        case 'removePromo':
+            return {
+                body: cartLib.removePromo(params.code, params.cartId),
                 contentType: 'application/json'
             }
     }

@@ -51,14 +51,29 @@
                         </div>
                     </div>
                     <form class="promo_code js_promo-form" action="/promos">
-                        <h5 class="promo_code-title">
-                            Есть промо-код?
-                        </h5>
-                        <div class="promo_code-field js_promo_code-field">
-                            <input name="promoCode" type="text" class="input-text" id="promo_code-input">
-                            <button type="submit" class="promo_code-btn">ok</button>
-                        </div>
+                        <input type="checkbox" hidden="" id="promo-visibility">
+                        <label for="promo-visibility" class="promo_code-label">
+                            <h5 class="promo_code-title js_promo_code-title">
+                                Есть промо-код?
+                            </h5>
+                            <div class="promo_code-container">
+                                <div class="promo_code-field">
+                                    <input name="promoCode" type="text" class="input-text" id="promo_code-input">
+                                    <button type="submit" class="promo_code-btn">ok</button>
+                                </div>
+                                <ul class="promo_code-used-list">
+                                    <div data-th-each="code: ${cart.price.discount.codes}" data-th-remove="tag">
+                                        <li data-th-fragment="promoItem(code)" class="promo_code-used-item">
+                                            <span data-th-text="${code.displayName}"></span>
+                                            <span class="remove-btn js_promo-remove" data-th-attr="data-code=${code.code}"></span>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </div>
+
+                        </label>
                         <input type="hidden" name="action" value="activatePromo">
+
                     </form>
                     <div class="summary-purchase">
                         <div class="summary-total">
@@ -69,13 +84,13 @@
                             <span class="label">Доставка</span>
                             <span class="value" data-th-text="${cart.price.shipping == 0 ? 'Бесплатно' : 'UAH ' + cart.price.shipping}"></span>
                         </div>
-                        <div class="summary-discount">
+                        <div class="summary-discount js_summary-discount">
                             <span class="label">Скидка</span>
-                            <span class="value">UAH <span data-th-text="${cart.price.discount}"></span></span>
+                            <span class="value">UAH <span data-th-text="${cart.price.discount.discount}"></span></span>
                         </div>
-                        <div class="summary-subtotal">
+                        <div class="summary-total js_summary-total">
                             <span class="label">Всего</span>
-                            <span class="value">UAH <span data-th-text="${cart.price.total - cart.price.discount}"></span></span>
+                            <span class="value">UAH <span data-th-text="${cart.price.totalDiscount}"></span></span>
                         </div>
                     </div>
                 </div>
@@ -85,7 +100,7 @@
     <form class="hidden" data-th-if="${pay}" name="payment" method="post" action="https://sci.interkassa.com/" accept-charset="UTF-8">
         <input type="hidden" name="ik_co_id" data-th-attr="value=${ik_id}"/>
         <input type="hidden" name="ik_pm_no" data-th-attr="value='ID_' + ${cart.userId}"/>
-        <input type="hidden" name="ik_am" data-th-attr="value=${cart.price.total}"/>
+        <input type="hidden" name="ik_am" data-th-attr="value=${cart.price.totalDiscount}"/>
         <input type="hidden" name="ik_cur" value="uah"/>
         <input type="hidden" name="ik_desc" data-th-attr="value='Товары вечерних костей'"/>
         <input type="submit" value="Pay">

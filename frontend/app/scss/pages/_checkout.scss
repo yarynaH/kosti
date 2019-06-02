@@ -283,15 +283,37 @@
 .promo_code {
     border-bottom: 1px solid $color-primary20;
 
+    &-label {
+        padding: 10px 0;
+        margin: 0;
+        width: 100%;
+        cursor: pointer;
+    }
+
     &-title {
-        padding: 20px 0;
+        @include icon(arrow, after);
+
+        padding: 10px 0;
         color:  $color-primary6;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:after {
+            transform: rotate(90deg);
+            color: $color-primary2;
+            font-size: rem(14);
+
+            [type=checkbox]:checked+label & {
+                transform: rotate(-90deg);
+            }
+        }
     }
 
     &-field {
         display: flex;
-        padding-bottom: 20px;
+        padding: 10px 0;
     }
 
     &-btn {
@@ -300,6 +322,24 @@
         margin-left: 10px;
         padding: 10px 24px;
         min-width: 70px;
+    }
+
+    &-used-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    [type=checkbox]:checked+label &-container {
+        max-height: 350px;
+        opacity: 1;
+    }
+    
+    &-container {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: all .2s ease-out;
     }
 }
 

@@ -11,6 +11,7 @@ exports.addPromo = addPromo;
 exports.getPromosArray = getPromosArray;
 exports.getPromoByCode = getPromoByCode;
 exports.activatePromo = activatePromo;
+exports.reducePromoAmount = reducePromoAmount;
 
 function addPromo( data ){
 	var promoRepo = sharedLib.connectRepo('promos');
@@ -31,12 +32,31 @@ function getPromosArray( codes ){
 	return result;
 }
 
+function reducePromoAmount( code ){
+	var promoRepo = sharedLib.connectRepo('promos');
+	var promo = getPromoByCode(code);
+	if( result && result.hits && result.total > 0 ){
+		promo = promoRepo.get(result.hits[0].id);
+		repo.modify({
+		    key: result.hits[0].id,
+		    editor: editor
+		});
+		function editor(node) {
+			if( node.amount && node.amount > 0 ){
+				node.amount = node.amount - 1;
+			}
+			return node;
+		}
+	}
+	return false;
+}
+
 function getPromoByCode( code ){
 	var promoRepo = sharedLib.connectRepo('promos');
 	var result = promoRepo.query({
 	    start: 0,
 	    count: 1,
-	    query: "promoName = '" + code + "'"
+	    query: "promoCode = '" + code + "'"
 	});
 	if( result && result.hits && result.total > 0 ){
 		return promoRepo.get(result.hits[0].id);
