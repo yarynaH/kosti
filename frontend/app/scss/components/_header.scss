@@ -170,6 +170,10 @@
 }
 
 .active_element {
+    @include mobile {
+        display: none;
+    }
+
     @include tablet-all {
         @include position (absolute, bottom 0);
 
