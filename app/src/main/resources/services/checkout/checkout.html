@@ -51,32 +51,29 @@
                         </div>
                     </div>
                     <form class="promo_code js_promo-form" action="/promos">
-                        <input type="checkbox" hidden="" id="promo-visibility">
-                        <label for="promo-visibility" class="promo_code-label">
-                            <h5 class="promo_code-title js_promo_code-title">
-                                Есть промо-код?
-                            </h5>
-                            <div class="promo_code-container">
-                                <div class="promo_code-field">
-                                    <input name="promoCode" type="text" class="input-text" id="promo_code-input">
-                                    <button type="submit" class="promo_code-btn">ok</button>
-                                </div>
-                                <ul class="promo_code-used-list">
-                                    <div data-th-each="code: ${cart.price.discount.codes}" data-th-remove="tag">
-                                        <li data-th-fragment="promoItem(code)" class="promo_code-used-item">
-                                            <span data-th-text="${code.displayName}"></span>
-                                            <span class="remove-btn js_promo-remove" data-th-attr="data-code=${code.code}"></span>
-                                        </li>
-                                    </div>
-                                </ul>
+                        <h5 class="promo_code-title js_promo_code-title">
+                            Есть промо-код?
+                        </h5>
+                        <div class="promo_code-container">
+                            <div class="promo_code-field">
+                                <input name="promoCode" type="text" class="input-text" id="promo_code-input">
+                                <button type="submit" class="promo_code-btn">ok</button>
                             </div>
-
-                        </label>
+                            <ul class="promo_code-used_list">
+                                <div data-th-each="code: ${cart.price.discount.codes}" data-th-remove="tag">
+                                    <li data-th-fragment="promoItem(code)" class="promo_code-used_item">
+                                        <span class="promo_code-used_name" data-th-text="${code.displayName}"></span>
+                                        <span class="promo_code-used_discount">15.00</span>
+                                        <span class="remove-btn js_promo-remove" data-th-attr="data-code=${code.code}"></span>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
                         <input type="hidden" name="action" value="activatePromo">
 
                     </form>
                     <div class="summary-purchase">
-                        <div class="summary-total">
+                        <div class="summary-subtotal">
                             <span class="label">Товар</span>
                             <span class="value">UAH <span data-th-text="${cart.price.items}"></span></span>
                         </div>

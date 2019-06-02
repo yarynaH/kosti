@@ -270,7 +270,7 @@
         padding-bottom: 10px;
     }
 
-    &-subtotal {
+    &-total {
         padding-top: 20px;
         color: $color-primary6;
     }
@@ -282,13 +282,7 @@
 
 .promo_code {
     border-bottom: 1px solid $color-primary20;
-
-    &-label {
-        padding: 10px 0;
-        margin: 0;
-        width: 100%;
-        cursor: pointer;
-    }
+    padding: 10px 0;
 
     &-title {
         @include icon(arrow, after);
@@ -299,13 +293,14 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        cursor: pointer;
 
         &:after {
             transform: rotate(90deg);
             color: $color-primary2;
             font-size: rem(14);
 
-            [type=checkbox]:checked+label & {
+            .show & {
                 transform: rotate(-90deg);
             }
         }
@@ -324,15 +319,20 @@
         min-width: 70px;
     }
 
-    &-used-item {
+    &-used_item {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: baseline;
     }
 
-    [type=checkbox]:checked+label &-container {
-        max-height: 350px;
-        opacity: 1;
+    &-used_name {
+        flex: 0 1 60%;
+    }
+
+    &-used_discount {
+        text-align: right;
+        flex: 1;
+        padding-right: 15px;
     }
     
     &-container {
@@ -340,6 +340,11 @@
         opacity: 0;
         overflow: hidden;
         transition: all .2s ease-out;
+
+        .show & {
+            max-height: 350px;
+            opacity: 1;
+        }
     }
 }
 
