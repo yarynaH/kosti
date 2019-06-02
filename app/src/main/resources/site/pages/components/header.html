@@ -16,7 +16,7 @@
     <div class="header-utility">
         <ul class="nav-list">
             <li data-th-each="menuItem: ${menuItems}" class="nav-item">
-                <a data-th-href="${menuItem.url}" class="nav-link" data-th-attr="title=${menuItem.title}" data-th-text="${menuItem.title}" data-th-classappend="${menuItem.active ? 'nav-link_active' : ''}">Блог</a>
+                <a data-th-href="${menuItem.url}" class="nav-link" data-th-attr="title=${menuItem.title}" data-th-text="${menuItem.title}" data-th-classappend="${menuItem.active ? 'active' : ''}">Блог</a>
             </li>
         </ul>
         <div class="header-search hidden">

@@ -40,6 +40,9 @@ function addView( content, id ){
 
 function doAddView( content, id ){
 	var node = getNode( content );
+	if( node === false ){
+		node = createBlankVote(content);
+	}
 	var votesRepo = getVotesRepo();
 	return votesRepo.modify({
 	    key: node._id,

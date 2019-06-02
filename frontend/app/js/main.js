@@ -318,6 +318,13 @@ function initCheckoutEvents(){
 };
 
 function initSharedEvents(){
+	$('.active_element').css('left', $('.nav-list .active').position().left + $('.nav-list .active').width() / 2);
+	$('.nav-list .nav-item a').on('mouseenter', function(){
+		$('.active_element').css('left', $(this).position().left + $(this).width() / 2);
+	});
+	$('.nav-list .nav-item a').on('mouseleave', function(){
+		$('.active_element').css('left', $('.nav-list .active').position().left + $('.nav-list .active').width() / 2);
+	});
 	$('.js_like-article').on('click', function(e){
 		e.preventDefault();
 		if( checkUserLoggedIn() ){
