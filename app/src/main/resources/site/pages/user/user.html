@@ -64,7 +64,7 @@
                     <div class="blog-list js_article-comments" data-page="1">
                         <h3 class="user_page-title">
                             <span data-th-remove="tag" data-th-text="${totalArticles.curr ? totalArticles.curr : '0'}"></span> 
-                            Статей
+                            <span data-th-remove="tag" data-th-text="${portal.localize({'_key=user.title.' + currTitle, '_locale='+content.language})}"></span>
                         </h3>
                         <div data-th-if="${!totalArticles.curr}">
                             У этого пользователя пока нету статей

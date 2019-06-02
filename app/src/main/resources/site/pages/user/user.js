@@ -54,14 +54,17 @@ function handleReq(req) {
         if( up.action == 'bookmarks' ){
             active.bookmarks = 'active';
             totalArticles.curr = content.data.bookmarks.length;
+            var currTitle = 'articles';
             var articles = blogLib.getArticlesView(blogLib.getArticlesByIds( content.data.bookmarks ));
         } else if( up.action == 'comments' ){
             active.comments = 'active';
             totalArticles.curr = userComments.length;
+            var currTitle = 'comments';
             var articles = thymeleaf.render(resolve('commentsView.html'), {comments: userComments});
         } else {
             active.articles = 'active';
             totalArticles.curr = totalArticles.articles;
+            var currTitle = 'articles';
             var articles = blogLib.getArticlesView(blogLib.getArticlesByUser(content._id));
         }
         var currUser = currUser.key == userSystemObj.key;
@@ -72,6 +75,7 @@ function handleReq(req) {
         var model = {
             content: content,
             currUser: currUser,
+            currTitle: currTitle,
             app: app,
             userComments: userComments,
             totalArticles: totalArticles,
