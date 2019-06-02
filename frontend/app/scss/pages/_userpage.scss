@@ -13,6 +13,11 @@
         @include mobile {
             margin-top: 50px;
         }
+
+        .comments-item {
+            background-color: $color-primary1;
+            padding: 30px 30px 15px;
+        }
     }
 }
 

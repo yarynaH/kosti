@@ -339,7 +339,7 @@
         max-height: 0;
         opacity: 0;
         overflow: hidden;
-        transition: all .2s ease-out;
+        transition: transition(all, 0.5s, ease-in-out);
 
         .show & {
             max-height: 350px;
