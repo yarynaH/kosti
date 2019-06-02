@@ -44,27 +44,24 @@ function getCurrentUser(){
 
 function editUser( data ){
 	var user = getCurrentUser();
-	norseUtils.log(user);
-	norseUtils.log(data);
 	if( user._id != data.id ){
 		return false;
 	}
     user = contentLib.modify({
         key: user._id,
-        editor: userEditor,
-        branch: 'draft'
+        editor: userEditor
     });
     var publishResult = contentLib.publish({
         keys: [user._id],
-        sourceBranch: 'draft',
-        targetBranch: 'master'
+        sourceBranch: 'master',
+        targetBranch: 'draft'
     });
-	function userEditor(user){
-		user.data.firstName = data.firstName ? data.firstName : user.data.firstName;
-		user.data.lastName = data.lastName ? data.lastName : user.data.lastName;
-		user.data.city = data.city ? data.city : user.data.city;
-		user.data.phone = data.phone ? data.phone : user.data.phone;
-	    return user;
+	function userEditor(node){
+		node.data.firstName = data.firstName ? data.firstName : node.data.firstName;
+		node.data.lastName = data.lastName ? data.lastName : node.data.lastName;
+		node.data.city = data.city ? data.city : node.data.city;
+		node.data.phone = data.phone ? data.phone : node.data.phone;
+	    return node;
 	}
 	return true;
 }
@@ -120,7 +117,7 @@ exports.register = function( name, mail, pass ){
     	return exist;
     }
 	var user = authLib.createUser({
-	    userStore: 'system',
+	    idProvider: 'system',
 	    name: common.sanitize(name),
 	    displayName: name,
 	    email: mail
@@ -146,7 +143,6 @@ exports.createUserContentType = function( name, mail, userkey ){
 		parentPath: usersLocation._path,
 		name: common.sanitize(name),
 		displayName: name,
-		branch: 'draft',
     	contentType: app.name + ':user',
     	language: 'ru',
     	data: {
@@ -157,7 +153,6 @@ exports.createUserContentType = function( name, mail, userkey ){
 	    key: user._id,
     	inheritPermissions: false,
     	overwriteChildPermissions: true,
-	    branch: "draft",
 	    permissions: [{
 	        principal: userkey,
 	        allow: [
@@ -179,8 +174,8 @@ exports.createUserContentType = function( name, mail, userkey ){
 
 	var result = contentLib.publish({
 	    keys: [user._id],
-	    sourceBranch: 'draft',
-	    targetBranch: 'master'
+	    sourceBranch: 'master',
+	    targetBranch: 'draft'
 	});
 	return result;
 }
@@ -204,10 +199,11 @@ exports.login = function( name, pass ){
 	    password: pass,
 	    userStore: 'system'
 	});
-	if( loginResult.authenticated == true ){
+	if( loginResult.authenticated === true ){
 		return {
 			html: thymeleaf.render(resolve('../pages/components/headerUser.html'), { user: getCurrentUser()}),
-			exist: true
+			exist: true,
+			authenticated: true
 		};
 	} else {
 		return {
@@ -224,13 +220,12 @@ function addBookmark( contentId ) {
 	var user = getCurrentUser();
     user = contentLib.modify({
         key: user._id,
-        editor: userEditor,
-        branch: 'draft'
+        editor: userEditor
     });
     var publishResult = contentLib.publish({
         keys: [user._id],
-        sourceBranch: 'draft',
-        targetBranch: 'master'
+        sourceBranch: 'master',
+        targetBranch: 'draft'
     });
 	function userEditor(user){
 		var temp = norseUtils.forceArray(user.data.bookmarks);
@@ -343,24 +338,22 @@ exports.uploadUserImage = function(){
         name: imageMetadata.fileName,
         parentPath: user._path,
         mimeType: imageMetadata.contentType,
-        branch: 'draft',
         data: stream
     });
     user = contentLib.modify({
         key: user._id,
-        editor: userImageEditor,
-        branch: 'draft'
+        editor: userImageEditor
     });
     var publishResult = contentLib.publish({
-        keys: [image._id, user._id],
-        sourceBranch: 'draft',
-        targetBranch: 'master'
+        keys: [user._id],
+        sourceBranch: 'master',
+        targetBranch: 'draft'
     });
 	function userImageEditor(user){
 	    user.data.userImage = image._id;
 	    return user;
 	}
-    return norseUtils.getImage( user.data.userImage, 'block(32,32)' );
+    return norseUtils.getImage( user.data.userImage, 'block(140,140)' );
 }
 
 function checkUserExists( name, mail ){

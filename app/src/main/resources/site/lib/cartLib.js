@@ -155,15 +155,14 @@ function modifyInventory( items ){
     var result = contentLib.modify({
       key: items[i]._id,
       requireValid: false,
-      branch: 'draft',
       editor: (function (node) {
         return editor(node, items[i]);
       })
     });
     contentLib.publish({
       keys: [items[i]._id],
-      sourceBranch: 'draft',
-      targetBranch: 'master'
+      sourceBranch: 'master',
+      targetBranch: 'draft'
     });
   }
   function editor( node, item ){

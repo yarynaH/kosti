@@ -84,12 +84,13 @@ function initLoginRegisterForm(){
 			method: "POST",
 			data: data
 		}).done(function(data) {
-			if( data.exist ){
-				$('.modal-registration .form-group-error span').text(data.message);
-				$('.modal-registration .form-group-error').removeClass('hidden');
-			} else {
+			if( data.authenticated ){
 				hideLoginRegisterModal();
 				$('.modal-registration .form-group-error').addClass('hidden');
+				$('.js_header-user-wrap').html(data.html);
+			} else if( data.exist ){
+				$('.modal-registration .form-group-error span').text(data.message);
+				$('.modal-registration .form-group-error').removeClass('hidden');
 			}
 		});
 	});
@@ -318,12 +319,13 @@ function initCheckoutEvents(){
 };
 
 function initSharedEvents(){
-	$('.active_element').css('left', $('.nav-list .active').position().left + $('.nav-list .active').width() / 2);
+	var activeEl = $('.nav-list .active').length > 0 ? $('.nav-list .active') : $(".header-logo a");
+	$('.active_element').css('left', activeEl.position().left + activeEl.width() / 2);
 	$('.nav-list .nav-item a').on('mouseenter', function(){
 		$('.active_element').css('left', $(this).position().left + $(this).width() / 2);
 	});
 	$('.nav-list .nav-item a').on('mouseleave', function(){
-		$('.active_element').css('left', $('.nav-list .active').position().left + $('.nav-list .active').width() / 2);
+		$('.active_element').css('left', activeEl.position().left + activeEl.width() / 2);
 	});
 	$('.js_like-article').on('click', function(e){
 		e.preventDefault();
@@ -502,26 +504,6 @@ function initFormEvents(){
 	});
 }
 
-function initUserPageEvents(){
-	$('.js_profile-settings').on('click', function(e){
-		e.preventDefault();
-		e.stopPropagation();
-		$('.modal-edit_user').addClass('show');
-	});
-	$('.js_edit_user-form').on('submit', function( e ){
-		e.preventDefault();
-		var formData = getFormData(this);
-		editUserData(formData);
-	});
-}
-
-function editUserData(formData){
-	var call = makeAjaxCall( userServiceUrl, 'POST', formData, true );
-	call.done( function(data){
-		$('.modal-edit_user').removeClass('show');
-	});
-}
-
 function checkSpace( el ){
 	var data = {
 		action: 'checkspace',
@@ -546,13 +528,12 @@ function checkSpace( el ){
 }
 
 $( document ).ready(function() {
+	initSharedEvents();
 	initLoginRegisterForm();
 	initCheckoutEvents();
 	initCartFunctions();
-	initSharedEvents();
 	initHeaderClasses();
 	initPDPFunctions();
-	initUserPageEvents();
 	if( $('main.form').length > 0 ){
 		initFormEvents();
 	}
