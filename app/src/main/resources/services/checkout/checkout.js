@@ -52,6 +52,9 @@ function generateCheckoutPage(req){
         case '3':
             params.userId = cartLib.getNextId();
             params.status = 'created';
+            if( params.shipping !== 'novaposhta' ){
+                params.shippingPrice = null;
+            }
             var shipping = getShipping(model.cart.country);
             shipping = getShippingById( shipping, params.shipping );
             model.cart = modifyCart( model.cart._id, params );

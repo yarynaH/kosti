@@ -61,5 +61,6 @@
         <button class="checkout-continue" title="Продолжить" data-th-disabled="${!cart.stock}">ПРОДОЛЖИТЬ</button>
     </div>
     <input name="step" type="hidden" value="3">
+    <input name="shippingPrice" type="hidden">
     <input type="hidden" id="cartWeight" data-th-value="${cart.itemsWeight}">
 </form>

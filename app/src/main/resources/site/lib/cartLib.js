@@ -207,6 +207,7 @@ exports.setUserDetails = function( cartId, params ){
     node.userId = params.userId ? params.userId : node.userId;
     node.novaPoshtaСity = params.novaPoshtaСity ? params.novaPoshtaСity : node.novaPoshtaСity;
     node.novaPoshtaWarehouse = params.novaPoshtaWarehouse ? params.novaPoshtaWarehouse : node.novaPoshtaWarehouse;
+    node.shippingPrice = params.shippingPrice ? params.shippingPrice : node.shippingPrice;
     return node;
   }
   return this.getCart(cartId);
@@ -299,7 +300,11 @@ function calculateCart( cart ){
       result += item.data.price * parseInt(items[i].amount);
     }
   }
-  var shipping = getShippingPrice(cart);
+  if( cart.shippingPrice ){
+    var shipping = parseInt(cart.shippingPrice);
+  } else {
+    var shipping = getShippingPrice(cart);
+  }
   var discount = checkCartDiscount(cart, result);
   return { 
     items: result.toFixed(),
