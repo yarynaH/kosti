@@ -39,13 +39,25 @@ exports.post = function(req){
                 contentType: 'application/json'
             }
         case 'activatePromo':
+            var view = resolve('../checkout/promos.html');
+            var res = promosLib.activatePromo(params.promoCode, params.cartId);
+            var markup = thymeleaf.render(view, {promos: res.price.discount.codes});
             return {
-                body: promosLib.activatePromo(params.promoCode, params.cartId),
+                body: {
+                    cart: promosLib.activatePromo(params.promoCode, params.cartId),
+                    promos: markup
+                },
                 contentType: 'application/json'
             }
         case 'removePromo':
+            var view = resolve('../checkout/promos.html');
+            var res = cartLib.removePromo(params.code, params.cartId);
+            var markup = thymeleaf.render(view, {promos: res.price.discount.codes});
             return {
-                body: cartLib.removePromo(params.code, params.cartId),
+                body: {
+                    cart: cartLib.removePromo(params.code, params.cartId),
+                    promos: markup
+                },
                 contentType: 'application/json'
             }
     }

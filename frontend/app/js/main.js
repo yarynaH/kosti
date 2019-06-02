@@ -203,9 +203,9 @@ function initCheckoutEvents(){
 		}
 	});
 	$('.js_promo_code-title').on('click', function(){
-		$('.js_promo_code-field').toggleClass('hidden');
+		$(this).parent().toggleClass('show');
 	});
-	$('.js_promo-remove').on('click', function(e){
+	$('.js_promo-form').on('click', '.js_promo-remove', function(e){
 		e.preventDefault();
 		var code = $(this).data('code');
 		var call = makeAjaxCall( '/promos', 'POST', {
@@ -214,11 +214,9 @@ function initCheckoutEvents(){
 			code: code
 		}, true );
 		call.done(function(data){
-			if( !data.promos || data.promos.indexOf(code) == -1 || data.promos == code ){
-				$('.js_promo-remove[data-code="' + code + '"]').parent().remove();
-			}
-			$('.js_summary-discount .value span').text(data.price.discount.discount);
-			$('.js_summary-total .value span').text(data.price.totalDiscount);
+			$('.js_promo_code-used_list').html(data.promos);
+			$('.js_summary-discount .value span').text(data.cart.price.discount.discount);
+			$('.js_summary-total .value span').text(data.cart.price.totalDiscount);
 		});
 	});
 	$('.js_promo-form').on('submit', function(e){
@@ -227,8 +225,9 @@ function initCheckoutEvents(){
 		formData.cartId = getCookieValue('cartId');
 		var call = makeAjaxCall( '/promos', 'POST', formData, true );
 		call.done(function( data ){
-			$('.js_summary-discount .value span').text(data.price.discount.discount);
-			$('.js_summary-total .value span').text(data.price.totalDiscount);
+			$('.js_promo_code-used_list').html(data.promos);
+			$('.js_summary-discount .value span').text(data.cart.price.discount.discount);
+			$('.js_summary-total .value span').text(data.cart.price.totalDiscount);
 		});
 	});
 	

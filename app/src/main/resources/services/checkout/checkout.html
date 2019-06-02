@@ -59,14 +59,7 @@
                                 <input name="promoCode" type="text" class="input-text" id="promo_code-input">
                                 <button type="submit" class="promo_code-btn">ok</button>
                             </div>
-                            <ul class="promo_code-used_list">
-                                <div data-th-each="code: ${cart.price.discount.codes}" data-th-remove="tag">
-                                    <li data-th-fragment="promoItem(code)" class="promo_code-used_item">
-                                        <span class="promo_code-used_name" data-th-text="${code.displayName}"></span>
-                                        <span class="promo_code-used_discount">15.00</span>
-                                        <span class="remove-btn js_promo-remove" data-th-attr="data-code=${code.code}"></span>
-                                    </li>
-                                </div>
+                            <ul class="promo_code-used_list js_promo_code-used_list" data-th-utext="${promos}">
                             </ul>
                         </div>
                         <input type="hidden" name="action" value="activatePromo">

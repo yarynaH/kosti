@@ -168,6 +168,7 @@ function generateCheckoutPage(req){
         var site = portal.getSiteConfig();
         return {
             cart: cart,
+            promos: thymeleaf.render(resolve('promos.html'), {promos: cart.price.discount.codes}),
             ik_id: site.ik_id,
             pageComponents: helpers.getPageComponents(req)
         };
