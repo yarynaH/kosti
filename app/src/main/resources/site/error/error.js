@@ -1,7 +1,10 @@
 var thymeleaf = require('/lib/thymeleaf');
-var norseUtils = require('norseUtils');
-var helpers = require('helpers');
 var portal = require('/lib/xp/portal');
+
+
+var libLocation = '../lib/';
+var norseUtils = require( libLocation + 'norseUtils');
+var helpers = require( libLocation + 'helpers');
 
 var viewGeneric = resolve('error.html');
 var view404  = resolve('404.html');
@@ -32,7 +35,7 @@ exports.handle404 = function (err) {
     }
 };
 
-exports.handle401 = function (err) {
+exports.handle403 = function (err) {
     var body = thymeleaf.render(view401, {
             pageComponents: helpers.getPageComponents( err )
         });
