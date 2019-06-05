@@ -28,7 +28,7 @@
             </div>
             <div class="comments-footer">
                 <a class="comments-link js_answer-comment" data-th-attr="data-id=${comment._id}">Ответить</a>
-                <a class="comments-link js_report-comment">Пожаловаться</a>
+                <a class="comments-link js_report-comment" data-th-attr="data-id=${comment._id}">Пожаловаться</a>
             </div>
             <form class="comments-answer_comment comments-write_comment-wrap js_comment-form hidden" data-th-attr="data-parentid=${comment._id}">
                 <textarea name="body" class="comments-write_comment-input" placeholder="Ответить на комментарий…" cols="30" rows="10"></textarea>
