@@ -5,6 +5,7 @@ var kostiUtils = require('kostiUtils');
 var votesLib = require('votesLib');
 var thymeleaf = require('/lib/thymeleaf');
 var userLib = require('userLib');
+var commentsLib = require('commentsLib');
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -49,6 +50,7 @@ function beautifyArticle( article ){
     article.voted = false;
     article.views = votesLib.countViews(article._id);
     article.bookmarked = userLib.checkIfBookmarked(article._id);
+    article.commentsCounter = commentsLib.countComments(article._id).toFixed();
     if( parseInt(article.votes) > 0 ){
         article.voted = votesLib.checkIfVoted( article._id );
     }
