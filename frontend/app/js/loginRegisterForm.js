@@ -100,6 +100,36 @@ function initLoginRegisterForm(){
 			$('.forgotPassValidation').removeClass('hidden');
 		}
 	});
+	initGoogleLogin();
+
+
+	function initGoogleLogin() {
+		gapi.load('auth2', function(){
+		auth2 = gapi.auth2.init({
+			client_id: '677318802177-6qjftg5h6fdtcvjs9d500blu50jmu8cj.apps.googleusercontent.com',
+			cookiepolicy: 'single_host_origin',
+		});
+		attachSignin(document.getElementById('google-login'));
+		});
+	};
+
+	function attachSignin(element) {
+  		var googleUser = {};
+		auth2.attachClickHandler(element, {},
+		    function(googleUser) {
+		        var profile = googleUser.getBasicProfile();
+		        var call = makeAjaxCall( userServiceUrl, 'POST', {
+		        	action: 'googleRegister',
+		        	name: profile.getName(),
+		        	email: profile.getEmail(),
+		        	image: profile.getImageUrl(),
+		        	token: googleUser.getAuthResponse().id_token
+		        }, true );
+		    }, function(error) {
+		});
+	}
+
+
 	function hideLoginRegisterModal(){
 		$('body div.modal').each(function(){
 			$(this).removeClass('show')

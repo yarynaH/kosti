@@ -1,9 +1,11 @@
 var thymeleaf = require('/lib/thymeleaf');
 var portal = require('/lib/xp/portal');
 var contentLib = require('/lib/xp/content');
+var valueLib = require('/lib/xp/value');
 
 var libLocation = '../../lib/';
 var norseUtils = require(libLocation + 'norseUtils');
+var moment = require(libLocation + 'moment');
 var votesLib = require(libLocation + 'votesLib');
 var blogLib = require(libLocation + 'blogLib');
 var userLib = require(libLocation + 'userLib');
@@ -42,7 +44,7 @@ function handleReq(req) {
         var currUser = userLib.getCurrentUser();
         var userSystemObj = userLib.getSystemUser(content.data.email);
         content.votes = votesLib.countUserUpvotes(userSystemObj.key);
-        var date = new Date(content.publish.from.replace('Z', ''));
+        var date = new Date(moment(content.publish.from.replace('Z', '')));
         content.date = date.getDate() + ' ' + norseUtils.getMonthName(date) + ' ' + date.getFullYear();
         var response = [];
         var userComments = commentsLib.getCommentsByUser(content._id);

@@ -52,9 +52,6 @@ function generateCheckoutPage(req){
         case '3':
             params.userId = cartLib.getNextId();
             params.status = 'created';
-            if( params.shipping !== 'novaposhta' ){
-                params.shippingPrice = null;
-            }
             var shipping = getShipping(model.cart.country);
             shipping = getShippingById( shipping, params.shipping );
             model.cart = modifyCart( model.cart._id, params );
@@ -131,8 +128,9 @@ function generateCheckoutPage(req){
         var site = portal.getSiteConfig();
         var shipping = contentLib.get({ key: site.shipping });
         var result = [];
+        shipping.data.shipping = norseUtils.forceArray(shipping.data.shipping);
         for( var i = 0; i < shipping.data.shipping.length; i++ ){
-            if( shipping.data.shipping[i].country.indexOf(country) != -1 ){
+            if( shipping.data.shipping[i].country.indexOf(country) != -1){
                 result = getShippingsWithPrices( shipping.data.shipping[i], country, weight );
             }
         }
@@ -186,9 +184,9 @@ function generateCheckoutPage(req){
 
     function renderSuccessPage( req, cart, pendingPage ){
         if( !pendingPage ){
-            /*cart = contextLib.runAsAdmin(function () {
+            cart = contextLib.runAsAdmin(function () {
                 return cart = cartLib.generateItemsIds(cart._id);
-            });*/
+            });
             mailsLib.sendMail('orderCreated', cart.email, {
                 cart: cart
             });

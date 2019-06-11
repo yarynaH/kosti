@@ -8,6 +8,8 @@ var contextLib = require('contextLib');
 var common = require('/lib/xp/common');
 var i18nLib = require('/lib/xp/i18n');
 var thymeleaf = require('/lib/thymeleaf');
+var textEncoding = require('/lib/text-encoding');
+var httpClientLib = require('/lib/http-client');
 
 exports.findUser = findUser;
 exports.activateUser = activateUser;
@@ -18,6 +20,11 @@ exports.getUserDataById = getUserDataById;
 exports.checkRole = checkRole;
 exports.getSystemUser = getSystemUser;
 exports.editUser = editUser;
+exports.jwtRegister = jwtRegister;
+exports.forgotPass = forgotPass;
+exports.register = register;
+exports.createUserContentType = createUserContentType;
+exports.login = login;
 
 function getCurrentUser(){
 	var user = authLib.getUser();
@@ -76,9 +83,8 @@ function checkRole( roles ){
 }
 
 function getSystemUser( name, keyOnly ){
-	var user = false;
-	contextLib.runAsAdmin(function () {
-		user = findUser(name);
+	var user = contextLib.runAsAdmin(function () {
+		return findUser(name);
 	});
 	if( !user ){
 		return false;
@@ -106,37 +112,66 @@ function getUserDataById( id ){
 	};
 }
 
-exports.register = function( name, mail, pass ){
+function jwtRegister( token ){
+	var response = JSON.parse(httpClientLib.request({
+        url: "https://oauth2.googleapis.com/tokeninfo?id_token=" + token,
+        method: "GET",
+        headers: {
+            'X-Custom-Header': 'header-value'
+        },
+        connectionTimeout: 2000000,
+        readTimeout: 500000,
+        contentType: 'application/json'
+    }).body);
+    if( response && response.email && response.name ){
+    	return register( response.name, response.email, null, true );
+    }
+    return false;
+}
+
+function register( name, mail, pass, tokenRegister ){
     var site = portal.getSite();
-    var exist = checkUserExists( name, mail );
-    if( exist.exist ){
+    var exist = contextLib.runAsAdmin(function () { 
+    	return checkUserExists( name, mail );
+	});
+    if( exist.exist && tokenRegister ){
+		return login( mail, pass, tokenRegister );
+    } else if( exist.exist ){
     	exist.message = i18nLib.localize({
 		    key: 'global.user.' + exist.type + 'Exists',
 		    locale: "ru"
 		});
     	return exist;
     }
-	var user = authLib.createUser({
-	    idProvider: 'system',
-	    name: common.sanitize(name),
-	    displayName: name,
-	    email: mail
+	var user = contextLib.runAsAdmin(function () {
+		return authLib.createUser({
+		    idProvider: 'system',
+		    name: common.sanitize(name),
+		    displayName: name,
+		    email: mail
+		});
 	});
-	authLib.changePassword({
-	    userKey: user.key,
-	    password: pass
+	var userObj = contextLib.runAsAdmin(function () {
+		return createUserContentType( name, mail, user.key );
 	});
-	var userObj = this.createUserContentType( name, mail, user.key );
-	var activationHash = hashLib.saveHashForUser( mail, "registerHash" );
-	var sent = mailsLib.sendMail( "userActivation", mail, { activationHash: activationHash } );
-	if( userObj ){
-		return this.login( name, pass );
+	if( !tokenRegister ){
+		authLib.changePassword({
+		    userKey: user.key,
+		    password: pass
+		});
+		var activationHash = hashLib.saveHashForUser( mail, "registerHash" );
+		var sent = mailsLib.sendMail( "userActivation", mail, { activationHash: activationHash } );
+	}
+	if( tokenRegister ){
+		return login( mail, pass, tokenRegister );
+	} else if ( userObj ){
+		return login( mail, pass );
 	} else {
 		return false;
 	}
 }
 
-exports.createUserContentType = function( name, mail, userkey ){
+function createUserContentType( name, mail, userkey ){
     var site = portal.getSiteConfig();
     var usersLocation = contentLib.get({ key: site.userLocation });
 	var user = contentLib.create({
@@ -180,10 +215,12 @@ exports.createUserContentType = function( name, mail, userkey ){
 	return result;
 }
 
-exports.login = function( name, pass ){
-	var user = false;
-	contextLib.runAsAdmin(function () {
-		user = findUser(name);
+function login( name, pass, token ){
+	if( !token ){
+		var token = false;
+	}
+	var user =  contextLib.runAsAdmin(function () {
+		return findUser(name);
 	});
 	if( !user ){
 		return {
@@ -197,7 +234,8 @@ exports.login = function( name, pass ){
 	var loginResult = authLib.login({
 	    user: user.login,
 	    password: pass,
-	    userStore: 'system'
+	    userStore: 'system',
+	    skipAuth: token
 	});
 	if( loginResult.authenticated === true ){
 		return {
@@ -276,8 +314,6 @@ function forgotPass( email, hash ){
 	}
 	return false;
 }
-
-exports.forgotPass = forgotPass;
 
 function setNewPass( password, email, hash ){
 	return contextLib.runAsAdmin(function () {

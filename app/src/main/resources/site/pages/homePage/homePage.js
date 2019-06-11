@@ -113,8 +113,6 @@ function handleReq(req) {
                 headers: {
                     'X-Custom-Header': 'header-value'
                 },
-                connectionTimeout: 2000000,
-                readTimeout: 500000,
                 contentType: 'application/json'
             }).body);
             if( response.items && response.items[0] && response.items[0].id && response.items[0].id.videoId ){

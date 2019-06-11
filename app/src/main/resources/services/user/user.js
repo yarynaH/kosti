@@ -7,6 +7,7 @@ var userLib = require(libLocation + 'userLib');
 var mailsLib = require(libLocation + 'mailsLib');
 var contextLib = require(libLocation + 'contextLib');
 var helpers = require(libLocation + 'helpers');
+var norseUtils = require(libLocation + 'norseUtils');
 
 var templates = {
     forgotPassForm: "forgotPassForm.html",
@@ -63,6 +64,9 @@ exports.post = function( req ) {
         result = userLib.resetPass( params.email );
     } else if( params.action == 'addBookmark' ){
         result = userLib.addBookmark( params.id );
+    } else if( params.action == 'googleRegister' ){
+        //norseUtils.log(params);
+        result = userLib.jwtRegister( params.token );
     } else if( params.action == 'resetpass' ){
         if( userLib.setNewPass( params.password, params.email, params.hash ) ){
             return logout();

@@ -383,7 +383,7 @@ function getShippingPrice( cart ){
   var site = portal.getSiteConfig();
   var shipping = contentLib.get({ key: site.shipping });
   for( var i = 0; i < shipping.data.shipping.length; i++ ){
-      if( shipping.data.shipping[i].country == cart.country ){
+      if( shipping.data.shipping[i].country.indexOf(cart.country) != -1 ){
         var shippingMethods = norseUtils.forceArray(shipping.data.shipping[i].methods);
         break;
       }
@@ -401,7 +401,7 @@ function getShippingPrice( cart ){
     return 0;
   }
   for( var i = 0; i < method.length; i++ ){
-    if( parseInt(cart.itemsWeight) < parseInt(method[i].weight) ){
+    if( parseFloat(cart.itemsWeight) < parseFloat(method[i].weight) ){
       return parseInt(method[i].price);
     }
   }

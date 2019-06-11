@@ -129,7 +129,7 @@ function getorderCreatedMail( params ){
 	    var errorCorrectionLevel = 'L';
 		for( var i = 0; i < params.cart.items.length; i ++ ){
 			var item = contentLib.get({ key: params.cart.items[i]._id });
-			if( item && item.data && item.data.digital ){
+			if( item && item.data && item.data.type == 'ticket' ){
 				for( var j = 0; j < params.cart.items[i].itemsIds.length; j++ ){
 	    			var qr = qrLib(typeNumber, errorCorrectionLevel);
 			        qr.addData(params.cart.items[i].itemsIds[j].id);
