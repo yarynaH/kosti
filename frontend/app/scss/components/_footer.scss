@@ -1,0 +1,27 @@
+.footer {
+	&-nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+
+		@include tablet-all {
+			justify-content: center;
+		}
+	}
+
+	&-item {
+		@include tablet-all {
+			padding: 0 10px;
+		}
+	}
+
+	&-link {
+		color: #333333;
+		font-size: 14px;
+
+		&:hover {
+			color: #0095f8;
+		}
+	}
+}
