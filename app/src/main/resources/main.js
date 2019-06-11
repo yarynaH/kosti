@@ -1,8 +1,10 @@
-var norseUtils = require('norseUtils');
 var event = require('/lib/xp/event');
 var content = require('/lib/xp/content');
-var votesLib = require('votesLib');
-var contextLib = require('/lib/contextLib');
+
+var libLocation = 'site/lib/';
+var norseUtils = require( libLocation + 'norseUtils');
+var votesLib = require( libLocation + 'votesLib');
+var contextLib = require( libLocation + 'contextLib');
 
 // catch events
 event.listener({

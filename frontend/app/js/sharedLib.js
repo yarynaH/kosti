@@ -45,3 +45,40 @@ function checkUserLoggedIn(){
 	}
 	return false;
 }
+
+function getFormData(el){
+	var formData = {};
+	$.each($(el).serializeArray(), function() {
+	    formData[this.name] = this.value;
+	});
+	return formData;
+}
+
+function addArticleViews(){
+	var call = makeAjaxCall( contentServiceUrl, 'POST', {
+		id: getCookieValue('cartId'),
+		content: $('.js_article-id').data('articleid'),
+		action: 'addView'
+	}, true );
+}
+
+function doUpvote(el){
+	var data = {
+		content: $(el).data('contentid'),
+		action: 'vote'
+	};
+	var btn = el;
+	var call = makeAjaxCall( contentServiceUrl, 'POST', data, true );
+	call.done(function(data){
+    	var result = '0';
+		if( data.votes ){
+			result = (Array.isArray(data.votes) ? data.votes.length : '1');
+		}
+		if( parseInt($(btn).text().trim()) < result){
+			$(btn).addClass('active');
+		} else {
+			$(btn).removeClass('active');
+		}
+		$(btn).html('<span>' + result + '</span>');
+	});
+}

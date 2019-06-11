@@ -8,7 +8,14 @@ var blogLib = require(libLocation + 'blogLib');
 exports.post = function(req){
     var params = req.params;
     var result = {};
-    result = votesLib.vote( params.content );
+	switch(params.action){
+		case 'addView':
+			result = votesLib.addView( params.content, params.id );
+			break;
+		default:
+    		result = votesLib.vote( params.content );
+			break;
+	}
     return {
 	    body: result,
 	    contentType: 'application/json'

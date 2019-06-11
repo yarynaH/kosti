@@ -85,6 +85,7 @@
         @include tablet-all {
             display: flex;
             align-items: center;
+            max-width: 90%;
         }
 
         @include mobile {
@@ -162,9 +163,25 @@
         }
 
         &:hover,
-        &_active {
+        &.active {
             color: $color-primary9;
         }
+    }
+}
+
+.active_element {
+    @include tablet-all {
+        @include position (absolute, bottom 0);
+
+        width: 8px;
+        height: 8px;
+        content: '';
+        box-shadow: 0 2px 4px 0 rgba($color-primary23, 0.5);
+        background-color: $color-primary24;
+        border-radius: 50%;
+        margin-bottom: -3px;
+        z-index: 2;
+        transition: transition(all, 0.5s, ease-in-out);
     }
 }
 

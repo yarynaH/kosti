@@ -13,6 +13,11 @@
         @include mobile {
             margin-top: 50px;
         }
+
+        .comments-item {
+            background-color: $color-primary1;
+            padding: 30px 30px 15px;
+        }
     }
 }
 
@@ -120,7 +125,7 @@
     }
 
     &-action-link {
-        color: #1b2125;
+        color: $color-primary2;
         font-weight: bold;
     }
     

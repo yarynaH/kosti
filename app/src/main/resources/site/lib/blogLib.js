@@ -5,6 +5,7 @@ var kostiUtils = require('kostiUtils');
 var votesLib = require('votesLib');
 var thymeleaf = require('/lib/thymeleaf');
 var userLib = require('userLib');
+var moment = require('moment');
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -44,9 +45,11 @@ function beautifyArticle( article ){
     article.url = portal.pageUrl({ id: article._id });
     article.author.image = norseUtils.getImage( article.author.data.userImage, 'block(60, 60)' );
     article.author.url = portal.pageUrl({ id: article.author._id });
-    article.date = kostiUtils.getTimePassedSincePostCreation(article.publish.from.replace('Z', ''));
+    //article.date = (moment(article.publish.from)).replace('Z', '');
+    article.date = (article.publish.from).replace('Z', '');
     article.votes = votesLib.countUpvotes(article._id);
     article.voted = false;
+    article.views = votesLib.countViews(article._id);
     article.bookmarked = userLib.checkIfBookmarked(article._id);
     if( parseInt(article.votes) > 0 ){
         article.voted = votesLib.checkIfVoted( article._id );

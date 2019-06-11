@@ -6,7 +6,11 @@ var contextLib = require('contextLib');
 var portal = require('/lib/xp/portal');
 var textEncoding = require('/lib/text-encoding');
 
-exports.getCart = function( cartId ){
+exports.addPromo = addPromo;
+exports.getCart = getCart;
+exports.removePromo = removePromo;
+
+function getCart( cartId ){
   var cart = {};
   if( cartId ){
     cart = getCartById( cartId );
@@ -151,15 +155,14 @@ function modifyInventory( items ){
     var result = contentLib.modify({
       key: items[i]._id,
       requireValid: false,
-      branch: 'draft',
       editor: (function (node) {
         return editor(node, items[i]);
       })
     });
     contentLib.publish({
       keys: [items[i]._id],
-      sourceBranch: 'draft',
-      targetBranch: 'master'
+      sourceBranch: 'master',
+      targetBranch: 'draft'
     });
   }
   function editor( node, item ){
@@ -204,6 +207,7 @@ exports.setUserDetails = function( cartId, params ){
     node.userId = params.userId ? params.userId : node.userId;
     node.novaPoshtaСity = params.novaPoshtaСity ? params.novaPoshtaСity : node.novaPoshtaСity;
     node.novaPoshtaWarehouse = params.novaPoshtaWarehouse ? params.novaPoshtaWarehouse : node.novaPoshtaWarehouse;
+    node.shippingPrice = params.shippingPrice ? params.shippingPrice : node.shippingPrice;
     return node;
   }
   return this.getCart(cartId);
@@ -296,10 +300,17 @@ function calculateCart( cart ){
       result += item.data.price * parseInt(items[i].amount);
     }
   }
-  var shipping = getShippingPrice(cart);
+  if( cart.shippingPrice ){
+    var shipping = parseInt(cart.shippingPrice);
+  } else {
+    var shipping = getShippingPrice(cart);
+  }
+  var discount = checkCartDiscount(cart, result);
   return { 
     items: result.toFixed(),
     shipping: shipping.toFixed(),
+    discount: discount,
+    totalDiscount: ((result + shipping) - discount.discount).toFixed(),
     total: (result + shipping).toFixed(),
   }
 }
@@ -372,7 +383,7 @@ function getShippingPrice( cart ){
   var site = portal.getSiteConfig();
   var shipping = contentLib.get({ key: site.shipping });
   for( var i = 0; i < shipping.data.shipping.length; i++ ){
-      if( shipping.data.shipping[i].country == cart.country ){
+      if( shipping.data.shipping[i].country.indexOf(cart.country) != -1 ){
         var shippingMethods = norseUtils.forceArray(shipping.data.shipping[i].methods);
         break;
       }
@@ -390,7 +401,7 @@ function getShippingPrice( cart ){
     return 0;
   }
   for( var i = 0; i < method.length; i++ ){
-    if( parseInt(cart.itemsWeight) < parseInt(method[i].weight) ){
+    if( parseFloat(cart.itemsWeight) < parseFloat(method[i].weight) ){
       return parseInt(method[i].price);
     }
   }
@@ -424,4 +435,70 @@ function checkItemSizeStock( size, amount, id ) {
     return true;
   }
   return false;
+}
+
+function checkCartDiscount(cart, itemsTotal){
+  if( !cart.promos ){
+    return {
+      discount: 0,
+      codes: []
+    }
+  }
+  var discount = 0;
+  var promosLib = require('promosLib');
+  var promos = promosLib.getPromosArray(cart.promos);
+  var cartCodes = [];
+  for( var i = 0; i < promos.length; i++ ){
+    if( promos[i].type == 'percent' ){
+      discount += itemsTotal * (promos[i].discount / 100);
+    } else {
+      discount += parseInt(promos[i].discount);
+    }
+    cartCodes.push({
+      displayName: promos[i].displayName,
+      type: promos[i].type,
+      discount: promos[i].discount,
+      code: promos[i].promoCode
+    });
+  }
+  return {
+    discount: discount.toFixed(),
+    codes: cartCodes
+  };
+}
+
+function addPromo( code, cartId ){
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.modify({
+    key: cartId,
+    editor: editor
+  });
+  return getCart(result._id);
+  function editor( node ){
+    if( !node.promos ){
+      node.promos = [];
+    }
+    node.promos = norseUtils.forceArray(node.promos);
+    if( node.promos.indexOf(code) == -1 ){
+      node.promos.push(code);
+    }
+    return node;
+  }
+}
+
+function removePromo( code, cartId ){
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.modify({
+    key: cartId,
+    editor: editor
+  });
+  return getCart(result._id);
+  function editor( node ){
+    if( !node.promos ){
+      return node;
+    }
+    node.promos = norseUtils.forceArray(node.promos);
+    node.promos.splice(node.promos.indexOf(code), 1);
+    return node;
+  }
 }

@@ -38,7 +38,6 @@ function handleReq(req) {
 
         var up = req.params;
         var content = portal.getContent();
-        content = blogLib.beautifyArticle(content);
         var response = [];
         var mainRegion = content.page.regions.main;
         var similarArticles = getSimilar( content.data.similarArticles );
@@ -51,6 +50,7 @@ function handleReq(req) {
         if( user.moderator ){
             var removeCommentModal = thymeleaf.render(resolve('../components/comments/removeCommentModal.html'), {});
         }
+        content = blogLib.beautifyArticle(content);
 
         var model = {
             content: content,

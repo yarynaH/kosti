@@ -8,6 +8,8 @@ var contextLib = require('contextLib');
 var common = require('/lib/xp/common');
 var i18nLib = require('/lib/xp/i18n');
 var thymeleaf = require('/lib/thymeleaf');
+var textEncoding = require('/lib/text-encoding');
+var httpClientLib = require('/lib/http-client');
 
 exports.findUser = findUser;
 exports.activateUser = activateUser;
@@ -18,6 +20,11 @@ exports.getUserDataById = getUserDataById;
 exports.checkRole = checkRole;
 exports.getSystemUser = getSystemUser;
 exports.editUser = editUser;
+exports.jwtRegister = jwtRegister;
+exports.forgotPass = forgotPass;
+exports.register = register;
+exports.createUserContentType = createUserContentType;
+exports.login = login;
 
 function getCurrentUser(){
 	var user = authLib.getUser();
@@ -44,27 +51,24 @@ function getCurrentUser(){
 
 function editUser( data ){
 	var user = getCurrentUser();
-	norseUtils.log(user);
-	norseUtils.log(data);
 	if( user._id != data.id ){
 		return false;
 	}
     user = contentLib.modify({
         key: user._id,
-        editor: userEditor,
-        branch: 'draft'
+        editor: userEditor
     });
     var publishResult = contentLib.publish({
         keys: [user._id],
-        sourceBranch: 'draft',
-        targetBranch: 'master'
+        sourceBranch: 'master',
+        targetBranch: 'draft'
     });
-	function userEditor(user){
-		user.data.firstName = data.firstName ? data.firstName : user.data.firstName;
-		user.data.lastName = data.lastName ? data.lastName : user.data.lastName;
-		user.data.city = data.city ? data.city : user.data.city;
-		user.data.phone = data.phone ? data.phone : user.data.phone;
-	    return user;
+	function userEditor(node){
+		node.data.firstName = data.firstName ? data.firstName : node.data.firstName;
+		node.data.lastName = data.lastName ? data.lastName : node.data.lastName;
+		node.data.city = data.city ? data.city : node.data.city;
+		node.data.phone = data.phone ? data.phone : node.data.phone;
+	    return node;
 	}
 	return true;
 }
@@ -79,9 +83,8 @@ function checkRole( roles ){
 }
 
 function getSystemUser( name, keyOnly ){
-	var user = false;
-	contextLib.runAsAdmin(function () {
-		user = findUser(name);
+	var user = contextLib.runAsAdmin(function () {
+		return findUser(name);
 	});
 	if( !user ){
 		return false;
@@ -109,44 +112,72 @@ function getUserDataById( id ){
 	};
 }
 
-exports.register = function( name, mail, pass ){
+function jwtRegister( token ){
+	var response = JSON.parse(httpClientLib.request({
+        url: "https://oauth2.googleapis.com/tokeninfo?id_token=" + token,
+        method: "GET",
+        headers: {
+            'X-Custom-Header': 'header-value'
+        },
+        connectionTimeout: 2000000,
+        readTimeout: 500000,
+        contentType: 'application/json'
+    }).body);
+    if( response && response.email && response.name ){
+    	return register( response.name, response.email, null, true );
+    }
+    return false;
+}
+
+function register( name, mail, pass, tokenRegister ){
     var site = portal.getSite();
-    var exist = checkUserExists( name, mail );
-    if( exist.exist ){
+    var exist = contextLib.runAsAdmin(function () { 
+    	return checkUserExists( name, mail );
+	});
+    if( exist.exist && tokenRegister ){
+		return login( mail, pass, tokenRegister );
+    } else if( exist.exist ){
     	exist.message = i18nLib.localize({
 		    key: 'global.user.' + exist.type + 'Exists',
 		    locale: "ru"
 		});
     	return exist;
     }
-	var user = authLib.createUser({
-	    userStore: 'system',
-	    name: common.sanitize(name),
-	    displayName: name,
-	    email: mail
+	var user = contextLib.runAsAdmin(function () {
+		return authLib.createUser({
+		    idProvider: 'system',
+		    name: common.sanitize(name),
+		    displayName: name,
+		    email: mail
+		});
 	});
-	authLib.changePassword({
-	    userKey: user.key,
-	    password: pass
+	var userObj = contextLib.runAsAdmin(function () {
+		return createUserContentType( name, mail, user.key );
 	});
-	var userObj = this.createUserContentType( name, mail, user.key );
-	var activationHash = hashLib.saveHashForUser( mail, "registerHash" );
-	var sent = mailsLib.sendMail( "userActivation", mail, { activationHash: activationHash } );
-	if( userObj ){
-		return this.login( name, pass );
+	if( !tokenRegister ){
+		authLib.changePassword({
+		    userKey: user.key,
+		    password: pass
+		});
+		var activationHash = hashLib.saveHashForUser( mail, "registerHash" );
+		var sent = mailsLib.sendMail( "userActivation", mail, { activationHash: activationHash } );
+	}
+	if( tokenRegister ){
+		return login( mail, pass, tokenRegister );
+	} else if ( userObj ){
+		return login( mail, pass );
 	} else {
 		return false;
 	}
 }
 
-exports.createUserContentType = function( name, mail, userkey ){
+function createUserContentType( name, mail, userkey ){
     var site = portal.getSiteConfig();
     var usersLocation = contentLib.get({ key: site.userLocation });
 	var user = contentLib.create({
 		parentPath: usersLocation._path,
 		name: common.sanitize(name),
 		displayName: name,
-		branch: 'draft',
     	contentType: app.name + ':user',
     	language: 'ru',
     	data: {
@@ -157,7 +188,6 @@ exports.createUserContentType = function( name, mail, userkey ){
 	    key: user._id,
     	inheritPermissions: false,
     	overwriteChildPermissions: true,
-	    branch: "draft",
 	    permissions: [{
 	        principal: userkey,
 	        allow: [
@@ -179,16 +209,18 @@ exports.createUserContentType = function( name, mail, userkey ){
 
 	var result = contentLib.publish({
 	    keys: [user._id],
-	    sourceBranch: 'draft',
-	    targetBranch: 'master'
+	    sourceBranch: 'master',
+	    targetBranch: 'draft'
 	});
 	return result;
 }
 
-exports.login = function( name, pass ){
-	var user = false;
-	contextLib.runAsAdmin(function () {
-		user = findUser(name);
+function login( name, pass, token ){
+	if( !token ){
+		var token = false;
+	}
+	var user =  contextLib.runAsAdmin(function () {
+		return findUser(name);
 	});
 	if( !user ){
 		return {
@@ -202,12 +234,14 @@ exports.login = function( name, pass ){
 	var loginResult = authLib.login({
 	    user: user.login,
 	    password: pass,
-	    userStore: 'system'
+	    userStore: 'system',
+	    skipAuth: token
 	});
-	if( loginResult.authenticated == true ){
+	if( loginResult.authenticated === true ){
 		return {
 			html: thymeleaf.render(resolve('../pages/components/headerUser.html'), { user: getCurrentUser()}),
-			exist: true
+			exist: true,
+			authenticated: true
 		};
 	} else {
 		return {
@@ -224,13 +258,12 @@ function addBookmark( contentId ) {
 	var user = getCurrentUser();
     user = contentLib.modify({
         key: user._id,
-        editor: userEditor,
-        branch: 'draft'
+        editor: userEditor
     });
     var publishResult = contentLib.publish({
         keys: [user._id],
-        sourceBranch: 'draft',
-        targetBranch: 'master'
+        sourceBranch: 'master',
+        targetBranch: 'draft'
     });
 	function userEditor(user){
 		var temp = norseUtils.forceArray(user.data.bookmarks);
@@ -281,8 +314,6 @@ function forgotPass( email, hash ){
 	}
 	return false;
 }
-
-exports.forgotPass = forgotPass;
 
 function setNewPass( password, email, hash ){
 	return contextLib.runAsAdmin(function () {
@@ -343,24 +374,22 @@ exports.uploadUserImage = function(){
         name: imageMetadata.fileName,
         parentPath: user._path,
         mimeType: imageMetadata.contentType,
-        branch: 'draft',
         data: stream
     });
     user = contentLib.modify({
         key: user._id,
-        editor: userImageEditor,
-        branch: 'draft'
+        editor: userImageEditor
     });
     var publishResult = contentLib.publish({
-        keys: [image._id, user._id],
-        sourceBranch: 'draft',
-        targetBranch: 'master'
+        keys: [user._id],
+        sourceBranch: 'master',
+        targetBranch: 'draft'
     });
 	function userImageEditor(user){
 	    user.data.userImage = image._id;
 	    return user;
 	}
-    return norseUtils.getImage( user.data.userImage, 'block(32,32)' );
+    return norseUtils.getImage( user.data.userImage, 'block(140,140)' );
 }
 
 function checkUserExists( name, mail ){

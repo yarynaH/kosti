@@ -65,7 +65,7 @@ exports.getPageComponents = function( req ) {
     contentServiceUrl: contentServiceUrl,
     cartServiceUrl: cartServiceUrl,
     commentsServiceUrl: commentsServiceUrl,
-    cartId: cartLib.getCart( req.cookies.cartId )._id
+    cartId: cartLib.getCart( req && req.cookies ? req.cookies.cartId : null )._id
   });
 
   function getMenuItems() {
@@ -77,7 +77,7 @@ exports.getPageComponents = function( req ) {
         result.push( {
           url: portal.pageUrl({ id: items[i] }),
           title: tempContent.displayName,
-          active: tempContent._path === content._path ? true : false
+          active: content && tempContent._path === content._path
         } );
       }
     }

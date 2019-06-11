@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-  <config>
+  <form>
   	<input name="menuItems" type="ContentSelector">
 		<label>Menu items</label>
 		<occurrences minimum="0" maximum="0"/>
@@ -117,7 +117,7 @@
 	  </items>
 	  <occurrences minimum="0" maximum="1"/>
 	</item-set>
-  </config>
+  </form>
 
   <mappings>
     <mapping controller="/services/cart/cart.js" order="10">
@@ -128,6 +128,9 @@
     </mapping>
     <mapping controller="/services/form/form.js" order="10">
       <pattern>/form</pattern>
+    </mapping>
+    <mapping controller="/services/promos/promos.js" order="10">
+      <pattern>/promos</pattern>
     </mapping>
   </mappings>
 </site>

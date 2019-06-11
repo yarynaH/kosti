@@ -128,8 +128,9 @@ function generateCheckoutPage(req){
         var site = portal.getSiteConfig();
         var shipping = contentLib.get({ key: site.shipping });
         var result = [];
+        shipping.data.shipping = norseUtils.forceArray(shipping.data.shipping);
         for( var i = 0; i < shipping.data.shipping.length; i++ ){
-            if( shipping.data.shipping[i].country.indexOf(country) != -1 ){
+            if( shipping.data.shipping[i].country.indexOf(country) != -1){
                 result = getShippingsWithPrices( shipping.data.shipping[i], country, weight );
             }
         }
@@ -168,6 +169,7 @@ function generateCheckoutPage(req){
         var site = portal.getSiteConfig();
         return {
             cart: cart,
+            promos: thymeleaf.render(resolve('promos.html'), {promos: cart.price.discount.codes}),
             ik_id: site.ik_id,
             pageComponents: helpers.getPageComponents(req)
         };
@@ -182,9 +184,9 @@ function generateCheckoutPage(req){
 
     function renderSuccessPage( req, cart, pendingPage ){
         if( !pendingPage ){
-            /*cart = contextLib.runAsAdmin(function () {
+            cart = contextLib.runAsAdmin(function () {
                 return cart = cartLib.generateItemsIds(cart._id);
-            });*/
+            });
             mailsLib.sendMail('orderCreated', cart.email, {
                 cart: cart
             });

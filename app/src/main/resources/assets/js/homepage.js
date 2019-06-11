@@ -1,1 +1,0 @@
-function initHomepageSlider(){$(".homepage_slider").slick({dots:!0,arrows:!1,autoplay:!1})}$(document).ready(function(){initHomepageSlider()});

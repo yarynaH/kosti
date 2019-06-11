@@ -1,111 +1,3 @@
-function initLoginRegisterForm(){
-	$('.js_header-user .guest-btn').on('click', function(e){
-		showLogin(e);
-	});
-	$(document).on('click', function(event) {
-		hideLoginRegisterModal();
-	});
-	$(document).keyup(function(e) {
-		if (e.key === "Escape") {
-			hideLoginRegisterModal();
-		}
-	});
-	$('.modal-action-register').on('click', function(e){
-		e.preventDefault();
-		hideLoginRegisterModal();
-		$('.modal-registration').addClass('show');
-	});
-	$('.modal-action-login').on('click', function(e){
-		e.preventDefault();
-		hideLoginRegisterModal();
-		$('.modal-login').addClass('show');
-	});
-	$('.modal-action-forgotpass').on('click', function(e){
-		e.preventDefault();
-		hideLoginRegisterModal();
-		$('.modal-forgot-password').addClass('show');
-	});
-	$('.reset-form .modal-btn-reset').on('click', function(e){
-		e.preventDefault();
-		var data = {
-			email: $('.modal-forgot-password').find("input[name=email]").val(),
-			action: 'forgotpass'
-		};
-		var request = $.ajax({
-			url: userServiceUrl,
-			method: "POST",
-			data: data
-		}).done(function(data) {
-			console.log(data);
-		});
-	});
-	$('.login-form .modal-btn-login').on('click', function(e){
-		e.preventDefault();
-		var data = {
-			username: $('.modal-login').find("input[name=username]").val(),
-			password: $('.modal-login').find("input[name=password]").val(),
-			action: 'login'
-		};
-		var request = $.ajax({
-			url: userServiceUrl,
-			method: "POST",
-			data: data
-		}).done(function(data) {
-			if( !data.exist && !data.html ){
-				$('.modal-login .form-group-error span').text(data.message);
-				$('.modal-login .form-group-error').removeClass('hidden');
-			} else {
-				$('.js_header-user-wrap').html(data.html);
-				hideLoginRegisterModal();
-				$('.modal-login .form-group-error').addClass('hidden');
-			}
-		});
-	});
-	$('.modal-content').on('click', function(e){
-		e.stopPropagation();
-	});
-	$('.register-form .modal-btn-register').on('click', function(e){
-		e.preventDefault();
-		var data = {
-			username: $('.modal-registration').find("input[name=username]").val(),
-			password: $('.modal-registration').find("input[name=password]").val(),
-			email: $('.modal-registration').find("input[name=email]").val(),
-			action: 'register'
-		};
-		if(!validateEmail(data.email)){
-			$('.modal-registration .form-group-error span').text( 'Неправильный емейл' );
-			$('.modal-registration .form-group-error').removeClass('hidden');
-			return false;
-		} else {
-			$('.modal-registration .form-group-error').addClass('hidden');
-		}
-		var request = $.ajax({
-			url: userServiceUrl,
-			method: "POST",
-			data: data
-		}).done(function(data) {
-			if( data.exist ){
-				$('.modal-registration .form-group-error span').text(data.message);
-				$('.modal-registration .form-group-error').removeClass('hidden');
-			} else {
-				hideLoginRegisterModal();
-				$('.modal-registration .form-group-error').addClass('hidden');
-			}
-		});
-	});
-	$('.resetPassForm').on('submit', function( e ){
-		if( $('.resetPassInput').val() != $('.resetPassInputConfirm').val() ){
-			e.preventDefault();
-			$('.forgotPassValidation').removeClass('hidden');
-		}
-	});
-	function hideLoginRegisterModal(){
-		$('body div.modal').each(function(){
-			$(this).removeClass('show')
-		});
-	}
-}
-
 function initPDPFunctions(){
 	$('.qty-decrement').on('click', function(){
 		var selector = '.qty-input[data-id=' + $(this).data().id + ']';
@@ -135,13 +27,13 @@ function initPDPFunctions(){
 			addToCartOnclick( input );
 		}
 	});
-	// $('.pdp-image-item img').on('click', function(e){
-	// 	e.preventDefault();
-	// 	var prevImg = $('.pdp-main_image').find('img').attr('src');
-	// 	$('.pdp-main_image').find('img').attr('src', $(this).attr('src'));
-	// 	$('.pdp-main_image').zoom({url: $(this).attr('src')});
-	// 	$(this).attr('src', prevImg);
-	// });
+	$('.pdp-image-item img').on('click', function(e){
+		e.preventDefault();
+	 	var prevImg = $('.pdp-main_image').find('img').attr('src');
+	 	$('.pdp-main_image').find('img').attr('src', $(this).attr('src'));
+	 	$('.pdp-main_image').zoom({url: $(this).attr('src')});
+	 	$(this).attr('src', prevImg);
+	});
 	$('.add_to_cart-btn').on('click', function(e){
 		e.preventDefault();
 		if($('#pdp-size-select').length && !$('#pdp-size-select').val()){
@@ -155,24 +47,9 @@ function initPDPFunctions(){
 		$('.pdp-validation').addClass('hidden');
 		$('#pdp-size-select').removeClass('is-invalid');
 	});
-	// if (typeof pdpImageUrl !== 'undefined') {
-	// 	$('.pdp-main_image').zoom({url: pdpImageUrl});
-	// }
-}
-
-function initHeaderClasses(){
-	$(document).on('scroll', function(){
-		if ( $(document).scrollTop() > 85 ){
-			$('.header').addClass('change-logo');
-
-			if ($('body').hasClass('homepage') || $('body').hasClass('article-page') || $('body').hasClass('announce-page')){
-				$('.header').addClass('header-scroll');
-			} 
-		}
-		else {
-			$('.header').removeClass('header-scroll change-logo');
-		}
-	});
+	if (typeof pdpImageUrl !== 'undefined') {
+	 	$('.pdp-main_image').zoom({url: pdpImageUrl});
+	}
 }
 
 function addToCartOnclick( input ){
@@ -201,6 +78,34 @@ function initCheckoutEvents(){
 		if( $(this).val() != '' ){
 			$(this).parent().removeClass('is-invalid');
 		}
+	});
+	$('.js_promo_code-title').on('click', function(){
+		$(this).parent().toggleClass('show');
+	});
+	$('.js_promo-form').on('click', '.js_promo-remove', function(e){
+		e.preventDefault();
+		var code = $(this).data('code');
+		var call = makeAjaxCall( '/promos', 'POST', {
+			action: 'removePromo',
+			cartId: getCookieValue('cartId'),
+			code: code
+		}, true );
+		call.done(function(data){
+			$('.js_promo_code-used_list').html(data.promos);
+			$('.js_summary-discount .value span').text(data.cart.price.discount.discount);
+			$('.js_summary-total .value span').text(data.cart.price.totalDiscount);
+		});
+	});
+	$('.js_promo-form').on('submit', function(e){
+		e.preventDefault();
+		var formData = getFormData(this);
+		formData.cartId = getCookieValue('cartId');
+		var call = makeAjaxCall( '/promos', 'POST', formData, true );
+		call.done(function( data ){
+			$('.js_promo_code-used_list').html(data.promos);
+			$('.js_summary-discount .value span').text(data.cart.price.discount.discount);
+			$('.js_summary-total .value span').text(data.cart.price.totalDiscount);
+		});
 	});
 	
 	$('.delivery_np-input-city').on('input', function(){
@@ -260,7 +165,7 @@ function initCheckoutEvents(){
 			}
 		});
 	});
-	$('#delivery_np-warehouses').on('change', function(){
+	$('#suggestion-list').on('click', 'li', function(){
 		var dataCity = {
 			"apiKey": "8913262e83513c669457b8c48224f3ab",
 			"modelName": "InternetDocument",
@@ -284,12 +189,14 @@ function initCheckoutEvents(){
 			data: JSON.stringify(dataCity),
 			success: function(response){
 				$('.delivery_m-subtitle').text('UAH ' + response.data[0].Cost);
+				$('input[name=shippingPrice]').val(response.data[0].Cost);
 			}
 		});
 	});
 };
 
 function initSharedEvents(){
+	setCookie(cartId);
 	$('.js_like-article').on('click', function(e){
 		e.preventDefault();
 		if( checkUserLoggedIn() ){
@@ -314,7 +221,6 @@ function initSharedEvents(){
 	if( $('form[name=payment]').length > 0 ){
 		$('form[name=payment]').submit();
 	}
-	setCookie(cartId);
 	if( $('#payment-success').length > 0 ){
 		deleteCookie('cartId');
 	}
@@ -419,140 +325,17 @@ function initCartFunctions(){
 	});
 }
 
-function initFormEvents(){
-	$('input[type=checkbox]').on('click', function(e){
-		var curr = this;
-		if( !checkSpace(this) ){
-			e.preventDefault();
-			$(this).attr("disabled", true);
-			return ;
-		}
-		$(this).parent().parent().find('input[type=checkbox]:checked').each(function(){
-			if(this != curr ){
-				$(this).prop('checked', false);
-			}
-		});
-	});
-	$('main.form input[type=submit]').on('click', function(e){
-		var availableSeats = legendary ? 2 : 1;
-		if( $('main.form [type=checkbox]:checked').length > availableSeats ){
-			e.preventDefault();
-			$('form .invalid-qauntity').removeClass('hidden');
-		} else {
-			$('form .invalid-qauntity').addClass('hidden');
-		}
-		$('input[type=checkbox]:checked').each(function(){
-			if( !checkSpace(this) ){
-				$('form .invalid-space').removeClass('hidden');
-				e.preventDefault();
-			} else {
-				$('form .invalid-space').addClass('hidden');
-			}
-		});
-		$('main.form input[type=text]').each(function(){
-			if($(this).val() == '' ){
-				e.preventDefault();
-				$(this).addClass('is-invalid');
-				$('form .invalid-input').removeClass('hidden');
-			} else {
-				$(this).removeClass('is-invalid');
-				$('form .invalid-input').addClass('hidden');
-			}
-		});
-	});
-	$('input[type=checkbox]').each(function(){
-		if( !checkSpace(this)){
-			$(this).attr("disabled", true);
-		}
-	});
-}
-
-function initUserPageEvents(){
-	$('.js_profile-settings').on('click', function(e){
-		e.preventDefault();
-		e.stopPropagation();
-		$('.modal-edit_user').addClass('show');
-	});
-	$('.js_edit_user-form').on('submit', function( e ){
-		e.preventDefault();
-		var formData = {};
-		$.each($(this).serializeArray(), function() {
-		    formData[this.name] = this.value;
-		});
-		editUserData(formData);
-	});
-}
-
-function editUserData(formData){
-	var call = makeAjaxCall( userServiceUrl, 'POST', formData, true );
-	call.done( function(data){
-		$('.modal-edit_user').removeClass('show');
-	});
-}
-
-function checkSpace( el ){
-	var data = {
-		action: 'checkspace',
-		name: $(el).val(),
-		game: $(el).attr('name')
-	};
-	var result;
-	$.ajax({
-		url: '/_/service/com.myurchenko.kostirpg/form',
-		type: 'POST',
-		async: false,
-		data: data,
-		success: function(serverData){
-			if( serverData.space >= space[data.game][data.name] ){
-				result = false;
-			} else {
-				result = true;
-			}
-		}
-	});
-	return result;
-}
-
 $( document ).ready(function() {
+	initSharedEvents();
 	initLoginRegisterForm();
 	initCheckoutEvents();
 	initCartFunctions();
-	initSharedEvents();
-	initHeaderClasses();
+	initHeaderFunctions();
 	initPDPFunctions();
-	initUserPageEvents();
-	if( $('main.form').length > 0 ){
-		initFormEvents();
+	if($('body.article-page').length > 0){
+		addArticleViews();
 	}
 });
-
-function doUpvote(el){
-	var data = {
-		content: $(el).data('contentid')
-	};
-	var btn = el;
-    $.ajax({
-        type:'POST',
-        url: contentServiceUrl,
-        data: data,
-        success:function(data){
-        	var result = '0';
-        	if( data.votes ){
-        		result = (Array.isArray(data.votes) ? data.votes.length : '1');
-        	}
-    		if( parseInt($(btn).text().trim()) < result){
-    			$(btn).addClass('active');
-    		} else {
-    			$(btn).removeClass('active');
-    		}
-        	$(btn).html('<span>' + result + '</span>');
-        },
-        error: function(data){
-            console.log("error");
-            console.log(data);
-        }
-    });
-}
 
 function addToCart( data ){
 	var data = data;

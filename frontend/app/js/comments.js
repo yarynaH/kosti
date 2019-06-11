@@ -39,7 +39,14 @@ function initComments(){
 			if( !checkUserLoggedIn() ){
 				showLogin(e);
 			} else {
-				showRemoveFunction(this, e);
+				showRemoveFunction(this, e, 'remove');
+			}
+		});
+		$('.js_article-comments').on('click', '.js_report-comment', function( e ){
+			if( !checkUserLoggedIn() ){
+				showLogin(e);
+			} else {
+				showRemoveFunction(this, e, 'report');
 			}
 		});
 	}
@@ -88,15 +95,16 @@ function addComment( el, formData ){
 	});
 }
 
-function showRemoveFunction( el, e ){
+function showRemoveFunction( el, e, action ){
 	e.stopPropagation();
 	$('.modal-remove_comment').addClass('show');
 	$('input.js_comment-remove-id').val($(el).data('id'));
+	$('input.js_comment-remove-action').val(action);
 }
 
 function removeComment(formData){
 	var data = {
-		action: 'remove',
+		action: formData.action,
 		id: formData.id,
 		reason: formData.reason
 	};

@@ -2,12 +2,13 @@
 <div class="back_to_top js_back_to_top hidden"></div>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/uk_UA/sdk.js#xfbml=1&version=v3.2"></script>
+<script src="https://apis.google.com/js/api:client.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124808103-1"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/jquery-2.2.0.min.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/slick.min.js'})}"></script>
-<!-- <script data-th-src="${portal.assetUrl({'_path=js/jquery.zoom.min.js'})}"></script> -->
+<script data-th-src="${portal.assetUrl({'_path=js/jquery.zoom.min.js'})}"></script>
 <script type="text/javascript" data-th-inline="javascript" data-th-if="${userServiceUrl}">
   var userServiceUrl = [[${userServiceUrl}]];
 </script>
@@ -25,6 +26,8 @@
 </script>
 <script data-th-src="${portal.assetUrl({'_path=js/main.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/sharedLib.js'})}"></script>
+<script data-th-src="${portal.assetUrl({'_path=js/header.js'})}"></script>
+<script data-th-src="${portal.assetUrl({'_path=js/loginRegisterForm.js'})}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
