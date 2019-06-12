@@ -31,7 +31,9 @@ function initPDPFunctions(){
 		e.preventDefault();
 	 	var prevImg = $('.pdp-main_image').find('img').attr('src');
 	 	$('.pdp-main_image').find('img').attr('src', $(this).attr('src'));
-	 	$('.pdp-main_image').zoom({url: $(this).attr('src')});
+	 	if(window.outerWidth >= 768){
+		 	$('.pdp-main_image').zoom({url: $(this).attr('src')});
+		 }
 	 	$(this).attr('src', prevImg);
 	});
 	$('.add_to_cart-btn').on('click', function(e){
@@ -48,7 +50,9 @@ function initPDPFunctions(){
 		$('#pdp-size-select').removeClass('is-invalid');
 	});
 	if (typeof pdpImageUrl !== 'undefined') {
-	 	$('.pdp-main_image').zoom({url: pdpImageUrl});
+	 	if(window.outerWidth >= 768){
+			$('.pdp-main_image').zoom({url: pdpImageUrl});
+		}
 	}
 }
 

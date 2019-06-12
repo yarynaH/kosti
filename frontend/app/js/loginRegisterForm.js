@@ -120,11 +120,18 @@ function initLoginRegisterForm(){
 		        var profile = googleUser.getBasicProfile();
 		        var call = makeAjaxCall( userServiceUrl, 'POST', {
 		        	action: 'googleRegister',
-		        	name: profile.getName(),
-		        	email: profile.getEmail(),
-		        	image: profile.getImageUrl(),
 		        	token: googleUser.getAuthResponse().id_token
 		        }, true );
+		        call.done( function( data ){
+					if( data.authenticated && data.exist ){
+						$('.js_header-user-wrap').html(data.html);
+						hideLoginRegisterModal();
+						$('.modal-login .form-group-error').addClass('hidden');
+					} else {
+						$('.modal-login .form-group-error span').text(data.message);
+						$('.modal-login .form-group-error').removeClass('hidden');
+					}
+		        });
 		    }, function(error) {
 		});
 	}
