@@ -24,7 +24,7 @@
         <div class="post-counters">
             <span class="share-counter icon-share">245</span>
             <span class="views-counter icon-views" data-th-text="${article.views}"></span>
-            <span class="comments-counter icon-comment">12</span>
+            <span class="comments-counter icon-comment" data-th-text="${article.commentsCounter}"></span>
         </div>
         <div class="post-actions">
             <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${article._id}" data-th-classappend="${article.bookmarked} ? 'active' : ''"></span>
