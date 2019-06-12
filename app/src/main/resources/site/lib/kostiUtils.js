@@ -5,8 +5,12 @@ var norseUtils = require('norseUtils');
 //Takes post creation date in '2014-10-10' string format as an argument
 //and return string with how much time past since creation date
 exports.getTimePassedSincePostCreation = function(postCreationDate){
-	if(!postCreationDate || (!typeof postCreationDate === 'string' && !postCreationDate instanceof String))
+	if( !postCreationDate || postCreationDate == '' ){
 		return null;
+	}
+	if (typeof postCreationDate === 'string' || postCreationDate instanceof String){
+		postCreationDate = new Date(postCreationDate);
+	}
 
 	var minutesPassed = getMinutesDifference(postCreationDate);
 	if(minutesPassed === 0)
@@ -108,10 +112,7 @@ function getWordNumber(num){
 // Takes date in '2014-10-10' string format as an argument
 // and returns difference in days between now and passed date.
 function getDaysDifference(dateString) {
-	if(!dateString || (!typeof dateString === 'string' && !dateString instanceof String))
-		return null;
-
-	var creationDate = new Date(dateString).getTime(),
+	var creationDate = dateString.getTime(),
 			now = new Date().getTime();
 
 	return Math.round((now-creationDate)/24/60/60/1000);
@@ -120,10 +121,7 @@ function getDaysDifference(dateString) {
 // Takes date in '2014-10-10' string format as an argument
 // and returns difference in hours between now and passed date.
 function getHoursDifference(dateString) {
-	if(!dateString || (!typeof dateString === 'string' && !dateString instanceof String))
-		return null;
-
-	var creationDate = new Date(dateString).getTime(),
+	var creationDate = dateString.getTime(),
 			now = new Date().getTime();
 
 	return Math.round((now-creationDate)/60/60/1000);
@@ -132,10 +130,7 @@ function getHoursDifference(dateString) {
 // Takes date in '2014-10-10' string format as an argument
 // and returns difference in minutes between now and passed date.
 function getMinutesDifference(dateString) {
-	if(!dateString || (!typeof dateString === 'string' && !dateString instanceof String))
-		return null;
-
-	var creationDate = new Date(dateString).getTime(),
+	var creationDate = dateString.getTime(),
 			now = new Date().getTime();
 
 	return Math.round((now-creationDate)/60/1000);
