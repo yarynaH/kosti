@@ -11,6 +11,7 @@ exports.getCommentsByParent = getCommentsByParent;
 exports.voteForComment = voteForComment;
 exports.removeComment = removeComment;
 exports.getCommentsByUser = getCommentsByUser;
+exports.countComments = countComments;
 
 function addComment( parent, body ){
 	var commentsRepo = connectCommentsRepo();
@@ -33,9 +34,15 @@ function addComment( parent, body ){
                 "WRITE_PERMISSIONS"
             ],
             "deny": []
+        },{
+            "principal": "role:system.everyone",
+            "allow": [
+                "READ"
+            ],
+            "deny": []
         }]
 	});
-	return beautifyComment(comment);
+	return beautifyComment(comment, false);
 }
 
 function getCommentsByUser( id ){
@@ -49,7 +56,7 @@ function getCommentsByUser( id ){
 	var result = [];
 	for( var i = 0; i < temp.length; i++ ){
 		var comment = commentsRepo.get(temp[i].id);
-		comment = beautifyComment(comment);
+		comment = beautifyComment(comment, false);
 		result.push(comment);
 	}
 	return result;
@@ -122,7 +129,7 @@ function downvote( user, node ){
 	}
 }
 
-function getCommentsByParent( id ){
+function getCommentsByParent( id, counter){
 	var commentsRepo = connectCommentsRepo();
 	var temp = commentsRepo.query({
 		start: 0,
@@ -133,7 +140,7 @@ function getCommentsByParent( id ){
 	var result = [];
 	for( var i = 0; i < temp.length; i++ ){
 		var comment = commentsRepo.get(temp[i].id);
-		comment = beautifyComment(comment);
+		comment = beautifyComment(comment, counter);
 		result.push(comment);
 	}
 	return result;
@@ -144,11 +151,14 @@ function getComment( id ){
 	return commentsRepo.get(id);
 }
 
-function beautifyComment(comment){
-    comment.date = kostiUtils.getTimePassedSincePostCreation(comment._ts.replace('Z', ''));
-    comment.author = userLib.getUserDataById(comment.user);
-    comment.voted = comment.votes && comment.votes.indexOf(comment.author.key) != -1;
-    comment.children = getCommentsByParent(comment._id);
+function beautifyComment(comment, counter){
+	if(!counter)
+    {
+    	comment.date = kostiUtils.getTimePassedSincePostCreation(comment._ts.replace('Z', ''));
+    	comment.author = userLib.getUserDataById(comment.user);
+    	comment.voted = comment.votes && comment.votes.indexOf(comment.author.key) != -1;
+	}
+    comment.children = getCommentsByParent(comment._id, counter);
     return comment;
 }
 
@@ -157,4 +167,12 @@ function connectCommentsRepo(){
       repoId: "comments",
       branch: "master"
   });
+}
+
+function countComments(id){
+	var comments = getCommentsByParent(id, true);
+	var commentsCounter = comments.length;
+	for(var i = 0; i < comments.length; i++)
+		commentsCounter += countComments(comments[i]._id);	
+	return commentsCounter;
 }
