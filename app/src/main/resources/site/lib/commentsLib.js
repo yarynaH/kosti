@@ -34,6 +34,12 @@ function addComment( parent, body ){
                 "WRITE_PERMISSIONS"
             ],
             "deny": []
+        },{
+            "principal": "role:system.everyone",
+            "allow": [
+                "READ"
+            ],
+            "deny": []
         }]
 	});
 	return beautifyComment(comment, false);
