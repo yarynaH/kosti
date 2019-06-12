@@ -22,6 +22,8 @@ exports.post = function(req){
 		case 'remove':
 		    result = commentsLib.removeComment( params.id, params.reason );
 		    break;
+		case 'report':
+		    result = commentsLib.reportComment( params.id, params.reason );
     }
     return {
 	    body: result,

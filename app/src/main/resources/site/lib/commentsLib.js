@@ -12,6 +12,7 @@ exports.voteForComment = voteForComment;
 exports.removeComment = removeComment;
 exports.getCommentsByUser = getCommentsByUser;
 exports.countComments = countComments;
+exports.reportComment = reportComment;
 
 function addComment( parent, body ){
 	var commentsRepo = connectCommentsRepo();
@@ -76,6 +77,29 @@ function removeComment( id, reason ){
 	    node.deleted = 1;
 	    node.reason = reason;
 	    return node;
+	}
+}
+
+function reportComment(id, reason){
+	var user = userLib.getCurrentUser();
+	 if(!user)
+	 	return false;
+	var commentsRepo = connectCommentsRepo();
+	return commentsRepo.modify({
+	    key: id,
+	    editor: editor
+	});
+	function editor(node) {
+		if(!node.report)
+			node.report = [];
+		var temp = norseUtils.forceArray(node.report);
+		for (var i = 0; i < temp.length; i++) {
+			if(temp[i].userId === user.key)
+				return node;
+		}
+		temp.push({userId: user.key, reason: reason});
+		node.report = temp;
+		return node;
 	}
 }
 
@@ -176,3 +200,4 @@ function countComments(id){
 		commentsCounter += countComments(comments[i]._id);	
 	return commentsCounter;
 }
+
