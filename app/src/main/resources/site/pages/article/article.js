@@ -56,7 +56,7 @@ function handleReq(req) {
             mainRegion: mainRegion,
             removeCommentModal: removeCommentModal,
             weeksPost: blogLib.getWeeksPost(),
-            pageComponents: helpers.getPageComponents(req),
+            pageComponents: helpers.getPageComponents(req, "footerBlog"),
             similarArticles: similarArticles,
             comments: comments,
             bookmarked: userLib.checkIfBookmarked(content._id)

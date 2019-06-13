@@ -167,7 +167,7 @@ function generateCheckoutPage(req){
         return {
             cart: cart,
             ik_id: site.ik_id,
-            pageComponents: helpers.getPageComponents(req)
+            pageComponents: helpers.getPageComponents(req, "footerCheckout")
         };
     }
 

@@ -65,7 +65,7 @@ function handleReq(req) {
             schedule: schedule,
             socialLinks: blogLib.getSolialLinks(),
             active: active,
-            pageComponents: helpers.getPageComponents(req),
+            pageComponents: helpers.getPageComponents(req, "footerBlog"),
             showDescription: showDescription,
             slider: getSliderArticles(site.slider),
             articles: blogLib.getArticlesView(articles)
