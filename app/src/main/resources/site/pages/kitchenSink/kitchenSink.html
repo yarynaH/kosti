@@ -1,84 +1,57 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
-    <link rel="stylesheet" type="text/css"  data-th-href="${portal.assetUrl({'_path=/css/main.css'})}">
-    <title>Orders</title>
-</head>
-<body>
-    <main class="main">
-        <div class="site_width">
-            <div class="table-wrap">
-                <div class="table-header_row">
-                    <div class="table-header_cell">
-                        <span class="label">№ п/п</span>
-                    </div>
-                
-                    <div class="table-header_cell">
-                        <span class="label">Номер заказа</span>
-                    </div>
-                
-                    <div class="table-header_cell">
-                        <span class="label">Дата заказа</span>
-                    </div>
-                
-                    <div class="table-header_cell">
-                        <span class="label">Статус</span>
-                    </div>
+<head data-th-utext="${pageComponents.pagehead}"></head>
 
-                    <div class="table-header_cell table-action_cell">
-                        <span class="label">Действия</span>
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <div data-th-remove="tag" data-th-if="${currUser}" data-th-utext="${editUserModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <div class="blog blog_width clearfix search_page-wrap">
+            <h2 class="search_page-title">целофановые коньки</h2>
+            <p class="search_page-subtitle">Найдено 16 материалов</p>
+            <div class="blog-list-wrap">
+                <div class="blog-list" data-th-utext="${articles}" data-page="1">
                     </div>
                 </div>
-                
-                <div class="table-body_row">
-                    <div class="table-body_cell table-side_aligns">
-                        <span class="label">
-                                Номер п/п
+                <div class="lds-ring js_lazyload-icon hidden"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="blog-sidebar">
+                <div class="library_top" style="background-image: url(https://picsum.photos/300/470?random);">
+                    <div class="library_top-label">Хит библиотеки</div>
+                    <div class="library_top-author">
+                        <span class="post-user_avatar">
+                            <img src="https://picsum.photos/24/24/?random" alt="">
                         </span>
-                        <span class="value">
-                            1
-                        </span>
+                        <span class="post-user_name">Rodue Latro</span>
                     </div>
-
-                    <div class="table-body_cell table-side_aligns">
-                        <span class="label">
-                            Номер заказа
-                        </span>
-                        <span class="value">
-                            123456789
-                        </span>
+                    <h2 class="library_top-title">Коллос Сильваноса</h2>
+                    <div class="library_top-text">Орки пробираются сквозь лес, оскверняя священную рощу. Вдруг глыба камней вместе с мхом и некоторыми растениями обретает форму гигантского существа. Лесные колосы - величественные и могущественные стражи лесов.</div>
+                    <div class="tag-list tag-list__white">
+                        <a href="#" class="tag-item">DnD</a>
+                        <a href="#" class="tag-item">5e</a>
+                        <a href="#" class="tag-item">Homebrew</a>
                     </div>
-
-                    <div class="table-body_cell table-side_aligns salesreps-list-email_cell">
-                        <span class="label">Дата заказа</span>
-                        <span class="value">
-                            19.05.2018
-                        </span>
-                    </div>
-
-                    <div class="table-body_cell table-side_aligns">
-                        <span class="label">
-                            Статус
-                        </span>
-                        <span class="value">
-                            В Обработке
-                        </span>
-                    </div>
-
-                    <div class="table-body_cell table-side_aligns">
-                        <button class="button">Редактировать</button>
-                        <button class="button">Удалить</button>
-                        <button class="button">Детали</button>
-                    </div>
+                </div>
+                <div class="hot_tags">
+                    <h3 class="hot_tags-title">Горячие теги</h3>
+                        <div class="tag-list tag-list__hot">
+                            <a href="#"  class="tag-item">V5</a>
+                            <a href="#"  class="tag-item">Эноа</a>
+                            <a href="#"  class="tag-item active">ФиналХайпЭноа</a>
+                            <a href="#"  class="tag-item">Кровавые Ублюдки</a>
+                            <a href="#"  class="tag-item">Кибер Ожидание</a>
+                        </div>
+                </div>
+                <div data-th-utext="${weeksPost}" data-th-remove="tag">
+                </div>
+                <div data-th-remove="tag" data-th-utext="${socialLinks}">
                 </div>
             </div>
         </div>
     </main>
-    
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
 
 </html>
