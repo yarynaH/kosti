@@ -233,7 +233,11 @@
 }
 
 .main {
-    padding-top: 85px;
+    padding-top: 75px;
+
+    @include tablet-all {
+        padding-top: 85px;
+    }
 
     .homepage &,
     .article-page & {
