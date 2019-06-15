@@ -17,7 +17,8 @@ exports.handleError = function (err) {
             pageComponents: helpers.getPageComponents( err ),
             social: siteConfig.social,
             lang: site.language,
-            status: err.status
+            status: err.status,
+            message: err.message
         });
     return {
         contentType: 'text/html',

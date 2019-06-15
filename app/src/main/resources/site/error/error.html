@@ -4,32 +4,24 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body class="page-wrapper">
-    <main class="comingSoonMain">
-        <div class="comingSoonBackground">
-            <div class="spellWrapper">
-                <div class="comingSoonLogo">
-                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main" id="payment-success">
+        <div class="confirmation-wrap">
+            <div class="site_width">
+                <h2 class="checkout-title">
+                    <span data-th-remove="tag" data-th-text="${portal.localize({'_key=global.error.' + status, '_locale='+lang})}"></span>.
+                    <span data-th-remove="tag" data-th-text="${portal.localize({'_key=global.error.' + status + 'Long', '_locale='+lang})}"></span>
+                </h2>
+                <div class="confirmation-msg">
+                    Но вы можете перейти на нашу <a href="/">главную страницу</a> и попробовать еще раз.
                 </div>
-                <div class="comingSoonText">
-                    <div class="comingSoonTitle" data-th-text="${portal.localize({'_key=global.error.' + status, '_locale='+lang})}"></div>
-                    <div class="comingSoonDescription spellDescription" data-th-text="${portal.localize({'_key=global.error.' + status + 'Long', '_locale='+lang})}">
-                        Такой страницы не сущевствует.
-                    </div>
+                <div class="confirmation-msg">
+                    Если вы желаете помочь, отправьте этот текст нам, и мы поправим эту ошибку.
                 </div>
-            </div>
-        </div>
-        <div class="comingSoonFooterTexture"></div>
-        <div class="comingSoonSocial">
-            <div class="comingSoonSocialBiggerWrapper">
-                <div class="comingSoonTwitch"><a data-th-href="${social.twitch}" target="_blank" title="Twitch"></a></div>
-                <div class="comingSoonYoutube"><a data-th-href="${social.youtube}" target="_blank" title="YouTube"></a></div>
-                <div class="comingSoonDiscord"><a data-th-href="${social.discord}" target="_blank" title="Discord"></a></div>
-            </div>
-            <div class="comingSoonSocialSmallerWrapper">
-                <div class="comingSoonVk comingSoonSocialSmaller"><a data-th-href="${social.vk}" target="_blank" title="VK"></a></div>
-                <div class="comingSoonFb comingSoonSocialSmaller"><a data-th-href="${social.fb}" target="_blank" title="Facebook"></a></div>
-                <div class="comingSoonTw comingSoonSocialSmaller"><a data-th-href="${social.twitter}" target="_blank" title="Twitter"></a></div>
-                <div class="comingSoonIn comingSoonSocialSmaller"><a data-th-href="${social.instagram}" target="_blank" title="Instagram"></a></div>
+                <div class="confirmation-msg">
+                    <code data-th-text="${message}"></code>
+                </div>
             </div>
         </div>
     </main>
