@@ -170,6 +170,10 @@
 }
 
 .active_element {
+    @include mobile {
+        display: none;
+    }
+
     @include tablet-all {
         @include position (absolute, bottom 0);
 
@@ -229,8 +233,11 @@
 }
 
 .main {
-    padding-top: 85px;
-    padding-bottom: 85px;
+    padding-top: 75px;
+
+    @include tablet-all {
+        padding-top: 85px;
+    }
 
     .homepage &,
     .article-page & {

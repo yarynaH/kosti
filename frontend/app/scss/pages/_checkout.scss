@@ -41,7 +41,7 @@
         @include tablet-all {
             flex: 1 0 71%;
             max-width: 900px;
-            padding: 55px 9% 140px 20px;
+            padding: 55px 9% 0 20px;
         }
 
         @include tablet {
@@ -94,7 +94,7 @@
 
     &-summary {
         background: $color-primary26;
-        padding: 35px 10px 45px;
+        padding: 35px 10px 0;
 
         @include tablet-all {
             flex: 1 0 29%;

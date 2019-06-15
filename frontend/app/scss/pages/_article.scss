@@ -160,7 +160,11 @@
 .comments {
     background-color: $color-primary1;
     margin-top: 10px;
-    padding: 30px;
+    padding: 30px 15px;
+
+    @include tablet-all {
+        padding: 30px;
+    }
 
     &-title {
         color: $color-primary17;
@@ -188,9 +192,13 @@
 
         &-button {
             @include button-style(global auto link);
-            @include position(absolute, bottom 48px right 25px);
+            margin-top: 15px;
 
-            margin-top: -24px;
+            @include tablet-all {
+                @include position(absolute, bottom 48px right 15px);
+    
+                margin-top: -24px;
+            }
         }
     }
 
@@ -206,9 +214,12 @@
 
         & .comments-list {
             border-left: 1px solid $color-primary10 ;
-            padding-left: 25px;
             margin-top: 10px;
-            padding: 15px 0 0 25px;
+            padding: 15px 0 0 10px;
+
+            @include tablet-all {
+                padding-left: 25px;
+            }
         }
     }
 
@@ -231,16 +242,25 @@
     &-header {
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
 
     &-actions {
         display: flex;
         margin-bottom: 10px;
+
+        @include mobile {
+            flex-direction: column;
+            align-items: center;
+        }
     }
 
     &-remove_btn {
         padding: 0;
-        margin-left: 20px;
+
+        @include tablet-all {
+            margin-left: 20px;
+        }
     }
 
     &-body {
@@ -259,8 +279,8 @@
         line-height: 1.5;
         color: $color-primary28;
 
-        & + & {
-            margin-left: 15px;
+        &:first-child {
+            margin-right: 15px;
         }
 
         &:hover {

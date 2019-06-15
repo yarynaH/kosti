@@ -1,0 +1,18 @@
+.search_page {
+    &-wrap {
+        padding-top: 45px;
+    }
+
+    &-title {
+        font-weight: bold;
+        color: #1d1f24;
+        font-size: 48px;
+        padding-bottom: 15px;
+    }
+
+    &-subtitle {
+        font-weight: bold;
+        color: #909090;
+        padding-bottom: 40px;
+    }
+}

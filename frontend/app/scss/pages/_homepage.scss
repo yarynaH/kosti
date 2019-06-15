@@ -123,7 +123,6 @@
 
 .main_blog {
     background: $color-primary13;
-    padding-bottom: 50px;
     position: relative;
 
     &:before {
@@ -173,6 +172,10 @@
             margin: 30px;
             font-size: rem(16);
             text-align: center;
+            
+            @include tablet-all {
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -385,16 +388,13 @@
     }
 }
 
-.hot_tags,
-.social {
+.hot_tags{
     padding: 25px 10px;
 
     @include tablet-all {
         padding: 25px 0;
     }
-}
 
-.hot_tags{
     &-title {
         @include icon(fire);
 
@@ -406,5 +406,13 @@
             margin-right: 8px;
             font-size: (25);
         }
+    }
+}
+
+.social {
+    padding: 25px 10px 0;
+
+    @include tablet-all {
+        padding: 25px 0 0;
     }
 }

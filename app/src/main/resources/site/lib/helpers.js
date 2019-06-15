@@ -9,7 +9,7 @@ var nodeLib = require('/lib/xp/node');
 
 exports.fixPermissions = fixPermissions;
 
-exports.getPageComponents = function( req ) {
+exports.getPageComponents = function( req, footerType ) {
   var pageComponents = {};
   if( req ){
     var up = req.params;
@@ -60,7 +60,9 @@ exports.getPageComponents = function( req ) {
     site: site,
     headerUser: thymeleaf.render( resolve('../pages/components/headerUser.html'), {user: userLib.getCurrentUser()})
   });
-  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footer.html'), {
+
+  if(!footerType) footerType = 'footer';
+  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footers/' + footerType + '.html'), {
     userServiceUrl: userServiceUrl,
     contentServiceUrl: contentServiceUrl,
     cartServiceUrl: cartServiceUrl,

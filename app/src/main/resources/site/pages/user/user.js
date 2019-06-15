@@ -85,7 +85,7 @@ function handleReq(req) {
             active: active,
             editUserModal: editUserModal,
             articlesView: articles,
-            pageComponents: helpers.getPageComponents(req)
+            pageComponents: helpers.getPageComponents(req, "footerBlog")
         };
 
         return model;
