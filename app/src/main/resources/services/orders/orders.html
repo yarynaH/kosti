@@ -33,7 +33,7 @@
                         </div>
                         <div class="order-row">
                             <h3 class="order-label">Order Date:</h3>
-                            <div class="order-value" data-th-text="${cart._timestamp}">
+                            <div class="order-value" data-th-text="${cart._ts}">
                             </div>
                         </div>
                         <div class="order-row">
@@ -42,6 +42,13 @@
                                 <p data-th-text="${cart.country}"></p>
                                 <p data-th-text="${cart.city}"></p>
                                 <p data-th-text="${cart.address}"></p>
+                            </div>
+                        </div>
+                        <div class="order-row" data-th-if="${cart.country == 'ua'}">
+                            <h3 class="order-label">Shipping:</h3>
+                            <div class="order-value">
+                                <p data-th-text="${cart.novaPoshtaСity}"></p>
+                                <p data-th-text="${cart.novaPoshtaWarehouse}"></p>
                             </div>
                         </div>
                         <div class="order-row">
