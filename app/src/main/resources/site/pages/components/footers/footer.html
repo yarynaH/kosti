@@ -1,7 +1,7 @@
 
 <div class="back_to_top js_back_to_top hidden"></div>
 <div id="fb-root"></div>
-<div class="blog_width">
+<div class="blog_width hidden">
   <ul class="footer-nav">
     <li class="footer-item">
       <a class="footer-link">Безопасность</a>
@@ -22,6 +22,7 @@
 <script data-th-src="${portal.assetUrl({'_path=js/jquery-2.2.0.min.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/slick.min.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/jquery.zoom.min.js'})}"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script type="text/javascript" data-th-inline="javascript" data-th-if="${userServiceUrl}">
   var userServiceUrl = [[${userServiceUrl}]];
 </script>

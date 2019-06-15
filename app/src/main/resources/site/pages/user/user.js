@@ -55,7 +55,7 @@ function handleReq(req) {
         var active = {};
         if( up.action == 'bookmarks' ){
             active.bookmarks = 'active';
-            totalArticles.curr = content.data.bookmarks.length;
+            totalArticles.curr = content.data.bookmarks ? content.data.bookmarks.length : 0;
             var currTitle = 'articles';
             var articles = blogLib.getArticlesView(blogLib.getArticlesByIds( content.data.bookmarks ));
         } else if( up.action == 'comments' ){

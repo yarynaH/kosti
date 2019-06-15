@@ -15,6 +15,7 @@ var mailsTemplates = {
 	userActivation: "../pages/mails/userActivation.html",
 	forgotPass: "../pages/mails/forgotPass.html",
 	newsletter: "../pages/mails/newsletter.html",
+	orderShipped: "../pages/mails/orderShipped.html",
 	pendingItem: "../pages/mails/pendingItem.html",
 	regularTicket: "../pages/pdfs/regularTicket.html",
 	legendaryTicket: "../pages/pdfs/legendaryTicket.html"
@@ -25,6 +26,9 @@ function sendMail( type, email, params ){
 	switch (type){
 		case 'orderCreated':
 			mail = getorderCreatedMail( params );
+			break;
+		case 'sendShippedMail':
+			mail = getorderShippedMail( params );
 			break;
 		case 'userActivation':
 			mail = getActivationMail( email, params );
@@ -157,6 +161,20 @@ function getorderCreatedMail( params ){
 			pdfs.push(tempData);
 		}
 		return pdfs;
+	}
+}
+
+function getorderShippedMail( params ){
+	var d = new Date();
+	var dateString = d.getDate() + ' ' + norseUtils.getMonthName(d) + ', ' + d.getFullYear() + ', ' + d.getHours() + ':' + d.getMinutes();
+	return{
+		body: thymeleaf.render( resolve(mailsTemplates.orderShipped), {
+    		site: portal.getSite(),
+    		dateString: dateString,
+			cart: params.cart
+		}),
+		subject: "Ваш заказ отправлен",
+		from: "noreply@kostirpg.com"
 	}
 }
 

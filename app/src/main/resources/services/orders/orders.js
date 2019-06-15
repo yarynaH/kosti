@@ -95,6 +95,15 @@ exports.post = function( req ) {
             break;
         case 'details':
             break;
+        case 'sendShippedMail':
+            if( params.trackNum ){
+                cartLib.setUserDetails( params.id, { trackNum: params.trackNum } );
+            }
+            var cart = cartLib.getCart(params.id);
+            mailsLib.sendMail('sendShippedMail', cart.email, {
+                cart: cart
+            });
+            break;
         case 'findbyqr':
             return {
                 body: thymeleaf.render(resolve('markQr.html'), {

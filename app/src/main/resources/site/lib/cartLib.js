@@ -208,6 +208,7 @@ exports.setUserDetails = function( cartId, params ){
     node.novaPoshtaСity = params.novaPoshtaСity ? params.novaPoshtaСity : node.novaPoshtaСity;
     node.novaPoshtaWarehouse = params.novaPoshtaWarehouse ? params.novaPoshtaWarehouse : node.novaPoshtaWarehouse;
     node.shippingPrice = params.shippingPrice ? params.shippingPrice : node.shippingPrice;
+    node.trackNum = params.trackNum ? params.trackNum : node.trackNum;
     return node;
   }
   return this.getCart(cartId);

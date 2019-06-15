@@ -117,6 +117,17 @@
                             </div>
                         </div>
                         <div class="order-row">
+                            <h3 class="order-label">Send shipped mail:</h3>
+                            <div class="order-value">
+                                <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
+                                    <input type="hidden" data-th-attr="value=${cart._id}" name="id">
+                                    <input data-th-value="${cart.trackNum} ? ${cart.trackNum} : ${''}" name="trackNum" type="text" class="input-text">
+                                    <input name="action" type="hidden" value="sendShippedMail">
+                                    <button name="submit" type="submit">Send shipped mail</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="order-row">
                             <h3 class="order-label">Items:</h3>
                             <div class="order-value">
                                 <div class="cart-list">
