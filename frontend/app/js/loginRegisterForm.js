@@ -100,46 +100,43 @@ function initLoginRegisterForm(){
 			$('.forgotPassValidation').removeClass('hidden');
 		}
 	});
-	initGoogleLogin();
-
-
-	function initGoogleLogin() {
-		gapi.load('auth2', function(){
-		auth2 = gapi.auth2.init({
-			client_id: '677318802177-6qjftg5h6fdtcvjs9d500blu50jmu8cj.apps.googleusercontent.com',
-			cookiepolicy: 'single_host_origin',
-		});
-		attachSignin(document.getElementById('google-login'));
-		});
-	};
-
-	function attachSignin(element) {
-  		var googleUser = {};
-		auth2.attachClickHandler(element, {},
-		    function(googleUser) {
-		        var profile = googleUser.getBasicProfile();
-		        var call = makeAjaxCall( userServiceUrl, 'POST', {
-		        	action: 'googleRegister',
-		        	token: googleUser.getAuthResponse().id_token
-		        }, true );
-		        call.done( function( data ){
-					if( data.authenticated && data.exist ){
-						$('.js_header-user-wrap').html(data.html);
-						hideLoginRegisterModal();
-						$('.modal-login .form-group-error').addClass('hidden');
-					} else {
-						$('.modal-login .form-group-error span').text(data.message);
-						$('.modal-login .form-group-error').removeClass('hidden');
-					}
-		        });
-		    }, function(error) {
-		});
-	}
-
-
+	
 	function hideLoginRegisterModal(){
 		$('body div.modal').each(function(){
 			$(this).removeClass('show')
 		});
 	}
+}
+
+function initGoogleLogin() {
+	gapi.load('auth2', function(){
+	auth2 = gapi.auth2.init({
+		client_id: '677318802177-6qjftg5h6fdtcvjs9d500blu50jmu8cj.apps.googleusercontent.com',
+		cookiepolicy: 'single_host_origin',
+	});
+	attachSignin(document.getElementById('google-login'));
+	});
+};
+
+function attachSignin(element) {
+		var googleUser = {};
+	auth2.attachClickHandler(element, {},
+	    function(googleUser) {
+	        var profile = googleUser.getBasicProfile();
+	        var call = makeAjaxCall( userServiceUrl, 'POST', {
+	        	action: 'googleRegister',
+	        	token: googleUser.getAuthResponse().id_token
+	        }, true );
+	        call.done( function( data ){
+				if( data.authenticated && data.exist ){
+					$('.js_header-user-wrap').html(data.html);
+					hideLoginRegisterModal();
+					$('.modal-login .form-group-error').addClass('hidden');
+				} else {
+					$('.modal-login .form-group-error span').text(data.message);
+					$('.modal-login .form-group-error').removeClass('hidden');
+				}
+	        });
+	    }, function(error) {
+	});
 }

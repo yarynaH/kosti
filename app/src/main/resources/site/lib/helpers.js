@@ -62,7 +62,8 @@ exports.getPageComponents = function( req, footerType ) {
   });
 
   if(!footerType) footerType = 'footer';
-  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footers/' + footerType + '.html'), {
+  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footers/' + footerType + '.html'), {}) + 
+    thymeleaf.render( resolve('../pages/components/footers/footerScripts.html'), {
     userServiceUrl: userServiceUrl,
     contentServiceUrl: contentServiceUrl,
     cartServiceUrl: cartServiceUrl,
