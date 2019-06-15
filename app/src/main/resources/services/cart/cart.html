@@ -60,7 +60,7 @@
                 </div>
                 <div class="checkout-action">
                     <a data-th-href="${shopUrl}" class="checkout-back" title="В магазин">В магазин</a>
-                    <a class="checkout-continue" data-th-classappend="${cart.stock ? '' : 'not-active'}" href="/checkout" title="Продолжить">
+                    <a class="checkout-continue" data-th-classappend="${cart.stock and cart.itemsNum > 0 ? '' : 'not-active'}" href="/checkout" title="Продолжить">
                         ПРОДОЛЖИТЬ
                     </a>
                 </div>

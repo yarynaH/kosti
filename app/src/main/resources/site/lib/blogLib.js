@@ -18,6 +18,7 @@ exports.getHotArticles = getHotArticles;
 exports.getArticlesByUser = getArticlesByUser;
 exports.getWeeksPost = getWeeksPost;
 exports.getSolialLinks = getSolialLinks;
+exports.getSidebar = getSidebar;
 
 function beautifyArticleArray( articles ){
 	articles = norseUtils.forceArray(articles);
@@ -37,6 +38,18 @@ function getWeeksPost(){
     var article = contentLib.get({ key: site.weeksPost });
     article = beautifyArticle(article);
     return thymeleaf.render(resolve('../pages/components/blog/weeksPost.html'), {article: article});
+}
+
+function getLibraryHot(){
+    return thymeleaf.render(resolve('../pages/components/blog/libraryHot.html'), {});
+}
+
+function getSidebar(){
+    return thymeleaf.render(resolve('../pages/components/blog/blogSidebar.html'), {
+        weeksPost: getWeeksPost(),
+        socialLinks: getSolialLinks(),
+        libraryHot: getLibraryHot()
+    });
 }
 
 function beautifyArticle( article ){

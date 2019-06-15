@@ -54,10 +54,9 @@ function handleReq(req) {
 
         var model = {
             content: content,
-            socialLinks: blogLib.getSolialLinks(),
+            sidebar: blogLib.getSidebar(),
             mainRegion: mainRegion,
             removeCommentModal: removeCommentModal,
-            weeksPost: blogLib.getWeeksPost(),
             pageComponents: helpers.getPageComponents(req, "footerBlog"),
             similarArticles: similarArticles,
             comments: comments,

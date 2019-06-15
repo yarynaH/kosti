@@ -132,8 +132,11 @@
     <mapping controller="/services/promos/promos.js" order="10">
       <pattern>/promos</pattern>
     </mapping>
-    <mapping controller="/services/promos/orders.js" order="10">
+    <mapping controller="/services/orders/orders.js" order="10">
       <pattern>/orders</pattern>
+    </mapping>
+    <mapping controller="/services/search/search.js" order="10">
+      <pattern>/search</pattern>
     </mapping>
   </mappings>
 </site>

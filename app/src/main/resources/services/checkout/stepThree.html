@@ -24,7 +24,7 @@
     </div>
     <div class="checkout-action">
         <a href="/cart" class="checkout-back" title="К покупкам">К покупкам</a>
-        <button class="checkout-continue" title="Продолжить" data-th-disabled="${!cart.stock}">ПРОДОЛЖИТЬ</button>
+        <button class="checkout-continue" title="Продолжить" data-th-disabled="${!cart.stock or cart.itemsNum < 1}">ПРОДОЛЖИТЬ</button>
     </div>
     <input name="step" type="hidden" value="submit">
 </form>

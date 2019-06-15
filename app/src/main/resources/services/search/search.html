@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <div data-th-remove="tag" data-th-if="${currUser}" data-th-utext="${editUserModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <div class="blog blog_width clearfix search_page-wrap">
+            <h2 class="search_page-title">целофановые коньки</h2>
+            <p class="search_page-subtitle">Найдено 16 материалов</p>
+            <div class="blog-list-wrap">
+                <!--
+                    <div class="blog-list" data-th-utext="${articles}" data-page="1">
+                    </div>
+                -->
+                <div class="lds-ring js_lazyload-icon hidden"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <div class="blog-sidebar" data-th-utext="${sidebar}">
+            </div>
+        </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>
