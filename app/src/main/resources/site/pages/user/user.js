@@ -11,6 +11,7 @@ var blogLib = require(libLocation + 'blogLib');
 var userLib = require(libLocation + 'userLib');
 var helpers = require(libLocation + 'helpers');
 var commentsLib = require(libLocation + 'commentsLib');
+var notificationLib = require(libLocation + 'notificationLib');
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -62,6 +63,13 @@ function handleReq(req) {
             active.comments = 'active';
             totalArticles.curr = userComments.length;
             var currTitle = 'comments';
+            var articles = thymeleaf.render(resolve('commentsView.html'), {comments: userComments});
+        } else if( up.action == 'notifications' ){
+            active.notifications = 'actionive';
+            //totalArticles.curr = userComments.length;
+            var notifications = notificationLib.getNotificationsForUser( content._id );
+            norseUtils.log(notifications);
+            var currTitle = 'notifications';
             var articles = thymeleaf.render(resolve('commentsView.html'), {comments: userComments});
         } else {
             active.articles = 'active';

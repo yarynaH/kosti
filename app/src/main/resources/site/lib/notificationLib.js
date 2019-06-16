@@ -9,6 +9,7 @@ var sharedLib = require('sharedLib');
 
 exports.addNotification = addNotification;
 exports.markNotificationAsSeen = markNotificationAsSeen;
+exports.getNotificationsForUser = getNotificationsForUser;
 
 function markNotificationAsSeen( id ){
 	var notificationsRepo = sharedLib.connectRepo('notifications');
@@ -45,7 +46,7 @@ function getNotificationsForUser( id, count ){
 }
 
 function getNotificationBody( notification ){
-	
+	return notification;
 }
 
 //types: bookmark, like, comment

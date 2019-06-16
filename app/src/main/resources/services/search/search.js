@@ -9,6 +9,9 @@ var blogLib = require(libLocation + 'blogLib');
 
 exports.get = function( req ) {
     var params = req.params;
+    if( !params.q ){
+        params.q = '';
+    }
     var view = resolve('search.html');
     var site = portal.getSiteConfig();
     return {

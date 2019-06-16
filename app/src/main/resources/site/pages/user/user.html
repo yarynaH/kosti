@@ -54,7 +54,11 @@
                                 </a>
                             </li>
                             <li class="profile-action-item">
-                                <a href="" class="profile-action-link hidden">Уведомления <span class="value">1</span></a>
+                                <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=notifications'})}" class="profile-action-link"
+                                    data-th-classappend="${active.notifications}" data-type="notifications">
+                                    Уведомления 
+                                    <span class="value">1</span>
+                                </a>
                             </li>
                         </ul>
                         <a data-th-if="${currUser}" data-th-href="${portal.serviceUrl({'_service=user','action=logout'})}" class="profile-logout" title="Logout"></a>
