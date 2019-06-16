@@ -19,6 +19,7 @@ exports.getArticlesByUser = getArticlesByUser;
 exports.getWeeksPost = getWeeksPost;
 exports.getSolialLinks = getSolialLinks;
 exports.getSidebar = getSidebar;
+exports.getSearchArticles = getSearchArticles;
 
 function beautifyArticleArray( articles ){
 	articles = norseUtils.forceArray(articles);
@@ -116,6 +117,32 @@ function getNewArticles( page ){
     }).hits;
     result = beautifyArticleArray(result);
     return result;
+}
+
+function getSearchArticles( q, page ){
+    var pageSize = 10;
+    if( !page ){
+        page = 0;
+    }
+    q = q.replaceAll("'", '\"');
+    var query = "fulltext('displayName^5,data.*,page.*', '" + q + "', 'AND') OR " + 
+        "ngram('displayName^5,data.*,page.*', '" + q + "', 'AND')";
+    var articles = [];
+    var result = contentLib.query({
+        query: query,
+        start: page * pageSize,
+        count: pageSize,
+        contentTypes: [
+            app.name + ':article'
+        ]
+    });
+    if( result && result.hits && result.hits.length > 0 ){
+        articles = beautifyArticleArray(result.hits);
+    }
+    return {
+        articles: getArticlesView(articles),
+        total: result.total
+    };
 }
 
 function getHotArticles( page ){

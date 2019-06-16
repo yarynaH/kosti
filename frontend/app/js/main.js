@@ -287,15 +287,17 @@ function loadMoreArticles(){
 	if( !page ){
 		page = 0;
 	}
-	var type = $('.blog-list').data('feedType');
+	var feedType = $('.blog-list').data('feedtype');
+	var query = $('.blog-list').data('query');
 	$('.js_lazyload-icon').removeClass('hidden');
 	$.ajax({
 		url: contentServiceUrl,
 		type: 'GET',
 		async: false,
 		data: {
-			feedType: $('.js_blog-navigation .active').data('type'),
+			feedType: feedType ? feedType : $('.js_blog-navigation .active').data('type'),
 			page: page,
+			query: query ? query : null,
 			userId: $('.js_user-page-id').data('userid'),
 		},
 		success: function(data){

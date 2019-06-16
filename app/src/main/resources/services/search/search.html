@@ -9,13 +9,11 @@
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
         <div class="blog blog_width clearfix search_page-wrap">
-            <h2 class="search_page-title">целофановые коньки</h2>
-            <p class="search_page-subtitle">Найдено 16 материалов</p>
+            <h2 class="search_page-title" data-th-text="${query}"></h2>
+            <p class="search_page-subtitle">Найдено <span data-th-remove="tag" data-th-text="${searchRes.total}"></span> материалов</p>
             <div class="blog-list-wrap">
-                <!--
-                    <div class="blog-list" data-th-utext="${articles}" data-page="1">
-                    </div>
-                -->
+                <div class="blog-list" data-page="1" data-th-utext="${searchRes.articles}" data-feedtype="search" data-th-attr="data-query=${query}">
+                </div>
                 <div class="lds-ring js_lazyload-icon hidden"><div></div><div></div><div></div><div></div></div>
             </div>
             <div class="blog-sidebar" data-th-utext="${sidebar}">

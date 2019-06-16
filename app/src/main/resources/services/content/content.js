@@ -4,6 +4,7 @@ var contextLib = require(libLocation + 'contextLib');
 var votesLib = require(libLocation + 'votesLib');
 var userLib = require(libLocation + 'userLib');
 var blogLib = require(libLocation + 'blogLib');
+var notificationLib = require(libLocation + 'notificationLib');
 
 exports.post = function(req){
     var params = req.params;
@@ -13,6 +14,7 @@ exports.post = function(req){
 			result = votesLib.addView( params.content, params.id );
 			break;
 		default:
+			notificationLib.addNotification( params.content, 'like' );
     		result = votesLib.vote( params.content );
 			break;
 	}
@@ -43,8 +45,14 @@ exports.get = function(req){
 		case 'comments':
 			var articles = "";
 			break;
+		case 'hot':
+			var articles = blogLib.getArticlesView(blogLib.getHotArticles( page ));
+			break;
+		case 'search':
+			var articles = blogLib.getSearchArticles( params.query, page ).articles;
+			break;
 		default:
-            var articles = blogLib.getArticlesView(blogLib.getHotArticles( page ));
+            var articles = "";
 			break;
 	}
     return {
