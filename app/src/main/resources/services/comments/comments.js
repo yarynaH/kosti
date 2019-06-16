@@ -4,6 +4,7 @@ var libLocation = '../../site/lib/';
 var contextLib = require(libLocation + 'contextLib');
 var commentsLib = require(libLocation + 'commentsLib');
 var norseUtils = require(libLocation + 'norseUtils');
+var notificationLib = require(libLocation + 'notificationLib');
 
 exports.post = function(req){
     var params = req.params;
@@ -17,6 +18,7 @@ exports.post = function(req){
 		    }
 		    break;
 		case 'vote':
+			notificationLib.addNotification( params.id, 'like' );
 		    result = commentsLib.voteForComment( params.id, params.user );
 		    break;
 		case 'remove':

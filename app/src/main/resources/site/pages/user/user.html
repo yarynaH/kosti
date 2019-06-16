@@ -57,7 +57,7 @@
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=notifications'})}" class="profile-action-link"
                                     data-th-classappend="${active.notifications}" data-type="notifications">
                                     Уведомления 
-                                    <span class="value">1</span>
+                                    <span class="value" data-th-text="${totalArticles.notifications ? totalArticles.notifications : '0'}"></span>
                                 </a>
                             </li>
                         </ul>

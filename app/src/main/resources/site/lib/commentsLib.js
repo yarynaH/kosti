@@ -13,6 +13,9 @@ exports.removeComment = removeComment;
 exports.getCommentsByUser = getCommentsByUser;
 exports.countComments = countComments;
 exports.reportComment = reportComment;
+exports.getComment = getComment;
+exports.beautifyComment = beautifyComment;
+exports.getCommentParentArticle = getCommentParentArticle;
 
 function addComment( parent, body ){
 	var commentsRepo = connectCommentsRepo();
@@ -150,6 +153,16 @@ function downvote( user, node ){
 		node.votes.splice(node.votes.indexOf(user), 1);
 	    node.rate = node.votes.length;
 	    return node;
+	}
+}
+
+function getCommentParentArticle( id ){
+	var comment = getComment(id);
+	var article = contentLib.get({ key: comment.parent });
+	if( article ){
+		return article;
+	} else {
+		return getCommentParentArticle(comment.parent);
 	}
 }
 

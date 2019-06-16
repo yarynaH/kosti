@@ -50,7 +50,8 @@ function handleReq(req) {
         var response = [];
         var userComments = commentsLib.getCommentsByUser(content._id);
         var totalArticles = {
-            articles: blogLib.getArticlesByUser(content._id, 0, true)
+            articles: blogLib.getArticlesByUser(content._id, 0, true),
+            notifications: notificationLib.getNotificationsForUser( content._id, null, true )
         };
 
         var active = {};
@@ -65,12 +66,11 @@ function handleReq(req) {
             var currTitle = 'comments';
             var articles = thymeleaf.render(resolve('commentsView.html'), {comments: userComments});
         } else if( up.action == 'notifications' ){
-            active.notifications = 'actionive';
-            //totalArticles.curr = userComments.length;
-            var notifications = notificationLib.getNotificationsForUser( content._id );
-            norseUtils.log(notifications);
+            active.notifications = 'active';
             var currTitle = 'notifications';
-            var articles = thymeleaf.render(resolve('commentsView.html'), {comments: userComments});
+            var notifications = notificationLib.getNotificationsForUser( content._id );
+            var articles = notifications.message;
+            totalArticles.curr = notifications.total;
         } else {
             active.articles = 'active';
             totalArticles.curr = totalArticles.articles;

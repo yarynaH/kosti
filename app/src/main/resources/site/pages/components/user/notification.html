@@ -1,0 +1,7 @@
+<div class="comments-item">
+    <div><img data-th-src="${user.image.url}"></div>
+    <a data-th-href="${user.url}" data-th-text="${user.displayName}"></a>
+    <span data-th-remove="tag" data-th-text="${portal.localize({'_key=user.notifications.' + subType + '.' + type, '_locale=ru'})}"></span> 
+    <a data-th-href="${article.url}" data-th-text="${article.displayName}"></a>
+    <div data-th-text="${date}"></div>
+</div>

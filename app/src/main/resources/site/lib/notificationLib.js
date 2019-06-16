@@ -1,4 +1,5 @@
 var norseUtils = require('norseUtils');
+var thymeleaf = require('/lib/thymeleaf');
 var contentLib = require('/lib/xp/content');
 var portalLib = require('/lib/xp/portal');
 var nodeLib = require('/lib/xp/node');
@@ -6,6 +7,8 @@ var contextLib = require('contextLib');
 var userLib = require('userLib');
 var kostiUtils = require('kostiUtils');
 var sharedLib = require('sharedLib');
+var blogLib = require('blogLib');
+var commentsLib = require('commentsLib');
 
 exports.addNotification = addNotification;
 exports.markNotificationAsSeen = markNotificationAsSeen;
@@ -24,7 +27,7 @@ function markNotificationAsSeen( id ){
 	return true;
 }
 
-function getNotificationsForUser( id, count ){
+function getNotificationsForUser( id, count, counterOnly ){
 	if( !count ){
 		var count = -1;
 	}
@@ -35,18 +38,37 @@ function getNotificationsForUser( id, count ){
 		query: "forUser = '" + id + "'",
 		sort: "seen DESC, _ts ASC"
 	});
-	var result = [];
+	if( counterOnly ){
+		return temp.total;
+	}
+	var result = "";
 	if( temp && temp.total > 0 ){
 		for( var i = 0; i < temp.hits.length; i++ ){
 			var notification = notificationsRepo.get(temp.hits[i].id);
-			result.push( getNotificationBody(notification));
+			result += getNotificationBody(notification);
 		}
 	}
-	return result;
+	return {
+		message: result,
+		total: temp.total
+	};
 }
 
 function getNotificationBody( notification ){
-	return notification;
+	var article = contentLib.get({ key: notification.subjectId });
+	var subType = 'article';
+	if( !article ){
+		subType = 'comment';
+		article = commentsLib.getCommentParentArticle(notification.subjectId);
+	}
+	article = blogLib.beautifyArticle(article);
+	return thymeleaf.render(resolve('../pages/components/user/notification.html'), {
+		type: notification.type,
+		user: userLib.getUserDataById(notification.fromUser),
+		article: article,
+		subType: subType,
+		date: kostiUtils.getTimePassedSincePostCreation(notification._ts.replace('Z', ''))
+	});
 }
 
 //types: bookmark, like, comment
