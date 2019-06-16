@@ -8,9 +8,13 @@ var cartLib = require(libLocation + 'cartLib');
 
 exports.get = function(req){
 	var params = req.params;
+    if( params.action === 'deletePromo' ){
+        promosLib.deletePromo(params.promoId);
+    }
     var view = resolve('addPromo.html');
     var model = {
-        pageComponents: helpers.getPageComponents(req)
+        pageComponents: helpers.getPageComponents(req),
+        promos: promosLib.getAllPromos()
     };
     return {
         body: thymeleaf.render(view, model),

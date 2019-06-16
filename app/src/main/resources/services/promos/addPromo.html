@@ -25,6 +25,23 @@
             <button type="submit">Submit</button>
             
         </form>
+        <div data-th-each="promo: ${promos}">
+            <hr/>
+            Discount
+            <div data-th-text="${promo.discount}"></div>
+            <hr/>
+            Discount type
+            <div data-th-text="${promo.type}"></div>
+            <hr/>
+            Code
+            <div data-th-text="${promo.promoCode}"></div>
+            <hr/>
+            Title
+            <div data-th-text="${promo.displayName}"></div>
+            <hr/>
+            <a data-th-href="${'/promos?action=deletePromo&promoId=' + promo._id}">delete</a>
+            <hr/>
+        </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
