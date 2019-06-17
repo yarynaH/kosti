@@ -44,6 +44,7 @@ function handleReq(req) {
         content.image = norseUtils.getImage( content.data.userImage, 'block(140,140)', 1 );
         var currUser = userLib.getCurrentUser();
         var userSystemObj = userLib.getSystemUser(content.data.email);
+        var currUserFlag = currUser.key == userSystemObj.key;
         content.votes = votesLib.countUserUpvotes(userSystemObj.key);
         var date = new Date(moment(content.publish.from.replace('Z', '')));
         content.date = date.getDate() + ' ' + norseUtils.getMonthName(date) + ' ' + date.getFullYear();
@@ -51,11 +52,12 @@ function handleReq(req) {
         var userComments = commentsLib.getCommentsByUser(content._id);
         var totalArticles = {
             articles: blogLib.getArticlesByUser(content._id, 0, true),
-            notifications: notificationLib.getNotificationsForUser( content._id, null, true )
+            notifications: notificationLib.getNotificationsForUser( content._id, null, null, true ),
+            comments: userComments.length
         };
 
         var active = {};
-        if( up.action == 'bookmarks' ){
+        if( up.action == 'bookmarks' && currUserFlag ){
             active.bookmarks = 'active';
             totalArticles.curr = content.data.bookmarks ? content.data.bookmarks.length : 0;
             var currTitle = 'articles';
@@ -65,10 +67,10 @@ function handleReq(req) {
             totalArticles.curr = userComments.length;
             var currTitle = 'comments';
             var articles = thymeleaf.render(resolve('commentsView.html'), {comments: userComments});
-        } else if( up.action == 'notifications' ){
+        } else if( up.action == 'notifications' && currUserFlag ){
             active.notifications = 'active';
             var currTitle = 'notifications';
-            var notifications = notificationLib.getNotificationsForUser( content._id );
+            var notifications = notificationLib.getNotificationsForUser( content._id, 0, 10 );
             var articles = notifications.message;
             totalArticles.curr = notifications.total;
         } else {
@@ -77,14 +79,13 @@ function handleReq(req) {
             var currTitle = 'articles';
             var articles = blogLib.getArticlesView(blogLib.getArticlesByUser(content._id));
         }
-        var currUser = currUser.key == userSystemObj.key;
-        if( currUser ){
+        if( currUserFlag ){
             var editUserModal = thymeleaf.render(resolve('userEditModal.html'), {user: content});
         }
 
         var model = {
             content: content,
-            currUser: currUser,
+            currUserFlag: currUserFlag,
             currTitle: currTitle,
             app: app,
             userComments: userComments,

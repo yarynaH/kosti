@@ -27,6 +27,7 @@ exports.createUserContentType = createUserContentType;
 exports.login = login;
 
 function getCurrentUser(){
+	var notificationLib = require('notificationLib');
 	var user = authLib.getUser();
 	var userObj = false;
 	if( user && user.email && user.displayName ){
@@ -42,6 +43,7 @@ function getCurrentUser(){
 			userObj.image = norseUtils.getImage( userObj.data.userImage, 'block(32,32)', 1 );
 			userObj.key = user.key;
 			userObj.moderator = checkRole(['role:moderator', 'role:system.admin']);
+			userObj.notificationsCounter = notificationLib.getNotificationsForUser( userObj._id, null, null, true, true );
 		} else {
 			userObj = false;
 		}

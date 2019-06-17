@@ -86,7 +86,7 @@ function getArticlesByIds( ids, page ){
     if( ids ){
         var result = [];
         ids = norseUtils.forceArray(ids);
-        for( var i = page * pageSize; i < pageSize; i++ ){
+        for( var i = page * pageSize; i < pageSize * (page + 1); i++ ){
             if( ids[i] ){
                 var temp = contentLib.get({ key: ids[i] });
                 if(temp){

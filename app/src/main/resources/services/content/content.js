@@ -5,6 +5,8 @@ var votesLib = require(libLocation + 'votesLib');
 var userLib = require(libLocation + 'userLib');
 var blogLib = require(libLocation + 'blogLib');
 var notificationLib = require(libLocation + 'notificationLib');
+var commentsLib = require(libLocation + 'commentsLib');
+var thymeleaf = require('/lib/thymeleaf');
 
 exports.post = function(req){
     var params = req.params;
@@ -43,13 +45,16 @@ exports.get = function(req){
 			var articles = blogLib.getArticlesView(blogLib.getArticlesByUser(params.userId, page));
 			break;
 		case 'comments':
-			var articles = "";
+			var articles = thymeleaf.render(resolve('../../site/pages/user/commentsView.html'), {comments: commentsLib.getCommentsByUser(params.userId, params.page)});
 			break;
 		case 'hot':
 			var articles = blogLib.getArticlesView(blogLib.getHotArticles( page ));
 			break;
 		case 'search':
 			var articles = blogLib.getSearchArticles( params.query, page ).articles;
+			break;
+		case 'notifications':
+			var articles = notificationLib.getNotificationsForUser( params.userId, page, null, null, null, true );
 			break;
 		default:
             var articles = "";

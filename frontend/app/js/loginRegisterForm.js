@@ -56,8 +56,9 @@ function initLoginRegisterForm(){
 				$('.modal-login .form-group-error').removeClass('hidden');
 			} else {
 				$('.js_header-user-wrap').html(data.html);
-				hideLoginRegisterModal();
 				$('.modal-login .form-group-error').addClass('hidden');
+				location.reload();
+				hideLoginRegisterModal();
 			}
 		});
 	});
@@ -85,9 +86,10 @@ function initLoginRegisterForm(){
 			data: data
 		}).done(function(data) {
 			if( data.authenticated ){
-				hideLoginRegisterModal();
 				$('.modal-registration .form-group-error').addClass('hidden');
 				$('.js_header-user-wrap').html(data.html);
+				location.reload();
+				hideLoginRegisterModal();
 			} else if( data.exist ){
 				$('.modal-registration .form-group-error span').text(data.message);
 				$('.modal-registration .form-group-error').removeClass('hidden');
@@ -130,8 +132,9 @@ function attachSignin(element) {
 	        call.done( function( data ){
 				if( data.authenticated && data.exist ){
 					$('.js_header-user-wrap').html(data.html);
-					hideLoginRegisterModal();
 					$('.modal-login .form-group-error').addClass('hidden');
+					location.reload();
+					hideLoginRegisterModal();
 				} else {
 					$('.modal-login .form-group-error span').text(data.message);
 					$('.modal-login .form-group-error').removeClass('hidden');

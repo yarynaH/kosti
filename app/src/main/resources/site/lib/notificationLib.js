@@ -4,7 +4,6 @@ var contentLib = require('/lib/xp/content');
 var portalLib = require('/lib/xp/portal');
 var nodeLib = require('/lib/xp/node');
 var contextLib = require('contextLib');
-var userLib = require('userLib');
 var kostiUtils = require('kostiUtils');
 var sharedLib = require('sharedLib');
 var blogLib = require('blogLib');
@@ -27,16 +26,23 @@ function markNotificationAsSeen( id ){
 	return true;
 }
 
-function getNotificationsForUser( id, count, counterOnly ){
-	if( !count ){
-		var count = -1;
+function getNotificationsForUser( id, page, pageSize, counterOnly, unseenOnly, messageOnly ){
+	if( !pageSize ){
+		var pageSize = 10;
+	}
+	if( !page ){
+		var page = 0;
+	}
+	var query = "forUser = '" + id + "'";
+	if( unseenOnly ){
+		query += " and seen = 0";
 	}
 	var notificationsRepo = sharedLib.connectRepo('notifications');
 	var temp = notificationsRepo.query({
-		start: 0,
-		count: count,
-		query: "forUser = '" + id + "'",
-		sort: "seen DESC, _ts ASC"
+		start: page * pageSize,
+		count: pageSize,
+		query: query,
+		sort: "seen ASC, _ts DESC"
 	});
 	if( counterOnly ){
 		return temp.total;
@@ -45,8 +51,14 @@ function getNotificationsForUser( id, count, counterOnly ){
 	if( temp && temp.total > 0 ){
 		for( var i = 0; i < temp.hits.length; i++ ){
 			var notification = notificationsRepo.get(temp.hits[i].id);
+			if( notification.seen === 0 ){
+				markNotificationAsSeen(notification._id);
+			}
 			result += getNotificationBody(notification);
 		}
+	}
+	if( messageOnly ){
+		return result;
 	}
 	return {
 		message: result,
@@ -62,6 +74,7 @@ function getNotificationBody( notification ){
 		article = commentsLib.getCommentParentArticle(notification.subjectId);
 	}
 	article = blogLib.beautifyArticle(article);
+	var userLib = require('userLib');
 	return thymeleaf.render(resolve('../pages/components/user/notification.html'), {
 		type: notification.type,
 		user: userLib.getUserDataById(notification.fromUser),
@@ -74,6 +87,7 @@ function getNotificationBody( notification ){
 //types: bookmark, like, comment
 //subject: article, comment
 function addNotification( subject, type ){
+	var userLib = require('userLib');
 	var user = userLib.getCurrentUser();
 	subject = getSubject(subject);
 	var forUser = getSubjectAuthor(subject);

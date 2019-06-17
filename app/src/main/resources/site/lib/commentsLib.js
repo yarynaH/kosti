@@ -49,13 +49,19 @@ function addComment( parent, body ){
 	return beautifyComment(comment, false);
 }
 
-function getCommentsByUser( id ){
+function getCommentsByUser( id, page, pageSize ){
+	if( !pageSize ){
+		var pageSize = 10;
+	}
+	if( !page ){
+		var page = 0;
+	}
 	var commentsRepo = connectCommentsRepo();
 	var temp = commentsRepo.query({
-		start: 0,
-		count: -1,
+		start: page * pageSize,
+		count: pageSize,
 		query: "user = '" + id + "'",
-		sort: "deleted DESC, rate ASC, _ts ASC"
+		sort: "deleted ASC, rate ASC, _ts DESC"
 	}).hits;
 	var result = [];
 	for( var i = 0; i < temp.length; i++ ){

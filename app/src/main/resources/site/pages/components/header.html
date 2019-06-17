@@ -22,8 +22,10 @@
         <div class="header-search hidden">
             <span class="search-icon"></span>
         </div>
-        <div class="header-notification hidden">
-            <span class="notification-icon"></span>
+        <div class="header-notification" data-th-if="${user}">
+            <span class="notification-icon">
+                <span class="notification-qty" data-th-if="${user.notificationsCounter}" data-th-text="${user.notificationsCounter}"></span>
+            </span>
         </div>
         <div data-th-utext="${headerUser}" class="header-user js_header-user-wrap"></div>
     </div>
