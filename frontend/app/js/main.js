@@ -201,7 +201,7 @@ function initCheckoutEvents(){
 
 function initSharedEvents(){
 	setCookie(cartId);
-	$('.js_like-article').on('click', function(e){
+	$('.similar_posts, .blog-list, .article-body, .blog-sidebar').on('click', '.js_like-article', function(e){
 		e.preventDefault();
 		if( checkUserLoggedIn() ){
 			doUpvote(this);
@@ -228,7 +228,7 @@ function initSharedEvents(){
 	if( $('#payment-success').length > 0 ){
 		deleteCookie('cartId');
 	}
-	$('.js_bookmarks').on('click', function(e) {
+	$('.similar_posts, .blog-list, .article-body, .blog-sidebar').on('click', '.js_bookmarks', function(e) {
 		if( checkUserLoggedIn() ){
 			var btn = $(this);
 			$.ajax({
