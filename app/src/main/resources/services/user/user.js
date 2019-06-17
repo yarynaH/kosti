@@ -8,6 +8,7 @@ var mailsLib = require(libLocation + 'mailsLib');
 var contextLib = require(libLocation + 'contextLib');
 var helpers = require(libLocation + 'helpers');
 var norseUtils = require(libLocation + 'norseUtils');
+var notificationLib = require(libLocation + 'notificationLib');
 
 var templates = {
     forgotPassForm: "forgotPassForm.html",
@@ -51,9 +52,7 @@ exports.post = function( req ) {
 	var result = false;
     var params = req.params;
     if( params.action == 'register' ){
-	    contextLib.runAsAdmin(function () {
-		    result = userLib.register( params.username, params.email, params.password );
-	    });
+        result = userLib.register( params.username, params.email, params.password );
     } else if( params.action == 'login' ){
 	    result = userLib.login( params.username, params.password );
 	} else if( params.action == 'image' ){
@@ -63,6 +62,7 @@ exports.post = function( req ) {
     } else if( params.action == 'forgotpass' ){
         result = userLib.resetPass( params.email );
     } else if( params.action == 'addBookmark' ){
+        notificationLib.addNotification( params.id, 'bookmark' );
         result = userLib.addBookmark( params.id );
     } else if( params.action == 'googleRegister' ){
         //norseUtils.log(params);

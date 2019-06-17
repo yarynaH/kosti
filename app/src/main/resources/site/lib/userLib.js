@@ -155,11 +155,13 @@ function register( name, mail, pass, tokenRegister ){
 		return createUserContentType( name, mail, user.key );
 	});
 	if( !tokenRegister ){
-		authLib.changePassword({
-		    userKey: user.key,
-		    password: pass
+		var activationHash = contextLib.runAsAdmin(function () {
+			authLib.changePassword({
+			    userKey: user.key,
+			    password: pass
+			});
+		return hashLib.saveHashForUser( mail, "registerHash" );
 		});
-		var activationHash = hashLib.saveHashForUser( mail, "registerHash" );
 		var sent = mailsLib.sendMail( "userActivation", mail, { activationHash: activationHash } );
 	}
 	if( tokenRegister ){
@@ -219,7 +221,7 @@ function login( name, pass, token ){
 	if( !token ){
 		var token = false;
 	}
-	var user =  contextLib.runAsAdmin(function () {
+	var user = contextLib.runAsAdmin(function () {
 		return findUser(name);
 	});
 	if( !user ){
