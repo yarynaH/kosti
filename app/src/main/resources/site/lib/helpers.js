@@ -63,7 +63,9 @@ exports.getPageComponents = function( req, footerType ) {
   });
 
   if(!footerType) footerType = 'footer';
-  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footers/' + footerType + '.html'), {}) + 
+  pageComponents['footer'] = thymeleaf.render( resolve('../pages/components/footers/' + footerType + '.html'), {
+    footerLinks: getFooterLinks()
+  }) + 
     thymeleaf.render( resolve('../pages/components/footers/footerScripts.html'), {
     userServiceUrl: userServiceUrl,
     contentServiceUrl: contentServiceUrl,
@@ -71,6 +73,20 @@ exports.getPageComponents = function( req, footerType ) {
     commentsServiceUrl: commentsServiceUrl,
     cartId: cartLib.getCart( req && req.cookies ? req.cookies.cartId : null )._id
   });
+
+  function getFooterLinks(){
+    var result = {};
+    if( siteConfig.agreementPage ){
+      result.agreementPage = portal.pageUrl({ id: siteConfig.agreementPage });
+    }
+    if( siteConfig.coockiePolicy ){
+      result.coockiePolicy = portal.pageUrl({ id: siteConfig.coockiePolicy });
+    }
+    if( siteConfig.aboutUs ){
+      result.aboutUs = portal.pageUrl({ id: siteConfig.aboutUs });
+    }
+    return result;
+  }
 
   function getMenuItems() {
     var result = [];

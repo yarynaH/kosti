@@ -61,6 +61,18 @@
 		<config>
 		</config>
 	</input>
+  	<input name="coockiePolicy" type="ContentSelector">
+		<label>Cookie policy</label>
+		<occurrences minimum="0" maximum="1"/>
+		<config>
+		</config>
+	</input>
+  	<input name="aboutUs" type="ContentSelector">
+		<label>About us</label>
+		<occurrences minimum="0" maximum="1"/>
+		<config>
+		</config>
+	</input>
   	<input name="newsletter" type="ContentSelector">
 		<label>Newsletter</label>
 		<occurrences minimum="0" maximum="1"/>

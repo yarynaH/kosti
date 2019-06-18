@@ -2,18 +2,18 @@
 <div class="back_to_top js_back_to_top hidden"></div>
 <div id="fb-root"></div>
 
-<div class="checkout-wrap hidden">
+<div class="checkout-wrap">
     <div class="site_width">
         <div class="checkout-info">
           <ul class="footer-nav">
-            <li class="footer-item">
-              <a class="footer-link">Безопасность</a>
+            <li data-th-if="${footerLinks.agreementPage}" class="footer-item">
+              <a class="footer-link" data-th-href="${footerLinks.agreementPage}">Безопасность</a>
             </li>
-            <li class="footer-item">
-              <a class="footer-link">Использование куки</a>
+            <li class="footer-item" data-th-if="${footerLinks.coockiePolicy}">
+              <a class="footer-link" data-th-href="${footerLinks.coockiePolicy}">Использование куки</a>
             </li>
-            <li class="footer-item">
-              <a class="footer-link">О нас</a>
+            <li class="footer-item" data-th-if="${footerLinks.aboutUs}">
+              <a class="footer-link" data-th-href="${footerLinks.aboutUs}">О нас</a>
             </li>
           </ul>
         </div>
