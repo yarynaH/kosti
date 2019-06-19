@@ -137,8 +137,10 @@
         .nav-link {
             color: $color-primary9;
 
-            @include tablet-all {
-                pointer-events: none;
+            &.show {
+                @include tablet-all {
+                    pointer-events: none;
+                }
             }
         }
     }
@@ -252,8 +254,6 @@
     &-icon {
         @include icon(bell-notification);
         @include qty-notification(wrapper);
-
-        cursor: pointer;
 
         @include mobile {
             margin-right: 10px;
