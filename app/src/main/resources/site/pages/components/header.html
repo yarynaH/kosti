@@ -19,10 +19,16 @@
                 <a data-th-href="${menuItem.url}" class="nav-link" data-th-attr="title=${menuItem.title}" data-th-text="${menuItem.title}" data-th-classappend="${menuItem.active ? 'nav-link_active' : ''}">Блог</a>
             </li>
         </ul>
-        <div class="header-search hidden">
+        <div class="header-search show">
             <span class="search-icon"></span>
+            <div class="search-block"> 
+                <div class="form-group search-field">
+                    <button type="submit" class="search-icon search-btn"></button>
+                    <input name="search" type="text" class="input-text search-input" placeholder="Что ищем?" id="search-input">
+                </div>
+            </div>
         </div>
-        <div class="header-notification show">
+        <div class="header-notification ">
             <a href="https://www.google.com/" class="nav-link">
                 <span class="notification-icon">
                     <span class="notification-qty">1</span>

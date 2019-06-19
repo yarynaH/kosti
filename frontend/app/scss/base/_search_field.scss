@@ -1,14 +1,16 @@
 
 
 // <div class="search-field">
-//     <input name="zip" type="text" class="input-text search-field-input" id="zip-checkout-input">
-//     <button class="search-field-btn">НАЙТИ</button>
+//     <input name="zip" type="text" class="input-text search-input" id="zip-checkout-input">
+//     <button class="search-btn">НАЙТИ</button>
 // </div>
-.search-field {
-    position: relative;
+.search {
+    &-field {
+        position: relative;
+    }
 
     &-input {
-        padding-right: 80px;
+        padding-right: 55px;
     }
 
     &-btn {
@@ -17,7 +19,7 @@
         height: 54px;
         padding: 0 15px;
         border: 0;
-        border-left: 1px solid $color-primary20;
+        // border-left: 1px solid $color-primary20;
         background: transparent;
         font-size: rem(12);
         font-weight: bold;
