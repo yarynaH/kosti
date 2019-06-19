@@ -208,7 +208,7 @@
     }
 
     &-qty {
-        @include qty-notification(icon);
+        @include qty-notification(icon checkout);
 
         &.animate {
             animation: pulse 1.5s 1;

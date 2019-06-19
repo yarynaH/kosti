@@ -12,7 +12,7 @@ textarea {
     border: 1px solid $color-primary20;
 
     &:focus{
-        box-shadow: 0 4px 16px 0 rgba(25, 122, 173, 0.5);
+        box-shadow: 0 4px 16px 0 rgba($color-primary37, 0.5);
         border: solid 1px $color-primary3;
     }
 
@@ -71,6 +71,7 @@ input:read-only {
         margin-top: -4px;
         pointer-events: none;
     }
+
     &.is-invalid{
         select{
             border-color: $color-primary32;
