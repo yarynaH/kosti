@@ -137,7 +137,7 @@
         .nav-link {
             color: $color-primary9;
 
-            &.show {
+            &.have_qty {
                 @include tablet-all {
                     pointer-events: none;
                 }
@@ -259,11 +259,13 @@
             margin-right: 10px;
         }
 
+        pointer-events: auto;
+
         &:before {
             font-size: rem(20);
             transition: transition(transform, .2s, ease-in-out);
 
-            .show & {
+            .have_qty & {
                 transform: rotate(20deg);
             }
         }
@@ -281,7 +283,7 @@
         transition: transition(opacity);
         opacity: 0;
 
-        .show & {
+        .have_qty & {
             opacity: 1 !important;
         }
     }
@@ -302,7 +304,7 @@
             display: none;
         }
 
-        .show & {
+        .show_notification & {
             @include tablet-all {
                 opacity: 1 !important;
                 pointer-events: auto;
