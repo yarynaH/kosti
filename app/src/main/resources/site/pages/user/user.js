@@ -48,12 +48,10 @@ function handleReq(req) {
         content.votes = votesLib.countUserUpvotes(userSystemObj.key);
         var date = new Date(moment(content.publish.from.replace('Z', '')));
         content.date = date.getDate() + ' ' + norseUtils.getMonthName(date) + ' ' + date.getFullYear();
-        var response = [];
-        var userComments = commentsLib.getCommentsByUser(content._id);
         var totalArticles = {
             articles: blogLib.getArticlesByUser(content._id, 0, true),
             notifications: notificationLib.getNotificationsForUser( content._id, null, null, true ),
-            comments: userComments.length
+            comments: commentsLib.getCommentsByUser(content._id, 0, 1, true)
         };
 
         var active = {};
@@ -64,15 +62,16 @@ function handleReq(req) {
             var articles = blogLib.getArticlesView(blogLib.getArticlesByIds( content.data.bookmarks ));
         } else if( up.action == 'comments' ){
             active.comments = 'active';
-            totalArticles.curr = userComments.length;
+            totalArticles.curr = totalArticles.comments;
             var currTitle = 'comments';
+            var userComments = commentsLib.getCommentsByUser(content._id);
             var articles = thymeleaf.render(resolve('commentsView.html'), {comments: userComments});
         } else if( up.action == 'notifications' && currUserFlag ){
             active.notifications = 'active';
             var currTitle = 'notifications';
             var notifications = notificationLib.getNotificationsForUser( content._id, 0, 10 );
             var articles = notifications.message;
-            totalArticles.curr = notifications.total;
+            totalArticles.curr = totalArticles.notifications;
         } else {
             active.articles = 'active';
             totalArticles.curr = totalArticles.articles;
@@ -88,7 +87,6 @@ function handleReq(req) {
             currUserFlag: currUserFlag,
             currTitle: currTitle,
             app: app,
-            userComments: userComments,
             totalArticles: totalArticles,
             articles: articles,
             active: active,
