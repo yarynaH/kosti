@@ -1,0 +1,28 @@
+<li
+  class="notification-item"
+  data-th-classappend="${notification.seen != 1 ? 'new' : ''}"
+  data-th-each="notification: ${notifications}"
+>
+  <span class="post-user_avatar">
+    <img data-th-src="${notification.user.image.url}" />
+  </span>
+  <div class="notification-post_info">
+    <a
+      data-th-href="${notification.user.url}"
+      class="post-user_name"
+      data-th-text="${notification.user.displayName}"
+    ></a>
+    <span
+      class="notification-action"
+      data-th-text="${portal.localize({'_key=user.notifications.' + notification.subType + '.' + notification.type, '_locale=ru'})}"
+    >
+    </span>
+    <a
+      data-th-href="${notification.article.url}"
+      class="notification-post_name"
+      data-th-text="${notification.article.displayName}"
+    >
+    </a>
+    <span class="post-date" data-th-text="${notification.date}"></span>
+  </div>
+</li>

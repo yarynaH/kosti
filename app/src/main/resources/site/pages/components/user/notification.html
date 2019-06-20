@@ -1,7 +1,16 @@
-<div class="comments-item">
-    <div><img data-th-src="${user.image.url}"></div>
-    <a data-th-href="${user.url}" data-th-text="${user.displayName}"></a>
-    <span data-th-remove="tag" data-th-text="${portal.localize({'_key=user.notifications.' + subType + '.' + type, '_locale=ru'})}"></span> 
-    <a data-th-href="${article.url}" data-th-text="${article.displayName}"></a>
-    <div data-th-text="${date}"></div>
+<div class="comments-item" data-th-each="notification: ${notifications}">
+  <div><img data-th-src="${notification.user.image.url}" /></div>
+  <a
+    data-th-href="${notification.user.url}"
+    data-th-text="${notification.user.displayName}"
+  ></a>
+  <span
+    data-th-remove="tag"
+    data-th-text="${portal.localize({'_key=user.notifications.' + notification.subType + '.' + notification.type, '_locale=ru'})}"
+  ></span>
+  <a
+    data-th-href="${notification.article.url}"
+    data-th-text="${notification.article.displayName}"
+  ></a>
+  <div data-th-text="${notification.date}"></div>
 </div>

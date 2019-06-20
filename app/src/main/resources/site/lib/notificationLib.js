@@ -32,7 +32,8 @@ function getNotificationsForUser(
   pageSize,
   counterOnly,
   unseenOnly,
-  messageOnly
+  messageOnly,
+  json
 ) {
   if (!pageSize) {
     var pageSize = 10;
@@ -54,16 +55,25 @@ function getNotificationsForUser(
   if (counterOnly) {
     return temp.total;
   }
-  var result = "";
+  var result = [];
   if (temp && temp.total > 0) {
     for (var i = 0; i < temp.hits.length; i++) {
       var notification = notificationsRepo.get(temp.hits[i].id);
       if (notification.seen === 0) {
         markNotificationAsSeen(notification._id);
       }
-      result += getNotificationBody(notification);
+      result.push(beautifyNotification(notification));
     }
   }
+  if (json) {
+    return result;
+  }
+  result = thymeleaf.render(
+    resolve("../pages/components/user/notification.html"),
+    {
+      notifications: result
+    }
+  );
   if (messageOnly) {
     return result;
   }
@@ -71,6 +81,24 @@ function getNotificationsForUser(
     message: result,
     total: temp.total
   };
+}
+
+function beautifyNotification(notification) {
+  notification.article = contentLib.get({ key: notification.subjectId });
+  notification.subType = "article";
+  if (!notification.article) {
+    notification.subType = "comment";
+    notification.article = commentsLib.getCommentParentArticle(
+      notification.subjectId
+    );
+  }
+  notification.article = blogLib.beautifyArticle(notification.article);
+  var userLib = require("userLib");
+  notification.user = userLib.getUserDataById(notification.fromUser);
+  notification.date = kostiUtils.getTimePassedSincePostCreation(
+    notification._ts.replace("Z", "")
+  );
+  return notification;
 }
 
 function getNotificationBody(notification) {
