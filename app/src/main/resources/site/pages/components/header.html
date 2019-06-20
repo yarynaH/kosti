@@ -54,14 +54,9 @@
     <div
       class="header-notification js_header-notification"
       data-th-if="${user}"
+      data-th-classappend="${user.notificationsCounter > 0 ? 'have_qty' : ''}"
     >
-      <a
-        data-th-href="${user.url + '?action=notifications'}"
-        class="nav-link"
-        <!--
-        data-th-classappend="${user.notificationsCounter > 0 ? 'show' : ''}"
-        --
-      >
+      <a data-th-href="${user.url + '?action=notifications'}" class="nav-link">
         <span class="notification-icon js_notification-icon">
           <span
             class="notification-qty"

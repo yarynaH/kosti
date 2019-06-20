@@ -34,7 +34,7 @@ function initHeaderFunctions() {
     );
     call.done(function(data) {
       $(".js_notification-block").html(data);
-      $(".js_header-notification").toggleClass("show");
+      $(".js_header-notification").toggleClass("show_notification");
     });
   });
   $(document).on("scroll", function() {
