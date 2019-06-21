@@ -37,7 +37,10 @@
       </li>
     </ul>
     <form class="header-search js_header-search" action="/search" method="GET">
-      <span class="search-icon js_search-icon"></span>
+      <span class="nav-link search-utilityjs_search-icon">
+        <span class="search-icon"></span>
+        <span class="header-link_text">Поиск</span>
+      </span>
       <div class="search-block">
         <div class="form-group search-field">
           <button type="submit" class="search-icon search-btn"></button>
@@ -56,7 +59,10 @@
       data-th-if="${user}"
       data-th-classappend="${user.notificationsCounter > 0 ? 'have_qty' : ''}"
     >
-      <a data-th-href="${user.url + '?action=notifications'}" class="nav-link">
+      <a
+        data-th-href="${user.url + '?action=notifications'}"
+        class="nav-link notification-utility"
+      >
         <span class="notification-icon js_notification-icon">
           <span
             class="notification-qty"
@@ -64,7 +70,7 @@
             data-th-text="${user.notificationsCounter}"
           ></span>
         </span>
-        <span class="notification-link_text">Уведомления</span>
+        <span class="header-link_text">Уведомления</span>
       </a>
       <div class="notification-block">
         <div class="notification-header">
