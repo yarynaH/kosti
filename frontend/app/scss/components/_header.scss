@@ -107,7 +107,15 @@
         @include tablet-all {
             padding-left: 65px;
         }
+    }
 
+    &-link_text {
+        @include tablet-all {
+            display: none;
+        }
+    }
+
+    &-user {
         @include mobile {
             padding-bottom: 10px;
         }
@@ -117,7 +125,20 @@
         position: relative;
 
         @include mobile {
-            padding: 0 25px 10px;
+            max-height: 39px;
+            transition: transition(all, 0.2s, ease);
+        }
+
+        &.show {
+            @include mobile {
+                max-height: 66px;
+            }
+
+            .nav-link {
+                @include mobile {
+                    @include position (absolute, top -9999px right -9999px);
+                }
+            }
         }
 
         .search-field {
@@ -135,8 +156,6 @@
         position: relative;
 
         .nav-link {
-            color: $color-primary9;
-
             &.have_qty {
                 @include tablet-all {
                     pointer-events: none;
@@ -221,16 +240,30 @@
     }
 }
 
+.notification, 
+.search{
+    &-utility {
+        color: $color-primary9;
+    }
+    
+    &-icon {
+        @include mobile {
+            margin-right: 10px;
+        }
+    }
+}
+
 .search {
+    &-utility {
+        color: $color-primary9;
+        cursor: pointer;
+    }
+
     &-icon {
         @include icon(search);
 
-        cursor: pointer;
-
-        .header-search > & {
-            @include mobile {
-                display: none;
-            }
+        &:before {
+            font-size: rem(17);
         }
     }
 
@@ -247,33 +280,39 @@
                 pointer-events: auto;
             }
         }
+
+        @include mobile {
+            @include position (absolute, top -9999px right -9999px);
+
+            margin: 0 25px;
+
+        }
+
+        .show & {
+            @include mobile {
+                position: static;
+            }
+        }
     }
 }
 
 .notification {
+    &-utility {
+        color: $color-primary9;
+    }
+
     &-icon {
         @include icon(bell-notification);
         @include qty-notification(wrapper);
-
-        @include mobile {
-            margin-right: 10px;
-        }
 
         pointer-events: auto;
 
         &:before {
             font-size: rem(20);
-            transition: transition(transform, .2s, ease-in-out);
 
             .have_qty & {
-                transform: rotate(20deg);
+                animation: ring 6s 3s ease-in-out infinite;
             }
-        }
-    }
-
-    &-link_text {
-        @include tablet-all {
-            display: none;
         }
     }
 
@@ -429,4 +468,32 @@
     .article-page & {
         padding-top: 0;
     }
+}
+
+
+@keyframes ring {
+    0% { transform: rotate(0); }
+    1% { transform: rotate(30deg); }
+    3% { transform: rotate(-28deg); }
+    5% { transform: rotate(34deg); }
+    7% { transform: rotate(-32deg); }
+    9% { transform: rotate(30deg); }
+    11% { transform: rotate(-28deg); }
+    13% { transform: rotate(26deg); }
+    15% { transform: rotate(-24deg); }
+    17% { transform: rotate(22deg); }
+    19% { transform: rotate(-20deg); }
+    21% { transform: rotate(18deg); }
+    23% { transform: rotate(-16deg); }
+    25% { transform: rotate(14deg); }
+    27% { transform: rotate(-12deg); }
+    29% { transform: rotate(10deg); }
+    31% { transform: rotate(-8deg); }
+    33% { transform: rotate(6deg); }
+    35% { transform: rotate(-4deg); }
+    37% { transform: rotate(2deg); }
+    39% { transform: rotate(-1deg); }
+    41% { transform: rotate(1deg); }
+    43% { transform: rotate(0); }
+    100% { transform: rotate(0); }
 }
