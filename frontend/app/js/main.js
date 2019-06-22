@@ -352,7 +352,7 @@ function loadMoreArticles() {
       query: query ? query : null,
       userId: $(".js_user-page-id").data("userid")
     },
-    true
+    false
   );
   call.done(function(data) {
     if (data.trim() === "") {
