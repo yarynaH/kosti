@@ -36,7 +36,11 @@
         >
       </li>
     </ul>
-    <form class="header-search js_header-search" action="/search" method="GET">
+    <form
+      class="header-search js_header-search"
+      data-th-action="${portal.componentUrl({'_path=search'})}"
+      method="GET"
+    >
       <span class="nav-link search-utility js_search-icon">
         <span class="search-icon"></span>
         <span class="header-link_text">Поиск</span>

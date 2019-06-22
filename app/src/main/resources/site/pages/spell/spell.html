@@ -1,64 +1,133 @@
 <!DOCTYPE html>
 <html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body class="page-wrapper">
+  <body class="page-wrapper">
     <main class="comingSoonMain">
-        <div class="comingSoonBackground">
-            <div class="spellWrapper">
-                <div class="comingSoonLogo">
-                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}" alt="Logo">
-                </div>
-                <div class="comingSoonText">
-                    <div class="comingSoonTitle" data-th-text="${content.displayName}"></div>
-                    <div class="comingSoonDescription spellDescription">
-                        <b>Уровень:</b> <span data-th-text="${content.data.level}"></span>
-                        <br>
-                        <b>Школа:</b> <span  data-th-text="${portal.localize({'_key=spells.school.' + content.data.school, '_locale='+content.language})}"></span>
-                        <br>
-                        <b>Время накладывания:</b> <span data-th-text="${castTime}"></span>
-                        <br>
-                        <b>Дистанция:</b> <span data-th-text="${range}"></span>
-                        <br>
-                        <b>Компоненты:</b>
-                            <span data-th-each="component,status: ${components}" data-th-remove="tag">
-                                <span data-th-text="${portal.localize({'_key=spells.misc.' + component, '_locale='+content.language}) + ((status.index < (status.size-1)) ? ', ' : '')}" data-th-remove="tag"></span>
-                            </span>
-                            <span data-th-if="${content.data.misc and content.data.misc.materialComponent}" data-th-text="${'(' + content.data.misc.materialComponent + ')'}"></span>
-                        <br>
-                        <b>Длительность:</b> <span data-th-if="${content.data.misc and content.data.misc.concentration}">Концентрация до </span> <span data-th-text="${duration}"></span>
-                        <br>
-                        <hr>
-                        <div data-th-utext="${content.data.description}"></div>
-                        <br>
-                        <b>Классы:</b>
-                            <span data-th-each="class,status: ${classes}" data-th-remove="tag">
-                                <span data-th-text="${portal.localize({'_key=global.classes.' + class, '_locale='+content.language}) + ((status.index < (status.size-1)) ? ', ' : '')}" data-th-remove="tag"></span>
-                            </span>
-                        <br>
-                        <b>Источник: </b><span data-th-text="${portal.localize({'_key=global.source.' + content.data.source, '_locale='+content.language})}"></span>
-                        <span data-th-if="${content.data.page}" data-th-text="${', ст. ' + content.data.page}"></span>
-                    </div>
-                </div>
+      <div class="comingSoonBackground">
+        <div class="spellWrapper">
+          <div class="comingSoonLogo">
+            <img
+              src="#"
+              data-th-src="${portal.assetUrl({'_path=images/extended-logo-min.png'})}"
+              alt="Logo"
+            />
+          </div>
+          <div class="comingSoonText">
+            <div
+              class="comingSoonTitle"
+              data-th-text="${content.displayName}"
+            ></div>
+            <div class="comingSoonDescription spellDescription">
+              <b>Уровень:</b> <span data-th-text="${content.data.level}"></span>
+              <br />
+              <b>Школа:</b>
+              <span
+                data-th-text="${portal.localize({'_key=spells.school.' + content.data.school, '_locale='+content.language})}"
+              ></span>
+              <br />
+              <b>Время накладывания:</b>
+              <span data-th-text="${castTime}"></span>
+              <br />
+              <b>Дистанция:</b> <span data-th-text="${range}"></span>
+              <br />
+              <b>Компоненты:</b>
+              <span
+                data-th-each="component,status: ${components}"
+                data-th-remove="tag"
+              >
+                <span
+                  data-th-text="${portal.localize({'_key=spells.misc.' + component, '_locale='+content.language}) + ((status.index < (status.size-1)) ? ', ' : '')}"
+                  data-th-remove="tag"
+                ></span>
+              </span>
+              <span
+                data-th-if="${content.data.misc and content.data.misc.materialComponent}"
+                data-th-text="${'(' + content.data.misc.materialComponent + ')'}"
+              ></span>
+              <br />
+              <b>Длительность:</b>
+              <span
+                data-th-if="${content.data.misc and content.data.misc.concentration}"
+                >Концентрация до
+              </span>
+              <span data-th-text="${duration}"></span>
+              <br />
+              <hr />
+              <div data-th-utext="${content.data.description}"></div>
+              <br />
+              <b>Классы:</b>
+              <span
+                data-th-each="class,status: ${classes}"
+                data-th-remove="tag"
+              >
+                <span
+                  data-th-text="${portal.localize({'_key=global.classes.' + class, '_locale='+content.language}) + ((status.index < (status.size-1)) ? ', ' : '')}"
+                  data-th-remove="tag"
+                ></span>
+              </span>
+              <br />
+              <b>Источник: </b
+              ><span
+                data-th-text="${portal.localize({'_key=global.source.' + content.data.source, '_locale='+content.language})}"
+              ></span>
+              <span
+                data-th-if="${content.data.page}"
+                data-th-text="${', ст. ' + content.data.page}"
+              ></span>
             </div>
+          </div>
         </div>
-        <div class="comingSoonFooterTexture"></div>
-        <div class="comingSoonSocial">
-            <div class="comingSoonSocialBiggerWrapper">
-                <div class="comingSoonTwitch"><a data-th-href="${social.twitch}" target="_blank" title="Twitch"></a></div>
-                <div class="comingSoonYoutube"><a data-th-href="${social.youtube}" target="_blank" title="YouTube"></a></div>
-                <div class="comingSoonDiscord"><a data-th-href="${social.discord}" target="_blank" title="Discord"></a></div>
-            </div>
-            <div class="comingSoonSocialSmallerWrapper">
-                <div class="comingSoonVk comingSoonSocialSmaller"><a data-th-href="${social.vk}" target="_blank" title="VK"></a></div>
-                <div class="comingSoonFb comingSoonSocialSmaller"><a data-th-href="${social.fb}" target="_blank" title="Facebook"></a></div>
-                <div class="comingSoonTw comingSoonSocialSmaller"><a data-th-href="${social.twitter}" target="_blank" title="Twitter"></a></div>
-                <div class="comingSoonIn comingSoonSocialSmaller"><a data-th-href="${social.instagram}" target="_blank" title="Instagram"></a></div>
-            </div>
+      </div>
+      <div class="comingSoonFooterTexture"></div>
+      <div class="comingSoonSocial">
+        <div class="comingSoonSocialBiggerWrapper">
+          <div class="comingSoonTwitch">
+            <a
+              data-th-href="${social.twitch}"
+              target="_blank"
+              title="Twitch"
+            ></a>
+          </div>
+          <div class="comingSoonYoutube">
+            <a
+              data-th-href="${social.youtube}"
+              target="_blank"
+              title="YouTube"
+            ></a>
+          </div>
+          <div class="comingSoonDiscord">
+            <a
+              data-th-href="${social.discord}"
+              target="_blank"
+              title="Discord"
+            ></a>
+          </div>
         </div>
+        <div class="comingSoonSocialSmallerWrapper">
+          <div class="comingSoonVk comingSoonSocialSmaller">
+            <a data-th-href="${social.vk}" target="_blank" title="VK"></a>
+          </div>
+          <div class="comingSoonFb comingSoonSocialSmaller">
+            <a data-th-href="${social.fb}" target="_blank" title="Facebook"></a>
+          </div>
+          <div class="comingSoonTw comingSoonSocialSmaller">
+            <a
+              data-th-href="${social.twitter}"
+              target="_blank"
+              title="Twitter"
+            ></a>
+          </div>
+          <div class="comingSoonIn comingSoonSocialSmaller">
+            <a
+              data-th-href="${social.instagram}"
+              target="_blank"
+              title="Instagram"
+            ></a>
+          </div>
+        </div>
+      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-</body>
-
+  </body>
 </html>

@@ -1,21 +1,32 @@
 <div class="post_top" data-th-if="${article}">
-    <div class="post_top-label">Пост недели</div>
-    <a data-th-href="${article.author.url}">
-        <div class="post_top-author">
-            <span class="post-user_avatar">
-                <img data-th-src="${article.author.image.url}" alt="">
-            </span>
-            <span class="post-user_name" data-th-text="${article.author.displayName}"></span>
-        </div>
-    </a>
-    <a data-th-href="${article.url}" class="post_top-title" data-th-text="${article.displayName}"></a>
-    <div class="post_top-text"></div>
-    <div class="post_top-footer">
-        <div class="tag-list" hidden>
-            <a href="#" class="tag-item">Мерч</a>
-        </div>
-        <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article" data-th-classappend="${article.voted} ? 'active' : ''">
-            <span data-th-text="${article.votes}"></span>
-        </span>
+  <div class="post_top-label">Пост недели</div>
+  <a data-th-href="${article.author.url}">
+    <div class="post_top-author">
+      <span class="post-user_avatar">
+        <img data-th-src="${article.author.image.url}" alt="" />
+      </span>
+      <span
+        class="post-user_name"
+        data-th-text="${article.author.displayName}"
+      ></span>
     </div>
+  </a>
+  <a
+    data-th-href="${article.url}"
+    class="post_top-title"
+    data-th-text="${article.displayName}"
+  ></a>
+  <div class="post_top-text"></div>
+  <div class="post_top-footer">
+    <div class="tag-list" hidden>
+      <a href="#" class="tag-item">Мерч</a>
+    </div>
+    <span
+      data-th-attr="data-contentId=${article._id}"
+      class="like-btn icon-rock js_like-article"
+      data-th-classappend="${article.voted} ? 'active' : ''"
+    >
+      <span data-th-text="${article.votes}"></span>
+    </span>
+  </div>
 </div>

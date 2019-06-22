@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body class="page-wrapper">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main" id="payment-success">
-        <div class="confirmation-wrap">
-            <div class="site_width">
-                <h2 class="checkout-title">
-                    <span data-th-remove="tag" data-th-text="${portal.localize({'_key=global.error.' + status, '_locale='+lang})}"></span>.
-                    <span data-th-remove="tag" data-th-text="${portal.localize({'_key=global.error.' + status + 'Long', '_locale='+lang})}"></span>
-                </h2>
-                <div class="confirmation-msg">
-                    Но вы можете перейти на нашу <a href="/">главную страницу</a> и попробовать еще раз.
-                </div>
-                <div class="confirmation-msg">
-                    Если вы желаете помочь, отправьте этот текст нам, и мы поправим эту ошибку.
-                </div>
-                <div class="confirmation-msg">
-                    <code data-th-text="${message}"></code>
-                </div>
-            </div>
+      <div class="confirmation-wrap">
+        <div class="site_width">
+          <h2 class="checkout-title">
+            <span
+              data-th-remove="tag"
+              data-th-text="${portal.localize({'_key=global.error.' + status, '_locale='+lang})}"
+            ></span
+            >.
+            <span
+              data-th-remove="tag"
+              data-th-text="${portal.localize({'_key=global.error.' + status + 'Long', '_locale='+lang})}"
+            ></span>
+          </h2>
+          <div class="confirmation-msg">
+            Но вы можете перейти на нашу <a href="/">главную страницу</a> и
+            попробовать еще раз.
+          </div>
+          <div class="confirmation-msg">
+            Если вы желаете помочь, отправьте этот текст нам, и мы поправим эту
+            ошибку.
+          </div>
+          <div class="confirmation-msg">
+            <code data-th-text="${message}"></code>
+          </div>
         </div>
+      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-</body>
-
+  </body>
 </html>

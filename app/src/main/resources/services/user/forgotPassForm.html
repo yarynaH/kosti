@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body class="page-wrapper">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-    	<div data-th-if="${hashMatch}">
-	        <form method="POST" data-th-attr="action=${portal.serviceUrl({'_service=user'})}" class="resetPassForm">
-	            <input type="password" name="password" class="resetPassInput">
-	            <input type="password" class="resetPassInputConfirm">
-	            <input type="submit" value="Изменить">
-	            <input type="hidden" name="action" value="resetpass">
-	            <input type="hidden" name="email" data-th-value="${email}">
-	            <input type="hidden" name="hash" data-th-value="${hash}">
-	        </form>
-	        <div class="is-invalid hidden forgotPassValidation">Пароли не совпадают</div>
-	    </div>
-    	<div data-th-unless="${hashMatch}">
-    		Что-то пошло не так при смене пароля.
-    	</div>
+      <div data-th-if="${hashMatch}">
+        <form
+          method="POST"
+          data-th-attr="action=${portal.serviceUrl({'_service=user'})}"
+          class="resetPassForm"
+        >
+          <input type="password" name="password" class="resetPassInput" />
+          <input type="password" class="resetPassInputConfirm" />
+          <input type="submit" value="Изменить" />
+          <input type="hidden" name="action" value="resetpass" />
+          <input type="hidden" name="email" data-th-value="${email}" />
+          <input type="hidden" name="hash" data-th-value="${hash}" />
+        </form>
+        <div class="is-invalid hidden forgotPassValidation">
+          Пароли не совпадают
+        </div>
+      </div>
+      <div data-th-unless="${hashMatch}">
+        Что-то пошло не так при смене пароля.
+      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-</body>
-
+  </body>
 </html>

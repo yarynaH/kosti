@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body class="page-wrapper">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div data-th-if="${activation}">Спасибо! Ваш пользователь успешно активирован.</div>
-        <div data-th-unless="${activation}">Что-то пошло не так во время активации. Попробуйте еще раз, или свяжитесь с нами.</div>
+      <div data-th-if="${activation}">
+        Спасибо! Ваш пользователь успешно активирован.
+      </div>
+      <div data-th-unless="${activation}">
+        Что-то пошло не так во время активации. Попробуйте еще раз, или
+        свяжитесь с нами.
+      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-</body>
-
+  </body>
 </html>

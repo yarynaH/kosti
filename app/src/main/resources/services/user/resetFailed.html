@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body class="page-wrapper">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div>Что-то пошло не так во время смены пароля. Попробуйте еще раз, или свяжитесь с нами.</div>
+      <div>
+        Что-то пошло не так во время смены пароля. Попробуйте еще раз, или
+        свяжитесь с нами.
+      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-</body>
-
+  </body>
 </html>

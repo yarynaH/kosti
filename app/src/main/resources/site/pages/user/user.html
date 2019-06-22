@@ -1,86 +1,164 @@
 <!DOCTYPE html>
 <html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body class="page-wrapper">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
-    <div data-th-remove="tag" data-th-if="${currUserFlag}" data-th-utext="${editUserModal}"></div>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <div
+      data-th-remove="tag"
+      data-th-if="${currUserFlag}"
+      data-th-utext="${editUserModal}"
+    ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div class="user_page-wrap js_user-page-id" data-th-attr="data-userid=${content._id}">
-            <div class="blog blog_width clearfix">
-                <div class="user_page-profile blog-sidebar">
-                    <h3 class="user_page-title">Профиль</h3>
-                    <div class="profile">
-                        <form data-th-if="${currUserFlag}" id="userImageUpload" enctype="multipart/form-data" class="profile-form">
-                            <input type="file" name="userImage" id="userImage" class="hidden">
-                            <input type="hidden" name="action" value="image">
-                        </form>
-                        <div class="profile-avatar" data-th-classappend="${currUserFlag} ? 'profile-upload-image' : ''">
-                            <img data-th-src="${content.image.url}" alt="">
-                        </div>
-                        <div class="profile-user">
-                            <span class="profile-name" data-th-text="${content.displayName}"></span>
-                            <a class="profile-settings js_profile-settings" data-th-if="${currUserFlag}"></a>
-                        </div>
-                        <div class="profile-registration">
-                            Костяшка с <span data-th-remove="tag" data-th-text="${content.date}"></span>
-                        </div>
-                        <div class="profile-liked">
-                            <span class="profile-liked-img"></span>
-                            <span class="profile-liked-qty" data-th-text="${content.votes}"></span>
-                        </div>
-                        <ul class="profile-action-list js_blog-navigation">
-                            <li class="profile-action-item">
-                                <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="profile-action-link" 
-                                    data-type="userArticles" data-th-classappend="${active.articles}">
-                                    Статьи 
-                                    <span class="value" data-th-remove="tag" data-th-text="${totalArticles.articles ? totalArticles.articles : '0'}"></span>
-                                </a>
-                            </li>
-                            <li class="profile-action-item">
-                                <a class="profile-action-link" data-th-href="${portal.pageUrl({'_path='+content._path,'action=comments'})}"
-                                    data-th-classappend="${active.comments}" data-type="comments">
-                                    Комментарии 
-                                    <span data-th-text="${totalArticles.comments ? totalArticles.comments : '0'}" class="value"></span>
-                                </a>
-                            </li>
-                            <li class="profile-action-item" data-th-if="${currUserFlag}">
-                                <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}" class="profile-action-link"  
-                                    data-th-classappend="${active.bookmarks}" data-type="bookmarks">
-                                    Закладки 
-                                    <span  data-th-text="${content.data.bookmarks ? content.data.bookmarks.size : '0'}"></span>
-                                </a>
-                            </li>
-                            <li class="profile-action-item" data-th-if="${currUserFlag}">
-                                <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=notifications'})}" class="profile-action-link"
-                                    data-th-classappend="${active.notifications}" data-type="notifications">
-                                    Уведомления 
-                                    <span class="value" data-th-text="${totalArticles.notifications ? totalArticles.notifications : '0'}"></span>
-                                </a>
-                            </li>
-                        </ul>
-                        <a data-th-if="${currUserFlag}" data-th-href="${portal.serviceUrl({'_service=user','action=logout'})}" class="profile-logout" title="Logout"></a>
-                    </div>
-                </div>
-                <div class="user_page-blog blog-list-wrap">
-                    <div class="blog-list js_article-comments" data-page="1">
-                        <h3 class="user_page-title">
-                            <span data-th-remove="tag" data-th-text="${totalArticles.curr ? totalArticles.curr : '0'}"></span> 
-                            <span data-th-remove="tag" data-th-text="${portal.localize({'_key=user.title.' + currTitle, '_locale='+content.language})}"></span>
-                        </h3>
-                        <div data-th-if="${!totalArticles.curr}">
-                            У этого пользователя пока нету статей
-                        </div>
-                        <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
-                    </div>
-                    <div class="lds-ring js_lazyload-icon hidden"><div></div><div></div><div></div><div></div></div>
-                </div>
+      <div
+        class="user_page-wrap js_user-page-id"
+        data-th-attr="data-userid=${content._id}"
+      >
+        <div class="blog blog_width clearfix">
+          <div class="user_page-profile blog-sidebar">
+            <h3 class="user_page-title">Профиль</h3>
+            <div class="profile">
+              <form
+                data-th-if="${currUserFlag}"
+                id="userImageUpload"
+                enctype="multipart/form-data"
+                class="profile-form"
+              >
+                <input
+                  type="file"
+                  name="userImage"
+                  id="userImage"
+                  class="hidden"
+                />
+                <input type="hidden" name="action" value="image" />
+              </form>
+              <div
+                class="profile-avatar"
+                data-th-classappend="${currUserFlag} ? 'profile-upload-image' : ''"
+              >
+                <img data-th-src="${content.image.url}" alt="" />
+              </div>
+              <div class="profile-user">
+                <span
+                  class="profile-name"
+                  data-th-text="${content.displayName}"
+                ></span>
+                <a
+                  class="profile-settings js_profile-settings"
+                  data-th-if="${currUserFlag}"
+                ></a>
+              </div>
+              <div class="profile-registration">
+                Костяшка с
+                <span
+                  data-th-remove="tag"
+                  data-th-text="${content.date}"
+                ></span>
+              </div>
+              <div class="profile-liked">
+                <span class="profile-liked-img"></span>
+                <span
+                  class="profile-liked-qty"
+                  data-th-text="${content.votes}"
+                ></span>
+              </div>
+              <ul class="profile-action-list js_blog-navigation">
+                <li class="profile-action-item">
+                  <a
+                    data-th-href="${portal.pageUrl({'_path='+content._path})}"
+                    class="profile-action-link"
+                    data-type="userArticles"
+                    data-th-classappend="${active.articles}"
+                  >
+                    Статьи
+                    <span
+                      class="value"
+                      data-th-remove="tag"
+                      data-th-text="${totalArticles.articles ? totalArticles.articles : '0'}"
+                    ></span>
+                  </a>
+                </li>
+                <li class="profile-action-item">
+                  <a
+                    class="profile-action-link"
+                    data-th-href="${portal.pageUrl({'_path='+content._path,'action=comments'})}"
+                    data-th-classappend="${active.comments}"
+                    data-type="comments"
+                  >
+                    Комментарии
+                    <span
+                      data-th-text="${totalArticles.comments ? totalArticles.comments : '0'}"
+                      class="value"
+                    ></span>
+                  </a>
+                </li>
+                <li class="profile-action-item" data-th-if="${currUserFlag}">
+                  <a
+                    data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}"
+                    class="profile-action-link"
+                    data-th-classappend="${active.bookmarks}"
+                    data-type="bookmarks"
+                  >
+                    Закладки
+                    <span
+                      data-th-text="${content.data.bookmarks ? content.data.bookmarks.size : '0'}"
+                    ></span>
+                  </a>
+                </li>
+                <li class="profile-action-item" data-th-if="${currUserFlag}">
+                  <a
+                    data-th-href="${portal.pageUrl({'_path='+content._path,'action=notifications'})}"
+                    class="profile-action-link"
+                    data-th-classappend="${active.notifications}"
+                    data-type="notifications"
+                  >
+                    Уведомления
+                    <span
+                      class="value"
+                      data-th-text="${totalArticles.notifications ? totalArticles.notifications : '0'}"
+                    ></span>
+                  </a>
+                </li>
+              </ul>
+              <a
+                data-th-if="${currUserFlag}"
+                data-th-href="${portal.serviceUrl({'_service=user','action=logout'})}"
+                class="profile-logout"
+                title="Logout"
+              ></a>
             </div>
+          </div>
+          <div class="user_page-blog blog-list-wrap">
+            <div class="blog-list js_article-comments" data-page="1">
+              <h3 class="user_page-title">
+                <span
+                  data-th-remove="tag"
+                  data-th-text="${totalArticles.curr ? totalArticles.curr : '0'}"
+                ></span>
+                <span
+                  data-th-remove="tag"
+                  data-th-text="${portal.localize({'_key=user.title.' + currTitle, '_locale='+content.language})}"
+                ></span>
+              </h3>
+              <div data-th-if="${!totalArticles.curr}">
+                У этого пользователя пока нету статей
+              </div>
+              <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
+            </div>
+            <div class="lds-ring js_lazyload-icon hidden">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
         </div>
+      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-</body>
-
+  </body>
 </html>
