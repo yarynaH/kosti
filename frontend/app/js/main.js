@@ -334,18 +334,17 @@ function initSharedEvents() {
 }
 
 function loadMoreArticles() {
+  $(".js_lazyload-icon").removeClass("hidden");
   var page = $(".blog-list").data("page");
   if (!page) {
     page = 0;
   }
   var feedType = $(".blog-list").data("feedtype");
   var query = $(".blog-list").data("query");
-  $(".js_lazyload-icon").removeClass("hidden");
-  $.ajax({
-    url: contentServiceUrl,
-    type: "GET",
-    async: false,
-    data: {
+  var call = makeAjaxCall(
+    contentServiceUrl,
+    "GET",
+    {
       feedType: feedType
         ? feedType
         : $(".js_blog-navigation .active").data("type"),
@@ -353,18 +352,19 @@ function loadMoreArticles() {
       query: query ? query : null,
       userId: $(".js_user-page-id").data("userid")
     },
-    success: function(data) {
-      if (data == "") {
-        $(".blog-list").append(
-          "<div class='blog-list-empty'>Статей больше нет.</div>"
-        );
-        $(".blog-list").data("noMoreArticles", true);
-      } else {
-        $(".blog-list").append(data);
-      }
-      $(".js_lazyload-icon").addClass("hidden");
-      $(".blog-list").data("page", page + 1);
+    true
+  );
+  call.done(function(data) {
+    if (data.trim() === "") {
+      $(".blog-list").append(
+        "<div class='blog-list-empty'>Статей больше нет.</div>"
+      );
+      $(".blog-list").data("noMoreArticles", true);
+    } else {
+      $(".blog-list").append(data);
     }
+    $(".js_lazyload-icon").addClass("hidden");
+    $(".blog-list").data("page", page + 1);
   });
 }
 
