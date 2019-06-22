@@ -5,6 +5,7 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var promosLib = require(libLocation + "promosLib");
 var cartLib = require(libLocation + "cartLib");
+var sharedLib = require(libLocation + "sharedLib");
 
 exports.post = function(req) {
   var params = req.params;
