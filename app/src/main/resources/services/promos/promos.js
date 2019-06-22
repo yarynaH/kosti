@@ -14,7 +14,8 @@ exports.get = function(req) {
   var view = resolve("addPromo.html");
   var model = {
     pageComponents: helpers.getPageComponents(req),
-    promos: promosLib.getAllPromos()
+    promos: promosLib.getAllPromos(),
+    promosUrl: sharedLib.generateNiceServiceUrl("promos")
   };
   return {
     body: thymeleaf.render(view, model),
@@ -30,7 +31,8 @@ exports.post = function(req) {
   switch (action) {
     case "addPromo":
       var model = {
-        pageComponents: helpers.getPageComponents(req)
+        pageComponents: helpers.getPageComponents(req),
+        promosUrl: sharedLib.generateNiceServiceUrl("promos")
       };
       promosLib.addPromo(params);
       return {
@@ -40,16 +42,21 @@ exports.post = function(req) {
     case "checkPromo":
       return {
         body: promosLib.checkPromo(params.promo),
+        promosUrl: sharedLib.generateNiceServiceUrl("promos"),
         contentType: "application/json"
       };
     case "activatePromo":
       var view = resolve("../checkout/promos.html");
       var res = promosLib.activatePromo(params.promoCode, params.cartId);
-      var markup = thymeleaf.render(view, { promos: res.price.discount.codes });
+      var markup = thymeleaf.render(view, {
+        promos: res.price.discount.codes,
+        promosUrl: sharedLib.generateNiceServiceUrl("promos")
+      });
       return {
         body: {
           cart: promosLib.activatePromo(params.promoCode, params.cartId),
-          promos: markup
+          promos: markup,
+          promosUrl: sharedLib.generateNiceServiceUrl("promos")
         },
         contentType: "application/json"
       };
@@ -60,7 +67,8 @@ exports.post = function(req) {
       return {
         body: {
           cart: cartLib.removePromo(params.code, params.cartId),
-          promos: markup
+          promos: markup,
+          promosUrl: sharedLib.generateNiceServiceUrl("promos")
         },
         contentType: "application/json"
       };

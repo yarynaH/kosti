@@ -8,7 +8,7 @@ var cartLib = require(libLocation + "cartLib");
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
-var spellLib = require(libLocation + "spellsLib");
+var sharedLib = require(libLocation + "sharedLib");
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -46,6 +46,7 @@ function handleReq(req) {
       shopUrl: portal.pageUrl({ id: site.shopLocation }),
       sizes: getSizes(content.data.sizes),
       variations: getVariations(content),
+      cartUrl: sharedLib.generateNiceServiceUrl("cart"),
       pageComponents: helpers.getPageComponents(req)
     };
     return model;

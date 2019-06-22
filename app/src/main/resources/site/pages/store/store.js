@@ -7,6 +7,7 @@ var libLocation = "../../lib/";
 var cartLib = require(libLocation + "cartLib");
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
+var sharedLib = require(libLocation + "sharedLib");
 
 exports.get = handleReq;
 
@@ -34,6 +35,7 @@ function handleReq(req) {
       cart: cartLib.getCart(req.cookies.cartId),
       social: site.social,
       products: getProducts(),
+      cartUrl: sharedLib.generateNiceServiceUrl("cart"),
       pageComponents: helpers.getPageComponents(req)
     };
     return model;

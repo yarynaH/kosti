@@ -9,7 +9,7 @@
     ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <form action="/promos" method="POST">
+      <form data-th-action="${promosUrl}" method="POST">
         title
         <input type="text" name="displayName" />
         code

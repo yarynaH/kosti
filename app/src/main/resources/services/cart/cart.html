@@ -109,7 +109,7 @@
             <a
               class="checkout-continue"
               data-th-classappend="${cart.stock and cart.itemsNum > 0 ? '' : 'not-active'}"
-              href="/checkout"
+              data-th-href="${checkoutUrl}"
               title="Продолжить"
             >
               ПРОДОЛЖИТЬ

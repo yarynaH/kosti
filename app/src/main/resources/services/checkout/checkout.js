@@ -8,6 +8,7 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var cartLib = require(libLocation + "cartLib");
 var mailsLib = require(libLocation + "mailsLib");
+var sharedLib = require(libLocation + "sharedLib");
 
 exports.get = function(req) {
   return generateCheckoutPage(req);
@@ -102,6 +103,8 @@ function generateCheckoutPage(req) {
       agreementPage: portal.pageUrl({
         id: portal.getSiteConfig().agreementPage
       }),
+      checkoutUrl: sharedLib.generateNiceServiceUrl("checkout"),
+      cartUrl: sharedLib.generateNiceServiceUrl("cart"),
       params: params,
       cart: cart
     };
@@ -114,6 +117,8 @@ function generateCheckoutPage(req) {
     return {
       params: params,
       shopUrl: getShopUrl(),
+      checkoutUrl: sharedLib.generateNiceServiceUrl("checkout"),
+      cartUrl: sharedLib.generateNiceServiceUrl("cart"),
       shipping: shipping,
       cart: cart,
       address:
@@ -129,6 +134,8 @@ function generateCheckoutPage(req) {
     return {
       shopUrl: getShopUrl(),
       cart: cart,
+      checkoutUrl: sharedLib.generateNiceServiceUrl("checkout"),
+      cartUrl: sharedLib.generateNiceServiceUrl("cart"),
       error: params.error
     };
   }
@@ -197,7 +204,8 @@ function generateCheckoutPage(req) {
         promos: cart.price.discount.codes
       }),
       ik_id: site.ik_id,
-      pageComponents: helpers.getPageComponents(req, "footerCheckout")
+      pageComponents: helpers.getPageComponents(req, "footerCheckout"),
+      promosUrl: sharedLib.generateNiceServiceUrl("promos")
     };
   }
 

@@ -6,6 +6,7 @@ var userLib = require("userLib");
 var authLib = require("/lib/xp/auth");
 var cartLib = require("cartLib");
 var nodeLib = require("/lib/xp/node");
+var sharedLib = require("sharedLib");
 
 exports.fixPermissions = fixPermissions;
 
@@ -66,6 +67,7 @@ exports.getPageComponents = function(req, footerType) {
     {
       menuItems: getMenuItems(),
       site: site,
+      searchUrl: sharedLib.generateNiceServiceUrl("search"),
       user: userLib.getCurrentUser(),
       headerUser: thymeleaf.render(
         resolve("../pages/components/headerUser.html"),
@@ -158,12 +160,5 @@ function fixPermissions(repo, role) {
       }
     ],
     _inheritsPermissions: true
-  });
-}
-
-function connectRepo(repo) {
-  return nodeLib.connect({
-    repoId: repo,
-    branch: "master"
   });
 }

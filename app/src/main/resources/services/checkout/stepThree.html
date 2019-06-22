@@ -6,7 +6,7 @@
   </div>
 </div>
 <h2 class="checkout-title">Способ оплаты</h2>
-<form class="checkout-form" method="POST" action="/checkout">
+<form class="checkout-form" method="POST" data-th-action="${checkoutUrl}">
   <div class="payment_m">
     <div class="form-group">
       <input
@@ -38,7 +38,9 @@
     </div>
   </div>
   <div class="checkout-action">
-    <a href="/cart" class="checkout-back" title="К покупкам">К покупкам</a>
+    <a data-th-href="${cartUrl}" class="checkout-back" title="К покупкам"
+      >К покупкам</a
+    >
     <button
       class="checkout-continue"
       title="Продолжить"

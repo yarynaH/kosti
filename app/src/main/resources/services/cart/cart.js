@@ -7,6 +7,7 @@ var libLocation = "../../site/lib/";
 var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 var cartLib = require(libLocation + "cartLib");
+var sharedLib = require(libLocation + "sharedLib");
 
 exports.post = function(req) {
   var params = req.params;
@@ -50,7 +51,8 @@ exports.get = function(req) {
     body: thymeleaf.render(view, {
       cart: cartLib.getCart(req.cookies.cartId),
       pageComponents: helpers.getPageComponents(req),
-      shopUrl: shopUrl
+      shopUrl: shopUrl,
+      checkoutUrl: sharedLib.generateNiceServiceUrl("checkout")
     }),
     contentType: "text/html"
   };

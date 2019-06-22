@@ -16,7 +16,6 @@ function renderView(hash) {
   var view = resolve("newsletter.html");
   var site = portal.getSiteConfig();
   var content = contentLib.get({ key: site.newsletter });
-  norseUtils.log(hash);
   var body = thymeleaf.render(view, {
     site: site,
     mainRegion: content.page.regions.main,

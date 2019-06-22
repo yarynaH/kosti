@@ -10,6 +10,7 @@ var votesLib = require(libLocation + "votesLib");
 var userLib = require(libLocation + "userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
 var blogLib = require(libLocation + "blogLib");
+var sharedLib = require(libLocation + "sharedLib");
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -41,7 +42,6 @@ function handleReq(req) {
     var showDescription = true;
     var schedule = getSchedule(site.slider);
     var video = getVideoViaApi(site.gApiKey);
-    norseUtils.log(portal.componentUrl({ path: "search" }));
     var active = {};
     switch (up.feed) {
       case "new":
