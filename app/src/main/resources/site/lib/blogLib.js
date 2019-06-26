@@ -141,19 +141,23 @@ function getNewArticles(page) {
   return result;
 }
 
-function getSearchArticles(q, page) {
+function getSearchArticles(q, page, useHashtag) {
   var pageSize = 10;
   if (!page) {
     page = 0;
   }
   q = q.replaceAll("'", '"');
-  var query =
-    "fulltext('displayName^5,data.*,page.*', '" +
-    q +
-    "', 'AND') OR " +
-    "ngram('displayName^5,data.*,page.*', '" +
-    q +
-    "', 'AND')";
+
+  if(useHashtag)
+    var query =  "data.hashtags IN ('" + q + "') OR data.hashtags = '" + q + "'";
+  else
+    var query =
+      "fulltext('displayName^5,data.*,page.*', '" +
+      q +
+      "', 'AND') OR " +
+      "ngram('displayName^5,data.*,page.*', '" +
+      q +
+      "', 'AND')";
   var articles = [];
   var result = contentLib.query({
     query: query,
