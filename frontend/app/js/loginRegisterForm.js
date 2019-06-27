@@ -64,7 +64,6 @@ function initLoginRegisterForm() {
         $(".js_header-user-wrap").html(data.html);
         $(".modal-login .form-group-error").addClass("hidden");
         location.reload();
-        hideLoginRegisterModal();
       }
     });
   });

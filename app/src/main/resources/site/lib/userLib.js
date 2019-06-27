@@ -27,7 +27,6 @@ exports.createUserContentType = createUserContentType;
 exports.login = login;
 
 function getCurrentUser() {
-  var notificationLib = require("notificationLib");
   var user = authLib.getUser();
   var userObj = false;
   if (user && user.email && user.displayName) {
@@ -42,25 +41,33 @@ function getCurrentUser() {
     });
     if (userObj.hits && userObj.hits[0]) {
       userObj = userObj.hits[0];
-      userObj.url = portal.pageUrl({ id: userObj._id });
-      userObj.image = norseUtils.getImage(
-        userObj.data.userImage,
-        "block(32,32)",
-        1
-      );
-      userObj.key = user.key;
-      userObj.moderator = checkRole(["role:moderator", "role:system.admin"]);
-      userObj.notificationsCounter = notificationLib.getNotificationsForUser(
-        userObj._id,
-        null,
-        null,
-        true,
-        true
-      );
     } else {
-      userObj = false;
+      userObj = contextLib.runAsAdmin(function() {
+        return createUserContentType(user.displayName, user.email, user.key);
+      });
     }
+    return beautifyUser(userObj, user.key);
   }
+  return userObj;
+}
+
+function beautifyUser(userObj, key) {
+  var notificationLib = require("notificationLib");
+  userObj.url = portal.pageUrl({ id: userObj._id });
+  userObj.image = norseUtils.getImage(
+    userObj.data.userImage,
+    "block(32,32)",
+    1
+  );
+  userObj.key = key;
+  userObj.moderator = checkRole(["role:moderator", "role:system.admin"]);
+  userObj.notificationsCounter = notificationLib.getNotificationsForUser(
+    userObj._id,
+    null,
+    null,
+    true,
+    true
+  );
   return userObj;
 }
 
