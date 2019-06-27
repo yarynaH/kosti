@@ -12,11 +12,10 @@ function connectRepo(id) {
   });
 }
 
-function generateNiceServiceUrl(url) {
+function generateNiceServiceUrl(url, params) {
   var site = portal.getSite();
   if (url && url.indexOf("/") !== 0) {
     url = "/" + url;
   }
-  var temp = portal.pageUrl({ path: site._path + url });
-  return portal.pageUrl({ path: site._path + url });
+  return portal.pageUrl({ path: site._path + url, params: params });
 }

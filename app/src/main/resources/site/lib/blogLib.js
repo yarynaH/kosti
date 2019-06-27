@@ -8,6 +8,7 @@ var votesLib = require("votesLib");
 var userLib = require("userLib");
 var moment = require("moment");
 var commentsLib = require("commentsLib");
+var sharedLib = require("sharedLib");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -92,7 +93,27 @@ function beautifyArticle(article) {
   if (parseInt(article.votes) > 0) {
     article.voted = votesLib.checkIfVoted(article._id);
   }
+  article.hashtags = getHashtags(article.data.hashtags);
   return article;
+}
+
+function getHashtags(ids) {
+  if (!ids) {
+    return false;
+  }
+  ids = norseUtils.forceArray(ids);
+  var hashtags = [];
+  for (var i = 0; i < ids.length; i++) {
+    var hashtag = contentLib.get({ key: ids[i] });
+    if (!hashtag) {
+      continue;
+    }
+    hashtags.push({
+      displayName: hashtag.displayName,
+      url: sharedLib.generateNiceServiceUrl("search", { hid: hashtag._id })
+    });
+  }
+  return hashtags;
 }
 
 function getArticlesView(articles) {
@@ -148,8 +169,8 @@ function getSearchArticles(q, page, useHashtag) {
   }
   q = q.replaceAll("'", '"');
 
-  if(useHashtag)
-    var query =  "data.hashtags IN ('" + q + "') OR data.hashtags = '" + q + "'";
+  if (useHashtag)
+    var query = "data.hashtags IN ('" + q + "') OR data.hashtags = '" + q + "'";
   else
     var query =
       "fulltext('displayName^5,data.*,page.*', '" +

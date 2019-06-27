@@ -21,10 +21,13 @@
       data-th-text="${article.displayName}"
     ></a>
     <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
-    <div class="tag-list hidden">
-      <a href="#" class="tag-item">WoD</a>
-      <a href="#" class="tag-item">V5</a>
-      <a href="#" class="tag-item">VtM</a>
+    <div class="tag-list" data-th-if="${article.hashtags}">
+      <a
+        data-th-each="hashtag : ${article.hashtags}"
+        data-th-href="${hashtag.url}"
+        class="tag-item"
+        data-th-text="${hashtag.displayName}"
+      ></a>
     </div>
   </div>
   <div class="post-footer">
