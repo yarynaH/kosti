@@ -356,12 +356,11 @@ function loadMoreArticles() {
     data = JSON.parse(data);
     if (data && data.articles && data.articles.trim() !== "") {
       $(".js_blog-load_more").text(data.buttonText);
+      $(".js_blog-load_more").prop("title", data.buttonText);
       $(".js_blog-load_more").removeClass("hidden");
       $(".blog-list").append(data.articles);
     } else {
-      $(".blog-list").append(
-        "<div class='blog-list-empty'>Статей больше нет.</div>"
-      );
+      $(".js_blog-list-empty").removeClass("hidden");
       $(".blog-list").data("noMoreArticles", true);
     }
     $(".js_lazyload-icon").addClass("hidden");

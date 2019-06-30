@@ -2,12 +2,14 @@
   class="notification-item"
   data-th-classappend="${notification.seen != 1 ? 'new' : ''}"
   data-th-each="notification: ${notifications}"
+  data-th-if="${notification}"
 >
-  <span class="post-user_avatar">
+  <span data-th-if="${notification.user}" class="post-user_avatar">
     <img data-th-src="${notification.user.image.url}" />
   </span>
   <div class="notification-post_info">
     <a
+      data-th-if="${notification.user}"
       data-th-href="${notification.user.url}"
       class="post-user_name"
       data-th-text="${notification.user.displayName}"

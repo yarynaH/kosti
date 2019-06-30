@@ -134,9 +134,12 @@
             ></div>
             <button
               class="blog-upload_more js_blog-load_more"
-              title="НУЖНО БОЛЬШЕ ЗОЛОТА!"
+              data-th-title="${loadMoreText}"
               data-th-text="${loadMoreText}"
             ></button>
+            <div class="blog-list-empty js_blog-list-empty hidden">
+              Статей больше нет.
+            </div>
             <div class="lds-ring js_lazyload-icon hidden">
               <div></div>
               <div></div>

@@ -46,7 +46,7 @@ function handleReq(req) {
     switch (up.feed) {
       case "new":
         active.new = "active";
-        var articles = blogLib.getNewArticles();
+        var articles = blogLib.getNewArticles().hits;
         break;
       case "bookmarks":
         active.bookmarks = "active";

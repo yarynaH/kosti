@@ -133,7 +133,7 @@
             </div>
           </div>
           <div class="user_page-blog blog-list-wrap">
-            <div class="blog-list js_article-comments" data-page="1">
+            <div class="blog-list" data-page="1">
               <h3 class="user_page-title">
                 <span
                   data-th-remove="tag"
@@ -151,9 +151,12 @@
             </div>
             <button
               class="blog-upload_more js_blog-load_more"
-              title="НУЖНО БОЛЬШЕ ЗОЛОТА!"
+              data-th-title="${loadMoreText}"
               data-th-text="${loadMoreText}"
             ></button>
+            <div class="blog-list-empty js_blog-list-empty hidden">
+              Статей больше нет.
+            </div>
             <div class="lds-ring js_lazyload-icon hidden">
               <div></div>
               <div></div>
