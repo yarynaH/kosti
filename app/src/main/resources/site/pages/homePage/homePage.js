@@ -68,6 +68,7 @@ function handleReq(req) {
       sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
+      loadMoreText: blogLib.getRandomString(),
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       showDescription: showDescription,
       slider: getSliderArticles(site.slider),

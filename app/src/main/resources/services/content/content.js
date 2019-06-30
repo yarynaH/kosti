@@ -75,7 +75,10 @@ exports.get = function(req) {
       break;
   }
   return {
-    body: articles,
+    body: {
+      articles: articles,
+      buttonText: blogLib.getRandomString()
+    },
     contentType: "text/html"
   };
 };

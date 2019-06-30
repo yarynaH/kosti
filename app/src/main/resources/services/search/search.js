@@ -27,6 +27,7 @@ exports.get = function(req) {
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       sidebar: blogLib.getSidebar(),
       query: query,
+      loadMoreText: blogLib.getRandomString(),
       searchRes: searchRes
     }),
     contentType: "text/html"
