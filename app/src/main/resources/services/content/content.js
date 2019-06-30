@@ -35,7 +35,8 @@ exports.get = function(req) {
   }
   switch (params.feedType) {
     case "new":
-      var articles = blogLib.getArticlesView(blogLib.getNewArticles(page));
+      var articlesObj = blogLib.getNewArticles(page);
+      var articles = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "bookmarks":
       var user = userLib.getCurrentUser();

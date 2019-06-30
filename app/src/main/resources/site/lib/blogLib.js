@@ -163,8 +163,8 @@ function getNewArticles(page) {
     count: pageSize,
     sort: "publish.from DESC",
     contentTypes: [app.name + ":article"]
-  }).hits;
-  result = beautifyArticleArray(result);
+  });
+  result.hits = beautifyArticleArray(result.hits);
   return result;
 }
 
