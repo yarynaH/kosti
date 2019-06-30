@@ -55,7 +55,7 @@ function beautifyUser(userObj, key) {
   var notificationLib = require("notificationLib");
   userObj.url = portal.pageUrl({ id: userObj._id });
   userObj.image = norseUtils.getImage(
-    userObj.data.userImage,
+    userObj.data && userObj.data.userImage ? userObj.data.userImage : null,
     "block(32,32)",
     1
   );

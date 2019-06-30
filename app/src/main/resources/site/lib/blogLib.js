@@ -76,12 +76,16 @@ function beautifyArticle(article) {
     "block(1920, 1080)"
   );
   article.author = contentLib.get({ key: article.data.author });
+  if (article.author) {
+    article.author.image = norseUtils.getImage(
+      article.author.data.userImage,
+      "block(60, 60)"
+    );
+    article.author.url = portal.pageUrl({ id: article.author._id });
+  } else {
+    article.author.image = norseUtils.getImage(null, "block(60, 60)");
+  }
   article.url = portal.pageUrl({ id: article._id });
-  article.author.image = norseUtils.getImage(
-    article.author.data.userImage,
-    "block(60, 60)"
-  );
-  article.author.url = portal.pageUrl({ id: article.author._id });
   article.date = kostiUtils.getTimePassedSincePostCreation(
     new Date(moment(article.publish.from.replace("Z", "")))
   );
