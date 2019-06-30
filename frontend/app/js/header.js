@@ -23,8 +23,10 @@ function initHeaderFunctions() {
     $(".js_header-search").addClass("show");
     $(".js_search-input").focus();
   });
-  $(".js_search-input").on("focusout", function() {
-    $(".js_header-search").removeClass("show");
+  $(".js_header-search").on("focusout", function(e) {
+    if ($(this).has(e.relatedTarget).length === 0) {
+      $(".js_header-search").removeClass("show");
+    }
   });
   $(".js_notification-icon").on("click", function(e) {
     e.preventDefault();
