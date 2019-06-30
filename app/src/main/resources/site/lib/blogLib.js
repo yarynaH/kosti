@@ -226,13 +226,13 @@ function getArticlesByUser(id, page, count) {
   return articles;
 }
 
-function getRandomString(){
-    var min = 1;
-    var max = 11;
-    //maximum not including
-    var randomNumber = Math.floor(Math.random() * (max - min)) + min;
-    var randomString = i18nLib.localize({
-        key: "blog.buttonText." + num;
-      });
-    return randomString;
+function getRandomString() {
+  var min = 1;
+  var max = 11;
+  //maximum not including
+  var randomNumber = Math.floor(Math.random() * (max - min)) + min;
+  var randomString = i18nLib.localize({
+    key: "blog.buttonText." + num
+  });
+  return randomString;
 }
