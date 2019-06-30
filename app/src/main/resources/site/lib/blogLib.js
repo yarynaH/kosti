@@ -84,7 +84,7 @@ function beautifyArticle(article) {
     );
     article.author.url = portal.pageUrl({ id: article.author._id });
   } else {
-    article.author.image = norseUtils.getImage(null, "block(60, 60)");
+    article.author = { image: norseUtils.getImage(null, "block(60, 60)") };
   }
   article.url = portal.pageUrl({ id: article._id });
   article.date = kostiUtils.getTimePassedSincePostCreation(
