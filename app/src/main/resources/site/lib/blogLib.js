@@ -22,6 +22,7 @@ exports.getWeeksPost = getWeeksPost;
 exports.getSolialLinks = getSolialLinks;
 exports.getSidebar = getSidebar;
 exports.getSearchArticles = getSearchArticles;
+exports.getRandomString = getRandomString;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -231,8 +232,7 @@ function getRandomString() {
   var max = 11;
   //maximum not including
   var randomNumber = Math.floor(Math.random() * (max - min)) + min;
-  var randomString = i18nLib.localize({
-    key: "blog.buttonText." + num
+  return i18nLib.localize({
+    key: "blog.buttonText." + randomNumber
   });
-  return randomString;
 }

@@ -117,6 +117,7 @@ function handleReq(req) {
       totalArticles: totalArticles,
       articles: articles,
       active: active,
+      loadMoreText: blogLib.getRandomString(),
       editUserModal: editUserModal,
       articlesView: articles,
       pageComponents: helpers.getPageComponents(req, "footerBlog")
