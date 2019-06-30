@@ -9,6 +9,7 @@ var userLib = require("userLib");
 var moment = require("moment");
 var commentsLib = require("commentsLib");
 var sharedLib = require("sharedLib");
+var i18nLib = require("/lib/xp/i18n");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -219,4 +220,15 @@ function getArticlesByUser(id, page, count) {
   articles = articles.hits;
   articles = beautifyArticleArray(articles);
   return articles;
+}
+
+function getRandomString(){
+    var min = 1;
+    var max = 11;
+    //maximum not including
+    var randomNumber = Math.floor(Math.random() * (max - min)) + min;
+    var randomString = i18nLib.localize({
+        key: "blog.buttonText." + num;
+      });
+    return randomString;
 }
