@@ -1,499 +1,547 @@
 .header {
-    position: fixed;
-    z-index: 11;
-    width: 100%;
-    height: 75px;
-    color: $color-primary26;
-    transition: transition(all, 0.5s, ease-in-out);
+  position: fixed;
+  z-index: 11;
+  width: 100%;
+  height: 75px;
+  color: $color-primary26;
+  transition: transition(all, 0.5s, ease-in-out);
 
+  @include tablet-all {
+    height: 85px;
+  }
+
+  body:not(.transparent-header) &,
+  &.header-scroll {
+    box-shadow: 0 2px 16px 0 rgba($color-primary21, 0.26);
+    background-color: $color-primary33;
+  }
+
+  &.open {
+    background-color: $color-primary33;
+  }
+
+  &:after {
+    height: 2px;
+    opacity: 0.24;
+    background-color: $color-primary1;
+    content: "";
+    display: block;
+  }
+
+  .site_width {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    align-items: center;
+
+    @include mobile {
+      padding: 10px 25px 10px 20px;
+    }
+  }
+
+  &-logo {
+    max-width: 101px;
+    height: 53px;
+    display: flex;
+    align-items: center;
+
+    img {
+      transition: transition(max-height);
+    }
+
+    &-scroll {
+      max-height: 0;
+
+      .change-logo & {
+        max-height: 60px;
+      }
+    }
+
+    &-default {
+      max-height: 60px;
+
+      .change-logo & {
+        max-height: 0;
+      }
+    }
+  }
+
+  .mobile_menu {
     @include tablet-all {
-        height: 85px;
+      display: none;
     }
 
-    body:not(.transparent-header) &,
-    &.header-scroll {
-        box-shadow: 0 2px 16px 0 rgba($color-primary21, 0.26);
-        background-color: $color-primary33;
+    &.open + .header-utility {
+      @include mobile {
+        max-height: 500px;
+        opacity: 1;
+      }
+    }
+  }
+
+  &-utility {
+    @include tablet-all {
+      display: flex;
+      align-items: center;
+      max-width: 90%;
     }
 
-    &.open {
-        background-color: $color-primary33;
+    @include mobile {
+      @include position(absolute, top 75px left 0);
+
+      width: 100%;
+      max-height: 0;
+      opacity: 0;
+      box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.26);
+      background-color: $color-primary33;
+      transition: transition(all, 0.5s, ease-in-out);
+      overflow: hidden;
+    }
+  }
+
+  &-search,
+  &-notification,
+  &-user {
+    @include tablet-all {
+      padding-left: 65px;
+    }
+  }
+
+  &-link_text {
+    @include tablet-all {
+      display: none;
+    }
+  }
+
+  &-user {
+    @include mobile {
+      padding-bottom: 10px;
+    }
+  }
+
+  &-search {
+    position: relative;
+
+    @include mobile {
+      max-height: 39px;
+      transition: transition(all, 0.2s, ease);
     }
 
-    &:after {
-        height: 2px;
-        opacity: 0.24;
-        background-color: $color-primary1;
-        content: '';
-        display: block;
-    }
+    &.show {
+      @include mobile {
+        max-height: 66px;
+      }
 
-    .site_width {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        align-items: center;
-
+      .nav-link {
         @include mobile {
-            padding: 10px 25px 10px 20px;
+          @include position(absolute, top -9999px right -9999px);
         }
+      }
     }
 
-    &-logo {
-        max-width: 101px;
-        height: 53px;
-        display: flex;
-        align-items: center;
+    .search-field {
+      @include desktop {
+        width: 495px;
+      }
 
-        img {
-            transition: transition(max-height);
-        }
-
-        &-scroll {
-            max-height: 0;
-
-            .change-logo & {
-                max-height: 60px;
-            }
-        }
-
-        &-default {
-            max-height: 60px;
-    
-            .change-logo & {
-                max-height: 0;
-            }
-        }
+      @include tablet {
+        width: 370px;
+      }
     }
+  }
 
-    .mobile_menu {
+  &-notification {
+    position: relative;
+
+    .nav-link {
+      &.have_qty {
         @include tablet-all {
-            display: none;
+          pointer-events: none;
         }
-
-        &.open + .header-utility {
-            @include mobile {
-                max-height: 500px;
-                opacity: 1;
-            }
-        }
+      }
     }
-
-    &-utility {
-        @include tablet-all {
-            display: flex;
-            align-items: center;
-            max-width: 90%;
-        }
-
-        @include mobile {
-            @include position (absolute, top 75px left 0);
-
-            width: 100%;
-            max-height: 0;
-            opacity: 0;
-            box-shadow: 0 2px 16px 0 rgba(0,0,0,.26);
-            background-color: $color-primary33;
-            transition: transition(all, 0.5s, ease-in-out);
-            overflow: hidden;
-        }
-    }
-
-    &-search,
-    &-notification,
-    &-user {
-        @include tablet-all {
-            padding-left: 65px;
-        }
-    }
-
-    &-link_text {
-        @include tablet-all {
-            display: none;
-        }
-    }
-
-    &-user {
-        @include mobile {
-            padding-bottom: 10px;
-        }
-    }
-
-    &-search {
-        position: relative;
-
-        @include mobile {
-            max-height: 39px;
-            transition: transition(all, 0.2s, ease);
-        }
-
-        &.show {
-            @include mobile {
-                max-height: 66px;
-            }
-
-            .nav-link {
-                @include mobile {
-                    @include position (absolute, top -9999px right -9999px);
-                }
-            }
-        }
-
-        .search-field {
-            @include desktop {
-                width: 495px;
-            }
-
-            @include tablet {
-                width: 370px;
-            }
-        }
-    }
-
-    &-notification {
-        position: relative;
-
-        .nav-link {
-            &.have_qty {
-                @include tablet-all {
-                    pointer-events: none;
-                }
-            }
-        }
-    }
+  }
 }
 
 .user-avatar {
-    &-img_wrap {
-        border-radius: 50%;
-        overflow: hidden;
-        border: 2px solid $color-primary10;
-        width: 36px;
+  &-img_wrap {
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid $color-primary10;
+    width: 36px;
 
-        @include mobile {
-            margin: 10px 25px;
-        }
+    @include mobile {
+      margin: 10px 25px;
     }
+  }
 }
 
 .nav {
-    &-list {
-        @include tablet-all {
-            font-size: 0;
-        }
-
-        @include mobile {
-            padding-top: 10px;
-        }
+  &-list {
+    @include tablet-all {
+      font-size: 0;
     }
 
-    &-item {
-        @include tablet-all {
-            display: inline-block;
-            padding-left: 65px;
-            vertical-align: middle;
+    @include mobile {
+      padding-top: 10px;
+    }
+  }
 
-            &:first-child {
-                padding-left: 0;
-            }
-        }
+  &-item {
+    @include tablet-all {
+      display: inline-block;
+      padding-left: 65px;
+      vertical-align: middle;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+
+  &-link {
+    font-family: $font-main-regular;
+    font-size: rem(14);
+    font-weight: bold;
+    color: $color-primary8;
+    transition: transition(color);
+
+    @include mobile {
+      display: block;
+      padding: 10px 25px;
     }
 
-    &-link {
-        font-family: $font-main-regular;
-        font-size: rem(14);
-        font-weight: bold;
-        color: $color-primary8;
-        transition: transition(color);
-
-        @include mobile {
-            display: block;
-            padding: 10px 25px;
-        }
-
-        &:hover,
-        &.active {
-            color: $color-primary9;
-        }
+    &:hover,
+    &.active {
+      color: $color-primary9;
     }
+  }
 }
 
 .active_element {
-    @include mobile {
-        display: none;
-    }
+  @include mobile {
+    display: none;
+  }
 
-    @include tablet-all {
-        @include position (absolute, bottom 0);
+  @include tablet-all {
+    @include position(absolute, bottom 0);
 
-        width: 8px;
-        height: 8px;
-        content: '';
-        box-shadow: 0 2px 4px 0 rgba($color-primary23, 0.5);
-        background-color: $color-primary24;
-        border-radius: 50%;
-        margin-bottom: -3px;
-        z-index: 2;
-        transition: transition(all, 0.5s, ease-in-out);
-    }
+    width: 8px;
+    height: 8px;
+    content: "";
+    box-shadow: 0 2px 4px 0 rgba($color-primary23, 0.5);
+    background-color: $color-primary24;
+    border-radius: 50%;
+    margin-bottom: -3px;
+    z-index: 2;
+    transition: transition(all, 0.5s, ease-in-out);
+  }
 }
 
-.notification, 
-.search{
-    &-utility {
-        color: $color-primary9;
+.notification,
+.search {
+  &-utility {
+    color: $color-primary9;
+  }
+
+  &-icon {
+    @include mobile {
+      margin-right: 10px;
     }
-    
-    &-icon {
-        @include mobile {
-            margin-right: 10px;
-        }
-    }
+  }
 }
 
 .search {
-    &-utility {
-        color: $color-primary9;
-        cursor: pointer;
+  &-utility {
+    color: $color-primary9;
+    cursor: pointer;
+  }
+
+  &-icon {
+    @include icon(search);
+
+    &:before {
+      font-size: rem(17);
+    }
+  }
+
+  &-block {
+    @include tablet-all {
+      @include position(absolute, top -19px right -16px);
+
+      opacity: 0;
+      pointer-events: none;
+      transition: transition(opacity, 0.2s, ease-in-out);
+
+      .show & {
+        opacity: 1;
+        pointer-events: auto;
+      }
     }
 
-    &-icon {
-        @include icon(search);
+    @include mobile {
+      @include position(absolute, top -9999px right -9999px);
 
-        &:before {
-            font-size: rem(17);
-        }
+      margin: 0 25px;
     }
 
-    &-block {
-        @include tablet-all {
-            @include position (absolute, top -19px right -16px);
-    
-            opacity: 0;
-            pointer-events: none;
-            transition:  transition(opacity, .2s, ease-in-out);
-        
-            .show & {
-                opacity: 1;
-                pointer-events: auto;
-            }
-        }
-
-        @include mobile {
-            @include position (absolute, top -9999px right -9999px);
-
-            margin: 0 25px;
-
-        }
-
-        .show & {
-            @include mobile {
-                position: static;
-            }
-        }
+    .show & {
+      @include mobile {
+        position: static;
+      }
     }
+  }
 }
 
 .notification {
-    &-utility {
-        color: $color-primary9;
+  &-utility {
+    color: $color-primary9;
+  }
+
+  &-icon {
+    @include icon(bell-notification);
+    @include qty-notification(wrapper);
+
+    pointer-events: auto;
+
+    &:before {
+      font-size: rem(20);
+
+      .have_qty & {
+        animation: ring 6s 3s ease-in-out infinite;
+      }
+    }
+  }
+
+  &-qty {
+    @include qty-notification(icon notification);
+
+    transition: transition(opacity);
+    opacity: 0;
+
+    .have_qty & {
+      opacity: 1 !important;
+    }
+  }
+
+  &-block {
+    right: -10px;
+    top: 35px;
+    position: absolute;
+    width: 310px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px -2px rgba($color-primary39, 0.25),
+      0 0 1px 0 rgba($color-primary39, 0.31);
+    background-color: $color-primary1;
+    opacity: 0;
+    transition: transition(opacity);
+    pointer-events: none;
+    z-index: 3;
+
+    @include mobile {
+      display: none;
     }
 
-    &-icon {
-        @include icon(bell-notification);
-        @include qty-notification(wrapper);
-
+    .show_notification & {
+      @include tablet-all {
+        opacity: 1 !important;
         pointer-events: auto;
-
-        &:before {
-            font-size: rem(20);
-
-            .have_qty & {
-                animation: ring 6s 3s ease-in-out infinite;
-            }
-        }
+      }
     }
 
-    &-qty {
-        @include qty-notification(icon notification);
+    &:after {
+      @include border-triangle(top, 7px, 5px, $color-primary1);
+      @include position(absolute, top 0 right 15px);
 
-        transition: transition(opacity);
-        opacity: 0;
+      content: "";
+      margin-top: -5px;
+    }
+  }
 
-        .have_qty & {
-            opacity: 1 !important;
-        }
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 15px 10px;
+  }
+
+  &-list {
+    max-height: 200px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  &-item {
+    display: flex;
+    color: $color-primary17;
+    padding: 10px 15px;
+    font-size: rem(12);
+    line-height: 1.4;
+    transition: transition(background);
+
+    & + & {
+      border-top: 1px solid $color-primary10;
     }
 
-    &-block {
-        right: -10px;
-        top: 35px;
-        position: absolute;
-        width: 310px;
-        border-radius: 4px;
-        box-shadow: 0 4px 8px -2px rgba($color-primary39, 0.25), 0 0 1px 0 rgba($color-primary39, 0.31);
-        background-color: $color-primary1;
-        opacity: 0;
-        transition: transition(opacity);
-        pointer-events: none;
-
-        @include mobile {
-            display: none;
-        }
-
-        .show_notification & {
-            @include tablet-all {
-                opacity: 1 !important;
-                pointer-events: auto;
-            }
-        }
-
-        &:after{
-            @include border-triangle(top, 7px, 5px, $color-primary1);
-            @include position(absolute, top 0 right 15px);
-    
-            content: '';
-            margin-top: -5px;
-        }
+    &.new {
+      background: rgba($color-primary36, 0.16);
     }
 
-    &-header {
-        display: flex;
-        justify-content: space-between;
-        padding: 15px 15px 10px;
+    .post-user_avatar {
+      align-self: flex-start;
     }
 
-    &-list {
-        max-height: 200px;
-        overflow-x: auto;
-        padding-bottom: 10px;
+    .post-user_name {
+      color: $color-primary17;
+      font-weight: bold;
     }
 
-    &-item {
-        display: flex;
-        color: $color-primary17;
-        padding: 10px 15px;
-        font-size: rem(12);
-        line-height: 1.4;
-        transition: transition(background);
-
-        & + & {
-            border-top: 1px solid $color-primary10;
-        }
-
-        &.new {
-            background: rgba($color-primary36, 0.16);
-        }
-
-        .post-user_avatar {
-            align-self: flex-start;
-        }
-
-        .post-user_name {
-            color: $color-primary17;
-            font-weight: bold;
-        }
-
-        .post-date {
-            display: block;
-            padding-top: 10px;
-        }
+    .post-date {
+      display: block;
+      padding-top: 10px;
     }
+  }
 
-    &-title {
-        font-size: rem(14);
-        font-weight: bold;
-        color: $color-primary6;
+  &-title {
+    font-size: rem(14);
+    font-weight: bold;
+    color: $color-primary6;
+  }
+
+  &-link {
+    font-weight: bold;
+
+    &:hover {
+      color: $color-primary6;
     }
+  }
 
-    &-link {
-        font-weight: bold;
+  &-post_info {
+    flex: 1;
+    padding-left: 10px;
+  }
 
-        &:hover {
-            color: $color-primary6;
-        }
-    }
-
-    &-post_info {
-        flex: 1;
-        padding-left: 10px;
-    }
-
-    &-post_name {
-        font-weight: bold;
-    }
+  &-post_name {
+    font-weight: bold;
+  }
 }
 
 .guest {
-    &-btn {
-        cursor: pointer;
+  &-btn {
+    cursor: pointer;
 
-        @include mobile {
-            padding: 10px 25px;
-        }
-
-        &:hover {
-            opacity: 0.8;
-            transition: transition(opacity);
-        }
+    @include mobile {
+      padding: 10px 25px;
     }
 
-    &-icon {
-        background-image: url("../images/guest.svg");
-        display: inline-block;
-        vertical-align: middle;
-        background-size: contain;
-        width: 32px;
-        height: 32px;
-        margin-right: 10px;
+    &:hover {
+      opacity: 0.8;
+      transition: transition(opacity);
     }
+  }
 
-    &-login {
-        font-size: rem(14);
-        font-weight: bold;
-        color: $color-primary9;
-    }
+  &-icon {
+    background-image: url("../images/guest.svg");
+    display: inline-block;
+    vertical-align: middle;
+    background-size: contain;
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
+
+  &-login {
+    font-size: rem(14);
+    font-weight: bold;
+    color: $color-primary9;
+  }
 }
 
 .main {
-    padding-top: 75px;
+  padding-top: 75px;
 
-    @include tablet-all {
-        padding-top: 85px;
-    }
+  @include tablet-all {
+    padding-top: 85px;
+  }
 
-    .homepage &,
-    .article-page & {
-        padding-top: 0;
-    }
+  .homepage &,
+  .article-page & {
+    padding-top: 0;
+  }
 }
 
-
 @keyframes ring {
-    0% { transform: rotate(0); }
-    1% { transform: rotate(30deg); }
-    3% { transform: rotate(-28deg); }
-    5% { transform: rotate(34deg); }
-    7% { transform: rotate(-32deg); }
-    9% { transform: rotate(30deg); }
-    11% { transform: rotate(-28deg); }
-    13% { transform: rotate(26deg); }
-    15% { transform: rotate(-24deg); }
-    17% { transform: rotate(22deg); }
-    19% { transform: rotate(-20deg); }
-    21% { transform: rotate(18deg); }
-    23% { transform: rotate(-16deg); }
-    25% { transform: rotate(14deg); }
-    27% { transform: rotate(-12deg); }
-    29% { transform: rotate(10deg); }
-    31% { transform: rotate(-8deg); }
-    33% { transform: rotate(6deg); }
-    35% { transform: rotate(-4deg); }
-    37% { transform: rotate(2deg); }
-    39% { transform: rotate(-1deg); }
-    41% { transform: rotate(1deg); }
-    43% { transform: rotate(0); }
-    100% { transform: rotate(0); }
+  0% {
+    transform: rotate(0);
+  }
+  1% {
+    transform: rotate(30deg);
+  }
+  3% {
+    transform: rotate(-28deg);
+  }
+  5% {
+    transform: rotate(34deg);
+  }
+  7% {
+    transform: rotate(-32deg);
+  }
+  9% {
+    transform: rotate(30deg);
+  }
+  11% {
+    transform: rotate(-28deg);
+  }
+  13% {
+    transform: rotate(26deg);
+  }
+  15% {
+    transform: rotate(-24deg);
+  }
+  17% {
+    transform: rotate(22deg);
+  }
+  19% {
+    transform: rotate(-20deg);
+  }
+  21% {
+    transform: rotate(18deg);
+  }
+  23% {
+    transform: rotate(-16deg);
+  }
+  25% {
+    transform: rotate(14deg);
+  }
+  27% {
+    transform: rotate(-12deg);
+  }
+  29% {
+    transform: rotate(10deg);
+  }
+  31% {
+    transform: rotate(-8deg);
+  }
+  33% {
+    transform: rotate(6deg);
+  }
+  35% {
+    transform: rotate(-4deg);
+  }
+  37% {
+    transform: rotate(2deg);
+  }
+  39% {
+    transform: rotate(-1deg);
+  }
+  41% {
+    transform: rotate(1deg);
+  }
+  43% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(0);
+  }
 }

@@ -24,7 +24,7 @@ exports.get = function(req) {
   var site = portal.getSiteConfig();
   return {
     body: thymeleaf.render(view, {
-      pageComponents: helpers.getPageComponents(req),
+      pageComponents: helpers.getPageComponents(req, "footerBlog"),
       sidebar: blogLib.getSidebar(),
       query: query,
       loadMoreText: blogLib.getRandomString(),
