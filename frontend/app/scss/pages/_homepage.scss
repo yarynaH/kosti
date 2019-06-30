@@ -1,418 +1,438 @@
 .freshest {
-    @include mobile {
-        margin-bottom: 25px;
-    }
+  @include mobile {
+    margin-bottom: 25px;
+  }
 
-    @include tablet-all {
-        flex: 0 1 66%;
-    }
+  @include tablet-all {
+    flex: 0 1 66%;
+  }
 }
 
 .latest_news {
+  position: relative;
+  background: $color-primary2;
+
+  &-title {
+    font-family: $font-main-regular;
+    font-size: rem(14);
+    font-weight: bold;
+    color: $color-primary1;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  &-iframe_wrap {
+    border-radius: 4px;
+    overflow: hidden;
     position: relative;
-    background: $color-primary2;
+    padding-bottom: 51.903%;
+    padding-top: 25px;
+    height: 0;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
 
-    &-title {
-        font-family: $font-main-regular;
-        font-size: rem(14);
-        font-weight: bold;
-        color: $color-primary1;
-        text-transform: uppercase;
-        margin-bottom: 8px;
+    iframe {
+      @include position(absolute, top 0 left 0);
+
+      width: 100%;
+      height: 100%;
     }
+  }
 
-    &-iframe_wrap {
-        border-radius: 4px;
-        overflow: hidden;
-        position: relative;
-        padding-bottom: 51.903%;
-        padding-top: 25px;
-        height: 0;
-        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.16);
+  .blog_width {
+    position: relative;
+    z-index: 2;
 
-        iframe {
-            @include position(absolute, top 0 left 0);
-
-            width: 100%;
-            height: 100%;
-        }
+    @include tablet-all {
+      display: flex;
+      justify-content: space-between;
     }
-
-    .blog_width {
-        position: relative;
-        z-index: 2;
-
-        @include tablet-all {
-            display: flex;
-            justify-content: space-between;
-        }
-    }
+  }
 }
 
 .schedule {
+  @include tablet-all {
+    flex: 0 1 31%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  .latest_news-title {
     @include tablet-all {
-        flex: 0 1 31%;
-        display: flex;
-        justify-content: flex-start;
-        flex-direction: column;
+      min-height: 16px;
+    }
+  }
+
+  &-item {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
+    color: $color-primary1;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    position: relative;
+
+    @include tablet-all {
+      flex: 1 1 100%;
+      max-height: calc((100% / 3) - 15px);
     }
 
-    .latest_news-title {
-        @include tablet-all {
-            min-height: 16px;
-        }
+    @include mobile {
+      height: 109px;
     }
 
-    &-item {
-        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.16);
-        color: $color-primary1;
-        background-size: cover;
-        background-position: center;
-        border-radius: 4px;
-        position: relative;
-
-        @include tablet-all {
-            flex: 1 1 100%;
-            max-height: calc((100% / 3) - 15px);
-        }
-
-        @include mobile {
-            height: 109px;
-        }
-
-        & + & {
-            margin-top: 10px;
-        }
-
-        &:before {
-            @include position(absolute, top 0 left 0);
-
-            content: '';
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
+    & + & {
+      margin-top: 10px;
     }
 
-    &-content {
-        height: 100%;
-        position: relative;
-        padding: 30px 30px 15px;
+    &:before {
+      @include position(absolute, top 0 left 0);
+
+      content: "";
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &-content {
+    height: 100%;
+    position: relative;
+    padding: 30px 30px 15px;
+  }
+
+  &-date {
+    font-size: rem(12);
+
+    .month {
+      color: $color-primary11;
+      font-weight: 500;
     }
 
-    &-date {
-        font-size: rem(12);
-    
-        .month {
-            color: $color-primary11;
-            font-weight: 500;
-        }
-        
-        .date {
-            font-weight: bold;
-        }
+    .date {
+      font-weight: bold;
     }
-    
-    &-title {
-        @include truncate();
+  }
 
-        font-size: rem(18);
-        font-weight: bold;
-    }
+  &-title {
+    @include truncate();
+
+    font-size: rem(18);
+    font-weight: bold;
+  }
 }
 
 .main_blog {
+  background: $color-primary13;
+  position: relative;
+
+  &:before {
+    @include position(absolute, top -25px);
+
+    width: 100%;
+    height: 25px;
+    content: "";
     background: $color-primary13;
-    position: relative;
-
-    &:before {
-        @include position(absolute, top -25px);
-
-        width: 100%;
-        height: 25px;
-        content: '';
-        background: $color-primary13;
-        pointer-events: none;
-    }
+    pointer-events: none;
+  }
 }
 
 .blog {
-    &-navigation {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 30px 0 20px;
+  &-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 0 20px;
 
-        @include tablet-all {
-            padding: 20px 34% 20px 0;
-        }
-
-        .hotter-btn {
-            @include icon(rock);
-        }
-
-        .fresher-btn {
-            @include icon(add);
-        }
-
-        .bookmarks-btn {
-            @include icon(bookmark);
-        }
+    @include tablet-all {
+      padding: 20px 34% 20px 0;
     }
 
-    &-list {
-        &-wrap {
-            @include tablet-all {
-                width: 66%;
-                float: left;
-            }
-        }
-
-        &-empty {
-            margin: 30px;
-            font-size: rem(16);
-            text-align: center;
-            
-            @include tablet-all {
-                margin-bottom: 0;
-            }
-        }
+    .hotter-btn {
+      @include icon(rock);
     }
 
-    &-item {
-        font-size: rem(14);
-        background-color: $color-primary1;
-
-        & + & {
-            margin-top: 15px;
-        }
+    .fresher-btn {
+      @include icon(add);
     }
 
-    .fresher-btn,
-    .hotter-btn,
-    .bookmarks-btn, {
-        font-size: rem(14);
-        font-weight: bold;
-        color: $color-primary12;
-        text-transform: capitalize;
+    .bookmarks-btn {
+      @include icon(bookmark);
+    }
+  }
 
-        &:before {
-            padding-right: 15px;
-        }
-    
-        &:hover {
-            opacity: 0.8;
-        }
-    
-        &.active {
-            font-size: rem(24);
-            color: $color-primary11;
-        }
+  &-list {
+    &-wrap {
+      @include tablet-all {
+        width: 66%;
+        float: left;
+      }
     }
 
-    .share-counter,
-    .views-counter,
-    .comments-counter {
-        font-size: rem(14);
+    &-empty {
+      margin: 30px;
+      font-size: rem(16);
+      text-align: center;
 
-        &:before {
-            margin-right: 8px;
-        }
+      @include tablet-all {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &-item {
+    font-size: rem(14);
+    background-color: $color-primary1;
+    box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+
+    & + & {
+      margin-top: 15px;
+    }
+  }
+
+  &-upload_more {
+    @include button-style(global transparent);
+
+    margin-top: 30px;
+    box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+    background-color: $color-primary1;
+    font-size: rem(16);
+    color: $color-primary6;
+
+    @include mobile {
+      margin-bottom: 30px;
     }
 
-    .add_to_bookmarks-btn {
-        display: inline-flex;
-        align-items: center;
-        margin-right: 25px;
-        cursor: pointer;
-        transition: transition(color);
+    &:hover {
+      color: $color-primary36;
+      box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.1);
+    }
+  }
 
-        &.active,
-        &:hover {
-            color: $color-primary18;
-        }
+  .fresher-btn,
+  .hotter-btn,
+  .bookmarks-btn {
+    font-size: rem(14);
+    font-weight: bold;
+    color: $color-primary12;
+    text-transform: capitalize;
+
+    &:before {
+      padding-right: 15px;
     }
 
-    &-sidebar {
-        @include mobile() {
-            margin-top: 15px;
-        }
-
-        @include tablet-all {
-            width: 34%;
-            float: right;
-            padding-left: 25px;
-
-            position: sticky;
-            top: 105px;
-        }
+    &:hover {
+      opacity: 0.8;
     }
+
+    &.active {
+      font-size: rem(24);
+      color: $color-primary11;
+    }
+  }
+
+  .share-counter,
+  .views-counter,
+  .comments-counter {
+    font-size: rem(14);
+
+    &:before {
+      margin-right: 8px;
+    }
+  }
+
+  .add_to_bookmarks-btn {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 25px;
+    cursor: pointer;
+    transition: transition(color);
+
+    &.active,
+    &:hover {
+      color: $color-primary18;
+    }
+  }
+
+  &-sidebar {
+    @include mobile() {
+      margin-top: 15px;
+    }
+
+    @include tablet-all {
+      width: 34%;
+      float: right;
+      padding-left: 25px;
+
+      position: sticky;
+      top: 105px;
+    }
+  }
 }
 
 .post {
+  padding: 25px 15px;
+
+  @include tablet-all {
+    padding: 25px 30px 15px;
+  }
+
+  &-user_name {
+    color: $color-primary15;
+    margin-right: 5px;
+  }
+
+  &-date {
+    color: $color-primary12;
+  }
+
+  &-user_avatar {
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 5px;
+  }
+
+  &-info {
+    margin-bottom: 10px;
+  }
+
+  &-title {
+    font-size: rem(24);
+    font-weight: bold;
+    color: $color-primary17;
+    margin-bottom: 20px;
+    display: block;
+
+    body:not(.article-page) &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &-text {
+    line-height: 1.71;
+    color: $color-primary16;
+    margin-bottom: 8px;
+  }
+
+  &-counters {
+    span {
+      margin-right: 25px;
+    }
+  }
+
+  &-footer {
+    border-top: 1px solid $color-primary14;
+    color: $color-primary12;
     padding: 25px 15px;
+    display: flex;
+    justify-content: space-between;
 
     @include tablet-all {
-        padding: 25px 30px 15px;
+      padding: 25px 30px;
     }
-
-    &-user_name {
-        color: $color-primary15;
-        margin-right: 5px;
-    }
-
-    &-date {
-        color: $color-primary12;
-    }
-
-    &-user_avatar {
-        display: inline-block;
-        vertical-align: middle;
-        width: 24px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 5px;
-    }
-
-    &-info {
-        margin-bottom: 10px;
-    }
-
-    &-title {
-        font-size: rem(24);
-        font-weight: bold;
-        color: $color-primary17;
-        margin-bottom: 20px;
-        display: block;
-
-        body:not(.article-page) &:hover {
-            opacity: 0.8;
-        }
-    }
-
-    &-text {
-        line-height: 1.71;
-        color: $color-primary16;
-        margin-bottom: 8px;
-    }
-    
-    &-counters {
-        span {
-            margin-right: 25px;
-        }
-    }
-
-    &-footer {
-        border-top: 1px solid $color-primary14;
-        color: $color-primary12;
-        padding: 25px 15px;
-        display: flex;
-        justify-content: space-between;
-
-        @include tablet-all {
-            padding: 25px 30px;
-        }
-    }
+  }
 }
 
 .post_top,
 .library_top {
-    padding: 140px 30px 30px;
-    position: relative;
+  padding: 140px 30px 30px;
+  position: relative;
 
-    &-label {
-        font-size: rem(14);
-        font-weight: bold;
-        position: absolute;
-        top: 25px;
-        left: -4px;
-        padding: 0 15px 0 34px;
-        height: 40px;
-        line-height: 40px;
-        background: $color-primary15;
-        color: $color-primary1;
-    }
+  &-label {
+    font-size: rem(14);
+    font-weight: bold;
+    position: absolute;
+    top: 25px;
+    left: -4px;
+    padding: 0 15px 0 34px;
+    height: 40px;
+    line-height: 40px;
+    background: $color-primary15;
+    color: $color-primary1;
+  }
 
-    &-title {
-        font-size: rem(24);
-        font-weight: bold;
-        padding: 10px 0 20px;
-    }
+  &-title {
+    font-size: rem(24);
+    font-weight: bold;
+    padding: 10px 0 20px;
+  }
 
-    &-text {
-        line-height: 1.71;
-        font-size: rem(14);
-        margin-bottom: 10px;
-    }
+  &-text {
+    line-height: 1.71;
+    font-size: rem(14);
+    margin-bottom: 10px;
+  }
 
-    .post-user_name {
-        font-weight: bold;
-    }
+  .post-user_name {
+    font-weight: bold;
+  }
 }
 
 .library_top {
-    color: $color-primary1;
-    background-size: cover;
+  color: $color-primary1;
+  background-size: cover;
 
-    .post-user_name {
-        color: $color-primary1;
-    }
+  .post-user_name {
+    color: $color-primary1;
+  }
 }
 
 .post_top {
-    background: $color-primary1;
-    border: 1px solid $color-primary15;
-    padding-top: 90px;
+  background: $color-primary1;
+  border: 1px solid $color-primary15;
+  padding-top: 90px;
 
-    .post-user_name {
-        color: $color-primary15;
+  .post-user_name {
+    color: $color-primary15;
+  }
+
+  &-title {
+    color: $color-primary17;
+    display: block;
+
+    &:hover {
+      opacity: 0.8;
     }
+  }
 
-    &-title {
-        color: $color-primary17;
-        display: block;
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
 
-        &:hover {
-            opacity: 0.8;
-        }
-    }
-
-    &-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-    }
-
-    .like-btn {
-        margin-top: 8px;
-    }
+  .like-btn {
+    margin-top: 8px;
+  }
 }
 
-.hot_tags{
-    padding: 25px 10px;
+.hot_tags {
+  padding: 25px 10px;
 
-    @include tablet-all {
-        padding: 25px 0;
+  @include tablet-all {
+    padding: 25px 0;
+  }
+
+  &-title {
+    @include icon(fire);
+
+    color: $color-primary17;
+    font-weight: bold;
+    margin-bottom: 8px;
+
+    &:before {
+      margin-right: 8px;
+      font-size: (25);
     }
-
-    &-title {
-        @include icon(fire);
-
-        color: $color-primary17;
-        font-weight: bold;
-        margin-bottom: 8px;
-
-        &:before {
-            margin-right: 8px;
-            font-size: (25);
-        }
-    }
+  }
 }
 
 .social {
-    padding: 25px 10px 0;
+  padding: 25px 10px 0;
 
-    @include tablet-all {
-        padding: 25px 0 0;
-    }
+  @include tablet-all {
+    padding: 25px 0 0;
+  }
 }
