@@ -230,16 +230,6 @@
     }
   }
 
-  .share-counter,
-  .views-counter,
-  .comments-counter {
-    font-size: rem(14);
-
-    &:before {
-      margin-right: 8px;
-    }
-  }
-
   .add_to_bookmarks-btn {
     display: inline-flex;
     align-items: center;
@@ -316,9 +306,12 @@
     margin-bottom: 8px;
   }
 
-  &-counters {
-    span {
-      margin-right: 25px;
+  &-counter {
+    margin-right: 25px;
+    font-size: rem(14);
+
+    &:before {
+      margin-right: 8px;
     }
   }
 
@@ -331,6 +324,53 @@
 
     @include tablet-all {
       padding: 25px 30px;
+    }
+  }
+}
+
+.share-block {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 25px;
+
+  &.social {
+    padding: 0;
+  }
+
+  &:hover {
+    margin-right: 0;
+
+    @include tablet-mobile {
+      color: $color-primary21;
+    }
+
+    .social-list {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .post-counter {
+      margin-right: 25px;
+    }
+  }
+
+  .post-counter {
+    margin-right: 0;
+  }
+
+  .social-list {
+    @include position(absolute, left 75px);
+
+    width: 128px;
+    opacity: 0;
+    background: $color-primary1;
+    padding: 10px 0;
+    transition: transition(all, 0.2s, ease);
+    pointer-events: none;
+
+    .social-link:before {
+      font-size: rem(16);
     }
   }
 }
