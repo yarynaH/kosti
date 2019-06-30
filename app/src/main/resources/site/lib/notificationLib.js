@@ -69,7 +69,7 @@ function getNotificationsForUser(
     return result;
   }
   result = thymeleaf.render(
-    resolve("../pages/components/user/notification.html"),
+    resolve("../pages/components/header/notifications.html"),
     {
       notifications: result
     }
