@@ -233,6 +233,6 @@ function getRandomString() {
   //maximum not including
   var randomNumber = Math.floor(Math.random() * (max - min)) + min;
   return i18nLib.localize({
-    key: "blog.buttonText." + randomNumber
+    key: "blog.loadMoreText." + randomNumber
   });
 }
