@@ -45,18 +45,23 @@
               class="social-link twitter"
             ></a>
           </li>
+          <!--
           <li class="social-item">
             <script
               data-th-src="${portal.assetUrl({'_path=js/vkshare.js'})}"
             ></script>
             <script async type="text/javascript">
-              <!--
-                                                  if(typeof VK !== 'undefined'){
-                                                      document.write(VK.Share.button(false,{type: "custom", text: "<span class='social-link vk'></span>"}))
-                                                  }
-                                                  -->
+              if (typeof VK !== "undefined") {
+                document.write(
+                  VK.Share.button(false, {
+                    type: "custom",
+                    text: "<span class='social-link vk'></span>"
+                  })
+                );
+              }
             </script>
           </li>
+          -->
         </ul>
       </div>
       <span
