@@ -150,6 +150,7 @@
               <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
             </div>
             <button
+              data-th-if="${totalArticles.curr}"
               class="blog-upload_more js_blog-load_more"
               data-th-title="${loadMoreText}"
               data-th-text="${loadMoreText}"
