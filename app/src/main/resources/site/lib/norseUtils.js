@@ -461,6 +461,7 @@ exports.getImage = function(id, size, placeholderType, urlType) {
       }
       result = {
         url: portal.imageUrl({ id: id, scale: size, type: urlType }),
+        urlAbsolute: portal.imageUrl({ id: id, scale: size, type: "absolute" }),
         alt: image.data.caption ? image.data.caption : image.displayName,
         caption: image.data.caption ? image.data.caption : "",
         artist: image.data.artist

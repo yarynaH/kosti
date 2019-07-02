@@ -252,14 +252,40 @@ function initSharedEvents() {
   });
 
   $("a.social-link.facebook").on("click", function(e) {
-    window.open(
-      "https://www.facebook.com/sharer/sharer.php?u=" +
-        encodeURIComponent(window.location.href),
-      "facebook-share-dialog",
-      "width=626,height=436"
+    var data = $(this).data();
+    shareOverrideOGMeta(
+      data.url,
+      data.title,
+      data.description.replace(/(&nbsp;|(<([^>]+)>))/gi, ""),
+      data.image
     );
-    return false;
   });
+
+  function shareOverrideOGMeta(
+    overrideLink,
+    overrideTitle,
+    overrideDescription,
+    overrideImage
+  ) {
+    FB.ui(
+      {
+        method: "share_open_graph",
+        action_type: "og.likes",
+        action_properties: JSON.stringify({
+          object: {
+            "og:url": overrideLink,
+            "og:title": overrideTitle,
+            "og:description": overrideDescription,
+            "og:image": overrideImage
+          }
+        })
+      },
+      function(response) {
+        // Action after response
+        // TODO: increment share counter
+      }
+    );
+  }
 
   if ($(window).width() < 768) {
     $(".mobile_menu").on("click", function() {

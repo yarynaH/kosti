@@ -36,7 +36,15 @@
         <span class="post-counter icon-share">245</span>
         <ul class="social-list">
           <li class="social-item">
-            <a href="#" class="social-link facebook"></a>
+            <a
+              class="social-link facebook"
+              data-th-attr="
+                data-title=${article.displayName}, 
+                data-url=${article.urlAbsolute}, 
+                data-description=${article.data.shortIntro},
+                data-image=${article.image.urlAbsolute}
+                "
+            ></a>
           </li>
           <li class="social-item">
             <a
@@ -45,11 +53,7 @@
               class="social-link twitter"
             ></a>
           </li>
-          <!--
           <li class="social-item">
-            <script
-              data-th-src="${portal.assetUrl({'_path=js/vkshare.js'})}"
-            ></script>
             <script async type="text/javascript">
               if (typeof VK !== "undefined") {
                 document.write(
@@ -61,7 +65,6 @@
               }
             </script>
           </li>
-          -->
         </ul>
       </div>
       <span

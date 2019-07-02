@@ -190,7 +190,15 @@
                 <h3 class="social-title">Поделись!</h3>
                 <ul class="social-list">
                   <li class="social-item">
-                    <a href="#" class="social-link facebook"></a>
+                    <a
+                      class="social-link facebook"
+                      data-th-attr="
+                    data-title=${content.displayName}, 
+                    data-url=${urlAbsolute}, 
+                    data-description=${content.data.description},
+                    data-image=${mainImage.urlAbsolute}
+                    "
+                    ></a>
                   </li>
                   <li class="social-item">
                     <a
@@ -200,17 +208,18 @@
                     ></a>
                   </li>
                   <li class="social-item">
-                    <script
-                      data-th-src="${portal.assetUrl({'_path=js/vkshare.js'})}"
-                    ></script>
+                    <!--
                     <script async type="text/javascript">
-                      <!--
-                                                          if(typeof VK !== 'undefined'){
-                                                              document.write(VK.Share.button(false,{type: "custom", text: "<span class='social-link vk'></span>"}))
-                                                          }
-                                                          -->
+                      if (typeof VK !== "undefined") {
+                        document.write(
+                          VK.Share.button(false, {
+                            type: "custom",
+                            text: "<span class='social-link vk'></span>"
+                          })
+                        );
+                      }
                     </script>
-                  </li>
+                  --></li>
                 </ul>
               </div>
             </div>

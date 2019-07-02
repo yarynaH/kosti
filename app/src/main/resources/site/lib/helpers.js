@@ -40,11 +40,30 @@ exports.getPageComponents = function(req, footerType) {
       scale: "(1,1)",
       type: "absolute"
     });
+  } else if (content && content.data && content.data.image) {
+    var ogImage = portal.imageUrl({
+      id: content.data.image,
+      scale: "(1,1)",
+      type: "absolute"
+    });
   } else {
     var ogImage = portal.assetUrl({
       path: "images/extended-logo-min.png",
       type: "absolute"
     });
+  }
+  if (content && content.data && content.data.shortIntro) {
+    var ogDescription = content.data.shortIntro.replace(
+      /(&nbsp;|(<([^>]+)>))/gi,
+      ""
+    );
+  } else if (content && content.data && content.data.description) {
+    var ogDescription = content.data.description.replace(
+      /(&nbsp;|(<([^>]+)>))/gi,
+      ""
+    );
+  } else {
+    var ogDescription = site.data.description;
   }
 
   pageComponents["pagehead"] = thymeleaf.render(
@@ -53,7 +72,8 @@ exports.getPageComponents = function(req, footerType) {
       siteConfig: siteConfig,
       content: content,
       ogImage: ogImage,
-      site: site
+      site: site,
+      ogDescription: ogDescription
     }
   );
 
