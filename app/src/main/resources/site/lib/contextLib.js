@@ -12,3 +12,11 @@ exports.runAsAdmin = function(callback) {
     callback
   );
 };
+exports.runInDraft = function(callback) {
+  return contextLib.run(
+    {
+      branch: "draft"
+    },
+    callback
+  );
+};

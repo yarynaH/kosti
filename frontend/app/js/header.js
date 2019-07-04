@@ -43,6 +43,13 @@ function initHeaderFunctions() {
       $(".js_header-notification").toggleClass("show_notification");
     });
   });
+  $(".js_notification-block").on(
+    "mouseover",
+    ".js_notification-item",
+    function() {
+      $(this).removeClass("new");
+    }
+  );
   $(document).on("scroll", function() {
     if ($(document).scrollTop() > 85) {
       if (

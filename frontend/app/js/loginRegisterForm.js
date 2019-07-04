@@ -115,12 +115,6 @@ function initLoginRegisterForm() {
       $(".forgotPassValidation").removeClass("hidden");
     }
   });
-
-  function hideLoginRegisterModal() {
-    $("body div.modal").each(function() {
-      $(this).removeClass("show");
-    });
-  }
 }
 
 function initGoogleLogin() {
@@ -164,4 +158,11 @@ function attachSignin(element) {
     },
     function(error) {}
   );
+}
+
+function hideLoginRegisterModal() {
+  $("body div.modal").each(function() {
+    $(this).removeClass("show");
+  });
+  $(".js_header-notification").removeClass("show_notification");
 }
