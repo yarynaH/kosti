@@ -54,16 +54,11 @@
             ></a>
           </li>
           <li class="social-item">
-            <script async type="text/javascript">
-              if (typeof VK !== "undefined") {
-                document.write(
-                  VK.Share.button(false, {
-                    type: "custom",
-                    text: "<span class='social-link vk'></span>"
-                  })
-                );
-              }
-            </script>
+            <a
+              class="social-link vk"
+              data-th-href="${'http://vk.com/share.php?url=' + article.urlAbsolute}"
+              target="_blank"
+            ></a>
           </li>
         </ul>
       </div>
