@@ -1,56 +1,86 @@
 <!DOCTYPE html>
 <html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
-
-<body class="page-wrapper">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div class="blog_width">
-            <div class="store">
-                <div class="store-top">
-                    <div class="breadcrumbs">
-                        <span class="breadcrumbs-element active">Магазин</span>
-                    </div>
-                    <a class="minicart" href="/cart" title="К покупкам">
-                        <span class="minicart-icon">
-                            <span class="minicart-qty" data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"></span>
-                        </span>
-                        <span class="minicart-total">UAH <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
-                    </a>
-                </div>
-                <div class="plp-list">
-                    <div data-th-each="product: ${products}" class="plp-item" title="Посмотреть">
-                        <div class="plp-prod_img">
-                            <a data-th-href="${product.url}">
-                                <img data-th-src="${product.image.url}">
-                                <div class="product_bage hidden">
-                                    <span class="product_bage-icon"></span>
-                                    <span class="product_bage-text">Новинка</span>
-                                </div>
-                                <div class="plp-img_hover">
-                                    <span class="plp-prod_link">Посмотреть</span>
-                                </div>
-                            </a>
-                        </div>
-                        <h2 class="plp-prod_name" data-th-text="${product.displayName}">
-                        </h2>
-                        <div data-th-unless="${product.data.inventory == 0}" class="plp-prod_price">
-                            <span 
-                                data-th-if="${product.data.price and product.data.finalPrice and product.data.price < product.data.finalPrice}" 
-                                class="sale" data-th-text="${'UAH ' + product.data.finalPrice}"></span>
-                            <span class="default" data-th-text="${'UAH ' + product.data.price}"></span>
-                        </div>
-                        <div data-th-if="${product.data.inventory == 0}" class="out-of-stock-msg">
-                            Нет в наличии
-                        </div>
-                    </div>
-                </div>
+      <div class="blog_width">
+        <div class="store">
+          <div class="store-top">
+            <div class="breadcrumbs">
+              <span class="breadcrumbs-element active">Магазин</span>
             </div>
+            <a class="minicart" data-th-href="${cartUrl}" title="К покупкам">
+              <span class="minicart-icon">
+                <span
+                  class="minicart-qty"
+                  data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"
+                ></span>
+              </span>
+              <span class="minicart-total"
+                >UAH
+                <span
+                  data-th-remove="tag"
+                  data-th-text="${cart.price.items}"
+                ></span
+              ></span>
+            </a>
+          </div>
+          <div class="plp-list">
+            <div
+              data-th-each="product: ${products}"
+              class="plp-item"
+              title="Посмотреть"
+            >
+              <div class="plp-prod_img">
+                <a data-th-href="${product.url}">
+                  <img data-th-src="${product.image.url}" />
+                  <div class="product_bage hidden">
+                    <span class="product_bage-icon"></span>
+                    <span class="product_bage-text">Новинка</span>
+                  </div>
+                  <div class="plp-img_hover">
+                    <span class="plp-prod_link">Посмотреть</span>
+                  </div>
+                </a>
+              </div>
+              <h2
+                class="plp-prod_name"
+                data-th-text="${product.displayName}"
+              ></h2>
+              <div
+                data-th-unless="${product.data.inventory == 0}"
+                class="plp-prod_price"
+              >
+                <span
+                  data-th-if="${product.data.price and product.data.finalPrice and product.data.price < product.data.finalPrice}"
+                  class="sale"
+                  data-th-text="${'UAH ' + product.data.finalPrice}"
+                ></span>
+                <span
+                  class="default"
+                  data-th-text="${'UAH ' + product.data.price}"
+                ></span>
+              </div>
+              <div
+                data-th-if="${product.data.inventory == 0}"
+                class="out-of-stock-msg"
+              >
+                Нет в наличии
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </main>
-    <footer class="footer blog_width" data-th-utext="${pageComponents.footer}"></footer>
-</body>
-
-</html> 
+    <footer
+      class="footer blog_width"
+      data-th-utext="${pageComponents.footer}"
+    ></footer>
+  </body>
+</html>

@@ -1,110 +1,157 @@
 <!DOCTYPE html>
 <html>
-
-<head data-th-utext="${pageComponents.pagehead}"></head>
-<body class="page-wrapper article-page transparent-header">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
-    <div data-th-if="${removeCommentModal}" data-th-utext="${removeCommentModal}" data-th-remove="tag"></div>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+  <body class="page-wrapper article-page transparent-header">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <div
+      data-th-if="${removeCommentModal}"
+      data-th-utext="${removeCommentModal}"
+      data-th-remove="tag"
+    ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main js_article-id" data-th-attr="data-articleid=${content._id}">
-        <div class="article-img_wrap">
-            <picture>
-                <source data-th-srcset="${content.imageDesktop.url}" media="(min-width: 767px)">
-                <img data-th-src="${content.imageMobile.url}">
-            </picture>
+    <main
+      class="main js_article-id"
+      data-th-attr="data-articleid=${content._id}"
+    >
+      <div class="article-img_wrap">
+        <picture>
+          <source
+            data-th-srcset="${content.imageDesktop.url}"
+            media="(min-width: 767px)"
+          />
+          <img data-th-src="${content.imageMobile.url}" />
+        </picture>
+      </div>
+      <div class="blog blog_width clearfix">
+        <div class="article-header">
+          <div class="post-info">
+            <a data-th-href="${content.author.url}">
+              <span class="post-user_avatar">
+                <img data-th-src="${content.author.image.url}" alt="" />
+              </span>
+              <span
+                class="post-user_name"
+                data-th-text="${content.author.displayName}"
+              ></span>
+            </a>
+            <span class="post-date" data-th-text="${content.date}"></span>
+          </div>
+          <h1 class="post-title" data-th-text="${content.displayName}"></h1>
         </div>
-        <div class="blog blog_width clearfix">
-            <div class="article-header">
-                <div class="post-info">
-                    <a data-th-href="${content.author.url}">
-                        <span class="post-user_avatar">
-                            <img data-th-src="${content.author.image.url}" alt="">
-                        </span>
-                        <span class="post-user_name" data-th-text="${content.author.displayName}"></span>
-                    </a>
-                    <span class="post-date" data-th-text="${content.date}"></span>
-                </div>
-                <h1 class="post-title" data-th-text="${content.displayName}"></h1>
+        <div class="blog-content">
+          <div class="article-body">
+            <div class="article-content" data-portal-region="main">
+              <section data-th-utext="${content.data.intro}"></section>
+              <div
+                data-th-each="component : ${mainRegion.components}"
+                data-th-if="${mainRegion}"
+                data-th-remove="tag"
+              >
+                <div
+                  data-portal-component="${component.path}"
+                  data-th-remove="tag"
+                ></div>
+              </div>
             </div>
-            <div class="blog-content"> 
-                <div class="article-body">
-                    <div class="article-content" data-portal-region="main">
-                        <section data-th-utext="${content.data.intro}"></section>
-                        <div data-th-each="component : ${mainRegion.components}" data-th-if="${mainRegion}" data-th-remove="tag">
-                            <div data-portal-component="${component.path}" data-th-remove="tag"></div>
-                        </div>
-                    </div>
-                    <div class="blog-item">
-                        <div class="post hidden">
-                            <div class="tag-list ">
-                                <a href="#" class="tag-item">WoD</a>
-                                <a href="#" class="tag-item">V5</a>
-                                <a href="#" class="tag-item">VtM</a>
-                            </div>
-                        </div>
-                        <div class="post-footer">
-                            <div class="post-counters">
-                                <span class="share-counter icon-share">245</span>
-                                <span class="views-counter icon-views" data-th-text="${content.views}"></span>
-                                <span class="comments-counter icon-comment" data-th-text="${content.commentsCounter}"></span>
-                            </div>
-                            <div class="post-actions">
-                                <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${content._id}" data-th-classappend="${bookmarked} ? 'active' : ''"></span>
-                                <span data-th-attr="data-contentId=${content._id}" class="like-btn icon-rock js_like-article" data-th-classappend="${content.voted} ? 'active' : ''">
-                                    <span data-th-text="${content.votes}"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="blog-item">
+              <div class="post" data-th-if="${content.hashtags}">
+                <div class="tag-list ">
+                  <a
+                    data-th-each="hashtag : ${content.hashtags}"
+                    data-th-href="${hashtag.url}"
+                    class="tag-item"
+                    data-th-text="${hashtag.displayName}"
+                  ></a>
                 </div>
-                <div data-th-if="${similarArticles}" class="similar_posts">
-                    <h4 class="similar_posts-title">Похожие статьи</h4>
-                    <ul class="similar_posts-list">
-                        <li class="similar_posts-item" data-th-each="article : ${similarArticles}">
-                            <a data-th-href="${article.url}" class="similar_posts-link" data-th-text="${article.displayName}"></a>
-                            <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article" data-th-classappend="${article.voted} ? 'active' : ''">
-                                <span data-th-text="${article.votes}"></span>
-                            </span>
-                        </li>
+              </div>
+              <div class="post-footer">
+                <div class="post-counters">
+                  <div class="share-block social">
+                    <span class="post-counter icon-share">245</span>
+                    <ul class="social-list">
+                      <li class="social-item">
+                        <a
+                          class="social-link facebook"
+                          data-th-attr="
+                          data-title=${content.displayName}, 
+                          data-url=${content.urlAbsolute}, 
+                          data-description=${content.data.shortIntro},
+                          data-image=${content.image.urlAbsolute}
+                          "
+                        ></a>
+                      </li>
+                      <li class="social-item">
+                        <a
+                          target="_blank"
+                          data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+content._path, '_type=absolute'})}"
+                          class="social-link twitter"
+                        ></a>
+                      </li>
+                      <li class="social-item">
+                        <a
+                          class="social-link vk"
+                          data-th-href="${'http://vk.com/share.php?url=' + content.urlAbsolute}"
+                          target="_blank"
+                        ></a>
+                      </li>
                     </ul>
+                  </div>
+                  <span
+                    class="post-counter icon-views"
+                    data-th-text="${content.views}"
+                  ></span>
+                  <span
+                    class="post-counter icon-comment"
+                    data-th-text="${content.commentsCounter}"
+                  ></span>
                 </div>
-                <div data-th-utext="${comments}" data-th-remove="tag">
+                <div class="post-actions">
+                  <span
+                    class="add_to_bookmarks-btn icon-bookmark js_bookmarks"
+                    data-th-attr="data-contentId=${content._id}"
+                    data-th-classappend="${bookmarked} ? 'active' : ''"
+                  ></span>
+                  <span
+                    data-th-attr="data-contentId=${content._id}"
+                    class="like-btn icon-rock js_like-article"
+                    data-th-classappend="${content.voted} ? 'active' : ''"
+                  >
+                    <span data-th-text="${content.votes}"></span>
+                  </span>
                 </div>
+              </div>
             </div>
-            <div class="blog-sidebar">
-                <div class="library_top hidden" style="background-image: url(https://picsum.photos/300/470?random);">
-                    <div class="library_top-label">Хит библиотеки</div>
-                    <div class="library_top-author">
-                        <span class="post-user_avatar">
-                            <img src="https://picsum.photos/24/24/?random" alt="">
-                        </span>
-                        <span class="post-user_name">Rodue Latro</span>
-                    </div>
-                    <h2 class="library_top-title">Коллос Сильваноса</h2>
-                    <div class="library_top-text">Орки пробираются сквозь лес, оскверняя священную рощу. Вдруг глыба камней вместе с мхом и некоторыми растениями обретает форму гигантского существа. Лесные колосы - величественные и могущественные стражи лесов.</div>
-                    <div class="tag-list tag-list__white">
-                        <a href="#" class="tag-item">DnD</a>
-                        <a href="#" class="tag-item">5e</a>
-                        <a href="#" class="tag-item">Homebrew</a>
-                    </div>
-                </div>
-                <div class="hot_tags hidden">
-                    <h3 class="hot_tags-title">Горячие теги</h3>
-                        <div class="tag-list tag-list__hot">
-                            <a href="#"  class="tag-item">V5</a>
-                            <a href="#"  class="tag-item">Эноа</a>
-                            <a href="#"  class="tag-item active">ФиналХайпЭноа</a>
-                            <a href="#"  class="tag-item">Кровавые Ублюдки</a>
-                            <a href="#"  class="tag-item">Кибер Ожидание</a>
-                        </div>
-                </div>
-                <div data-th-utext="${weeksPost}" data-th-remove="tag">
-                </div>
-                <div data-th-remove="tag" data-th-utext="${socialLinks}">
-                </div>
-            </div>
+          </div>
+          <div data-th-if="${similarArticles}" class="similar_posts">
+            <h4 class="similar_posts-title">Похожие статьи</h4>
+            <ul class="similar_posts-list">
+              <li
+                class="similar_posts-item"
+                data-th-each="article : ${similarArticles}"
+              >
+                <a
+                  data-th-href="${article.url}"
+                  class="similar_posts-link"
+                  data-th-text="${article.displayName}"
+                ></a>
+                <span
+                  data-th-attr="data-contentId=${article._id}"
+                  class="like-btn icon-rock js_like-article"
+                  data-th-classappend="${article.voted} ? 'active' : ''"
+                >
+                  <span data-th-text="${article.votes}"></span>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div data-th-utext="${comments}" data-th-remove="tag"></div>
         </div>
+        <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
+      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-</body>
+  </body>
 </html>

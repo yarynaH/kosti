@@ -1,72 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
   <form>
-  	<input name="menuItems" type="ContentSelector">
-		<label>Menu items</label>
-		<occurrences minimum="0" maximum="0"/>
-		<config>
-		</config>
-	</input>
-  	<input name="mailsLocation" type="ContentSelector">
-		<label>Mails location</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
-  	<input name="scheduleLocation" type="ContentSelector">
-		<label>Schedule location</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
-  	<input name="userImages" type="ContentSelector">
-		<label>User images location</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
-  	<input name="weeksPost" type="ContentSelector">
-		<label>Week's post</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
-  	<input name="userLocation" type="ContentSelector">
-		<label>User location</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
-	<input name="slider" type="ContentSelector">
-	  <label>Slider</label>
-	  <occurrences minimum="1" maximum="3"/>
-	  <config>
-	  </config>
-	</input>
-  	<input name="shipping" type="ContentSelector">
-		<label>Shipping</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
-  	<input name="shopLocation" type="ContentSelector">
-		<label>Shop location</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
-  	<input name="agreementPage" type="ContentSelector">
-		<label>Agreement page</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
-  	<input name="newsletter" type="ContentSelector">
-		<label>Newsletter</label>
-		<occurrences minimum="0" maximum="1"/>
-		<config>
-		</config>
-	</input>
+    <input name="menuItems" type="ContentSelector">
+      <label>Menu items</label>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+      </config>
+    </input>
+    <input name="mailsLocation" type="ContentSelector">
+      <label>Mails location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="scheduleLocation" type="ContentSelector">
+      <label>Schedule location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="userImages" type="ContentSelector">
+      <label>User images location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="weeksPost" type="ContentSelector">
+      <label>Week's post</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="userLocation" type="ContentSelector">
+      <label>User location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="slider" type="ContentSelector">
+      <label>Slider</label>
+      <occurrences minimum="1" maximum="3"/>
+      <config>
+      </config>
+    </input>
+    <input name="shipping" type="ContentSelector">
+      <label>Shipping</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="shopLocation" type="ContentSelector">
+      <label>Shop location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="agreementPage" type="ContentSelector">
+      <label>Agreement page</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="coockiePolicy" type="ContentSelector">
+      <label>Cookie policy</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="aboutUs" type="ContentSelector">
+      <label>About us</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="newsletter" type="ContentSelector">
+      <label>Newsletter</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
     <input name="video" type="TextLine">
       <label>Homepage video</label>
       <occurrences minimum="1" maximum="1"/>
@@ -79,44 +91,44 @@
       <label>Google API key</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
-	<item-set name="social">
-	  <label>Social networks</label>
-	  <items>
-	    <input name="vk" type="TextLine">
-	      <label>VK</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	    <input name="instagram" type="TextLine">
-	      <label>Instagram</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	    <input name="discord" type="TextLine">
-	      <label>Discord</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	    <input name="fb" type="TextLine">
-	      <label>FB</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	    <input name="youtube" type="TextLine">
-	      <label>Youtube</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	    <input name="twitter" type="TextLine">
-	      <label>Twitter</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	    <input name="telegram" type="TextLine">
-	      <label>Telegram</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	    <input name="twitch" type="TextLine">
-	      <label>Twitch</label>
-	      <occurrences minimum="0" maximum="1"/>
-	    </input>
-	  </items>
-	  <occurrences minimum="0" maximum="1"/>
-	</item-set>
+    <item-set name="social">
+      <label>Social networks</label>
+      <items>
+        <input name="vk" type="TextLine">
+          <label>VK</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="instagram" type="TextLine">
+          <label>Instagram</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="discord" type="TextLine">
+          <label>Discord</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="fb" type="TextLine">
+          <label>FB</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="youtube" type="TextLine">
+          <label>Youtube</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="twitter" type="TextLine">
+          <label>Twitter</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="telegram" type="TextLine">
+          <label>Telegram</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="twitch" type="TextLine">
+          <label>Twitch</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+      <occurrences minimum="0" maximum="1"/>
+    </item-set>
   </form>
 
   <mappings>
@@ -131,6 +143,18 @@
     </mapping>
     <mapping controller="/services/promos/promos.js" order="10">
       <pattern>/promos</pattern>
+    </mapping>
+    <mapping controller="/services/promosAdmin/promosAdmin.js" order="10">
+      <pattern>/promosadmin</pattern>
+    </mapping>
+    <mapping controller="/services/orders/orders.js" order="10">
+      <pattern>/orders</pattern>
+    </mapping>
+    <mapping controller="/services/search/search.js" order="10">
+      <pattern>/search</pattern>
+    </mapping>
+    <mapping controller="/services/newArticle/newArticle.js" order="10">
+      <pattern>/create</pattern>
     </mapping>
   </mappings>
 </site>

@@ -1,89 +1,102 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
-    <link rel="stylesheet" type="text/css"  data-th-href="${portal.assetUrl({'_path=/css/main.css'})}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      data-th-href="${portal.assetUrl({'_path=/css/main.css'})}"
+    />
     <title>Новости</title>
-</head>
-<body style="margin: 0px; padding: 0px">
+  </head>
+  <body style="margin: 0px; padding: 0px">
     <main class="main">
-        <div class="site_width">
-            <div class="orders">
-                <div class="orders-search">
-                    <form method="GET" data-th-attr="action=${portal.serviceUrl({'_service=orders'})}">
-                        <div class="form-group">
-                            <label class="order-label">Search</label>
-                            <input name="search" type="text" class="input-text">
-                            <input name="action" type="hidden" value="search">
-                        </div>
-                    </form>
-                </div>
-                <div class="table-wrap">
-                    <div class="table-header_row">
-                        <div class="table-header_cell">
-                            <span class="label">Номер заказа</span>
-                        </div>
-                    
-                        <div class="table-header_cell">
-                            <span class="label">Дата заказа</span>
-                        </div>
-                    
-                        <div class="table-header_cell">
-                            <span class="label">Статус</span>
-                        </div>
-    
-                        <div class="table-header_cell table-action_cell">
-                            <span class="label">Действия</span>
-                        </div>
-                    </div>
-                    
-                    <div class="table-body_row" data-th-each="item: ${carts}">
-    
-                        <div class="table-body_cell table-side_aligns">
-                            <span class="label">
-                                Номер заказа
-                            </span>
-                            <span class="value" data-th-text="${item.userId}">
-                                123456789
-                            </span>
-                        </div>
-    
-                        <div class="table-body_cell table-side_aligns salesreps-list-email_cell">
-                            <span class="label">Дата заказа</span>
-                            <span class="value" data-th-text="${item._timestamp}">
-                                19.05.2018
-                            </span>
-                        </div>
-    
-                        <div class="table-body_cell table-side_aligns">
-                            <span class="label">
-                                Статус
-                            </span>
-                            <span class="value" data-th-text="${item.status}">
-                                В Обработке
-                            </span>
-                        </div>
-    
-                        <div class="table-body_cell table-side_aligns">
-                            <!--
+      <div class="site_width">
+        <div class="orders">
+          <div class="orders-search">
+            <form
+              method="GET"
+              data-th-attr="action=${portal.serviceUrl({'_service=orders'})}"
+            >
+              <div class="form-group">
+                <label class="order-label">Search</label>
+                <input name="search" type="text" class="input-text" />
+                <input name="action" type="hidden" value="search" />
+              </div>
+            </form>
+          </div>
+          <div class="table-wrap">
+            <div class="table-header_row">
+              <div class="table-header_cell">
+                <span class="label">Номер заказа</span>
+              </div>
+
+              <div class="table-header_cell">
+                <span class="label">Дата заказа</span>
+              </div>
+
+              <div class="table-header_cell">
+                <span class="label">Статус</span>
+              </div>
+
+              <div class="table-header_cell table-action_cell">
+                <span class="label">Действия</span>
+              </div>
+            </div>
+
+            <div class="table-body_row" data-th-each="item: ${carts}">
+              <div class="table-body_cell table-side_aligns">
+                <span class="label">
+                  Номер заказа
+                </span>
+                <span class="value" data-th-text="${item.userId}">
+                  123456789
+                </span>
+              </div>
+
+              <div
+                class="table-body_cell table-side_aligns salesreps-list-email_cell"
+              >
+                <span class="label">Дата заказа</span>
+                <span class="value" data-th-text="${item._timestamp}">
+                  19.05.2018
+                </span>
+              </div>
+
+              <div class="table-body_cell table-side_aligns">
+                <span class="label">
+                  Статус
+                </span>
+                <span class="value" data-th-text="${item.status}">
+                  В Обработке
+                </span>
+              </div>
+
+              <div class="table-body_cell table-side_aligns">
+                <!--
                             <button class="button">Редактировать</button>
                             <button class="button">Удалить</button>
                             -->
-                            <a data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + item._id, 'action=details'})}" class="button">Детали</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="read-qr-block">
-                    <a data-th-href="${portal.serviceUrl({'_service=orders', 'action=readQr'})}" class="button button-light">Считать QR код</a>
-                </div>
+                <a
+                  data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + item._id, 'action=details'})}"
+                  class="button"
+                  >Детали</a
+                >
+              </div>
             </div>
-        </div>
-    </main>
-    
-</body>
+          </div>
 
+          <div class="read-qr-block">
+            <a
+              data-th-href="${portal.serviceUrl({'_service=orders', 'action=readQr'})}"
+              class="button button-light"
+              >Считать QR код</a
+            >
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

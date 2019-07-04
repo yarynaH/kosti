@@ -46,7 +46,7 @@
 
         &:hover {
             opacity: 1;
-            box-shadow: 0 4px 16px 0 rgba(226, 61, 36, 0.4);
+            box-shadow: 0 4px 16px 0 rgba($color-primary11, 0.4);
             color: $color-primary1;
             background-color: $color-primary15;
         }

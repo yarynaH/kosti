@@ -1,36 +1,89 @@
 <div data-th-each="article: ${articles}" class="blog-item">
-    <div class="post-image_wrap">
-        <img data-th-src="${article.image.url}" alt="">
+  <div class="post-image_wrap">
+    <img data-th-src="${article.image.url}" alt="" />
+  </div>
+  <div class="post">
+    <div class="post-info">
+      <a data-th-href="${article.author.url}">
+        <span class="post-user_avatar">
+          <img data-th-src="${article.author.image.url}" alt="" />
+        </span>
+        <span
+          class="post-user_name"
+          data-th-text="${article.author.displayName}"
+        ></span>
+      </a>
+      <span class="post-date" data-th-text="${article.date}"></span>
     </div>
-    <div class="post">
-        <div class="post-info">
-            <a data-th-href="${article.author.url}">
-                <span class="post-user_avatar">
-                    <img data-th-src="${article.author.image.url}" alt="">
-                </span>
-                <span class="post-user_name" data-th-text="${article.author.displayName}"></span>
-            </a>
-            <span class="post-date" data-th-text="${article.date}"></span>
-        </div>
-        <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}"></a>
-        <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
-        <div class="tag-list hidden">
-            <a href="#" class="tag-item">WoD</a>
-            <a href="#" class="tag-item">V5</a>
-            <a href="#" class="tag-item">VtM</a>
-        </div>
+    <a
+      data-th-href="${article.url}"
+      class="post-title"
+      data-th-text="${article.displayName}"
+    ></a>
+    <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
+    <div class="tag-list" data-th-if="${article.hashtags}">
+      <a
+        data-th-each="hashtag : ${article.hashtags}"
+        data-th-href="${hashtag.url}"
+        class="tag-item"
+        data-th-text="${hashtag.displayName}"
+      ></a>
     </div>
-    <div class="post-footer">
-        <div class="post-counters">
-            <span class="share-counter icon-share">245</span>
-            <span class="views-counter icon-views" data-th-text="${article.views}"></span>
-            <span class="comments-counter icon-comment" data-th-text="${article.commentsCounter}"></span>
-        </div>
-        <div class="post-actions">
-            <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${article._id}" data-th-classappend="${article.bookmarked} ? 'active' : ''"></span>
-            <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article" data-th-classappend="${article.voted} ? 'active' : ''">
-                <span data-th-text="${article.votes}"></span>
-            </span>
-        </div>
+  </div>
+  <div class="post-footer">
+    <div class="post-counters">
+      <div class="share-block social">
+        <span class="post-counter icon-share">245</span>
+        <ul class="social-list">
+          <li class="social-item">
+            <a
+              class="social-link facebook"
+              data-th-attr="
+                data-title=${article.displayName}, 
+                data-url=${article.urlAbsolute}, 
+                data-description=${article.data.shortIntro},
+                data-image=${article.image.urlAbsolute}
+                "
+            ></a>
+          </li>
+          <li class="social-item">
+            <a
+              target="_blank"
+              data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+article._path, '_type=absolute'})}"
+              class="social-link twitter"
+            ></a>
+          </li>
+          <li class="social-item">
+            <a
+              class="social-link vk"
+              data-th-href="${'http://vk.com/share.php?url=' + article.urlAbsolute}"
+              target="_blank"
+            ></a>
+          </li>
+        </ul>
+      </div>
+      <span
+        class="post-counter icon-views"
+        data-th-text="${article.views}"
+      ></span>
+      <span
+        class="post-counter icon-comment"
+        data-th-text="${article.commentsCounter}"
+      ></span>
     </div>
+    <div class="post-actions">
+      <span
+        class="add_to_bookmarks-btn icon-bookmark js_bookmarks"
+        data-th-attr="data-contentId=${article._id}"
+        data-th-classappend="${article.bookmarked} ? 'active' : ''"
+      ></span>
+      <span
+        data-th-attr="data-contentId=${article._id}"
+        class="like-btn icon-rock js_like-article"
+        data-th-classappend="${article.voted} ? 'active' : ''"
+      >
+        <span data-th-text="${article.votes}"></span>
+      </span>
+    </div>
+  </div>
 </div>

@@ -1,27 +1,46 @@
 .footer {
-	&-nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+    &-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 40px 0;
 
+        @include tablet-all {
+            justify-content: center;
+        }
 
-		@include tablet-all {
-			justify-content: center;
-		}
-	}
+        .checkout-wrap & {
+            @include tablet-all {
+                justify-content: left;
+            }
+        }
+    }
 
-	&-item {
-		@include tablet-all {
-			padding: 0 10px;
-		}
-	}
+    &-item {
+        @include tablet-all {
+            padding: 0 10px;
+        }
 
-	&-link {
-		color: #333333;
-		font-size: 14px;
+        .checkout-wrap &:first-child {
+            padding-left: 0;
+        }
+    }
 
-		&:hover {
-			color: #0095f8;
-		}
-	}
+    &-link {
+        color: $color-primary6;
+        font-size: 14px;
+
+        &:hover {
+            color: $color-primary22;
+        }
+    }
+
+    .checkout-info {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .checkout-summary {
+        padding: 0;
+    }
 }

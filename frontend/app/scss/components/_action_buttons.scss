@@ -1,40 +1,40 @@
 .like-btn {
-    display: inline-flex;
-    align-items: center;
-    font-size: rem(14);
-    cursor: pointer;
-    color: $color-primary12;
+  display: inline-flex;
+  align-items: center;
+  font-size: rem(14);
+  cursor: pointer;
+  color: $color-primary12;
+
+  &::before {
     transition: transition(color);
+    margin-right: 8px;
+  }
 
-    &:before {
-        margin-right: 8px;
-    }
+  span {
+    transition: transition(color);
+  }
 
+  &.active,
+  &:hover {
     span {
-        vertical-align: middle;
+      text-shadow: 0 0 0.01px $color-primary17;
+      color: $color-primary17;
     }
 
-    &.active,
-    &:hover {
-        span {
-            text-shadow: 0 0 0.01px $color-primary17;
-            color: $color-primary17;
-        }
-
-        &::before {
-            color: $color-primary19;
-        }
+    &::before {
+      color: $color-primary19;
     }
+  }
 }
 
 .remove-btn {
-    @include button-style(icon);
-    @include icon(delete);
+  @include button-style(icon);
+  @include icon(delete);
 
-    color: $color-primary28;
-    cursor: pointer;
+  color: $color-primary28;
+  cursor: pointer;
 
-    &:before {
-        font-size: rem(22);
-    }
+  &:before {
+    font-size: rem(22);
+  }
 }

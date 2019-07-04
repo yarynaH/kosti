@@ -1,13 +1,21 @@
-<div data-th-if="${user}" class="js_header-user" data-th-attr="data-userid=${user.key}, data-usercontentid=${user._id}">
-    <div class="user-avatar-img_wrap">
-        <a data-th-href="${portal.pageUrl({'_path=' + user._path})}">
-            <img src="#" data-th-src="${user.image.url}" data-th-attr="alt=${user.displayName}">
-        </a>
-    </div>
+<div
+  data-th-if="${user}"
+  class="js_header-user"
+  data-th-attr="data-userid=${user.key}, data-usercontentid=${user._id}"
+>
+  <div class="user-avatar-img_wrap">
+    <a data-th-href="${portal.pageUrl({'_path=' + user._path})}">
+      <img
+        src="#"
+        data-th-src="${user.image.url}"
+        data-th-attr="alt=${user.displayName}"
+      />
+    </a>
+  </div>
 </div>
 <div data-th-unless="${user}" class="js_header-user">
-    <div class="guest-btn" title="Войти">
-        <span class="guest-icon"></span>
-        <span class="guest-login">Войти</span>
-    </div>
+  <div class="guest-btn" title="Войти">
+    <span class="guest-icon"></span>
+    <span class="guest-login">Войти</span>
+  </div>
 </div>

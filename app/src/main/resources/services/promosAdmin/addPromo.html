@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+      <form data-th-action="${promosUrl}" method="POST">
+        title
+        <input type="text" name="displayName" />
+        code
+        <input type="text" name="promoCode" />
+        amount of codes
+        <input type="text" name="amount" />
+        discount
+        <input type="text" name="discount" />
+        type
+        <select name="type">
+          <option value="percent">Percent</option>
+          <option value="value">Value</option>
+        </select>
+        <input type="hidden" name="action" value="addPromo" />
+        <button type="submit">Submit</button>
+      </form>
+      <div data-th-each="promo: ${promos}">
+        <hr />
+        Discount
+        <div data-th-text="${promo.discount}"></div>
+        <hr />
+        Discount type
+        <div data-th-text="${promo.type}"></div>
+        <hr />
+        Code
+        <div data-th-text="${promo.promoCode}"></div>
+        <hr />
+        Title
+        <div data-th-text="${promo.displayName}"></div>
+        <hr />
+        <a data-th-href="${'/promos?action=deletePromo&promoId=' + promo._id}"
+          >delete</a
+        >
+        <hr />
+      </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+  </body>
+</html>

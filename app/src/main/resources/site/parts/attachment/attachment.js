@@ -1,10 +1,9 @@
-var portal = require('/lib/xp/portal'); // Import the portal functions
-var thymeleaf = require('/lib/thymeleaf'); // Import the thymeleaf render function
-var contentLib = require('/lib/xp/content');
+var portal = require("/lib/xp/portal"); // Import the portal functions
+var thymeleaf = require("/lib/thymeleaf"); // Import the thymeleaf render function
+var contentLib = require("/lib/xp/content");
 
 // Handle GET requests
 exports.get = function(req) {
-
   // Find the current component from request
   var component = portal.getComponent();
 
@@ -23,19 +22,19 @@ exports.get = function(req) {
   });
 
   // Calculate attachment file type
-  if( attachment.ATTACHMENT && attachment.ATTACHMENT != '' ){
-    var fileType = attachment.ATTACHMENT.split('.');
+  if (attachment.ATTACHMENT && attachment.ATTACHMENT != "") {
+    var fileType = attachment.ATTACHMENT.split(".");
     fileType = fileType[fileType.length - 1];
   }
-  if( attachment.ATTACHMENT_TITLE && attachment.ATTACHMENT_TITLE != '' ){
+  if (attachment.ATTACHMENT_TITLE && attachment.ATTACHMENT_TITLE != "") {
     var title = attachment.ATTACHMENT_TITLE;
-  }else{
+  } else {
     var title = attachment.ATTACHMENT;
   }
 
-  if( allAttachments[attachment.ATTACHMENT] ){
+  if (allAttachments[attachment.ATTACHMENT]) {
     var size = allAttachments[attachment.ATTACHMENT].size;
-  }else{
+  } else {
     var size = 0;
   }
   // Define the model
@@ -45,12 +44,13 @@ exports.get = function(req) {
     title: title,
     attachmentURL: attachmentURL,
     fileType: fileType,
-    attachmentSize: (Math.round(size * 1000 / 1024 / 1024) / 1000).toString() + " MB",
+    attachmentSize:
+      (Math.round((size * 1000) / 1024 / 1024) / 1000).toString() + " MB",
     attachment: attachment
   };
 
   // Resolve the view
-  var view = resolve('attachment.html');
+  var view = resolve("attachment.html");
 
   // Render a thymeleaf template
   var body = thymeleaf.render(view, model);
@@ -58,7 +58,6 @@ exports.get = function(req) {
   // Return the result
   return {
     body: body,
-    contentType: 'text/html'
+    contentType: "text/html"
   };
-
 };
