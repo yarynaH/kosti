@@ -16,9 +16,9 @@
               <a
                 class="breadcrumbs-element breadcrumbs-link"
                 data-th-href="${shopUrl}"
-                title="Магазин"
-                >Магазин</a
-              >
+                data-th-text="${portal.localize({'_key=shop.title.store', '_locale=ru'})}"
+                data-th-title="${portal.localize({'_key=shop.title.store', '_locale=ru'})}"
+              ></a>
               <span class="breadcrumbs-element breadcrumbs-divider">/</span>
               <span
                 class="breadcrumbs-element active"
@@ -32,8 +32,10 @@
                   data-th-text="${cart.itemsNum > 99} ? '9+' : ${cart.itemsNum}"
                 ></span>
               </span>
-              <span class="minicart-total"
-                >UAH
+              <span
+                class="minicart-total"
+                data-th-text="${portal.localize({'_key=shop.title.currency.uan', '_locale=ru'})}"
+              >
                 <span
                   data-th-remove="tag"
                   data-th-text="${cart.price.items}"
@@ -45,7 +47,10 @@
             <div class="pdp-image">
               <div class="product_bage hidden">
                 <span class="product_bage-icon"></span>
-                <span class="product_bage-text">Новинка</span>
+                <span
+                  class="product_bage-text"
+                  data-th-text="${portal.localize({'_key=shop.title.new', '_locale=ru'})}"
+                ></span>
               </div>
               <div class="pdp-main_image">
                 <img data-th-src="${mainImage.url}" alt="" />
@@ -75,14 +80,20 @@
                       class="price price-sale"
                       data-th-if="${content.data.price and content.data.finalPrice and content.data.price < content.data.finalPrice}"
                     >
-                      <span class="price-curency">UAH</span>
+                      <span
+                        class="price-curency"
+                        data-th-text="${portal.localize({'_key=shop.title.currency.uan', '_locale=ru'})}"
+                      ></span>
                       <span
                         class="price-value"
                         data-th-text="${content.data.finalPrice}"
                       ></span>
                     </div>
                     <div class="price">
-                      <span class="price-curency">UAH</span>
+                      <span
+                        class="price-curency"
+                        data-th-text="${portal.localize({'_key=shop.title.currency.uan', '_locale=ru'})}"
+                      ></span>
                       <span
                         class="price-value"
                         data-th-text="${content.data.price}"
@@ -127,11 +138,10 @@
                         class="pdp-size_select select"
                       >
                         <option
-                          value="Выберите размер"
                           disabled="disabled"
                           selected
-                          >Выберите размер</option
-                        >
+                          data-th-text="${portal.localize({'_key=shop.title.select.size', '_locale=ru'})}"
+                        ></option>
                         <option
                           data-th-each="size: ${content.data.sizes}"
                           data-th-if="${size and size.amount > 0}"
@@ -145,7 +155,7 @@
                     <span
                       data-th-attr="data-id=${content._id}, data-size=${content.data.size}"
                       class="qty-decrement"
-                      title="Уменьшить количество"
+                      data-th-title="${portal.localize({'_key=shop.title.decrease', '_locale=ru'})}"
                       >-</span
                     >
                     <input
@@ -159,7 +169,7 @@
                     <span
                       data-th-attr="data-id=${content._id}, data-size=${content.data.size}"
                       class="qty-increment"
-                      title="Увеличить количество"
+                      data-th-title="${portal.localize({'_key=shop.title.increase', '_locale=ru'})}"
                       >+</span
                     >
                   </div>
@@ -167,10 +177,9 @@
                 <button
                   data-th-disabled="${content.data.inventory == 0}"
                   class="add_to_cart-btn"
-                  title="В корзину"
-                >
-                  В КОРЗИНУ
-                </button>
+                  data-th-text="${portal.localize({'_key=shop.title.addToCart', '_locale=ru'})}"
+                  data-th-title="${portal.localize({'_key=shop.title.addToCart', '_locale=ru'})}"
+                ></button>
                 <input
                   name="price"
                   type="hidden"
@@ -187,7 +196,10 @@
                 data-th-utext="${content.data.description}"
               ></div>
               <div class="pdp-social social">
-                <h3 class="social-title">Поделись!</h3>
+                <h3
+                  class="social-title"
+                  data-th-text="${portal.localize({'_key=shop.title.share', '_locale=ru'})}"
+                ></h3>
                 <ul class="social-list">
                   <li class="social-item">
                     <a
@@ -205,6 +217,7 @@
                       target="_blank"
                       data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+content._path, '_type=absolute'})}"
                       class="social-link twitter"
+                      data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}"
                     ></a>
                   </li>
                   <li class="social-item">
@@ -212,6 +225,7 @@
                       class="social-link vk"
                       data-th-href="${'http://vk.com/share.php?url=' + urlAbsolute}"
                       target="_blank"
+                      data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
                     ></a>
                   </li>
                 </ul>

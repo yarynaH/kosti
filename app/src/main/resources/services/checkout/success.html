@@ -22,7 +22,12 @@
             <span data-th-text="${cart.userId}"></span> и успешно оплачен. В
             ближайшее время мы свяжемся с вами для уточнения заказа.
           </div>
-          <a data-th-href="${shopUrl}" class="checkout-back">В магазин</a>
+          <a
+            data-th-href="${shopUrl}"
+            class="checkout-back"
+            data-th-text="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"
+            data-th-title="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"
+          ></a>
         </div>
       </div>
     </main>

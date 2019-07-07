@@ -53,6 +53,7 @@
                 <a
                   class="profile-settings js_profile-settings"
                   data-th-if="${currUserFlag}"
+                  data-th-title="${portal.localize({'_key=user.title.settings', '_locale=ru'})}"
                 ></a>
               </div>
               <div
@@ -78,7 +79,8 @@
                     class="profile-action-link"
                     data-type="userArticles"
                     data-th-classappend="${active.articles}"
-                    data-th-text="${portal.localize({'_key=user.user.title.article', '_locale=ru'})}"
+                    data-th-text="${portal.localize({'_key=user.title.articles', '_locale=ru'})}"
+                    data-th-title="${portal.localize({'_key=user.title.articles', '_locale=ru'})}"
                   >
                     <span
                       class="value"
@@ -93,7 +95,8 @@
                     data-th-href="${portal.pageUrl({'_path='+content._path,'action=comments'})}"
                     data-th-classappend="${active.comments}"
                     data-type="comments"
-                    data-th-text="${portal.localize({'_key=user.user.title.article', '_locale=ru'})}"
+                    data-th-text="${portal.localize({'_key=user.title.comments', '_locale=ru'})}"
+                    data-th-title="${portal.localize({'_key=user.title.comments', '_locale=ru'})}"
                   >
                     <span
                       data-th-text="${totalArticles.comments ? totalArticles.comments : '0'}"
@@ -107,8 +110,9 @@
                     class="profile-action-link"
                     data-th-classappend="${active.bookmarks}"
                     data-type="bookmarks"
+                    data-th-text="${portal.localize({'_key=user.title.bookmarks', '_locale=ru'})}"
+                    data-th-title="${portal.localize({'_key=user.title.bookmarks', '_locale=ru'})}"
                   >
-                    Закладки
                     <span
                       data-th-text="${content.data.bookmarks ? content.data.bookmarks.size : '0'}"
                     ></span>
@@ -120,8 +124,9 @@
                     class="profile-action-link"
                     data-th-classappend="${active.notifications}"
                     data-type="notifications"
+                    data-th-text="${portal.localize({'_key=user.title.notifications', '_locale=ru'})}"
+                    data-th-title="${portal.localize({'_key=user.title.notifications', '_locale=ru'})}"
                   >
-                    Уведомления
                     <span
                       class="value"
                       data-th-text="${totalArticles.notifications ? totalArticles.notifications : '0'}"
@@ -133,7 +138,7 @@
                 data-th-if="${currUserFlag}"
                 data-th-href="${portal.serviceUrl({'_service=user','action=logout'})}"
                 class="profile-logout"
-                title="Logout"
+                data-th-title="${portal.localize({'_key=global.user.logout', '_locale=ru'})}"
               ></a>
             </div>
           </div>
@@ -146,12 +151,13 @@
                 ></span>
                 <span
                   data-th-remove="tag"
-                  data-th-text="${portal.localize({'_key=user.title.' + currTitle, '_locale='+content.language})}"
+                  data-th-text="${portal.localize({'_key=user.title.' + currTitle + '.counter', '_locale='+content.language})}"
                 ></span>
               </h3>
-              <div data-th-if="${!totalArticles.curr}">
-                У этого пользователя пока нету статей
-              </div>
+              <div
+                data-th-if="${!totalArticles.curr}"
+                data-th-text="${portal.localize({'_key=user.title.articles.counter.zero', '_locale=ru'})}"
+              ></div>
               <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
             </div>
             <button
@@ -160,9 +166,10 @@
               data-th-title="${loadMoreText}"
               data-th-text="${loadMoreText}"
             ></button>
-            <div class="blog-list-empty js_blog-list-empty hidden">
-              Статей больше нет.
-            </div>
+            <div
+              class="blog-list-empty js_blog-list-empty hidden"
+              data-th-text="${portal.localize({'_key=user.title.articles.noMore', '_locale=ru'})}"
+            ></div>
             <div class="lds-ring js_lazyload-icon hidden">
               <div></div>
               <div></div>
