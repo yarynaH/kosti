@@ -148,12 +148,18 @@ function jwtRegister(token) {
     }).body
   );
   if (response && response.email && response.name) {
-    return register(response.name, response.email, null, true);
+    return register(
+      response.name,
+      response.email,
+      null,
+      true,
+      response.picture
+    );
   }
   return false;
 }
 
-function register(name, mail, pass, tokenRegister) {
+function register(name, mail, pass, tokenRegister, image) {
   var site = portal.getSite();
   var exist = contextLib.runAsAdmin(function() {
     return checkUserExists(name, mail);
@@ -178,6 +184,16 @@ function register(name, mail, pass, tokenRegister) {
   var userObj = contextLib.runAsAdmin(function() {
     return createUserContentType(name, mail, user.key);
   });
+  if (image) {
+    var response = httpClientLib.request({
+      url: image,
+      method: "GET"
+    });
+    var responseStream = response.bodyStream;
+    var userImg = contextLib.runAsAdmin(function() {
+      createUserImageObj(responseStream, userObj);
+    });
+  }
   if (!tokenRegister) {
     var activationHash = contextLib.runAsAdmin(function() {
       authLib.changePassword({
@@ -245,7 +261,7 @@ function createUserContentType(name, mail, userkey) {
     sourceBranch: "draft",
     targetBranch: "master"
   });
-  return result;
+  return user;
 }
 
 function login(name, pass, token) {
@@ -408,31 +424,9 @@ function activateUser(mail, hash) {
 
 exports.uploadUserImage = function() {
   var stream = portal.getMultipartStream("userImage");
-  var imageMetadata = portal.getMultipartItem("userImage");
   var user = this.getCurrentUser();
-  var image = {};
-  contextLib.runInDraft(function() {
-    image = contentLib.createMedia({
-      name: imageMetadata.fileName,
-      parentPath: user._path,
-      mimeType: imageMetadata.contentType,
-      data: stream
-    });
-    user = contentLib.modify({
-      key: user._id,
-      editor: userImageEditor
-    });
-  });
-  var publishResult = contentLib.publish({
-    keys: [user._id, image._id],
-    sourceBranch: "draft",
-    targetBranch: "master"
-  });
-  function userImageEditor(user) {
-    user.data.userImage = image._id;
-    return user;
-  }
-  return norseUtils.getImage(user.data.userImage, "block(140,140)");
+  var image = createUserImageObj(stream, user);
+  return norseUtils.getImage(image._id, "block(140,140)");
 };
 
 function checkUserExists(name, mail) {
@@ -470,4 +464,29 @@ function checkUserExists(name, mail) {
 
 function sendConfirmationMail(mail) {
   var hash = hashLib.saveHashForUser(mail, "registerHash");
+}
+
+function createUserImageObj(stream, user) {
+  var image = {};
+  contextLib.runInDraft(function() {
+    image = contentLib.createMedia({
+      name: hashLib.generateHash(user.displayName),
+      parentPath: user._path,
+      data: stream
+    });
+    user = contentLib.modify({
+      key: user._path,
+      editor: userImageEditor
+    });
+  });
+  var publishResult = contentLib.publish({
+    keys: [image._id, user._id],
+    sourceBranch: "draft",
+    targetBranch: "master"
+  });
+  return image;
+  function userImageEditor(user) {
+    user.data.userImage = image._id;
+    return user;
+  }
 }
