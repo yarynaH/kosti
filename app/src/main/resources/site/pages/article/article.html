@@ -73,7 +73,15 @@
                     <span class="post-counter icon-share">245</span>
                     <ul class="social-list">
                       <li class="social-item">
-                        <a href="#" class="social-link facebook"></a>
+                        <a
+                          class="social-link facebook"
+                          data-th-attr="
+                          data-title=${content.displayName}, 
+                          data-url=${content.urlAbsolute}, 
+                          data-description=${content.data.shortIntro},
+                          data-image=${content.image.urlAbsolute}
+                          "
+                        ></a>
                       </li>
                       <li class="social-item">
                         <a
@@ -83,16 +91,11 @@
                         ></a>
                       </li>
                       <li class="social-item">
-                        <script
-                          data-th-src="${portal.assetUrl({'_path=js/vkshare.js'})}"
-                        ></script>
-                        <script async type="text/javascript">
-                          <!--
-                                                              if(typeof VK !== 'undefined'){
-                                                                  document.write(VK.Share.button(false,{type: "custom", text: "<span class='social-link vk'></span>"}))
-                                                              }
-                                                              -->
-                        </script>
+                        <a
+                          class="social-link vk"
+                          data-th-href="${'http://vk.com/share.php?url=' + content.urlAbsolute}"
+                          target="_blank"
+                        ></a>
                       </li>
                     </ul>
                   </div>

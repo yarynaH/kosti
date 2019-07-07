@@ -202,45 +202,48 @@ function register(name, mail, pass, tokenRegister) {
 function createUserContentType(name, mail, userkey) {
   var site = portal.getSiteConfig();
   var usersLocation = contentLib.get({ key: site.userLocation });
-  var user = contentLib.create({
-    parentPath: usersLocation._path,
-    name: common.sanitize(name),
-    displayName: name,
-    contentType: app.name + ":user",
-    language: "ru",
-    data: {
-      email: mail
-    }
-  });
-  contentLib.setPermissions({
-    key: user._id,
-    inheritPermissions: false,
-    overwriteChildPermissions: true,
-    permissions: [
-      {
-        principal: userkey,
-        allow: [
-          "READ",
-          "CREATE",
-          "MODIFY",
-          "PUBLISH",
-          "READ_PERMISSIONS",
-          "WRITE_PERMISSIONS"
-        ],
-        deny: ["DELETE"]
-      },
-      {
-        principal: "role:system.everyone",
-        allow: ["READ"],
-        deny: []
+  var user = {};
+  contextLib.runInDraft(function() {
+    user = contentLib.create({
+      parentPath: usersLocation._path,
+      name: common.sanitize(name),
+      displayName: name,
+      contentType: app.name + ":user",
+      language: "ru",
+      data: {
+        email: mail
       }
-    ]
+    });
+    contentLib.setPermissions({
+      key: user._id,
+      inheritPermissions: false,
+      overwriteChildPermissions: true,
+      permissions: [
+        {
+          principal: userkey,
+          allow: [
+            "READ",
+            "CREATE",
+            "MODIFY",
+            "PUBLISH",
+            "READ_PERMISSIONS",
+            "WRITE_PERMISSIONS"
+          ],
+          deny: ["DELETE"]
+        },
+        {
+          principal: "role:system.everyone",
+          allow: ["READ"],
+          deny: []
+        }
+      ]
+    });
   });
 
   var result = contentLib.publish({
     keys: [user._id],
-    sourceBranch: "master",
-    targetBranch: "draft"
+    sourceBranch: "draft",
+    targetBranch: "master"
   });
   return result;
 }
@@ -407,20 +410,23 @@ exports.uploadUserImage = function() {
   var stream = portal.getMultipartStream("userImage");
   var imageMetadata = portal.getMultipartItem("userImage");
   var user = this.getCurrentUser();
-  var image = contentLib.createMedia({
-    name: imageMetadata.fileName,
-    parentPath: user._path,
-    mimeType: imageMetadata.contentType,
-    data: stream
-  });
-  user = contentLib.modify({
-    key: user._id,
-    editor: userImageEditor
+  var image = {};
+  contextLib.runInDraft(function() {
+    image = contentLib.createMedia({
+      name: imageMetadata.fileName,
+      parentPath: user._path,
+      mimeType: imageMetadata.contentType,
+      data: stream
+    });
+    user = contentLib.modify({
+      key: user._id,
+      editor: userImageEditor
+    });
   });
   var publishResult = contentLib.publish({
-    keys: [user._id],
-    sourceBranch: "master",
-    targetBranch: "draft"
+    keys: [user._id, image._id],
+    sourceBranch: "draft",
+    targetBranch: "master"
   });
   function userImageEditor(user) {
     user.data.userImage = image._id;

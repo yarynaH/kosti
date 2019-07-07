@@ -43,6 +43,7 @@ function handleReq(req) {
       mainImage: getMainImage(content.data),
       images: getImages(content.data),
       social: site.social,
+      urlAbsolute: portal.pageUrl({ id: content._id, type: "absolute" }),
       shopUrl: portal.pageUrl({ id: site.shopLocation }),
       sizes: getSizes(content.data.sizes),
       variations: getVariations(content),

@@ -88,6 +88,7 @@ function beautifyArticle(article) {
     article.author = { image: norseUtils.getImage(null, "block(60, 60)", 1) };
   }
   article.url = portal.pageUrl({ id: article._id });
+  article.urlAbsolute = portal.pageUrl({ id: article._id, type: "absolute" });
   article.date = kostiUtils.getTimePassedSincePostCreation(
     new Date(moment(article.publish.from.replace("Z", "")))
   );
