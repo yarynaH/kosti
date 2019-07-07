@@ -20,7 +20,10 @@
       >
         <div class="blog blog_width clearfix">
           <div class="user_page-profile blog-sidebar">
-            <h3 class="user_page-title">Профиль</h3>
+            <h3
+              class="user_page-title"
+              data-th-text="${portal.localize({'_key=user.title.profile', '_locale=ru'})}"
+            ></h3>
             <div class="profile">
               <form
                 data-th-if="${currUserFlag}"
@@ -52,8 +55,10 @@
                   data-th-if="${currUserFlag}"
                 ></a>
               </div>
-              <div class="profile-registration">
-                Костяшка с
+              <div
+                class="profile-registration"
+                data-th-text="${portal.localize({'_key=user.title.together.from', '_locale=ru'})}"
+              >
                 <span
                   data-th-remove="tag"
                   data-th-text="${content.date}"
@@ -73,8 +78,8 @@
                     class="profile-action-link"
                     data-type="userArticles"
                     data-th-classappend="${active.articles}"
+                    data-th-text="${portal.localize({'_key=user.user.title.article', '_locale=ru'})}"
                   >
-                    Статьи
                     <span
                       class="value"
                       data-th-remove="tag"
@@ -88,8 +93,8 @@
                     data-th-href="${portal.pageUrl({'_path='+content._path,'action=comments'})}"
                     data-th-classappend="${active.comments}"
                     data-type="comments"
+                    data-th-text="${portal.localize({'_key=user.user.title.article', '_locale=ru'})}"
                   >
-                    Комментарии
                     <span
                       data-th-text="${totalArticles.comments ? totalArticles.comments : '0'}"
                       class="value"
