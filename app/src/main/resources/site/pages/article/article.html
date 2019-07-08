@@ -81,6 +81,7 @@
                           data-description=${content.data.shortIntro},
                           data-image=${content.image.urlAbsolute}
                           "
+                          data-th-title="${portal.localize({'_key=social.title.facebook', '_locale=ru'})}"
                         ></a>
                       </li>
                       <li class="social-item">
@@ -88,6 +89,7 @@
                           target="_blank"
                           data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+content._path, '_type=absolute'})}"
                           class="social-link twitter"
+                          data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}"
                         ></a>
                       </li>
                       <li class="social-item">
@@ -95,6 +97,7 @@
                           class="social-link vk"
                           data-th-href="${'http://vk.com/share.php?url=' + content.urlAbsolute}"
                           target="_blank"
+                          data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
                         ></a>
                       </li>
                     </ul>
@@ -126,7 +129,10 @@
             </div>
           </div>
           <div data-th-if="${similarArticles}" class="similar_posts">
-            <h4 class="similar_posts-title">Похожие статьи</h4>
+            <h4
+              class="similar_posts-title"
+              data-th-text="${portal.localize({'_key=blog.title.similarArticles', '_locale=ru'})}"
+            ></h4>
             <ul class="similar_posts-list">
               <li
                 class="similar_posts-item"

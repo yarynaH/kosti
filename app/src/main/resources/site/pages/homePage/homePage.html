@@ -45,12 +45,18 @@
                 data-th-utext="${slide.data.shortIntro}"
               ></div>
               <div class="slick-action">
-                <a data-th-href="${slide.url}" class="slick-read_btn">ЧИТАТЬ</a>
+                <a
+                  data-th-href="${slide.url}"
+                  class="slick-read_btn"
+                  data-th-text="${portal.localize({'_key=homepage.title.read', '_locale=ru'})}"
+                  data-th-title="${portal.localize({'_key=homepage.title.read', '_locale=ru'})}"
+                ></a>
                 <span
                   class="slick-add_to_bookmarks_btn js_bookmarks"
                   data-th-classappend="${slide.bookmarked} ? 'active' : ''"
                   data-th-attr="data-contentId=${slide._id}"
                   data-th-text="${slide.bookmarked} ? 'В ЗАКЛАДКАХ' : 'В ЗАКЛАДКИ'"
+                  data-th-title="${slide.bookmarked} ? 'В ЗАКЛАДКАХ' : 'В ЗАКЛАДКИ'"
                 ></span>
                 <span
                   data-th-attr="data-contentId=${slide._id}"
@@ -67,13 +73,19 @@
       <div class="latest_news">
         <div class="blog_width">
           <div class="freshest">
-            <h4 class="latest_news-title">САМОЕ СВЕЖЕЕ</h4>
+            <h4
+              class="latest_news-title"
+              data-th-text="${portal.localize({'_key=homepage.title.freshest', '_locale=ru'})}"
+            ></h4>
             <div class="latest_news-iframe_wrap">
               <iframe data-th-src="${video}"> </iframe>
             </div>
           </div>
           <div class="schedule">
-            <h4 class="latest_news-title">РАСПИСАНИЕ</h4>
+            <h4
+              class="latest_news-title"
+              data-th-text="${portal.localize({'_key=homepage.title.schedule', '_locale=ru'})}"
+            ></h4>
             <div
               data-th-each="scheduleItem: ${schedule}"
               class="schedule-item"
@@ -81,17 +93,16 @@
             >
               <div class="schedule-content">
                 <div class="schedule-date">
-                  <span class="date" data-th-text="${scheduleItem.day}">7</span>
-                  <span class="month" data-th-text="${scheduleItem.month}"
-                    >Декабрь</span
-                  >
+                  <span class="date" data-th-text="${scheduleItem.day}"></span>
+                  <span
+                    class="month"
+                    data-th-text="${scheduleItem.month}"
+                  ></span>
                 </div>
                 <h3
                   class="schedule-title"
                   data-th-text="${scheduleItem.displayName}"
-                >
-                  Дело Кобольдское
-                </h3>
+                ></h3>
                 <div class="tag-list tag-list__small hidden">
                   <a href="#" class="tag-item">D&D</a>
                   <a href="#" class="tag-item">5e</a>
@@ -109,22 +120,22 @@
               class="hotter-btn"
               data-type="hot"
               data-th-classappend="${active.hot}"
-              >Горячее</a
-            >
+              data-th-text="${portal.localize({'_key=homepage.title.hot', '_locale=ru'})}"
+            ></a>
             <a
               data-th-href="${portal.pageUrl({'_path='+content._path,'feed=new'})}"
               data-type="new"
               class="fresher-btn"
               data-th-classappend="${active.new}"
-              >Свежее</a
-            >
+              data-th-text="${portal.localize({'_key=homepage.title.fresh', '_locale=ru'})}"
+            ></a>
             <a
               data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}"
               data-type="bookmarks"
               class="bookmarks-btn"
               data-th-classappend="${active.bookmarks}"
-              >Закладочки</a
-            >
+              data-th-text="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"
+            ></a>
           </div>
           <div class="blog-list-wrap">
             <div
@@ -137,9 +148,10 @@
               data-th-title="${loadMoreText}"
               data-th-text="${loadMoreText}"
             ></button>
-            <div class="blog-list-empty js_blog-list-empty hidden">
-              Статей больше нет.
-            </div>
+            <div
+              class="blog-list-empty js_blog-list-empty hidden"
+              data-th-text="${portal.localize({'_key=user.title.articles.noMore', '_locale=ru'})}"
+            ></div>
             <div class="lds-ring js_lazyload-icon hidden">
               <div></div>
               <div></div>
