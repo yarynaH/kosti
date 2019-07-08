@@ -53,9 +53,8 @@ exports.get = function(req) {
         model.user._id,
         0,
         3,
-        false,
-        false,
-        true,
+        null,
+        null,
         true
       );
       break;

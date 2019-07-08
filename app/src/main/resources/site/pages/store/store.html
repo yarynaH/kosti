@@ -13,7 +13,10 @@
         <div class="store">
           <div class="store-top">
             <div class="breadcrumbs">
-              <span class="breadcrumbs-element active">Магазин</span>
+              <span
+                class="breadcrumbs-element active"
+                data-th-text="${portal.localize({'_key=shop.title.store', '_locale=ru'})}"
+              ></span>
             </div>
             <a class="minicart" data-th-href="${cartUrl}" title="К покупкам">
               <span class="minicart-icon">

@@ -32,7 +32,6 @@ function getNotificationsForUser(
   pageSize,
   counterOnly,
   unseenOnly,
-  messageOnly,
   json
 ) {
   if (!pageSize) {
@@ -74,12 +73,10 @@ function getNotificationsForUser(
       notifications: result
     }
   );
-  if (messageOnly) {
-    return result;
-  }
   return {
-    message: result,
-    total: temp.total
+    hits: result,
+    total: temp.total,
+    count: temp.count
   };
 }
 

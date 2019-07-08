@@ -135,6 +135,7 @@ function getArticlesByIds(ids, page) {
   if (!page) {
     page = 0;
   }
+  var count = 0;
   if (ids) {
     var result = [];
     ids = norseUtils.forceArray(ids);
@@ -143,13 +144,22 @@ function getArticlesByIds(ids, page) {
         var temp = contentLib.get({ key: ids[i] });
         if (temp) {
           result.push(temp);
+          count++;
         }
       }
     }
     result = beautifyArticleArray(result);
-    return result;
+    return {
+      hits: result,
+      total: ids.length,
+      count: count
+    };
   } else {
-    return [];
+    return {
+      hits: [],
+      total: 0,
+      count: 0
+    };
   }
 }
 
@@ -196,10 +206,8 @@ function getSearchArticles(q, page, useHashtag) {
   if (result && result.hits && result.hits.length > 0) {
     articles = beautifyArticleArray(result.hits);
   }
-  return {
-    articles: getArticlesView(articles),
-    total: result.total
-  };
+  result.hits = getArticlesView(articles);
+  return result;
 }
 
 function getHotArticles(page) {
@@ -223,8 +231,7 @@ function getArticlesByUser(id, page, count) {
   if (count) {
     return articles.total;
   }
-  articles = articles.hits;
-  articles = beautifyArticleArray(articles);
+  articles.hits = beautifyArticleArray(articles.hits);
   return articles;
 }
 

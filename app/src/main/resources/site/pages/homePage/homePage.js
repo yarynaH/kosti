@@ -50,11 +50,11 @@ function handleReq(req) {
         break;
       case "bookmarks":
         active.bookmarks = "active";
-        var articles = blogLib.getArticlesByIds(user.data.bookmarks);
+        var articles = blogLib.getArticlesByIds(user.data.bookmarks).hits;
         break;
       default:
         active.hot = "active";
-        var articles = blogLib.getHotArticles();
+        var articles = blogLib.getHotArticles().hits;
         break;
     }
 

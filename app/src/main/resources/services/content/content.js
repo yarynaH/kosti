@@ -36,48 +36,49 @@ exports.get = function(req) {
   switch (params.feedType) {
     case "new":
       var articlesObj = blogLib.getNewArticles(page);
-      var articles = blogLib.getArticlesView(articlesObj.hits);
+      var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "bookmarks":
       var user = userLib.getCurrentUser();
-      var articles = blogLib.getArticlesView(
-        blogLib.getArticlesByIds(user.data.bookmarks, page)
-      );
+      var articlesObj = blogLib.getArticlesByIds(user.data.bookmarks, page);
+      var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "userArticles":
-      var articles = blogLib.getArticlesView(
-        blogLib.getArticlesByUser(params.userId, page)
-      );
+      var articlesObj = blogLib.getArticlesByUser(params.userId, page);
+      var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "comments":
-      var articles = thymeleaf.render(
-        resolve("../../site/pages/user/commentsView.html"),
-        { comments: commentsLib.getCommentsByUser(params.userId, params.page) }
+      var articlesObj = commentsLib.getCommentsByUser(
+        params.userId,
+        params.page
       );
+      var articlesView = commentsLib.getCommentsView(articlesObj.hits);
       break;
     case "hot":
-      var articles = blogLib.getArticlesView(blogLib.getHotArticles(page));
+      var articlesObj = blogLib.getHotArticles(page);
+      var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "search":
-      var articles = blogLib.getSearchArticles(params.query, page).articles;
+      var articlesObj = blogLib.getSearchArticles(params.query, page);
+      var articlesView = articlesObj.hits;
       break;
     case "notifications":
-      var articles = notificationLib.getNotificationsForUser(
+      var articlesObj = notificationLib.getNotificationsForUser(
         params.userId,
-        page,
-        null,
-        null,
-        null,
-        true
+        page
       );
+      var articlesView = articlesObj.hits;
       break;
     default:
-      var articles = "";
+      var articlesObj = { total: 0 };
+      var articlesView = "";
       break;
   }
+  norseUtils.log(articlesObj.count);
   return {
     body: {
-      articles: articles,
+      articles: articlesView,
+      hideButton: articlesObj.count < 10,
       buttonText: blogLib.getRandomString()
     },
     contentType: "text/html"

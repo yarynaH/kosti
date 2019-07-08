@@ -75,13 +75,13 @@ function handleReq(req) {
         : 0;
       var currTitle = "articles";
       var articles = blogLib.getArticlesView(
-        blogLib.getArticlesByIds(content.data.bookmarks)
+        blogLib.getArticlesByIds(content.data.bookmarks).hits
       );
     } else if (up.action == "comments") {
       active.comments = "active";
       totalArticles.curr = totalArticles.comments;
       var currTitle = "comments";
-      var userComments = commentsLib.getCommentsByUser(content._id);
+      var userComments = commentsLib.getCommentsByUser(content._id).hits;
       var articles = thymeleaf.render(resolve("commentsView.html"), {
         comments: userComments
       });
@@ -93,14 +93,14 @@ function handleReq(req) {
         0,
         10
       );
-      var articles = notifications.message;
+      var articles = notifications.hits;
       totalArticles.curr = totalArticles.notifications;
     } else {
       active.articles = "active";
       totalArticles.curr = totalArticles.articles;
       var currTitle = "articles";
       var articles = blogLib.getArticlesView(
-        blogLib.getArticlesByUser(content._id)
+        blogLib.getArticlesByUser(content._id).hits
       );
     }
     if (currUserFlag) {

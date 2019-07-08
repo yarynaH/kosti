@@ -8,3 +8,7 @@ app/.xp/*
 app/src/main/resources/site/assets/*
 app/src/main/resources/assets/*
 deploy.bat
+app/.classpath
+app/.project
+app/.settings/*
+app/bin/*

@@ -44,6 +44,7 @@
                 data-description=${article.data.shortIntro},
                 data-image=${article.image.urlAbsolute}
                 "
+              data-th-title="${portal.localize({'_key=social.title.facebook', '_locale=ru'})}"
             ></a>
           </li>
           <li class="social-item">
@@ -51,6 +52,7 @@
               target="_blank"
               data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+article._path, '_type=absolute'})}"
               class="social-link twitter"
+              data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}"
             ></a>
           </li>
           <li class="social-item">
@@ -58,6 +60,7 @@
               class="social-link vk"
               data-th-href="${'http://vk.com/share.php?url=' + article.urlAbsolute}"
               target="_blank"
+              data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
             ></a>
           </li>
         </ul>

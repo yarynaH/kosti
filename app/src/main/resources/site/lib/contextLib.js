@@ -20,3 +20,17 @@ exports.runInDraft = function(callback) {
     callback
   );
 };
+
+exports.runInDraftAsAdmin = function(callback) {
+  return contextLib.run(
+    {
+      branch: "draft",
+      user: {
+        login: "mvy",
+        userStore: "system"
+      },
+      principals: ["role:system.admin"]
+    },
+    callback
+  );
+};
