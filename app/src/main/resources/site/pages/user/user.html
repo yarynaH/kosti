@@ -164,7 +164,7 @@
                 ></span>
                 <span
                   data-th-remove="tag"
-                  data-th-text="${portal.localize({'_key=user.title.plural.' + currTitle, '_locale='+content.language})}"
+                  data-th-text="${portal.localize({'_key=user.title.plural.' + currTitle + '.pluralArticlesString', '_locale='+content.language})}"
                 ></span>
               </h3>
               <div
@@ -181,7 +181,7 @@
             ></button>
             <div
               class="blog-list-empty js_blog-list-empty hidden"
-              data-th-text="${portal.localize({'_key=user.title.articles.noMore', '_locale=ru'})}"
+              data-th-text="${portal.localize({'_key=user.title.' + currTitle + '.noMore', '_locale=ru'})}"
             ></div>
             <div class="lds-ring js_lazyload-icon hidden">
               <div></div>

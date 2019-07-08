@@ -74,16 +74,14 @@ function handleReq(req) {
         ? content.data.bookmarks.length
         : 0;
       active.bookmarks = "active";
-      var currTitle =
-        "bookmarks." + sharedLib.getTranslationCounter(totalArticles.curr);
+      var currTitle = "bookmarks";
       var articles = blogLib.getArticlesView(
         blogLib.getArticlesByIds(content.data.bookmarks).hits
       );
     } else if (up.action == "comments") {
       totalArticles.curr = totalArticles.comments;
       active.comments = "active";
-      var currTitle =
-        "comments." + sharedLib.getTranslationCounter(totalArticles.curr);
+      var currTitle = "comments";
       var userComments = commentsLib.getCommentsByUser(content._id).hits;
       var articles = thymeleaf.render(resolve("commentsView.html"), {
         comments: userComments
@@ -91,8 +89,7 @@ function handleReq(req) {
     } else if (up.action == "notifications" && currUserFlag) {
       totalArticles.curr = totalArticles.notifications;
       active.notifications = "active";
-      var currTitle =
-        "notifications." + sharedLib.getTranslationCounter(totalArticles.curr);
+      var currTitle = "notifications";
       var notifications = notificationLib.getNotificationsForUser(
         content._id,
         0,
@@ -102,12 +99,14 @@ function handleReq(req) {
     } else {
       totalArticles.curr = totalArticles.articles;
       active.articles = "active";
-      var currTitle =
-        "articles." + sharedLib.getTranslationCounter(totalArticles.curr);
+      var currTitle = "articles";
       var articles = blogLib.getArticlesView(
         blogLib.getArticlesByUser(content._id).hits
       );
     }
+    var pluralArticlesString = sharedLib.getTranslationCounter(
+      totalArticles.curr
+    );
     if (currUserFlag) {
       var editUserModal = thymeleaf.render(resolve("userEditModal.html"), {
         user: content
