@@ -385,12 +385,14 @@ function loadMoreArticles() {
       $(".js_blog-load_more").prop("title", data.buttonText);
       $(".js_blog-load_more").removeClass("hidden");
       $(".blog-list").append(data.articles);
-    } else {
+    }
+    if (data.hideButton) {
+      $(".js_blog-load_more").addClass("hidden");
       $(".js_blog-list-empty").removeClass("hidden");
       $(".blog-list").data("noMoreArticles", true);
     }
-    $(".js_lazyload-icon").addClass("hidden");
     $(".blog-list").data("page", page + 1);
+    $(".js_lazyload-icon").addClass("hidden");
   });
 }
 

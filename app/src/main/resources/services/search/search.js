@@ -13,11 +13,11 @@ exports.get = function(req) {
   //params.hid - search by hashtag id
   if (params.hid) {
     var query = getHashtagName(params.hid);
-    var searchRes = blogLib.getSearchArticles(params.hid, null, true);
+    var searchRes = blogLib.getSearchArticles(params.hid, null, true).hits;
   } else {
     var query = params.q;
     if (!query) query = "";
-    var searchRes = blogLib.getSearchArticles(query, null, false);
+    var searchRes = blogLib.getSearchArticles(query, null, false).hits;
   }
 
   var view = resolve("search.html");

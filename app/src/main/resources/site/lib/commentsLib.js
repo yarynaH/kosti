@@ -4,6 +4,7 @@ var portalLib = require("/lib/xp/portal");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
 var userLib = require("userLib");
+var thymeleaf = require("/lib/thymeleaf");
 var kostiUtils = require("kostiUtils");
 
 exports.addComment = addComment;
@@ -16,6 +17,7 @@ exports.reportComment = reportComment;
 exports.getComment = getComment;
 exports.beautifyComment = beautifyComment;
 exports.getCommentParentArticle = getCommentParentArticle;
+exports.getCommentsView = getCommentsView;
 
 function addComment(parent, body) {
   var commentsRepo = connectCommentsRepo();
@@ -62,16 +64,23 @@ function getCommentsByUser(id, page, pageSize, counterOnly) {
   if (counterOnly) {
     return temp.total;
   }
-  if (temp && temp.hits) {
-    temp = temp.hits;
-  }
   var result = [];
-  for (var i = 0; i < temp.length; i++) {
-    var comment = commentsRepo.get(temp[i].id);
+  for (var i = 0; i < temp.hits.length; i++) {
+    var comment = commentsRepo.get(temp.hits[i].id);
     comment = beautifyComment(comment, false);
     result.push(comment);
   }
-  return result;
+  return {
+    hits: result,
+    total: temp.total,
+    count: temp.count
+  };
+}
+
+function getCommentsView(comments) {
+  return thymeleaf.render(resolve("../pages/user/commentsView.html"), {
+    comments: comments
+  });
 }
 
 function removeComment(id, reason) {
