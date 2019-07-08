@@ -74,7 +74,6 @@ exports.get = function(req) {
       var articlesView = "";
       break;
   }
-  norseUtils.log(articlesObj.count);
   return {
     body: {
       articles: articlesView,
