@@ -56,10 +56,11 @@
                   data-th-title="${portal.localize({'_key=user.title.settings', '_locale=ru'})}"
                 ></a>
               </div>
-              <div
-                class="profile-registration"
-                data-th-text="${portal.localize({'_key=user.title.together.from', '_locale=ru'})}"
-              >
+              <div class="profile-registration">
+                <span
+                  data-th-text="${portal.localize({'_key=user.title.together.from', '_locale=ru'})}"
+                  data-th-remove="tag"
+                ></span>
                 <span
                   data-th-remove="tag"
                   data-th-text="${content.date}"
@@ -79,9 +80,12 @@
                     class="profile-action-link"
                     data-type="userArticles"
                     data-th-classappend="${active.articles}"
-                    data-th-text="${portal.localize({'_key=user.title.articles', '_locale=ru'})}"
                     data-th-title="${portal.localize({'_key=user.title.articles', '_locale=ru'})}"
                   >
+                    <span
+                      data-th-text="${portal.localize({'_key=user.title.articles', '_locale=ru'})}"
+                      data-th-remove="tag"
+                    ></span>
                     <span
                       class="value"
                       data-th-remove="tag"
@@ -95,9 +99,12 @@
                     data-th-href="${portal.pageUrl({'_path='+content._path,'action=comments'})}"
                     data-th-classappend="${active.comments}"
                     data-type="comments"
-                    data-th-text="${portal.localize({'_key=user.title.comments', '_locale=ru'})}"
                     data-th-title="${portal.localize({'_key=user.title.comments', '_locale=ru'})}"
                   >
+                    <span
+                      data-th-text="${portal.localize({'_key=user.title.comments', '_locale=ru'})}"
+                      data-th-remove="tag"
+                    ></span>
                     <span
                       data-th-text="${totalArticles.comments ? totalArticles.comments : '0'}"
                       class="value"
@@ -110,9 +117,12 @@
                     class="profile-action-link"
                     data-th-classappend="${active.bookmarks}"
                     data-type="bookmarks"
-                    data-th-text="${portal.localize({'_key=user.title.bookmarks', '_locale=ru'})}"
                     data-th-title="${portal.localize({'_key=user.title.bookmarks', '_locale=ru'})}"
                   >
+                    <span
+                      data-th-text="${portal.localize({'_key=user.title.bookmarks', '_locale=ru'})}"
+                      data-th-remove="tag"
+                    ></span>
                     <span
                       data-th-text="${content.data.bookmarks ? content.data.bookmarks.size : '0'}"
                     ></span>
@@ -124,9 +134,12 @@
                     class="profile-action-link"
                     data-th-classappend="${active.notifications}"
                     data-type="notifications"
-                    data-th-text="${portal.localize({'_key=user.title.notifications', '_locale=ru'})}"
                     data-th-title="${portal.localize({'_key=user.title.notifications', '_locale=ru'})}"
                   >
+                    <span
+                      data-th-text="${portal.localize({'_key=user.title.notifications', '_locale=ru'})}"
+                      data-th-remove="tag"
+                    ></span>
                     <span
                       class="value"
                       data-th-text="${totalArticles.notifications ? totalArticles.notifications : '0'}"
@@ -151,7 +164,7 @@
                 ></span>
                 <span
                   data-th-remove="tag"
-                  data-th-text="${portal.localize({'_key=user.title.' + currTitle + '.counter', '_locale='+content.language})}"
+                  data-th-text="${portal.localize({'_key=user.title.plural.' + currTitle, '_locale='+content.language})}"
                 ></span>
               </h3>
               <div

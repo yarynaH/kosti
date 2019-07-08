@@ -7,6 +7,7 @@ var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var moment = require(libLocation + "moment");
 var votesLib = require(libLocation + "votesLib");
+var sharedLib = require(libLocation + "sharedLib");
 var blogLib = require(libLocation + "blogLib");
 var userLib = require(libLocation + "userLib");
 var helpers = require(libLocation + "helpers");
@@ -69,36 +70,40 @@ function handleReq(req) {
 
     var active = {};
     if (up.action == "bookmarks" && currUserFlag) {
-      active.bookmarks = "active";
       totalArticles.curr = content.data.bookmarks
         ? content.data.bookmarks.length
         : 0;
-      var currTitle = "articles";
+      active.bookmarks = "active";
+      var currTitle =
+        "bookmarks." + sharedLib.getTranslationCounter(totalArticles.curr);
       var articles = blogLib.getArticlesView(
         blogLib.getArticlesByIds(content.data.bookmarks).hits
       );
     } else if (up.action == "comments") {
-      active.comments = "active";
       totalArticles.curr = totalArticles.comments;
-      var currTitle = "comments";
+      active.comments = "active";
+      var currTitle =
+        "comments." + sharedLib.getTranslationCounter(totalArticles.curr);
       var userComments = commentsLib.getCommentsByUser(content._id).hits;
       var articles = thymeleaf.render(resolve("commentsView.html"), {
         comments: userComments
       });
     } else if (up.action == "notifications" && currUserFlag) {
+      totalArticles.curr = totalArticles.notifications;
       active.notifications = "active";
-      var currTitle = "notifications";
+      var currTitle =
+        "notifications." + sharedLib.getTranslationCounter(totalArticles.curr);
       var notifications = notificationLib.getNotificationsForUser(
         content._id,
         0,
         10
       );
       var articles = notifications.hits;
-      totalArticles.curr = totalArticles.notifications;
     } else {
-      active.articles = "active";
       totalArticles.curr = totalArticles.articles;
-      var currTitle = "articles";
+      active.articles = "active";
+      var currTitle =
+        "articles." + sharedLib.getTranslationCounter(totalArticles.curr);
       var articles = blogLib.getArticlesView(
         blogLib.getArticlesByUser(content._id).hits
       );
