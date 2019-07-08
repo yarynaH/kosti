@@ -164,7 +164,7 @@
                 ></span>
                 <span
                   data-th-remove="tag"
-                  data-th-text="${portal.localize({'_key=user.title.plural.' + currTitle + '.pluralArticlesString', '_locale='+content.language})}"
+                  data-th-text="${portal.localize({'_key=user.title.plural.' + currTitle + '.' + pluralArticlesString, '_locale='+content.language})}"
                 ></span>
               </h3>
               <div
@@ -174,14 +174,15 @@
               <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
             </div>
             <button
-              data-th-if="${totalArticles.curr}"
+              data-th-if="${totalArticles.curr > 10}"
               class="blog-upload_more js_blog-load_more"
               data-th-title="${loadMoreText}"
               data-th-text="${loadMoreText}"
             ></button>
             <div
-              class="blog-list-empty js_blog-list-empty hidden"
+              class="blog-list-empty js_blog-list-empty"
               data-th-text="${portal.localize({'_key=user.title.' + currTitle + '.noMore', '_locale=ru'})}"
+              data-th-classappend="${totalArticles.total > 10 ? 'hidden' : ''}"
             ></div>
             <div class="lds-ring js_lazyload-icon hidden">
               <div></div>

@@ -25,7 +25,7 @@
           <div
             class="blog-list"
             data-page="1"
-            data-th-utext="${searchRes.articles}"
+            data-th-utext="${searchRes.hits}"
             data-feedtype="search"
             data-th-attr="data-query=${query}"
           ></div>
@@ -33,8 +33,12 @@
             class="blog-upload_more js_blog-load_more"
             data-th-title="${loadMoreText}"
             data-th-text="${loadMoreText}"
+            data-th-if="${searchRes.total > 10}"
           ></button>
-          <div class="blog-list-empty js_blog-list-empty hidden">
+          <div
+            class="blog-list-empty js_blog-list-empty"
+            data-th-classappend="${searchRes.total > 10 ? 'hidden' : ''}"
+          >
             Статей больше нет.
           </div>
           <div class="lds-ring js_lazyload-icon hidden">

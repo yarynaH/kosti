@@ -117,6 +117,7 @@ function handleReq(req) {
       content: content,
       currUserFlag: currUserFlag,
       currTitle: currTitle,
+      pluralArticlesString: pluralArticlesString,
       app: app,
       totalArticles: totalArticles,
       articles: articles,
