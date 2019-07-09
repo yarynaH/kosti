@@ -8,21 +8,65 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var spellLib = require(libLocation + "spellsLib");
+var articlesLib = require(libLocation + "articlesLib");
 
-exports.get = handleReq;
-exports.post = handleReq;
+exports.get = handleGet;
+exports.post = handlePost;
+exports.put = handlePut;
 
-function handleReq(req) {
+function handlePut(req) {
+  var me = this;
+
+  function renderView() {
+    return {
+      body: '"' + articlesLib.createImage(req.params) + '"',
+      contentType: "application/json"
+    };
+  }
+
+  return renderView();
+}
+
+function handlePost(req) {
+  var me = this;
+
+  function renderView() {
+    var view = resolve("articleSubmit.html");
+    var model = createModel();
+    var body = thymeleaf.render(view, model);
+    articlesLib.createArticle(req.params);
+    return {
+      body: body,
+      contentType: "text/html"
+    };
+  }
+
+  function createModel() {
+    var content = portal.getContent();
+    var site = portal.getSiteConfig();
+
+    var model = {
+      content: content,
+      site: site,
+      social: site.social,
+      pageComponents: helpers.getPageComponents(req)
+    };
+
+    return model;
+  }
+
+  return renderView();
+}
+
+function handleGet(req) {
   var me = this;
 
   function renderView() {
     var view = resolve("newArticle.html");
     var model = createModel();
     var body = thymeleaf.render(view, model);
-    // Return the result
     return {
       body: body,
-      //contentType: 'application/json',
       contentType: "text/html"
     };
   }
@@ -32,15 +76,11 @@ function handleReq(req) {
     var content = portal.getContent();
     var response = [];
     var site = portal.getSiteConfig();
-    //var a = portal.loginUrl();
-    //var user = userLib.getCurrUser();
 
     var model = {
       content: content,
-      //url: portal.pageUrl({ path: content._path }),
       app: app,
       site: site,
-      //user: user,
       social: site.social,
       pageComponents: helpers.getPageComponents(req)
     };

@@ -87,6 +87,13 @@ function beautifyArticle(article) {
   }
   article.url = portal.pageUrl({ id: article._id });
   article.urlAbsolute = portal.pageUrl({ id: article._id, type: "absolute" });
+  if (!article.publish) {
+    article.publish = {};
+  }
+  if (!article.publish.from) {
+    var date = new Date();
+    article.publish.from = date.toISOString();
+  }
   article.date = kostiUtils.getTimePassedSincePostCreation(
     new Date(moment(article.publish.from.replace("Z", "")))
   );

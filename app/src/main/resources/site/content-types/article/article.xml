@@ -7,13 +7,6 @@
       <label>Main image</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
-    <input name="shortIntro" type="HtmlArea">
-      <label>Short intro</label>
-      <config>
-        <exclude>*</exclude>
-        <include>alignleft alignright | bold italic</include>
-      </config>
-    </input>
     <input name="intro" type="HtmlArea">
       <label>Intro</label>
       <config>
@@ -40,6 +33,11 @@
       <occurrences minimum="0" maximum="5"/>
       <config>
         <allowContentType>hashtag</allowContentType>
+      </config>
+    </input>
+    <input name="body" type="HtmlArea">
+      <label>Body</label>
+      <config>
       </config>
     </input>
   </form>

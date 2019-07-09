@@ -56,8 +56,8 @@ function getPageComponents(req, footerType) {
       type: "absolute"
     });
   }
-  if (content && content.data && content.data.shortIntro) {
-    var ogDescription = content.data.shortIntro.replace(
+  if (content && content.data && content.data.intro) {
+    var ogDescription = content.data.intro.replace(
       /(&nbsp;|(<([^>]+)>))/gi,
       ""
     );
