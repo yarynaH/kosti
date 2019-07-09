@@ -10,66 +10,7 @@
 
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="homepage_slider js_homepage_slider">
-        <div data-th-each="slide: ${slider}">
-          <div class="slick-body">
-            <div class="slick-img_wrap">
-              <picture>
-                <source
-                  data-th-srcset="${slide.image.url}"
-                  media="(min-width: 600px)"
-                />
-                <img data-th-src="${slide.image.url}" class="slick-img" />
-              </picture>
-            </div>
-            <div class="slick-content blog_width">
-              <div class="post-info">
-                <a data-th-href="${slide.author.url}">
-                  <span class="post-user_avatar">
-                    <img data-th-src="${slide.author.image.url}" alt="" />
-                  </span>
-                  <span
-                    class="post-user_name"
-                    data-th-text="${slide.author.displayName}"
-                  ></span>
-                </a>
-                <span class="post-date" data-th-text="${slide.date}"></span>
-              </div>
-              <a
-                data-th-href="${slide.url}"
-                class="slick-title"
-                data-th-text="${slide.displayName}"
-              ></a>
-              <div
-                class="slick-caption"
-                data-th-utext="${slide.data.shortIntro}"
-              ></div>
-              <div class="slick-action">
-                <a
-                  data-th-href="${slide.url}"
-                  class="slick-read_btn"
-                  data-th-text="${portal.localize({'_key=homepage.title.read', '_locale=ru'})}"
-                  data-th-title="${portal.localize({'_key=homepage.title.read', '_locale=ru'})}"
-                ></a>
-                <span
-                  class="slick-add_to_bookmarks_btn js_bookmarks"
-                  data-th-classappend="${slide.bookmarked} ? 'active' : ''"
-                  data-th-attr="data-contentId=${slide._id}"
-                  data-th-text="${slide.bookmarked} ? 'В ЗАКЛАДКАХ' : 'В ЗАКЛАДКИ'"
-                  data-th-title="${slide.bookmarked} ? 'В ЗАКЛАДКАХ' : 'В ЗАКЛАДКИ'"
-                ></span>
-                <span
-                  data-th-attr="data-contentId=${slide._id}"
-                  class="like-btn icon-rock js_like-article"
-                  data-th-classappend="${slide.voted} ? 'active' : ''"
-                >
-                  <span data-th-text="${slide.votes}"></span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div data-th-utext="${slider}" data-th-remove="tag"></div>
       <div class="latest_news">
         <div class="blog_width">
           <div class="freshest">
@@ -143,21 +84,10 @@
               data-th-utext="${articles}"
               data-page="1"
             ></div>
-            <button
-              class="blog-upload_more js_blog-load_more"
-              data-th-title="${loadMoreText}"
-              data-th-text="${loadMoreText}"
-            ></button>
             <div
-              class="blog-list-empty js_blog-list-empty hidden"
-              data-th-text="${portal.localize({'_key=user.title.articles.noMore', '_locale=ru'})}"
+              data-th-utext="${loadMoreComponent}"
+              data-th-remove="tag"
             ></div>
-            <div class="lds-ring js_lazyload-icon hidden">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
           </div>
           <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
         </div>

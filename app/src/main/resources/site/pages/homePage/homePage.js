@@ -61,17 +61,16 @@ function handleReq(req) {
     var model = {
       content: content,
       url: portal.pageUrl({ path: content._path }),
-      app: app,
       video: video
         ? "https://www.youtube.com/embed/" + video
         : getVideoUrl(site.video),
       sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
-      loadMoreText: blogLib.getRandomString(),
+      loadMoreComponent: helpers.getLoadMore(null, null, null),
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       showDescription: showDescription,
-      slider: getSliderArticles(site.slider),
+      slider: getSlider(site.slider),
       articles: blogLib.getArticlesView(articles)
     };
 
@@ -99,13 +98,19 @@ function handleReq(req) {
       return result;
     }
 
-    function getSliderArticles(articles) {
+    function getSliderView(slider) {
+      return thymeleaf.render(resolve("slider.html"), {
+        slider: slider
+      });
+    }
+
+    function getSlider(articles) {
       var result = [];
       for (var i = 0; i < articles.length; i++) {
         var temp = contentLib.get({ key: articles[i] });
         result[i] = blogLib.beautifyArticle(temp);
       }
-      return result;
+      return getSliderView(result);
     }
 
     function getVideoViaApi(key) {

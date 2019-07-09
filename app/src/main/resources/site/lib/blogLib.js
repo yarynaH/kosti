@@ -9,7 +9,6 @@ var userLib = require("userLib");
 var moment = require("moment");
 var commentsLib = require("commentsLib");
 var sharedLib = require("sharedLib");
-var i18nLib = require("/lib/xp/i18n");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -22,7 +21,6 @@ exports.getWeeksPost = getWeeksPost;
 exports.getSolialLinks = getSolialLinks;
 exports.getSidebar = getSidebar;
 exports.getSearchArticles = getSearchArticles;
-exports.getRandomString = getRandomString;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -125,9 +123,12 @@ function getHashtags(ids) {
 
 function getArticlesView(articles) {
   articles = norseUtils.forceArray(articles);
-  return thymeleaf.render(resolve("../pages/homePage/articleList.html"), {
-    articles: articles
-  });
+  return thymeleaf.render(
+    resolve("../pages/components/blog/articleList.html"),
+    {
+      articles: articles
+    }
+  );
 }
 
 function getArticlesByIds(ids, page) {
@@ -233,14 +234,4 @@ function getArticlesByUser(id, page, count) {
   }
   articles.hits = beautifyArticleArray(articles.hits);
   return articles;
-}
-
-function getRandomString() {
-  var min = 1;
-  var max = 11;
-  //maximum not including
-  var randomNumber = Math.floor(Math.random() * (max - min)) + min;
-  return i18nLib.localize({
-    key: "blog.loadMoreText." + randomNumber
-  });
 }

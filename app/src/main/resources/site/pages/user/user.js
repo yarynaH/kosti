@@ -118,11 +118,14 @@ function handleReq(req) {
       currUserFlag: currUserFlag,
       currTitle: currTitle,
       pluralArticlesString: pluralArticlesString,
-      app: app,
       totalArticles: totalArticles,
       articles: articles,
       active: active,
-      loadMoreText: blogLib.getRandomString(),
+      loadMoreComponent: helpers.getLoadMore(
+        totalArticles.curr,
+        currTitle,
+        null
+      ),
       editUserModal: editUserModal,
       articlesView: articles,
       pageComponents: helpers.getPageComponents(req, "footerBlog")

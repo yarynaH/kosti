@@ -7,10 +7,14 @@ var authLib = require("/lib/xp/auth");
 var cartLib = require("cartLib");
 var nodeLib = require("/lib/xp/node");
 var sharedLib = require("sharedLib");
+var i18nLib = require("/lib/xp/i18n");
 
 exports.fixPermissions = fixPermissions;
+exports.getPageComponents = getPageComponents;
+exports.getLoadMore = getLoadMore;
+exports.getRandomString = getRandomString;
 
-exports.getPageComponents = function(req, footerType) {
+function getPageComponents(req, footerType) {
   var pageComponents = {};
   if (req) {
     var up = req.params;
@@ -147,7 +151,7 @@ exports.getPageComponents = function(req, footerType) {
   }
 
   return pageComponents;
-};
+}
 
 function checkUser() {
   var user = userLib.getCurrUser();
@@ -156,6 +160,23 @@ function checkUser() {
     result.user = user;
   }
   return result;
+}
+
+function getLoadMore(articlesCount, noMoreTitle, loadMoreText) {
+  if (!articlesCount) {
+    var articlesCount = 11;
+  }
+  if (!loadMoreText) {
+    var loadMoreText = getRandomString();
+  }
+  if (!noMoreTitle) {
+    var noMoreTitle = "articles";
+  }
+  return thymeleaf.render(resolve("../pages/components/blog/loadMore.html"), {
+    articlesCount: articlesCount,
+    noMoreTitle: noMoreTitle,
+    loadMoreText: loadMoreText
+  });
 }
 
 function fixPermissions(repo, role) {
@@ -180,5 +201,15 @@ function fixPermissions(repo, role) {
       }
     ],
     _inheritsPermissions: true
+  });
+}
+
+function getRandomString() {
+  var min = 1;
+  var max = 11;
+  //maximum not including
+  var randomNumber = Math.floor(Math.random() * (max - min)) + min;
+  return i18nLib.localize({
+    key: "blog.loadMoreText." + randomNumber
   });
 }
