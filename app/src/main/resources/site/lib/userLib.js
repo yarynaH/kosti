@@ -123,7 +123,13 @@ function getUserDataById(id) {
   }
   var user = contentLib.get({ key: id });
   if (!user || !user.data) {
-    return false;
+    return {
+      displayName: "Пользователь удален",
+      url: null,
+      image: norseUtils.getImage(null, "block(32,32)", 1),
+      _id: null,
+      key: null
+    };
   }
   return {
     displayName: user.displayName,

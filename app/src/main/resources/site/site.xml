@@ -19,6 +19,12 @@
       <config>
       </config>
     </input>
+    <input name="blogLocation" type="ContentSelector">
+      <label>Blog location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
     <input name="userImages" type="ContentSelector">
       <label>User images location</label>
       <occurrences minimum="0" maximum="1"/>

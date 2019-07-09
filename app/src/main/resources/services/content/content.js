@@ -4,6 +4,7 @@ var contextLib = require(libLocation + "contextLib");
 var votesLib = require(libLocation + "votesLib");
 var userLib = require(libLocation + "userLib");
 var blogLib = require(libLocation + "blogLib");
+var helpers = require(libLocation + "helpers");
 var notificationLib = require(libLocation + "notificationLib");
 var commentsLib = require(libLocation + "commentsLib");
 var thymeleaf = require("/lib/thymeleaf");
@@ -74,12 +75,11 @@ exports.get = function(req) {
       var articlesView = "";
       break;
   }
-  norseUtils.log(articlesObj.count);
   return {
     body: {
       articles: articlesView,
       hideButton: articlesObj.count < 10,
-      buttonText: blogLib.getRandomString()
+      buttonText: helpers.getRandomString()
     },
     contentType: "text/html"
   };

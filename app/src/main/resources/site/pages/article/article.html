@@ -46,6 +46,11 @@
             <div class="article-content" data-portal-region="main">
               <section data-th-utext="${content.data.intro}"></section>
               <div
+                data-th-if="${content.data.body}"
+                data-th-utext="${content.data.body}"
+                data-th-remove="tag"
+              ></div>
+              <div
                 data-th-each="component : ${mainRegion.components}"
                 data-th-if="${mainRegion}"
                 data-th-remove="tag"
@@ -78,7 +83,7 @@
                           data-th-attr="
                           data-title=${content.displayName}, 
                           data-url=${content.urlAbsolute}, 
-                          data-description=${content.data.shortIntro},
+                          data-description=${content.data.intro},
                           data-image=${content.image.urlAbsolute}
                           "
                           data-th-title="${portal.localize({'_key=social.title.facebook', '_locale=ru'})}"

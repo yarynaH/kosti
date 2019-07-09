@@ -5,7 +5,7 @@
   <script src="https://cdn.tiny.cloud/1/bjocqei8sx4e4qom6muuy7eugbpc20u5bim7tu2zg8veawoj/tinymce/5/tinymce.min.js"></script>
   <script>
     tinymce.init({
-      selector: "textarea",
+      selector: "#article-body-input",
       height: 500,
       menubar: false,
       plugins: [
@@ -13,8 +13,28 @@
         "searchreplace visualblocks code fullscreen",
         "insertdatetime media table paste code help wordcount"
       ],
-      images_upload_url: "/kitchen-sink",
-      automatic_uploads: false,
+      images_upload_handler: function(blobInfo, success, failure) {
+        var xhr, formData;
+        xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open("PUT", "/create");
+        xhr.onload = function() {
+          var json;
+          if (xhr.status != 200) {
+            failure("HTTP Error: " + xhr.status);
+            return;
+          }
+          json = JSON.parse(xhr.responseText);
+          if (!json) {
+            failure("Invalid JSON: " + xhr.responseText);
+            return;
+          }
+          success(json);
+        };
+        formData = new FormData();
+        formData.append("file", blobInfo.blob(), blobInfo.filename());
+        xhr.send(formData);
+      },
       toolbar:
         "undo redo | image | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat | help"
     });
@@ -32,9 +52,26 @@
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
       <div class="blog_width">
-        <form method="POST">
-          <textarea name="tinymce"></textarea>
-          <input type="submit" />
+        <form method="POST" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="article-title-input" class="label">НАЗВАНИЕ</label>
+            <input id="article-title-input" type="text" name="title" />
+          </div>
+          <div class="form-group">
+            <label for="article-image-input" class="label">ИЗОБРАЖЕНИЕ</label>
+            <input id="article-image-input" type="file" name="image" />
+          </div>
+          <div class="form-group">
+            <label for="article-intro-input" class="label">Вступление</label>
+            <textarea id="article-intro-input" name="intro"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="article-body-input" class="label">ТЕКСТ</label>
+            <textarea id="article-body-input" name="body"></textarea>
+          </div>
+          <div class="form-group">
+            <input type="submit" />
+          </div>
         </form>
       </div>
     </main>

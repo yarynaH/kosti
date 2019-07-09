@@ -20,7 +20,7 @@
       class="post-title"
       data-th-text="${article.displayName}"
     ></a>
-    <div class="post-text" data-th-utext="${article.data.shortIntro}"></div>
+    <div class="post-text" data-th-utext="${article.data.intro}"></div>
     <div class="tag-list" data-th-if="${article.hashtags}">
       <a
         data-th-each="hashtag : ${article.hashtags}"
@@ -41,7 +41,7 @@
               data-th-attr="
                 data-title=${article.displayName}, 
                 data-url=${article.urlAbsolute}, 
-                data-description=${article.data.shortIntro},
+                data-description=${article.data.intro},
                 data-image=${article.image.urlAbsolute}
                 "
               data-th-title="${portal.localize({'_key=social.title.facebook', '_locale=ru'})}"
