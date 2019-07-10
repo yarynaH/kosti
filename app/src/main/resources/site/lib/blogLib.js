@@ -1,6 +1,7 @@
 var contentLib = require("/lib/xp/content");
 var portal = require("/lib/xp/portal");
 var thymeleaf = require("/lib/thymeleaf");
+var i18nLib = require("/lib/xp/i18n");
 
 var norseUtils = require("norseUtils");
 var kostiUtils = require("kostiUtils");
@@ -8,8 +9,6 @@ var votesLib = require("votesLib");
 var userLib = require("userLib");
 var moment = require("moment");
 var commentsLib = require("commentsLib");
-var sharedLib = require("sharedLib");
-var i18nLib = require("/lib/xp/i18n");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -111,14 +110,9 @@ function getHashtags(ids) {
   ids = norseUtils.forceArray(ids);
   var hashtags = [];
   for (var i = 0; i < ids.length; i++) {
-    var hashtag = contentLib.get({ key: ids[i] });
-    if (!hashtag) {
-      continue;
-    }
-    hashtags.push({
-      displayName: hashtag.displayName,
-      url: sharedLib.generateNiceServiceUrl("search", { hid: hashtag._id })
-    });
+    var hashtag = votesLib.beautifyHashtag(ids[i]);
+    if(hashtag)
+      hashtags.push(hashtag);
   }
   return hashtags;
 }

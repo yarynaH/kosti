@@ -6,6 +6,7 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var blogLib = require(libLocation + "blogLib");
+var votesLib = require(libLocation + "votesLib");
 
 exports.get = function(req) {
   var params = req.params;
@@ -14,6 +15,7 @@ exports.get = function(req) {
   if (params.hid) {
     var query = getHashtagName(params.hid);
     var searchRes = blogLib.getSearchArticles(params.hid, null, true);
+    votesLib.hotHashtagCheck(params.hid, req.cookies.cartId);
   } else {
     var query = params.q;
     if (!query) query = "";
