@@ -7,7 +7,6 @@ var nodeLib = require("/lib/xp/node");
 var userLib = require("userLib");
 var contentLib = require("/lib/xp/content");
 var contextLib = require("contextLib");
-var sharedLib = require("sharedLib");
 
 exports.createBlankVote = createBlankVote;
 exports.vote = vote;
@@ -18,8 +17,8 @@ exports.getHotIds = getHotIds;
 exports.checkIfVoteExist = checkIfVoteExist;
 exports.addView = addView;
 exports.countViews = countViews;
-exports.hotHashtagCheck = hotHashtagCheck;
-exports.beautifyHashtag = beautifyHashtag;
+exports.getNode = getNode;
+exports.getVotesRepo = getVotesRepo;
 
 function vote(content) {
   var user = userLib.getCurrentUser();
@@ -211,63 +210,4 @@ function getVotesRepo() {
     branch: "master",
     principals: ["role:system.admin"]
   });
-}
-
-function hotHashtagCheck(hashId, cartId) {
-  var node = getNode(hashId);
-  if (node === false) {
-    node = createBlankVote(hashId);
-  }
-  if (!node.views) {
-    node.views = [];
-  }
-  if (node.views.indexOf(cartId) === -1) {
-    var votesRepo = getVotesRepo();
-    votesRepo.modify({
-      key: node._id,
-      editor: editor
-    });
-    function editor(node) {
-      if (!node.views) {
-        node.views = [];
-      }
-      var temp = norseUtils.forceArray(node.views);
-      temp.push(cartId);
-      node.views = temp;
-      node.viewCount = temp.length;
-      node.type = "hashtag";
-      return node;
-    }
-  }
-}
-
-function getHotHashtags() {
-  var votesRepo = getVotesRepo();
-  var hits = votesRepo.query({
-    start: 0,
-    count: 5,
-    query: "type = 'hashtag'",
-    sort: "viewCount DESC"
-  }).hits;
-  var result = [];
-  for (var i = 0; i < hits.length; i++) {
-    var temp = votesRepo.get(hits[i].id);
-    if (temp && temp._id) {
-      var hashtag = beautifyHashtag(temp.id);
-      result.push(hashtag);
-    }
-  }
-  return result;
-}
-
-function beautifyHashtag(id) {
-  var hashtag = contentLib.get({ key: id });
-  if (hashtag) {
-    return {
-      displayName: hashtag.displayName,
-      url: sharedLib.generateNiceServiceUrl("search", { hid: hashtag._id }),
-      id: hashtag._id
-    };
-  }
-  return null;
 }

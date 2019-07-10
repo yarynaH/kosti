@@ -9,6 +9,7 @@ var votesLib = require("votesLib");
 var userLib = require("userLib");
 var moment = require("moment");
 var commentsLib = require("commentsLib");
+var hashtagLib = require("hashtagLib");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -99,22 +100,8 @@ function beautifyArticle(article) {
   if (parseInt(article.votes) > 0) {
     article.voted = votesLib.checkIfVoted(article._id);
   }
-  article.hashtags = getHashtags(article.data.hashtags);
+  article.hashtags = hashtagLib.getHashtags(article.data.hashtags);
   return article;
-}
-
-function getHashtags(ids) {
-  if (!ids) {
-    return false;
-  }
-  ids = norseUtils.forceArray(ids);
-  var hashtags = [];
-  for (var i = 0; i < ids.length; i++) {
-    var hashtag = votesLib.beautifyHashtag(ids[i]);
-    if(hashtag)
-      hashtags.push(hashtag);
-  }
-  return hashtags;
 }
 
 function getArticlesView(articles) {

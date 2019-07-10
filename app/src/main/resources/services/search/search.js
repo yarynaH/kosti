@@ -1,21 +1,20 @@
 var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
 var thymeleaf = require("/lib/thymeleaf");
 
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var blogLib = require(libLocation + "blogLib");
-var votesLib = require(libLocation + "votesLib");
+var hashtagLib = require(libLocation + "hashtagLib");
 
 exports.get = function(req) {
   var params = req.params;
   //params.q - search by article name
   //params.hid - search by hashtag id
   if (params.hid) {
-    var query = getHashtagName(params.hid);
+    var query = hashtagLib.getHashtagName(params.hid);
     var searchRes = blogLib.getSearchArticles(params.hid, null, true);
-    votesLib.hotHashtagCheck(params.hid, req.cookies.cartId);
+    hashtagLib.hotHashtagCheck(params.hid, req.cookies.cartId);
   } else {
     var query = params.q;
     if (!query) query = "";
@@ -35,10 +34,3 @@ exports.get = function(req) {
     contentType: "text/html"
   };
 };
-
-function getHashtagName(id) {
-  if (!id) return "";
-  var temp = contentLib.get({ key: id });
-  if (temp && temp.displayName) return "#" + temp.displayName;
-  return "";
-}
