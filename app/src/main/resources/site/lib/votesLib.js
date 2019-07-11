@@ -122,12 +122,16 @@ function checkIfVoteExist(user, node) {
   return false;
 }
 
-function createBlankVote(node) {
+function createBlankVote(node, type) {
+  if (!type) {
+    var type = "article";
+  }
   var votesRepo = getVotesRepo();
   return votesRepo.create({
     id: node,
     votes: [],
-    rate: 0
+    rate: 0,
+    type: type
   });
 }
 
@@ -192,6 +196,7 @@ function getHotIds(page) {
   var hits = votesRepo.query({
     start: page * pageSize,
     count: pageSize,
+    query: "type = 'article'",
     sort: "_ts DESC, rate DESC"
   }).hits;
   var result = [];
