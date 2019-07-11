@@ -17,6 +17,8 @@ exports.getHotIds = getHotIds;
 exports.checkIfVoteExist = checkIfVoteExist;
 exports.addView = addView;
 exports.countViews = countViews;
+exports.getNode = getNode;
+exports.getVotesRepo = getVotesRepo;
 
 function vote(content) {
   var user = userLib.getCurrentUser();
@@ -185,8 +187,8 @@ function getNode(id) {
 function getHotIds(page) {
   var pageSize = 10;
   var votesRepo = getVotesRepo();
-  var date = new Date();
-  date = new Date(date.getTime() - 3 * 24 * 60 * 60 * 1000);
+  //var date = new Date();
+  //date = new Date(date.getTime() - 3 * 24 * 60 * 60 * 1000);
   var hits = votesRepo.query({
     start: page * pageSize,
     count: pageSize,
