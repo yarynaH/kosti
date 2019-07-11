@@ -213,8 +213,10 @@ function getHotArticles(page) {
   if (!page) {
     page = 0;
   }
-  var hotIds = votesLib.getHotIds(page);
-  return getArticlesByIds(hotIds);
+  var hotIds = votesLib.getHotArticleIds(page);
+  var temp = getArticlesByIds(hotIds.hits);
+  hotIds.hits = temp.hits;
+  return hotIds;
 }
 
 function getArticlesByUser(id, page, count) {

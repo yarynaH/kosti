@@ -46,15 +46,18 @@ function handleReq(req) {
     switch (up.feed) {
       case "new":
         active.new = "active";
-        var articles = blogLib.getNewArticles().hits;
+        var articlesQuery = blogLib.getNewArticles();
+        var articles = articlesQuery.hits;
         break;
       case "bookmarks":
         active.bookmarks = "active";
-        var articles = blogLib.getArticlesByIds(user.data.bookmarks).hits;
+        var articlesQuery = blogLib.getArticlesByIds(user.data.bookmarks);
+        var articles = articlesQuery.hits;
         break;
       default:
         active.hot = "active";
-        var articles = blogLib.getHotArticles().hits;
+        var articlesQuery = blogLib.getHotArticles();
+        var articles = articlesQuery.hits;
         break;
     }
 
@@ -67,7 +70,7 @@ function handleReq(req) {
       sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
-      loadMoreComponent: helpers.getLoadMore(null, null, null),
+      loadMoreComponent: helpers.getLoadMore(articlesQuery.total, null, null),
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       showDescription: showDescription,
       slider: getSlider(site.slider),
@@ -106,6 +109,7 @@ function handleReq(req) {
 
     function getSlider(articles) {
       var result = [];
+      articles = norseUtils.forceArray(articles);
       for (var i = 0; i < articles.length; i++) {
         var temp = contentLib.get({ key: articles[i] });
         result[i] = blogLib.beautifyArticle(temp);
