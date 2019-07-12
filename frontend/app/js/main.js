@@ -260,6 +260,14 @@ function initSharedEvents() {
       data.image
     );
   });
+  if (window.location.hash) {
+    $("html, body").animate(
+      {
+        scrollTop: $(window.location.hash).offset().top
+      },
+      "slow"
+    );
+  }
 
   function shareOverrideOGMeta(
     overrideLink,

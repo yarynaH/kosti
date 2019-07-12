@@ -13,7 +13,7 @@ exports.vote = vote;
 exports.countUpvotes = countUpvotes;
 exports.countUserUpvotes = countUserUpvotes;
 exports.checkIfVoted = checkIfVoted;
-exports.getHotIds = getHotIds;
+exports.getHotArticleIds = getHotArticleIds;
 exports.checkIfVoteExist = checkIfVoteExist;
 exports.addView = addView;
 exports.countViews = countViews;
@@ -122,20 +122,28 @@ function checkIfVoteExist(user, node) {
   return false;
 }
 
-function createBlankVote(node) {
+function createBlankVote(node, type) {
+  if (!type) {
+    var type = "article";
+  }
   var votesRepo = getVotesRepo();
   return votesRepo.create({
     id: node,
     votes: [],
-    rate: 0
+    rate: 0,
+    type: type
   });
 }
 
-function createVote(user, content) {
+function createVote(user, content, type) {
+  if (!type) {
+    var type = "article";
+  }
   var votesRepo = getVotesRepo();
   return votesRepo.create({
     id: content,
-    votes: [user]
+    votes: [user],
+    type: type
   });
 }
 
@@ -184,23 +192,25 @@ function getNode(id) {
   return false;
 }
 
-function getHotIds(page) {
+function getHotArticleIds(page) {
   var pageSize = 10;
   var votesRepo = getVotesRepo();
   //var date = new Date();
   //date = new Date(date.getTime() - 3 * 24 * 60 * 60 * 1000);
-  var hits = votesRepo.query({
+  var result = votesRepo.query({
     start: page * pageSize,
     count: pageSize,
+    query: "type = 'article'",
     sort: "_ts DESC, rate DESC"
-  }).hits;
-  var result = [];
-  for (var i = 0; i < hits.length; i++) {
-    var temp = votesRepo.get(hits[i].id);
-    if (temp && temp._id) {
-      result.push(temp.id);
+  });
+  var resArr = [];
+  for (var i = 0; i < result.hits.length; i++) {
+    var temp = votesRepo.get(result.hits[i].id);
+    if (temp && temp._id && temp.id) {
+      resArr.push(temp.id);
     }
   }
+  result.hits = resArr;
   return result;
 }
 

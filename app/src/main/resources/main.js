@@ -18,7 +18,11 @@ event.listener({
         var node = content.get({ key: nodes[0].id });
         if (node && node.type && node.type == app.name + ":article") {
           contextLib.runAsAdmin(function() {
-            votesLib.createBlankVote(node._id);
+            votesLib.createBlankVote(node._id, "article");
+          });
+        } else if (node && node.type && node.type == app.name + ":hashtag") {
+          contextLib.runAsAdmin(function() {
+            votesLib.createBlankVote(node._id, "hashtag");
           });
         }
       }

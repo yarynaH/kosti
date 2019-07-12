@@ -55,13 +55,20 @@ function getLibraryHot() {
   );
 }
 
+function getHotTags() {
+  return thymeleaf.render(resolve("../pages/components/blog/hotTags.html"), {
+    tags: hashtagLib.getHotHashtags()
+  });
+}
+
 function getSidebar() {
   return thymeleaf.render(
     resolve("../pages/components/blog/blogSidebar.html"),
     {
       weeksPost: getWeeksPost(),
       socialLinks: getSolialLinks(),
-      libraryHot: getLibraryHot()
+      libraryHot: getLibraryHot(),
+      hotTags: getHotTags()
     }
   );
 }
@@ -76,7 +83,9 @@ function beautifyArticle(article) {
     article.data.image,
     "block(1920, 1080)"
   );
-  article.author = contentLib.get({ key: article.data.author });
+  if (article.data.author) {
+    article.author = contentLib.get({ key: article.data.author });
+  }
   if (article.author) {
     article.author.image = norseUtils.getImage(
       article.author.data.userImage,
@@ -84,7 +93,7 @@ function beautifyArticle(article) {
     );
     article.author.url = portal.pageUrl({ id: article.author._id });
   } else {
-    article.author = { image: norseUtils.getImage(null, "block(60, 60)", 1) };
+    article.author = userLib.getUserDataById(null);
   }
   article.url = portal.pageUrl({ id: article._id });
   article.urlAbsolute = portal.pageUrl({ id: article._id, type: "absolute" });
@@ -204,8 +213,10 @@ function getHotArticles(page) {
   if (!page) {
     page = 0;
   }
-  var hotIds = votesLib.getHotIds(page);
-  return getArticlesByIds(hotIds);
+  var hotIds = votesLib.getHotArticleIds(page);
+  var temp = getArticlesByIds(hotIds.hits);
+  hotIds.hits = temp.hits;
+  return hotIds;
 }
 
 function getArticlesByUser(id, page, count) {

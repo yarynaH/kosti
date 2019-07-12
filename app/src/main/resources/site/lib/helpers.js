@@ -163,7 +163,7 @@ function checkUser() {
 }
 
 function getLoadMore(articlesCount, noMoreTitle, loadMoreText) {
-  if (!articlesCount) {
+  if (articlesCount === null || articlesCount === undefined) {
     var articlesCount = 11;
   }
   if (!loadMoreText) {

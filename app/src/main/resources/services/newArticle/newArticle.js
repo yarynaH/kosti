@@ -63,6 +63,10 @@ function handleGet(req) {
 
   function renderView() {
     var view = resolve("newArticle.html");
+    var user = userLib.getCurrentUser();
+    if (!user) {
+      return false;
+    }
     var model = createModel();
     var body = thymeleaf.render(view, model);
     return {
