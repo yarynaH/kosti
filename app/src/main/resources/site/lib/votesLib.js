@@ -78,16 +78,6 @@ function countUpvotes(id) {
   return "0";
 }
 
-function countUserUpvotes(id) {
-  var votesRepo = getVotesRepo();
-  var result = votesRepo.query({
-    start: 0,
-    count: 2,
-    query: "votes = '" + id + "'"
-  });
-  return result.total;
-}
-
 function doVote(user, content) {
   var node = getNode(content);
   if (!checkIfVoteExist(user, node) && node && user) {
