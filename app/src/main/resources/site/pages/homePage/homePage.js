@@ -11,6 +11,7 @@ var userLib = require(libLocation + "userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
 var blogLib = require(libLocation + "blogLib");
 var sharedLib = require(libLocation + "sharedLib");
+var hashtagLib = require(libLocation + "hashtagLib");
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -97,6 +98,7 @@ function handleReq(req) {
         var itemDate = new Date(result[i].data.date);
         result[i].month = norseUtils.getMonthName(itemDate);
         result[i].day = itemDate.getDate().toFixed();
+        result[i].hashtags = hashtagLib.getHashtags(result[i].data.hashtags);
       }
       return result;
     }

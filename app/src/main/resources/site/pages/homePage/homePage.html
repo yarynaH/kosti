@@ -44,9 +44,13 @@
                   class="schedule-title"
                   data-th-text="${scheduleItem.displayName}"
                 ></h3>
-                <div class="tag-list tag-list__small hidden">
-                  <a href="#" class="tag-item">D&D</a>
-                  <a href="#" class="tag-item">5e</a>
+                <div class="tag-list tag-list__small">
+                  <a
+                    data-th-each="hashtag : ${scheduleItem.hashtags}"
+                    data-th-href="${hashtag.url}"
+                    class="tag-item"
+                    data-th-text="${hashtag.displayName}"
+                  ></a>
                 </div>
               </div>
             </div>

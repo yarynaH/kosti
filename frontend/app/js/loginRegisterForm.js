@@ -25,8 +25,11 @@ function initLoginRegisterForm() {
     hideLoginRegisterModal();
     $(".modal-forgot-password").addClass("show");
   });
-  $(".reset-form .modal-btn-reset").on("click", function(e) {
+  $(".reset-form").on("submit", function(e) {
     e.preventDefault();
+    if (!$(".reset-form").valid()) {
+      return false;
+    }
     var data = {
       email: $(".modal-forgot-password")
         .find("input[name=email]")
@@ -41,8 +44,11 @@ function initLoginRegisterForm() {
       console.log(data);
     });
   });
-  $(".login-form .modal-btn-login").on("click", function(e) {
+  $(".login-form").on("submit", function(e) {
     e.preventDefault();
+    if (!$(".login-form").valid()) {
+      return false;
+    }
     var data = {
       username: $(".modal-login")
         .find("input[name=username]")
@@ -70,8 +76,11 @@ function initLoginRegisterForm() {
   $(".modal-content").on("click", function(e) {
     e.stopPropagation();
   });
-  $(".register-form .modal-btn-register").on("click", function(e) {
+  $(".register-form").on("submit", function(e) {
     e.preventDefault();
+    if (!$(".register-form").valid()) {
+      return false;
+    }
     var data = {
       username: $(".modal-registration")
         .find("input[name=username]")
@@ -115,6 +124,9 @@ function initLoginRegisterForm() {
       $(".forgotPassValidation").removeClass("hidden");
     }
   });
+  $(".login-form").validate();
+  $(".register-form").validate();
+  $(".reset-form").validate();
 }
 
 function initGoogleLogin() {

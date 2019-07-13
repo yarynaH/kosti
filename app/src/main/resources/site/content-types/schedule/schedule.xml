@@ -14,5 +14,12 @@
         <allowPath>./*</allowPath>
       </config>
     </input>
+    <input name="hashtags" type="ContentSelector">
+      <label>Hashtags</label>
+      <occurrences minimum="0" maximum="5"/>
+      <config>
+        <allowContentType>hashtag</allowContentType>
+      </config>
+    </input>
   </form>
 </content-type>
