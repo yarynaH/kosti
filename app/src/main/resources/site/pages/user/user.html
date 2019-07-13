@@ -169,7 +169,7 @@
               </h3>
               <div
                 data-th-if="${!totalArticles.curr}"
-                data-th-text="${portal.localize({'_key=user.title.articles.counter.zero', '_locale=ru'})}"
+                data-th-text="${portal.localize({'_key=user.page.notyet.' + currTitle, '_locale=ru'})}"
               ></div>
               <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
             </div>

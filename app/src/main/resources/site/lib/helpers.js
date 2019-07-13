@@ -162,7 +162,10 @@ function checkUser() {
   return result;
 }
 
-function getLoadMore(articlesCount, noMoreTitle, loadMoreText) {
+function getLoadMore(articlesCount, noMoreTitle, loadMoreText, hideIfNone) {
+  if (hideIfNone !== true) {
+    var hideIfNone = false;
+  }
   if (articlesCount === null || articlesCount === undefined) {
     var articlesCount = 11;
   }
@@ -175,7 +178,8 @@ function getLoadMore(articlesCount, noMoreTitle, loadMoreText) {
   return thymeleaf.render(resolve("../pages/components/blog/loadMore.html"), {
     articlesCount: articlesCount,
     noMoreTitle: noMoreTitle,
-    loadMoreText: loadMoreText
+    loadMoreText: loadMoreText,
+    hideIfNone: hideIfNone
   });
 }
 

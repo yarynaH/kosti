@@ -124,7 +124,8 @@ function handleReq(req) {
       loadMoreComponent: helpers.getLoadMore(
         totalArticles.curr,
         currTitle,
-        null
+        null,
+        true
       ),
       editUserModal: editUserModal,
       articlesView: articles,

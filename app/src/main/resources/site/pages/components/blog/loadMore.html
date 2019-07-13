@@ -7,7 +7,7 @@
 <div
   class="blog-list-empty js_blog-list-empty"
   data-th-text="${portal.localize({'_key=user.title.' + noMoreTitle + '.noMore', '_locale=ru'})}"
-  data-th-classappend="${articlesCount > 10 ? 'hidden' : ''}"
+  data-th-classappend="${articlesCount > 10 or hideIfNone ? 'hidden' : ''}"
 ></div>
 <div class="lds-ring js_lazyload-icon hidden">
   <div></div>
