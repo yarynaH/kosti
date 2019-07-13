@@ -183,7 +183,7 @@ function fixPermissions(repo, role) {
   if (!role) {
     role = "role:system.authenticated";
   }
-  var repoConn = connectRepo(repo);
+  var repoConn = sharedLib.connectRepo(repo);
   repoConn.setRootPermissions({
     _permissions: [
       {

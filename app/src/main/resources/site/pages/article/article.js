@@ -44,7 +44,7 @@ function handleReq(req) {
       articleId: content._id,
       moderator: user.moderator
     });
-    if (user.moderator) {
+    if (user) {
       var removeCommentModal = thymeleaf.render(
         resolve("../components/comments/removeCommentModal.html"),
         {}

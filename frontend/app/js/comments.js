@@ -129,11 +129,11 @@ function removeComment(formData) {
   var call = makeAjaxCall(commentsServiceUrl, "POST", data, true);
   call.done(function(data) {
     $("input.js_comment-remove-id").val("");
-    if (data) {
+    $(".modal-remove_comment").removeClass("show");
+    if (data.deleted === true) {
       $("li[data-id=" + formData.id + "] > .comments-body")
         .addClass("deleted")
         .text("Комментарий удален");
-      $(".modal-remove_comment").removeClass("show");
       $(el).remove();
     }
   });
