@@ -60,7 +60,7 @@ function handleReq(req) {
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       similarArticles: similarArticles,
       comments: comments,
-      bookmarked: userLib.checkIfBookmarked(content._id)
+      articleFooter: blogLib.getArticleFooter(content)
     };
 
     return model;

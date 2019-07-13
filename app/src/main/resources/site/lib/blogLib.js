@@ -22,6 +22,7 @@ exports.getWeeksPost = getWeeksPost;
 exports.getSolialLinks = getSolialLinks;
 exports.getSidebar = getSidebar;
 exports.getSearchArticles = getSearchArticles;
+exports.getArticleFooter = getArticleFooter;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -121,6 +122,9 @@ function beautifyArticle(article) {
 
 function getArticlesView(articles) {
   articles = norseUtils.forceArray(articles);
+  for (var i = 0; i < articles.length; i++) {
+    articles[i].footer = getArticleFooter(articles[i]);
+  }
   return thymeleaf.render(
     resolve("../pages/components/blog/articleList.html"),
     {
@@ -234,4 +238,11 @@ function getArticlesByUser(id, page, count) {
   }
   articles.hits = beautifyArticleArray(articles.hits);
   return articles;
+}
+
+function getArticleFooter(article) {
+  return thymeleaf.render(resolve("../pages/article/articleFooter.html"), {
+    article: article,
+    bookmarked: userLib.checkIfBookmarked(article._id)
+  });
 }
