@@ -41,6 +41,14 @@ function initHeaderFunctions() {
     call.done(function(data) {
       $(".js_notification-block").html(data);
       $(".js_header-notification").toggleClass("show_notification");
+      var currQty = parseInt(
+        $(".js_header-notification .notification-qty").text()
+      );
+      if (currQty - 3 < 1) {
+        $(".js_header-notification").removeClass("have_qty");
+      } else {
+        $(".js_header-notification .notification-qty").text(currQty - 3);
+      }
     });
   });
   $(".js_notification-block").on(

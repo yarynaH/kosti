@@ -15,7 +15,7 @@ exports.post = function(req) {
       result = commentsLib.addComment(params.parent, params.body);
       return {
         body: thymeleaf.render(
-          resolve("../../site/pages/article/commentItem.html"),
+          resolve("../../site/pages/components/comments/commentItem.html"),
           { comment: result }
         ),
         contentType: "text/html"

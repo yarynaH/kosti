@@ -1,5 +1,9 @@
 <h2 class="checkout-title">Ваша информация</h2>
-<form class="checkout-form" method="POST" data-th-action="${checkoutUrl}">
+<form
+  class="checkout-form js_checkout-form"
+  method="POST"
+  data-th-action="${checkoutUrl}"
+>
   <div class="form-group-column">
     <div class="form-group">
       <label for="name-checkout-input" class="label">ИМЯ</label>
@@ -9,11 +13,13 @@
         type="text"
         class="input-text"
         id="name-checkout-input"
+        required
       />
     </div>
     <div class="form-group">
       <label for="surname-checkout-input" class="label">ФАМИЛИЯ</label>
       <input
+        required
         data-th-attr="value=${cart.surname} ? ${cart.surname} : ''"
         name="surname"
         type="text"
@@ -25,6 +31,7 @@
   <div class="form-group form-group-address">
     <label for="address-checkout-input" class="label">АДРЕС</label>
     <input
+      required
       data-th-attr="value=${cart.address} ? ${cart.address} : ''"
       name="address"
       type="text"
@@ -36,7 +43,7 @@
     <div class="form-group">
       <label for="country-checkout-select" class="label">СТРАНА</label>
       <div class="select-field">
-        <select name="country" id="country-checkout-select">
+        <select name="country" id="country-checkout-select" required>
           <option
             value="Выберите страну"
             disabled="disabled"
@@ -114,6 +121,7 @@
     <div class="form-group">
       <label for="city-checkout-input" class="label">ГОРОД</label>
       <input
+        required
         data-th-attr="value=${cart.city} ? ${cart.city} : ''"
         name="city"
         type="text"
@@ -126,6 +134,7 @@
     <div class="form-group">
       <label for="email-checkout-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
       <input
+        required
         data-th-attr="value=${cart.email} ? ${cart.email} : ''"
         name="email"
         type="email"
@@ -136,6 +145,7 @@
     <div class="form-group">
       <label for="phone-checkout-input" class="label">ТЕЛЕФОН</label>
       <input
+        required
         data-th-attr="value=${cart.phone} ? ${cart.phone} : ''"
         name="phone"
         type="text"
@@ -145,7 +155,7 @@
     </div>
   </div>
   <div class="form-group">
-    <input type="checkbox" id="agreement" hidden />
+    <input required type="checkbox" id="agreement" hidden />
     <label for="agreement" class="label-checkbox"
       >Я прочитал и принимаю
       <a data-th-href="${agreementPage}" target="_blank"

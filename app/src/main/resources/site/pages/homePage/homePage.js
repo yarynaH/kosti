@@ -42,7 +42,8 @@ function handleReq(req) {
     var description = portal.getSite().data.description;
     var showDescription = true;
     var schedule = getSchedule(site.slider);
-    var video = getVideoViaApi(site.gApiKey);
+    //var video = getVideoViaApi(site.gApiKey);
+    var video = "";
     var active = {};
     switch (up.feed) {
       case "new":

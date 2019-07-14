@@ -29,7 +29,11 @@
     </div>-->
 </div>
 <h2 class="checkout-title">Метод доставки</h2>
-<form class="checkout-form" method="POST" data-th-action="${checkoutUrl}">
+<form
+  class="checkout-form js_checkout-form"
+  method="POST"
+  data-th-action="${checkoutUrl}"
+>
   <div class="delivery_m">
     <div class="form-group" data-th-each="ship: ${shipping}">
       <input
@@ -66,6 +70,7 @@
     <div class="form-group suggestion-wrap">
       <label for="delivery_np-input-city" class="label">Введите город</label>
       <input
+        required
         name="novaPoshtaСity"
         autocomplete="off"
         type="text"
@@ -75,7 +80,7 @@
       <ul id="suggestion-list" class="suggestion-list"></ul>
     </div>
     <div class="select-field">
-      <select name="novaPoshtaWarehouse" id="delivery_np-warehouses">
+      <select required name="novaPoshtaWarehouse" id="delivery_np-warehouses">
         <option disabled="disabled" selected="selected"
           >Выберите отделение</option
         >
