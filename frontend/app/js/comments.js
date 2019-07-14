@@ -15,6 +15,22 @@ function initComments() {
         addComment(this, formData);
       }
     });
+    $(".js_article-comments").on("keydown", "textarea", function(e) {
+      if (e.ctrlKey && e.keyCode == 13) {
+        if (!checkUserLoggedIn()) {
+          showLogin(e);
+        } else {
+          var form = $(this).closest("form");
+          if (form.valid()) {
+            var formData = {};
+            $.each(form.serializeArray(), function() {
+              formData[this.name] = this.value;
+            });
+            addComment(form, formData);
+          }
+        }
+      }
+    });
     $(".js_remove_comment-form").on("submit", function(e) {
       e.preventDefault();
       if (!checkUserLoggedIn()) {

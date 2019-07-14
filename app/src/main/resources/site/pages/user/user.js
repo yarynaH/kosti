@@ -121,6 +121,7 @@ function handleReq(req) {
       totalArticles: totalArticles,
       articles: articles,
       active: active,
+      createArticleUrl: sharedLib.generateNiceServiceUrl("create"),
       loadMoreComponent: helpers.getLoadMore(
         totalArticles.curr,
         currTitle,
