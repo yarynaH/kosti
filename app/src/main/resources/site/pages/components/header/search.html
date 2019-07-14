@@ -1,0 +1,22 @@
+<form
+  class="header-search js_header-search"
+  data-th-action="${searchUrl}"
+  method="GET"
+>
+  <span class="nav-link search-utility js_search-icon">
+    <span class="search-icon" data-th-classappend="${active}"></span>
+    <span class="header-link_text">Поиск</span>
+  </span>
+  <div class="search-block">
+    <div class="form-group search-field">
+      <button type="submit" class="search-icon search-btn"></button>
+      <input
+        name="q"
+        type="text"
+        class="input-text search-input js_search-input"
+        placeholder="Что ищем?"
+        id="search-input"
+      />
+    </div>
+  </div>
+</form>

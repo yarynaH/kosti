@@ -300,9 +300,12 @@ function login(name, pass, token) {
   });
   if (loginResult.authenticated === true) {
     return {
-      html: thymeleaf.render(resolve("../pages/components/headerUser.html"), {
-        user: getCurrentUser()
-      }),
+      html: thymeleaf.render(
+        resolve("../pages/components/header/headerUser.html"),
+        {
+          user: getCurrentUser()
+        }
+      ),
       exist: true,
       authenticated: true
     };

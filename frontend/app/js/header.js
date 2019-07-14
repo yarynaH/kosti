@@ -1,22 +1,22 @@
 function initHeaderFunctions() {
   var activeEl =
-    $(".nav-list .active").length > 0
-      ? $(".nav-list .active")
+    $(".header .active").length > 0
+      ? $(".header .active")
       : $(".header-logo a");
   $(".active_element").css(
     "left",
-    activeEl.position().left - 3 + activeEl.width() / 2
+    activeEl.offset().left - 3 + activeEl.width() / 2
   );
   $(".nav-list .nav-item a").on("mouseenter", function() {
     $(".active_element").css(
       "left",
-      $(this).position().left - 3 + $(this).width() / 2
+      $(this).offset().left - 3 + $(this).width() / 2
     );
   });
   $(".nav-list .nav-item a").on("mouseleave", function() {
     $(".active_element").css(
       "left",
-      activeEl.position().left - 3 + activeEl.width() / 2
+      activeEl.offset().left - 3 + activeEl.width() / 2
     );
   });
   $(".js_search-icon").on("click", function() {

@@ -14,7 +14,7 @@ exports.getPageComponents = getPageComponents;
 exports.getLoadMore = getLoadMore;
 exports.getRandomString = getRandomString;
 
-function getPageComponents(req, footerType) {
+function getPageComponents(req, footerType, activeEl) {
   var pageComponents = {};
   if (req) {
     var up = req.params;
@@ -91,11 +91,20 @@ function getPageComponents(req, footerType) {
     {
       menuItems: getMenuItems(),
       site: site,
-      searchUrl: sharedLib.generateNiceServiceUrl("search"),
       user: userLib.getCurrentUser(),
+      search: thymeleaf.render(
+        resolve("../pages/components/header/search.html"),
+        {
+          searchUrl: sharedLib.generateNiceServiceUrl("search"),
+          active: activeEl === "search" ? "active" : ""
+        }
+      ),
       headerUser: thymeleaf.render(
-        resolve("../pages/components/headerUser.html"),
-        { user: userLib.getCurrentUser() }
+        resolve("../pages/components/header/headerUser.html"),
+        {
+          user: userLib.getCurrentUser(),
+          active: content._path.indexOf("/users/") === -1 ? "" : "active"
+        }
       )
     }
   );
@@ -143,7 +152,7 @@ function getPageComponents(req, footerType) {
         result.push({
           url: portal.pageUrl({ id: items[i] }),
           title: tempContent.displayName,
-          active: content && tempContent._path === content._path
+          active: content && content._path.indexOf(tempContent._path) !== -1
         });
       }
     }
