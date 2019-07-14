@@ -1,47 +1,55 @@
 .social_login {
-    padding: 40px 40px;
-    border-top: 1px solid $color-primary25;
-    position: relative;
+  padding: 40px 40px;
+  border-top: 1px solid $color-primary25;
+  position: relative;
 
-    &-title {
-        @include position (absolute, top -7px right 0 left 0);
+  &-title {
+    @include position(absolute, top -7px right 0 left 0);
 
-        text-align: center;
-        margin-bottom: 5px;
-        color: $color-primary12;
-        font-size: rem(12);
-        text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 5px;
+    color: $color-primary12;
+    font-size: rem(12);
+    text-transform: uppercase;
 
-        span {
-            background: $color-primary1;
-            padding: 0 16px;
-        }
+    span {
+      background: $color-primary1;
+      padding: 0 16px;
     }
+  }
 
-    &-action {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-    }
-    
-    button {
-        margin-bottom: 8px;
-        width: calc(50% - 4px);
-    }
+  &-action {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
 
-    &-fb {
-        @include button-style(global transparent fb);
-    }
+  button {
+    margin-bottom: 8px;
+    width: calc(50% - 4px);
+  }
 
-    &-twitter {
-        @include button-style(global transparent twitter);
-    }
+  &-fb {
+    @include button-style(global transparent fb);
 
-    &-vk {
-        @include button-style(global transparent vk);
-    }
+    padding: 20px 10px;
+  }
 
-    &-google {
-        @include button-style(global transparent google);
-    }
+  &-twitter {
+    @include button-style(global transparent twitter);
+
+    padding: 20px 10px;
+  }
+
+  &-vk {
+    @include button-style(global transparent vk);
+
+    padding: 20px 10px;
+  }
+
+  &-google {
+    @include button-style(global transparent google);
+
+    padding: 20px 10px;
+  }
 }

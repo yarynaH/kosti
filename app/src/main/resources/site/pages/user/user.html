@@ -146,6 +146,15 @@
                     ></span>
                   </a>
                 </li>
+                <li class="profile-action-item" data-th-if="${currUserFlag}">
+                  <a
+                    class="profile-action-link"
+                    data-th-classappend="${active.notifications}"
+                    data-th-title="${portal.localize({'_key=user.title.createArticle', '_locale=ru'})}"
+                    data-th-text="${portal.localize({'_key=user.title.createArticle', '_locale=ru'})}"
+                  >
+                  </a>
+                </li>
               </ul>
               <a
                 data-th-if="${currUserFlag}"

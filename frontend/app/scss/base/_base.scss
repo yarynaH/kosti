@@ -1,72 +1,69 @@
 body {
-    color: $color-primary16;
-    font-family: $font-main-regular;
-    font-size: rem($body-font-size);
-    font-weight: $body-font-weight;
-    letter-spacing: $body-letter-spacing;
-    line-height: 1.2;
-    word-wrap: break-word;
-    position: relative;
+  color: $color-primary16;
+  font-family: $font-main-regular;
+  font-size: rem($body-font-size);
+  font-weight: $body-font-weight;
+  letter-spacing: $body-letter-spacing;
+  line-height: 1.2;
+  word-wrap: break-word;
+  position: relative;
 }
 
-html, body {
-    height: 100%;
-    background-color: $color-primary26;
-    font-weight: normal;
+html,
+body {
+  height: 100%;
+  background-color: $color-primary26;
+  font-weight: normal;
 }
 
 a,
 button {
-    cursor: pointer;
-    transition: all ease-out 0.2s;
+  cursor: pointer;
+  transition: all ease-out 0.2s;
 }
 
 button,
 input,
 a {
-    outline:none;
+  outline: none;
 }
 
 a {
-    color: $color-primary22;
-
-    .is-invalid & {
-        color: $color-primary32;
-    }
+  color: $color-primary22;
 }
 
 .page-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .main {
-    flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 .footer {
-    flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .site_width {
-    margin: 0 auto;
-    max-width: 1280px;
-    width: 100%;
-    padding: 0 10px;
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 100%;
+  padding: 0 10px;
 
-    @include tablet-all {
-        padding: 0 20px;
-    }
+  @include tablet-all {
+    padding: 0 20px;
+  }
 }
 
 .blog_width {
-    margin: 0 auto;
-    max-width: 980px;
-    width: 100%;
-    padding: 0 10px;
+  margin: 0 auto;
+  max-width: 980px;
+  width: 100%;
+  padding: 0 10px;
 
-    @include tablet-all {
-        padding: 0 20px;
-    }
+  @include tablet-all {
+    padding: 0 20px;
+  }
 }

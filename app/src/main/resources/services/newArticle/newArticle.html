@@ -51,26 +51,55 @@
     ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="blog_width">
+      <div class="content_page blog_width">
+        <h1
+          data-th-text="${portal.localize({'_key=user.newArticle.pageTitle', '_locale=ru'})}"
+        ></h1>
         <form method="POST" enctype="multipart/form-data" id="newArticleForm">
           <div class="form-group">
-            <label for="article-title-input" class="label">НАЗВАНИЕ</label>
+            <label
+              for="article-title-input"
+              class="label"
+              data-th-text="${portal.localize({'_key=user.newArticle.article.name', '_locale=ru'})}"
+            ></label>
             <input id="article-title-input" type="text" name="title" required />
           </div>
           <div class="form-group">
-            <label for="article-image-input" class="label">ИЗОБРАЖЕНИЕ</label>
-            <input id="article-image-input" type="file" name="image" required />
+            <label
+              for="article-image-input"
+              class="label-file js_label-file"
+              data-th-text="${portal.localize({'_key=user.newArticle.article.chooseImage', '_locale=ru'})}"
+            ></label>
+            <input
+              id="article-image-input"
+              type="file"
+              name="image"
+              required
+              hidden
+            />
           </div>
           <div class="form-group">
-            <label for="article-intro-input" class="label">Вступление</label>
+            <label
+              for="article-intro-input"
+              class="label"
+              data-th-text="${portal.localize({'_key=user.newArticle.article.shortIntro', '_locale=ru'})}"
+            ></label>
             <textarea id="article-intro-input" name="intro" required></textarea>
           </div>
           <div class="form-group">
-            <label for="article-body-input" class="label">ТЕКСТ</label>
+            <label
+              for="article-body-input"
+              class="label"
+              data-th-text="${portal.localize({'_key=user.newArticle.article.text', '_locale=ru'})}"
+            ></label>
             <textarea id="article-body-input" name="body"></textarea>
           </div>
           <div class="form-group">
-            <input type="submit" value="Отправить" />
+            <input
+              type="submit"
+              class="button button-light"
+              data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}"
+            />
           </div>
         </form>
       </div>
@@ -80,5 +109,19 @@
 </html>
 
 <script>
-  $("#newArticleForm").validate();
+  $("#newArticleForm").validate({
+    ignore: ""
+  });
+  $("#article-image-input").on("change", function(e) {
+    var fileName = "";
+    if (this.files && this.files.length > 1)
+      fileName = (this.getAttribute("data-multiple-caption") || "").replace(
+        "{count}",
+        this.files.length
+      );
+    else fileName = e.target.value.split("\\").pop();
+    if (fileName && fileName.trim !== "") {
+      $(".js_label-file").text(fileName);
+    }
+  });
 </script>

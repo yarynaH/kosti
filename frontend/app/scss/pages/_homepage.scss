@@ -309,9 +309,16 @@
   &-counter {
     margin-right: 25px;
     font-size: rem(14);
+    color: $color-primary12;
 
     &:before {
       margin-right: 8px;
+    }
+
+    &.icon-comment {
+      &:hover {
+        color: $color-primary15;
+      }
     }
   }
 
