@@ -22,11 +22,8 @@ exports.getWeeksPost = getWeeksPost;
 exports.getSolialLinks = getSolialLinks;
 exports.getSidebar = getSidebar;
 exports.getSearchArticles = getSearchArticles;
-<<<<<<< HEAD
 exports.getArticleFooter = getArticleFooter;
-=======
 exports.countUserRating = countUserRating;
->>>>>>> origin/feature/user_rating
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -228,10 +225,8 @@ function getHotArticles(page) {
 }
 
 function getArticlesByUser(id, page, count, pageSize) {
-  if (!pageSize)
-    pageSize = 10;
-  if (!page)
-    page = 0;
+  if (!pageSize) pageSize = 10;
+  if (!page) page = 0;
   var articles = contentLib.query({
     start: page * pageSize,
     count: pageSize,
@@ -263,8 +258,7 @@ function countUserRating() {
   var comments = commentsLib.getCommentsByUser(user._id, 0, -1).hits;
   var commentVotes = 0;
   for (var i = 0; i < comments.length; i++) {
-    if (comments[i].rate)
-      commentVotes += comments[i].rate;
+    if (comments[i].rate) commentVotes += comments[i].rate;
   }
   return (commentVotes + articleVotes).toFixed();
 }
