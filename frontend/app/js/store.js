@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  $(".js_checkout-form").validate();
+  $(".js_checkout-form").validate({ ignore: "" });
 });
 
 function addToCart(data) {
