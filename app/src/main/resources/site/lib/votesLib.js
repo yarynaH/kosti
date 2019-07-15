@@ -11,7 +11,6 @@ var contextLib = require("contextLib");
 exports.createBlankVote = createBlankVote;
 exports.vote = vote;
 exports.countUpvotes = countUpvotes;
-exports.countUserUpvotes = countUserUpvotes;
 exports.checkIfVoted = checkIfVoted;
 exports.getHotArticleIds = getHotArticleIds;
 exports.checkIfVoteExist = checkIfVoteExist;

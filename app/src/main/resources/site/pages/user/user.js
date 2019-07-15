@@ -49,7 +49,7 @@ function handleReq(req) {
     var currUser = userLib.getCurrentUser();
     var userSystemObj = userLib.getSystemUser(content.data.email);
     var currUserFlag = currUser.key == userSystemObj.key;
-    content.votes = blogLib.countUserRating();
+    content.votes = blogLib.countUserRating(content._id);
     var date = new Date(moment(content.publish.from.replace("Z", "")));
     content.date =
       date.getDate() +

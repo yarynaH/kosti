@@ -1,6 +1,6 @@
 <part>
   <display-name>Video</display-name>
-  <config>
+  <form>
     <input type="TextLine" name="VIDEO_URL">
       <label>ID or URL</label>
       <occurrences minimum="1" maximum="1"/>
@@ -13,5 +13,5 @@
         <option value="youtube">Youtube</option>
       </config>
     </input>
-  </config>
+  </form>
 </part>

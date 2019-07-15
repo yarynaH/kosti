@@ -246,16 +246,15 @@ function getArticleFooter(article) {
   });
 }
 
-function countUserRating() {
-  var user = userLib.getCurrentUser();
-  var articles = getArticlesByUser(user._id, 0, false, -1).hits;
+function countUserRating(id) {
+  var articles = getArticlesByUser(id, 0, false, -1).hits;
   var articleVotes = 0;
   for (var i = 0; i < articles.length; i++) {
     var votes = votesLib.countUpvotes(articles[i]._id);
     articleVotes += parseInt(votes);
   }
   articleVotes *= 2;
-  var comments = commentsLib.getCommentsByUser(user._id, 0, -1).hits;
+  var comments = commentsLib.getCommentsByUser(id, 0, -1).hits;
   var commentVotes = 0;
   for (var i = 0; i < comments.length; i++) {
     if (comments[i].rate) commentVotes += comments[i].rate;
