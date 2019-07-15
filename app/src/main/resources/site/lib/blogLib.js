@@ -22,7 +22,11 @@ exports.getWeeksPost = getWeeksPost;
 exports.getSolialLinks = getSolialLinks;
 exports.getSidebar = getSidebar;
 exports.getSearchArticles = getSearchArticles;
+<<<<<<< HEAD
 exports.getArticleFooter = getArticleFooter;
+=======
+exports.countUserRating = countUserRating;
+>>>>>>> origin/feature/user_rating
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -223,11 +227,11 @@ function getHotArticles(page) {
   return hotIds;
 }
 
-function getArticlesByUser(id, page, count) {
-  var pageSize = 10;
-  if (!page) {
+function getArticlesByUser(id, page, count, pageSize) {
+  if (!pageSize)
+    pageSize = 10;
+  if (!page)
     page = 0;
-  }
   var articles = contentLib.query({
     start: page * pageSize,
     count: pageSize,
@@ -245,4 +249,22 @@ function getArticleFooter(article) {
     article: article,
     bookmarked: userLib.checkIfBookmarked(article._id)
   });
+}
+
+function countUserRating() {
+  var user = userLib.getCurrentUser();
+  var articles = getArticlesByUser(user._id, 0, false, -1).hits;
+  var articleVotes = 0;
+  for (var i = 0; i < articles.length; i++) {
+    var votes = votesLib.countUpvotes(articles[i]._id);
+    articleVotes += parseInt(votes);
+  }
+  articleVotes *= 2;
+  var comments = commentsLib.getCommentsByUser(user._id, 0, -1).hits;
+  var commentVotes = 0;
+  for (var i = 0; i < comments.length; i++) {
+    if (comments[i].rate)
+      commentVotes += comments[i].rate;
+  }
+  return (commentVotes + articleVotes).toFixed();
 }
