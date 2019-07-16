@@ -36,7 +36,7 @@
       }
 
       img {
-        margin-bottom: 15px;
+        // margin-bottom: 15px;
       }
     }
 
@@ -89,6 +89,16 @@
         font-size: rem(22);
         padding-right: 15px;
         color: $color-primary15;
+      }
+    }
+
+    .video-container {
+      @include aspect-ratio(16, 9, iframe);
+
+      margin: 0 -15px 25px;
+
+      @include tablet-all {
+        margin: 0 -30px 25px;
       }
     }
   }
