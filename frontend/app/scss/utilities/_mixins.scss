@@ -1,11 +1,11 @@
 ///
 /// Mixin which truncate text
 ///
-@mixin truncate($width: auto){
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: $width;
+@mixin truncate($width: auto) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: $width;
 }
 
 ///
@@ -16,84 +16,77 @@
 /// @param {List} $args [()] - `top`/`right`/`bottom`/`left` properties in a list type
 ///
 @mixin position($position, $args: ()) {
-    position: $position;
+  position: $position;
 
-    $offsets: top right bottom left;
+  $offsets: top right bottom left;
 
-    @each $offset in $offsets {
-        $index: index($args, $offset);
+  @each $offset in $offsets {
+    $index: index($args, $offset);
 
-        @if $index {
-            @if $index == length($args) {
-                #{$offset}: 0;
-            }
+    @if $index {
+      @if $index == length($args) {
+        #{$offset}: 0;
+      } @else {
+        $next: nth($args, $index + 1);
 
-            @else {
-                $next: nth($args, $index + 1);
-
-                @if is-valid-length($next) {
-                    #{$offset}: $next;
-                }
-
-                @else if index($offsets, $next) {
-                    #{$offset}: 0;
-                }
-
-                @else {
-                    @warn 'Invalid value #{$next} for offset #{$offset}';
-                }
-            }
+        @if is-valid-length($next) {
+          #{$offset}: $next;
+        } @else if index($offsets, $next) {
+          #{$offset}: 0;
+        } @else {
+          @warn 'Invalid value #{$next} for offset #{$offset}';
         }
+      }
     }
+  }
 }
 
 ///
-/// Mixin for hiding element with `display: none` 
+/// Mixin for hiding element with `display: none`
 @mixin hidden {
-    display: none !important;
+  display: none !important;
 }
 
 .hidden {
-    @include hidden();
+  @include hidden();
 }
-
 
 ///
 /// Mixin for quantity notification
 ///
-@mixin qty-notification ($selectors: ()) {
-    @each $selector in $selectors {
-        @if $selector == wrapper {
-            position: relative;
-        }
-
-        @if $selector == icon {
-            border-radius: 50%;
-            background: $color-primary24;
-            color: $color-primary1;
-            text-align: center;
-            font-weight: bold;
-            padding: 0 2px;
-        }
-
-        @if $selector == checkout {
-            @include position(absolute, bottom -10px right -5px);
-
-            width: 18px;
-            height: 18px;
-            line-height: 18px;
-            font-size: rem(11);
-        }
-
-        @if $selector == notification {
-            @include position(absolute, top -3px right -3px);
-
-            width: 16px;
-            height: 16px;
-            line-height: 16px;
-            font-size: rem(10);
-        }
+@mixin qty-notification($selectors: ()) {
+  @each $selector in $selectors {
+    @if $selector == wrapper {
+      position: relative;
     }
+
+    @if $selector == icon {
+      border-radius: 50%;
+      background: $color-primary24;
+      color: $color-primary1;
+      text-align: center;
+      font-weight: bold;
+      padding: 0 2px;
+    }
+
+    @if $selector == checkout {
+      @include position(absolute, bottom -10px right -5px);
+
+      width: 18px;
+      height: 18px;
+      line-height: 18px;
+      font-size: rem(11);
+    }
+
+    @if $selector == notification {
+      @include position(absolute, top -3px right -3px);
+
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      font-size: rem(10);
+    }
+  }
 }
 
 ///
@@ -106,35 +99,69 @@
 /// @param {String} $br-color [ color(black01)] - triangle color
 ///
 
-@mixin border-triangle($dir: bottom, $base_size: 5px, $size: 5px, $color: color(black01)) {
-    border: $base_size solid transparent;
+@mixin border-triangle(
+  $dir: bottom,
+  $base_size: 5px,
+  $size: 5px,
+  $color: color(black01)
+) {
+  border: $base_size solid transparent;
 
-    @if ($dir == "top") {
-        border-bottom-color: $color;
-        border-top-width: 0;
-        border-bottom-width: $size;
-    } @else if ($dir == "right") {
-        border-left-color: $color;
-        border-left-width: 0;
-        border-top-width: $size;
-    } @else if ($dir == "bottom") {
-        border-top-color: $color;
-        border-bottom-width: 0;
-        border-top-width: $size;
-    } @else if ($dir == "left") {
-        border-right-color: $color;
-        border-left-width: 0;
-        border-right-width: $size;
-    }
+  @if ($dir == "top") {
+    border-bottom-color: $color;
+    border-top-width: 0;
+    border-bottom-width: $size;
+  } @else if ($dir == "right") {
+    border-left-color: $color;
+    border-left-width: 0;
+    border-top-width: $size;
+  } @else if ($dir == "bottom") {
+    border-top-color: $color;
+    border-bottom-width: 0;
+    border-top-width: $size;
+  } @else if ($dir == "left") {
+    border-right-color: $color;
+    border-left-width: 0;
+    border-right-width: $size;
+  }
 }
 
 ///
-/// Mixin for placeholders 
+/// Mixin for placeholders
 ///
 
 @mixin placeholder {
-    ::-webkit-input-placeholder {@content}
-    :-moz-placeholder           {@content}
-    ::-moz-placeholder          {@content}
-    :-ms-input-placeholder      {@content}  
+  ::-webkit-input-placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+  :-ms-input-placeholder {
+    @content;
+  }
+}
+
+///
+/// Aspect ratio
+///
+
+@mixin aspect-ratio($width, $height, $child_name) {
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+    padding-bottom: ($height / $width) * 100%;
+  }
+
+  #{$child_name} {
+    @include position(absolute, top 0 bottom 0 left 0 right 0);
+
+    width: 100%;
+    height: 100%;
+  }
 }
