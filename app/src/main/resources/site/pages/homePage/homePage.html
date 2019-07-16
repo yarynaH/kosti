@@ -48,6 +48,7 @@
                   <a
                     data-th-each="hashtag : ${scheduleItem.hashtags}"
                     data-th-href="${hashtag.url}"
+                    data-th-if="${hashtag}"
                     class="tag-item"
                     data-th-text="${hashtag.displayName}"
                   ></a>

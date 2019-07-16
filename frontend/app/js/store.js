@@ -104,3 +104,15 @@ function validateCheckout(e) {
       .addClass("is-invalid");
   }
 }
+
+function addToCartOnclick(input) {
+  var data = {
+    itemId: input.data().id,
+    size: input.data().size,
+    amount: input.val(),
+    cartId: getCookieValue("cartId"),
+    action: "modify",
+    force: true
+  };
+  addToCart(data);
+}
