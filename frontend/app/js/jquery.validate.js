@@ -976,7 +976,11 @@ $.extend( $.validator, {
 				} else if ( this.settings.errorPlacement ) {
 					this.settings.errorPlacement.call( this, place, $( element ) );
 				} else {
-					place.insertAfter( element );
+          //!
+          //! NOTE
+          //! If anything goes wron with validation, check here.
+          //!
+          $(element).parent().append(place);
 				}
 
 				// Link error back to the element
