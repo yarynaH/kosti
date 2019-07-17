@@ -236,6 +236,35 @@
       @include tablet-all {
         padding-left: 25px;
       }
+
+      &.next_floor {
+        position: relative;
+        margin-left: -99px;
+        background: $color-primary1;
+        padding-bottom: 15px;
+
+        @include tablet-all {
+          margin-left: -234px;
+        }
+
+        &::before,
+        &::after {
+          content: "";
+          width: 233px;
+          border-bottom: 1px solid $color-primary10;
+        }
+
+        &::before {
+          @include position(absolute, top 0 left 0);
+        }
+
+        &::after {
+          @include position(absolute, bottom -5px left 0);
+
+          height: 15px;
+          background: $color-primary1;
+        }
+      }
     }
   }
 
