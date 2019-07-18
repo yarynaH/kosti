@@ -60,7 +60,7 @@ function handlePost(req) {
         : "",
       data: req.params,
       social: site.social,
-      pageComponents: helpers.getPageComponents(req)
+      pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };
 
     return model;
@@ -101,7 +101,7 @@ function handleGet(req) {
       site: site,
       data: up,
       social: site.social,
-      pageComponents: helpers.getPageComponents(req)
+      pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };
 
     return model;

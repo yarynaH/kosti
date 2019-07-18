@@ -50,7 +50,7 @@ exports.get = function(req) {
   return {
     body: thymeleaf.render(view, {
       cart: cartLib.getCart(req.cookies.cartId),
-      pageComponents: helpers.getPageComponents(req),
+      pageComponents: helpers.getPageComponents(req, null, null, "Корзина"),
       shopUrl: shopUrl,
       checkoutUrl: sharedLib.generateNiceServiceUrl("checkout")
     }),

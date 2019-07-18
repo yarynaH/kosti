@@ -204,7 +204,12 @@ function generateCheckoutPage(req) {
         promos: cart.price.discount.codes
       }),
       ik_id: site.ik_id,
-      pageComponents: helpers.getPageComponents(req, "footerCheckout"),
+      pageComponents: helpers.getPageComponents(
+        req,
+        "footerCheckout",
+        null,
+        "Оплата и доставка"
+      ),
       promosUrl: sharedLib.generateNiceServiceUrl("promos")
     };
   }

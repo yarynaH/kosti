@@ -18,13 +18,10 @@
 />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="description" data-th-attr="content=${site.data.description}" />
-<title>Вечерние кости</title>
+<title data-th-text="${title}"></title>
 
 <!-- Open Graph data -->
-<meta
-  property="og:title"
-  data-th-attr="content=${content && content.displayName} ? ${content.displayName} : site.displayName"
-/>
+<meta property="og:title" data-th-attr="content=${title}" />
 <meta property="og:type" content="article" />
 <meta
   property="og:url"

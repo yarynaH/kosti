@@ -1,10 +1,15 @@
+var promoForm = $(".js_promo-form");
+
 function initPromos() {
   $(".js_promo_code-title").on("click", function() {
     $(this)
       .parent()
       .toggleClass("show");
   });
-  $(".js_promo-form").on("click", ".js_promo-remove", function(e) {
+  promoForm.on("click", ".js_promo-remove", function(e) {
+    if (!promoForm.valid()) {
+      return false;
+    }
     e.preventDefault();
     var code = $(this).data("code");
     var call = makeAjaxCall(
@@ -25,7 +30,10 @@ function initPromos() {
       $(".js_summary-total .value span").text(data.cart.price.totalDiscount);
     });
   });
-  $(".js_promo-form").on("submit", function(e) {
+  promoForm.on("submit", function(e) {
+    if (!promoForm.valid()) {
+      return false;
+    }
     e.preventDefault();
     var formData = getFormData(this);
     formData.cartId = getCookieValue("cartId");
@@ -38,6 +46,7 @@ function initPromos() {
       $(".js_summary-total .value span").text(data.cart.price.totalDiscount);
     });
   });
+  promoForm.validate();
 }
 
 $(document).ready(function() {

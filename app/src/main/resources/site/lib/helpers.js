@@ -14,7 +14,7 @@ exports.getPageComponents = getPageComponents;
 exports.getLoadMore = getLoadMore;
 exports.getRandomString = getRandomString;
 
-function getPageComponents(req, footerType, activeEl) {
+function getPageComponents(req, footerType, activeEl, title) {
   var pageComponents = {};
   if (req) {
     var up = req.params;
@@ -70,6 +70,12 @@ function getPageComponents(req, footerType, activeEl) {
     var ogDescription = site.data.description;
   }
 
+  if (title) {
+    title = title + " | " + site.displayName;
+  } else {
+    var title = content.displayName + " | " + site.displayName;
+  }
+
   pageComponents["pagehead"] = thymeleaf.render(
     resolve("../pages/components/head.html"),
     {
@@ -77,6 +83,7 @@ function getPageComponents(req, footerType, activeEl) {
       content: content,
       ogImage: ogImage,
       site: site,
+      title: title,
       ogDescription: ogDescription
     }
   );
