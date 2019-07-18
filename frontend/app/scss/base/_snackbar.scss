@@ -17,7 +17,7 @@
   color: $color-primary1;
   transition: transition(bottom);
 
-  .show {
+  &.show {
     bottom: 25px;
   }
 
