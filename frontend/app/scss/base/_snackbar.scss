@@ -1,0 +1,51 @@
+// <div class="snackbar">
+//   <div class="snackbar-icon icon-bell-notification"></div>
+//   <div class="snackbar-text">Some msg</div>
+//   <div class="snackbar-close icon-delete"></div>
+// </div>
+.snackbar {
+  @include position(fixed, bottom -500px right 0 left 0);
+
+  margin: 0 auto;
+  width: 320px;
+  padding: 15px;
+  z-index: 11;
+  border-radius: 3px;
+  display: flex;
+  align-items: flex-start;
+  box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.1);
+  color: $color-primary1;
+  transition: transition(bottom);
+
+  .show {
+    bottom: 25px;
+  }
+
+  &.error {
+    background: $color-primary32;
+  }
+
+  &.success {
+    background: $color-primary40;
+  }
+
+  &.warning {
+    background: $color-primary19;
+  }
+
+  &.info {
+    background: $color-primary3;
+  }
+
+  &-close {
+    margin-left: 10px;
+  }
+
+  &-icon {
+    margin-right: 15px;
+  }
+
+  &-text {
+    flex: 1;
+  }
+}
