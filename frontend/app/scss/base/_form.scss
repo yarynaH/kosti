@@ -355,7 +355,8 @@ label {
   }
 }
 
-.error-msg {
+.error-msg,
+.form-group-error {
   color: $color-primary32;
   font-size: rem(14);
   margin-top: 7px;
