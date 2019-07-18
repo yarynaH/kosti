@@ -64,7 +64,7 @@ function initLoginRegisterForm() {
       data: data
     }).done(function(data) {
       if (!data.exist && !data.html) {
-        $(".modal-login .form-group-error span").text(data.message);
+        $(".modal-login .form-group-error").text(data.message);
         $(".modal-login .form-group-error").removeClass("hidden");
       } else {
         $(".js_header-user-wrap").html(data.html);
@@ -94,9 +94,7 @@ function initLoginRegisterForm() {
       action: "register"
     };
     if (!validateEmail(data.email)) {
-      $(".modal-registration .form-group-error span").text(
-        "Неправильный емейл"
-      );
+      $(".modal-registration .form-group-error").text("Неправильный емейл");
       $(".modal-registration .form-group-error").removeClass("hidden");
       return false;
     } else {
@@ -113,7 +111,7 @@ function initLoginRegisterForm() {
         location.reload();
         hideLoginRegisterModal();
       } else if (data.exist) {
-        $(".modal-registration .form-group-error span").text(data.message);
+        $(".modal-registration .form-group-error").text(data.message);
         $(".modal-registration .form-group-error").removeClass("hidden");
       }
     });
@@ -163,7 +161,7 @@ function attachSignin(element) {
           location.reload();
           hideLoginRegisterModal();
         } else {
-          $(".modal-login .form-group-error span").text(data.message);
+          $(".modal-login .form-group-error").text(data.message);
           $(".modal-login .form-group-error").removeClass("hidden");
         }
       });

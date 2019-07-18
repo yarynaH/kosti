@@ -47,6 +47,7 @@ function handleReq(req) {
       1
     );
     var currUser = userLib.getCurrentUser();
+    content.data.bookmarks = norseUtils.forceArray(content.data.bookmarks);
     var userSystemObj = userLib.getSystemUser(content.data.email);
     var currUserFlag = currUser.key == userSystemObj.key;
     content.votes = blogLib.countUserRating(content._id);
@@ -70,7 +71,6 @@ function handleReq(req) {
 
     var active = {};
     if (up.action == "bookmarks" && currUserFlag) {
-      content.data.bookmarks = norseUtils.forceArray(content.data.bookmarks);
       totalArticles.curr = content.data.bookmarks
         ? content.data.bookmarks.length
         : 0;

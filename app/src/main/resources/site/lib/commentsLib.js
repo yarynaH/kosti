@@ -129,7 +129,7 @@ function voteForComment(id) {
   }
   if (
     !comment.votes ||
-    (comment.votes && comment.votes.indexOf(user.key) == -1)
+    (comment.votes && comment.votes.indexOf(user.key) === -1)
   ) {
     comment = upvote(user.key, comment._id);
   } else {
@@ -137,7 +137,7 @@ function voteForComment(id) {
   }
   return {
     rate: comment.rate,
-    voted: comment.votes && comment.votes.indexOf(user.key) != -1
+    voted: comment.votes && comment.votes.indexOf(user.key) !== -1
   };
 }
 
@@ -206,6 +206,7 @@ function getComment(id) {
 }
 
 function beautifyComment(comment, counter, level) {
+  var user = userLib.getCurrentUser();
   if (level || level === 0) {
     level++;
   }
@@ -217,8 +218,7 @@ function beautifyComment(comment, counter, level) {
       comment._ts.replace("Z", "")
     );
     comment.author = userLib.getUserDataById(comment.user);
-    comment.voted =
-      comment.votes && comment.votes.indexOf(comment.author.key) != -1;
+    comment.voted = comment.votes && comment.votes.indexOf(user.key) !== -1;
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
   return comment;

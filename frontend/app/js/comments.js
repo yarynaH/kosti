@@ -1,6 +1,9 @@
-var commentsWrapper = $(".js_article-comments");
+var commentsWrapper = $(".js_article-comments, .blog-list");
 
 function initComments() {
+  $(".js_comment-form").each(function() {
+    $(this).validate();
+  });
   if (commentsWrapper.length > 0) {
     commentsWrapper.on("click", ".js_answer-comment", function(e) {
       $("form[data-parentid=" + $(this).data("id") + "]").toggleClass("hidden");
@@ -10,11 +13,14 @@ function initComments() {
       if (!checkUserLoggedIn()) {
         showLogin(e);
       } else {
-        var formData = {};
-        $.each($(this).serializeArray(), function() {
-          formData[this.name] = this.value;
-        });
-        addComment(this, formData);
+        var form = $(this);
+        if (form.valid()) {
+          var formData = {};
+          $.each($(this).serializeArray(), function() {
+            formData[this.name] = this.value;
+          });
+          addComment(this, formData);
+        }
       }
     });
     commentsWrapper.on("keydown", "textarea", function(e) {
