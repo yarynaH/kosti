@@ -73,7 +73,11 @@ function getPageComponents(req, footerType, activeEl, title) {
   if (title) {
     title = title + " | " + site.displayName;
   } else {
-    var title = content.displayName + " | " + site.displayName;
+    if (content.displayName === site.displayName) {
+      var title = site.displayName;
+    } else {
+      var title = content.displayName + " | " + site.displayName;
+    }
   }
 
   pageComponents["pagehead"] = thymeleaf.render(

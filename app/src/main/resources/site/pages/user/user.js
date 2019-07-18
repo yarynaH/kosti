@@ -70,6 +70,7 @@ function handleReq(req) {
 
     var active = {};
     if (up.action == "bookmarks" && currUserFlag) {
+      content.data.bookmarks = norseUtils.forceArray(content.data.bookmarks);
       totalArticles.curr = content.data.bookmarks
         ? content.data.bookmarks.length
         : 0;
