@@ -18,7 +18,6 @@ exports.getArticlesByIds = getArticlesByIds;
 exports.getNewArticles = getNewArticles;
 exports.getHotArticles = getHotArticles;
 exports.getArticlesByUser = getArticlesByUser;
-exports.getWeeksPost = getWeeksPost;
 exports.getSolialLinks = getSolialLinks;
 exports.getSidebar = getSidebar;
 exports.getSearchArticles = getSearchArticles;
@@ -41,9 +40,9 @@ function getSolialLinks() {
   );
 }
 
-function getWeeksPost() {
-  var site = portal.getSiteConfig();
-  var article = contentLib.get({ key: site.weeksPost });
+function getWeekArticle() {
+  var weekArticleId = votesLib.getWeekArticleId();
+  var article = contentLib.get({ key: weekArticleId });
   article = beautifyArticle(article);
   return thymeleaf.render(resolve("../pages/components/blog/weeksPost.html"), {
     article: article
@@ -67,7 +66,7 @@ function getSidebar() {
   return thymeleaf.render(
     resolve("../pages/components/blog/blogSidebar.html"),
     {
-      weeksPost: getWeeksPost(),
+      weeksPost: getWeekArticle(),
       socialLinks: getSolialLinks(),
       libraryHot: getLibraryHot(),
       hotTags: getHotTags()

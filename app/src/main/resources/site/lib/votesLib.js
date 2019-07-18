@@ -18,6 +18,7 @@ exports.addView = addView;
 exports.countViews = countViews;
 exports.getNode = getNode;
 exports.getVotesRepo = getVotesRepo;
+exports.getWeekArticleId = getWeekArticleId;
 
 function vote(content) {
   var user = userLib.getCurrentUser();
@@ -209,4 +210,25 @@ function getVotesRepo() {
     branch: "master",
     principals: ["role:system.admin"]
   });
+}
+
+function getWeekArticleId() {
+  var votesRepo = getVotesRepo();
+  var date = new Date();
+  date = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
+  date = date.toISOString();
+  var result = votesRepo.query({
+    start: 0,
+    count: 1,
+    query: "type = 'article' AND _ts > dateTime('" + date + "')",
+    sort: "rate DESC"
+  });
+  if (result && result.hits && result.hits.length > 0) {
+    var article = votesRepo.get(result.hits[0].id);
+    if (article) {
+      return article.id;
+    }
+  }
+  var site = portal.getSiteConfig();
+  return site.weeksPost;
 }
