@@ -2,6 +2,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var authLib = require("/lib/xp/auth");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
+var i18nLib = require("/lib/xp/i18n");
 
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -31,23 +32,33 @@ function handlePost(req) {
   var me = this;
 
   function renderView() {
-    var view = resolve("articleSubmit.html");
-    var model = createModel();
+    var result = articlesLib.createArticle(req.params);
+    if (result.error) {
+      var view = resolve("newArticle.html");
+    } else {
+      var view = resolve("articleSubmit.html");
+    }
+    var model = createModel(result);
     var body = thymeleaf.render(view, model);
-    articlesLib.createArticle(req.params);
     return {
       body: body,
       contentType: "text/html"
     };
   }
 
-  function createModel() {
+  function createModel(createRes) {
     var content = portal.getContent();
     var site = portal.getSiteConfig();
 
     var model = {
       content: content,
       site: site,
+      errorMessage: createRes.error
+        ? i18nLib.localize({
+            key: "article.create.error." + createRes.message
+          })
+        : "",
+      data: req.params,
       social: site.social,
       pageComponents: helpers.getPageComponents(req)
     };
@@ -77,6 +88,9 @@ function handleGet(req) {
 
   function createModel() {
     var up = req.params;
+    if (!up) {
+      up = {};
+    }
     var content = portal.getContent();
     var response = [];
     var site = portal.getSiteConfig();
@@ -85,6 +99,7 @@ function handleGet(req) {
       content: content,
       app: app,
       site: site,
+      data: up,
       social: site.social,
       pageComponents: helpers.getPageComponents(req)
     };

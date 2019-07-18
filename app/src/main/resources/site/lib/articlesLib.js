@@ -13,6 +13,15 @@ exports.createImage = createImage;
 
 function createArticle(data) {
   var site = portal.getSiteConfig();
+  var articleExist = contextLib.runInDraftAsAdmin(function() {
+    return checkIfArticleExist(data.title);
+  });
+  if (articleExist) {
+    return {
+      error: true,
+      message: "articleExists"
+    };
+  }
   var blog = contentLib.get({ key: site.blogLocation });
   var user = userLib.getCurrentUser();
   var stream = portal.getMultipartStream("image");
@@ -31,6 +40,17 @@ function createArticle(data) {
       }
     });
   });
+}
+
+function checkIfArticleExist(title) {
+  var result = contentLib.query({
+    query: "displayName = '" + title + "'",
+    contentType: app.name + ":article"
+  });
+  if (result.total > 0) {
+    return true;
+  }
+  return false;
 }
 
 function createImage(data) {
