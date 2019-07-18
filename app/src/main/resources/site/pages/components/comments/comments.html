@@ -18,16 +18,16 @@
     <input value="addComment" type="hidden" name="action" />
   </form>
   <ul
-    data-th-fragment="comments(comments, id, moderator)"
+    data-th-fragment="comments(comments, id, moderator, nextFloor)"
     class="comments-list js_comments-list"
     data-th-if="${comments and comments.size != 0}"
     data-th-attr="data-parentid=${id} ? ${id} : ${articleId}"
+    data-th-classappend="${nextFloor ? 'next_floor' : '' }"
   >
     <li
       data-th-each="comment : ${comments}"
       class="comments-item js_comment"
       data-th-attr="data-id=${comment._id}"
-      data-th-classappend="${comment.nextLevel ? 'new_line-comment' : '' }"
       data-th-id="${comment._id}"
     >
       <div class="comments-header">
@@ -94,7 +94,7 @@
         <input value="addComment" type="hidden" name="action" />
       </form>
       <div
-        data-th-replace="this::comments(${comment.children}, ${comment._id}, ${moderator})"
+        data-th-replace="this::comments(${comment.children}, ${comment._id}, ${moderator}, ${comment.nextLevel})"
       ></div>
     </li>
   </ul>

@@ -262,6 +262,25 @@ function initCartFunctions() {
   });
 }
 
+var snackBar = $(".class");
+function resetSnackBar() {
+  snackBar.removeClass("show");
+  snackBar.removeClass("warning");
+  snackBar.removeClass("error");
+  snackBar.removeClass("notification");
+  snackBar.removeClass("message");
+  snackBar.text("");
+}
+
+function showSnackBar(message, type) {
+  snackBar.addClass(type);
+  snackBar.text(message);
+  snackBar.addClass("show");
+  setTimeout(function() {
+    resetSnackBar();
+  }, 3000);
+}
+
 $(document).ready(function() {
   initSharedEvents();
   initLoginRegisterForm();

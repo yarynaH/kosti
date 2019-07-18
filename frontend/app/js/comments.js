@@ -1,9 +1,11 @@
+var commentsWrapper = $(".js_article-comments");
+
 function initComments() {
-  if ($(".js_article-comments").length > 0) {
-    $(".js_article-comments").on("click", ".js_answer-comment", function(e) {
+  if (commentsWrapper.length > 0) {
+    commentsWrapper.on("click", ".js_answer-comment", function(e) {
       $("form[data-parentid=" + $(this).data("id") + "]").toggleClass("hidden");
     });
-    $(".js_article-comments").on("submit", ".js_comment-form", function(e) {
+    commentsWrapper.on("submit", ".js_comment-form", function(e) {
       e.preventDefault();
       if (!checkUserLoggedIn()) {
         showLogin(e);
@@ -15,7 +17,7 @@ function initComments() {
         addComment(this, formData);
       }
     });
-    $(".js_article-comments").on("keydown", "textarea", function(e) {
+    commentsWrapper.on("keydown", "textarea", function(e) {
       if (e.ctrlKey && e.keyCode == 13) {
         if (!checkUserLoggedIn()) {
           showLogin(e);
@@ -43,7 +45,7 @@ function initComments() {
         removeComment(formData);
       }
     });
-    $(".js_article-comments").on("click", ".js_comment-like", function(e) {
+    commentsWrapper.on("click", ".js_comment-like", function(e) {
       e.preventDefault();
       if (!checkUserLoggedIn()) {
         showLogin(e);
@@ -51,16 +53,14 @@ function initComments() {
         likeComment(this);
       }
     });
-    $(".js_article-comments").on("click", ".js_comment-remove_btn", function(
-      e
-    ) {
+    commentsWrapper.on("click", ".js_comment-remove_btn", function(e) {
       if (!checkUserLoggedIn()) {
         showLogin(e);
       } else {
         showRemoveFunction(this, e, "remove");
       }
     });
-    $(".js_article-comments").on("click", ".js_report-comment", function(e) {
+    commentsWrapper.on("click", ".js_report-comment", function(e) {
       if (!checkUserLoggedIn()) {
         showLogin(e);
       } else {
@@ -104,7 +104,7 @@ function addComment(el, formData) {
       parentId == $(".js_article-id").data("articleid") &&
       !$("ul.js_comments-list[data-parentid=" + parentId + "]").length
     ) {
-      $(".js_article-comments").append(
+      commentsWrapper.append(
         '<ul class="comments-list js_comments-list" data-parentid="' +
           parentId +
           '"></ul>'
