@@ -72,7 +72,7 @@ function initHeaderFunctions() {
         setTimeout(function() {
           $(".active_element").css(
             "left",
-            activeEl.position().left - 3 + activeEl.width() / 2
+            activeEl.offset().left - 3 + activeEl.width() / 2
           );
         }, 100);
       }
@@ -82,7 +82,7 @@ function initHeaderFunctions() {
         setTimeout(function() {
           $(".active_element").css(
             "left",
-            activeEl.position().left - 3 + activeEl.width() / 2
+            activeEl.offset().left - 3 + activeEl.width() / 2
           );
         }, 100);
       }
