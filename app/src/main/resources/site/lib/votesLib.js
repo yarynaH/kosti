@@ -19,6 +19,8 @@ exports.countViews = countViews;
 exports.getNode = getNode;
 exports.getVotesRepo = getVotesRepo;
 exports.getWeekArticleId = getWeekArticleId;
+exports.addShare = addShare;
+exports.countShares = countShares;
 
 function vote(content) {
   var user = userLib.getCurrentUser();
@@ -121,6 +123,7 @@ function createBlankVote(node, type) {
     id: node,
     votes: [],
     rate: 0,
+    shares: { vk: [], facebook: [], twitter: [] },
     type: type
   });
 }
@@ -231,4 +234,50 @@ function getWeekArticleId() {
   }
   var site = portal.getSiteConfig();
   return site.weeksPost;
+}
+
+function addShare(id, user, type) {
+  var node = getNode(id);
+  if (node === false) {
+    node = createBlankVote(id);
+  }
+  var votesRepo = getVotesRepo();
+  return votesRepo.modify({
+    key: node._id,
+    editor: editor
+  });
+  function editor(node) {
+    if (!node.shares) {
+      node.shares = {};
+    }
+    if (!node.shares[type]) {
+      node.shares[type] = [];
+    }
+    var temp = norseUtils.forceArray(node.shares[type]);
+    if (temp.indexOf(user) === -1) {
+      temp.push(user);
+    }
+    node.shares[type] = temp;
+    return node;
+  }
+}
+
+function countShares(id) {
+  var votesRepo = getVotesRepo();
+  var queryRes = votesRepo.query({
+    start: 0,
+    count: 1,
+    query: "id = '" + id + "'"
+  });
+  var result = 0;
+  if (queryRes && queryRes.hits && queryRes.hits.length > 0) {
+    var article = votesRepo.get(queryRes.hits[0].id);
+    if (article.shares) {
+      for (var attr in article.shares) {
+        var temp = norseUtils.forceArray(article.shares[attr]);
+        result += temp.length;
+      }
+    }
+  }
+  return result.toFixed();
 }

@@ -113,6 +113,7 @@ function beautifyArticle(article) {
   article.views = votesLib.countViews(article._id);
   article.bookmarked = userLib.checkIfBookmarked(article._id);
   article.commentsCounter = commentsLib.countComments(article._id).toFixed();
+  article.shares = votesLib.countShares(article._id);
   if (parseInt(article.votes) > 0) {
     article.voted = votesLib.checkIfVoted(article._id);
   }

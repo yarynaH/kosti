@@ -1,7 +1,10 @@
 <div class="post-footer">
   <div class="post-counters">
     <div class="share-block social">
-      <span class="post-counter icon-share">245</span>
+      <span
+        class="post-counter icon-share"
+        data-th-text="${article.shares}"
+      ></span>
       <ul class="social-list">
         <li class="social-item">
           <a
@@ -10,7 +13,8 @@
             data-title=${article.displayName}, 
             data-url=${article.urlAbsolute}, 
             data-description=${article.data.intro},
-            data-image=${article.image.urlAbsolute}
+            data-image=${article.image.urlAbsolute},
+            data-articleid=${article._id}
             "
             data-th-title="${portal.localize({'_key=social.title.facebook', '_locale=ru'})}"
           ></a>
@@ -21,6 +25,13 @@
             data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+article._path, '_type=absolute'})}"
             class="social-link twitter"
             data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}"
+            data-th-attr="
+            data-title=${article.displayName}, 
+            data-url=${article.urlAbsolute}, 
+            data-description=${article.data.intro},
+            data-image=${article.image.urlAbsolute},
+            data-articleid=${article._id}
+            "
           ></a>
         </li>
         <li class="social-item">
@@ -29,6 +40,13 @@
             data-th-href="${'http://vk.com/share.php?url=' + article.urlAbsolute}"
             target="_blank"
             data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
+            data-th-attr="
+            data-title=${article.displayName}, 
+            data-url=${article.urlAbsolute}, 
+            data-description=${article.data.intro},
+            data-image=${article.image.urlAbsolute},
+            data-articleid=${article._id}
+            "
           ></a>
         </li>
       </ul>
