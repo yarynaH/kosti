@@ -209,7 +209,7 @@
                     data-url=${urlAbsolute}, 
                     data-description=${content.data.description},
                     data-image=${mainImage.urlAbsolute},
-                    data-articleid=${article._id}
+                    data-articleid=${content._id}
                     "
                     ></a>
                   </li>
@@ -220,11 +220,11 @@
                       class="social-link twitter"
                       data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}"
                       data-th-attr="
-                      data-title=${article.displayName}, 
-                      data-url=${article.urlAbsolute}, 
-                      data-description=${article.data.intro},
-                      data-image=${article.image.urlAbsolute},
-                      data-articleid=${article._id}
+                      data-title=${content.displayName}, 
+                      data-url=${urlAbsolute}, 
+                      data-description=${content.data.description},
+                      data-image=${mainImage.urlAbsolute},
+                      data-articleid=${content._id}
                       "
                     ></a>
                   </li>
@@ -235,11 +235,11 @@
                       target="_blank"
                       data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
                       data-th-attr="
-                      data-title=${article.displayName}, 
-                      data-url=${article.urlAbsolute}, 
-                      data-description=${article.data.intro},
-                      data-image=${article.image.urlAbsolute},
-                      data-articleid=${article._id}
+                      data-title=${content.displayName}, 
+                      data-url=${urlAbsolute}, 
+                      data-description=${content.data.description},
+                      data-image=${mainImage.urlAbsolute},
+                      data-articleid=${content._id}
                       "
                     ></a>
                   </li>

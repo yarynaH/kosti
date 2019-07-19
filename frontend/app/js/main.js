@@ -283,14 +283,16 @@ function initCartFunctions() {
   });
 }
 
-var snackBar = $(".class");
+var snackBar = $(".js_snackbar");
 function resetSnackBar() {
   snackBar.removeClass("show");
-  snackBar.removeClass("warning");
-  snackBar.removeClass("error");
-  snackBar.removeClass("notification");
-  snackBar.removeClass("message");
-  snackBar.text("");
+  setTimeout(function() {
+    snackBar.removeClass("warning");
+    snackBar.removeClass("error");
+    snackBar.removeClass("notification");
+    snackBar.removeClass("message");
+    snackBar.text("");
+  }, 300);
 }
 
 function showSnackBar(message, type) {
@@ -301,6 +303,7 @@ function showSnackBar(message, type) {
     resetSnackBar();
   }, 3000);
 }
+$(".js_snackbar-close").on("click", resetSnackBar());
 
 $(document).ready(function() {
   initSharedEvents();
