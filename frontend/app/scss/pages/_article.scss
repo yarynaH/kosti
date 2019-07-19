@@ -197,6 +197,12 @@
     &-wrap {
       position: relative;
       padding-bottom: 25px;
+
+      @include mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+      }
     }
 
     &-input {
@@ -209,11 +215,19 @@
     &-button {
       @include button-style(global auto link);
       margin-top: 15px;
+      transition-property: color;
 
       @include tablet-all {
         @include position(absolute, bottom 48px right 15px);
 
         margin-top: -24px;
+      }
+
+      .is-invalid & {
+        @include tablet-all {
+          bottom: 71px;
+          order: 1;
+        }
       }
     }
   }
