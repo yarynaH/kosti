@@ -346,8 +346,6 @@
   }
 
   &:hover {
-    margin-right: 0;
-
     @include tablet-mobile {
       color: $color-primary21;
     }
@@ -356,10 +354,6 @@
       opacity: 1;
       pointer-events: auto;
     }
-
-    .post-counter {
-      margin-right: 25px;
-    }
   }
 
   .post-counter {
@@ -367,13 +361,13 @@
   }
 
   .social-list {
-    @include position(absolute, left 75px);
+    @include position(absolute, left 100% top -10px);
 
-    width: 128px;
+    width: 155px;
     opacity: 0;
     background: $color-primary1;
-    padding: 10px 0;
-    transition: transition(all, 0.2s, ease);
+    padding: 10px 0 10px 25px;
+    transition: transition(opacity, 0.2s, ease);
     pointer-events: none;
 
     .social-link:before {
