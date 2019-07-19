@@ -208,7 +208,8 @@
                     data-title=${content.displayName}, 
                     data-url=${urlAbsolute}, 
                     data-description=${content.data.description},
-                    data-image=${mainImage.urlAbsolute}
+                    data-image=${mainImage.urlAbsolute},
+                    data-articleid=${article._id}
                     "
                     ></a>
                   </li>
@@ -218,6 +219,13 @@
                       data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+content._path, '_type=absolute'})}"
                       class="social-link twitter"
                       data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}"
+                      data-th-attr="
+                      data-title=${article.displayName}, 
+                      data-url=${article.urlAbsolute}, 
+                      data-description=${article.data.intro},
+                      data-image=${article.image.urlAbsolute},
+                      data-articleid=${article._id}
+                      "
                     ></a>
                   </li>
                   <li class="social-item">
@@ -226,6 +234,13 @@
                       data-th-href="${'http://vk.com/share.php?url=' + urlAbsolute}"
                       target="_blank"
                       data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
+                      data-th-attr="
+                      data-title=${article.displayName}, 
+                      data-url=${article.urlAbsolute}, 
+                      data-description=${article.data.intro},
+                      data-image=${article.image.urlAbsolute},
+                      data-articleid=${article._id}
+                      "
                     ></a>
                   </li>
                 </ul>

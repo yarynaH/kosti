@@ -16,6 +16,9 @@ exports.post = function(req) {
     case "addView":
       result = votesLib.addView(params.content, params.id);
       break;
+    case "addShare":
+      result = votesLib.addShare(params.id, params.user, params.type);
+      break;
     default:
       notificationLib.addNotification(params.content, "like");
       result = votesLib.vote(params.content);

@@ -93,9 +93,20 @@ function initSharedEvents() {
       data.url,
       data.title,
       data.description.replace(/(&nbsp;|(<([^>]+)>))/gi, ""),
-      data.image
+      data.image,
+      data.articleid,
+      "facebook"
     );
   });
+  $("a.social-link.twitter").on("click", function(e) {
+    var data = $(this).data();
+    incrementShare(data.articleid, getCookieValue("cartId"), "twitter");
+  });
+  $("a.social-link.vk").on("click", function(e) {
+    var data = $(this).data();
+    incrementShare(data.articleid, getCookieValue("cartId"), "vk");
+  });
+
   if (window.location.hash) {
     $("html, body").animate(
       {
@@ -109,7 +120,9 @@ function initSharedEvents() {
     overrideLink,
     overrideTitle,
     overrideDescription,
-    overrideImage
+    overrideImage,
+    articleId,
+    shareType
   ) {
     FB.ui(
       {
@@ -125,9 +138,17 @@ function initSharedEvents() {
         })
       },
       function(response) {
-        // Action after response
-        // TODO: increment share counter
+        incrementShare(articleId, getCookieValue("cartId"), shareType);
       }
+    );
+  }
+
+  function incrementShare(id, userId, type) {
+    var call = makeAjaxCall(
+      contentServiceUrl,
+      "POST",
+      { id: id, type: type, action: "addShare", user: userId },
+      false
     );
   }
 
