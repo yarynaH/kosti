@@ -31,22 +31,25 @@ function initPromos() {
     });
   });
   promoForm.on("submit", function(e) {
-    if (!promoForm.valid()) {
-      return false;
-    }
     e.preventDefault();
     var formData = getFormData(this);
     formData.cartId = getCookieValue("cartId");
     var call = makeAjaxCall("/promos", "POST", formData, true);
     call.done(function(data) {
-      $(".js_promo_code-used_list").html(data.promos);
-      $(".js_summary-discount .value span").text(
-        data.cart.price.discount.discount
-      );
-      $(".js_summary-total .value span").text(data.cart.price.totalDiscount);
+      if (data) {
+        $(".js_promo_code-used_list").html(data.promos);
+        $(".js_summary-discount .value span").text(
+          data.cart.price.discount.discount
+        );
+        $(".js_summary-total .value span").text(data.cart.price.totalDiscount);
+      } else {
+        showSnackBar(
+          "Такого промо кода не сущевствует или его действие закончилось.",
+          "warning"
+        );
+      }
     });
   });
-  promoForm.validate();
 }
 
 $(document).ready(function() {

@@ -23,6 +23,8 @@ function initUserPageFunctions() {
           console.log(data);
         }
       });
+    } else {
+      showSnackBar("Не подходящий файл для аватара.", "error");
     }
   });
   $(".js_profile-settings").on("click", function(e) {

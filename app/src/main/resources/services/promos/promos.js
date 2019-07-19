@@ -22,6 +22,9 @@ exports.post = function(req) {
     case "activatePromo":
       var view = resolve("../checkout/promos.html");
       var res = promosLib.activatePromo(params.promoCode, params.cartId);
+      if (!res) {
+        return false;
+      }
       var markup = thymeleaf.render(view, {
         promos: res.price.discount.codes,
         promosUrl: sharedLib.generateNiceServiceUrl("promos")

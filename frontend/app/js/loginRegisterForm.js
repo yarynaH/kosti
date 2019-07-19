@@ -41,7 +41,11 @@ function initLoginRegisterForm() {
       method: "POST",
       data: data
     }).done(function(data) {
-      console.log(data);
+      if (data && !data.error) {
+        showSnackBar(data.message, "success");
+      } else {
+        showSnackBar("Что-то пошло не так.", "error");
+      }
     });
   });
   $(".login-form").on("submit", function(e) {
@@ -117,7 +121,7 @@ function initLoginRegisterForm() {
     });
   });
   $(".resetPassForm").on("submit", function(e) {
-    if ($(".resetPassInput").val() != $(".resetPassInputConfirm").val()) {
+    if ($(".resetPassInput").val() !== $(".resetPassInputConfirm").val()) {
       e.preventDefault();
       $(".forgotPassValidation").removeClass("hidden");
     }
