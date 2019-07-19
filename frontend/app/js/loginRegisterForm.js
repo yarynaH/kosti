@@ -30,6 +30,7 @@ function initLoginRegisterForm() {
     if (!$(".reset-form").valid()) {
       return false;
     }
+    showLoader();
     var data = {
       email: $(".modal-forgot-password")
         .find("input[name=email]")
@@ -41,6 +42,7 @@ function initLoginRegisterForm() {
       method: "POST",
       data: data
     }).done(function(data) {
+      hideLoader();
       if (data && !data.error) {
         showSnackBar(data.message, "success");
       } else {
@@ -53,6 +55,7 @@ function initLoginRegisterForm() {
     if (!$(".login-form").valid()) {
       return false;
     }
+    showLoader();
     var data = {
       username: $(".modal-login")
         .find("input[name=username]")
@@ -68,6 +71,7 @@ function initLoginRegisterForm() {
       data: data
     }).done(function(data) {
       if (!data.exist && !data.html) {
+        hideLoader();
         $(".modal-login .form-group-error").text(data.message);
         $(".modal-login .form-group-error").removeClass("hidden");
       } else {
@@ -104,6 +108,7 @@ function initLoginRegisterForm() {
     } else {
       $(".modal-registration .form-group-error").addClass("hidden");
     }
+    showLoader();
     var request = $.ajax({
       url: userServiceUrl,
       method: "POST",
@@ -113,10 +118,10 @@ function initLoginRegisterForm() {
         $(".modal-registration .form-group-error").addClass("hidden");
         $(".js_header-user-wrap").html(data.html);
         location.reload();
-        hideLoginRegisterModal();
       } else if (data.exist) {
         $(".modal-registration .form-group-error").text(data.message);
         $(".modal-registration .form-group-error").removeClass("hidden");
+        hideLoader();
       }
     });
   });
@@ -148,6 +153,7 @@ function attachSignin(element) {
     element,
     {},
     function(googleUser) {
+      showLoader();
       var profile = googleUser.getBasicProfile();
       var call = makeAjaxCall(
         userServiceUrl,
@@ -163,10 +169,10 @@ function attachSignin(element) {
           $(".js_header-user-wrap").html(data.html);
           $(".modal-login .form-group-error").addClass("hidden");
           location.reload();
-          hideLoginRegisterModal();
         } else {
           $(".modal-login .form-group-error").text(data.message);
           $(".modal-login .form-group-error").removeClass("hidden");
+          hideLoader();
         }
       });
     },
@@ -179,4 +185,12 @@ function hideLoginRegisterModal() {
     $(this).removeClass("show");
   });
   $(".js_header-notification").removeClass("show_notification");
+}
+
+function showLoader() {
+  $(".js_loader").addClass("show");
+}
+
+function hideLoader() {
+  $(".js_loader").removeClass("show");
 }

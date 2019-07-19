@@ -169,31 +169,7 @@ function initSharedEvents() {
     ".similar_posts, .blog-list, .article-body, .blog-sidebar, .js_homepage_slider"
   ).on("click", ".js_bookmarks", function(e) {
     if (checkUserLoggedIn()) {
-      var btn = $(this);
-      $.ajax({
-        url: "/_/service/com.myurchenko.kostirpg/user",
-        type: "POST",
-        async: true,
-        data: {
-          id: $(this).data().contentid,
-          action: "addBookmark"
-        },
-        success: function(data) {
-          if (data === true) {
-            btn.addClass("active");
-
-            if (!isEmpty(btn)) {
-              btn.text("В ЗАКЛАДКАХ");
-            }
-          } else {
-            btn.removeClass("active");
-
-            if (!isEmpty(btn)) {
-              btn.text("В ЗАКЛАДКИ");
-            }
-          }
-        }
-      });
+      addBookmark($(this));
     } else {
       showLogin(e);
     }
@@ -218,6 +194,33 @@ function initSharedEvents() {
     $("html,body").animate({ scrollTop: 0 }, "slow");
     $(".js_back_to_top").addClass("hidden");
     return false;
+  });
+}
+
+function addBookmark(btn) {
+  var call = makeAjaxCall(
+    "/_/service/com.myurchenko.kostirpg/user",
+    "POST",
+    {
+      id: btn.data().contentid,
+      action: "addBookmark"
+    },
+    false
+  );
+  call.done(function(data) {
+    if (data === true) {
+      btn.addClass("active");
+      if (!isEmpty(btn)) {
+        btn.text("В ЗАКЛАДКАХ");
+      }
+      showSnackBar("Добавлено в закладки.", "info");
+    } else {
+      btn.removeClass("active");
+      if (!isEmpty(btn)) {
+        btn.text("В ЗАКЛАДКИ");
+      }
+      showSnackBar("Удалено из закладок.", "info");
+    }
   });
 }
 
@@ -291,6 +294,7 @@ function resetSnackBar() {
     snackBar.removeClass("error");
     snackBar.removeClass("notification");
     snackBar.removeClass("message");
+    snackBar.removeClass("info");
     snackBar.text("");
   }, 300);
 }
