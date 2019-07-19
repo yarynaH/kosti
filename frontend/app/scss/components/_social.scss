@@ -1,102 +1,110 @@
 .social {
-    &-title {
-        color: $color-primary17;
-        font-weight: bold;
-        margin-bottom: 18px;
+  &-title {
+    color: $color-primary17;
+    font-weight: bold;
+    margin-bottom: 18px;
 
-        &:before {
-            margin-right: 8px;
-        }
+    &:before {
+      margin-right: 8px;
+    }
+  }
+
+  &-icon {
+    @include icon(network);
+  }
+
+  &-item {
+    display: inline-flex;
+    align-items: center;
+
+    & + & {
+      margin-left: 25px;
+    }
+  }
+
+  &-link {
+    display: inline-flex;
+    align-items: center;
+
+    &:hover {
+      opacity: 0.8;
     }
 
-    &-icon {
-        @include icon(network);
+    &::before {
+      font-size: rem(24);
     }
+  }
 
-    &-item {
-        display: inline-flex;
-        align-items: center;
+  &-list__sides_align {
+    display: flex;
+    justify-content: space-between;
+  }
 
-        & + & {
-            margin-left: 25px;
-        }
+  .facebook {
+    @include icon(fb);
+
+    color: $color-facebook;
+
+    &:before {
+      font-size: rem(22);
     }
+  }
 
-    &-link {
-        display: inline-flex;
-        align-items: center;
+  .vk {
+    @include icon(vk);
 
-        &:hover {
-            opacity: 0.8;
-        }
+    color: $color-vk;
 
-        &::before {
-            font-size: rem(24);
-        }
+    &:before {
+      font-size: rem(18);
     }
+  }
 
-    &-list__sides_align {
-        display: flex;
-        justify-content: space-between;
+  .twitter {
+    @include icon(twitter);
+
+    color: $color-twitter;
+
+    &:before {
+      font-size: rem(20);
     }
+  }
 
-    .facebook {
-        @include icon(fb);
+  .youtube {
+    @include icon(youtube);
 
-        color: $color-facebook;
+    color: $color-youtube;
 
-        &:before {
-            font-size: rem(22);
-        }
+    &:before {
+      font-size: rem(22);
     }
+  }
 
-    .vk {
-        @include icon(vk);
+  .instagram {
+    @include icon(instagram);
 
-        color: $color-vk;
+    color: $color-instagram;
 
-        &:before {
-            font-size: rem(18);
-        }
+    &:before {
+      font-size: rem(20);
     }
+  }
 
-    .twitter{
-        @include icon(twitter);
+  .twitch {
+    @include icon(twitch);
 
-        color: $color-twitter;
+    color: $color-twitch;
 
-        &:before {
-            font-size: rem(20);
-        }
+    &:before {
+      font-size: rem(20);
     }
+  }
 
-    .youtube {
-        @include icon(youtube);
+  .copy_url {
+    @include icon(twitch);
 
-        color: $color-youtube;
-
-        &:before {
-            font-size: rem(22);
-        }
+    &:before {
+      font-size: rem(20);
     }
-
-    .instagram {
-        @include icon(instagram);
-
-        color: $color-instagram;
-
-        &:before {
-            font-size: rem(20);
-        }
-    } 
-
-    .twitch {
-        @include icon(twitch);
-
-        color: $color-twitch;
-
-        &:before {
-            font-size: rem(20);
-        }
-    }
+  }
 }

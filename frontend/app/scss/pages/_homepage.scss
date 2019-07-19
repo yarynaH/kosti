@@ -363,7 +363,7 @@
   .social-list {
     @include position(absolute, left 100% top -10px);
 
-    width: 155px;
+    width: 200px;
     opacity: 0;
     background: $color-primary1;
     padding: 10px 0 10px 25px;
