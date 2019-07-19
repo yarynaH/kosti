@@ -22,11 +22,13 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin: 0 -4px;
   }
 
   button {
-    margin-bottom: 8px;
-    width: calc(50% - 4px);
+    width: 45%;
+    margin: 0 4px 8px;
+    flex: 1 1 auto;
     transition: transition(box-shadow, ease-in-out);
 
     &:hover {
