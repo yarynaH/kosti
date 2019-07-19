@@ -27,6 +27,11 @@
   button {
     margin-bottom: 8px;
     width: calc(50% - 4px);
+    transition: transition(box-shadow, ease-in-out);
+
+    &:hover {
+      box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
+    }
   }
 
   &-fb {
@@ -51,5 +56,12 @@
     @include button-style(global transparent google);
 
     padding: 20px 10px;
+    color: $color-primary6;
+
+    &::before {
+      background-image: url("../images/google.svg");
+      width: 24px;
+      height: 24px;
+    }
   }
 }
