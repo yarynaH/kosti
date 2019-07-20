@@ -192,14 +192,22 @@ function getSearchArticles(q, page, useHashtag) {
 
   if (useHashtag)
     var query = "data.hashtags IN ('" + q + "') OR data.hashtags = '" + q + "'";
-  else
+  else {
+    if (q.charAt(0) == "#") q = q.substring(1);
+    var hid = hashtagLib.getHashtagIdByName(q);
     var query =
       "fulltext('displayName^5,data.*,page.*', '" +
       q +
       "', 'AND') OR " +
       "ngram('displayName^5,data.*,page.*', '" +
       q +
-      "', 'AND')";
+      "', 'AND') OR " +
+      "data.hashtags IN ('" +
+      hid +
+      "') OR data.hashtags = '" +
+      hid +
+      "'";
+  }
   var articles = [];
   var result = contentLib.query({
     query: query,

@@ -9,7 +9,7 @@ var hashtagLib = require(libLocation + "hashtagLib");
 
 exports.get = function(req) {
   var params = req.params;
-  //params.q - search by article name
+  //params.q - search by article/hashtag name
   //params.hid - search by hashtag id
   if (params.hid) {
     var query = hashtagLib.getHashtagName(params.hid);
