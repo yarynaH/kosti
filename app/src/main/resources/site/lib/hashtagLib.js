@@ -8,6 +8,7 @@ exports.getHashtags = getHashtags;
 exports.hotHashtagCheck = hotHashtagCheck;
 exports.getHotHashtags = getHotHashtags;
 exports.getHashtagName = getHashtagName;
+exports.getHashtagIdByName = getHashtagIdByName;
 
 function getHashtags(ids) {
   if (!ids) {
@@ -82,5 +83,18 @@ function getHashtagName(id) {
   if (!id) return "";
   var temp = contentLib.get({ key: id });
   if (temp && temp.displayName) return "#" + temp.displayName;
+  return "";
+}
+
+function getHashtagIdByName(name) {
+  if (!name) return "";
+  var query = "displayName = '" + name + "'";
+  var temp = contentLib.query({
+    query: query,
+    start: 0,
+    count: 1,
+    contentTypes: [app.name + ":hashtag"]
+  });
+  if (temp && temp.hits && temp.hits.length > 0) return temp.hits[0]._id;
   return "";
 }
