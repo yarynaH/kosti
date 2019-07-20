@@ -75,7 +75,9 @@ function initCheckoutEvents() {
 }
 
 function initSharedEvents() {
-  $(".js_snackbar-close").on("click", resetSnackBar());
+  snackBarClose.on("click", function() {
+    resetSnackBar();
+  });
   setCookie(cartId);
   $(
     ".similar_posts, .blog-list, .article-body, .blog-sidebar, .js_homepage_slider"
@@ -294,6 +296,8 @@ function initCartFunctions() {
 }
 
 var snackBar = $(".js_snackbar");
+var snackBarText = $(".js_snackbar .snackbar-text");
+var snackBarClose = $(".js_snackbar .snackbar-close");
 function resetSnackBar() {
   snackBar.removeClass("show");
   setTimeout(function() {
@@ -302,13 +306,14 @@ function resetSnackBar() {
     snackBar.removeClass("notification");
     snackBar.removeClass("message");
     snackBar.removeClass("info");
-    snackBar.text("");
+    snackBar.removeClass("success");
+    snackBarText.text("");
   }, 300);
 }
 
 function showSnackBar(message, type) {
   snackBar.addClass(type);
-  snackBar.text(message);
+  snackBarText.text(message);
   snackBar.addClass("show");
   setTimeout(function() {
     resetSnackBar();
