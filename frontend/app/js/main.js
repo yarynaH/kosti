@@ -91,7 +91,7 @@ function initSharedEvents() {
     e.preventDefault();
     var data = $(this).data();
     copyStringToClipboard(data.url);
-    showSnackBar("Ссылка скопырована.", "success");
+    showSnackBar("Ссылка скопирована.", "success");
   });
 
   $("a.social-link.facebook").on("click", function(e) {
