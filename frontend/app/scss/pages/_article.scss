@@ -76,7 +76,7 @@
     }
 
     blockquote {
-      @include icon(rock);
+      @include icon(quote);
 
       font-size: rem(18);
       font-style: italic;
@@ -89,6 +89,14 @@
         font-size: rem(22);
         padding-right: 15px;
         color: $color-primary15;
+      }
+    }
+
+    a {
+      transition: (text-decoration);
+
+      :hover {
+        text-decoration: underline;
       }
     }
 

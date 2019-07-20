@@ -101,10 +101,11 @@
   }
 
   .copy_url {
-    @include icon(twitch);
+    @include icon(copy);
 
     &:before {
       font-size: rem(20);
+      color: $color-primary21;
     }
   }
 }

@@ -47,62 +47,68 @@
     @if $filename == comment {
         $char: "\F126";
     }
-    @if $filename == delete {
+    @if $filename == copy {
         $char: "\F127";
     }
-    @if $filename == fb {
+    @if $filename == delete {
         $char: "\F128";
     }
-    @if $filename == fire {
+    @if $filename == fb {
         $char: "\F129";
     }
-    @if $filename == gear {
+    @if $filename == fire {
         $char: "\F12A";
     }
-    @if $filename == google {
+    @if $filename == gear {
         $char: "\F12B";
     }
-    @if $filename == guest {
+    @if $filename == google {
         $char: "\F12C";
     }
-    @if $filename == instagram {
+    @if $filename == guest {
         $char: "\F12D";
     }
-    @if $filename == logout {
+    @if $filename == instagram {
         $char: "\F12E";
     }
-    @if $filename == network {
+    @if $filename == logout {
         $char: "\F12F";
     }
-    @if $filename == pin-location {
+    @if $filename == network {
         $char: "\F130";
     }
-    @if $filename == rock {
+    @if $filename == pin-location {
         $char: "\F131";
     }
-    @if $filename == search {
+    @if $filename == quote {
         $char: "\F132";
     }
-    @if $filename == share {
+    @if $filename == rock {
         $char: "\F133";
     }
-    @if $filename == twitch {
+    @if $filename == search {
         $char: "\F134";
     }
-    @if $filename == twitter {
+    @if $filename == share {
         $char: "\F135";
     }
-    @if $filename == upload {
+    @if $filename == twitch {
         $char: "\F136";
     }
-    @if $filename == views {
+    @if $filename == twitter {
         $char: "\F137";
     }
-    @if $filename == vk {
+    @if $filename == upload {
         $char: "\F138";
     }
-    @if $filename == youtube {
+    @if $filename == views {
         $char: "\F139";
+    }
+    @if $filename == vk {
+        $char: "\F13A";
+    }
+    @if $filename == youtube {
+        $char: "\F13B";
     }
 
     @return $char;
@@ -134,6 +140,7 @@ category: Basic
     <div class="sg-icon icon-bookmark" title="bookmark"></div>
     <div class="sg-icon icon-cart" title="cart"></div>
     <div class="sg-icon icon-comment" title="comment"></div>
+    <div class="sg-icon icon-copy" title="copy"></div>
     <div class="sg-icon icon-delete" title="delete"></div>
     <div class="sg-icon icon-fb" title="fb"></div>
     <div class="sg-icon icon-fire" title="fire"></div>
@@ -144,6 +151,7 @@ category: Basic
     <div class="sg-icon icon-logout" title="logout"></div>
     <div class="sg-icon icon-network" title="network"></div>
     <div class="sg-icon icon-pin-location" title="pin-location"></div>
+    <div class="sg-icon icon-quote" title="quote"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
     <div class="sg-icon icon-share" title="share"></div>
@@ -177,6 +185,9 @@ category: Basic
 .icon-comment {
     @include icon(comment);
 }
+.icon-copy {
+    @include icon(copy);
+}
 .icon-delete {
     @include icon(delete);
 }
@@ -206,6 +217,9 @@ category: Basic
 }
 .icon-pin-location {
     @include icon(pin-location);
+}
+.icon-quote {
+    @include icon(quote);
 }
 .icon-rock {
     @include icon(rock);
