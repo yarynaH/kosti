@@ -75,6 +75,7 @@ function initCheckoutEvents() {
 }
 
 function initSharedEvents() {
+  $(".js_snackbar-close").on("click", resetSnackBar());
   setCookie(cartId);
   $(
     ".similar_posts, .blog-list, .article-body, .blog-sidebar, .js_homepage_slider"
@@ -85,6 +86,12 @@ function initSharedEvents() {
     } else {
       showLogin(e);
     }
+  });
+  $(".js_copy_url").on("click", function(e) {
+    e.preventDefault();
+    var data = $(this).data();
+    copyStringToClipboard(data.url);
+    showSnackBar("Ссылка скопырована.", "success");
   });
 
   $("a.social-link.facebook").on("click", function(e) {
@@ -307,7 +314,6 @@ function showSnackBar(message, type) {
     resetSnackBar();
   }, 3000);
 }
-$(".js_snackbar-close").on("click", resetSnackBar());
 
 $(document).ready(function() {
   initSharedEvents();
@@ -320,3 +326,13 @@ $(document).ready(function() {
     addArticleViews();
   }
 });
+function copyStringToClipboard(str) {
+  var el = document.createElement("textarea");
+  el.value = str;
+  el.setAttribute("readonly", "");
+  el.style = { position: "absolute", left: "-9999px" };
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
+}
