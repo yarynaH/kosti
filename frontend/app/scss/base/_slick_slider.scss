@@ -1,193 +1,202 @@
 .slick {
-    &-slider {
-        .post-user_avatar {
-            width: 30px;
-            height: 30px;
-        }
-
-        .post-date {
-            font-weight: bold;
-            color: $color-primary1;
-        }
-
-        .post-user_name {
-            font-weight: bold;
-        }
-
-        .like-btn {
-            font-size: rem(24);
-            font-weight: bold;
-            color: $color-primary13;
-        }
-    
-        .like-btn::before {
-            font-size: rem(27);
-        }
+  &-slider {
+    .post-user_avatar {
+      width: 30px;
+      height: 30px;
     }
 
-    &-body {
-        position: relative;
-        padding: 130px 0 80px;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
+    .post-date {
+      font-weight: bold;
+      color: $color-primary1;
     }
 
-    &-img_wrap {
-        @include position(absolute, top 0 right 0 bottom 0 left 0);
-
-        &:after {
-            @include position(absolute, bottom 0 left 0);
-
-            content: '';
-            box-sizing: content-box;
-            z-index: 1;
-            height: 0%;
-            width: 100%;
-            margin-top: -150px;
-            padding-top: 150px;
-            background: linear-gradient(to bottom, transparent, $color-primary2);
-            pointer-events: none;
-        }
-
-        img {
-            width: 100%;
-
-            @supports (object-fit: cover) {
-                object-fit: cover;
-                height: 100%;
-            }
-        }
+    .post-user_name {
+      font-weight: bold;
     }
 
-    &-content {
-        position: relative;
-        z-index: 1;
-
-        @include mobile() {
-            padding: 0 25px;
-        }
+    .like-btn {
+      font-size: rem(24);
+      font-weight: bold;
+      color: $color-primary13;
     }
 
-    &-action {
-        @include mobile {
-            justify-content: space-between;
-            display: flex;
-            flex-wrap: wrap;
-        }
+    .like-btn::before {
+      font-size: rem(27);
+    }
+  }
+
+  &-body {
+    position: relative;
+    padding: 130px 0 80px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+
+  &-img_wrap {
+    @include position(absolute, top 0 right 0 bottom 0 left 0);
+
+    &:before {
+      @include position(absolute, top 0 right 0);
+
+      width: 100%;
+      height: 100%;
+      background: rgba($color-primary21, 0.3);
+      content: "";
     }
 
-    &-slide {
-        position: relative;
+    &:after {
+      @include position(absolute, bottom 0 left 0);
+
+      content: "";
+      box-sizing: content-box;
+      z-index: 1;
+      height: 0%;
+      width: 100%;
+      margin-top: -150px;
+      padding-top: 150px;
+      background: linear-gradient(to bottom, transparent, $color-primary2);
+      pointer-events: none;
     }
 
-    &-title {
-        font-size: rem(32);
-        font-weight: bold;
-        color: $color-primary13;
-        margin-bottom: 25px;
+    img {
+      width: 100%;
 
-        &:hover {
-            color: $color-primary8;
-        }
-
-        @include tablet-all {
-            font-size: rem(48);
-        }
+      @supports (object-fit: cover) {
+        object-fit: cover;
+        height: 100%;
+      }
     }
-    
-    &-caption {
-        line-height: 1.71;
-        color: $color-primary13;
-        margin-bottom: 25px;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
-        max-height: 112px;
+  }
 
-        @include tablet-all {
-            -webkit-line-clamp: 9;
-            margin-bottom: 40px;
-        }
+  &-content {
+    position: relative;
+    z-index: 1;
+
+    @include mobile() {
+      padding: 0 25px;
     }
+  }
 
-    &-read_btn {
-        @include button-style(global light auto);
+  &-action {
+    @include mobile {
+      justify-content: space-between;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
 
-        @include mobile {
-            width: 100%;
-            margin-bottom: 25px;
-        }
+  &-slide {
+    position: relative;
+  }
 
-        @include tablet-all {
-            display: inline-flex;
-            align-items: center;
-            margin-right: 25px;
-        }
+  &-title {
+    font-size: rem(32);
+    font-weight: bold;
+    color: $color-primary13;
+    margin-bottom: 25px;
+
+    &:hover {
+      color: $color-primary8;
     }
 
-    &-add_to_bookmarks_btn {
-        @include button-style(global dark auto);
-        @include icon(bookmark);
+    @include tablet-all {
+      font-size: rem(48);
+    }
+  }
 
-        display: inline-flex;
-        align-items: center;
-        margin-right: 25px;
+  &-caption {
+    line-height: 1.71;
+    color: $color-primary13;
+    margin-bottom: 25px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    max-height: 112px;
 
-        &:before {
-            margin-right: 8px;
-        }
+    @include tablet-all {
+      -webkit-line-clamp: 9;
+      margin-bottom: 40px;
+    }
+  }
 
-        &.active {
-            color: $color-primary18;
-        }
+  &-read_btn {
+    @include button-style(global light auto);
+
+    @include mobile {
+      width: 100%;
+      margin-bottom: 25px;
     }
 
-    &-dots {
-        @include position(absolute, right 0 left 0 bottom 40px);
+    @include tablet-all {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 25px;
+    }
+  }
 
-        z-index: 2;
-        text-align: center;
+  &-add_to_bookmarks_btn {
+    @include button-style(global dark auto);
+    @include icon(bookmark);
 
-        button {
-            position: relative;
-            width: 50px;
-            height: 2px;
-            opacity: 0.32;
-            border-radius: 1px;
-            background-color: #ffffff;
-            border: 0;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 25px;
 
-            &:hover {
-                opacity: 1;
-            }
-
-            &:after, 
-            &:before {
-                content: '';
-                position: absolute;
-                height: 10px;
-                width: 100%;
-                left: 0;
-            }
-        
-            &:after {
-                bottom: 0;
-            }
-        }
-
-        li {
-            display: inline-block;
-            font-size: 0;
-        }
-
-        li + li {
-            margin-left: 15px;
-        }
+    &:before {
+      margin-right: 8px;
     }
 
-    &-active button {
+    &.active {
+      color: $color-primary18;
+    }
+  }
+
+  &-dots {
+    @include position(absolute, right 0 left 0 bottom 40px);
+
+    z-index: 2;
+    text-align: center;
+
+    button {
+      position: relative;
+      width: 50px;
+      height: 2px;
+      opacity: 0.32;
+      border-radius: 1px;
+      background-color: #ffffff;
+      border: 0;
+
+      &:hover {
         opacity: 1;
+      }
+
+      &:after,
+      &:before {
+        content: "";
+        position: absolute;
+        height: 10px;
+        width: 100%;
+        left: 0;
+      }
+
+      &:after {
+        bottom: 0;
+      }
     }
+
+    li {
+      display: inline-block;
+      font-size: 0;
+    }
+
+    li + li {
+      margin-left: 15px;
+    }
+  }
+
+  &-active button {
+    opacity: 1;
+  }
 }
