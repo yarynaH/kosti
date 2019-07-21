@@ -114,7 +114,8 @@ function getPageComponents(req, footerType, activeEl, title) {
         resolve("../pages/components/header/headerUser.html"),
         {
           user: userLib.getCurrentUser(),
-          active: content._path.indexOf("/users/") === -1 ? "" : "active"
+          active:
+            content && content._path.indexOf("/users/") === -1 ? "" : "active"
         }
       )
     }
