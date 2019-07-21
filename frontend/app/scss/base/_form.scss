@@ -105,6 +105,12 @@ label {
   text-transform: uppercase;
 }
 
+.form-caption {
+  font-size: rem(12);
+  margin-top: 8px;
+  color: $color-primary8;
+}
+
 .form-group {
   & + & {
     margin-top: 15px;
