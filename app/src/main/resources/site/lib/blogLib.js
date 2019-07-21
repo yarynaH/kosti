@@ -90,7 +90,8 @@ function beautifyArticle(article) {
   if (article.author) {
     article.author.image = norseUtils.getImage(
       article.author.data.userImage,
-      "block(60, 60)"
+      "block(60, 60)",
+      1
     );
     article.author.url = portal.pageUrl({ id: article.author._id });
   } else {
