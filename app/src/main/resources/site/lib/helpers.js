@@ -73,10 +73,10 @@ function getPageComponents(req, footerType, activeEl, title) {
   if (title) {
     title = title + " | " + site.displayName;
   } else {
-    if (content.displayName === site.displayName) {
-      var title = site.displayName;
-    } else {
+    if (content && content.displayName !== site.displayName) {
       var title = content.displayName + " | " + site.displayName;
+    } else {
+      var title = site.displayName;
     }
   }
 
