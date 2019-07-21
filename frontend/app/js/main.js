@@ -78,6 +78,12 @@ function initSharedEvents() {
   snackBarClose.on("click", function() {
     resetSnackBar();
   });
+  $(".js_bookmarks-btn").on("click", function(e) {
+    if (!checkUserLoggedIn()) {
+      e.preventDefault();
+      showLogin(e);
+    }
+  });
   setCookie(cartId);
   $(
     ".similar_posts, .blog-list, .article-body, .blog-sidebar, .js_homepage_slider"
