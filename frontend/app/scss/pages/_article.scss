@@ -309,6 +309,7 @@
           content: "";
           width: 233px;
           border-bottom: 1px solid $color-primary10;
+          border-left: 1px solid $color-primary10;
         }
 
         &::before {
@@ -316,7 +317,7 @@
         }
 
         &::after {
-          @include position(absolute, bottom -5px left 0);
+          @include position(absolute, bottom -5px left -1px);
 
           height: 15px;
           background: $color-primary1;
