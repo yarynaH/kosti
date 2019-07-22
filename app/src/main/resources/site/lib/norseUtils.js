@@ -4,7 +4,13 @@ var i18n = require("/lib/xp/i18n");
 
 // Returns the full month name from a Date object.
 
-exports.getMonthName = function(date) {
+exports.getImage = getImage;
+exports.getPlaceholder = getPlaceholder;
+exports.getMonthName = getMonthName;
+exports.getFormattedDate = getFormattedDate;
+exports.getGravatar = getGravatar;
+
+function getMonthName(date) {
   var month = date.getMonth();
   var monthName;
 
@@ -72,9 +78,9 @@ exports.getMonthName = function(date) {
   }
 
   return monthName;
-};
+}
 
-exports.getFormattedDate = function(date) {
+function getFormattedDate(date) {
   if (typeof date == "string") {
     date = new Date(date);
   }
@@ -83,9 +89,9 @@ exports.getFormattedDate = function(date) {
   dateString += ". " + exports.getMonthName(date);
   dateString += " " + (date.getFullYear() - 2000);
   return dateString;
-};
+}
 // MD5 (Message-Digest Algorithm) by WebToolkit http://www.deluxeblogtips.com/2010/04/get-gravatar-using-only-javascript.html
-exports.getGravatar = function(email, size) {
+function getGravatar(email, size) {
   var MD5 = function(s) {
     function L(k, d) {
       return (k << d) | (k >>> (32 - d));
@@ -297,7 +303,7 @@ exports.getGravatar = function(email, size) {
   var size = size || 80;
 
   return "http://www.gravatar.com/avatar/" + MD5(email) + ".jpg?s=" + size;
-};
+}
 
 exports.getSearchPage = function() {
   var site = portal.getSite();
@@ -443,7 +449,7 @@ exports.getTranslation = function() {
   }
 };
 
-exports.getImage = function(id, size, placeholderType, urlType) {
+function getImage(id, size, placeholderType, urlType) {
   var result = false;
   if (!size || size == "") {
     size = "max(1280)";
@@ -451,7 +457,7 @@ exports.getImage = function(id, size, placeholderType, urlType) {
   if (typeof urlType == "undefined") {
     urlType = "server";
   }
-  if (id && id != "") {
+  if (id && id !== "") {
     var image = contentLib.get({ key: id });
     if (image) {
       if (image.data.artist) {
@@ -459,9 +465,33 @@ exports.getImage = function(id, size, placeholderType, urlType) {
       } else {
         image.data.artist = false;
       }
+      if (
+        image.x &&
+        image.x.media &&
+        image.x.media.imageInfo &&
+        image.x.media.imageInfo.contentType === "image/gif"
+      ) {
+        var url = portal.attachmentUrl({
+          path: image._path,
+          name: image._name,
+          type: urlType
+        });
+        var urlAbsolute = portal.attachmentUrl({
+          path: image._path,
+          name: image._name,
+          type: "absolute"
+        });
+      } else {
+        var url = portal.imageUrl({ id: id, scale: size, type: urlType });
+        var urlAbsolute = portal.imageUrl({
+          id: id,
+          scale: size,
+          type: "absolute"
+        });
+      }
       result = {
-        url: portal.imageUrl({ id: id, scale: size, type: urlType }),
-        urlAbsolute: portal.imageUrl({ id: id, scale: size, type: "absolute" }),
+        url: url,
+        urlAbsolute: urlAbsolute,
         alt: image.data.caption ? image.data.caption : image.displayName,
         caption: image.data.caption ? image.data.caption : "",
         artist: image.data.artist
@@ -473,9 +503,9 @@ exports.getImage = function(id, size, placeholderType, urlType) {
     result = this.getPlaceholder(placeholderType, size);
   }
   return result;
-};
+}
 
-exports.getPlaceholder = function(placeholderType, size) {
+function getPlaceholder(placeholderType, size) {
   var result = {};
   switch (placeholderType) {
     case 1: {
@@ -513,4 +543,4 @@ exports.getPlaceholder = function(placeholderType, size) {
     }
   }
   return result;
-};
+}

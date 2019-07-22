@@ -63,9 +63,10 @@ function createImage(data) {
 function createImageObj(stream, user) {
   var site = portal.getSiteConfig();
   var path = contentLib.get({ key: site.userImages })._path;
+  var date = new Date();
   var image = contextLib.runInDraftAsAdmin(function() {
     return contentLib.createMedia({
-      name: hashLib.generateHash(user.displayName + new Date()),
+      name: hashLib.generateHash(user.displayName + date.toISOString()),
       parentPath: path,
       data: stream
     });
