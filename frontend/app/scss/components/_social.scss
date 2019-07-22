@@ -100,6 +100,16 @@
     }
   }
 
+  .discord {
+    // @include icon(discord);
+
+    color: $color-discord;
+
+    &:before {
+      font-size: rem(20);
+    }
+  }
+
   .copy_url {
     @include icon(copy);
 
