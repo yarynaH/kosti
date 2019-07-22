@@ -19,6 +19,11 @@
     span {
       text-shadow: 0 0 0.01px $color-primary17;
       color: $color-primary17;
+
+      .slick-slider & {
+        text-shadow: 0 0 0.01px $color-primary13;
+        color: $color-primary13;
+      }
     }
 
     &::before {
