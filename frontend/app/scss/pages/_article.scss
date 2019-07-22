@@ -37,6 +37,10 @@
 
       img {
         margin-bottom: 15px;
+
+        &.img-tinymce {
+          height: auto;
+        }
       }
     }
 
