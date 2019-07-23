@@ -123,6 +123,7 @@
 
     .video-container {
       @include aspect-ratio(16, 9, iframe);
+      @include aspect-ratio(16, 9, video);
 
       margin: 0 -15px 25px;
 
