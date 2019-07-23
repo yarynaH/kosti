@@ -37,10 +37,6 @@
 
       img {
         margin-bottom: 15px;
-
-        &.img-tinymce {
-          height: auto;
-        }
       }
     }
 
@@ -133,6 +129,11 @@
       @include tablet-all {
         margin: 0 -30px 25px;
       }
+    }
+
+    .img-tinymce {
+      height: auto;
+      margin: 0 auto;
     }
   }
 
