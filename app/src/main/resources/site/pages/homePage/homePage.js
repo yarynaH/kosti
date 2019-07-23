@@ -83,7 +83,9 @@ function handleReq(req) {
 
     function getSchedule() {
       var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
-      var now = new Date().toISOString();
+      var now = new Date();
+      now.setDate(now.getDate() - 1);
+      now = now.toISOString();
       var result = contentLib.query({
         query: "data.date > dateTime('" + now + "')",
         start: 0,
