@@ -99,7 +99,7 @@
     a {
       transition: (text-decoration);
 
-      :hover {
+      &:hover {
         text-decoration: underline;
       }
     }
@@ -131,6 +131,7 @@
       }
     }
 
+    img,
     .img-tinymce {
       height: auto;
       margin-left: auto;
