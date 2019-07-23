@@ -137,7 +137,11 @@
       margin-left: auto;
       margin-right: auto;
     }
-  }
+
+    em {
+      font-style: italic;
+    }
+  }//end article-content
 
   &-img_wrap {
     @include position(absolute, top 0 right 0);
