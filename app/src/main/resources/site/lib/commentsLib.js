@@ -28,7 +28,7 @@ function addComment(parent, body) {
     return false;
   }
   var comment = commentsRepo.create({
-    body: body,
+    body: createTextLinks(body),
     parent: parent,
     user: user,
     _permissions: [
@@ -237,4 +237,13 @@ function countComments(id) {
   for (var i = 0; i < comments.length; i++)
     commentsCounter += countComments(comments[i]._id);
   return commentsCounter;
+}
+
+function createTextLinks(text) {
+  return (text || "").replace(
+    /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+    function(match, space, url) {
+      return space + '<a href="' + url + '">' + url + "</a>";
+    }
+  );
 }

@@ -14,7 +14,6 @@ var commentsLib = require(libLocation + "commentsLib");
 exports.get = handleReq;
 
 function handleReq(req) {
-  var me = this;
   var user = userLib.getCurrentUser();
 
   function renderView() {
@@ -33,7 +32,6 @@ function handleReq(req) {
   }
 
   function createModel() {
-    var up = req.params;
     var content = portal.getContent();
     var response = [];
     var mainRegion = content.page.regions.main;

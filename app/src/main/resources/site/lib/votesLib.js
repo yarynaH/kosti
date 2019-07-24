@@ -194,7 +194,7 @@ function getHotArticleIds(page) {
     start: page * pageSize,
     count: pageSize,
     query: "type = 'article'",
-    sort: "_ts DESC, rate DESC"
+    sort: "rate DESC, _ts DESC"
   });
   var resArr = [];
   for (var i = 0; i < result.hits.length; i++) {

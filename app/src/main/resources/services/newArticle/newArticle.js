@@ -10,6 +10,7 @@ var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var spellLib = require(libLocation + "spellsLib");
 var articlesLib = require(libLocation + "articlesLib");
+var blogLib = require(libLocation + "blogLib");
 
 exports.get = handleGet;
 exports.post = handlePost;
@@ -36,6 +37,7 @@ function handlePost(req) {
     if (result.error) {
       var view = resolve("newArticle.html");
     } else {
+      //var view = resolve("../../site/pages/article/article.html");
       var view = resolve("articleSubmit.html");
     }
     var model = createModel(result);
@@ -49,10 +51,15 @@ function handlePost(req) {
   function createModel(createRes) {
     var content = portal.getContent();
     var site = portal.getSiteConfig();
+    createRes = blogLib.beautifyArticle(createRes);
 
     var model = {
       content: content,
       site: site,
+      mainRegion: false,
+      sidebar: blogLib.getSidebar(),
+      articleFooter: blogLib.getArticleFooter(createRes),
+      content: createRes,
       errorMessage: createRes.error
         ? i18nLib.localize({
             key: "article.create.error." + createRes.message

@@ -27,7 +27,7 @@ function createArticle(data) {
   var stream = portal.getMultipartStream("image");
   var image = createImageObj(stream, user);
   return contextLib.runInDraftAsAdmin(function() {
-    return contentLib.create({
+    var result = contentLib.create({
       name: common.sanitize(data.title),
       parentPath: blog._path,
       displayName: data.title,
@@ -39,6 +39,31 @@ function createArticle(data) {
         intro: data.intro
       }
     });
+    contentLib.setPermissions({
+      key: result._id,
+      inheritPermissions: false,
+      overwriteChildPermissions: true,
+      permissions: [
+        {
+          principal: user.key,
+          allow: [
+            "READ",
+            "CREATE",
+            "MODIFY",
+            "PUBLISH",
+            "READ_PERMISSIONS",
+            "WRITE_PERMISSIONS"
+          ],
+          deny: ["DELETE"]
+        },
+        {
+          principal: "role:system.everyone",
+          allow: ["READ"],
+          deny: []
+        }
+      ]
+    });
+    return result;
   });
 }
 
