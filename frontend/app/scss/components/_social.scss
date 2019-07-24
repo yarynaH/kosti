@@ -101,7 +101,7 @@
   }
 
   .discord {
-    // @include icon(discord);
+    @include icon(discord);
 
     color: $color-discord;
 
