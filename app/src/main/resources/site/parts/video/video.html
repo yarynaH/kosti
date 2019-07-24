@@ -1,9 +1,13 @@
 <div class="video-container">
   <iframe
     data-th-src="${url}"
+    data-th-if="${iframe}"
     frameborder="0"
     webkitallowfullscreen
     mozallowfullscreen
     allowfullscreen
   ></iframe>
+  <video controls data-th-unless="${iframe}">
+    <source data-th-src="${source}" />
+  </video>
 </div>

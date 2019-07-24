@@ -9,7 +9,9 @@ exports.get = function(req) {
 
   // Find a config variable for the component
   var video = component.config || [],
-    url = "";
+    url = "",
+    iframe = true;
+
   if (video && video.VIDEO_URL) {
     url = video.VIDEO_URL.split("/");
     url = url[url.length - 1];
@@ -24,11 +26,24 @@ exports.get = function(req) {
       }
     }
   }
+  if (
+    video &&
+    video.VIDEO_FILE &&
+    video.VIDEO_SOURCE &&
+    video.VIDEO_SOURCE === "upload"
+  ) {
+    iframe = false;
+    var source = portal.attachmentUrl({
+      name: video.VIDEO_FILE
+    });
+  }
 
   // Define the model
   var model = {
     component: component,
-    url: url
+    iframe: iframe,
+    url: url,
+    source: source
   };
 
   // Resolve the view
