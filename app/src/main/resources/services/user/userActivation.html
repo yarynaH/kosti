@@ -9,12 +9,21 @@
     ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div data-th-if="${activation}">
-        Спасибо! Ваш пользователь успешно активирован.
-      </div>
-      <div data-th-unless="${activation}">
-        Что-то пошло не так во время активации. Попробуйте еще раз, или
-        свяжитесь с нами.
+      <div class="confirmation-wrap">
+        <div class="site_width">
+          <div data-th-if="${activation}">
+            <h2 class="checkout-title">
+              Спасибо!
+            </h2>
+            Ваш пользователь успешно активирован.
+          </div>
+          <div data-th-unless="${activation}">
+            <h2 class="checkout-title">
+              Что-то пошло не так во время активации.
+            </h2>
+            Попробуйте еще раз, или свяжитесь с нами и мы вам поможем.
+          </div>
+        </div>
       </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>

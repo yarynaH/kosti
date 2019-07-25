@@ -210,7 +210,7 @@ function beautifyComment(comment, counter, level) {
   if (level || level === 0) {
     level++;
   }
-  if (level === 9) {
+  if (level === 10) {
     comment.nextLevel = true;
   }
   if (!counter) {
@@ -240,10 +240,23 @@ function countComments(id) {
 }
 
 function createTextLinks(text) {
+  //text = processComment(text, /\*\*[\s\S]+\*\*/gim, "<strong>", "</strong>");
+  //text = processComment(text, /<<[\s\S]+>>/gim, "<em>", "</em>");
+  //text = processComment(text, /__[\s\S]+__/gim, "<u>", "</u>");
+  //text = processComment(text, /~~[\s\S]+~~/gim, "<s>", "</s>");
+  //text = processComment(text, /``[\s\S]+``/gim, "<code>", "</code>");
   return (text || "").replace(
     /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
     function(match, space, url) {
       return space + '<a href="' + url + '">' + url + "</a>";
     }
   );
+}
+
+function processComment(text, regexp, tagOpen, tagClose) {
+  //TODO:
+  //investigate this function and add bold and other stuff to comments.
+  return text.replace(regexp, function(match, space, content) {
+    return space + tagOpen + content + tagClose;
+  });
 }

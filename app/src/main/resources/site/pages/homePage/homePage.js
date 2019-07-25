@@ -53,7 +53,11 @@ function handleReq(req) {
         break;
       case "bookmarks":
         active.bookmarks = "active";
-        var articlesQuery = blogLib.getArticlesByIds(user.data.bookmarks);
+        if (user) {
+          var articlesQuery = blogLib.getArticlesByIds(user.data.bookmarks);
+        } else {
+          var articlesQuery = { hits: [], total: 0, count: 0 };
+        }
         var articles = articlesQuery.hits;
         break;
       default:
