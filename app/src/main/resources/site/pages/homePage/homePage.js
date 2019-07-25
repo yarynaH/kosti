@@ -7,18 +7,14 @@ var cache = require("/lib/cache");
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
-var votesLib = require(libLocation + "votesLib");
 var userLib = require(libLocation + "userLib");
-var kostiUtils = require(libLocation + "kostiUtils");
 var blogLib = require(libLocation + "blogLib");
 var sharedLib = require(libLocation + "sharedLib");
 var hashtagLib = require(libLocation + "hashtagLib");
 
 exports.get = handleReq;
-exports.post = handleReq;
 
 function handleReq(req) {
-  var me = this;
   var user = userLib.getCurrentUser();
   var youtubeCache = cache.newCache({
     size: 500,
@@ -40,16 +36,12 @@ function handleReq(req) {
   }
 
   function createModel() {
-    var up = req.params;
     var content = portal.getContent();
-    var response = [];
     var site = portal.getSiteConfig();
-    var description = portal.getSite().data.description;
-    var showDescription = true;
     var schedule = getSchedule(site.slider);
     var video = getVideoFromCache(site.gApiKey);
     var active = {};
-    switch (up.feed) {
+    switch (req.params.feed) {
       case "new":
         active.new = "active";
         var articlesQuery = blogLib.getNewArticles();
@@ -73,7 +65,6 @@ function handleReq(req) {
 
     var model = {
       content: content,
-      url: portal.pageUrl({ path: content._path }),
       video: video
         ? "https://www.youtube.com/embed/" + video
         : getVideoUrl(site.video),
@@ -82,7 +73,6 @@ function handleReq(req) {
       active: active,
       loadMoreComponent: helpers.getLoadMore(articlesQuery.total, null, null),
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
-      showDescription: showDescription,
       slider: getSlider(site.slider),
       articles: blogLib.getArticlesView(articles)
     };
