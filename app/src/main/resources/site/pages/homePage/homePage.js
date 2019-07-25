@@ -2,6 +2,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var httpClientLib = require("/lib/http-client");
+var cache = require("/lib/cache");
 
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -19,6 +20,10 @@ exports.post = handleReq;
 function handleReq(req) {
   var me = this;
   var user = userLib.getCurrentUser();
+  var youtubeCache = cache.newCache({
+    size: 500,
+    expire: 60 * 60 * 24
+  });
 
   function renderView() {
     var view = resolve("homePage.html");
@@ -42,8 +47,7 @@ function handleReq(req) {
     var description = portal.getSite().data.description;
     var showDescription = true;
     var schedule = getSchedule(site.slider);
-    var video = getVideoViaApi(site.gApiKey);
-    var video = "";
+    var video = getVideoFromCache(site.gApiKey);
     var active = {};
     switch (up.feed) {
       case "new":
@@ -124,6 +128,12 @@ function handleReq(req) {
         result[i] = blogLib.beautifyArticle(temp);
       }
       return getSliderView(result);
+    }
+
+    function getVideoFromCache(key) {
+      return youtubeCache.get("key", function() {
+        return getVideoViaApi(key);
+      });
     }
 
     function getVideoViaApi(key) {
