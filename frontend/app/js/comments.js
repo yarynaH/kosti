@@ -99,6 +99,7 @@ function addComment(el, formData) {
   var data = {
     body: formData.body,
     parent: parentId,
+    articleId: $(".js_article-id").data("articleid"),
     action: "addComment"
   };
   var call = makeAjaxCall(commentsServiceUrl, "POST", data, true);
