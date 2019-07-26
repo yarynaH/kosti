@@ -31,12 +31,7 @@ function getCurrentUser() {
   var userObj = false;
   if (user && user.email && user.displayName) {
     userObj = contentLib.query({
-      query:
-        "data.email = '" +
-        user.email +
-        "' AND displayName = '" +
-        user.displayName +
-        "'",
+      query: "data.email = '" + user.email + "'",
       contentTypes: [app.name + ":user"]
     });
     if (userObj.hits && userObj.hits[0]) {
