@@ -11,9 +11,12 @@ exports.post = function(req) {
   var result = {};
   switch (params.action) {
     case "addComment":
-      //params.articleId
       notificationLib.addNotification(params.parent, "comment");
-      result = commentsLib.addComment(params.parent, params.body);
+      result = commentsLib.addComment(
+        params.parent,
+        params.body,
+        params.articleId
+      );
       return {
         body: thymeleaf.render(
           resolve("../../site/pages/components/comments/commentItem.html"),

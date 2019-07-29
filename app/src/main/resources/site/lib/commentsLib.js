@@ -19,7 +19,7 @@ exports.beautifyComment = beautifyComment;
 exports.getCommentParentArticle = getCommentParentArticle;
 exports.getCommentsView = getCommentsView;
 
-function addComment(parent, body) {
+function addComment(parent, body, articleId) {
   var commentsRepo = connectCommentsRepo();
   var user = userLib.getCurrentUser();
   if (user) {
@@ -31,6 +31,7 @@ function addComment(parent, body) {
     body: createTextLinks(body),
     parent: parent,
     user: user,
+    articleId: articleId,
     _permissions: [
       {
         principal: "role:system.authenticated",
