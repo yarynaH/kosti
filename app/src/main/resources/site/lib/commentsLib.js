@@ -220,6 +220,10 @@ function beautifyComment(comment, counter, level) {
     );
     comment.author = userLib.getUserDataById(comment.user);
     comment.voted = comment.votes && comment.votes.indexOf(user.key) !== -1;
+    if (comment.articleId) {
+      comment.url =
+        portalLib.pageUrl({ id: comment.articleId }) + "#" + comment._id;
+    }
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
   return comment;
