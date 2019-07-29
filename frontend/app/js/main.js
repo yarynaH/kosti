@@ -122,15 +122,6 @@ function initSharedEvents() {
     incrementShare(data.articleid, getCookieValue("cartId"), "vk");
   });
 
-  if (window.location.hash) {
-    $("html, body").animate(
-      {
-        scrollTop: $(window.location.hash).offset().top - 85
-      },
-      "slow"
-    );
-  }
-
   function shareOverrideOGMeta(
     overrideLink,
     overrideTitle,
@@ -326,6 +317,17 @@ function showSnackBar(message, type) {
   }, 3000);
 }
 
+function scrollToHash() {
+  if (window.location.hash) {
+    $("html, body").animate(
+      {
+        scrollTop: $(window.location.hash).offset().top - 85
+      },
+      "slow"
+    );
+  }
+}
+
 $(document).ready(function() {
   initSharedEvents();
   initLoginRegisterForm();
@@ -336,6 +338,9 @@ $(document).ready(function() {
   if ($("body.article-page").length > 0) {
     addArticleViews();
   }
+});
+$(window).load(function() {
+  scrollToHash();
 });
 function copyStringToClipboard(str) {
   var el = document.createElement("textarea");

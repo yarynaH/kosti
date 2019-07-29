@@ -81,7 +81,7 @@ function initLoginRegisterForm() {
       }
     });
   });
-  $(".modal-content").on("click", function(e) {
+  $(".modal-content, .js_header-notification").on("click", function(e) {
     e.stopPropagation();
   });
   $(".register-form").on("submit", function(e) {
