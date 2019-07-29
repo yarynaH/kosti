@@ -106,6 +106,9 @@ function handleGet(req) {
       content: content,
       app: app,
       site: site,
+      agreementPage: portal.pageUrl({
+        id: portal.getSiteConfig().agreementPage
+      }),
       data: up,
       social: site.social,
       pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")

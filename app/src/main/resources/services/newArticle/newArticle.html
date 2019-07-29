@@ -120,6 +120,22 @@
             ></textarea>
           </div>
           <div class="form-group">
+            <input
+              required
+              type="checkbox"
+              name="agreement"
+              id="agreement"
+              checked
+              hidden
+            />
+            <label for="agreement" class="label-checkbox"
+              >Я прочитал и принимаю
+              <a data-th-href="${agreementPage}" target="_blank"
+                >условия публикации статей</a
+              ></label
+            >
+          </div>
+          <div class="form-group">
             <div data-th-text="${errorMessage}" class="error-msg"></div>
             <input
               type="submit"
