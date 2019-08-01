@@ -100,7 +100,7 @@
 
             <div class="table-body_cell table-side_aligns">
               <a
-                data-th-href="${'/promos?action=deletePromo&promoId=' + promo._id}"
+                data-th-href="${portal.serviceUrl({'_service=promosAdmin', 'action=deletePromo', 'promoId=' + promo._id})}"
                 >delete</a
               >
             </div>
