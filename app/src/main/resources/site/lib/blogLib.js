@@ -239,7 +239,8 @@ function getArticlesByUser(id, page, count, pageSize) {
   var articles = contentLib.query({
     start: page * pageSize,
     count: pageSize,
-    query: "data.author = '" + id + "'"
+    query: "data.author = '" + id + "'",
+    contentTypes: [app.name + ":article"]
   });
   if (count) {
     return articles.total;

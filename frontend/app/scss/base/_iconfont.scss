@@ -56,62 +56,65 @@
     @if $filename == discord {
         $char: "\F129";
     }
-    @if $filename == fb {
+    @if $filename == edit {
         $char: "\F12A";
     }
-    @if $filename == fire {
+    @if $filename == fb {
         $char: "\F12B";
     }
-    @if $filename == gear {
+    @if $filename == fire {
         $char: "\F12C";
     }
-    @if $filename == google {
+    @if $filename == gear {
         $char: "\F12D";
     }
-    @if $filename == guest {
+    @if $filename == google {
         $char: "\F12E";
     }
-    @if $filename == instagram {
+    @if $filename == guest {
         $char: "\F12F";
     }
-    @if $filename == logout {
+    @if $filename == instagram {
         $char: "\F130";
     }
-    @if $filename == network {
+    @if $filename == logout {
         $char: "\F131";
     }
-    @if $filename == pin-location {
+    @if $filename == network {
         $char: "\F132";
     }
-    @if $filename == quote {
+    @if $filename == pin-location {
         $char: "\F133";
     }
-    @if $filename == rock {
+    @if $filename == quote {
         $char: "\F134";
     }
-    @if $filename == search {
+    @if $filename == rock {
         $char: "\F135";
     }
-    @if $filename == share {
+    @if $filename == search {
         $char: "\F136";
     }
-    @if $filename == twitch {
+    @if $filename == share {
         $char: "\F137";
     }
-    @if $filename == twitter {
+    @if $filename == twitch {
         $char: "\F138";
     }
-    @if $filename == upload {
+    @if $filename == twitter {
         $char: "\F139";
     }
-    @if $filename == views {
+    @if $filename == upload {
         $char: "\F13A";
     }
-    @if $filename == vk {
+    @if $filename == views {
         $char: "\F13B";
     }
-    @if $filename == youtube {
+    @if $filename == vk {
         $char: "\F13C";
+    }
+    @if $filename == youtube {
+        $char: "\F13D";
     }
 
     @return $char;
@@ -146,6 +149,7 @@ category: Basic
     <div class="sg-icon icon-copy" title="copy"></div>
     <div class="sg-icon icon-delete" title="delete"></div>
     <div class="sg-icon icon-discord" title="discord"></div>
+    <div class="sg-icon icon-edit" title="edit"></div>
     <div class="sg-icon icon-fb" title="fb"></div>
     <div class="sg-icon icon-fire" title="fire"></div>
     <div class="sg-icon icon-gear" title="gear"></div>
@@ -197,6 +201,9 @@ category: Basic
 }
 .icon-discord {
     @include icon(discord);
+}
+.icon-edit {
+    @include icon(edit);
 }
 .icon-fb {
     @include icon(fb);
