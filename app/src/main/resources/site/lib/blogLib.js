@@ -10,6 +10,7 @@ var userLib = require("userLib");
 var moment = require("moment");
 var commentsLib = require("commentsLib");
 var hashtagLib = require("hashtagLib");
+var sharedLib = require("sharedLib");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -69,7 +70,8 @@ function getSidebar() {
       weeksPost: getWeekArticle(),
       socialLinks: getSolialLinks(),
       libraryHot: getLibraryHot(),
-      hotTags: getHotTags()
+      hotTags: getHotTags(),
+      createArticleUrl: sharedLib.generateNiceServiceUrl("create")
     }
   );
 }
