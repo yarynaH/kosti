@@ -252,9 +252,12 @@
       width: 34%;
       float: right;
       padding-left: 25px;
+    }
+  }
 
-      position: sticky;
-      top: 105px;
+  &-write_post {
+    &:before {
+      margin-right: 10px;
     }
   }
 }

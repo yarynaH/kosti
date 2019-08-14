@@ -1,4 +1,9 @@
 <div data-th-utext="${weeksPost}" data-th-remove="tag"></div>
 <div data-th-utext="${libraryHot}" data-th-remove="tag"></div>
-<div data-th-remove="tag" data-th-utext="${hotTags}"></div>
-<div data-th-remove="tag" data-th-utext="${socialLinks}"></div>
+<div class="blog-sidebar-sticky">
+  <div data-th-remove="tag" data-th-utext="${hotTags}"></div>
+  <button class="blog-write_post button button-light icon-edit">
+    написать статью
+  </button>
+  <div data-th-remove="tag" data-th-utext="${socialLinks}"></div>
+</div>
