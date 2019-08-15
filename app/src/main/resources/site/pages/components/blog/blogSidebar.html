@@ -2,8 +2,11 @@
 <div data-th-utext="${libraryHot}" data-th-remove="tag"></div>
 <div class="blog-sidebar-sticky">
   <div data-th-remove="tag" data-th-utext="${hotTags}"></div>
-  <button class="blog-write_post button button-light icon-edit">
+  <a
+    data-th-href="${createArticleUrl}"
+    class="blog-write_post button button-light icon-edit"
+  >
     написать статью
-  </button>
+  </a>
   <div data-th-remove="tag" data-th-utext="${socialLinks}"></div>
 </div>
