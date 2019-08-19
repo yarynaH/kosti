@@ -142,15 +142,19 @@ function getPageComponents(req, footerType, activeEl, title) {
     );
 
   function getFooterLinks() {
-    var result = {};
-    if (siteConfig.agreementPage) {
-      result.agreementPage = portal.pageUrl({ id: siteConfig.agreementPage });
+    var result = [];
+    if (!siteConfig.agreements) {
+      return [];
     }
-    if (siteConfig.coockiePolicy) {
-      result.coockiePolicy = portal.pageUrl({ id: siteConfig.coockiePolicy });
-    }
-    if (siteConfig.aboutUs) {
-      result.aboutUs = portal.pageUrl({ id: siteConfig.aboutUs });
+    siteConfig.agreements = norseUtils.forceArray(siteConfig.agreements);
+    for (var i = 0; i < siteConfig.agreements.length; i++) {
+      if (siteConfig.agreements[i]) {
+        var agreement = contentLib.get({ key: siteConfig.agreements[i] });
+        result.push({
+          url: portal.pageUrl({ id: siteConfig.agreements[i] }),
+          displayName: agreement.displayName
+        });
+      }
     }
     return result;
   }
