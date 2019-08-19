@@ -219,6 +219,7 @@ exports.setUserDetails = function(cartId, params) {
     node.status = params.status ? params.status : node.status;
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = params.userId ? params.userId : node.userId;
+    node.index = params.index ? params.index : node.index;
     node.novaPoshtaСity = params.novaPoshtaСity
       ? params.novaPoshtaСity
       : node.novaPoshtaСity;

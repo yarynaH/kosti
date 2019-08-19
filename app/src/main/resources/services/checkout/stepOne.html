@@ -44,8 +44,10 @@
       <label for="zip-checkout-input" class="label">ИНДЕКС</label>
       <button type="submit" class="button_wrap-btn hidden">НАЙТИ</button>
       <input
-        name="q"
+        required
+        name="index"
         type="text"
+        data-th-attr="value=${cart.index} ? ${cart.index} : ''"
         class="input-text button_wrap-input"
         id="zip-checkout-input"
       />
