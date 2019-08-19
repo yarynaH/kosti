@@ -28,16 +28,28 @@
       />
     </div>
   </div>
-  <div class="form-group form-group-address">
-    <label for="address-checkout-input" class="label">АДРЕС</label>
-    <input
-      required
-      data-th-attr="value=${cart.address} ? ${cart.address} : ''"
-      name="address"
-      type="text"
-      class="input-text"
-      id="address-checkout-input"
-    />
+  <div class="form-group-column">
+    <div class="form-group">
+      <label for="address-checkout-input" class="label">АДРЕС</label>
+      <input
+        required
+        data-th-attr="value=${cart.address} ? ${cart.address} : ''"
+        name="address"
+        type="text"
+        class="input-text"
+        id="address-checkout-input"
+      />
+    </div>
+    <div class="form-group button_wrap-field">
+      <label for="zip-checkout-input" class="label">ИНДЕКС</label>
+      <button type="submit" class="button_wrap-btn hidden">НАЙТИ</button>
+      <input
+        name="q"
+        type="text"
+        class="input-text button_wrap-input"
+        id="zip-checkout-input"
+      />
+    </div>
   </div>
   <div class="form-group-column">
     <div class="form-group">
