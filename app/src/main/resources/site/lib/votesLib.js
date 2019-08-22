@@ -7,6 +7,7 @@ var nodeLib = require("/lib/xp/node");
 var userLib = require("userLib");
 var contentLib = require("/lib/xp/content");
 var contextLib = require("contextLib");
+var moment = require("moment");
 
 exports.createBlankVote = createBlankVote;
 exports.vote = vote;
@@ -21,6 +22,7 @@ exports.getVotesRepo = getVotesRepo;
 exports.getWeekArticleId = getWeekArticleId;
 exports.addShare = addShare;
 exports.countShares = countShares;
+exports.fixVotesTimestamps = fixVotesTimestamps;
 
 function vote(content) {
   var user = userLib.getCurrentUser();
@@ -232,12 +234,12 @@ function getHotArticlesQuery(start, count, date, oldDate) {
     start: start,
     count: count,
     query:
-      "type = 'article' AND _ts > dateTime('" +
+      "type = 'article' AND date > dateTime('" +
       date.toISOString() +
-      "') AND _ts < dateTime('" +
+      "') AND date < dateTime('" +
       oldDate.toISOString() +
       "') ",
-    sort: "rate DESC, _ts DESC"
+    sort: "rate DESC, date DESC"
   });
 }
 
@@ -314,4 +316,36 @@ function countShares(id) {
     }
   }
   return result.toFixed();
+}
+
+function fixVotesTimestamps() {
+  var votesRepo = getVotesRepo();
+  var votes = votesRepo.query({
+    query: "",
+    start: 0,
+    count: -1
+  });
+  var temp = norseUtils.forceArray(votes.hits);
+  for (var i = 0; i < temp.length; i++) {
+    temp[i] = votesRepo.get(temp[i].id);
+    if (!temp[i].id) {
+      continue;
+    }
+    var cont = contentLib.get({ key: temp[i].id });
+    if (cont && cont.publish && cont.publish.from) {
+      setVoteDate(temp[i]._id, cont.publish.from);
+    }
+  }
+}
+
+function setVoteDate(id, date) {
+  var votesRepo = getVotesRepo();
+  var result = votesRepo.modify({
+    key: id,
+    editor: editor
+  });
+  function editor(node) {
+    node.date = new Date(moment(date.replace("Z", "")));
+    return node;
+  }
 }
