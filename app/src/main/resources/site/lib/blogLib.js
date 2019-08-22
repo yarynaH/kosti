@@ -225,11 +225,16 @@ function getSearchArticles(q, page, useHashtag) {
   return result;
 }
 
-function getHotArticles(page) {
+function getHotArticles(page, date) {
   if (!page) {
     page = 0;
   }
-  var hotIds = votesLib.getHotArticleIds(page);
+  if (!date) {
+    date = new Date();
+  } else {
+    date = new Date(date);
+  }
+  var hotIds = votesLib.getHotArticleIds(page, date);
   var temp = getArticlesByIds(hotIds.hits);
   hotIds.hits = temp.hits;
   return hotIds;

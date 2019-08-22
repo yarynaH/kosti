@@ -59,7 +59,7 @@ exports.get = function(req) {
       var articlesView = commentsLib.getCommentsView(articlesObj.hits);
       break;
     case "hot":
-      var articlesObj = blogLib.getHotArticles(page);
+      var articlesObj = blogLib.getHotArticles(page, params.date);
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "search":
@@ -82,7 +82,9 @@ exports.get = function(req) {
     body: {
       articles: articlesView,
       hideButton: articlesObj.count < 10,
-      buttonText: helpers.getRandomString()
+      buttonText: helpers.getRandomString(),
+      date: articlesObj.date ? articlesObj.date : null,
+      newPage: articlesObj.newPage ? articlesObj.newPage : null
     },
     contentType: "text/html"
   };

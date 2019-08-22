@@ -233,12 +233,14 @@ function addBookmark(btn) {
 function loadMoreArticles() {
   $(".js_lazyload-icon").removeClass("hidden");
   $(".js_blog-load_more").addClass("hidden");
-  var page = $(".blog-list").data("page");
+  var wrapper = $(".blog-list");
+  var page = wrapper.data("page");
   if (!page) {
     page = 0;
   }
-  var feedType = $(".blog-list").data("feedtype");
-  var query = $(".blog-list").data("query");
+  var feedType = wrapper.data("feedtype");
+  var date = wrapper.data("date");
+  var query = wrapper.data("query");
   var call = makeAjaxCall(
     contentServiceUrl,
     "GET",
@@ -247,6 +249,7 @@ function loadMoreArticles() {
         ? feedType
         : $(".js_blog-navigation .active").data("type"),
       page: page,
+      date: date ? date : null,
       query: query ? query : null,
       userId: $(".js_user-page-id").data("userid")
     },
@@ -258,14 +261,19 @@ function loadMoreArticles() {
       $(".js_blog-load_more").text(data.buttonText);
       $(".js_blog-load_more").prop("title", data.buttonText);
       $(".js_blog-load_more").removeClass("hidden");
-      $(".blog-list").append(data.articles);
+      wrapper.append(data.articles);
     }
     if (data.hideButton) {
       $(".js_blog-load_more").addClass("hidden");
       $(".js_blog-list-empty").removeClass("hidden");
-      $(".blog-list").data("noMoreArticles", true);
+      wrapper.attr("data-nomorearticles", true);
     }
-    $(".blog-list").data("page", page + 1);
+    wrapper.attr("data-date", data.date);
+    if (data.newPage) {
+      wrapper.attr("data-page", 0);
+    } else {
+      wrapper.attr("data-page", page + 1);
+    }
     $(".js_lazyload-icon").addClass("hidden");
   });
 }

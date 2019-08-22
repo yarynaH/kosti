@@ -185,17 +185,34 @@ function getNode(id) {
   return false;
 }
 
-function getHotArticleIds(page) {
+function getHotArticleIds(page, date) {
   var pageSize = 10;
   var votesRepo = getVotesRepo();
-  //var date = new Date();
-  //date = new Date(date.getTime() - 3 * 24 * 60 * 60 * 1000);
-  var result = votesRepo.query({
-    start: page * pageSize,
-    count: pageSize,
-    query: "type = 'article'",
-    sort: "rate DESC, _ts DESC"
-  });
+  var result = { hits: [], total: 0, count: 0 };
+  var usePaging = true;
+  while (
+    pageSize > result.count &&
+    date > Date.parse("01 JAN 2019 00:00:00 GMT")
+  ) {
+    var oldDate = date;
+    date = new Date(date.getTime() - 3 * 24 * 60 * 60 * 1000);
+    var temp = getHotArticlesQuery(
+      usePaging ? page * pageSize + result.count : 0,
+      pageSize - result.count,
+      date,
+      oldDate
+    );
+    result.total += temp.total;
+    result.count += temp.count;
+    result.hits = result.hits.concat(temp.hits);
+    if (
+      pageSize > result.count &&
+      date > Date.parse("01 JAN 2019 00:00:00 GMT")
+    ) {
+      usePaging = false;
+    }
+  }
+
   var resArr = [];
   for (var i = 0; i < result.hits.length; i++) {
     var temp = votesRepo.get(result.hits[i].id);
@@ -204,7 +221,24 @@ function getHotArticleIds(page) {
     }
   }
   result.hits = resArr;
+  result.date = date.toISOString();
+  result.newPage = !usePaging;
   return result;
+}
+
+function getHotArticlesQuery(start, count, date, oldDate) {
+  var votesRepo = getVotesRepo();
+  return votesRepo.query({
+    start: start,
+    count: count,
+    query:
+      "type = 'article' AND _ts > dateTime('" +
+      date.toISOString() +
+      "') AND _ts < dateTime('" +
+      oldDate.toISOString() +
+      "') ",
+    sort: "rate DESC, _ts DESC"
+  });
 }
 
 function getVotesRepo() {
