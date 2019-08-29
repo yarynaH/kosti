@@ -23,6 +23,7 @@ exports.getWeekArticleId = getWeekArticleId;
 exports.addShare = addShare;
 exports.countShares = countShares;
 exports.fixVotesTimestamps = fixVotesTimestamps;
+exports.setVoteDate = setVoteDate;
 
 function vote(content) {
   var user = userLib.getCurrentUser();

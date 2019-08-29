@@ -1,11 +1,6 @@
 function initFormEvents() {
   $("input[type=checkbox]").on("click", function(e) {
     var curr = this;
-    if (!checkSpace(this)) {
-      e.preventDefault();
-      $(this).attr("disabled", true);
-      return;
-    }
     $(this)
       .parent()
       .parent()
@@ -25,12 +20,12 @@ function initFormEvents() {
       $("form .invalid-qauntity").addClass("hidden");
     }
     $("input[type=checkbox]:checked").each(function() {
-      if (!checkSpace(this)) {
+      /*if (!checkSpace(this)) {
         $("form .invalid-space").removeClass("hidden");
         e.preventDefault();
       } else {
         $("form .invalid-space").addClass("hidden");
-      }
+      }*/
     });
     $("main.form input[type=text]").each(function() {
       if ($(this).val() == "") {
@@ -42,11 +37,6 @@ function initFormEvents() {
         $("form .invalid-input").addClass("hidden");
       }
     });
-  });
-  $("input[type=checkbox]").each(function() {
-    if (!checkSpace(this)) {
-      $(this).attr("disabled", true);
-    }
   });
 }
 

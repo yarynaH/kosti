@@ -25,6 +25,7 @@ exports.forgotPass = forgotPass;
 exports.register = register;
 exports.createUserContentType = createUserContentType;
 exports.login = login;
+exports.discordRegister = discordRegister;
 
 function getCurrentUser() {
   var user = authLib.getUser();
@@ -139,6 +140,52 @@ function getUserDataById(id) {
     _id: user._id,
     key: getSystemUser(user.data.email, true)
   };
+}
+
+function discordRegister(code) {
+  var data = portal.serviceUrl({ service: "user", type: "absolute" });
+  data += "&grant_type=authorization_code";
+  data += "&scope=identify%20email";
+  data += "&code=" + code;
+  var request = httpClientLib.request({
+    url: "https://discordapp.com/api/oauth2/token",
+    method: "POST",
+    body: data,
+    connectionTimeout: 2000000,
+    readTimeout: 500000,
+    contentType: "application/x-www-form-urlencoded",
+    auth: {
+      user: "605493268326776853",
+      password: "wS6tHC4ygjIAo5gZNskzEpeetVOk0N62"
+    }
+  });
+  var response = JSON.parse(request.body);
+  request = httpClientLib.request({
+    url: "https://discordapp.com/api/users/@me",
+    method: "GET",
+    connectionTimeout: 2000000,
+    readTimeout: 500000,
+    contentType: "application/x-www-form-urlencoded",
+    headers: {
+      Authorization: response.token_type + " " + response.access_token
+    }
+  });
+  response = JSON.parse(request.body);
+  if (response && response.email && response.username) {
+    return register(
+      response.username,
+      response.email,
+      null,
+      true,
+      response.avatar
+        ? "https://cdn.discordapp.com/avatars/" +
+            response.id +
+            "/" +
+            response.avatar
+        : null
+    );
+  }
+  return false;
 }
 
 function jwtRegister(token) {

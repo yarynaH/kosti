@@ -61,6 +61,15 @@ exports.get = function(req) {
     default:
       break;
   }
+  if (params.code) {
+    userLib.discordRegister(params.code);
+    return {
+      status: 301,
+      headers: {
+        Location: portal.pageUrl({ path: portal.getSite()._path })
+      }
+    };
+  }
   return {
     body: thymeleaf.render(view, model),
     contentType: "text/html"

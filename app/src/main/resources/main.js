@@ -12,8 +12,7 @@ event.listener({
   localOnly: false,
   callback: function(e) {
     if (e.data && e.data.nodes) {
-      var nodes = parseNodes(e.data.nodes),
-        affectedSubjectNodes = [];
+      var nodes = parseNodes(e.data.nodes);
       for (var i = 0; i < nodes.length; i++) {
         var node = content.get({ key: nodes[0].id });
         if (node && node.type && node.type == app.name + ":article") {
@@ -24,6 +23,28 @@ event.listener({
           contextLib.runAsAdmin(function() {
             votesLib.createBlankVote(node._id, "hashtag");
           });
+        }
+      }
+    }
+    return true;
+  }
+});
+
+// catch events
+event.listener({
+  type: "node.pushed",
+  localOnly: false,
+  callback: function(e) {
+    if (e.data && e.data.nodes) {
+      var nodes = parseNodes(e.data.nodes);
+      for (var i = 0; i < nodes.length; i++) {
+        var node = content.get({ key: nodes[0].id });
+        if (node && node.type && node.type == app.name + ":article") {
+          var vote = votesLib.getNode(node._id);
+          if (!vote) {
+            votesLib.createBlankVote(node._id, "article");
+          }
+          votesLib.setVoteDate(vote._id, node.publish.from);
         }
       }
     }

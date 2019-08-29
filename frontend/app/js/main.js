@@ -75,14 +75,14 @@ function initCheckoutEvents() {
 }
 
 function initSharedEvents() {
-  snackBarClose.on("click", function() {
-    resetSnackBar();
-  });
-  $(".js_bookmarks-btn").on("click", function(e) {
+  $("body").on("click", ".js_login-required", function(e) {
     if (!checkUserLoggedIn()) {
       e.preventDefault();
       showLogin(e);
     }
+  });
+  snackBarClose.on("click", function() {
+    resetSnackBar();
   });
   setCookie(cartId);
   $(

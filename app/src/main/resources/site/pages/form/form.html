@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main blog_width form game_reg-wrap">
+      <h1
+        class="game_reg-title title-1 h-mt-35 h-mb-20"
+        data-th-text="${content.displayName}"
+      ></h1>
+      <h3
+        class="game_reg-desc h-mb-20"
+        data-th-utext="${content.data.description}"
+      ></h3>
+      <form method="POST">
+        <div class="form-group">
+          <label for="name-form-input" class="label">ИМЯ</label>
+          <input
+            required
+            name="userName"
+            type="text"
+            class="input-text"
+            id="name-form-input"
+          />
+        </div>
+        <div class="form-group" data-th-each="event, index: ${events}">
+          <input
+            data-th-disabled="${!event.available}"
+            data-th-id="${'game_reg-'+index.index}"
+            type="checkbox"
+            hidden
+            data-th-name="${index.index}"
+          />
+          <label
+            data-th-attr="for=${'game_reg-' + index.index}"
+            class="label-checkbox"
+            ><span data-th-text="${event.title}"></span>
+            <div data-th-utext="${event.description}"></div>
+            <p data-th-text="${event.time}"></p>
+            <span data-th-unless="${event.available}"
+              >Мест больше нет</span
+            ></label
+          >
+        </div>
+        <button class="checkout-continue" type="submit">
+          Зарегистрироваться
+        </button>
+      </form>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+  </body>
+</html>
