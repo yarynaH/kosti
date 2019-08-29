@@ -143,7 +143,8 @@ function getUserDataById(id) {
 }
 
 function discordRegister(code) {
-  var data = portal.serviceUrl({ service: "user", type: "absolute" });
+  var data =
+    "redirect_uri=" + portal.serviceUrl({ service: "user", type: "absolute" });
   data += "&grant_type=authorization_code";
   data += "&scope=identify%20email";
   data += "&code=" + code;
