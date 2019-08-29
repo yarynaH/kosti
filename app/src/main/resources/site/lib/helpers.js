@@ -91,10 +91,15 @@ function getPageComponents(req, footerType, activeEl, title) {
       ogDescription: ogDescription
     }
   );
-
+  var discordUrl = "https://discordapp.com/api/oauth2/authorize?";
+  discordUrl += "client_id=605493268326776853";
+  discordUrl +=
+    "&redirect_uri=" + portal.serviceUrl({ service: "user", type: "absolute" });
+  discordUrl += "&response_type=code";
+  discordUrl += "&scope=email%20identify";
   pageComponents["loginRegisterModal"] = thymeleaf.render(
     resolve("../pages/components/loginRegisterModal.html"),
-    {}
+    { discordUrl: discordUrl }
   );
 
   pageComponents["header"] = thymeleaf.render(
