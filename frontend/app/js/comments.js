@@ -2,7 +2,10 @@ var commentsWrapper = $(".js_article-comments, .blog-list");
 
 function initComments() {
   $(".js_comment-form").each(function() {
-    $(this).validate();
+    $(this).validate({
+      highlight: function(element, errorClass, validClass) {},
+      unhighlight: function(element, errorClass, validClass) {}
+    });
   });
   if (commentsWrapper.length > 0) {
     commentsWrapper.on("click", ".js_answer-comment", function(e) {

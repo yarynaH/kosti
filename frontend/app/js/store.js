@@ -1,5 +1,9 @@
 $(document).ready(function() {
-  $(".js_checkout-form").validate({ ignore: "" });
+  $(".js_checkout-form").validate({
+    ignore: "",
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
 });
 
 function addToCart(data) {

@@ -125,9 +125,18 @@ function initLoginRegisterForm() {
       }
     });
   });
-  $(".login-form").validate();
-  $(".register-form").validate();
-  $(".reset-form").validate();
+  $(".login-form").validate({
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
+  $(".register-form").validate({
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
+  $(".reset-form").validate({
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
 }
 
 function initGoogleLogin() {
