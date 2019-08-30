@@ -125,12 +125,6 @@ function initLoginRegisterForm() {
       }
     });
   });
-  $(".resetPassForm").on("submit", function(e) {
-    if ($(".resetPassInput").val() !== $(".resetPassInputConfirm").val()) {
-      e.preventDefault();
-      $(".forgotPassValidation").removeClass("hidden");
-    }
-  });
   $(".login-form").validate();
   $(".register-form").validate();
   $(".reset-form").validate();

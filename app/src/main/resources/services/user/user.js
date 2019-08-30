@@ -35,10 +35,10 @@ exports.get = function(req) {
       break;
     case "forgotPass":
       view = resolve(templates.forgotPassForm);
-      model.email = params.mail;
+      model.email = params.email;
       model.hash = params.hash;
       model.hashMatch = userLib.forgotPass(
-        decodeURIComponent(params.mail),
+        decodeURIComponent(params.email),
         params.hash
       );
       break;

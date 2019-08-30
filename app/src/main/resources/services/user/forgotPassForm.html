@@ -15,19 +15,29 @@
             <form
               method="POST"
               data-th-action="${portal.serviceUrl({'_service=user'})}"
-              class="resetPassForm"
+              class="js_resetPassForm resetPassForm"
             >
               <div class="form-group">
-                <label for="surname-checkout-input" class="label"
-                  >Новый пароль</label
-                >
-                <input type="password" name="password" class="resetPassInput" />
+                <label for="password" class="label">Новый пароль</label>
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  class="resetPassInput"
+                  required
+                />
               </div>
               <div class="form-group">
-                <label for="surname-checkout-input" class="label"
+                <label for="resetPassInputConfirm" class="label"
                   >Подтверждение пароля</label
                 >
-                <input type="password" class="resetPassInputConfirm" />
+                <input
+                  id="resetPassInputConfirm"
+                  type="password"
+                  name="resetPassInputConfirm"
+                  class="resetPassInputConfirm"
+                  required
+                />
               </div>
               <div class="form-group">
                 <input type="submit" value="Изменить" />
@@ -36,9 +46,6 @@
               <input type="hidden" name="email" data-th-value="${email}" />
               <input type="hidden" name="hash" data-th-value="${hash}" />
             </form>
-            <div class="is-invalid hidden forgotPassValidation">
-              Пароли не совпадают
-            </div>
           </div>
           <h2 class="checkout-title" data-th-unless="${hashMatch}">
             Что-то пошло не так при смене пароля.
@@ -49,3 +56,19 @@
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
   </body>
 </html>
+
+<script>
+  $(".js_resetPassForm").validate({
+    rules: {
+      password: {
+        minlength: 7
+      },
+      resetPassInputConfirm: {
+        equalTo: "#password",
+        minlength: 7
+      }
+    },
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
+</script>

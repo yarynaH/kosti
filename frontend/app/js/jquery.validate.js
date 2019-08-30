@@ -275,7 +275,7 @@ $.extend( $.validator, {
 		messages: {},
 		groups: {},
 		rules: {},
-		errorClass: "is-invalid",
+		errorClass: "error-msg",
 		pendingClass: "pending",
 		validClass: "valid",
     errorElement: "div",

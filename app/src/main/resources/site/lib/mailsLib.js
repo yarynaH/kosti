@@ -227,7 +227,7 @@ function getForgotPassMail(mail, params) {
     type: "absolute",
     params: {
       action: "forgotPass",
-      mail: encodeURI(mail),
+      email: encodeURI(mail),
       hash: params.forgotPassHash
     }
   });

@@ -58,7 +58,7 @@ function handleReq(req) {
   function renderView() {
     var view = resolve("form.html");
     if (checkRegisteredUser()) {
-      //return getFormSubmittedView();
+      return getFormSubmittedView();
     }
     var model = createModel();
     var body = thymeleaf.render(view, model);
