@@ -66,4 +66,10 @@
       height: 24px;
     }
   }
+
+  &-discord {
+    @include button-style(global transparent discord);
+
+    padding: 20px 10px;
+  }
 }
