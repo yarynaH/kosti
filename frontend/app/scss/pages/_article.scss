@@ -147,6 +147,20 @@
       margin-bottom: 25px;
       width: 100%;
     }
+
+    [type=checkbox]:disabled+.label-checkbox {
+      * {
+        color: $color-primary20 !important;
+      }
+
+      .error-msg {
+        padding-left: 30px;
+      }
+
+      div {
+        text-transform: none;
+      }
+    }
   }//end article-content
 
   &-img_wrap {
