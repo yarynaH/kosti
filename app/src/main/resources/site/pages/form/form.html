@@ -43,10 +43,18 @@
             <div data-th-utext="${event.description}"></div>
             <p data-th-text="${event.time}"></p
           ></label>
+          <div class="error-msg" data-th-unless="${event.available}">
+            Мест больше нет
+          </div>
         </div>
-        <button class="checkout-continue" type="submit">
-          Зарегистрироваться
-        </button>
+        <div class="error-msg" data-th-if="${error}">
+          Что-то пошло не так при регистрации.
+        </div>
+        <div class="checkout-action">
+          <button class="checkout-continue" type="submit">
+            Зарегистрироваться
+          </button>
+        </div>
       </form>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>

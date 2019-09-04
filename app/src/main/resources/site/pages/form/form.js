@@ -12,6 +12,9 @@ exports.get = handleReq;
 exports.post = submitForm;
 
 function submitForm(req) {
+  if (checkRegisteredUser()) {
+    return getFormSubmittedView();
+  }
   var params = req.params;
   var userName = params.userName;
   delete params.userName;
@@ -19,8 +22,13 @@ function submitForm(req) {
   for (var key in params) {
     games.push(parseInt(key));
   }
-  var result = addUserToEvent(userName, games);
-  return getFormSubmittedView(req);
+  var res = addUserToEvent(userName, games);
+  if (!res) {
+    return getFormSubmittedView(req);
+  } else {
+    req.error = res;
+    return handleReq(req);
+  }
 
   function addUserToEvent(userName, games) {
     var user = userLib.getCurrentUser();
@@ -28,10 +36,12 @@ function submitForm(req) {
       var userId = user._id;
     }
     var content = portal.getContent();
+    var error = false;
     contentLib.modify({
       key: content._id,
       editor: editor
     });
+    return error;
     function editor(c) {
       for (var j = 0; j < games.length; j++) {
         if (c.data.events[games[j]].users === null) {
@@ -45,6 +55,8 @@ function submitForm(req) {
           parseInt(c.data.events[games[j]].maxSpace)
         ) {
           c.data.events[games[j]].users.push({ name: userName, user: userId });
+        } else {
+          error = true;
         }
       }
       return c;
@@ -81,30 +93,12 @@ function handleReq(req) {
       content: content,
       app: app,
       user: user,
+      error: req.error,
       events: prepareEvents(content.data.events),
       pageComponents: helpers.getPageComponents(req)
     };
 
     return model;
-  }
-
-  function checkRegisteredUser() {
-    var user = userLib.getCurrentUser();
-    var content = portal.getContent();
-    content.data.events = norseUtils.forceArray(content.data.events);
-    for (var i = 0; i < content.data.events.length; i++) {
-      if (content.data.events[i].users) {
-        content.data.events[i].users = norseUtils.forceArray(
-          content.data.events[i].users
-        );
-        for (var j = 0; j < content.data.events[i].users.length; j++) {
-          if (user._id === content.data.events[i].users[j].user) {
-            return true;
-          }
-        }
-      }
-    }
-    return false;
   }
 
   function prepareEvents(events) {
@@ -133,4 +127,23 @@ function getFormSubmittedView(req) {
     body: body,
     contentType: "text/html"
   };
+}
+
+function checkRegisteredUser() {
+  var user = userLib.getCurrentUser();
+  var content = portal.getContent();
+  content.data.events = norseUtils.forceArray(content.data.events);
+  for (var i = 0; i < content.data.events.length; i++) {
+    if (content.data.events[i].users) {
+      content.data.events[i].users = norseUtils.forceArray(
+        content.data.events[i].users
+      );
+      for (var j = 0; j < content.data.events[i].users.length; j++) {
+        if (user._id === content.data.events[i].users[j].user) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }
