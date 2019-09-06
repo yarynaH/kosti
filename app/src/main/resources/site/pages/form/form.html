@@ -17,47 +17,70 @@
         class="game_reg-desc h-mb-20"
         data-th-utext="${content.data.description}"
       ></h3>
-      <form method="POST" class="article-content h-mb-35">
-        <div class="form-group h-mb-35">
-          <label for="name-form-input" class="label">ИМЯ</label>
-          <input
-            required
-            name="userName"
-            type="text"
-            class="input-text"
-            id="name-form-input"
-          />
-        </div>
-        <div class="form-group h-mb-35" data-th-each="event, index: ${events}">
-          <input
-            data-th-disabled="${!event.available}"
-            data-th-id="${'game_reg-'+index.index}"
-            type="checkbox"
-            hidden
-            data-th-name="${index.index}"
-          />
-          <label
-            data-th-attr="for=${'game_reg-' + index.index}"
-            class="label-checkbox"
-            >
-              <h5 data-th-text="${event.title}"></h5>
-              <div data-th-utext="${event.description}"></div>
-              <h5 data-th-text="${event.time}"></h5>
-            </label>
-          <div class="error-msg" data-th-unless="${event.available}">
-            Мест больше нет
+      <div class="game_reg-game1">
+        <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
+            Суббота Fantasy Блок (13:00 - 15:00)
+        </h2>
+        <form method="POST" class="article-content h-mb-35">
+          <div class="form-group h-mb-35">
+            <label for="name-form-input" class="label">ИМЯ</label>
+            <input
+              required
+              name="userName"
+              type="text"
+              class="input-text"
+              id="name-form-input"
+            />
           </div>
-        </div>
-        <div class="error-msg" data-th-if="${error}">
-          Что-то пошло не так при регистрации.
-        </div>
-        <div class="checkout-action">
-          <button class="checkout-continue" type="submit">
-            Зарегистрироваться
-          </button>
-        </div>
-      </form>
+          <div class="game_reg-checkbox_list">
+            <div class="form-group game_reg-checkbox h-mb-35" data-th-each="event, index: ${events}">
+              <input
+                data-th-disabled="${!event.available}"
+                data-th-id="${'game_reg-'+index.index}"
+                type="checkbox"
+                hidden
+                data-th-name="${index.index}"
+              />
+              <label
+                data-th-attr="for=${'game_reg-' + index.index}"
+                class="label-checkbox"
+                >
+                  <span data-th-text="${event.title}"></span>
+                  <!-- <div data-th-utext="${event.description}"></div>
+                  <h5 data-th-text="${event.time}"></h5> -->
+                </label>
+              <div class="error-msg" data-th-unless="${event.available}">
+                Мест больше нет
+              </div>
+            </div>
+          </div>
+          <div class="error-msg" data-th-if="${error}">
+            Что-то пошло не так при регистрации.
+          </div>
+          <div class="checkout-action">
+            <button class="checkout-continue" type="submit">
+              Зарегистрироваться
+            </button>
+          </div>
+        </form>
+      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+    <style>
+      .game_reg-checkbox {
+          width: 33.333%;
+          margin-top: 0;
+      }
+
+      .game_reg-checkbox_list {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: flex-start;
+      }
+
+      .game_reg-checkbox_list .error-msg {
+        padding-left: 30px;
+      }
+    </style>
   </body>
 </html>
