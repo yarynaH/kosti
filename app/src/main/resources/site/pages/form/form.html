@@ -43,9 +43,15 @@
           <div data-th-each="block, blockIndex: ${blocks}" data-th-remove="tag">
             <h2
               class="game_reg-subtitle title-2 h-mt-25 h-mb-25 js_form-show-description"
-              data-th-text="${block.title}"
               data-th-attr="data-description=${block.description},data-title=${block.title}"
-            ><span class="icon-info" data-th-title="Описание"></span></h2>
+            >
+              <span
+                data-th-text="${block.title}"
+                class="icon-info"
+                data-th-remove="tag" data-th-title="Описание"
+              ></span
+              ><span class="icon-info"></span>
+            </h2>
             <div class="game_reg-checkbox_list">
               <div
                 class="form-group form-group-tooltip game_reg-checkbox h-mb-35"
@@ -70,8 +76,7 @@
                 <span
                   class="icon-info game_reg-info js_form-show-description"
                   data-th-attr="data-description=${event.description},data-title=${event.title}" data-th-title="Описание"
-                  ></span
-                >
+                ></span>
                 <div class="error-msg" data-th-unless="${event.available}">
                   Мест больше нет
                 </div>
