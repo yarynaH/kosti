@@ -46,8 +46,7 @@ function submitForm(req) {
     contentLib.publish({
       keys: [content._id],
       sourceBranch: "master",
-      targetBranch: "draft",
-      includeDependencies: false
+      targetBranch: "draft"
     });
     return error;
     function editor(c) {
@@ -92,6 +91,9 @@ function handleReq(req) {
     if (formLib.checkUserRegistered()) {
       return getFormSubmittedView();
     }
+    if (!userLib.getCurrentUser()) {
+      //return loginRequired(req);
+    }
     var model = createModel();
     var body = thymeleaf.render(view, model);
     var fileName = portal.assetUrl({ path: "js/forms.js" });
@@ -131,6 +133,17 @@ function handleReq(req) {
 
 function getFormSubmittedView(req) {
   var view = resolve("formSubmit.html");
+  var body = thymeleaf.render(view, {
+    pageComponents: helpers.getPageComponents(req)
+  });
+  return {
+    body: body,
+    contentType: "text/html"
+  };
+}
+
+function loginRequired(req) {
+  var view = resolve("loginMessage.html");
   var body = thymeleaf.render(view, {
     pageComponents: helpers.getPageComponents(req)
   });
