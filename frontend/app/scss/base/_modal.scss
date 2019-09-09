@@ -37,6 +37,19 @@
         color: $color-primary17;
     }
 
+    &-close {
+        @include absolut(top 0 right 0);
+
+        cursor: pointer;
+        background: $color-primary33;
+        color: $color-primary9;
+
+        :hover {
+            background: rgba($color-primary33 ,0.8);
+            transition: transition(background);
+        }
+    }
+
     &-action {
         font-size: rem(14);
         font-weight: bold;
