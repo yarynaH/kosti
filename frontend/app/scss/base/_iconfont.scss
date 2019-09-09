@@ -74,47 +74,50 @@
     @if $filename == guest {
         $char: "\F12F";
     }
-    @if $filename == instagram {
+    @if $filename == info {
         $char: "\F130";
     }
-    @if $filename == logout {
+    @if $filename == instagram {
         $char: "\F131";
     }
-    @if $filename == network {
+    @if $filename == logout {
         $char: "\F132";
     }
-    @if $filename == pin-location {
+    @if $filename == network {
         $char: "\F133";
     }
-    @if $filename == quote {
+    @if $filename == pin-location {
         $char: "\F134";
     }
-    @if $filename == rock {
+    @if $filename == quote {
         $char: "\F135";
     }
-    @if $filename == search {
+    @if $filename == rock {
         $char: "\F136";
     }
-    @if $filename == share {
+    @if $filename == search {
         $char: "\F137";
     }
-    @if $filename == twitch {
+    @if $filename == share {
         $char: "\F138";
     }
-    @if $filename == twitter {
+    @if $filename == twitch {
         $char: "\F139";
     }
-    @if $filename == upload {
+    @if $filename == twitter {
         $char: "\F13A";
     }
-    @if $filename == views {
+    @if $filename == upload {
         $char: "\F13B";
     }
-    @if $filename == vk {
+    @if $filename == views {
         $char: "\F13C";
     }
-    @if $filename == youtube {
+    @if $filename == vk {
         $char: "\F13D";
+    }
+    @if $filename == youtube {
+        $char: "\F13E";
     }
 
     @return $char;
@@ -155,6 +158,7 @@ category: Basic
     <div class="sg-icon icon-gear" title="gear"></div>
     <div class="sg-icon icon-google" title="google"></div>
     <div class="sg-icon icon-guest" title="guest"></div>
+    <div class="sg-icon icon-info" title="info"></div>
     <div class="sg-icon icon-instagram" title="instagram"></div>
     <div class="sg-icon icon-logout" title="logout"></div>
     <div class="sg-icon icon-network" title="network"></div>
@@ -219,6 +223,9 @@ category: Basic
 }
 .icon-guest {
     @include icon(guest);
+}
+.icon-info {
+    @include icon(info);
 }
 .icon-instagram {
     @include icon(instagram);
