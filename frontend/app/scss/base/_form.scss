@@ -154,6 +154,11 @@ label {
   &-tooltip {
     display: inline-flex;
     align-items: center;
+    flex-wrap: wrap;
+
+   .error-msg {
+      flex: 1 1 100%;
+    }
   }
 }
 
