@@ -11,48 +11,61 @@
       </config>
       <occurrences minimum="1" maximum="1"/>
     </input>
-    <item-set name="events">
-      <label>Event</label>
+    <item-set name="eventsBlock">
+      <label>Events block</label>
       <items>
         <input name="title" type="TextLine">
-          <label>Title</label>
-          <occurrences minimum="1" maximum="1"/>
-        </input>
-        <input name="maxSpace" type="TextLine">
-          <label>Maximum space</label>
+          <label>Block title</label>
           <occurrences minimum="1" maximum="1"/>
         </input>
         <input name="description" type="HtmlArea">
-          <label>Event description</label>
+          <label>Block description</label>
           <config>
             <exclude>*</exclude>
             <include>AlignLeft AlignRight | Bold Italic</include>
           </config>
-          <occurrences minimum="1" maximum="1"/>
         </input>
-        <input name="time" type="DateTime">
-          <label>Date and time</label>
-          <occurrences minimum="1" maximum="1"/>
-        </input>
-        <item-set name="users">
-          <label>Users</label>
+        <item-set name="events">
+          <label>Event</label>
           <items>
-            <input name="name" type="TextLine">
-              <label>Name</label>
+            <input name="title" type="TextLine">
+              <label>Title</label>
               <occurrences minimum="1" maximum="1"/>
             </input>
-            <input name="user" type="ContentSelector">
-              <label>Username</label>
+            <input name="maxSpace" type="TextLine">
+              <label>Maximum space</label>
               <occurrences minimum="1" maximum="1"/>
+            </input>
+            <input name="description" type="HtmlArea">
+              <label>Event description</label>
               <config>
-                <allowContentType>user</allowContentType>
+                <exclude>*</exclude>
+                <include>AlignLeft AlignRight | Bold Italic</include>
               </config>
+              <occurrences minimum="1" maximum="1"/>
             </input>
+            <item-set name="users">
+              <label>Users</label>
+              <items>
+                <input name="name" type="TextLine">
+                  <label>Name</label>
+                  <occurrences minimum="1" maximum="1"/>
+                </input>
+                <input name="user" type="ContentSelector">
+                  <label>Username</label>
+                  <occurrences minimum="1" maximum="1"/>
+                  <config>
+                    <allowContentType>user</allowContentType>
+                  </config>
+                </input>
+              </items>
+              <occurrences minimum="0" maximum="0"/>
+            </item-set>
           </items>
           <occurrences minimum="0" maximum="0"/>
         </item-set>
       </items>
-      <occurrences minimum="1" maximum="0"/>
+      <occurrences minimum="0" maximum="0"/>
     </item-set>
   </form>
 </content-type>

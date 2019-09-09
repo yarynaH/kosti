@@ -7,6 +7,16 @@
       data-th-remove="tag"
       data-th-utext="${pageComponents.loginRegisterModal}"
     ></div>
+    <div class="modal js_form-info">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title"></h2>
+          </div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main blog_width form game_reg-wrap">
       <h1
@@ -18,9 +28,6 @@
         data-th-utext="${content.data.description}"
       ></h3>
       <div class="game_reg-game1">
-        <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25">
-            Суббота Fantasy Блок (13:00 - 15:00)
-        </h2>
         <form method="POST" class="article-content h-mb-35">
           <div class="form-group h-mb-35">
             <label for="name-form-input" class="label">ИМЯ</label>
@@ -32,25 +39,36 @@
               id="name-form-input"
             />
           </div>
-          <div class="game_reg-checkbox_list">
-            <div class="form-group game_reg-checkbox h-mb-35" data-th-each="event, index: ${events}">
-              <input
-                data-th-disabled="${!event.available}"
-                data-th-id="${'game_reg-'+index.index}"
-                type="checkbox"
-                hidden
-                data-th-name="${index.index}"
-              />
-              <label
-                data-th-attr="for=${'game_reg-' + index.index}"
-                class="label-checkbox"
+          <div data-th-each="block, blockIndex: ${blocks}" data-th-remove="tag">
+            <h2
+              class="game_reg-subtitle title-2 h-mt-25 h-mb-25 js_form-show-description"
+              data-th-text="${block.title}"
+              data-th-attr="data-description=${block.description}"
+            ></h2>
+            <div class="game_reg-checkbox_list">
+              <div
+                class="form-group game_reg-checkbox h-mb-35"
+                data-th-each="event, eventIndex: ${block.events}"
+                data-th-attr="data-description=${event.description}"
+              >
+                <input
+                  data-th-disabled="${!event.available}"
+                  data-th-id="${blockIndex.index + '-' + eventIndex.index}"
+                  type="checkbox"
+                  hidden
+                  data-th-name="${blockIndex.index + '-' + eventIndex.index}"
+                />
+                <label
+                  data-th-attr="for=${blockIndex.index + '-' + eventIndex.index}"
+                  class="label-checkbox"
                 >
                   <span data-th-text="${event.title}"></span>
                   <!-- <div data-th-utext="${event.description}"></div>
                   <h5 data-th-text="${event.time}"></h5> -->
                 </label>
-              <div class="error-msg" data-th-unless="${event.available}">
-                Мест больше нет
+                <div class="error-msg" data-th-unless="${event.available}">
+                  Мест больше нет
+                </div>
               </div>
             </div>
           </div>
@@ -68,14 +86,14 @@
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
     <style>
       .game_reg-checkbox_list .game_reg-checkbox {
-          width: 33.333%;
-          margin-top: 0;
+        width: 33.333%;
+        margin-top: 0;
       }
 
       .game_reg-checkbox_list {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
       }
 
       .game_reg-checkbox_list .error-msg {

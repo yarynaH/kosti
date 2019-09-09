@@ -20,7 +20,8 @@ function submitForm(req) {
   delete params.userName;
   var games = [];
   for (var key in params) {
-    games.push(parseInt(key));
+    var ids = key.split("-");
+    games.push({ block: parseInt(ids[0]), game: parseInt(ids[1]) });
   }
   var res = addUserToEvent(userName, games);
   if (!res) {
@@ -41,20 +42,38 @@ function submitForm(req) {
       key: content._id,
       editor: editor
     });
+    contentLib.publish({
+      keys: [content._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
     return error;
     function editor(c) {
       for (var j = 0; j < games.length; j++) {
-        if (c.data.events[games[j]].users === null) {
-          c.data.events[games[j]].users = {};
+        c.data.eventsBlock = norseUtils.forceArray(c.data.eventsBlock);
+        c.data.eventsBlock[games[j].block].events = norseUtils.forceArray(
+          c.data.eventsBlock[games[j].block].events
+        );
+        if (!c.data.eventsBlock[games[j].block].events[games[j].game].users) {
+          c.data.eventsBlock[games[j].block].events[games[j].game].users = [];
         }
-        c.data.events[games[j]].users = norseUtils.forceArray(
-          c.data.events[games[j]].users
+        c.data.eventsBlock[games[j].block].events[
+          games[j].game
+        ].users = norseUtils.forceArray(
+          c.data.eventsBlock[games[j].block].events[games[j].game].users
         );
         if (
-          c.data.events[games[j]].users.length <
-          parseInt(c.data.events[games[j]].maxSpace)
+          c.data.eventsBlock[games[j].block].events[games[j].game].users
+            .length <
+          parseInt(
+            c.data.eventsBlock[games[j].block].events[games[j].game].maxSpace
+          )
         ) {
-          c.data.events[games[j]].users.push({ name: userName, user: userId });
+          c.data.eventsBlock[games[j].block].events[games[j].game].users.push({
+            name: userName,
+            user: userId
+          });
         } else {
           error = true;
         }
@@ -88,12 +107,18 @@ function handleReq(req) {
     var user = userLib.getCurrentUser();
     var up = req.params;
     var content = portal.getContent();
+    var blocks = norseUtils.forceArray(content.data.eventsBlock);
+    for (var i = 0; i < blocks.length; i++) {
+      //blocks[i].time = moment(blocks[i].time).format("DD.MM.YYYY HH:mm");
+      blocks[i].events = prepareEvents(blocks[i].events);
+    }
 
     var model = {
       content: content,
       app: app,
       user: user,
       error: req.error,
+      blocks: blocks,
       events: prepareEvents(content.data.events),
       pageComponents: helpers.getPageComponents(req)
     };
@@ -102,9 +127,11 @@ function handleReq(req) {
   }
 
   function prepareEvents(events) {
+    if (!events) {
+      return [];
+    }
     events = norseUtils.forceArray(events);
     for (var i = 0; i < events.length; i++) {
-      events[i].time = moment(events[i].time).format("DD.MM.YYYY HH:mm");
       if (!events[i].users) {
         events[i].users = [];
       }
@@ -132,15 +159,26 @@ function getFormSubmittedView(req) {
 function checkRegisteredUser() {
   var user = userLib.getCurrentUser();
   var content = portal.getContent();
-  content.data.events = norseUtils.forceArray(content.data.events);
-  for (var i = 0; i < content.data.events.length; i++) {
-    if (content.data.events[i].users) {
-      content.data.events[i].users = norseUtils.forceArray(
-        content.data.events[i].users
-      );
-      for (var j = 0; j < content.data.events[i].users.length; j++) {
-        if (user._id === content.data.events[i].users[j].user) {
-          return true;
+  content.data.eventsBlock = norseUtils.forceArray(content.data.eventsBlock);
+  for (var j = 0; j < content.data.eventsBlock.length; j++) {
+    content.data.eventsBlock[j].events = norseUtils.forceArray(
+      content.data.eventsBlock[j].events
+    );
+    for (var i = 0; i < content.data.eventsBlock[j].events.length; i++) {
+      if (content.data.eventsBlock[j].events[i].users) {
+        content.data.eventsBlock[j].events[i].users = norseUtils.forceArray(
+          content.data.eventsBlock[j].events[i].users
+        );
+        for (
+          var k = 0;
+          k < content.data.eventsBlock[j].events[i].users.length;
+          k++
+        ) {
+          if (
+            user._id === content.data.eventsBlock[j].events[i].users[k].user
+          ) {
+            return true;
+          }
         }
       }
     }

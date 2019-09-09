@@ -12,14 +12,15 @@ var blogLib = require(libLocation + "blogLib");
 var sharedLib = require(libLocation + "sharedLib");
 var hashtagLib = require(libLocation + "hashtagLib");
 
+var youtubeCache = cache.newCache({
+  size: 1000,
+  expire: 60 * 60 * 24
+});
+
 exports.get = handleReq;
 
 function handleReq(req) {
   var user = userLib.getCurrentUser();
-  var youtubeCache = cache.newCache({
-    size: 500,
-    expire: 60 * 60 * 24
-  });
 
   function renderView() {
     var view = resolve("homePage.html");
@@ -121,7 +122,8 @@ function handleReq(req) {
     }
 
     function getVideoFromCache(key) {
-      return youtubeCache.get("key", function() {
+      return youtubeCache.get("video", function() {
+        norseUtils.log("in cache");
         return getVideoViaApi(key);
       });
     }
