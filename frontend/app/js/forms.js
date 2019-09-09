@@ -2,7 +2,7 @@ function initFormEvents() {
   $(".js_form-show-description").on("click", function(e) {
     e.stopPropagation();
     $(".js_form-info .modal-body").html($(this).data().description);
-    $(".js_form-info .modal-title").html($(this).text());
+    $(".js_form-info .modal-title").html($(this).data().title);
     $(".js_form-info").addClass("show");
   });
   $("input[type=checkbox]").on("click", function(e) {
