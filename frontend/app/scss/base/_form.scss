@@ -150,6 +150,11 @@ label {
       border-color: $color-primary32;
     }
   }
+
+  &-tooltip {
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 .label-radio {
