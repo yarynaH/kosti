@@ -72,6 +72,7 @@ function handleReq(req) {
       sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
+      hotDate: articlesQuery.date ? articlesQuery.date : null,
       loadMoreComponent: helpers.getLoadMore(articlesQuery.total, null, null),
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       slider: getSlider(site.slider),
