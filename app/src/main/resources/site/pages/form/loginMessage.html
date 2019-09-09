@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main" id="payment-success">
+      <div class="confirmation-wrap">
+        <div class="site_width">
+          <h2 class="checkout-title">
+            Пользователь не найден.
+          </h2>
+          <div class="confirmation-msg">
+            Для того, чтоб зарегистрироватся в форме, вам необходимо
+            <a class="js_login-required">войти</a> на сайт.
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+  </body>
+</html>

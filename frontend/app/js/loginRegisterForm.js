@@ -77,7 +77,12 @@ function initLoginRegisterForm() {
       } else {
         $(".js_header-user-wrap").html(data.html);
         $(".modal-login .form-group-error").addClass("hidden");
-        location.reload();
+        if (typeof reloadAfterLogin === "undefined" || !reloadAfterLogin) {
+          location.reload();
+        } else {
+          hideLoader();
+          hideLoginRegisterModal();
+        }
       }
     });
   });
@@ -136,6 +141,9 @@ function initLoginRegisterForm() {
   $(".reset-form").validate({
     highlight: function(element, errorClass, validClass) {},
     unhighlight: function(element, errorClass, validClass) {}
+  });
+  $(".js_modal-close").on("click", function() {
+    hideLoginRegisterModal();
   });
 }
 

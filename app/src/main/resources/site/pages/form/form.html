@@ -48,9 +48,9 @@
               <span
                 data-th-text="${block.title}"
                 class="icon-info"
-                data-th-remove="tag" data-th-title="Описание"
+                data-th-remove="tag"
               ></span
-              ><span class="icon-info"></span>
+              ><span data-th-title="Описание" class="icon-info"></span>
             </h2>
             <div class="game_reg-checkbox_list">
               <div
@@ -75,7 +75,8 @@
                 </label>
                 <span
                   class="icon-info game_reg-info js_form-show-description"
-                  data-th-attr="data-description=${event.description},data-title=${event.title}" data-th-title="Описание"
+                  data-th-attr="data-description=${event.description},data-title=${event.title}"
+                  data-th-title="Описание"
                 ></span>
                 <div class="error-msg" data-th-unless="${event.available}">
                   Мест больше нет

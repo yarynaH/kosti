@@ -18,7 +18,12 @@ function initFormEvents() {
         }
       });
   });
-  $("main.form input[type=submit]").on("click", function(e) {
+  $("main.form button[type=submit]").on("click", function(e) {
+    if (!checkUserLoggedIn()) {
+      e.preventDefault();
+      showLogin(e);
+    }
+    /*
     var availableSeats = legendary ? 2 : 1;
     if ($("main.form [type=checkbox]:checked").length > availableSeats) {
       e.preventDefault();
@@ -26,13 +31,14 @@ function initFormEvents() {
     } else {
       $("form .invalid-qauntity").addClass("hidden");
     }
+    
     $("input[type=checkbox]:checked").each(function() {
-      /*if (!checkSpace(this)) {
+      if (!checkSpace(this)) {
         $("form .invalid-space").removeClass("hidden");
         e.preventDefault();
       } else {
         $("form .invalid-space").addClass("hidden");
-      }*/
+      }
     });
     $("main.form input[type=text]").each(function() {
       if ($(this).val() == "") {
@@ -44,6 +50,7 @@ function initFormEvents() {
         $("form .invalid-input").addClass("hidden");
       }
     });
+    */
   });
 }
 
@@ -70,6 +77,7 @@ function checkSpace(el) {
   return result;
 }
 
+var reloadAfterLogin = false;
 $(document).ready(function() {
   if ($("main.form").length > 0) {
     initFormEvents();
