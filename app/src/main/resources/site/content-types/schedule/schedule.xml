@@ -3,9 +3,12 @@
   <display-name>Schedule</display-name>
   <super-type>base:structured</super-type>
   <form>
-    <input name="date" type="Date">
+    <input name="date" type="DateTime">
       <label>Date</label>
       <occurrences minimum="1" maximum="1"/>
+      <config>
+        <timezone>true</timezone>
+      </config>
     </input>
     <input name="image" type="ImageSelector">
       <label>Image</label>
@@ -19,6 +22,13 @@
       <occurrences minimum="0" maximum="5"/>
       <config>
         <allowContentType>hashtag</allowContentType>
+      </config>
+    </input>
+    <input name="repeat" type="CheckBox">
+      <label>Repeat</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <alignment>right</alignment>
       </config>
     </input>
   </form>

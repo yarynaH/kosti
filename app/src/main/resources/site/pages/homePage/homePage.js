@@ -123,7 +123,6 @@ function handleReq(req) {
 
     function getVideoFromCache(key) {
       return youtubeCache.get("video", function() {
-        norseUtils.log("in cache");
         return getVideoViaApi(key);
       });
     }

@@ -11,6 +11,7 @@ var moment = require("moment");
 var commentsLib = require("commentsLib");
 var hashtagLib = require("hashtagLib");
 var sharedLib = require("sharedLib");
+var contextLib = require("contextLib");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -24,6 +25,7 @@ exports.getSidebar = getSidebar;
 exports.getSearchArticles = getSearchArticles;
 exports.getArticleFooter = getArticleFooter;
 exports.countUserRating = countUserRating;
+exports.updateSchedule = updateSchedule;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -277,4 +279,37 @@ function countUserRating(id) {
     if (comments[i].rate) commentVotes += comments[i].rate;
   }
   return (commentVotes + articleVotes).toFixed();
+}
+
+function updateSchedule() {
+  contextLib.runInDraftAsAdmin(function() {
+    var currDate = new Date();
+    var schedules = contentLib.query({
+      start: 0,
+      count: 5,
+      query:
+        "data.date < dateTime('" +
+        currDate.toISOString() +
+        "') AND data.repeat = 'true'"
+    });
+    for (var i = 0; i < schedules.hits.length; i++) {
+      contentLib.modify({
+        key: schedules.hits[i]._id,
+        editor: editor
+      });
+      contentLib.publish({
+        keys: [schedules.hits[i]._id],
+        sourceBranch: "draft",
+        targetBranch: "master",
+        includeDependencies: false
+      });
+      function editor(c) {
+        var tempDate = new Date(c.data.date);
+        tempDate.setDate(tempDate.getDate() + 7);
+        tempDate = tempDate.toISOString();
+        c.data.date = tempDate;
+        return c;
+      }
+    }
+  });
 }
