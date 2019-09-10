@@ -38,15 +38,19 @@
     }
 
     &-close {
-        @include absolut(top 0 right 0);
+        @include position (absolute, top 0 right 0);
 
         cursor: pointer;
         background: $color-primary33;
         color: $color-primary9;
+        transition: transition(background);
 
-        :hover {
+        &:hover {
             background: rgba($color-primary33 ,0.8);
-            transition: transition(background);
+        }
+
+        &:before {
+            font-size: rem(25);
         }
     }
 
