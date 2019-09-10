@@ -77,12 +77,7 @@ function initLoginRegisterForm() {
       } else {
         $(".js_header-user-wrap").html(data.html);
         $(".modal-login .form-group-error").addClass("hidden");
-        if (typeof reloadAfterLogin === "undefined" || !reloadAfterLogin) {
-          location.reload();
-        } else {
-          hideLoader();
-          hideLoginRegisterModal();
-        }
+        location.reload();
       }
     });
   });
