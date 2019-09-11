@@ -148,6 +148,24 @@
                 </li>
                 <li class="profile-action-item" data-th-if="${currUserFlag}">
                   <a
+                    data-th-href="${portal.pageUrl({'_path='+content._path,'action=games'})}"
+                    class="profile-action-link"
+                    data-th-classappend="${active.games}"
+                    data-type="games"
+                    data-th-title="${portal.localize({'_key=user.title.games', '_locale=ru'})}"
+                  >
+                    <span
+                      data-th-text="${portal.localize({'_key=user.title.games', '_locale=ru'})}"
+                      data-th-remove="tag"
+                    ></span>
+                    <span
+                      class="value"
+                      data-th-text="${totalArticles.games != null ? totalArticles.games : '0'}"
+                    ></span>
+                  </a>
+                </li>
+                <li class="profile-action-item" data-th-if="${currUserFlag}">
+                  <a
                     class="profile-action-link"
                     data-th-href="${createArticleUrl}"
                     data-th-title="${portal.localize({'_key=user.title.createArticle', '_locale=ru'})}"
@@ -169,7 +187,7 @@
               <h3 class="user_page-title">
                 <span
                   data-th-remove="tag"
-                  data-th-text="${totalArticles.curr ? totalArticles.curr : '0'}"
+                  data-th-text="${totalArticles.curr != null ? totalArticles.curr : '0'}"
                 ></span>
                 <span
                   data-th-remove="tag"
@@ -177,7 +195,7 @@
                 ></span>
               </h3>
               <div
-                data-th-if="${!totalArticles.curr}"
+                data-th-if="${!totalArticles.curr == null}"
                 data-th-text="${portal.localize({'_key=user.page.notyet.' + currTitle, '_locale=ru'})}"
               ></div>
               <div data-th-utext="${articlesView}" data-th-remove="tag"></div>

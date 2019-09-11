@@ -1,0 +1,14 @@
+<div data-th-each="game : ${games}" class="comments-item">
+  <div class="comments-header">
+    <div class="post-info">
+      <div>
+        <span class="post-user_name" data-th-text="${game.title}"></span>
+      </div>
+    </div>
+  </div>
+  <div
+    data-th-each="singleGame : ${game.games}"
+    class="comments-body"
+    data-th-utext="${singleGame}"
+  ></div>
+</div>
