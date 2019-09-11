@@ -136,8 +136,15 @@ function handleReq(req) {
 
 function getFormSubmittedView(req) {
   var view = resolve("formSubmit.html");
+  var user = userLib.getCurrentUser();
   var body = thymeleaf.render(view, {
-    pageComponents: helpers.getPageComponents(req)
+    pageComponents: helpers.getPageComponents(req),
+    gamesUrl: portal.pageUrl({
+      id: user._id,
+      params: {
+        action: "games"
+      }
+    })
   });
   return {
     body: body,
