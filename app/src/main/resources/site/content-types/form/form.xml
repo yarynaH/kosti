@@ -42,7 +42,7 @@
                 <exclude>*</exclude>
                 <include>AlignLeft AlignRight | Bold Italic</include>
               </config>
-              <occurrences minimum="1" maximum="1"/>
+              <occurrences minimum="0" maximum="1"/>
             </input>
             <item-set name="users">
               <label>Users</label>
