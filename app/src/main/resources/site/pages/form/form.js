@@ -18,13 +18,15 @@ function submitForm(req) {
   }
   var params = req.params;
   var userName = params.userName;
+  var userPhone = params.userPhone;
   delete params.userName;
+  delete params.userPhone;
   var games = [];
   for (var key in params) {
     var ids = key.split("-");
     games.push({ block: parseInt(ids[0]), game: parseInt(ids[1]) });
   }
-  var res = addUserToEvent(userName, games);
+  var res = addUserToEvent(userName, userPhone, games);
   if (!res) {
     return getFormSubmittedView(req);
   } else {
@@ -32,7 +34,7 @@ function submitForm(req) {
     return handleReq(req);
   }
 
-  function addUserToEvent(userName, games) {
+  function addUserToEvent(userName, userPhone, games) {
     var user = userLib.getCurrentUser();
     if (user && user._id) {
       var userId = user._id;
@@ -72,6 +74,7 @@ function submitForm(req) {
         ) {
           c.data.eventsBlock[games[j].block].events[games[j].game].users.push({
             name: userName,
+            phone: userPhone,
             user: userId
           });
         } else {
@@ -91,9 +94,9 @@ function handleReq(req) {
     if (formLib.checkUserRegistered()) {
       return getFormSubmittedView();
     }
-    if (!userLib.getCurrentUser()) {
-      //return loginRequired(req);
-    }
+    //if (!userLib.getCurrentUser()) {
+    //return loginRequired(req);
+    //}
     var model = createModel();
     var body = thymeleaf.render(view, model);
     var fileName = portal.assetUrl({ path: "js/forms.js" });
