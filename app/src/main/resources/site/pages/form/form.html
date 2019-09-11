@@ -52,16 +52,18 @@
             />
           </div>
           <div data-th-each="block, blockIndex: ${blocks}" data-th-remove="tag">
-            <h2
-              class="game_reg-subtitle title-2 h-mt-25 h-mb-25 js_form-show-description"
-              data-th-attr="data-description=${block.description},data-title=${block.title}"
-            >
+            <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25 ">
               <span
                 data-th-text="${block.title}"
                 class="icon-info"
                 data-th-remove="tag"
               ></span
-              ><span data-th-title="Описание" class="icon-info"></span>
+              ><span
+                data-th-if="${block.description}"
+                data-th-title="Описание"
+                class="icon-info js_form-show-description"
+                data-th-attr="data-description=${block.description},data-title=${block.title}"
+              ></span>
             </h2>
             <div class="game_reg-checkbox_list">
               <div
@@ -85,6 +87,7 @@
                   <h5 data-th-text="${event.time}"></h5> -->
                 </label>
                 <span
+                  data-th-if="${block.description}"
                   class="icon-info game_reg-info js_form-show-description"
                   data-th-attr="data-description=${event.description},data-title=${event.title}"
                   data-th-title="Описание"
