@@ -168,7 +168,12 @@ function handleReq(req) {
             var users = norseUtils.forceArray(events[k].users);
             for (var n = 0; n < users.length; n++) {
               if (users[n].user === content._id) {
-                result[i].games.push(events[k].title);
+                result[i].games.push({
+                  title: events[k].title,
+                  time: blocks[j].time
+                    ? moment(blocks[j].time).format("D.M.YYYY HH:mm")
+                    : null
+                });
                 count++;
               }
             }

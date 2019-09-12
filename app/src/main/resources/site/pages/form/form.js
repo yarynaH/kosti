@@ -91,12 +91,13 @@ function handleReq(req) {
 
   function renderView() {
     var view = resolve("form.html");
+    var user = userLib.getCurrentUser();
+    if (user.moderator && req.params.admin) {
+      return formAdmin(req);
+    }
     if (formLib.checkUserRegistered()) {
       return getFormSubmittedView();
     }
-    //if (!userLib.getCurrentUser()) {
-    //return loginRequired(req);
-    //}
     var model = createModel();
     var body = thymeleaf.render(view, model);
     var fileName = portal.assetUrl({ path: "js/forms.js" });
@@ -115,7 +116,6 @@ function handleReq(req) {
     var content = portal.getContent();
     var blocks = norseUtils.forceArray(content.data.eventsBlock);
     for (var i = 0; i < blocks.length; i++) {
-      //blocks[i].time = moment(blocks[i].time).format("DD.MM.YYYY HH:mm");
       blocks[i].events = formLib.prepareEvents(blocks[i].events);
     }
 
@@ -146,6 +146,25 @@ function getFormSubmittedView(req) {
       }
     })
   });
+  return {
+    body: body,
+    contentType: "text/html"
+  };
+}
+
+function formAdmin(req) {
+  var view = resolve("formAdmin.html");
+  var content = portal.getContent();
+  var blocks = norseUtils.forceArray(content.data.eventsBlock);
+  for (var i = 0; i < blocks.length; i++) {
+    blocks[i].events = formLib.prepareEvents(blocks[i].events);
+  }
+  var model = {
+    content: content,
+    blocks: blocks,
+    pageComponents: helpers.getPageComponents(req)
+  };
+  var body = thymeleaf.render(view, model);
   return {
     body: body,
     contentType: "text/html"

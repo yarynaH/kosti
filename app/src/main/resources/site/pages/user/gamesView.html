@@ -6,9 +6,12 @@
       </div>
     </div>
   </div>
-  <div
-    data-th-each="singleGame : ${game.games}"
-    class="comments-body"
-    data-th-utext="${singleGame}"
-  ></div>
+  <div data-th-each="singleGame : ${game.games}">
+    <span class="comments-body" data-th-utext="${singleGame.title}"></span>
+    <span
+      data-th-if="${singleGame.time}"
+      class="comments-body"
+      data-th-utext="${singleGame.time}"
+    ></span>
+  </div>
 </div>

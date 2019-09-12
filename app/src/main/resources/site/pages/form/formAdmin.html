@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <div class="modal js_form-info">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title"></h2>
+            <span class="icon-delete modal-close js_modal-close"></span>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main blog_width form game_reg-wrap">
+      <h1
+        class="game_reg-title title-1 h-mt-35 h-mb-20"
+        data-th-text="${content.displayName}"
+      ></h1>
+      <h3
+        class="game_reg-desc h-mb-20"
+        data-th-utext="${content.data.description}"
+      ></h3>
+      <div class="game_reg-game1">
+        <div data-th-each="block, blockIndex: ${blocks}" data-th-remove="tag">
+          <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25 ">
+            <span
+              data-th-text="${block.title}"
+              class="icon-info"
+              data-th-remove="tag"
+            ></span
+            ><span
+              data-th-if="${block.description}"
+              data-th-title="Описание"
+              class="icon-info js_form-show-description"
+              data-th-attr="data-description=${block.description},data-title=${block.title}"
+            ></span>
+          </h2>
+          <div class="game_reg-checkbox_list">
+            <div
+              class="form-group form-group-tooltip game_reg-checkbox h-mb-35"
+              data-th-each="event, eventIndex: ${block.events}"
+              data-th-attr="data-description=${event.description}"
+            >
+              <div>
+                <span data-th-text="${event.title}"></span>
+                <span
+                  title="К-во игроков / Максимум игроков"
+                  data-th-text="${event.currUsers + '/' + event.maxSpace}"
+                ></span>
+                <span
+                  data-th-if="${event.description}"
+                  class="icon-info game_reg-info js_form-show-description"
+                  data-th-attr="data-description=${event.description},data-title=${event.title}"
+                  data-th-title="Описание"
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="error-msg" data-th-if="${error}">
+          Что-то пошло не так при регистрации.
+        </div>
+        <div class="checkout-action">
+          <button class="checkout-continue" type="submit">
+            Зарегистрироваться
+          </button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+  </body>
+</html>

@@ -85,6 +85,7 @@ function prepareEvents(events) {
     }
     events[i].users = norseUtils.forceArray(events[i].users);
     events[i].available = parseInt(events[i].maxSpace) > events[i].users.length;
+    events[i].currUsers = events[i].users.length;
   }
   return events;
 }
