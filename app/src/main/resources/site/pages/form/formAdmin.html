@@ -25,10 +25,6 @@
         class="game_reg-title title-1 h-mt-35 h-mb-20"
         data-th-text="${content.displayName}"
       ></h1>
-      <h3
-        class="game_reg-desc h-mb-20"
-        data-th-utext="${content.data.description}"
-      ></h3>
       <div class="game_reg-game1">
         <div data-th-each="block, blockIndex: ${blocks}" data-th-remove="tag">
           <h2 class="game_reg-subtitle title-2 h-mt-25 h-mb-25 ">
@@ -62,6 +58,10 @@
                   data-th-attr="data-description=${event.description},data-title=${event.title}"
                   data-th-title="Описание"
                 ></span>
+                <div
+                  data-th-each="user: ${event.users}"
+                  data-th-text="${user.name}"
+                ></div>
               </div>
             </div>
           </div>
