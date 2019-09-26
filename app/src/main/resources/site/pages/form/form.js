@@ -93,7 +93,7 @@ function handleReq(req) {
     var view = resolve("form.html");
     var user = userLib.getCurrentUser();
     if (user.moderator && req.params.admin) {
-      return formAdmin(req);
+      return formAdmin(req, req.params.data);
     }
     if (formLib.checkUserRegistered()) {
       return getFormSubmittedView();
@@ -152,8 +152,14 @@ function getFormSubmittedView(req) {
   };
 }
 
-function formAdmin(req) {
-  var view = resolve("formAdmin.html");
+function formAdmin(req, getData) {
+  if (getData) {
+    norseUtils.log(1);
+    var view = resolve("userData.html");
+  } else {
+    norseUtils.log(2);
+    var view = resolve("formAdmin.html");
+  }
   var content = portal.getContent();
   var blocks = norseUtils.forceArray(content.data.eventsBlock);
   for (var i = 0; i < blocks.length; i++) {

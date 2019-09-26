@@ -53,7 +53,8 @@ function handleReq(req) {
     var products = contentLib.query({
       start: 0,
       count: -1,
-      contentTypes: [app.name + ":product"]
+      contentTypes: [app.name + ":product"],
+      sort: "publish.from DESC"
     });
     if (products && products.hits) {
       products = products.hits;

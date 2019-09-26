@@ -501,16 +501,16 @@ function checkCartDiscount(cart, itemsTotal) {
   var promos = promosLib.getPromosArray(cart.promos);
   var cartCodes = [];
   for (var i = 0; i < promos.length; i++) {
-    if (promos[i].type == "percent") {
-      discount += itemsTotal * (promos[i].discount / 100);
+    if (promos[i].data.type == "percent") {
+      discount += itemsTotal * (promos[i].data.discount / 100);
     } else {
-      discount += parseInt(promos[i].discount);
+      discount += parseInt(promos[i].data.discount);
     }
     cartCodes.push({
       displayName: promos[i].displayName,
-      type: promos[i].type,
-      discount: promos[i].discount,
-      code: promos[i].promoCode
+      type: promos[i].data.type,
+      discount: promos[i].data.discount,
+      code: promos[i].code
     });
   }
   return {

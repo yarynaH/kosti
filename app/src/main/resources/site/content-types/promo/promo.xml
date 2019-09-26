@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Promo</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="code" type="TextLine">
+      <label>Code</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="discount" type="Long">
+      <label>Discount</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="type" type="ComboBox">
+      <label>Type</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="percent">Percent</option>
+        <option value="value">Value</option>
+      </config>
+    </input>
+  </form>
+</content-type>
