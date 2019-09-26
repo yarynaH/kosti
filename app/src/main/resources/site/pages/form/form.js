@@ -154,10 +154,8 @@ function getFormSubmittedView(req) {
 
 function formAdmin(req, getData) {
   if (getData) {
-    norseUtils.log(1);
     var view = resolve("userData.html");
   } else {
-    norseUtils.log(2);
     var view = resolve("formAdmin.html");
   }
   var content = portal.getContent();
