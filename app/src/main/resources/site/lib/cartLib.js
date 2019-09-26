@@ -380,6 +380,7 @@ function getCartItems(items) {
         ),
         displayName: item.displayName,
         stock: item.data.inventory >= parseInt(items[i].amount),
+        preorder: item.data.preorder,
         price: item.data.price,
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),

@@ -108,6 +108,12 @@
                   Нет в наличии
                 </div>
                 <div
+                  class="out-of-stock-msg"
+                  data-th-if="${content.data.preorder}"
+                >
+                  Предзаказ
+                </div>
+                <div
                   class="pdp-composition"
                   data-th-text="${content.data.composition}"
                 ></div>

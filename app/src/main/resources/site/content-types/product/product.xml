@@ -76,6 +76,10 @@
       <label>Digital</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="preorder" type="CheckBox">
+      <label>Preorder</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="type" type="ComboBox">
       <label>Item type</label>
       <occurrences minimum="1" maximum="1"/>
