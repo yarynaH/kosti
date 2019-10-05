@@ -4,6 +4,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var nodeLib = require("/lib/xp/node");
 var htmlExporter = require("/lib/openxp/html-exporter");
 var textEncodingLib = require("/lib/text-encoding");
+var adminLib = require("/lib/xp/admin");
 
 var libLocation = "../../../site/lib/";
 var contextLib = require(libLocation + "contextLib");
@@ -17,6 +18,7 @@ var mailsLib = require(libLocation + "mailsLib");
 var sharedLib = require(libLocation + "sharedLib");
 
 exports.get = function(req) {
+  var toolUrl = adminLib.getToolUrl(app.name, "orders");
   var params = req.params;
   var view = resolve("orders.html");
   switch (params.action) {
@@ -80,6 +82,7 @@ exports.get = function(req) {
       pageComponents: helpers.getPageComponents(req),
       cart: cartLib.getCart(params.id),
       carts: carts,
+      toolUrl: toolUrl,
       products: contentLib.query({
         start: 0,
         count: -1,
@@ -90,6 +93,7 @@ exports.get = function(req) {
   };
 };
 exports.post = function(req) {
+  var toolUrl = adminLib.getToolUrl(app.name, "orders");
   var params = req.params;
   var view = resolve("orders.html");
   switch (params.postAction) {
@@ -162,6 +166,7 @@ exports.post = function(req) {
   }
   return {
     body: thymeleaf.render(view, {
+      toolUrl: toolUrl,
       pageComponents: helpers.getPageComponents(req),
       cart: cartLib.getCart(params.id),
       products: contentLib.query({
