@@ -21,8 +21,8 @@ function getPageComponents(req, footerType, activeEl, title) {
   } else {
     var up = {};
   }
-  var site = portal.getSite();
-  var siteConfig = portal.getSiteConfig();
+  var site = sharedLib.getSite();
+  var siteConfig = sharedLib.getSiteConfig();
   var content = portal.getContent();
 
   var userServiceUrl = portal.serviceUrl({
@@ -171,7 +171,7 @@ function getPageComponents(req, footerType, activeEl, title) {
       for (var i = 0; i < items.length; i++) {
         var tempContent = contentLib.get({ key: items[i] });
         result.push({
-          url: portal.pageUrl({ id: items[i] }),
+          url: portal.pageUrl({ path: tempContent._path }),
           title: tempContent.displayName,
           active: content && content._path.indexOf(tempContent._path) !== -1
         });

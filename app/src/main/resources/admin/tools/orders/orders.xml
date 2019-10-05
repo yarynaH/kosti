@@ -1,0 +1,7 @@
+<tool>
+  <display-name>Orders</display-name>
+  <description>Viualize and manage orders</description>
+  <allow>
+    <principal>role:system.admin</principal>
+  </allow>
+</tool>

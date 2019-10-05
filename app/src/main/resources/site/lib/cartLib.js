@@ -3,12 +3,14 @@ var contentLib = require("/lib/xp/content");
 var portalLib = require("/lib/xp/portal");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
-var portal = require("/lib/xp/portal");
 var textEncoding = require("/lib/text-encoding");
+var moment = require("moment");
+var sharedLib = require("sharedLib");
 
 exports.addPromo = addPromo;
 exports.getCart = getCart;
 exports.removePromo = removePromo;
+exports.getCreatedCarts = getCreatedCarts;
 
 function getCart(cartId) {
   var cart = {};
@@ -20,6 +22,8 @@ function getCart(cartId) {
   } else {
     cart = createCart();
   }
+  cart.date = moment(cart._ts).format("DD.MM.YYYY");
+  cart.dateTime = moment(cart._ts).format("DD.MM.YYYY HH:MM");
   cart.items = getCartItems(cart.items);
   cart.itemsNum = calculateCartItems(cart.items);
   cart.itemsWeight = caclculateCartWeight(cart.items);
@@ -92,21 +96,37 @@ exports.markTicketUsed = function(qr) {
   }
 };
 
-exports.getCreatedCarts = function() {
+function getCreatedCarts(params) {
   var cartRepo = connectCartRepo();
   var result = [];
+  var query = "_ts > '2019-03-26T07:24:47.393Z'";
+  if (params.status) {
+    query += " and status = '" + params.status + "'";
+  } else {
+    query += " and status in ('failed', 'paid', 'pending', 'created')";
+  }
+  if (params.country) {
+    query += " and country = '" + params.country + "'";
+  }
+  if (params.search) {
+    query +=
+      " and fulltext('_allText', '\"" +
+      params.search +
+      "\"', 'OR') or ngram('_allText', '\"" +
+      params.search +
+      "\"', 'OR')";
+  }
   var carts = cartRepo.query({
     start: 0,
     count: -1,
-    query:
-      "(status = 'paid' or status = 'failed' or status = 'created' or status = 'pending') and _ts > '2019-03-26T07:24:47.393Z'",
+    query: query,
     sort: "_ts desc"
   });
   for (var i = 0; i < carts.hits.length; i++) {
     result.push(this.getCart(carts.hits[i].id));
   }
   return result;
-};
+}
 
 exports.modify = function(cartId, id, amount, itemSize, force) {
   var cart = this.getCart(cartId);
@@ -431,7 +451,7 @@ function caclculateCartWeight(items) {
 }
 
 function getShippingPrice(cart) {
-  var site = portal.getSiteConfig();
+  var site = sharedLib.getSiteConfig();
   var shipping = contentLib.get({ key: site.shipping });
   for (var i = 0; i < shipping.data.shipping.length; i++) {
     if (shipping.data.shipping[i].country.indexOf(cart.country) != -1) {

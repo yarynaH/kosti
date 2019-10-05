@@ -5,7 +5,7 @@ var nodeLib = require("/lib/xp/node");
 var htmlExporter = require("/lib/openxp/html-exporter");
 var textEncodingLib = require("/lib/text-encoding");
 
-var libLocation = "../../site/lib/";
+var libLocation = "../../../site/lib/";
 var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 var norseUtils = require(libLocation + "norseUtils");
@@ -14,6 +14,7 @@ var cartLib = require(libLocation + "cartLib");
 var qrLib = require(libLocation + "qrLib");
 var hashLib = require(libLocation + "hashLib");
 var mailsLib = require(libLocation + "mailsLib");
+var sharedLib = require(libLocation + "sharedLib");
 
 exports.get = function(req) {
   var params = req.params;
@@ -91,7 +92,7 @@ exports.get = function(req) {
 exports.post = function(req) {
   var params = req.params;
   var view = resolve("orders.html");
-  switch (params.action) {
+  switch (params.postAction) {
     case "addItem":
       if (params.size.trim() == "") {
         params.size = null;
@@ -147,11 +148,13 @@ exports.post = function(req) {
       });
       break;
     default:
+      var carts = cartLib.getCreatedCarts(req.params);
       view = resolve("ordersList.html");
       return {
         body: thymeleaf.render(view, {
           pageComponents: helpers.getPageComponents(req),
-          carts: carts
+          carts: carts,
+          params: req.params
         }),
         contentType: "text/html"
       };

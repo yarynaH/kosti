@@ -1,29 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      data-th-href="${portal.assetUrl({'_path=/css/main.css'})}"
-    />
-    <title>Новости</title>
-  </head>
-  <body style="margin: 0px; padding: 0px">
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+  <body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
       <div class="site_width">
         <div class="orders">
           <div class="orders-search">
-            <form
-              method="GET"
-              data-th-attr="action=${portal.serviceUrl({'_service=orders'})}"
-            >
+            <form method="GET">
               <div class="form-group">
                 <label class="order-label">Search</label>
-                <input name="search" type="text" class="input-text" />
+                <input
+                  data-th-value="${params.search}"
+                  name="search"
+                  type="text"
+                  class="input-text"
+                />
                 <input name="action" type="hidden" value="search" />
               </div>
               <div class="form-group-column">
@@ -192,12 +184,8 @@
               </div>
 
               <div class="table-body_cell table-side_aligns">
-                <!--
-                            <button class="button">Редактировать</button>
-                            <button class="button">Удалить</button>
-                            -->
                 <a
-                  data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + item._id, 'action=details'})}"
+                  data-th-href="${'?id=' + item._id + '&action=details'}"
                   class="button"
                   >Детали</a
                 >
@@ -215,5 +203,6 @@
         </div>
       </div>
     </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
   </body>
 </html>
