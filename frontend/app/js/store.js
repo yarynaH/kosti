@@ -54,60 +54,24 @@ function addToCart(data) {
           .removeClass("hidden");
       }
     }
+    showSnackBar("Добавлено в корзину.", "info");
   });
 }
 
-//! currenly is a backup and not working
-//TODO: remove at all
-function validateCheckout(e) {
-  return null;
-  $("form.checkout-form input, form.checkout-form select").each(function() {
-    if ($(this).val() == null || $(this).val() == "") {
-      e.preventDefault();
-      $(this)
-        .parent()
-        .addClass("is-invalid");
-    }
-  });
-  var tel = $("#phone-checkout-input").val();
-  if (tel && !validatePhone(tel)) {
-    e.preventDefault();
-    $("#phone-checkout-input")
-      .parent()
-      .addClass("is-invalid");
+$(".pdp-image-item img").on("click", function(e) {
+  console.log("123");
+  e.preventDefault();
+  var prevImg = $(".pdp-main_image")
+    .find("img")
+    .attr("src");
+  $(".pdp-main_image")
+    .find("img")
+    .attr("src", $(this).attr("src"));
+  if (window.outerWidth >= 768) {
+    $(".pdp-main_image").zoom({ url: $(this).attr("src") });
   }
-  var email = $("#email-checkout-input").val();
-  if (email && !validateEmail(email)) {
-    e.preventDefault();
-    $("#email-checkout-input")
-      .parent()
-      .addClass("is-invalid");
-  }
-  if ($("#agreement").length && !$("#agreement").is(":checked")) {
-    e.preventDefault();
-    $("#agreement")
-      .parent()
-      .addClass("is-invalid");
-  }
-  if (
-    $("#delivery_np-warehouses").length &&
-    (!$("#delivery_np-warehouses").val() ||
-      $("#delivery_np-warehouses").val() == "")
-  ) {
-    e.preventDefault();
-    $("#delivery_np-warehouses").addClass("is-invalid");
-  }
-  if (
-    $("#delivery_np-input-city").length &&
-    (!$("#delivery_np-input-city").val() ||
-      $("#delivery_np-input-city").val() == "")
-  ) {
-    e.preventDefault();
-    $("#delivery_np-input-city")
-      .parent()
-      .addClass("is-invalid");
-  }
-}
+  //$(this).attr("src", prevImg);
+});
 
 function addToCartOnclick(input) {
   var data = {

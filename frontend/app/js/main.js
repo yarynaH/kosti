@@ -31,19 +31,6 @@ function initPDPFunctions() {
       addToCartOnclick(input);
     }
   });
-  $(".pdp-image-item img").on("click", function(e) {
-    e.preventDefault();
-    var prevImg = $(".pdp-main_image")
-      .find("img")
-      .attr("src");
-    $(".pdp-main_image")
-      .find("img")
-      .attr("src", $(this).attr("src"));
-    if (window.outerWidth >= 768) {
-      $(".pdp-main_image").zoom({ url: $(this).attr("src") });
-    }
-    $(this).attr("src", prevImg);
-  });
   $(".add_to_cart-btn").on("click", function(e) {
     e.preventDefault();
     if ($("#pdp-size-select").length && !$("#pdp-size-select").val()) {
