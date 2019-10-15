@@ -140,6 +140,39 @@ function initLoginRegisterForm() {
   $(".js_modal-close").on("click", function() {
     hideLoginRegisterModal();
   });
+  initFBLogin();
+}
+
+function initFBLogin() {
+  $(".social_login-fb").on("click", function() {
+    showLoader();
+    FB.login(
+      function(response) {
+        var call = makeAjaxCall(
+          userServiceUrl,
+          "POST",
+          {
+            action: "fbRegister",
+            token: response.authResponse.accessToken,
+            userId: response.authResponse.userID
+          },
+          true
+        );
+        call.done(function(data) {
+          if (data.authenticated && data.exist) {
+            $(".js_header-user-wrap").html(data.html);
+            $(".modal-login .form-group-error").addClass("hidden");
+            location.reload();
+          } else {
+            $(".modal-login .form-group-error").text(data.message);
+            $(".modal-login .form-group-error").removeClass("hidden");
+            hideLoader();
+          }
+        });
+      },
+      { scope: "public_profile,email", return_scopes: true }
+    );
+  });
 }
 
 function initGoogleLogin() {

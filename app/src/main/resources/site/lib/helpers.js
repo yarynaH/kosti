@@ -97,9 +97,15 @@ function getPageComponents(req, footerType, activeEl, title) {
     "&redirect_uri=" + portal.serviceUrl({ service: "user", type: "absolute" });
   discordUrl += "&response_type=code";
   discordUrl += "&scope=email%20identify";
+  var vkUrl =
+    "https://oauth.vk.com/authorize?" +
+    "client_id=7018935&scope=4194304&" +
+    "redirect_uri=" +
+    portal.serviceUrl({ service: "user", type: "absolute" }) +
+    "&v=5.102";
   pageComponents["loginRegisterModal"] = thymeleaf.render(
     resolve("../pages/components/loginRegisterModal.html"),
-    { discordUrl: discordUrl }
+    { discordUrl: discordUrl, vkUrl: vkUrl }
   );
 
   pageComponents["header"] = thymeleaf.render(

@@ -26,6 +26,8 @@ exports.register = register;
 exports.createUserContentType = createUserContentType;
 exports.login = login;
 exports.discordRegister = discordRegister;
+exports.fbRegister = fbRegister;
+exports.vkRegister = vkRegister;
 
 function getCurrentUser() {
   var user = authLib.getUser();
@@ -142,6 +144,53 @@ function getUserDataById(id) {
   };
 }
 
+function vkRegister(code) {
+  var url =
+    "https://oauth.vk.com/access_token?" +
+    "client_id=7018935&client_secret=5qh6sNny1XFW73sPEQXw&" +
+    "code=" +
+    code +
+    "&" +
+    "redirect_uri=" +
+    portal.serviceUrl({ service: "user", type: "absolute" });
+  var emailRequest = JSON.parse(
+    httpClientLib.request({
+      url: url,
+      method: "GET",
+      connectionTimeout: 2000000,
+      readTimeout: 500000
+    }).body
+  );
+  var newUrl =
+    "https://api.vk.com/method/users.get?v=5.102&uid=" +
+    emailRequest.user_id +
+    "&fields=photo_max_orig" +
+    "&access_token=" +
+    emailRequest.access_token;
+  var profileRequest = JSON.parse(
+    httpClientLib.request({
+      url: newUrl,
+      method: "GET",
+      connectionTimeout: 2000000,
+      readTimeout: 500000
+    }).body
+  ).response[0];
+  if (
+    emailRequest &&
+    profileRequest &&
+    emailRequest.email &&
+    (profileRequest.first_name || profileRequest.last_name)
+  ) {
+    return register(
+      profileRequest.first_name + " " + profileRequest.last_name,
+      emailRequest.email,
+      null,
+      true,
+      profileRequest.photo_max_orig
+    );
+  }
+}
+
 function discordRegister(code) {
   var data =
     "redirect_uri=" + portal.serviceUrl({ service: "user", type: "absolute" });
@@ -209,6 +258,34 @@ function jwtRegister(token) {
       null,
       true,
       response.picture
+    );
+  }
+  return false;
+}
+function fbRegister(token, userId) {
+  var response = JSON.parse(
+    httpClientLib.request({
+      url:
+        "https://graph.facebook.com/" +
+        userId +
+        "/?fields=email,name&access_token=" +
+        token,
+      method: "GET",
+      headers: {
+        "X-Custom-Header": "header-value"
+      },
+      connectionTimeout: 2000000,
+      readTimeout: 500000,
+      contentType: "application/json"
+    }).body
+  );
+  if (response && response.email && response.name) {
+    return register(
+      response.name,
+      response.email,
+      null,
+      true,
+      "https://graph.facebook.com/" + userId + "/picture?width=1900&height=1900"
     );
   }
   return false;

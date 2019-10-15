@@ -63,6 +63,7 @@ exports.get = function(req) {
   }
   if (params.code) {
     userLib.discordRegister(params.code);
+    userLib.vkRegister(params.code);
     return {
       status: 301,
       headers: {
@@ -94,6 +95,8 @@ exports.post = function(req) {
     result = userLib.addBookmark(params.id);
   } else if (params.action == "googleRegister") {
     result = userLib.jwtRegister(params.token);
+  } else if (params.action == "fbRegister") {
+    result = userLib.fbRegister(params.token, params.userId);
   } else if (params.action == "resetpass") {
     if (userLib.setNewPass(params.password, params.email, params.hash)) {
       return logout();
