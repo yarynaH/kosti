@@ -8,11 +8,19 @@ exports.generateNiceServiceUrl = generateNiceServiceUrl;
 exports.getTranslationCounter = getTranslationCounter;
 exports.getSite = getSite;
 exports.getSiteConfig = getSiteConfig;
+exports.getShopUrl = getShopUrl;
 
 function connectRepo(id) {
   return nodeLib.connect({
     repoId: id,
     branch: "master"
+  });
+}
+
+function getShopUrl() {
+  var site = portal.getSiteConfig();
+  return portal.pageUrl({
+    id: site.shopLocation
   });
 }
 
