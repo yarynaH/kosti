@@ -152,7 +152,7 @@ function vkRegister(code) {
     code +
     "&" +
     "redirect_uri=" +
-    portal.serviceUrl({ service: "user", type: "absolute" });
+    portal.serviceUrl({ service: "vklogin", type: "absolute" });
   var emailRequest = JSON.parse(
     httpClientLib.request({
       url: url,

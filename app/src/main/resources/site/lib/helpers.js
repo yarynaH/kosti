@@ -101,7 +101,7 @@ function getPageComponents(req, footerType, activeEl, title) {
     "https://oauth.vk.com/authorize?" +
     "client_id=7018935&scope=4194304&" +
     "redirect_uri=" +
-    portal.serviceUrl({ service: "user", type: "absolute" }) +
+    portal.serviceUrl({ service: "vklogin", type: "absolute" }) +
     "&v=5.102";
   pageComponents["loginRegisterModal"] = thymeleaf.render(
     resolve("../pages/components/loginRegisterModal.html"),
