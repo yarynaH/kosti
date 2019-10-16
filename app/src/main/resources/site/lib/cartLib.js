@@ -11,6 +11,9 @@ exports.addPromo = addPromo;
 exports.getCart = getCart;
 exports.removePromo = removePromo;
 exports.getCreatedCarts = getCreatedCarts;
+exports.modifyCartWithParams = modifyCartWithParams;
+exports.setUserDetails = setUserDetails;
+exports.modifyInventory = modifyInventory;
 
 function getCart(cartId) {
   var cart = {};
@@ -45,7 +48,7 @@ exports.getCartByQr = function(qr) {
       "\"', 'OR')"
   });
   if (result.total > 0) {
-    var cart = this.getCart(result.hits[0].id);
+    var cart = getCart(result.hits[0].id);
     cart.currentQrId = qr;
     for (var i = 0; i < cart.items.length; i++) {
       cart.items = norseUtils.forceArray(cart.items);
@@ -123,13 +126,19 @@ function getCreatedCarts(params) {
     sort: "_ts desc"
   });
   for (var i = 0; i < carts.hits.length; i++) {
-    result.push(this.getCart(carts.hits[i].id));
+    result.push(getCart(carts.hits[i].id));
   }
   return result;
 }
 
+function modifyCartWithParams(id, params) {
+  return contextLib.runAsAdmin(function() {
+    return setUserDetails(id, params);
+  });
+}
+
 exports.modify = function(cartId, id, amount, itemSize, force) {
-  var cart = this.getCart(cartId);
+  var cart = getCart(cartId);
   var cartRepo = connectCartRepo();
   var item = contentLib.get({ key: id });
   if (item && item.data && item.data.generateIds) {
@@ -139,7 +148,7 @@ exports.modify = function(cartId, id, amount, itemSize, force) {
     key: cart._id,
     editor: editor
   });
-  result = this.getCart(cartId);
+  result = getCart(cartId);
 
   function editor(node) {
     if (node.items) {
@@ -216,9 +225,7 @@ function modifyInventory(items) {
   }
 }
 
-exports.modifyInventory = modifyInventory;
-
-exports.setUserDetails = function(cartId, params) {
+function setUserDetails(cartId, params) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.modify({
     key: cartId,
@@ -252,8 +259,8 @@ exports.setUserDetails = function(cartId, params) {
     node.trackNum = params.trackNum ? params.trackNum : node.trackNum;
     return node;
   }
-  return this.getCart(cartId);
-};
+  return getCart(cartId);
+}
 
 exports.generateItemsIds = function(cartId) {
   var cartRepo = connectCartRepo();
@@ -292,7 +299,7 @@ exports.generateItemsIds = function(cartId) {
     }
     return node;
   }
-  return this.getCart(cartId);
+  return getCart(cartId);
 };
 
 exports.getNextId = function() {

@@ -100,17 +100,17 @@ function renderSuccessPage(req, cart, pendingPage) {
 function checkIKResponse(params, model) {
   if (params.ik_inv_st == "success") {
     params.step = "success";
-    modifyCart(model.cart._id, { status: "paid" });
+    cartLib.modifyCartWithParams(model.cart._id, { status: "paid" });
     contextLib.runAsAdmin(function() {
       cartLib.modifyInventory(model.cart.items);
     });
   } else if (params.ik_inv_st == "fail" || params.ik_inv_st == "canceled") {
     params.error = true;
     params.step = "3";
-    modifyCart(model.cart._id, { status: "failed" });
+    cartLib.modifyCartWithParams(model.cart._id, { status: "failed" });
   } else if (params.ik_inv_st == "waitAccept") {
     params.step = "pending";
-    modifyCart(model.cart._id, { status: "pending" });
+    cartLib.modifyCartWithParams(model.cart._id, { status: "pending" });
     contextLib.runAsAdmin(function() {
       cartLib.modifyInventory(model.cart.items);
     });

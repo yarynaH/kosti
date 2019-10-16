@@ -32,7 +32,7 @@ function generateCheckoutPage(req) {
         params.ik_id =
           params.surname.toLowerCase() + "_" + new Date().getTime();
       }
-      model.cart = modifyCart(model.cart._id, params);
+      model.cart = cartLib.modifyCartWithParams(model.cart._id, params);
       var stepView = thymeleaf.render(
         resolve("stepTwo.html"),
         createStepTwoModel(params, req, model.cart)
@@ -44,7 +44,7 @@ function generateCheckoutPage(req) {
       params.status = "created";
       var shipping = checkoutLib.getShipping(model.cart.country);
       shipping = checkoutLib.getShippingById(shipping, params.shipping);
-      model.cart = modifyCart(model.cart._id, params);
+      model.cart = cartLib.modifyCartWithParams(model.cart._id, params);
       var stepView = thymeleaf.render(
         resolve("stepThree.html"),
         createStepThreeModel(params, req, model.cart)
@@ -57,6 +57,8 @@ function generateCheckoutPage(req) {
       }
       break;
     case "success":
+      return checkoutLib.renderSuccessPage(req, model.cart, false);
+      break;
     case "pending":
       return checkoutLib.renderSuccessPage(req, model.cart, true);
       break;
@@ -73,12 +75,6 @@ function generateCheckoutPage(req) {
     body: thymeleaf.render(view, model),
     contentType: "text/html"
   };
-
-  function modifyCart(id, params) {
-    return contextLib.runAsAdmin(function() {
-      return (model.cart = cartLib.setUserDetails(id, params));
-    });
-  }
 
   function createStepOneModel(params, cart, req) {
     return {
