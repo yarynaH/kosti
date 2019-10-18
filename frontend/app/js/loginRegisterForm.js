@@ -141,6 +141,13 @@ function initLoginRegisterForm() {
     hideLoginRegisterModal();
   });
   initFBLogin();
+  initVKLogin();
+}
+
+function initVKLogin() {
+  $(".social_login-vk").on("click", function() {
+    showLoader();
+  });
 }
 
 function initFBLogin() {
