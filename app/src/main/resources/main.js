@@ -1,5 +1,6 @@
 var event = require("/lib/xp/event");
 var content = require("/lib/xp/content");
+var slackLib = require("/lib/slackLib");
 
 var libLocation = "site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -18,6 +19,10 @@ event.listener({
         if (node && node.type && node.type == app.name + ":article") {
           contextLib.runAsAdmin(function() {
             votesLib.createBlankVote(node._id, "article");
+          });
+          slackLib.sendMessage({
+            channel: app.config.slackChannelSystem,
+            title: "New article created."
           });
         } else if (node && node.type && node.type == app.name + ":hashtag") {
           contextLib.runAsAdmin(function() {
