@@ -44,9 +44,14 @@
                   class="schedule-title"
                   data-th-text="${scheduleItem.displayName}"
                 ></h3>
-                <div class="tag-list tag-list__small hidden">
-                  <a href="#" class="tag-item">D&D</a>
-                  <a href="#" class="tag-item">5e</a>
+                <div class="tag-list tag-list__small tag-list__white">
+                  <a
+                    data-th-each="hashtag : ${scheduleItem.hashtags}"
+                    data-th-href="${hashtag.url}"
+                    data-th-if="${hashtag}"
+                    class="tag-item"
+                    data-th-text="${hashtag.displayName}"
+                  ></a>
                 </div>
               </div>
             </div>
@@ -73,7 +78,7 @@
             <a
               data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}"
               data-type="bookmarks"
-              class="bookmarks-btn"
+              class="bookmarks-btn js_bookmarks-btn js_login-required"
               data-th-classappend="${active.bookmarks}"
               data-th-text="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"
             ></a>
@@ -83,6 +88,7 @@
               class="blog-list"
               data-th-utext="${articles}"
               data-page="1"
+              data-th-attr="data-date=${hotDate}"
             ></div>
             <div
               data-th-utext="${loadMoreComponent}"

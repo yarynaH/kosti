@@ -44,24 +44,24 @@
         <div class="blog-content">
           <div class="article-body">
             <div class="article-content" data-portal-region="main">
-              <section data-th-utext="${content.data.intro}"></section>
               <div
                 data-th-if="${content.data.body}"
                 data-th-utext="${content.data.body}"
                 data-th-remove="tag"
               ></div>
-              <div
-                data-th-each="component : ${mainRegion.components}"
-                data-th-if="${mainRegion}"
-                data-th-remove="tag"
-              >
+              <div data-th-if="${mainRegion}" data-th-remove="tag">
                 <div
-                  data-portal-component="${component.path}"
+                  data-th-each="component : ${mainRegion.components}"
                   data-th-remove="tag"
-                ></div>
+                >
+                  <div
+                    data-portal-component="${component.path}"
+                    data-th-remove="tag"
+                  ></div>
+                </div>
               </div>
             </div>
-            <div class="blog-item">
+            <div>
               <div class="post" data-th-if="${content.hashtags}">
                 <div class="tag-list ">
                   <a

@@ -275,14 +275,15 @@ $.extend( $.validator, {
 		messages: {},
 		groups: {},
 		rules: {},
-		errorClass: "is-invalid",
+		errorClass: "error-msg",
 		pendingClass: "pending",
 		validClass: "valid",
-		errorElement: "label",
+    errorElement: "div",
+    errorElementClass: 'error-msg',
 		focusCleanup: false,
 		focusInvalid: true,
 		errorContainer: $( [] ),
-		errorLabelContainer: $( [] ),
+    errorLabelContainer: $( [] ),
 		onsubmit: true,
 		ignore: ":hidden",
 		ignoreTitle: false,
@@ -681,7 +682,7 @@ $.extend( $.validator, {
 		},
 
 		errors: function() {
-			var errorClass = this.settings.errorClass.split( " " ).join( "." );
+			var errorClass = this.settings.errorElementClass.split( " " ).join( "." );
 			return $( this.settings.errorElement + "." + errorClass, this.errorContext );
 		},
 
@@ -959,7 +960,7 @@ $.extend( $.validator, {
 				// Create error element
 				error = $( "<" + this.settings.errorElement + ">" )
 					.attr( "id", elementID + "-error" )
-					.addClass( this.settings.errorClass )
+					.addClass( this.settings.errorElementClass )
 					.html( message || "" );
 
 				// Maintain reference to the element to be placed into the DOM
@@ -975,7 +976,11 @@ $.extend( $.validator, {
 				} else if ( this.settings.errorPlacement ) {
 					this.settings.errorPlacement.call( this, place, $( element ) );
 				} else {
-					place.insertAfter( element );
+          //!
+          //! NOTE
+          //! If anything goes wron with validation, check here.
+          //!
+          $(element).parent().append(place);
 				}
 
 				// Link error back to the element

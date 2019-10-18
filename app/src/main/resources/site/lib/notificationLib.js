@@ -131,7 +131,10 @@ function addNotification(subject, type) {
   if (!forUser || !user || !subject) {
     return false;
   }
-  if (!checkIfNotificationExists(forUser._id, user._id, subject._id, type)) {
+  if (
+    !checkIfNotificationExists(forUser._id, user._id, subject._id, type) ||
+    type === "comment"
+  ) {
     createNotification(forUser._id, user._id, subject._id, type);
   }
   return true;

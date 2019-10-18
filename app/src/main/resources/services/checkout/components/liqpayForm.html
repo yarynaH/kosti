@@ -1,0 +1,11 @@
+<form
+  class="hidden"
+  name="payment"
+  method="post"
+  action="https://www.liqpay.ua/api/3/checkout"
+  accept-charset="UTF-8"
+>
+  <input type="hidden" name="data" data-th-value="${liqpayData}" />
+  <input type="hidden" name="signature" data-th-value="${signature}" />
+  <input type="submit" value="Pay" />
+</form>

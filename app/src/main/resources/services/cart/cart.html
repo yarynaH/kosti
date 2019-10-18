@@ -91,6 +91,9 @@
                     ></span>
                     <span data-th-text="${item.price}"></span>
                   </div>
+                  <span class="out-of-stock-msg" data-th-if="${item.preorder}"
+                    >Предзаказ</span
+                  >
                 </div>
                 <div
                   data-th-classappend="${item.stock and item.itemSizeStock ? 'hidden' : ''}"

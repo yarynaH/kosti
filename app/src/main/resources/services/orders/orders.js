@@ -62,12 +62,13 @@ exports.get = function(req) {
       };
       break;
     default:
-      var carts = cartLib.getCreatedCarts();
+      var carts = cartLib.getCreatedCarts(req.params);
       view = resolve("ordersList.html");
       return {
         body: thymeleaf.render(view, {
           pageComponents: helpers.getPageComponents(req),
-          carts: carts
+          carts: carts,
+          params: req.params
         }),
         contentType: "text/html"
       };

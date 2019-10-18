@@ -25,18 +25,16 @@ exports.forgotPass = forgotPass;
 exports.register = register;
 exports.createUserContentType = createUserContentType;
 exports.login = login;
+exports.discordRegister = discordRegister;
+exports.fbRegister = fbRegister;
+exports.vkRegister = vkRegister;
 
 function getCurrentUser() {
   var user = authLib.getUser();
   var userObj = false;
   if (user && user.email && user.displayName) {
     userObj = contentLib.query({
-      query:
-        "data.email = '" +
-        user.email +
-        "' AND displayName = '" +
-        user.displayName +
-        "'",
+      query: "data.email = '" + user.email + "'",
       contentTypes: [app.name + ":user"]
     });
     if (userObj.hits && userObj.hits[0]) {
@@ -146,6 +144,100 @@ function getUserDataById(id) {
   };
 }
 
+function vkRegister(code) {
+  var url =
+    "https://oauth.vk.com/access_token?" +
+    "client_id=7018935&client_secret=5qh6sNny1XFW73sPEQXw&" +
+    "code=" +
+    code +
+    "&" +
+    "redirect_uri=" +
+    portal.serviceUrl({ service: "vklogin", type: "absolute" });
+  var emailRequest = JSON.parse(
+    httpClientLib.request({
+      url: url,
+      method: "GET",
+      connectionTimeout: 2000000,
+      readTimeout: 500000
+    }).body
+  );
+  var newUrl =
+    "https://api.vk.com/method/users.get?v=5.102&uid=" +
+    emailRequest.user_id +
+    "&fields=photo_max_orig" +
+    "&access_token=" +
+    emailRequest.access_token;
+  var profileRequest = JSON.parse(
+    httpClientLib.request({
+      url: newUrl,
+      method: "GET",
+      connectionTimeout: 2000000,
+      readTimeout: 500000
+    }).body
+  ).response[0];
+  if (
+    emailRequest &&
+    profileRequest &&
+    emailRequest.email &&
+    (profileRequest.first_name || profileRequest.last_name)
+  ) {
+    return register(
+      profileRequest.first_name + " " + profileRequest.last_name,
+      emailRequest.email,
+      null,
+      true,
+      profileRequest.photo_max_orig
+    );
+  }
+}
+
+function discordRegister(code) {
+  var data =
+    "redirect_uri=" + portal.serviceUrl({ service: "user", type: "absolute" });
+  data += "&grant_type=authorization_code";
+  data += "&scope=identify%20email";
+  data += "&code=" + code;
+  var request = httpClientLib.request({
+    url: "https://discordapp.com/api/oauth2/token",
+    method: "POST",
+    body: data,
+    connectionTimeout: 2000000,
+    readTimeout: 500000,
+    contentType: "application/x-www-form-urlencoded",
+    auth: {
+      user: "605493268326776853",
+      password: "wS6tHC4ygjIAo5gZNskzEpeetVOk0N62"
+    }
+  });
+  var response = JSON.parse(request.body);
+  request = httpClientLib.request({
+    url: "https://discordapp.com/api/users/@me",
+    method: "GET",
+    connectionTimeout: 2000000,
+    readTimeout: 500000,
+    contentType: "application/x-www-form-urlencoded",
+    headers: {
+      Authorization: response.token_type + " " + response.access_token
+    }
+  });
+  response = JSON.parse(request.body);
+  if (response && response.email && response.username) {
+    return register(
+      response.username,
+      response.email,
+      null,
+      true,
+      response.avatar
+        ? "https://cdn.discordapp.com/avatars/" +
+            response.id +
+            "/" +
+            response.avatar
+        : null
+    );
+  }
+  return false;
+}
+
 function jwtRegister(token) {
   var response = JSON.parse(
     httpClientLib.request({
@@ -166,6 +258,34 @@ function jwtRegister(token) {
       null,
       true,
       response.picture
+    );
+  }
+  return false;
+}
+function fbRegister(token, userId) {
+  var response = JSON.parse(
+    httpClientLib.request({
+      url:
+        "https://graph.facebook.com/" +
+        userId +
+        "/?fields=email,name&access_token=" +
+        token,
+      method: "GET",
+      headers: {
+        "X-Custom-Header": "header-value"
+      },
+      connectionTimeout: 2000000,
+      readTimeout: 500000,
+      contentType: "application/json"
+    }).body
+  );
+  if (response && response.email && response.name) {
+    return register(
+      response.name,
+      response.email,
+      null,
+      true,
+      "https://graph.facebook.com/" + userId + "/picture?width=1900&height=1900"
     );
   }
   return false;
@@ -300,9 +420,12 @@ function login(name, pass, token) {
   });
   if (loginResult.authenticated === true) {
     return {
-      html: thymeleaf.render(resolve("../pages/components/headerUser.html"), {
-        user: getCurrentUser()
-      }),
+      html: thymeleaf.render(
+        resolve("../pages/components/header/headerUser.html"),
+        {
+          user: getCurrentUser()
+        }
+      ),
       exist: true,
       authenticated: true
     };

@@ -252,9 +252,12 @@
       width: 34%;
       float: right;
       padding-left: 25px;
+    }
+  }
 
-      position: sticky;
-      top: 105px;
+  &-write_post {
+    &:before {
+      margin-right: 10px;
     }
   }
 }
@@ -309,9 +312,16 @@
   &-counter {
     margin-right: 25px;
     font-size: rem(14);
+    color: $color-primary12;
 
     &:before {
       margin-right: 8px;
+    }
+
+    &.icon-comment {
+      &:hover {
+        color: $color-primary15;
+      }
     }
   }
 
@@ -339,8 +349,6 @@
   }
 
   &:hover {
-    margin-right: 0;
-
     @include tablet-mobile {
       color: $color-primary21;
     }
@@ -349,10 +357,6 @@
       opacity: 1;
       pointer-events: auto;
     }
-
-    .post-counter {
-      margin-right: 25px;
-    }
   }
 
   .post-counter {
@@ -360,13 +364,13 @@
   }
 
   .social-list {
-    @include position(absolute, left 75px);
+    @include position(absolute, left 100% top -10px);
 
-    width: 128px;
+    width: 200px;
     opacity: 0;
     background: $color-primary1;
-    padding: 10px 0;
-    transition: transition(all, 0.2s, ease);
+    padding: 10px 0 10px 25px;
+    transition: transition(opacity, 0.2s, ease);
     pointer-events: none;
 
     .social-link:before {

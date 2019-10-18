@@ -15,7 +15,12 @@
             <label for="email-login-input" class="label"
               >ЭЛЕКТРОННАЯ ПОЧТА</label
             >
-            <input name="username" class="input-text" id="email-login-input" />
+            <input
+              name="username"
+              class="input-text"
+              id="email-login-input"
+              required
+            />
           </div>
 
           <div class="form-group form-group__action">
@@ -28,11 +33,10 @@
               type="password"
               class="input-text"
               id="password-login-input"
+              required
             />
           </div>
-          <div class="form-group form-group-error is-invalid hidden">
-            <span></span>
-          </div>
+          <div class="form-group form-group-error is-invalid hidden"></div>
 
           <button class="modal-btn modal-btn-login">ВОЙТИ</button>
         </form>
@@ -42,11 +46,16 @@
           <span>ВХОД ЧЕРЕЗ СОЦИАЛЬНЫЕ СЕТИ</span>
         </h5>
         <div class="social_login-action">
-          <button class="social_login-fb">Facebook</button>
-          <button class="social_login-twitter">Twitter</button>
-          <button class="social_login-vk">Вконтакте</button>
+          <button class="button social_login-fb hidden">Facebook</button>
+          <button class="button social_login-twitter hidden">Twitter</button>
+          <a data-th-href="${vkUrl}" class="button social_login-vk hidden"
+            >Вконтакте</a
+          >
+          <a data-th-href="${discordUrl}" class="button social_login-discord"
+            >Discord</a
+          >
           <button
-            class="social_login-google js_social_login-google"
+            class="button social_login-google js_social_login-google"
             id="google-login"
           >
             Google
@@ -75,6 +84,7 @@
               type="text"
               class="input-text"
               id="name-registration-input"
+              required
             />
           </div>
 
@@ -86,7 +96,8 @@
               name="email"
               type="email"
               class="input-text"
-              id="email-registration-input"
+              id="emailRegistrationInput"
+              required
             />
           </div>
 
@@ -99,6 +110,7 @@
               type="password"
               class="input-text"
               id="password-registration-input"
+              required
             />
           </div>
           <div class="form-group form-group-error is-invalid hidden">
@@ -132,6 +144,7 @@
               type="email"
               class="input-text"
               id="email-forgot-input"
+              required
             />
           </div>
           <div class="form-group form-group-error is-invalid hidden">
@@ -164,6 +177,7 @@
               type="password"
               class="input-text"
               id="password-social-confirm-input"
+              required
             />
           </div>
 
@@ -175,6 +189,7 @@
               type="password"
               class="input-text"
               id="password-social-input"
+              required
             />
           </div>
           <div class="form-group form-group-error is-invalid hidden">
@@ -185,5 +200,18 @@
         </form>
       </div>
     </div>
+  </div>
+</div>
+<div class="snackbar js_snackbar">
+  <div class="snackbar-text">Some msg</div>
+  <div class="snackbar-close icon-delete js_snackbar-close"></div>
+</div>
+
+<div class="modal js_loader" style="opacity: 0;">
+  <div class="lds-ring">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 </div>

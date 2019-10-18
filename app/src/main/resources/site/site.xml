@@ -61,21 +61,9 @@
       <config>
       </config>
     </input>
-    <input name="agreementPage" type="ContentSelector">
-      <label>Agreement page</label>
-      <occurrences minimum="0" maximum="1"/>
-      <config>
-      </config>
-    </input>
-    <input name="coockiePolicy" type="ContentSelector">
-      <label>Cookie policy</label>
-      <occurrences minimum="0" maximum="1"/>
-      <config>
-      </config>
-    </input>
-    <input name="aboutUs" type="ContentSelector">
-      <label>About us</label>
-      <occurrences minimum="0" maximum="1"/>
+    <input name="agreements" type="ContentSelector">
+      <label>Agreements</label>
+      <occurrences minimum="0" maximum="3"/>
       <config>
       </config>
     </input>

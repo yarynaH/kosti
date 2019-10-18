@@ -19,7 +19,7 @@ exports.beautifyComment = beautifyComment;
 exports.getCommentParentArticle = getCommentParentArticle;
 exports.getCommentsView = getCommentsView;
 
-function addComment(parent, body) {
+function addComment(parent, body, articleId) {
   var commentsRepo = connectCommentsRepo();
   var user = userLib.getCurrentUser();
   if (user) {
@@ -28,9 +28,10 @@ function addComment(parent, body) {
     return false;
   }
   var comment = commentsRepo.create({
-    body: body,
+    body: createTextLinks(body),
     parent: parent,
     user: user,
+    articleId: articleId,
     _permissions: [
       {
         principal: "role:system.authenticated",
@@ -129,7 +130,7 @@ function voteForComment(id) {
   }
   if (
     !comment.votes ||
-    (comment.votes && comment.votes.indexOf(user.key) == -1)
+    (comment.votes && comment.votes.indexOf(user.key) === -1)
   ) {
     comment = upvote(user.key, comment._id);
   } else {
@@ -137,7 +138,7 @@ function voteForComment(id) {
   }
   return {
     rate: comment.rate,
-    voted: comment.votes && comment.votes.indexOf(user.key) != -1
+    voted: comment.votes && comment.votes.indexOf(user.key) !== -1
   };
 }
 
@@ -206,10 +207,11 @@ function getComment(id) {
 }
 
 function beautifyComment(comment, counter, level) {
+  var user = userLib.getCurrentUser();
   if (level || level === 0) {
     level++;
   }
-  if (level === 9) {
+  if (level === 10) {
     comment.nextLevel = true;
   }
   if (!counter) {
@@ -217,8 +219,7 @@ function beautifyComment(comment, counter, level) {
       comment._ts.replace("Z", "")
     );
     comment.author = userLib.getUserDataById(comment.user);
-    comment.voted =
-      comment.votes && comment.votes.indexOf(comment.author.key) != -1;
+    comment.voted = comment.votes && comment.votes.indexOf(user.key) !== -1;
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
   return comment;
@@ -237,4 +238,26 @@ function countComments(id) {
   for (var i = 0; i < comments.length; i++)
     commentsCounter += countComments(comments[i]._id);
   return commentsCounter;
+}
+
+function createTextLinks(text) {
+  //text = processComment(text, /\*\*[\s\S]+\*\*/gim, "<strong>", "</strong>");
+  //text = processComment(text, /<<[\s\S]+>>/gim, "<em>", "</em>");
+  //text = processComment(text, /__[\s\S]+__/gim, "<u>", "</u>");
+  //text = processComment(text, /~~[\s\S]+~~/gim, "<s>", "</s>");
+  //text = processComment(text, /``[\s\S]+``/gim, "<code>", "</code>");
+  return (text || "").replace(
+    /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
+    function(match, space, url) {
+      return space + '<a href="' + url + '">' + url + "</a>";
+    }
+  );
+}
+
+function processComment(text, regexp, tagOpen, tagClose) {
+  //TODO:
+  //investigate this function and add bold and other stuff to comments.
+  return text.replace(regexp, function(match, space, content) {
+    return space + tagOpen + content + tagClose;
+  });
 }

@@ -1,0 +1,50 @@
+.game_reg {
+    
+    &-checkbox_list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        .form-group+.form-group {
+            @include mobile {
+                margin-top: 0;
+            }
+        }
+
+        .game_reg-checkbox {
+            width: 100%;
+            align-items: flex-start;
+
+            @include tablet-all {
+                width: 32%;
+                margin-top: 0;
+            }
+        }
+
+        .error-msg {
+            padding-left: 30px;
+        }
+    }
+    
+    &-info {
+        margin-bottom: 5px;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+    
+    &-subtitle {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    
+    &-subtitle .icon-info {
+        cursor: pointer;
+        margin-left: 5px;
+    }
+    
+    &-info:before {
+        font-size: 12px;
+    }
+}

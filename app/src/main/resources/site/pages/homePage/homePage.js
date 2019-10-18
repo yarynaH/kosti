@@ -2,21 +2,24 @@ var thymeleaf = require("/lib/thymeleaf");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var httpClientLib = require("/lib/http-client");
+var cache = require("/lib/cache");
 
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
-var votesLib = require(libLocation + "votesLib");
 var userLib = require(libLocation + "userLib");
-var kostiUtils = require(libLocation + "kostiUtils");
 var blogLib = require(libLocation + "blogLib");
 var sharedLib = require(libLocation + "sharedLib");
+var hashtagLib = require(libLocation + "hashtagLib");
+
+var youtubeCache = cache.newCache({
+  size: 1000,
+  expire: 60 * 60 * 24
+});
 
 exports.get = handleReq;
-exports.post = handleReq;
 
 function handleReq(req) {
-  var me = this;
   var user = userLib.getCurrentUser();
 
   function renderView() {
@@ -34,16 +37,12 @@ function handleReq(req) {
   }
 
   function createModel() {
-    var up = req.params;
     var content = portal.getContent();
-    var response = [];
     var site = portal.getSiteConfig();
-    var description = portal.getSite().data.description;
-    var showDescription = true;
     var schedule = getSchedule(site.slider);
-    var video = getVideoViaApi(site.gApiKey);
+    var video = getVideoFromCache(site.gApiKey);
     var active = {};
-    switch (up.feed) {
+    switch (req.params.feed) {
       case "new":
         active.new = "active";
         var articlesQuery = blogLib.getNewArticles();
@@ -51,7 +50,11 @@ function handleReq(req) {
         break;
       case "bookmarks":
         active.bookmarks = "active";
-        var articlesQuery = blogLib.getArticlesByIds(user.data.bookmarks);
+        if (user) {
+          var articlesQuery = blogLib.getArticlesByIds(user.data.bookmarks);
+        } else {
+          var articlesQuery = { hits: [], total: 0, count: 0 };
+        }
         var articles = articlesQuery.hits;
         break;
       default:
@@ -63,16 +66,15 @@ function handleReq(req) {
 
     var model = {
       content: content,
-      url: portal.pageUrl({ path: content._path }),
       video: video
         ? "https://www.youtube.com/embed/" + video
         : getVideoUrl(site.video),
       sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
+      hotDate: articlesQuery.date ? articlesQuery.date : null,
       loadMoreComponent: helpers.getLoadMore(articlesQuery.total, null, null),
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
-      showDescription: showDescription,
       slider: getSlider(site.slider),
       articles: blogLib.getArticlesView(articles)
     };
@@ -81,7 +83,9 @@ function handleReq(req) {
 
     function getSchedule() {
       var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
-      var now = new Date().toISOString();
+      var now = new Date();
+      now.setDate(now.getDate() - 1);
+      now = now.toISOString();
       var result = contentLib.query({
         query: "data.date > dateTime('" + now + "')",
         start: 0,
@@ -97,6 +101,7 @@ function handleReq(req) {
         var itemDate = new Date(result[i].data.date);
         result[i].month = norseUtils.getMonthName(itemDate);
         result[i].day = itemDate.getDate().toFixed();
+        result[i].hashtags = hashtagLib.getHashtags(result[i].data.hashtags);
       }
       return result;
     }
@@ -115,6 +120,12 @@ function handleReq(req) {
         result[i] = blogLib.beautifyArticle(temp);
       }
       return getSliderView(result);
+    }
+
+    function getVideoFromCache(key) {
+      return youtubeCache.get("video", function() {
+        return getVideoViaApi(key);
+      });
     }
 
     function getVideoViaApi(key) {

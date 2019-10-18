@@ -14,7 +14,6 @@ var commentsLib = require(libLocation + "commentsLib");
 exports.get = handleReq;
 
 function handleReq(req) {
-  var me = this;
   var user = userLib.getCurrentUser();
 
   function renderView() {
@@ -33,17 +32,19 @@ function handleReq(req) {
   }
 
   function createModel() {
-    var up = req.params;
     var content = portal.getContent();
     var response = [];
     var mainRegion = content.page.regions.main;
     var similarArticles = getSimilar(content.data.similarArticles);
     var comments = commentsLib.getCommentsByParent(content._id, false, 0);
-    comments = thymeleaf.render(resolve("comments.html"), {
-      comments: comments,
-      articleId: content._id,
-      moderator: user.moderator
-    });
+    comments = thymeleaf.render(
+      resolve("../components/comments/comments.html"),
+      {
+        comments: comments,
+        articleId: content._id,
+        moderator: user.moderator
+      }
+    );
     if (user) {
       var removeCommentModal = thymeleaf.render(
         resolve("../components/comments/removeCommentModal.html"),

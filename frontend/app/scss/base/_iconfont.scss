@@ -47,59 +47,77 @@
     @if $filename == comment {
         $char: "\F126";
     }
-    @if $filename == delete {
+    @if $filename == copy {
         $char: "\F127";
     }
-    @if $filename == fb {
+    @if $filename == delete {
         $char: "\F128";
     }
-    @if $filename == fire {
+    @if $filename == discord {
         $char: "\F129";
     }
-    @if $filename == gear {
+    @if $filename == edit {
         $char: "\F12A";
     }
-    @if $filename == google {
+    @if $filename == fb {
         $char: "\F12B";
     }
-    @if $filename == guest {
+    @if $filename == fire {
         $char: "\F12C";
     }
-    @if $filename == instagram {
+    @if $filename == gear {
         $char: "\F12D";
     }
-    @if $filename == logout {
+    @if $filename == google {
         $char: "\F12E";
     }
-    @if $filename == network {
+    @if $filename == guest {
         $char: "\F12F";
     }
-    @if $filename == pin-location {
+    @if $filename == info {
         $char: "\F130";
     }
-    @if $filename == rock {
+    @if $filename == instagram {
         $char: "\F131";
     }
-    @if $filename == search {
+    @if $filename == logout {
         $char: "\F132";
     }
-    @if $filename == share {
+    @if $filename == network {
         $char: "\F133";
     }
-    @if $filename == twitch {
+    @if $filename == pin-location {
         $char: "\F134";
     }
-    @if $filename == twitter {
+    @if $filename == quote {
         $char: "\F135";
     }
-    @if $filename == views {
+    @if $filename == rock {
         $char: "\F136";
     }
-    @if $filename == vk {
+    @if $filename == search {
         $char: "\F137";
     }
-    @if $filename == youtube {
+    @if $filename == share {
         $char: "\F138";
+    }
+    @if $filename == twitch {
+        $char: "\F139";
+    }
+    @if $filename == twitter {
+        $char: "\F13A";
+    }
+    @if $filename == upload {
+        $char: "\F13B";
+    }
+    @if $filename == views {
+        $char: "\F13C";
+    }
+    @if $filename == vk {
+        $char: "\F13D";
+    }
+    @if $filename == youtube {
+        $char: "\F13E";
     }
 
     @return $char;
@@ -131,21 +149,27 @@ category: Basic
     <div class="sg-icon icon-bookmark" title="bookmark"></div>
     <div class="sg-icon icon-cart" title="cart"></div>
     <div class="sg-icon icon-comment" title="comment"></div>
+    <div class="sg-icon icon-copy" title="copy"></div>
     <div class="sg-icon icon-delete" title="delete"></div>
+    <div class="sg-icon icon-discord" title="discord"></div>
+    <div class="sg-icon icon-edit" title="edit"></div>
     <div class="sg-icon icon-fb" title="fb"></div>
     <div class="sg-icon icon-fire" title="fire"></div>
     <div class="sg-icon icon-gear" title="gear"></div>
     <div class="sg-icon icon-google" title="google"></div>
     <div class="sg-icon icon-guest" title="guest"></div>
+    <div class="sg-icon icon-info" title="info"></div>
     <div class="sg-icon icon-instagram" title="instagram"></div>
     <div class="sg-icon icon-logout" title="logout"></div>
     <div class="sg-icon icon-network" title="network"></div>
     <div class="sg-icon icon-pin-location" title="pin-location"></div>
+    <div class="sg-icon icon-quote" title="quote"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
     <div class="sg-icon icon-share" title="share"></div>
     <div class="sg-icon icon-twitch" title="twitch"></div>
     <div class="sg-icon icon-twitter" title="twitter"></div>
+    <div class="sg-icon icon-upload" title="upload"></div>
     <div class="sg-icon icon-views" title="views"></div>
     <div class="sg-icon icon-vk" title="vk"></div>
     <div class="sg-icon icon-youtube" title="youtube"></div>
@@ -173,8 +197,17 @@ category: Basic
 .icon-comment {
     @include icon(comment);
 }
+.icon-copy {
+    @include icon(copy);
+}
 .icon-delete {
     @include icon(delete);
+}
+.icon-discord {
+    @include icon(discord);
+}
+.icon-edit {
+    @include icon(edit);
 }
 .icon-fb {
     @include icon(fb);
@@ -191,6 +224,9 @@ category: Basic
 .icon-guest {
     @include icon(guest);
 }
+.icon-info {
+    @include icon(info);
+}
 .icon-instagram {
     @include icon(instagram);
 }
@@ -202,6 +238,9 @@ category: Basic
 }
 .icon-pin-location {
     @include icon(pin-location);
+}
+.icon-quote {
+    @include icon(quote);
 }
 .icon-rock {
     @include icon(rock);
@@ -218,6 +257,9 @@ category: Basic
 .icon-twitter {
     @include icon(twitter);
 }
+.icon-upload {
+    @include icon(upload);
+}
 .icon-views {
     @include icon(views);
 }
@@ -226,4 +268,4 @@ category: Basic
 }
 .icon-youtube {
     @include icon(youtube);
-}
+}

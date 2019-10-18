@@ -1,12 +1,14 @@
 function initFormEvents() {
+  $(".js_form-show-description").on("click", function(e) {
+    e.stopPropagation();
+    $(".js_form-info .modal-body").html($(this).data().description);
+    $(".js_form-info .modal-title").html($(this).data().title);
+    $(".js_form-info").addClass("show");
+  });
   $("input[type=checkbox]").on("click", function(e) {
     var curr = this;
-    if (!checkSpace(this)) {
-      e.preventDefault();
-      $(this).attr("disabled", true);
-      return;
-    }
     $(this)
+      .parent()
       .parent()
       .parent()
       .find("input[type=checkbox]:checked")
@@ -16,7 +18,12 @@ function initFormEvents() {
         }
       });
   });
-  $("main.form input[type=submit]").on("click", function(e) {
+  $("main.form button[type=submit]").on("click", function(e) {
+    if (!checkUserLoggedIn()) {
+      e.preventDefault();
+      showLogin(e);
+    }
+    /*
     var availableSeats = legendary ? 2 : 1;
     if ($("main.form [type=checkbox]:checked").length > availableSeats) {
       e.preventDefault();
@@ -24,6 +31,7 @@ function initFormEvents() {
     } else {
       $("form .invalid-qauntity").addClass("hidden");
     }
+    
     $("input[type=checkbox]:checked").each(function() {
       if (!checkSpace(this)) {
         $("form .invalid-space").removeClass("hidden");
@@ -42,11 +50,7 @@ function initFormEvents() {
         $("form .invalid-input").addClass("hidden");
       }
     });
-  });
-  $("input[type=checkbox]").each(function() {
-    if (!checkSpace(this)) {
-      $(this).attr("disabled", true);
-    }
+    */
   });
 }
 
@@ -73,6 +77,7 @@ function checkSpace(el) {
   return result;
 }
 
+var reloadAfterLogin = false;
 $(document).ready(function() {
   if ($("main.form").length > 0) {
     initFormEvents();

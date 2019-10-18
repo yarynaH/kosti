@@ -6,6 +6,19 @@ exports.activateUserHash = activateUserHash;
 exports.saveHashForUser = saveHashForUser;
 exports.getUserByHash = getUserByHash;
 exports.generateHash = generateHash;
+exports.generateLiqpayData = generateLiqpayData;
+exports.generateLiqpaySignature = generateLiqpaySignature;
+
+function generateLiqpayData(data) {
+  return textEncoding.base64Encode(JSON.stringify(data));
+}
+
+function generateLiqpaySignature(data) {
+  var bean = __.newBean("com.myurchenko.lib.textencoding.HashFunctionHandler");
+  bean.stream =
+    app.config.liqpayPrivateKey + data + app.config.liqpayPrivateKey;
+  return bean.sha1AsHex();
+}
 
 function generateHash(name) {
   var salt = "KostiCon-2019";

@@ -1,10 +1,14 @@
 var norseUtils = require("norseUtils");
 var nodeLib = require("/lib/xp/node");
 var portal = require("/lib/xp/portal");
+var contentLib = require("/lib/xp/content");
 
 exports.connectRepo = connectRepo;
 exports.generateNiceServiceUrl = generateNiceServiceUrl;
 exports.getTranslationCounter = getTranslationCounter;
+exports.getSite = getSite;
+exports.getSiteConfig = getSiteConfig;
+exports.getShopUrl = getShopUrl;
 
 function connectRepo(id) {
   return nodeLib.connect({
@@ -13,8 +17,37 @@ function connectRepo(id) {
   });
 }
 
-function generateNiceServiceUrl(url, params) {
+function getShopUrl() {
+  var site = portal.getSiteConfig();
+  return portal.pageUrl({
+    id: site.shopLocation
+  });
+}
+
+function getSite() {
   var site = portal.getSite();
+  if (!site) {
+    site = contentLib.query({ query: "_path = '/content/kosti'" }).hits[0];
+  }
+  return site;
+}
+
+function getSiteConfig() {
+  var site = portal.getSiteConfig();
+  if (!site) {
+    site = contentLib.query({ query: "_path = '/content/kosti'" }).hits[0].data;
+    for (var key in site.siteConfig) {
+      if (site.siteConfig[key].applicationKey == app.name) {
+        site = site.siteConfig[key].config;
+        break;
+      }
+    }
+  }
+  return site;
+}
+
+function generateNiceServiceUrl(url, params) {
+  var site = getSite();
   if (url && url.indexOf("/") !== 0) {
     url = "/" + url;
   }

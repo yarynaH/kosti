@@ -25,8 +25,12 @@ function initLoginRegisterForm() {
     hideLoginRegisterModal();
     $(".modal-forgot-password").addClass("show");
   });
-  $(".reset-form .modal-btn-reset").on("click", function(e) {
+  $(".reset-form").on("submit", function(e) {
     e.preventDefault();
+    if (!$(".reset-form").valid()) {
+      return false;
+    }
+    showLoader();
     var data = {
       email: $(".modal-forgot-password")
         .find("input[name=email]")
@@ -38,11 +42,20 @@ function initLoginRegisterForm() {
       method: "POST",
       data: data
     }).done(function(data) {
-      console.log(data);
+      hideLoader();
+      if (data && !data.error) {
+        showSnackBar(data.message, "success");
+      } else {
+        showSnackBar("Что-то пошло не так.", "error");
+      }
     });
   });
-  $(".login-form .modal-btn-login").on("click", function(e) {
+  $(".login-form").on("submit", function(e) {
     e.preventDefault();
+    if (!$(".login-form").valid()) {
+      return false;
+    }
+    showLoader();
     var data = {
       username: $(".modal-login")
         .find("input[name=username]")
@@ -58,7 +71,8 @@ function initLoginRegisterForm() {
       data: data
     }).done(function(data) {
       if (!data.exist && !data.html) {
-        $(".modal-login .form-group-error span").text(data.message);
+        hideLoader();
+        $(".modal-login .form-group-error").text(data.message);
         $(".modal-login .form-group-error").removeClass("hidden");
       } else {
         $(".js_header-user-wrap").html(data.html);
@@ -67,11 +81,14 @@ function initLoginRegisterForm() {
       }
     });
   });
-  $(".modal-content").on("click", function(e) {
+  $(".modal-content, .js_header-notification").on("click", function(e) {
     e.stopPropagation();
   });
-  $(".register-form .modal-btn-register").on("click", function(e) {
+  $(".register-form").on("submit", function(e) {
     e.preventDefault();
+    if (!$(".register-form").valid()) {
+      return false;
+    }
     var data = {
       username: $(".modal-registration")
         .find("input[name=username]")
@@ -85,14 +102,13 @@ function initLoginRegisterForm() {
       action: "register"
     };
     if (!validateEmail(data.email)) {
-      $(".modal-registration .form-group-error span").text(
-        "Неправильный емейл"
-      );
+      $(".modal-registration .form-group-error").text("Неправильный емейл");
       $(".modal-registration .form-group-error").removeClass("hidden");
       return false;
     } else {
       $(".modal-registration .form-group-error").addClass("hidden");
     }
+    showLoader();
     var request = $.ajax({
       url: userServiceUrl,
       method: "POST",
@@ -102,18 +118,60 @@ function initLoginRegisterForm() {
         $(".modal-registration .form-group-error").addClass("hidden");
         $(".js_header-user-wrap").html(data.html);
         location.reload();
-        hideLoginRegisterModal();
       } else if (data.exist) {
-        $(".modal-registration .form-group-error span").text(data.message);
+        $(".modal-registration .form-group-error").text(data.message);
         $(".modal-registration .form-group-error").removeClass("hidden");
+        hideLoader();
       }
     });
   });
-  $(".resetPassForm").on("submit", function(e) {
-    if ($(".resetPassInput").val() != $(".resetPassInputConfirm").val()) {
-      e.preventDefault();
-      $(".forgotPassValidation").removeClass("hidden");
-    }
+  $(".login-form").validate({
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
+  $(".register-form").validate({
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
+  $(".reset-form").validate({
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
+  $(".js_modal-close").on("click", function() {
+    hideLoginRegisterModal();
+  });
+  initFBLogin();
+}
+
+function initFBLogin() {
+  $(".social_login-fb").on("click", function() {
+    showLoader();
+    FB.login(
+      function(response) {
+        var call = makeAjaxCall(
+          userServiceUrl,
+          "POST",
+          {
+            action: "fbRegister",
+            token: response.authResponse.accessToken,
+            userId: response.authResponse.userID
+          },
+          true
+        );
+        call.done(function(data) {
+          if (data.authenticated && data.exist) {
+            $(".js_header-user-wrap").html(data.html);
+            $(".modal-login .form-group-error").addClass("hidden");
+            location.reload();
+          } else {
+            $(".modal-login .form-group-error").text(data.message);
+            $(".modal-login .form-group-error").removeClass("hidden");
+            hideLoader();
+          }
+        });
+      },
+      { scope: "public_profile,email", return_scopes: true }
+    );
   });
 }
 
@@ -134,6 +192,7 @@ function attachSignin(element) {
     element,
     {},
     function(googleUser) {
+      showLoader();
       var profile = googleUser.getBasicProfile();
       var call = makeAjaxCall(
         userServiceUrl,
@@ -149,10 +208,10 @@ function attachSignin(element) {
           $(".js_header-user-wrap").html(data.html);
           $(".modal-login .form-group-error").addClass("hidden");
           location.reload();
-          hideLoginRegisterModal();
         } else {
-          $(".modal-login .form-group-error span").text(data.message);
+          $(".modal-login .form-group-error").text(data.message);
           $(".modal-login .form-group-error").removeClass("hidden");
+          hideLoader();
         }
       });
     },
@@ -165,4 +224,12 @@ function hideLoginRegisterModal() {
     $(this).removeClass("show");
   });
   $(".js_header-notification").removeClass("show_notification");
+}
+
+function showLoader() {
+  $(".js_loader").addClass("show");
+}
+
+function hideLoader() {
+  $(".js_loader").removeClass("show");
 }

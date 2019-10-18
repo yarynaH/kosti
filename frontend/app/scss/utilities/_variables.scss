@@ -1,126 +1,120 @@
-$color-primary1     : #ffffff;
-$color-primary2     : #160d1d; //#1b2125
-$color-primary3     : #197aad;
-$color-primary4     : #de4225;
-$color-primary5     : #de3825;
-$color-primary6     : #333333;
-$color-primary7     : #999999;
-$color-primary8     : #bcbcbc; //blog
-$color-primary9     : #eeeeee;
-$color-primary10    : #d8d8d8;
-$color-primary11    : #e23d23;
-$color-primary12    : #909090;
-$color-primary13    : #f9fafc;
-$color-primary14    : #e9e9e9;
-$color-primary15    : #e9462d;
-$color-primary16    : #505050;
-$color-primary17    : #1d1f24; //#1a1739
-$color-primary18    : #4a90e2;
-$color-primary19    : #f5a623;
-$color-primary20    : #dde3e8; //#dedede
-$color-primary21    : #000000;
-$color-primary22    : #0095f8;
-$color-primary23    : #da3319;
-$color-primary24    : #eb4930;
-$color-primary25    : #cccccc;
-$color-primary26    : #fbfbfb;
-$color-primary27    : #dd361d;
-$color-primary28    : #707070;
-$color-primary29    : #555555;
-$color-primary31    : #f3f3f3;
-$color-primary32    : #f91212; //error color
-$color-primary33    : #171819;
-$color-primary34    : #e6ccb4;
-$color-primary35    : #e6ba14;
-$color-primary36    : #0095f8;
-$color-primary37    : #197aad;
-$color-primary38    : #3c1206;
-$color-primary39    : #091e42;
+$color-primary1: #ffffff;
+$color-primary2: #160d1d; //#1b2125
+$color-primary3: #197aad;
+$color-primary4: #de4225;
+$color-primary5: #de3825;
+$color-primary6: #333333;
+$color-primary7: #999999;
+$color-primary8: #bcbcbc; //blog
+$color-primary9: #eeeeee;
+$color-primary10: #d8d8d8;
+$color-primary11: #e23d23;
+$color-primary12: #909090;
+$color-primary13: #f9fafc;
+$color-primary14: #e9e9e9;
+$color-primary15: #e9462d;
+$color-primary16: #505050;
+$color-primary17: #1d1f24; //#1a1739
+$color-primary18: #4a90e2;
+$color-primary19: #f5a623;
+$color-primary20: #dde3e8; //#dedede
+$color-primary21: #000000;
+$color-primary22: #0095f8;
+$color-primary23: #da3319;
+$color-primary24: #eb4930;
+$color-primary25: #cccccc;
+$color-primary26: #fbfbfb;
+$color-primary27: #dd361d;
+$color-primary28: #707070;
+$color-primary29: #555555;
+$color-primary31: #f3f3f3;
+$color-primary32: #f91212; //error color
+$color-primary33: #171819;
+$color-primary34: #e6ccb4;
+$color-primary35: #e6ba14;
+$color-primary36: #0095f8;
+$color-primary38: #3c1206;
+$color-primary39: #091e42;
+$color-primary40: #43a047;
 
 ///
 ///Social colors
 ///
 
-$color-facebook     : #4460a0;
-$color-vk           : #006df0;
-$color-twitter      : #00aaec;
-$color-youtube      : #ce1312;
-$color-instagram    : #275a85;
-$color-twitch       : #673ab7;
-$color-google       : #afafaf;
+$color-facebook: #4460a0;
+$color-vk: #006df0;
+$color-twitter: #00aaec;
+$color-youtube: #ce1312;
+$color-instagram: #275a85;
+$color-twitch: #673ab7;
+$color-google: #afafaf;
+$color-discord: #8c9eff;
 
+$font-main-regular: "Roboto", Arial;
 
-
-
-
-$font-main-regular  : 'Roboto', Arial;
-
-$body-font-size     : 14;
-$body-font-weight   : 300;
+$body-font-size: 14;
+$body-font-weight: 300;
 $body-letter-spacing: 0.005em;
-$body-line-height   : 1.25rem;
-$base-font-size     : 16;
+$body-line-height: 1.25rem;
+$base-font-size: 16;
 
-$space-s    : 10px;
-$space-m    : 20px;
-$space-l    : 30px;
-$space-xl   : 40px;
-$space-xxl  : 50px;
-
-
+$space-s: 10px;
+$space-m: 20px;
+$space-l: 30px;
+$space-xl: 40px;
+$space-xxl: 50px;
 
 ///
 // Primary Breakpoints (values)
 ///
 
-$breakpoint-mobile-small-max        : 320px;
-$breakpoint-mobile-min              : $breakpoint-mobile-small-max + 1;
-$breakpoint-mobile-max              : 767px;
-$breakpoint-tablet-min              : $breakpoint-mobile-max + 1;
-$breakpoint-tablet-max              : 1024px;
-$breakpoint-desktop-min             : $breakpoint-tablet-max + 1;
-$breakpoint-desktop-max             : 1200px;
-$breakpoint-desktop-large-min       : $breakpoint-desktop-max + 1;
-$breakpoint-desktop-large-max       : 1800px;
+$breakpoint-mobile-small-max: 320px;
+$breakpoint-mobile-min: $breakpoint-mobile-small-max + 1;
+$breakpoint-mobile-max: 767px;
+$breakpoint-tablet-min: $breakpoint-mobile-max + 1;
+$breakpoint-tablet-max: 1024px;
+$breakpoint-desktop-min: $breakpoint-tablet-max + 1;
+$breakpoint-desktop-max: 1200px;
+$breakpoint-desktop-large-min: $breakpoint-desktop-max + 1;
+$breakpoint-desktop-large-max: 1800px;
 
-$breakpoint-portrait-max            : 960px;
-$breakpoint-tablet-landscape-min    : $breakpoint-portrait-max + 1;
+$breakpoint-portrait-max: 960px;
+$breakpoint-tablet-landscape-min: $breakpoint-portrait-max + 1;
 
-
-$desktop1               : "only screen and (min-width : #{$breakpoint-desktop-min})";
-$desktop-main1          : "only screen and (max-width : #{$breakpoint-desktop-max})";
-$desktop-large1         : "only screen and (min-width : #{$breakpoint-desktop-large-min})";
-$desktop-full-width1    : "only screen and (min-width : #{$breakpoint-desktop-large-max})";
-$tablet1-all            : "only screen and (min-width : #{$breakpoint-tablet-min})";
-$tablet1                : "only screen and (min-width : #{$breakpoint-tablet-min}) and (max-width : #{$breakpoint-tablet-max})";
-$tablet-portrait1       : "only screen and (min-width : #{$breakpoint-tablet-min}) and (max-width : #{$breakpoint-portrait-max})";
-$tablet-landscape-all   : "only screen and (min-width : #{$breakpoint-tablet-landscape-min})";
-$tablet-landscape1      : "only screen and (min-width : #{$breakpoint-tablet-landscape-min}) and (max-width : #{$breakpoint-tablet-max})";
-$tablet-mobile1         : "only screen and (max-width : #{$breakpoint-tablet-max})";
-$mobile1                : "only screen and (max-width : #{$breakpoint-mobile-max})";
-$mobile1-landscape      : "only screen and (min-width : #{$breakpoint-mobile-min})";
-$mobile-portrait        : "only screen and (max-width : #{$breakpoint-mobile-small-max})";
+$desktop1: "only screen and (min-width : #{$breakpoint-desktop-min})";
+$desktop-main1: "only screen and (max-width : #{$breakpoint-desktop-max})";
+$desktop-large1: "only screen and (min-width : #{$breakpoint-desktop-large-min})";
+$desktop-full-width1: "only screen and (min-width : #{$breakpoint-desktop-large-max})";
+$tablet1-all: "only screen and (min-width : #{$breakpoint-tablet-min})";
+$tablet1: "only screen and (min-width : #{$breakpoint-tablet-min}) and (max-width : #{$breakpoint-tablet-max})";
+$tablet-portrait1: "only screen and (min-width : #{$breakpoint-tablet-min}) and (max-width : #{$breakpoint-portrait-max})";
+$tablet-landscape-all: "only screen and (min-width : #{$breakpoint-tablet-landscape-min})";
+$tablet-landscape1: "only screen and (min-width : #{$breakpoint-tablet-landscape-min}) and (max-width : #{$breakpoint-tablet-max})";
+$tablet-mobile1: "only screen and (max-width : #{$breakpoint-tablet-max})";
+$mobile1: "only screen and (max-width : #{$breakpoint-mobile-max})";
+$mobile1-landscape: "only screen and (min-width : #{$breakpoint-mobile-min})";
+$mobile-portrait: "only screen and (max-width : #{$breakpoint-mobile-small-max})";
 
 ///
 // Current Breakpoints assignment
 ///
 
-$desktop                : $desktop1;
-$desktop-main           : $desktop-main1;
-$desktop-large          : $desktop-large1;
-$desktop-full-width     : $desktop-full-width1;
+$desktop: $desktop1;
+$desktop-main: $desktop-main1;
+$desktop-large: $desktop-large1;
+$desktop-full-width: $desktop-full-width1;
 
-$tablet-all             : $tablet1-all;
-$tablet                 : $tablet1;
-$tablet-portrait        : $tablet-portrait1;
-$tablet-landscape       : $tablet-landscape1;
-$tablet-landscape-all   : $tablet-landscape-all;
+$tablet-all: $tablet1-all;
+$tablet: $tablet1;
+$tablet-portrait: $tablet-portrait1;
+$tablet-landscape: $tablet-landscape1;
+$tablet-landscape-all: $tablet-landscape-all;
 
-$tablet-mobile          : $tablet-mobile1;
+$tablet-mobile: $tablet-mobile1;
 
-$mobile                 : $mobile1;
-$mobile-landscape       : $mobile1-landscape;
-$mobile-portrait        : $mobile-portrait;
+$mobile: $mobile1;
+$mobile-landscape: $mobile1-landscape;
+$mobile-portrait: $mobile-portrait;
 
 ///
 /// Transition duration

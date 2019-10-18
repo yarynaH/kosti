@@ -1,10 +1,10 @@
 <part>
   <display-name>Quote</display-name>
-  <config>
+  <form>
     <input name="text" type="TextArea">
       <label>Text</label>
       <config>
       </config>
     </input>
-  </config>
+  </form>
 </part>

@@ -3,12 +3,17 @@ var contentLib = require("/lib/xp/content");
 var portalLib = require("/lib/xp/portal");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
-var portal = require("/lib/xp/portal");
 var textEncoding = require("/lib/text-encoding");
+var moment = require("moment");
+var sharedLib = require("sharedLib");
 
 exports.addPromo = addPromo;
 exports.getCart = getCart;
 exports.removePromo = removePromo;
+exports.getCreatedCarts = getCreatedCarts;
+exports.modifyCartWithParams = modifyCartWithParams;
+exports.setUserDetails = setUserDetails;
+exports.modifyInventory = modifyInventory;
 
 function getCart(cartId) {
   var cart = {};
@@ -20,6 +25,8 @@ function getCart(cartId) {
   } else {
     cart = createCart();
   }
+  cart.date = moment(cart._ts).format("DD.MM.YYYY");
+  cart.dateTime = moment(cart._ts).format("DD.MM.YYYY HH:MM");
   cart.items = getCartItems(cart.items);
   cart.itemsNum = calculateCartItems(cart.items);
   cart.itemsWeight = caclculateCartWeight(cart.items);
@@ -41,7 +48,7 @@ exports.getCartByQr = function(qr) {
       "\"', 'OR')"
   });
   if (result.total > 0) {
-    var cart = this.getCart(result.hits[0].id);
+    var cart = getCart(result.hits[0].id);
     cart.currentQrId = qr;
     for (var i = 0; i < cart.items.length; i++) {
       cart.items = norseUtils.forceArray(cart.items);
@@ -92,24 +99,46 @@ exports.markTicketUsed = function(qr) {
   }
 };
 
-exports.getCreatedCarts = function() {
+function getCreatedCarts(params) {
   var cartRepo = connectCartRepo();
   var result = [];
+  var query = "_ts > '2019-03-26T07:24:47.393Z'";
+  if (params.status) {
+    query += " and status = '" + params.status + "'";
+  } else {
+    query += " and status in ('failed', 'paid', 'pending', 'created')";
+  }
+  if (params.country) {
+    query += " and country = '" + params.country + "'";
+  }
+  if (params.search) {
+    query +=
+      " and fulltext('_allText', '\"" +
+      params.search +
+      "\"', 'OR') or ngram('_allText', '\"" +
+      params.search +
+      "\"', 'OR')";
+  }
   var carts = cartRepo.query({
     start: 0,
     count: -1,
-    query:
-      "(status = 'paid' or status = 'failed' or status = 'created' or status = 'pending') and _ts > '2019-03-26T07:24:47.393Z'",
+    query: query,
     sort: "_ts desc"
   });
   for (var i = 0; i < carts.hits.length; i++) {
-    result.push(this.getCart(carts.hits[i].id));
+    result.push(getCart(carts.hits[i].id));
   }
   return result;
-};
+}
+
+function modifyCartWithParams(id, params) {
+  return contextLib.runAsAdmin(function() {
+    return setUserDetails(id, params);
+  });
+}
 
 exports.modify = function(cartId, id, amount, itemSize, force) {
-  var cart = this.getCart(cartId);
+  var cart = getCart(cartId);
   var cartRepo = connectCartRepo();
   var item = contentLib.get({ key: id });
   if (item && item.data && item.data.generateIds) {
@@ -119,7 +148,7 @@ exports.modify = function(cartId, id, amount, itemSize, force) {
     key: cart._id,
     editor: editor
   });
-  result = this.getCart(cartId);
+  result = getCart(cartId);
 
   function editor(node) {
     if (node.items) {
@@ -196,9 +225,7 @@ function modifyInventory(items) {
   }
 }
 
-exports.modifyInventory = modifyInventory;
-
-exports.setUserDetails = function(cartId, params) {
+function setUserDetails(cartId, params) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.modify({
     key: cartId,
@@ -219,6 +246,7 @@ exports.setUserDetails = function(cartId, params) {
     node.status = params.status ? params.status : node.status;
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = params.userId ? params.userId : node.userId;
+    node.index = params.index ? params.index : node.index;
     node.novaPoshtaСity = params.novaPoshtaСity
       ? params.novaPoshtaСity
       : node.novaPoshtaСity;
@@ -231,8 +259,8 @@ exports.setUserDetails = function(cartId, params) {
     node.trackNum = params.trackNum ? params.trackNum : node.trackNum;
     return node;
   }
-  return this.getCart(cartId);
-};
+  return getCart(cartId);
+}
 
 exports.generateItemsIds = function(cartId) {
   var cartRepo = connectCartRepo();
@@ -271,7 +299,7 @@ exports.generateItemsIds = function(cartId) {
     }
     return node;
   }
-  return this.getCart(cartId);
+  return getCart(cartId);
 };
 
 exports.getNextId = function() {
@@ -379,6 +407,7 @@ function getCartItems(items) {
         ),
         displayName: item.displayName,
         stock: item.data.inventory >= parseInt(items[i].amount),
+        preorder: item.data.preorder,
         price: item.data.price,
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),
@@ -429,7 +458,7 @@ function caclculateCartWeight(items) {
 }
 
 function getShippingPrice(cart) {
-  var site = portal.getSiteConfig();
+  var site = sharedLib.getSiteConfig();
   var shipping = contentLib.get({ key: site.shipping });
   for (var i = 0; i < shipping.data.shipping.length; i++) {
     if (shipping.data.shipping[i].country.indexOf(cart.country) != -1) {
@@ -500,16 +529,16 @@ function checkCartDiscount(cart, itemsTotal) {
   var promos = promosLib.getPromosArray(cart.promos);
   var cartCodes = [];
   for (var i = 0; i < promos.length; i++) {
-    if (promos[i].type == "percent") {
-      discount += itemsTotal * (promos[i].discount / 100);
+    if (promos[i].data.type == "percent") {
+      discount += itemsTotal * (promos[i].data.discount / 100);
     } else {
-      discount += parseInt(promos[i].discount);
+      discount += parseInt(promos[i].data.discount);
     }
     cartCodes.push({
       displayName: promos[i].displayName,
-      type: promos[i].type,
-      discount: promos[i].discount,
-      code: promos[i].promoCode
+      type: promos[i].data.type,
+      discount: promos[i].data.discount,
+      code: promos[i].code
     });
   }
   return {

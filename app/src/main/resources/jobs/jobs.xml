@@ -1,0 +1,4 @@
+<jobs>
+  <!--<job name="updateSchedule" cron="* * * * *"/>-->
+  <job name="updateSchedule" cron="0 3 * * *"/>
+</jobs>

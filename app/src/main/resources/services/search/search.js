@@ -9,7 +9,7 @@ var hashtagLib = require(libLocation + "hashtagLib");
 
 exports.get = function(req) {
   var params = req.params;
-  //params.q - search by article name
+  //params.q - search by article/hashtag name
   //params.hid - search by hashtag id
   if (params.hid) {
     var query = hashtagLib.getHashtagName(params.hid);
@@ -25,7 +25,12 @@ exports.get = function(req) {
   var site = portal.getSiteConfig();
   return {
     body: thymeleaf.render(view, {
-      pageComponents: helpers.getPageComponents(req, "footerBlog"),
+      pageComponents: helpers.getPageComponents(
+        req,
+        "footerBlog",
+        "search",
+        "Поиск"
+      ),
       sidebar: blogLib.getSidebar(),
       query: query,
       loadMoreComponent: helpers.getLoadMore(searchRes.total, null, null),

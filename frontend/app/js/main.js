@@ -31,19 +31,6 @@ function initPDPFunctions() {
       addToCartOnclick(input);
     }
   });
-  $(".pdp-image-item img").on("click", function(e) {
-    e.preventDefault();
-    var prevImg = $(".pdp-main_image")
-      .find("img")
-      .attr("src");
-    $(".pdp-main_image")
-      .find("img")
-      .attr("src", $(this).attr("src"));
-    if (window.outerWidth >= 768) {
-      $(".pdp-main_image").zoom({ url: $(this).attr("src") });
-    }
-    $(this).attr("src", prevImg);
-  });
   $(".add_to_cart-btn").on("click", function(e) {
     e.preventDefault();
     if ($("#pdp-size-select").length && !$("#pdp-size-select").val()) {
@@ -64,25 +51,7 @@ function initPDPFunctions() {
   }
 }
 
-function addToCartOnclick(input) {
-  var data = {
-    itemId: input.data().id,
-    size: input.data().size,
-    amount: input.val(),
-    cartId: getCookieValue("cartId"),
-    action: "modify",
-    force: true
-  };
-  addToCart(data);
-}
-
 function initCheckoutEvents() {
-  $(".checkout-action .checkout-continue").on("click", function(e) {
-    validateCheckout(e);
-  });
-  $("form.checkout-form").on("submit", function(e) {
-    validateCheckout(e);
-  });
   $("#phone-checkout-input").on("change paste keyup", function() {
     $("#phone-checkout-input").val(
       $("#phone-checkout-input")
@@ -90,155 +59,18 @@ function initCheckoutEvents() {
         .replace(/\D+/g, "")
     );
   });
-  $(".checkout-form input, .checkout-form select").on("change", function() {
-    if ($(this).val() != "") {
-      $(this)
-        .parent()
-        .removeClass("is-invalid");
-    }
-  });
-  $(".js_promo_code-title").on("click", function() {
-    $(this)
-      .parent()
-      .toggleClass("show");
-  });
-  $(".js_promo-form").on("click", ".js_promo-remove", function(e) {
-    e.preventDefault();
-    var code = $(this).data("code");
-    var call = makeAjaxCall(
-      "/promos",
-      "POST",
-      {
-        action: "removePromo",
-        cartId: getCookieValue("cartId"),
-        code: code
-      },
-      true
-    );
-    call.done(function(data) {
-      $(".js_promo_code-used_list").html(data.promos);
-      $(".js_summary-discount .value span").text(
-        data.cart.price.discount.discount
-      );
-      $(".js_summary-total .value span").text(data.cart.price.totalDiscount);
-    });
-  });
-  $(".js_promo-form").on("submit", function(e) {
-    e.preventDefault();
-    var formData = getFormData(this);
-    formData.cartId = getCookieValue("cartId");
-    var call = makeAjaxCall("/promos", "POST", formData, true);
-    call.done(function(data) {
-      $(".js_promo_code-used_list").html(data.promos);
-      $(".js_summary-discount .value span").text(
-        data.cart.price.discount.discount
-      );
-      $(".js_summary-total .value span").text(data.cart.price.totalDiscount);
-    });
-  });
-
-  $(".delivery_np-input-city").on("input", function() {
-    if ($(this).val().length > 1) {
-      var dataCity = {
-        apiKey: "8913262e83513c669457b8c48224f3ab",
-        modelName: "Address",
-        calledMethod: "searchSettlements",
-        methodProperties: {
-          Limit: "10"
-        }
-      };
-      dataCity.methodProperties.CityName = $(".delivery_np-input-city").val();
-
-      $.ajax({
-        url: "https://api.novaposhta.ua/v2.0/json/",
-        type: "POST",
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify(dataCity),
-        success: function(response) {
-          $("#suggestion-list").html("");
-          var dataIncome = response.data[0].Addresses;
-          for (var i = 0; i < dataIncome.length; i++) {
-            $("#suggestion-list").append(
-              "<li data-ref='" +
-                dataIncome[i].DeliveryCity +
-                "'>" +
-                dataIncome[i].MainDescription +
-                "</li>"
-            );
-          }
-        }
-      });
-    }
-  });
-  $("#suggestion-list").on("click", "li", function() {
-    $(".delivery_np-input-city").val($(this).text());
-    $(".delivery_np-input-city").data("ref", $(this).data("ref"));
-    $("#suggestion-list").html("");
-    var dataCity = {
-      apiKey: "8913262e83513c669457b8c48224f3ab",
-      modelName: "AddressGeneral",
-      calledMethod: "getWarehouses",
-      methodProperties: {
-        Language: "ru",
-        Limit: "99999",
-        CityRef: $(this).data("ref")
-      }
-    };
-
-    $.ajax({
-      url: "https://api.novaposhta.ua/v2.0/json/",
-      type: "POST",
-      contentType: "application/json",
-      dataType: "json",
-      data: JSON.stringify(dataCity),
-      success: function(response) {
-        $("#delivery_np-warehouses").html(
-          '<option disabled="disabled" selected="selected">Выберите отделение</option>'
-        );
-        for (var i = 0; i < response.data.length; i++) {
-          $("#delivery_np-warehouses").append(
-            '<option value="' +
-              response.data[i].DescriptionRu +
-              '">' +
-              response.data[i].DescriptionRu +
-              "</option>"
-          );
-        }
-      }
-    });
-  });
-  $("#suggestion-list").on("click", "li", function() {
-    var dataCity = {
-      apiKey: "8913262e83513c669457b8c48224f3ab",
-      modelName: "InternetDocument",
-      calledMethod: "getDocumentPrice",
-      methodProperties: {
-        CitySender: "e221d627-391c-11dd-90d9-001a92567626",
-        CityRecipient: $(".delivery_np-input-city").data("ref"),
-        Weight: $("#cartWeight").val(),
-        ServiceType: "WarehouseWarehouse",
-        Cost: "100",
-        CargoType: "Parcel",
-        SeatsAmount: "1"
-      }
-    };
-
-    $.ajax({
-      url: "https://api.novaposhta.ua/v2.0/json/",
-      type: "POST",
-      contentType: "application/json",
-      dataType: "json",
-      data: JSON.stringify(dataCity),
-      success: function(response) {
-        $(".delivery_m-subtitle").text("UAH " + response.data[0].Cost);
-        $("input[name=shippingPrice]").val(response.data[0].Cost);
-      }
-    });
-  });
 }
 
 function initSharedEvents() {
+  $("body").on("click", ".js_login-required", function(e) {
+    if (!checkUserLoggedIn()) {
+      e.preventDefault();
+      showLogin(e);
+    }
+  });
+  snackBarClose.on("click", function() {
+    resetSnackBar();
+  });
   setCookie(cartId);
   $(
     ".similar_posts, .blog-list, .article-body, .blog-sidebar, .js_homepage_slider"
@@ -250,6 +82,12 @@ function initSharedEvents() {
       showLogin(e);
     }
   });
+  $(".js_copy_url").on("click", function(e) {
+    e.preventDefault();
+    var data = $(this).data();
+    copyStringToClipboard(data.url);
+    showSnackBar("Ссылка скопирована.", "success");
+  });
 
   $("a.social-link.facebook").on("click", function(e) {
     var data = $(this).data();
@@ -257,23 +95,27 @@ function initSharedEvents() {
       data.url,
       data.title,
       data.description.replace(/(&nbsp;|(<([^>]+)>))/gi, ""),
-      data.image
+      data.image,
+      data.articleid,
+      "facebook"
     );
   });
-  if (window.location.hash) {
-    $("html, body").animate(
-      {
-        scrollTop: $(window.location.hash).offset().top - 85
-      },
-      "slow"
-    );
-  }
+  $("a.social-link.twitter").on("click", function(e) {
+    var data = $(this).data();
+    incrementShare(data.articleid, getCookieValue("cartId"), "twitter");
+  });
+  $("a.social-link.vk").on("click", function(e) {
+    var data = $(this).data();
+    incrementShare(data.articleid, getCookieValue("cartId"), "vk");
+  });
 
   function shareOverrideOGMeta(
     overrideLink,
     overrideTitle,
     overrideDescription,
-    overrideImage
+    overrideImage,
+    articleId,
+    shareType
   ) {
     FB.ui(
       {
@@ -289,9 +131,17 @@ function initSharedEvents() {
         })
       },
       function(response) {
-        // Action after response
-        // TODO: increment share counter
+        incrementShare(articleId, getCookieValue("cartId"), shareType);
       }
+    );
+  }
+
+  function incrementShare(id, userId, type) {
+    var call = makeAjaxCall(
+      contentServiceUrl,
+      "POST",
+      { id: id, type: type, action: "addShare", user: userId },
+      false
     );
   }
 
@@ -312,31 +162,7 @@ function initSharedEvents() {
     ".similar_posts, .blog-list, .article-body, .blog-sidebar, .js_homepage_slider"
   ).on("click", ".js_bookmarks", function(e) {
     if (checkUserLoggedIn()) {
-      var btn = $(this);
-      $.ajax({
-        url: "/_/service/com.myurchenko.kostirpg/user",
-        type: "POST",
-        async: true,
-        data: {
-          id: $(this).data().contentid,
-          action: "addBookmark"
-        },
-        success: function(data) {
-          if (data === true) {
-            btn.addClass("active");
-
-            if (!isEmpty(btn)) {
-              btn.text("В ЗАКЛАДКАХ");
-            }
-          } else {
-            btn.removeClass("active");
-
-            if (!isEmpty(btn)) {
-              btn.text("В ЗАКЛАДКИ");
-            }
-          }
-        }
-      });
+      addBookmark($(this));
     } else {
       showLogin(e);
     }
@@ -364,15 +190,44 @@ function initSharedEvents() {
   });
 }
 
+function addBookmark(btn) {
+  var call = makeAjaxCall(
+    "/_/service/com.myurchenko.kostirpg/user",
+    "POST",
+    {
+      id: btn.data().contentid,
+      action: "addBookmark"
+    },
+    false
+  );
+  call.done(function(data) {
+    if (data === true) {
+      btn.addClass("active");
+      if (!isEmpty(btn)) {
+        btn.text("В ЗАКЛАДКАХ");
+      }
+      showSnackBar("Добавлено в закладки.", "info");
+    } else {
+      btn.removeClass("active");
+      if (!isEmpty(btn)) {
+        btn.text("В ЗАКЛАДКИ");
+      }
+      showSnackBar("Удалено из закладок.", "info");
+    }
+  });
+}
+
 function loadMoreArticles() {
   $(".js_lazyload-icon").removeClass("hidden");
   $(".js_blog-load_more").addClass("hidden");
-  var page = $(".blog-list").data("page");
+  var wrapper = $(".blog-list");
+  var page = wrapper.data("page");
   if (!page) {
     page = 0;
   }
-  var feedType = $(".blog-list").data("feedtype");
-  var query = $(".blog-list").data("query");
+  var feedType = wrapper.data("feedtype");
+  var date = wrapper.data("date");
+  var query = wrapper.data("query");
   var call = makeAjaxCall(
     contentServiceUrl,
     "GET",
@@ -381,6 +236,7 @@ function loadMoreArticles() {
         ? feedType
         : $(".js_blog-navigation .active").data("type"),
       page: page,
+      date: date ? date : null,
       query: query ? query : null,
       userId: $(".js_user-page-id").data("userid")
     },
@@ -392,14 +248,19 @@ function loadMoreArticles() {
       $(".js_blog-load_more").text(data.buttonText);
       $(".js_blog-load_more").prop("title", data.buttonText);
       $(".js_blog-load_more").removeClass("hidden");
-      $(".blog-list").append(data.articles);
+      wrapper.append(data.articles);
     }
     if (data.hideButton) {
       $(".js_blog-load_more").addClass("hidden");
       $(".js_blog-list-empty").removeClass("hidden");
-      $(".blog-list").data("noMoreArticles", true);
+      wrapper.attr("data-nomorearticles", true);
     }
-    $(".blog-list").data("page", page + 1);
+    wrapper.attr("data-date", data.date);
+    if (data.newPage) {
+      wrapper.attr("data-page", 0);
+    } else {
+      wrapper.attr("data-page", page + 1);
+    }
     $(".js_lazyload-icon").addClass("hidden");
   });
 }
@@ -426,6 +287,42 @@ function initCartFunctions() {
   });
 }
 
+var snackBar = $(".js_snackbar");
+var snackBarText = $(".js_snackbar .snackbar-text");
+var snackBarClose = $(".js_snackbar .snackbar-close");
+function resetSnackBar() {
+  snackBar.removeClass("show");
+  setTimeout(function() {
+    snackBar.removeClass("warning");
+    snackBar.removeClass("error");
+    snackBar.removeClass("notification");
+    snackBar.removeClass("message");
+    snackBar.removeClass("info");
+    snackBar.removeClass("success");
+    snackBarText.text("");
+  }, 300);
+}
+
+function showSnackBar(message, type) {
+  snackBar.addClass(type);
+  snackBarText.text(message);
+  snackBar.addClass("show");
+  setTimeout(function() {
+    resetSnackBar();
+  }, 3000);
+}
+
+function scrollToHash() {
+  if (window.location.hash) {
+    $("html, body").animate(
+      {
+        scrollTop: $(window.location.hash).offset().top - 85
+      },
+      "slow"
+    );
+  }
+}
+
 $(document).ready(function() {
   initSharedEvents();
   initLoginRegisterForm();
@@ -437,107 +334,16 @@ $(document).ready(function() {
     addArticleViews();
   }
 });
-
-function addToCart(data) {
-  var data = data;
-  if (!data) {
-    data = {
-      action: "modify",
-      cartId: getCookieValue("cartId"),
-      itemId: $("input[name=productId]").val(),
-      amount: $("input[name=quantity]").val(),
-      size: $("select[name=itemSize]").val()
-    };
-  }
-  $(".minicart .minicart-qty").removeClass("animate");
-  $.ajax({
-    url: cartServiceUrl,
-    type: "POST",
-    data: data,
-    success: function(data) {
-      setCookie(data._id);
-      $(".minicart .minicart-total").html("UAH " + data.price.items);
-      $(".minicart .minicart-qty").text(
-        parseInt(data.itemsNum) > 99 ? "9+" : data.itemsNum
-      );
-      $(".cart-total .value .cart-items-price").text(data.price.items);
-      $(".minicart .minicart-qty").addClass("animate");
-      if (data.stock) {
-        $(".checkout-action .checkout-continue").removeClass("not-active");
-      } else {
-        $(".checkout-action .checkout-continue").addClass("not-active");
-      }
-      for (var i = 0; i < data.items.length; i++) {
-        var selector =
-          ".cart-product_price-wrap[data-id=" + data.items[i]._id + "]";
-        data.items[i].itemSize
-          ? (selector += "[data-size=" + data.items[i].itemSize + "]")
-          : false;
-        if (data.items[i].stock && data.items[i].itemSizeStock) {
-          $(selector)
-            .find(".productPrice")
-            .removeClass("hidden");
-          $(selector)
-            .find(".productOutOfStock")
-            .addClass("hidden");
-        } else {
-          $(selector)
-            .find(".productPrice")
-            .addClass("hidden");
-          $(selector)
-            .find(".productOutOfStock")
-            .removeClass("hidden");
-        }
-      }
-    }
-  });
-}
-
-function validateCheckout(e) {
-  $("form.checkout-form input, form.checkout-form select").each(function() {
-    if ($(this).val() == null || $(this).val() == "") {
-      e.preventDefault();
-      $(this)
-        .parent()
-        .addClass("is-invalid");
-    }
-  });
-  var tel = $("#phone-checkout-input").val();
-  if (tel && !validatePhone(tel)) {
-    e.preventDefault();
-    $("#phone-checkout-input")
-      .parent()
-      .addClass("is-invalid");
-  }
-  var email = $("#email-checkout-input").val();
-  if (email && !validateEmail(email)) {
-    e.preventDefault();
-    $("#email-checkout-input")
-      .parent()
-      .addClass("is-invalid");
-  }
-  if ($("#agreement").length && !$("#agreement").is(":checked")) {
-    e.preventDefault();
-    $("#agreement")
-      .parent()
-      .addClass("is-invalid");
-  }
-  if (
-    $("#delivery_np-warehouses").length &&
-    (!$("#delivery_np-warehouses").val() ||
-      $("#delivery_np-warehouses").val() == "")
-  ) {
-    e.preventDefault();
-    $("#delivery_np-warehouses").addClass("is-invalid");
-  }
-  if (
-    $("#delivery_np-input-city").length &&
-    (!$("#delivery_np-input-city").val() ||
-      $("#delivery_np-input-city").val() == "")
-  ) {
-    e.preventDefault();
-    $("#delivery_np-input-city")
-      .parent()
-      .addClass("is-invalid");
-  }
+$(window).load(function() {
+  scrollToHash();
+});
+function copyStringToClipboard(str) {
+  var el = document.createElement("textarea");
+  el.value = str;
+  el.setAttribute("readonly", "");
+  el.style = { position: "absolute", left: "-9999px" };
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
 }

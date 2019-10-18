@@ -1,18 +1,45 @@
+var commentsWrapper = $(".js_article-comments, .blog-list");
+
 function initComments() {
-  if ($(".js_article-comments").length > 0) {
-    $(".js_article-comments").on("click", ".js_answer-comment", function(e) {
+  $(".js_comment-form").each(function() {
+    $(this).validate({
+      highlight: function(element, errorClass, validClass) {},
+      unhighlight: function(element, errorClass, validClass) {}
+    });
+  });
+  if (commentsWrapper.length > 0) {
+    commentsWrapper.on("click", ".js_answer-comment", function(e) {
       $("form[data-parentid=" + $(this).data("id") + "]").toggleClass("hidden");
     });
-    $(".js_article-comments").on("submit", ".js_comment-form", function(e) {
+    commentsWrapper.on("submit", ".js_comment-form", function(e) {
       e.preventDefault();
       if (!checkUserLoggedIn()) {
         showLogin(e);
       } else {
-        var formData = {};
-        $.each($(this).serializeArray(), function() {
-          formData[this.name] = this.value;
-        });
-        addComment(this, formData);
+        var form = $(this);
+        if (form.valid()) {
+          var formData = {};
+          $.each($(this).serializeArray(), function() {
+            formData[this.name] = this.value;
+          });
+          addComment(this, formData);
+        }
+      }
+    });
+    commentsWrapper.on("keydown", "textarea", function(e) {
+      if (e.ctrlKey && e.keyCode == 13) {
+        if (!checkUserLoggedIn()) {
+          showLogin(e);
+        } else {
+          var form = $(this).closest("form");
+          if (form.valid()) {
+            var formData = {};
+            $.each(form.serializeArray(), function() {
+              formData[this.name] = this.value;
+            });
+            addComment(form, formData);
+          }
+        }
       }
     });
     $(".js_remove_comment-form").on("submit", function(e) {
@@ -27,7 +54,7 @@ function initComments() {
         removeComment(formData);
       }
     });
-    $(".js_article-comments").on("click", ".js_comment-like", function(e) {
+    commentsWrapper.on("click", ".js_comment-like", function(e) {
       e.preventDefault();
       if (!checkUserLoggedIn()) {
         showLogin(e);
@@ -35,16 +62,14 @@ function initComments() {
         likeComment(this);
       }
     });
-    $(".js_article-comments").on("click", ".js_comment-remove_btn", function(
-      e
-    ) {
+    commentsWrapper.on("click", ".js_comment-remove_btn", function(e) {
       if (!checkUserLoggedIn()) {
         showLogin(e);
       } else {
         showRemoveFunction(this, e, "remove");
       }
     });
-    $(".js_article-comments").on("click", ".js_report-comment", function(e) {
+    commentsWrapper.on("click", ".js_report-comment", function(e) {
       if (!checkUserLoggedIn()) {
         showLogin(e);
       } else {
@@ -77,6 +102,7 @@ function addComment(el, formData) {
   var data = {
     body: formData.body,
     parent: parentId,
+    articleId: $(".js_article-id").data("articleid"),
     action: "addComment"
   };
   var call = makeAjaxCall(commentsServiceUrl, "POST", data, true);
@@ -88,7 +114,7 @@ function addComment(el, formData) {
       parentId == $(".js_article-id").data("articleid") &&
       !$("ul.js_comments-list[data-parentid=" + parentId + "]").length
     ) {
-      $(".js_article-comments").append(
+      commentsWrapper.append(
         '<ul class="comments-list js_comments-list" data-parentid="' +
           parentId +
           '"></ul>'

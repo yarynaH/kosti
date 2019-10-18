@@ -47,9 +47,10 @@ function handleReq(req) {
       1
     );
     var currUser = userLib.getCurrentUser();
+    content.data.bookmarks = norseUtils.forceArray(content.data.bookmarks);
     var userSystemObj = userLib.getSystemUser(content.data.email);
     var currUserFlag = currUser.key == userSystemObj.key;
-    content.votes = blogLib.countUserRating();
+    content.votes = blogLib.countUserRating(content._id);
     var date = new Date(moment(content.publish.from.replace("Z", "")));
     content.date =
       date.getDate() +
@@ -65,7 +66,8 @@ function handleReq(req) {
         null,
         true
       ),
-      comments: commentsLib.getCommentsByUser(content._id, 0, 1, true)
+      comments: commentsLib.getCommentsByUser(content._id, 0, 1, true),
+      games: getGames().total
     };
 
     var active = {};
@@ -96,6 +98,14 @@ function handleReq(req) {
         10
       );
       var articles = notifications.hits;
+    } else if (up.action == "games" && currUserFlag) {
+      var games = getGames();
+      totalArticles.curr = games.total;
+      active.games = "active";
+      var currTitle = "games";
+      var articles = thymeleaf.render(resolve("gamesView.html"), {
+        games: games.hits
+      });
     } else {
       totalArticles.curr = totalArticles.articles;
       active.articles = "active";
@@ -121,6 +131,7 @@ function handleReq(req) {
       totalArticles: totalArticles,
       articles: articles,
       active: active,
+      createArticleUrl: sharedLib.generateNiceServiceUrl("create"),
       loadMoreComponent: helpers.getLoadMore(
         totalArticles.curr,
         currTitle,
@@ -132,6 +143,47 @@ function handleReq(req) {
       pageComponents: helpers.getPageComponents(req, "footerBlog")
     };
 
+    function getGames() {
+      var result = [];
+      var count = 0;
+      var games = contentLib.query({
+        start: 0,
+        count: -1,
+        query: "fulltext('data.*', '" + content._id + "', 'OR')",
+        contentTypes: [app.name + ":form"]
+      });
+      var tempGames = games.hits;
+      for (var i = 0; i < tempGames.length; i++) {
+        if (!result[i]) {
+          result[i] = {
+            title: tempGames[i].displayName,
+            games: []
+          };
+        }
+        var blocks = norseUtils.forceArray(tempGames[i].data.eventsBlock);
+        for (var j = 0; j < blocks.length; j++) {
+          var events = norseUtils.forceArray(blocks[j].events);
+          for (var k = 0; k < events.length; k++) {
+            if (!events[k].users) continue;
+            var users = norseUtils.forceArray(events[k].users);
+            for (var n = 0; n < users.length; n++) {
+              if (users[n].user === content._id) {
+                result[i].games.push({
+                  title: events[k].title,
+                  time: blocks[j].time
+                    ? moment(blocks[j].time).format("D.M.YYYY HH:mm")
+                    : null
+                });
+                count++;
+              }
+            }
+          }
+        }
+      }
+      games.hits = result;
+      games.total = count.toFixed();
+      return games;
+    }
     return model;
   }
 

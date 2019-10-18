@@ -35,10 +35,10 @@ exports.get = function(req) {
       break;
     case "forgotPass":
       view = resolve(templates.forgotPassForm);
-      model.email = params.mail;
+      model.email = params.email;
       model.hash = params.hash;
       model.hashMatch = userLib.forgotPass(
-        decodeURIComponent(params.mail),
+        decodeURIComponent(params.email),
         params.hash
       );
       break;
@@ -60,6 +60,16 @@ exports.get = function(req) {
       break;
     default:
       break;
+  }
+  if (params.code) {
+    userLib.discordRegister(params.code);
+    userLib.vkRegister(params.code);
+    return {
+      status: 301,
+      headers: {
+        Location: portal.pageUrl({ path: portal.getSite()._path })
+      }
+    };
   }
   return {
     body: thymeleaf.render(view, model),
@@ -85,6 +95,8 @@ exports.post = function(req) {
     result = userLib.addBookmark(params.id);
   } else if (params.action == "googleRegister") {
     result = userLib.jwtRegister(params.token);
+  } else if (params.action == "fbRegister") {
+    result = userLib.fbRegister(params.token, params.userId);
   } else if (params.action == "resetpass") {
     if (userLib.setNewPass(params.password, params.email, params.hash)) {
       return logout();

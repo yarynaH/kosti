@@ -87,6 +87,14 @@
             background :$color-primary1;
         }
 
+        @if $style == discord {
+            @include icon(discord);
+
+            color: $color-discord;
+            border-color: $color-discord;
+            background :$color-primary1;
+        }
+
         @if $style == auto {
             width: auto;
         }

@@ -5,28 +5,16 @@
   <div class="site_width">
     <div class="checkout-info">
       <ul class="footer-nav">
-        <li class="footer-item" data-th-if="${footerLinks.agreementPage}">
+        <li
+          class="footer-item"
+          data-th-if="${footerLinks}"
+          data-th-each="link: ${footerLinks}"
+        >
           <a
             class="footer-link"
-            data-th-href="${footerLinks.agreementPage}"
-            data-th-text="${portal.localize({'_key=global.footer.security', '_locale=ru'})}"
-            data-th-title="${portal.localize({'_key=global.footer.security', '_locale=ru'})}"
-          ></a>
-        </li>
-        <li class="footer-item" data-th-if="${footerLinks.coockiePolicy}">
-          <a
-            class="footer-link"
-            data-th-href="${footerLinks.coockiePolicy}"
-            data-th-text="${portal.localize({'_key=global.footer.cookies', '_locale=ru'})}"
-            data-th-title="${portal.localize({'_key=global.footer.cookies', '_locale=ru'})}"
-          ></a>
-        </li>
-        <li class="footer-item" data-th-if="${footerLinks.aboutUs}">
-          <a
-            class="footer-link"
-            data-th-href="${footerLinks.aboutUs}"
-            data-th-text="${portal.localize({'_key=global.footer.aboutUs', '_locale=ru'})}"
-            data-th-title="${portal.localize({'_key=global.footer.aboutUs', '_locale=ru'})}"
+            data-th-href="${link.url}"
+            data-th-text="${link.displayName}"
+            data-th-title="${link.displayName}"
           ></a>
         </li>
       </ul>
