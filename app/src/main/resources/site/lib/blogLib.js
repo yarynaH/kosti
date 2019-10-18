@@ -25,10 +25,7 @@ exports.getSidebar = getSidebar;
 exports.getSearchArticles = getSearchArticles;
 exports.getArticleFooter = getArticleFooter;
 exports.countUserRating = countUserRating;
-<<<<<<< HEAD
-=======
 exports.updateSchedule = updateSchedule;
->>>>>>> master
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
