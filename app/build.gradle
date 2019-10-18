@@ -31,6 +31,9 @@ dependencies {
   include "com.enonic.xp:lib-repo:${xpVersion}"
   include 'openxp.lib:htmlexporter:1.0.0'
   include 'com.enonic.lib:lib-cache:2.1.1'
+  // https://mvnrepository.com/artifact/commons-codec/commons-codec
+  compile group: 'commons-codec', name: 'commons-codec', version: '1.5'
+
 }
 
 repositories {

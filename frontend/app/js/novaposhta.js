@@ -1,8 +1,10 @@
 function initNovaPoshta() {
+  var apiUrl = "https://api.novaposhta.ua/v2.0/json/";
+  var apiKey = "8913262e83513c669457b8c48224f3ab";
   $(".delivery_np-input-city").on("input", function() {
     if ($(this).val().length > 1) {
       var dataCity = {
-        apiKey: "8913262e83513c669457b8c48224f3ab",
+        apiKey: apiKey,
         modelName: "Address",
         calledMethod: "searchSettlements",
         methodProperties: {
@@ -12,7 +14,7 @@ function initNovaPoshta() {
       dataCity.methodProperties.CityName = $(".delivery_np-input-city").val();
 
       $.ajax({
-        url: "https://api.novaposhta.ua/v2.0/json/",
+        url: apiUrl,
         type: "POST",
         contentType: "application/json",
         dataType: "json",
@@ -38,7 +40,7 @@ function initNovaPoshta() {
     $(".delivery_np-input-city").data("ref", $(this).data("ref"));
     $("#suggestion-list").html("");
     var dataCity = {
-      apiKey: "8913262e83513c669457b8c48224f3ab",
+      apiKey: apiKey,
       modelName: "AddressGeneral",
       calledMethod: "getWarehouses",
       methodProperties: {
@@ -49,7 +51,7 @@ function initNovaPoshta() {
     };
 
     $.ajax({
-      url: "https://api.novaposhta.ua/v2.0/json/",
+      url: apiUrl,
       type: "POST",
       contentType: "application/json",
       dataType: "json",
@@ -72,7 +74,7 @@ function initNovaPoshta() {
   });
   $("#suggestion-list").on("click", "li", function() {
     var dataCity = {
-      apiKey: "8913262e83513c669457b8c48224f3ab",
+      apiKey: apiKey,
       modelName: "InternetDocument",
       calledMethod: "getDocumentPrice",
       methodProperties: {
@@ -87,7 +89,7 @@ function initNovaPoshta() {
     };
 
     $.ajax({
-      url: "https://api.novaposhta.ua/v2.0/json/",
+      url: apiUrl,
       type: "POST",
       contentType: "application/json",
       dataType: "json",

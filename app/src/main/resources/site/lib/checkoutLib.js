@@ -14,6 +14,17 @@ exports.getShippingById = getShippingById;
 exports.renderSuccessPage = renderSuccessPage;
 exports.checkIKResponse = checkIKResponse;
 
+function getLiqpayData(cart) {
+  return {
+    public_key: app.config.liqpayPublicKey,
+    version: "3",
+    action: "pay",
+    currency: "UAH",
+    description: "test",
+    amount: model.cart.price.totalDiscount
+  };
+}
+
 function getShipping(country, weight) {
   if (parseFloat(weight) === 0) {
     return [

@@ -9,6 +9,7 @@ var helpers = require(libLocation + "helpers");
 var cartLib = require(libLocation + "cartLib");
 var mailsLib = require(libLocation + "mailsLib");
 var sharedLib = require(libLocation + "sharedLib");
+var hashLib = require(libLocation + "hashLib");
 var checkoutLib = require(libLocation + "checkoutLib");
 
 exports.get = function(req) {
@@ -51,10 +52,25 @@ function generateCheckoutPage(req) {
       );
       model.payment = "active";
       break;
-    case "submit":
+    case "interkassa":
       if (model.cart && model.cart.ik_id) {
-        model.pay = true;
+        model.checkoutForm = thymeleaf.render(
+          resolve("components/interkassaForm.html"),
+          { cart: model.cart, ik_id: model.ik_id }
+        );
       }
+      break;
+    case "liqpay":
+      var liqpayData = hashLib.generateLiqpayData(
+        checkoutLib.getLiqpayData(model.cart)
+      );
+      model.checkoutForm = thymeleaf.render(
+        resolve("components/liqpayForm.html"),
+        {
+          liqpayData: liqpayData,
+          signature: hashLib.generateLiqpaySignature(liqpayData)
+        }
+      );
       break;
     case "success":
       return checkoutLib.renderSuccessPage(req, model.cart, false);
