@@ -35,7 +35,7 @@ function generateCheckoutPage(req) {
       }
       model.cart = cartLib.modifyCartWithParams(model.cart._id, params);
       var stepView = thymeleaf.render(
-        resolve("stepTwo.html"),
+        resolve("components/stepTwo.html"),
         createStepTwoModel(params, req, model.cart)
       );
       model.shipping = "active";
@@ -47,7 +47,7 @@ function generateCheckoutPage(req) {
       shipping = checkoutLib.getShippingById(shipping, params.shipping);
       model.cart = cartLib.modifyCartWithParams(model.cart._id, params);
       var stepView = thymeleaf.render(
-        resolve("stepThree.html"),
+        resolve("components/stepThree.html"),
         createStepThreeModel(params, req, model.cart)
       );
       model.payment = "active";
@@ -80,7 +80,7 @@ function generateCheckoutPage(req) {
       break;
     default:
       var stepView = thymeleaf.render(
-        resolve("stepOne.html"),
+        resolve("components/stepOne.html"),
         createStepOneModel(params, model.cart, req)
       );
       model.info = "active";
@@ -140,7 +140,7 @@ function generateCheckoutPage(req) {
     var site = portal.getSiteConfig();
     return {
       cart: cart,
-      promos: thymeleaf.render(resolve("promos.html"), {
+      promos: thymeleaf.render(resolve("components/promos.html"), {
         promos: cart.price.discount.codes
       }),
       ik_id: site.ik_id,

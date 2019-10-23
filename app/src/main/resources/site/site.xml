@@ -150,5 +150,8 @@
     <mapping controller="/services/newArticle/newArticle.js" order="10">
       <pattern>/create</pattern>
     </mapping>
+    <mapping controller="/services/checkout/controllers/liqpay.js" order="10">
+      <pattern>/payment-processing</pattern>
+    </mapping>
   </mappings>
 </site>

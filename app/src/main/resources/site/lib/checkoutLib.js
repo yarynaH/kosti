@@ -21,6 +21,11 @@ function getLiqpayData(cart) {
     action: "pay",
     currency: "UAH",
     description: "test",
+    result_url: sharedLib.generateNiceServiceUrl(
+      "/payment-processing",
+      null,
+      true
+    ),
     amount: model.cart.price.totalDiscount
   };
 }
@@ -98,12 +103,15 @@ function renderSuccessPage(req, cart, pendingPage) {
     );
   }
   return {
-    body: thymeleaf.render(resolve("../../services/checkout/success.html"), {
-      pageComponents: helpers.getPageComponents(req),
-      cart: cart,
-      pendingPage: pendingPage,
-      shopUrl: sharedLib.getShopUrl()
-    }),
+    body: thymeleaf.render(
+      resolve("../../services/checkout/components/success.html"),
+      {
+        pageComponents: helpers.getPageComponents(req),
+        cart: cart,
+        pendingPage: pendingPage,
+        shopUrl: sharedLib.getShopUrl()
+      }
+    ),
     contentType: "text/html"
   };
 }
