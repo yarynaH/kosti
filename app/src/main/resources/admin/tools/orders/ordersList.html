@@ -149,6 +149,10 @@
               </div>
 
               <div class="table-header_cell">
+                <span class="label">Товары</span>
+              </div>
+
+              <div class="table-header_cell">
                 <span class="label">Статус</span>
               </div>
 
@@ -177,12 +181,15 @@
               </div>
 
               <div class="table-body_cell table-side_aligns">
-                <span class="label">
-                  Статус
-                </span>
-                <span class="value" data-th-text="${item.status}">
-                  В Обработке
-                </span>
+                <div
+                  class="value"
+                  data-th-each="product: ${item.items}"
+                  data-th-text="${product.displayName}"
+                ></div>
+              </div>
+
+              <div class="table-body_cell table-side_aligns">
+                <span class="value" data-th-text="${item.status}"> </span>
               </div>
 
               <div class="table-body_cell table-side_aligns">
