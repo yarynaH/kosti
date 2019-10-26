@@ -9,6 +9,7 @@ var qrLib = require("qrLib");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
 var newsletter = require("../pages/newsletter/newsletter");
+var sharedLib = require("sharedLib");
 
 var mailsTemplates = {
   orderCreated: "../pages/mails/orderCreated.html",
@@ -127,7 +128,7 @@ function getorderCreatedMail(params) {
   return {
     body: thymeleaf.render(resolve(mailsTemplates.orderCreated), {
       order: params.order,
-      site: portal.getSite(),
+      site: sharedLib.getSite(),
       dateString: dateString,
       cart: params.cart
     }),
@@ -192,7 +193,7 @@ function getorderShippedMail(params) {
     d.getMinutes();
   return {
     body: thymeleaf.render(resolve(mailsTemplates.orderShipped), {
-      site: portal.getSite(),
+      site: sharedLib.getSite(),
       dateString: dateString,
       cart: params.cart
     }),
@@ -214,7 +215,7 @@ function getActivationMail(mail, params) {
   return {
     body: thymeleaf.render(resolve(mailsTemplates.userActivation), {
       activationUrl: activationUrl,
-      site: portal.getSite()
+      site: sharedLib.getSite()
     }),
     subject: "Активация аккаунта",
     from: "noreply@kostirpg.com"
@@ -234,7 +235,7 @@ function getForgotPassMail(mail, params) {
   return {
     body: thymeleaf.render(resolve(mailsTemplates.forgotPass), {
       resetUrl: resetUrl,
-      site: portal.getSite()
+      site: sharedLib.getSite()
     }),
     subject: "Смена пароля",
     from: "noreply@kostirpg.com"
@@ -252,7 +253,7 @@ function getPendingItemMail(params) {
           id: params.id
         }
       }),
-      site: portal.getSite()
+      site: sharedLib.getSite()
     }),
     subject: "Новый заказ ожидание",
     from: "noreply@kostirpg.com"
