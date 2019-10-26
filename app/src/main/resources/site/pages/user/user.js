@@ -9,6 +9,7 @@ var moment = require(libLocation + "moment");
 var votesLib = require(libLocation + "votesLib");
 var sharedLib = require(libLocation + "sharedLib");
 var blogLib = require(libLocation + "blogLib");
+var cartLib = require(libLocation + "cartLib");
 var userLib = require(libLocation + "userLib");
 var helpers = require(libLocation + "helpers");
 var commentsLib = require(libLocation + "commentsLib");
@@ -105,6 +106,15 @@ function handleReq(req) {
       var currTitle = "games";
       var articles = thymeleaf.render(resolve("gamesView.html"), {
         games: games.hits
+      });
+    } else if (up.action == "orders" && currUserFlag) {
+      var orders = cartLib.getCartsByUser(content.data.email);
+      totalArticles.curr = orders.total;
+      active.orders = "active";
+      totalArticles.orders = orders.total;
+      var currTitle = "orders";
+      var articles = thymeleaf.render(resolve("ordersView.html"), {
+        orders: orders.hits
       });
     } else {
       totalArticles.curr = totalArticles.articles;

@@ -14,6 +14,8 @@ exports.getCreatedCarts = getCreatedCarts;
 exports.modifyCartWithParams = modifyCartWithParams;
 exports.setUserDetails = setUserDetails;
 exports.modifyInventory = modifyInventory;
+exports.getShippingPrice = getShippingPrice;
+exports.getCartsByUser = getCartsByUser;
 
 function getCart(cartId) {
   var cart = {};
@@ -33,6 +35,22 @@ function getCart(cartId) {
   cart.price = calculateCart(cart);
   cart.stock = checkCartStock(cart.items);
   return cart;
+}
+
+function getCartsByUser(email) {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query:
+      "email = '" +
+      email +
+      "' and status in ('failed', 'paid', 'pending', 'shipped')"
+  });
+  for (var i = 0; i < result.hits.length; i++) {
+    result.hits[i] = getCart(result.hits[0].id);
+  }
+  return result;
 }
 
 exports.getCartByQr = function(qr) {
@@ -487,8 +505,6 @@ function getShippingPrice(cart) {
   }
   return method[method.length - 1].price;
 }
-
-exports.getShippingPrice = getShippingPrice;
 
 function checkCartStock(items) {
   for (var i = 0; i < items.length; i++) {

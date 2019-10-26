@@ -166,6 +166,24 @@
                 </li>
                 <li class="profile-action-item" data-th-if="${currUserFlag}">
                   <a
+                    data-th-href="${portal.pageUrl({'_path='+content._path,'action=orders'})}"
+                    class="profile-action-link"
+                    data-th-classappend="${active.orders}"
+                    data-type="orders"
+                    data-th-title="${portal.localize({'_key=user.title.orders', '_locale=ru'})}"
+                  >
+                    <span
+                      data-th-text="${portal.localize({'_key=user.title.orders', '_locale=ru'})}"
+                      data-th-remove="tag"
+                    ></span>
+                    <span
+                      class="value"
+                      data-th-text="${totalArticles.orders != null ? totalArticles.orders : '0'}"
+                    ></span>
+                  </a>
+                </li>
+                <li class="profile-action-item" data-th-if="${currUserFlag}">
+                  <a
                     class="profile-action-link"
                     data-th-href="${createArticleUrl}"
                     data-th-title="${portal.localize({'_key=user.title.createArticle', '_locale=ru'})}"

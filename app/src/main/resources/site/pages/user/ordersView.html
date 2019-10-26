@@ -1,0 +1,34 @@
+<div data-th-each="order : ${orders}" class="comments-item">
+  <div class="comments-header">
+    <div class="post-info">
+      <div>
+        order id
+        <span
+          class="post-user_name"
+          data-th-if="${order.userId}"
+          data-th-text="${order.userId}"
+        ></span>
+      </div>
+      <div>
+        order status
+        <span class="post-user_name" data-th-text="${order.status}"></span>
+      </div>
+      <div>
+        track no
+        <span
+          class="post-user_name"
+          data-th-if="${order.trackNum}"
+          data-th-text="${order.trackNum}"
+        ></span>
+      </div>
+      <div>
+        products
+        <div
+          class="value"
+          data-th-each="product: ${order.items}"
+          data-th-text="${product.displayName}"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
