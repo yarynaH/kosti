@@ -1,33 +1,78 @@
-<div data-th-each="order : ${orders}" class="comments-item">
-  <div class="comments-header">
-    <div class="post-info">
-      <div>
-        order id
-        <span
-          class="post-user_name"
-          data-th-if="${order.userId}"
-          data-th-text="${order.userId}"
-        ></span>
+<div data-th-each="order : ${orders}" class="comments-item view_orders-item">
+  <div class="view_orders-header">
+    <div class="view_orders-order_id">
+      <span class="label">
+        Заказ №
+      </span>
+      <span
+        class="value"
+        data-th-if="${order.userId}"
+        data-th-text="${order.userId}"
+      ></span>
+    </div>
+    <div class="post-date">3 месяца назад</div>
+    <div class="view_orders-status">
+      <span data-th-text="${order.status}"></span>
+    </div>
+  </div>
+  <div class="view_orders-product-list">
+    <div class="view_orders-product-item">
+      <div class="view_orders-product-image">
+        <img src="https://picsum.photos/100/100/?random" alt="" />
       </div>
-      <div>
-        order status
-        <span class="post-user_name" data-th-text="${order.status}"></span>
+      <div class="view_orders-product-info">
+        <div class="view_orders-product-description">
+          <div
+            class="cart-product_title"
+            data-th-each="product: ${order.items}"
+            data-th-text="${product.displayName}"
+          ></div>
+          <div class="cart-product_size">
+            <span class="label">Размер:</span>
+            <span class="value">L</span>
+          </div>
+        </div>
+        <div class="view_orders-product-qty">1 шт.</div>
+        <div class="cart-product_price">
+          <span class="price-curency">UAH</span>
+          <span>1400</span>
+        </div>
       </div>
-      <div>
-        track no
-        <span
-          class="post-user_name"
-          data-th-if="${order.trackNum}"
-          data-th-text="${order.trackNum}"
-        ></span>
+    </div>
+  </div>
+  <div class="view_orders-footer">
+    <div class="summary-purchase">
+      <div class="summary-subtotal">
+        <span class="label">Товар</span>
+        <span class="value">UAH <span>2800</span></span>
       </div>
-      <div>
-        products
-        <div
-          class="value"
-          data-th-each="product: ${order.items}"
-          data-th-text="${product.displayName}"
-        ></div>
+      <div class="summary-shipping">
+        <span class="label">Доставка</span>
+        <span class="value">UAH 50</span>
+      </div>
+      <div class="summary-discount js_summary-discount">
+        <span class="label">Скидка</span>
+        <span class="value">UAH <span>0</span></span>
+      </div>
+      <div class="summary-total js_summary-total">
+        <span class="label">Всего</span>
+        <span class="value">UAH <span>2850</span></span>
+      </div>
+    </div>
+    <div class="view_orders-address">
+      <div class="view_orders-address-item">
+        тел.
+        <span>0502334840</span>
+      </div>
+      <div class="view_orders-address-item">
+        Ужгород, Закарпатская обл., Відділення №7 (до 30 кг), вул. Юлії Жемайте,
+        1а
+      </div>
+      <div class="view_orders-address-item">
+        Номер декларації:
+        <span data-th-if="${order.trackNum}" data-th-text="${order.trackNum}"
+          >20400147482944</span
+        >
       </div>
     </div>
   </div>
