@@ -68,7 +68,8 @@ function handleReq(req) {
         true
       ),
       comments: commentsLib.getCommentsByUser(content._id, 0, 1, true),
-      games: getGames().total
+      games: getGames(true),
+      orders: cartLib.getCartsByUser(content.data.email, true)
     };
 
     var active = {};
@@ -111,7 +112,6 @@ function handleReq(req) {
       var orders = cartLib.getCartsByUser(content.data.email);
       totalArticles.curr = orders.total;
       active.orders = "active";
-      totalArticles.orders = orders.total;
       var currTitle = "orders";
       var articles = thymeleaf.render(resolve("ordersView.html"), {
         orders: orders.hits
@@ -153,15 +153,18 @@ function handleReq(req) {
       pageComponents: helpers.getPageComponents(req, "footerBlog")
     };
 
-    function getGames() {
-      var result = [];
-      var count = 0;
+    function getGames(countOnly) {
       var games = contentLib.query({
         start: 0,
         count: -1,
         query: "fulltext('data.*', '" + content._id + "', 'OR')",
         contentTypes: [app.name + ":form"]
       });
+      if (countOnly) {
+        return games.total;
+      }
+      var result = [];
+      var count = 0;
       var tempGames = games.hits;
       for (var i = 0; i < tempGames.length; i++) {
         if (!result[i]) {

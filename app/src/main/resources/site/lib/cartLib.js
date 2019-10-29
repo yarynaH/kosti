@@ -45,7 +45,7 @@ function getCart(cartId) {
   return cart;
 }
 
-function getCartsByUser(email) {
+function getCartsByUser(email, count) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -55,6 +55,9 @@ function getCartsByUser(email) {
       email +
       "' and status in ('failed', 'paid', 'pending', 'shipped')"
   });
+  if (count) {
+    return result.total;
+  }
   for (var i = 0; i < result.hits.length; i++) {
     result.hits[i] = getCart(result.hits[i].id);
   }
