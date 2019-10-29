@@ -430,6 +430,7 @@ function getCartItems(items) {
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),
         itemSize: items[i].itemSize,
+        digital: item.data.digital ? true : false,
         itemSizeStock: checkItemSizeStock(
           items[i].itemSize,
           parseInt(items[i].amount),

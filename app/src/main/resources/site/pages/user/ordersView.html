@@ -12,28 +12,38 @@
     </div>
     <div class="post-date">3 месяца назад</div>
     <div class="view_orders-status">
-      <span data-th-text="${order.status}"></span>
+      <span
+        data-th-text="${portal.localize({'_key=order.status.' + order.status, '_locale=ru'})}"
+      ></span>
     </div>
   </div>
   <div class="view_orders-product-list">
-    <div class="view_orders-product-item">
+    <div
+      data-th-each="product: ${order.items}"
+      class="view_orders-product-item"
+    >
       <div class="view_orders-product-image">
-        <img src="https://picsum.photos/100/100/?random" alt="" />
+        <img
+          data-th-src="${product.imageCart.url}"
+          data-th-alt="${product.imageCart.alt}"
+        />
       </div>
       <div class="view_orders-product-info">
         <div class="view_orders-product-description">
           <div
             class="cart-product_title"
-            data-th-each="product: ${order.items}"
             data-th-text="${product.displayName}"
           ></div>
           <div class="cart-product_size">
             <span class="label">Размер:</span>
-            <span class="value">L</span>
+            <span class="value" data-th-text="${product.itemSize}"></span>
           </div>
         </div>
-        <div class="view_orders-product-qty">1 шт.</div>
-        <div class="cart-product_price">
+        <div
+          class="view_orders-product-qty"
+          data-th-text="${product.amount}"
+        ></div>
+        <div class="cart-product_price hidden">
           <span class="price-curency">UAH</span>
           <span>1400</span>
         </div>
@@ -62,17 +72,28 @@
     <div class="view_orders-address">
       <div class="view_orders-address-item">
         тел.
-        <span>0502334840</span>
+        <span data-th-text="${order.phone}">0502334840</span>
       </div>
-      <div class="view_orders-address-item">
+      <div
+        class="view_orders-address-item"
+        data-th-text="${order.city + ', ' + portal.localize({'_key=countries.title.' + order.country, '_locale=ru'})}"
+      >
+        <span data-th-text="${order.city + ', '}" data-th-remove="tag"></span>
+        <span
+          data-th-text="${portal.localize({'_key=countries.title.' + order.country, '_locale=ru'})}"
+          data-th-remove="tag"
+        ></span>
+        <span
+          data-th-if="${order.novaPoshtaWarehouse}"
+          data-th-text="${', ' + order.novaPoshtaWarehouse}"
+          data-th-remove="tag"
+        ></span>
         Ужгород, Закарпатская обл., Відділення №7 (до 30 кг), вул. Юлії Жемайте,
         1а
       </div>
-      <div class="view_orders-address-item">
-        Номер декларації:
-        <span data-th-if="${order.trackNum}" data-th-text="${order.trackNum}"
-          >20400147482944</span
-        >
+      <div data-th-if="${order.trackNum}" class="view_orders-address-item">
+        Трек номер:
+        <span data-th-text="${order.trackNum}">20400147482944</span>
       </div>
     </div>
   </div>
