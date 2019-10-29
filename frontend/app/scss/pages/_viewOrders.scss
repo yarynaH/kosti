@@ -57,6 +57,10 @@
       }
     }
 
+    &-image {
+      max-width: 100px;
+    }
+
     &-info {
       width: calc(100% - 115px);
 
