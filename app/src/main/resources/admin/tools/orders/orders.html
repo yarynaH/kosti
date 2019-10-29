@@ -62,7 +62,17 @@
               </div>
               <div class="order-row">
                 <h3 class="order-label">Order Date:</h3>
-                <div class="order-value" data-th-text="${cart.dateTime}"></div>
+                <div
+                  class="order-value"
+                  data-th-text="${cart.dates.createdTime}"
+                ></div>
+              </div>
+              <div data-th-if="${cart.dates.transactionTime}" class="order-row">
+                <h3 class="order-label">Payment Date:</h3>
+                <div
+                  class="order-value"
+                  data-th-text="${cart.dates.transactionTime}"
+                ></div>
               </div>
               <div class="order-row">
                 <h3 class="order-label">Address:</h3>

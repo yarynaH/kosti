@@ -10,7 +10,7 @@
         data-th-text="${order.userId}"
       ></span>
     </div>
-    <div class="post-date" data-th-text="${order.date}"></div>
+    <div class="post-date" data-th-text="${order.dates.transactionTime}"></div>
     <div class="view_orders-status">
       <span
         data-th-text="${portal.localize({'_key=order.status.' + order.status, '_locale=ru'})}"

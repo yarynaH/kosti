@@ -16,6 +16,13 @@ exports.setUserDetails = setUserDetails;
 exports.modifyInventory = modifyInventory;
 exports.getShippingPrice = getShippingPrice;
 exports.getCartsByUser = getCartsByUser;
+exports.fixCartDate = fixCartDate;
+exports.fixCartPrice = fixCartPrice;
+exports.getCartByQr = getCartByQr;
+exports.markTicketUsed = markTicketUsed;
+exports.modify = modify;
+exports.generateItemsIds = generateItemsIds;
+exports.getNextId = getNextId;
 
 function getCart(cartId) {
   var cart = {};
@@ -27,12 +34,13 @@ function getCart(cartId) {
   } else {
     cart = createCart();
   }
-  cart.date = moment(cart._ts).format("DD.MM.YYYY");
-  cart.dateTime = moment(cart._ts).format("DD.MM.YYYY HH:MM");
   cart.items = getCartItems(cart.items);
   cart.itemsNum = calculateCartItems(cart.items);
   cart.itemsWeight = caclculateCartWeight(cart.items);
-  cart.price = calculateCart(cart);
+  cart.dates = getCartDates(cart);
+  if (!cart.price) {
+    cart.price = calculateCart(cart);
+  }
   cart.stock = checkCartStock(cart.items);
   return cart;
 }
@@ -53,7 +61,7 @@ function getCartsByUser(email) {
   return result;
 }
 
-exports.getCartByQr = function(qr) {
+function getCartByQr(qr) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -80,9 +88,9 @@ exports.getCartByQr = function(qr) {
     return cart;
   }
   return null;
-};
+}
 
-exports.markTicketUsed = function(qr) {
+function markTicketUsed(qr) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -115,7 +123,7 @@ exports.markTicketUsed = function(qr) {
     }
     return node;
   }
-};
+}
 
 function getCreatedCarts(params) {
   var cartRepo = connectCartRepo();
@@ -155,7 +163,7 @@ function modifyCartWithParams(id, params) {
   });
 }
 
-exports.modify = function(cartId, id, amount, itemSize, force) {
+function modify(cartId, id, amount, itemSize, force) {
   var cart = getCart(cartId);
   var cartRepo = connectCartRepo();
   var item = contentLib.get({ key: id });
@@ -208,7 +216,7 @@ exports.modify = function(cartId, id, amount, itemSize, force) {
     }
   }
   return result;
-};
+}
 
 function modifyInventory(items) {
   items = norseUtils.forceArray(items);
@@ -265,6 +273,9 @@ function setUserDetails(cartId, params) {
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = params.userId ? params.userId : node.userId;
     node.index = params.index ? params.index : node.index;
+    node.transactionDate = params.transactionDate
+      ? params.transactionDate
+      : node.transactionDate;
     node.novaPoshtaСity = params.novaPoshtaСity
       ? params.novaPoshtaСity
       : node.novaPoshtaСity;
@@ -275,12 +286,13 @@ function setUserDetails(cartId, params) {
       ? params.shippingPrice
       : node.shippingPrice;
     node.trackNum = params.trackNum ? params.trackNum : node.trackNum;
+    node.price = params.price ? params.price : node.price;
     return node;
   }
   return getCart(cartId);
 }
 
-exports.generateItemsIds = function(cartId) {
+function generateItemsIds(cartId) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.modify({
     key: cartId,
@@ -318,9 +330,9 @@ exports.generateItemsIds = function(cartId) {
     return node;
   }
   return getCart(cartId);
-};
+}
 
-exports.getNextId = function() {
+function getNextId() {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -328,7 +340,7 @@ exports.getNextId = function() {
     query: ""
   });
   return (result.total + 1).toFixed();
-};
+}
 
 function connectCartRepo() {
   return nodeLib.connect({
@@ -391,6 +403,15 @@ function calculateCart(cart) {
     discount: discount,
     totalDiscount: (result + shipping - discount.discount).toFixed(),
     total: (result + shipping).toFixed()
+  };
+}
+
+function getCartDates(cart) {
+  return {
+    createdDate: moment(cart._ts).format("DD.MM.YYYY"),
+    createdTime: moment(cart._ts).format("DD.MM.YYYY HH:MM"),
+    transactionDate: moment(cart.transactionDate).format("DD.MM.YYYY"),
+    transactionTime: moment(cart.transactionDate).format("DD.MM.YYYY HH:MM")
   };
 }
 
@@ -597,5 +618,45 @@ function removePromo(code, cartId) {
     node.promos = norseUtils.forceArray(node.promos);
     node.promos.splice(node.promos.indexOf(code), 1);
     return node;
+  }
+}
+
+function fixCartDate() {
+  norseUtils.log(
+    "Fixing cart transaction date for " + result.total + " items."
+  );
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "status in ('failed', 'paid', 'pending', 'shipped')",
+    filters: {
+      notExists: {
+        field: "transactionDate"
+      }
+    }
+  });
+  for (var i = 0; i < result.hits.length; i++) {
+    result.hits[i] = cartRepo.get(result.hits[i].id);
+    setUserDetails(result.hits[i]._id, { transactionDate: result.hits[i]._ts });
+  }
+}
+
+function fixCartPrice() {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "status in ('failed', 'paid', 'pending', 'shipped')",
+    filters: {
+      notExists: {
+        field: "price"
+      }
+    }
+  });
+  norseUtils.log("Fixing cart price for " + result.total + " items.");
+  for (var i = 0; i < result.hits.length; i++) {
+    result.hits[i] = getCart(result.hits[i].id);
+    setUserDetails(result.hits[i]._id, { price: result.hits[i].price });
   }
 }

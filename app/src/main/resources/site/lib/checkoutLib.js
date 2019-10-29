@@ -119,7 +119,11 @@ function renderSuccessPage(req, cart, pendingPage) {
 function checkIKResponse(params, model) {
   if (params.ik_inv_st == "success") {
     params.step = "success";
-    cartLib.modifyCartWithParams(model.cart._id, { status: "paid" });
+    cartLib.modifyCartWithParams(model.cart._id, {
+      status: "paid",
+      transactionDate: new Date(),
+      price: model.cart.price
+    });
     contextLib.runAsAdmin(function() {
       cartLib.modifyInventory(model.cart.items);
     });
