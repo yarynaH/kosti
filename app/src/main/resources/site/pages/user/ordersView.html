@@ -10,7 +10,7 @@
         data-th-text="${order.userId}"
       ></span>
     </div>
-    <div class="post-date">3 месяца назад</div>
+    <div class="post-date" data-th-text="${order.date}"></div>
     <div class="view_orders-status">
       <span
         data-th-text="${portal.localize({'_key=order.status.' + order.status, '_locale=ru'})}"
@@ -54,30 +54,49 @@
     <div class="summary-purchase">
       <div class="summary-subtotal">
         <span class="label">Товар</span>
-        <span class="value">UAH <span>2800</span></span>
+        <span class="value"
+          >UAH <span data-th-text="${order.price.items}"></span
+        ></span>
       </div>
       <div class="summary-shipping">
         <span class="label">Доставка</span>
-        <span class="value">UAH 50</span>
+        <span class="value"
+          >UAH
+          <span
+            data-th-text="${order.price.shipping}"
+            data-th-remove="tag"
+          ></span
+        ></span>
       </div>
       <div class="summary-discount js_summary-discount">
         <span class="label">Скидка</span>
-        <span class="value">UAH <span>0</span></span>
+        <span class="value"
+          >UAH <span data-th-text="${order.price.discount.discount}"></span
+        ></span>
       </div>
       <div class="summary-total js_summary-total">
         <span class="label">Всего</span>
-        <span class="value">UAH <span>2850</span></span>
+        <span class="value"
+          >UAH <span data-th-text="${order.price.totalDiscount}"></span
+        ></span>
       </div>
     </div>
     <div class="view_orders-address">
       <div class="view_orders-address-item">
-        тел.
-        <span data-th-text="${order.phone}">0502334840</span>
+        Эл. почта:
+        <span data-th-text="${order.email}"></span>
       </div>
-      <div
-        class="view_orders-address-item"
-        data-th-text="${order.city + ', ' + portal.localize({'_key=countries.title.' + order.country, '_locale=ru'})}"
-      >
+      <div class="view_orders-address-item">
+        Тел.
+        <span data-th-text="${order.phone}"></span>
+      </div>
+      <div data-th-if="${order.trackNum}" class="view_orders-address-item">
+        Метод доставки:
+        <span
+          data-th-text="${portal.localize({'_key=store.shipping.' + order.shipping, '_locale=ru'})}"
+        ></span>
+      </div>
+      <div class="view_orders-address-item">
         <span data-th-text="${order.city + ', '}" data-th-remove="tag"></span>
         <span
           data-th-text="${portal.localize({'_key=countries.title.' + order.country, '_locale=ru'})}"
@@ -88,12 +107,10 @@
           data-th-text="${', ' + order.novaPoshtaWarehouse}"
           data-th-remove="tag"
         ></span>
-        Ужгород, Закарпатская обл., Відділення №7 (до 30 кг), вул. Юлії Жемайте,
-        1а
       </div>
       <div data-th-if="${order.trackNum}" class="view_orders-address-item">
         Трек номер:
-        <span data-th-text="${order.trackNum}">20400147482944</span>
+        <span data-th-text="${order.trackNum}"></span>
       </div>
     </div>
   </div>

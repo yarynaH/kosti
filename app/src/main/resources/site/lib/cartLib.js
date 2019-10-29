@@ -48,7 +48,7 @@ function getCartsByUser(email) {
       "' and status in ('failed', 'paid', 'pending', 'shipped')"
   });
   for (var i = 0; i < result.hits.length; i++) {
-    result.hits[i] = getCart(result.hits[0].id);
+    result.hits[i] = getCart(result.hits[i].id);
   }
   return result;
 }
