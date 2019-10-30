@@ -570,6 +570,9 @@ function checkCartDiscount(cart, itemsTotal) {
   var promos = promosLib.getPromosArray(cart.promos);
   var cartCodes = [];
   for (var i = 0; i < promos.length; i++) {
+    if (!promos[i] || !promos[i].data) {
+      continue;
+    }
     if (promos[i].data.type == "percent") {
       discount += itemsTotal * (promos[i].data.discount / 100);
     } else {
