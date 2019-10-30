@@ -69,7 +69,7 @@ function handleReq(req) {
       ),
       comments: commentsLib.getCommentsByUser(content._id, 0, 1, true),
       games: getGames(true),
-      orders: cartLib.getCartsByUser(content.data.email, true)
+      orders: cartLib.getCartsByUser(content.data.email, content._id, true)
     };
 
     var active = {};
@@ -109,7 +109,7 @@ function handleReq(req) {
         games: games.hits
       });
     } else if (up.action == "orders" && currUserFlag) {
-      var orders = cartLib.getCartsByUser(content.data.email);
+      var orders = cartLib.getCartsByUser(content.data.email, content._id);
       totalArticles.curr = orders.total;
       active.orders = "active";
       var currTitle = "orders";

@@ -11,6 +11,7 @@ var mailsLib = require(libLocation + "mailsLib");
 var sharedLib = require(libLocation + "sharedLib");
 var hashLib = require(libLocation + "hashLib");
 var checkoutLib = require(libLocation + "checkoutLib");
+var userLib = require(libLocation + "userLib");
 
 exports.get = function(req) {
   return generateCheckoutPage(req);
@@ -43,6 +44,10 @@ function generateCheckoutPage(req) {
     case "3":
       params.userId = cartLib.getNextId();
       params.status = "created";
+      var user = userLib.getCurrentUser();
+      if (user) {
+        params.userRelation = user._id;
+      }
       var shipping = checkoutLib.getShipping(model.cart.country);
       shipping = checkoutLib.getShippingById(shipping, params.shipping);
       model.cart = cartLib.modifyCartWithParams(model.cart._id, params);

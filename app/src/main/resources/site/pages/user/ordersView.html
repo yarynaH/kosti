@@ -34,7 +34,7 @@
             class="cart-product_title"
             data-th-text="${product.displayName}"
           ></div>
-          <div class="cart-product_size">
+          <div class="cart-product_size" data-th-if="${product.itemSize}">
             <span class="label">Размер:</span>
             <span class="value" data-th-text="${product.itemSize}"></span>
           </div>

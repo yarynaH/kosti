@@ -45,15 +45,17 @@ function getCart(cartId) {
   return cart;
 }
 
-function getCartsByUser(email, count) {
+function getCartsByUser(email, id, count) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
     count: -1,
     query:
-      "email = '" +
+      "(email = '" +
       email +
-      "' and status in ('failed', 'paid', 'pending', 'shipped')"
+      "' or userRelation = '" +
+      id +
+      "') and status in ('failed', 'paid', 'pending', 'shipped')"
   });
   if (count) {
     return result.total;
@@ -276,6 +278,9 @@ function setUserDetails(cartId, params) {
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = params.userId ? params.userId : node.userId;
     node.index = params.index ? params.index : node.index;
+    node.userRelation = params.userRelation
+      ? params.userRelation
+      : node.userRelation;
     node.transactionDate = params.transactionDate
       ? params.transactionDate
       : node.transactionDate;
