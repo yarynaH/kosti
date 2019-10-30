@@ -23,6 +23,7 @@ exports.markTicketUsed = markTicketUsed;
 exports.modify = modify;
 exports.generateItemsIds = generateItemsIds;
 exports.getNextId = getNextId;
+exports.savePrices = savePrices;
 
 function getCart(cartId) {
   var cart = {};
@@ -166,6 +167,29 @@ function modifyCartWithParams(id, params) {
   return contextLib.runAsAdmin(function() {
     return setUserDetails(id, params);
   });
+}
+
+function savePrices(cartId) {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.modify({
+    key: cartId,
+    editor: editor
+  });
+
+  function editor(node) {
+    if (node.items) {
+      node.items = norseUtils.forceArray(node.items);
+      for (var i = 0; i < node.items.length; i++) {
+        var item = contextLib.runInDefault(function() {
+          return contentLib.get({ key: node.items[i].id });
+        });
+        if (item && item.data && item.data.price) {
+          node.items[i].transactionPrice = item.data.price;
+        }
+      }
+    }
+    return node;
+  }
 }
 
 function modify(cartId, id, amount, itemSize, force) {
@@ -462,6 +486,10 @@ function getCartItems(items) {
         digital: item.data.digital ? true : false,
         ticketType: item.data.ticketType ? item.data.ticketType : false,
         productType: item.data.type,
+        transactionPrice: items[i].transactionPrice
+          ? items[i].transactionPrice
+          : false,
+
         itemSizeStock: checkItemSizeStock(
           items[i].itemSize,
           parseInt(items[i].amount),
@@ -671,5 +699,6 @@ function fixCartPrice() {
   for (var i = 0; i < result.hits.length; i++) {
     result.hits[i] = getCart(result.hits[i].id);
     setUserDetails(result.hits[i]._id, { price: result.hits[i].price });
+    savePrices(result.hits[i]._id);
   }
 }

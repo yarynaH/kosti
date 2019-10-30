@@ -124,6 +124,7 @@ function checkIKResponse(params, model) {
       transactionDate: new Date(),
       price: model.cart.price
     });
+    cartLib.savePrices(model.cart._id);
     contextLib.runAsAdmin(function() {
       cartLib.modifyInventory(model.cart.items);
     });

@@ -53,9 +53,9 @@
           class="view_orders-product-qty"
           data-th-text="${product.amount}"
         ></div>
-        <div class="cart-product_price hidden">
+        <div class="cart-product_price">
           <span class="price-curency">UAH</span>
-          <span>1400</span>
+          <span data-th-text="${product.transactionPrice}"></span>
         </div>
       </div>
     </div>
