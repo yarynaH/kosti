@@ -701,4 +701,19 @@ function fixCartPrice() {
     setUserDetails(result.hits[i]._id, { price: result.hits[i].price });
     savePrices(result.hits[i]._id);
   }
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "status in ('failed', 'paid', 'pending', 'shipped')",
+    filters: {
+      notExists: {
+        field: "items.price"
+      }
+    }
+  });
+  norseUtils.log("Fixing items price for " + result.total + " items.");
+  for (var i = 0; i < result.hits.length; i++) {
+    result.hits[i] = getCart(result.hits[i].id);
+    savePrices(result.hits[i]._id);
+  }
 }
