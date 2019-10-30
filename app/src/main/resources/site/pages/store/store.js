@@ -54,7 +54,19 @@ function handleReq(req) {
       start: 0,
       count: -1,
       contentTypes: [app.name + ":product"],
-      sort: "publish.from DESC"
+      sort: "publish.from DESC",
+      filters: {
+        boolean: {
+          mustNot: {
+            hasValue: [
+              {
+                field: "data.discontinued",
+                values: "true"
+              }
+            ]
+          }
+        }
+      }
     });
     if (products && products.hits) {
       products = products.hits;
