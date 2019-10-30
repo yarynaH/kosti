@@ -707,7 +707,7 @@ function fixCartPrice() {
     query: "status in ('failed', 'paid', 'pending', 'shipped')",
     filters: {
       notExists: {
-        field: "items.price"
+        field: "items.transactionPrice"
       }
     }
   });
