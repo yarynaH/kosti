@@ -460,6 +460,8 @@ function getCartItems(items) {
         amount: parseInt(items[i].amount).toFixed(),
         itemSize: items[i].itemSize,
         digital: item.data.digital ? true : false,
+        ticketType: item.data.ticketType ? item.data.ticketType : false,
+        productType: item.data.type,
         itemSizeStock: checkItemSizeStock(
           items[i].itemSize,
           parseInt(items[i].amount),

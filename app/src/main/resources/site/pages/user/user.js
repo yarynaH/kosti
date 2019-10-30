@@ -12,6 +12,7 @@ var blogLib = require(libLocation + "blogLib");
 var cartLib = require(libLocation + "cartLib");
 var userLib = require(libLocation + "userLib");
 var helpers = require(libLocation + "helpers");
+var pdfLib = require(libLocation + "pdfLib");
 var commentsLib = require(libLocation + "commentsLib");
 var notificationLib = require(libLocation + "notificationLib");
 
