@@ -134,7 +134,12 @@ function checkIKResponse(params, model) {
     cartLib.modifyCartWithParams(model.cart._id, { status: "failed" });
   } else if (params.ik_inv_st == "waitAccept") {
     params.step = "pending";
-    cartLib.modifyCartWithParams(model.cart._id, { status: "pending" });
+    cartLib.savePrices(model.cart._id);
+    cartLib.modifyCartWithParams(model.cart._id, {
+      status: "pending",
+      transactionDate: new Date(),
+      price: model.cart.price
+    });
     contextLib.runAsAdmin(function() {
       cartLib.modifyInventory(model.cart.items);
     });
