@@ -54,7 +54,7 @@ function addToCart(data) {
           .removeClass("hidden");
       }
     }
-    showSnackBar("Добавлено в корзину.", "info");
+    showSnackBar("Добавлено в корзину.", "success");
   });
 }
 
