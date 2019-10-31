@@ -13,6 +13,7 @@ exports.getShipping = getShipping;
 exports.getShippingById = getShippingById;
 exports.renderSuccessPage = renderSuccessPage;
 exports.checkIKResponse = checkIKResponse;
+exports.getLiqpayData = getLiqpayData;
 
 function getLiqpayData(cart) {
   return {
@@ -26,7 +27,7 @@ function getLiqpayData(cart) {
       null,
       true
     ),
-    amount: model.cart.price.totalDiscount
+    amount: cart.price.totalDiscount
   };
 }
 
