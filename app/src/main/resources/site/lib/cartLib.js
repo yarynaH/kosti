@@ -663,9 +663,6 @@ function removePromo(code, cartId) {
 }
 
 function fixCartDate() {
-  norseUtils.log(
-    "Fixing cart transaction date for " + result.total + " items."
-  );
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -677,23 +674,31 @@ function fixCartDate() {
       }
     }
   });
+  norseUtils.log(
+    "Fixing cart transaction date for " + result.total + " items."
+  );
   for (var i = 0; i < result.hits.length; i++) {
     result.hits[i] = cartRepo.get(result.hits[i].id);
     setUserDetails(result.hits[i]._id, { transactionDate: result.hits[i]._ts });
   }
 }
 
-function fixCartPrice() {
+function fixCartPrice(force) {
+  if (!force) {
+    var filters = {
+      notExists: {
+        field: "price"
+      }
+    };
+  } else {
+    filters = {};
+  }
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
     count: -1,
     query: "status in ('failed', 'paid', 'pending', 'shipped')",
-    filters: {
-      notExists: {
-        field: "price"
-      }
-    }
+    filters: filters
   });
   norseUtils.log("Fixing cart price for " + result.total + " items.");
   for (var i = 0; i < result.hits.length; i++) {

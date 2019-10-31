@@ -17,7 +17,7 @@ exports.get = function(req) {
       cartLib.fixCartDate();
       break;
     case "fixCartPrice":
-      cartLib.fixCartPrice();
+      cartLib.fixCartPrice(params.force);
       break;
   }
   return {
