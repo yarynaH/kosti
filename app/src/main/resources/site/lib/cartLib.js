@@ -24,6 +24,7 @@ exports.modify = modify;
 exports.generateItemsIds = generateItemsIds;
 exports.getNextId = getNextId;
 exports.savePrices = savePrices;
+exports.fixItemIds = fixItemIds;
 
 function getCart(cartId) {
   var cart = {};
@@ -719,5 +720,23 @@ function fixCartPrice(force) {
   for (var i = 0; i < result.hits.length; i++) {
     result.hits[i] = getCart(result.hits[i].id);
     savePrices(result.hits[i]._id);
+  }
+}
+
+function fixItemIds() {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "status in ('failed', 'paid', 'pending', 'shipped')",
+    filters: {
+      notExists: {
+        field: "items.itemsIds.id"
+      }
+    }
+  });
+  norseUtils.log("Fixing cart ids for " + result.total + " items.");
+  for (var i = 0; i < result.hits.length; i++) {
+    generateItemsIds(result.hits[i].id);
   }
 }

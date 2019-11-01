@@ -19,6 +19,9 @@ exports.get = function(req) {
     case "fixCartPrice":
       cartLib.fixCartPrice(params.force);
       break;
+    case "fixItemIds":
+      cartLib.fixItemIds();
+      break;
   }
   return {
     body: "",
