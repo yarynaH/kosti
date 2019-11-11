@@ -20,6 +20,7 @@ var templates = {
 
 exports.get = function(req) {
   var params = req.params;
+  var model = {};
   switch (params.action) {
     case "logout":
       return logout();
@@ -59,7 +60,7 @@ exports.get = function(req) {
     default:
       break;
   }
-  var model = { pageComponents: helpers.getPageComponents(req) };
+  model.pageComponents = helpers.getPageComponents(req);
   var view = false;
   if (params.code) {
     userLib.discordRegister(params.code);
