@@ -54,7 +54,7 @@ function handleReq(req) {
       start: 0,
       count: -1,
       contentTypes: [app.name + ":product"],
-      sort: "publish.from DESC",
+      sort: "_manualOrderValue DESC",
       filters: {
         boolean: {
           mustNot: {
