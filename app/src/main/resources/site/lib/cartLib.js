@@ -393,7 +393,8 @@ function generateItemsIds(cartId) {
                 " " +
                 i
             ),
-            activated: false
+            activated: false,
+            friendlyId: utils.ticketCount
           });
         }
       }
