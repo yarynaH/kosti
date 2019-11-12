@@ -25,6 +25,7 @@ exports.generateItemsIds = generateItemsIds;
 exports.getNextId = getNextId;
 exports.savePrices = savePrices;
 exports.fixItemIds = fixItemIds;
+exports.getCartUtils = getCartUtils;
 
 function getCart(cartId) {
   var cart = {};
@@ -325,22 +326,59 @@ function setUserDetails(cartId, params) {
   return getCart(cartId);
 }
 
+function getCartUtils() {
+  var cartRepo = connectCartRepo();
+  var utils = cartRepo.query({
+    query: "_name = 'utils'"
+  });
+  if (utils.hits[0]) {
+    return cartRepo.get(utils.hits[0].id);
+  } else {
+    return cartRepo.create({
+      _name: "utils",
+      ticketCount: 0
+    });
+  }
+}
+
+function modifyCartUtils(data) {
+  var cartRepo = connectCartRepo();
+  var utils = getCartUtils();
+  var result = cartRepo.modify({
+    key: utils._id,
+    editor: editor
+  });
+  function editor(node) {
+    node.ticketCount = data.ticketCount ? data.ticketCount : node.ticketCount;
+    return node;
+  }
+}
+
 function generateItemsIds(cartId) {
   var cartRepo = connectCartRepo();
+  var utils = getCartUtils();
   var result = cartRepo.modify({
     key: cartId,
     editor: editor
   });
+  modifyCartUtils({ ticketCount: utils.ticketCount });
   function editor(node) {
     if (node && node.items) {
       node.items = norseUtils.forceArray(node.items);
       for (var i = 0; i < node.items.length; i++) {
         node.items[i].itemsIds = [];
+        var item = contextLib.runInDefault(function() {
+          return contentLib.get({ key: node.items[i].id });
+        });
+        if (item.data.type !== "ticket") {
+          continue;
+        }
         var idsCount = parseInt(node.items[i].amount);
         if (node.items[i].generateIds) {
           idsCount = idsCount * parseInt(node.items[i].generateIds);
         }
         for (var j = 0; j < idsCount; j++) {
+          utils.ticketCount++;
           node.items[i].itemsIds.push({
             id: textEncoding.md5(
               node.name +

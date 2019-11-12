@@ -4,6 +4,37 @@ $(document).ready(function() {
     highlight: function(element, errorClass, validClass) {},
     unhighlight: function(element, errorClass, validClass) {}
   });
+  $(".js_shipping-form").validate({
+    ignore: "",
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {},
+    rules: {
+      novaPoshtaСity: {
+        required: function(element) {
+          return checkNovaPoshtaValidation();
+        }
+      },
+      novaPoshtaWarehouse: {
+        required: function(element) {
+          return checkNovaPoshtaValidation();
+        }
+      }
+    }
+  });
+  function checkNovaPoshtaValidation() {
+    if ($("input[value=novaposhta]").is(":checked")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  $("input[name=shipping]").on("click", function() {
+    if ($(this).attr("value") === "novaposhta") {
+      $(".delivery_details").removeClass("hidden");
+    } else {
+      $(".delivery_details").addClass("hidden");
+    }
+  });
 });
 
 function addToCart(data) {
