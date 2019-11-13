@@ -2,11 +2,18 @@ var htmlExporter = require("/lib/openxp/html-exporter");
 var thymeleaf = require("/lib/thymeleaf");
 
 var qrLib = require("qrLib");
-var mailsTemplates = {
+var templates = {
   regularTicket: "../pages/pdfs/regularTicket.html",
   legendaryTicket: "../pages/pdfs/legendaryTicket.html"
 };
 
+/*
+  function generatePdf
+  type: ticket
+  template: template for ticket to be used
+  qrData: data to be in qr code
+  name: name
+*/
 exports.generatePdf = generatePdf;
 
 function generatePdf(params) {
@@ -17,12 +24,13 @@ function generatePdf(params) {
 
 function generateTicket(params) {
   var qr = qrLib(4, "L");
-  qr.addData(params.id);
+  qr.addData(params.qrData);
   qr.make();
   var fileSource = htmlExporter.exportToPdf(
-    thymeleaf.render(resolve(mailsTemplates[params.ticketType]), {
+    thymeleaf.render(resolve(templates[params.template]), {
       qrcode: qr.createTableTag(7, 0)
     })
   );
+  fileSource.name = params.name;
   return htmlExporter.getStream(fileSource);
 }

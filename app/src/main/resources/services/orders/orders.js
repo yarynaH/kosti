@@ -13,8 +13,8 @@ exports.get = function(req) {
     case "ticketPdf":
       var body = pdfLib.generatePdf({
         type: "ticket",
-        ticketType: params.ticketType,
-        id: params.id
+        template: params.ticketType,
+        qrData: params.id
       });
       var contentType = "application/pdf";
       break;

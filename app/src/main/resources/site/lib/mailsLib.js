@@ -10,6 +10,7 @@ var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
 var newsletter = require("../pages/newsletter/newsletter");
 var sharedLib = require("sharedLib");
+var pdfLib = require("pdfLib");
 
 var mailsTemplates = {
   orderCreated: "../pages/mails/orderCreated.html",
@@ -138,42 +139,27 @@ function getorderCreatedMail(params) {
   };
 
   function getTickets(params) {
-    var qrs = [];
-    var typeNumber = 4;
-    var errorCorrectionLevel = "L";
+    var pdfs = [];
     for (var i = 0; i < params.cart.items.length; i++) {
       var item = contentLib.get({ key: params.cart.items[i]._id });
       if (item && item.data && item.data.type == "ticket") {
         for (var j = 0; j < params.cart.items[i].itemsIds.length; j++) {
-          var qr = qrLib(typeNumber, errorCorrectionLevel);
-          qr.addData(params.cart.items[i].itemsIds[j].id);
-          qr.make();
-          qrs.push({
-            qr: qr.createTableTag(7, 0),
-            type: item.data.ticketType
+          var name = "ticket" + i + ".pdf";
+          pdfs.push({
+            stream: pdfLib.generatePdf({
+              template: item.data.ticketType,
+              qrData: params.cart.items[i].itemsIds[j].id,
+              type: "ticket",
+              name: name
+            }),
+            mimeType: "application/pdf",
+            headers: {
+              "Content-Disposition": 'attachment; filename="' + name + '"'
+            },
+            fileName: name
           });
         }
       }
-    }
-    var pdfs = [];
-    for (var i = 0; i < qrs.length; i++) {
-      var fileSource = htmlExporter.exportToPdf(
-        thymeleaf.render(resolve(mailsTemplates[qrs[i].type]), {
-          qrcode: qrs[i].qr
-        })
-      );
-      fileSource.name = "ticket" + i + ".pdf";
-      var stream = htmlExporter.getStream(fileSource);
-      var tempData = {
-        data: stream,
-        mimeType: "application/pdf",
-        headers: {
-          "Content-Disposition":
-            'attachment; filename="' + fileSource.name + '"'
-        },
-        fileName: fileSource.name
-      };
-      pdfs.push(tempData);
     }
     return pdfs;
   }
