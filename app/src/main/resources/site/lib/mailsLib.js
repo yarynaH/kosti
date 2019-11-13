@@ -144,9 +144,9 @@ function getorderCreatedMail(params) {
       var item = contentLib.get({ key: params.cart.items[i]._id });
       if (item && item.data && item.data.type == "ticket") {
         for (var j = 0; j < params.cart.items[i].itemsIds.length; j++) {
-          var name = "ticket" + i + ".pdf";
+          var name = "ticket" + i + j + ".pdf";
           pdfs.push({
-            stream: pdfLib.generatePdf({
+            data: pdfLib.generatePdf({
               template: item.data.ticketType,
               qrData: params.cart.items[i].itemsIds[j].id,
               type: "ticket",
