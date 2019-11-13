@@ -8,6 +8,7 @@ var helpers = require("helpers");
 var cartLib = require("cartLib");
 var mailsLib = require("mailsLib");
 var sharedLib = require("sharedLib");
+var promosLib = require("promosLib");
 
 exports.getShipping = getShipping;
 exports.getShippingById = getShippingById;
@@ -128,6 +129,9 @@ function checkIKResponse(params, model) {
     contextLib.runAsAdmin(function() {
       cartLib.savePrices(model.cart._id);
       cartLib.modifyInventory(model.cart.items);
+      if (model.cart.promos) {
+        promosLib.reduceUsePromos(model.cart.promos);
+      }
     });
   } else if (params.ik_inv_st == "fail" || params.ik_inv_st == "canceled") {
     params.error = true;
@@ -135,14 +139,14 @@ function checkIKResponse(params, model) {
     cartLib.modifyCartWithParams(model.cart._id, { status: "failed" });
   } else if (params.ik_inv_st == "waitAccept") {
     params.step = "pending";
-    cartLib.savePrices(model.cart._id);
-    cartLib.modifyCartWithParams(model.cart._id, {
-      status: "pending",
-      transactionDate: new Date(),
-      price: model.cart.price
-    });
     contextLib.runAsAdmin(function() {
       cartLib.modifyInventory(model.cart.items);
+      cartLib.savePrices(model.cart._id);
+      cartLib.modifyCartWithParams(model.cart._id, {
+        status: "pending",
+        transactionDate: new Date(),
+        price: model.cart.price
+      });
     });
   }
   return params;

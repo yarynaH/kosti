@@ -19,5 +19,8 @@
         <option value="value">Value</option>
       </config>
     </input>
+    <input name="amount" type="Long">
+      <label>Codes amount</label>
+    </input>
   </form>
 </content-type>

@@ -10,6 +10,7 @@ var sharedLib = require("sharedLib");
 exports.getPromosArray = getPromosArray;
 exports.getPromoByCode = getPromoByCode;
 exports.activatePromo = activatePromo;
+exports.reduceUsePromos = reduceUsePromos;
 
 function checkPromo(code) {
   var promo = getPromoByCode(code);
@@ -26,7 +27,7 @@ function getPromosArray(codes) {
 }
 
 function getPromoByCode(code, force) {
-  var query = "data.code = '" + code + "'";
+  var query = "data.code = '" + code + "' and data.amount > 0";
   var result = contentLib.query({
     start: 0,
     count: 1,
@@ -45,4 +46,28 @@ function activatePromo(code, cartId) {
   }
   var cartLib = require("cartLib");
   return cartLib.addPromo(code, cartId);
+}
+
+function reduceUsePromos(codes) {
+  codes = norseUtils.forceArray(codes);
+  for (let i = 0; i < codes.length; i++) {
+    reduceUse(codes[i]);
+  }
+}
+
+function reduceUse(code) {
+  var promo = getPromoByCode(code);
+  var result = contentLib.modify({
+    key: promo._id,
+    editor: editor
+  });
+  contentLib.publish({
+    keys: [result._id],
+    sourceBranch: "master",
+    targetBranch: "draft"
+  });
+  function editor(node) {
+    node.data.amount = node.data.amount - 1;
+    return node;
+  }
 }

@@ -6,6 +6,7 @@ var helpers = require(libLocation + "helpers");
 var promosLib = require(libLocation + "promosLib");
 var cartLib = require(libLocation + "cartLib");
 var sharedLib = require(libLocation + "sharedLib");
+var contextLib = require(libLocation + "contextLib");
 
 exports.post = function(req) {
   var params = req.params;
@@ -20,30 +21,36 @@ exports.post = function(req) {
         contentType: "application/json"
       };
     case "activatePromo":
-      var view = resolve("../checkout/promos.html");
-      var res = promosLib.activatePromo(params.promoCode, params.cartId);
-      if (!res) {
+      var view = resolve("../checkout/components/promos.html");
+      var cart = contextLib.runAsAdmin(function() {
+        return promosLib.activatePromo(params.promoCode, params.cartId);
+      });
+      if (!cart) {
         return false;
       }
       var markup = thymeleaf.render(view, {
-        promos: res.price.discount.codes,
+        promos: cart.price.discount.codes,
         promosUrl: sharedLib.generateNiceServiceUrl("promos")
       });
       return {
         body: {
-          cart: promosLib.activatePromo(params.promoCode, params.cartId),
+          cart: cart,
           promos: markup,
           promosUrl: sharedLib.generateNiceServiceUrl("promos")
         },
         contentType: "application/json"
       };
     case "removePromo":
-      var view = resolve("../checkout/promos.html");
-      var res = cartLib.removePromo(params.code, params.cartId);
-      var markup = thymeleaf.render(view, { promos: res.price.discount.codes });
+      var view = resolve("../checkout/components/promos.html");
+      var cart = contextLib.runAsAdmin(function() {
+        return cartLib.removePromo(params.code, params.cartId);
+      });
+      var markup = thymeleaf.render(view, {
+        promos: cart.price.discount.codes
+      });
       return {
         body: {
-          cart: cartLib.removePromo(params.code, params.cartId),
+          cart: cart,
           promos: markup,
           promosUrl: sharedLib.generateNiceServiceUrl("promos")
         },
