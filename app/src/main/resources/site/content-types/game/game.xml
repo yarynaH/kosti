@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Game</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="masterName" type="TextLine">
+      <label>Master name</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="masterNickname" type="TextLine">
+      <label>Master nickname</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="description" type="HtmlArea">
+      <label>Form description</label>
+      <config>
+        <exclude>*</exclude>
+        <include>AlignLeft AlignRight | Bold Italic</include>
+      </config>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="maxPlayers" type="ComboBox">
+      <label>Max players</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </config>
+    </input>
+    <input name="kidsGame" type="CheckBox">
+      <label>Games is ok for kids</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
+    <input name="system" type="ComboBox">
+      <label>Game system</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="dnd">DnD</option>
+        <option value="gurps">GURPS</option>
+        <option value="dcc">DCC</option>
+        <option value="vtm">V:tM</option>
+        <option value="skeletons">Skeletons</option>
+        <option value="runequest">Runequest</option>
+        <option value="wfrp">WFRP</option>
+        <option value="cyberpunk2020">Cyberpunk 2020</option>
+        <option value="cyberpunkRed">Cyberpunk RED</option>
+        <option value="trailOfChtulhu">Trail Of Chtulhu</option>
+        <option value="callOfChtulhu">Call Of Chtulhu</option>
+        <option value="deltaGreen">Delta Green</option>
+        <option value="mothership">Mothership</option>
+        <option value="koriolis">Koriolis</option>
+        <option value="mutants">Mutants</option>
+        <option value="other">Other</option>
+      </config>
+    </input>
+  </form>
+</content-type>

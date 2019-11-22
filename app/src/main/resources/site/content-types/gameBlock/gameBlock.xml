@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Game block</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="datetime" type="DateTime">
+      <label>Date and time</label>
+      <config>
+        <timezone>true</timezone>
+      </config>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="maxGames" type="Long">
+      <label>Maximum games in block</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="description" type="HtmlArea">
+      <label>Game block description</label>
+      <config>
+        <exclude>*</exclude>
+        <include>AlignLeft AlignRight | Bold Italic</include>
+      </config>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+  </form>
+</content-type>

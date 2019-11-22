@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+
+  <body class="page-wrapper">
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main blog_width form game_reg-wrap">
+      <h1
+        class="game_reg-title title-1 h-mt-35 h-mb-20"
+        data-th-text="${content.displayName}"
+      ></h1>
+      <h3
+        class="game_reg-desc h-mb-20"
+        data-th-utext="${content.data.description}"
+      ></h3>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+  </body>
+</html>
