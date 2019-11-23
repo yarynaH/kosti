@@ -89,7 +89,7 @@
     </item-set>
     <item-set name="speed">
       <label>Speed</label>
-      <occurrences minimum="0" maximum="0"/>
+      <occurrences minimum="0" maximum="1"/>
       <items>
         <input name="climb" type="Long">
           <label>Climb</label>
@@ -115,13 +115,13 @@
     </item-set>
     <item-set name="skills">
       <label>Skills</label>
-      <occurrences minimum="0" maximum="0"/>
+      <occurrences minimum="0" maximum="1"/>
       <items>
         <input name="acrobatics" type="Long">
           <label>acrobatics</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
-        <input name="animal-handling" type="Long">
+        <input name="animalHandling" type="Long">
           <label>animal-handling</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
@@ -177,7 +177,7 @@
           <label>religion</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
-        <input name="sleight-of-hand" type="Long">
+        <input name="sleightOfHand" type="Long">
           <label>sleight-of-hand</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
