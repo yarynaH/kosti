@@ -61,6 +61,12 @@
       <config>
       </config>
     </input>
+    <input name="monstersLocation" type="ContentSelector">
+      <label>Monsters location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
     <input name="agreements" type="ContentSelector">
       <label>Agreements</label>
       <occurrences minimum="0" maximum="3"/>
