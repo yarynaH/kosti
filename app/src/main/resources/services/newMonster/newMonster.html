@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+
+  <script src="https://cdn.tiny.cloud/1/bjocqei8sx4e4qom6muuy7eugbpc20u5bim7tu2zg8veawoj/tinymce/5/tinymce.min.js"></script>
+  <script>
+    tinymce.init({
+      selector: "#article-body-input",
+      height: 500,
+      menubar: false,
+      image_class_list: [{ title: "img-tinymce", value: "img-tinymce" }],
+      plugins: [
+        "advlist autolink lists link image charmap print preview anchor textcolor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime media table paste code help wordcount"
+      ],
+      image_caption: true,
+      images_upload_handler: function(blobInfo, success, failure) {
+        var xhr, formData;
+        xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open("PUT", "/create");
+        xhr.onload = function() {
+          var json;
+          if (xhr.status != 200) {
+            failure("HTTP Error: " + xhr.status);
+            return;
+          }
+          json = JSON.parse(xhr.responseText);
+          if (!json) {
+            failure("Invalid JSON: " + xhr.responseText);
+            return;
+          }
+          success(json);
+        };
+        formData = new FormData();
+        formData.append("file", blobInfo.blob(), blobInfo.filename());
+        xhr.send(formData);
+      },
+      toolbar:
+        "undo redo | image | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat | help"
+    });
+  </script>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <div
+      data-th-remove="tag"
+      data-th-if="${currUser}"
+      data-th-utext="${editUserModal}"
+    ></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+      <div class="content_page blog_width">
+        <h1
+          data-th-text="${portal.localize({'_key=user.newArticle.pageTitle', '_locale=ru'})}"
+        ></h1>
+        <form method="POST" enctype="multipart/form-data" id="newArticleForm">
+          <div class="form-group">
+            <label
+              for="article-title-input"
+              class="label"
+              data-th-text="${portal.localize({'_key=user.newArticle.article.name', '_locale=ru'})}"
+            ></label>
+            <input
+              data-th-value="${data.title}"
+              id="article-title-input"
+              type="text"
+              name="title"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label
+              for="article-image-input"
+              class="label-file js_label-file"
+              data-th-text="${portal.localize({'_key=user.newArticle.article.chooseImage', '_locale=ru'})}"
+            ></label>
+            <input
+              data-th-value="${data.image}"
+              id="article-image-input"
+              type="file"
+              name="image"
+              required
+              hidden
+            />
+            <div class="form-caption">
+              Рекоммендуемый размер изображения 1920х560 пикселей, или больше.
+            </div>
+          </div>
+          <div class="form-group">
+            <label
+              for="article-intro-input"
+              class="label"
+              data-th-text="${portal.localize({'_key=user.newArticle.article.shortIntro', '_locale=ru'})}"
+            ></label>
+            <textarea
+              data-th-text="${data.intro}"
+              id="article-intro-input"
+              name="intro"
+              required
+            ></textarea>
+            <div class="form-caption">
+              Краткий текст, который опишет о чем именно будет статья.
+              Появляется при просмотре списка статей.
+            </div>
+          </div>
+          <div class="form-group">
+            <label
+              for="article-body-input"
+              class="label"
+              data-th-text="${portal.localize({'_key=user.newArticle.article.text', '_locale=ru'})}"
+            ></label>
+            <textarea
+              data-th-text="${data.body}"
+              id="article-body-input"
+              name="body"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <input
+              required
+              type="checkbox"
+              name="agreement"
+              id="agreement"
+              checked
+              hidden
+            />
+            <label for="agreement" class="label-checkbox"
+              >Я прочитал и принимаю
+              <a data-th-href="${agreementPage}" target="_blank"
+                >условия публикации статей</a
+              ></label
+            >
+          </div>
+          <div class="form-group">
+            <div data-th-text="${errorMessage}" class="error-msg"></div>
+            <input
+              type="submit"
+              class="button button-light"
+              data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}"
+            />
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+  </body>
+</html>
+
+<script>
+  $("#newArticleForm").validate({
+    ignore: ""
+  });
+  $("#article-image-input").on("change", function(e) {
+    var fileName = "";
+    if (this.files && this.files.length > 1)
+      fileName = (this.getAttribute("data-multiple-caption") || "").replace(
+        "{count}",
+        this.files.length
+      );
+    else fileName = e.target.value.split("\\").pop();
+    if (fileName && fileName.trim !== "") {
+      $(".js_label-file").text(fileName);
+    }
+  });
+</script>
