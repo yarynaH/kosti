@@ -15,10 +15,10 @@ exports.post = handlePost;
 function handlePost(req) {
   req.params = prepareSkills(req.params);
   req.params = prepareSpeed(req.params);
-  createArticle(req.params);
+  createMonster(req.params);
   return renderView(req);
 
-  function createArticle(data) {
+  function createMonster(data) {
     var site = portal.getSiteConfig();
     var monstersLocation = contentLib.get({ key: site.monstersLocation });
     var displayName = data.name;
