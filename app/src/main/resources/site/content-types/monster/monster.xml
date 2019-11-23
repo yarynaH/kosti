@@ -205,11 +205,21 @@
         <option value="huge">Huge</option>
         <option value="gargantuan">Gargantuan</option>
       </config>
-      <default>one</default>
     </input>
-    <input name="alignment" type="TextLine">
+    <input name="alignment" type="ComboBox">
       <label>Alignment</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="lg">Lawful good</option>
+        <option value="ln">Lawful newutral</option>
+        <option value="le">Lawful evil</option>
+        <option value="ng">Neutral good</option>
+        <option value="nn">Neutral neutral</option>
+        <option value="ne">Neutral evil</option>
+        <option value="cg">Chaotic good</option>
+        <option value="cn">Chaotic neutral</option>
+        <option value="ce">Chaotic evil</option>
+      </config>
     </input>
     <input name="challenge_rating" type="TextLine">
       <label>Challenge rating</label>
