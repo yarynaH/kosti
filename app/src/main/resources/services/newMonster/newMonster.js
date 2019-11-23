@@ -43,7 +43,6 @@ function renderView(req) {
   var body = thymeleaf.render(view, {
     app: app,
     site: site,
-    social: site.social,
     pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
   });
   return {
