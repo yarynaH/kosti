@@ -12,6 +12,10 @@ textarea {
   padding: 0 15px;
   border: 1px solid $color-primary20;
 
+  &[disabled] {
+    color: $color-primary10;
+  }
+
   &:focus {
     box-shadow: 0 4px 16px 0 rgba($color-primary3, 0.5);
     border: solid 1px $color-primary3;
@@ -143,6 +147,20 @@ label {
       }
     }
   }
+
+  &-column_wrap {
+    @include tablet-all {
+      margin: 0 -10px;
+      overflow: hidden;
+
+      .form-group {
+        width: calc(25% - 20px);
+        float: left;
+        margin: 0 10px 15px;
+      }
+    }
+  }
+
   &.is-invalid {
     input,
     select,
@@ -156,7 +174,7 @@ label {
     align-items: center;
     flex-wrap: wrap;
 
-   .error-msg {
+    .error-msg {
       flex: 1 1 100%;
     }
 
