@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+      <div class="blog_width  h-mt-70">
+        <form method="POST" class="monster_gen">
+          <h2 class="title-2 h-mb-20">Monster Generator</h2>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-name-input" class="label">name</label>
+              <input
+                name="name"
+                type="text"
+                class="input-text"
+                id="monster_gen-name-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-armorClass-input" class="label"
+                >Armor class</label
+              >
+              <input
+                name="armorClass"
+                type="text"
+                class="input-text"
+                id="monster_gen-armorClass-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-hit_points-input" class="label"
+                >Hit Points</label
+              >
+              <input
+                name="hit_points"
+                type="text"
+                class="input-text"
+                id="monster_gen-hit_points-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-hit_dice-input" class="label"
+                >hit dice</label
+              >
+              <input
+                name="hit_dice"
+                type="text"
+                class="input-text"
+                id="monster_gen-hit_dice-input"
+              />
+            </div>
+          </div>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-size-input" class="label">size</label>
+              <div class="select-field">
+                <select name="size" id="monster_gen-size-input">
+                  <option value="tiny">Tiny</option>
+                  <option value="small">Small</option>
+                  <option value="medium">Medium</option>
+                  <option value="large">Large</option>
+                  <option value="huge">Huge</option>
+                  <option value="gargantuan">Gargantuan</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-alignment-input" class="label"
+                >alignment</label
+              >
+              <div class="select-field">
+                <select name="alignment" id="monster_gen-alignment-input">
+                  <option value="lg">Lawful Good</option>
+                  <option value="ng">Neutral Good</option>
+                  <option value="cg">Chaotic Good</option>
+                  <option value="ln">Lawful Neutral</option>
+                  <option value="nn">Neutral </option>
+                  <option value="cn">Chaotic Neutral</option>
+                  <option value="le">Lawful Evil</option>
+                  <option value="ne">Neutral Evil</option>
+                  <option value="ce">Chaotic Evil</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-challenge_rating-input" class="label"
+                >challenge rating</label
+              >
+              <input
+                name="challenge_rating"
+                type="text"
+                class="input-text"
+                id="monster_gen-challenge_rating-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-armor_desc-input" class="label"
+                >armor description</label
+              >
+              <input
+                name="armor_desc"
+                type="text"
+                class="input-text"
+                id="monster_gen-armor_desc-input"
+              />
+            </div>
+          </div>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-languages-input" class="label"
+                >languages</label
+              >
+              <input
+                name="languages"
+                type="text"
+                class="input-text"
+                id="monster_gen-languages-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-senses-input" class="label">senses</label>
+              <input
+                name="senses"
+                type="text"
+                class="input-text"
+                id="monster_gen-senses-input"
+              />
+            </div>
+          </div>
+          <h5 class="title-5 h-mb-15">characteristics</h5>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-charisma-input" class="label"
+                >Charisma</label
+              >
+              <input
+                name="charisma"
+                type="text"
+                class="input-text"
+                id="monster_gen-charisma-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-constitution-input" class="label"
+                >Constitution</label
+              >
+              <input
+                name="constitution"
+                type="text"
+                class="input-text"
+                id="monster_gen-constitution-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-dexterity-input" class="label"
+                >Dexterity</label
+              >
+              <input
+                name="dexterity"
+                type="text"
+                class="input-text"
+                id="monster_gen-dexterity-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-intelligence-input" class="label"
+                >Intelligence</label
+              >
+              <input
+                name="intelligence"
+                type="text"
+                class="input-text"
+                id="monster_gen-intelligence-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-strength-input" class="label"
+                >Strength</label
+              >
+              <input
+                name="strength"
+                type="text"
+                class="input-text"
+                id="monster_gen-strength-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-wisdom-input" class="label">Wisdom</label>
+              <input
+                name="wisdom"
+                type="text"
+                class="input-text"
+                id="monster_gen-wisdom-input"
+              />
+            </div>
+          </div>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-charisma_save-input" class="label"
+                >Charisma Save</label
+              >
+              <input
+                name="charisma_save"
+                type="text"
+                class="input-text"
+                id="monster_gen-charisma_save-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-constitution_save-input" class="label"
+                >Constitution Save</label
+              >
+              <input
+                name="constitution_save"
+                type="text"
+                class="input-text"
+                id="monster_gen-constitution_save-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-dexterity_save-input" class="label"
+                >Dexterity Save</label
+              >
+              <input
+                name="dexterity_save"
+                type="text"
+                class="input-text"
+                id="monster_gen-dexterity_save-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-intelligence_save-input" class="label"
+                >Intelligence Save</label
+              >
+              <input
+                name="intelligence_save"
+                type="text"
+                class="input-text"
+                id="monster_gen-intelligence_save-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-strength_save-input" class="label"
+                >Strength Save</label
+              >
+              <input
+                name="strength_save"
+                type="text"
+                class="input-text"
+                id="monster_gen-strength_save-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-wisdom_save-input" class="label"
+                >Wisdom Save</label
+              >
+              <input
+                name="wisdom_save"
+                type="text"
+                class="input-text"
+                id="monster_gen-v-input"
+              />
+            </div>
+          </div>
+          <h5 class="title-5 h-mb-15">Speed</h5>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-climb-input" class="label">Climb</label>
+              <input
+                name="climb"
+                type="text"
+                class="input-text"
+                id="monster_gen-climb-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-fly-input" class="label">Fly</label>
+              <input
+                name="fly"
+                type="text"
+                class="input-text"
+                id="monster_gen-fly-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-walk-input" class="label">walk</label>
+              <input
+                name="walk"
+                type="text"
+                class="input-text"
+                id="monster_gen-walk-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-swim-input" class="label">swim</label>
+              <input
+                name="swim"
+                type="text"
+                class="input-text"
+                id="monster_gen-swim-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-burrow-input" class="label">burrow</label>
+              <input
+                name="burrow"
+                type="text"
+                class="input-text"
+                id="monster_gen-burrow-input"
+              />
+            </div>
+          </div>
+          <h5 class="title-5 h-mb-15">Skills</h5>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-acrobatics-input" class="label"
+                >acrobatics</label
+              >
+              <input
+                name="acrobatics"
+                type="text"
+                class="input-text"
+                id="monster_gen-acrobatics-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-animal-handling-input" class="label"
+                >Animal Handling</label
+              >
+              <input
+                name="animalHandling"
+                type="text"
+                class="input-text"
+                id="monster_gen-animal-handling-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-arcana-input" class="label">arcana</label>
+              <input
+                name="arcana"
+                type="text"
+                class="input-text"
+                id="monster_gen-arcana-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-athletics-input" class="label"
+                >athletics</label
+              >
+              <input
+                name="athletics"
+                type="text"
+                class="input-text"
+                id="monster_gen-athletics-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-deception-input" class="label"
+                >deception</label
+              >
+              <input
+                name="deception"
+                type="text"
+                class="input-text"
+                id="monster_gen-deception-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-history-input" class="label"
+                >history</label
+              >
+              <input
+                name="history"
+                type="text"
+                class="input-text"
+                id="monster_gen-history-input"
+              />
+            </div>
+          </div>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-insight-input" class="label"
+                >insight</label
+              >
+              <input
+                name="insight"
+                type="text"
+                class="input-text"
+                id="monster_gen-insight-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-intimidation-input" class="label"
+                >intimidation</label
+              >
+              <input
+                name="intimidation"
+                type="text"
+                class="input-text"
+                id="monster_gen-intimidation-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-investigation-input" class="label"
+                >investigation</label
+              >
+              <input
+                name="investigation"
+                type="text"
+                class="input-text"
+                id="monster_gen-investigation-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-medicine-input" class="label"
+                >medicine</label
+              >
+              <input
+                name="medicine"
+                type="text"
+                class="input-text"
+                id="monster_gen-medicine-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-nature-input" class="label">nature</label>
+              <input
+                name="nature"
+                type="text"
+                class="input-text"
+                id="monster_gen-nature-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-perception-input" class="label"
+                >perception</label
+              >
+              <input
+                name="perception"
+                type="text"
+                class="input-text"
+                id="monster_gen-perception-input"
+              />
+            </div>
+          </div>
+          <div class="form-group-column">
+            <div class="form-group">
+              <label for="monster_gen-performance-input" class="label"
+                >performance</label
+              >
+              <input
+                name="performance"
+                type="text"
+                class="input-text"
+                id="monster_gen-performance-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-persuasion-input" class="label"
+                >persuasion</label
+              >
+              <input
+                name="persuasion"
+                type="text"
+                class="input-text"
+                id="monster_gen-persuasion-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-religion-input" class="label"
+                >religion</label
+              >
+              <input
+                name="religion"
+                type="text"
+                class="input-text"
+                id="monster_gen-religion-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-sleight-of-hand-input" class="label"
+                >sleight of hand</label
+              >
+              <input
+                name="sleightOfHand"
+                type="text"
+                class="input-text"
+                id="monster_gen-sleight-of-hand-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-stealth-input" class="label"
+                >stealth</label
+              >
+              <input
+                name="stealth"
+                type="text"
+                class="input-text"
+                id="monster_gen-stealth-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="monster_gen-survival-input" class="label"
+                >survival</label
+              >
+              <input
+                name="survival"
+                type="text"
+                class="input-text"
+                id="monster_gen-survival-input"
+              />
+            </div>
+          </div>
+          <div class="form-group-column">
+            Actions
+          </div>
+          <div class="form-group-column">
+            Legendary actions
+          </div>
+          <button type="submit">submit</button>
+        </form>
+      </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+  </body>
+</html>
