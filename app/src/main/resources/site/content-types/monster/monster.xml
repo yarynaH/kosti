@@ -283,7 +283,7 @@
       <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="typeOld" type="TextLine">
-      <label>alignment Old</label>
+      <label>type old</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="subType" type="TextLine">

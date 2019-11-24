@@ -37,6 +37,9 @@ function getPageComponents(req, footerType, activeEl, title) {
   var commentsServiceUrl = portal.serviceUrl({
     service: "comments"
   });
+  var monsterServiceUrl = portal.serviceUrl({
+    service: "monster"
+  });
 
   if (content && content.data && content.data.mainImage) {
     var ogImage = portal.imageUrl({
@@ -147,6 +150,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         contentServiceUrl: contentServiceUrl,
         cartServiceUrl: cartServiceUrl,
         commentsServiceUrl: commentsServiceUrl,
+        monsterServiceUrl: monsterServiceUrl,
         cartId: cartLib.getCart(req && req.cookies ? req.cookies.cartId : null)
           ._id
       }

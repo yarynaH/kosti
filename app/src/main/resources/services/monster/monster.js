@@ -1,116 +1,213 @@
-var thymeleaf = require("/lib/thymeleaf");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
-var i18nLib = require("/lib/xp/i18n");
-var common = require("/lib/xp/common");
+var thymeleaf = require("/lib/thymeleaf");
+var httpClientLib = require("/lib/http-client");
 
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 
-exports.get = handleGet;
-exports.post = handlePost;
+exports.post = function(req) {
+  var data = JSON.parse(req.params.data);
+  editMonster(data);
+  return true;
 
-function handlePost(req) {
-  req.params = prepareSkills(req.params);
-  req.params = prepareSpeed(req.params);
-  createMonster(req.params);
-  return renderView(req);
-
-  function createMonster(data) {
-    var site = portal.getSiteConfig();
-    var monstersLocation = contentLib.get({ key: site.monstersLocation });
+  function editMonster(data) {
     var displayName = data.name;
-    var name = common.sanitize(data.name);
+    var id = data.id;
     delete data.name;
-    return contextLib.runInDraftAsAdmin(function() {
-      var result = contentLib.create({
-        name: name,
-        parentPath: monstersLocation._path,
-        displayName: displayName,
-        contentType: app.name + ":monster",
-        data: data
+    delete data.id;
+    contextLib.runInDraftAsAdmin(function() {
+      var result = contentLib.modify({
+        key: id,
+        editor: editor
       });
-      return result;
+      function editor(c) {
+        c.displayName = displayName;
+        c.data.actions = data.actions;
+        c.data.legendaryActions = data.legendaryActions;
+        c.data.reactions = data.reactions;
+        c.data.specialAbilities = data.specialAbilities;
+        c.data.damageImmunities = data.damageImmunities;
+        c.data.damageResistances = data.damageResistances;
+        c.data.damageVulnerabilities = data.damageVulnerabilities;
+        c.data.conditionImmunities = data.conditionImmunities;
+        c.data.type = data.type;
+        c.data.subType = data.subType;
+        c.data.group = data.group;
+        c.data.alignment = data.alignment;
+        c.data.armorDesc = data.armorDesc;
+        c.data.languages = data.languages;
+        c.data.senses = data.senses;
+        return c;
+      }
+    });
+    contentLib.publish({
+      keys: [id],
+      sourceBranch: "draft",
+      targetBranch: "master"
     });
   }
+};
 
-  function prepareSpeed(data) {
-    data.speed = {
-      climb: data.climb,
-      fly: data.fly,
-      walk: data.walk,
-      swim: data.swim,
-      burrow: data.burrow
+exports.get = function(req) {
+  if (req.params.import) {
+    doImport();
+  } else {
+    var monsters = contextLib.runInDraftAsAdmin(function() {
+      var monsters = contentLib.query({
+        query: "",
+        start: 0,
+        count: -1,
+        contentTypes: [app.name + ":monster"]
+      });
+      var result = [];
+      for (var i = 0; i < monsters.hits.length; i++) {
+        result.push({
+          url: portal.pageUrl({ id: monsters.hits[i]._id }),
+          displayName: monsters.hits[i].displayName
+        });
+      }
+      return result;
+    });
+    var body = thymeleaf.render(resolve("monster.html"), {
+      pageComponents: helpers.getPageComponents(req),
+      monsters: monsters
+    });
+    var fileName = portal.assetUrl({ path: "js/monster.js" });
+    return {
+      body: body,
+      contentType: "text/html"
     };
-
-    delete data.fly;
-    delete data.walk;
-    delete data.swim;
-    delete data.burrow;
-    delete data.climb;
-    return data;
   }
 
-  function prepareSkills(data) {
-    data.skills = {
-      perception: data.perception,
-      stealth: data.stealth,
-      acrobatics: data.acrobatics,
-      performance: data.performance,
-      survival: data.survival,
-      athletics: data.athletics,
-      intimidation: data.intimidation,
-      nature: data.nature,
-      insight: data.insight,
-      investigation: data.investigation,
-      deception: data.deception,
-      history: data.history,
-      religion: data.religion,
-      arcana: data.arcana,
-      medicine: data.medicine,
-      sleightOfHand: data.sleightOfHand,
-      animalHandling: data.animalHandling,
-      persuasion: data.persuasion
-    };
+  function doImport() {
+    for (var p = 1; p < 23; p++) {
+      norseUtils.log(p);
+      var data = JSON.parse(
+        httpClientLib.request({
+          url: "https://api.open5e.com/monsters/?page=" + p,
+          method: "GET",
+          connectionTimeout: 2000000,
+          readTimeout: 500000
+        }).body
+      );
+      data = data.results;
+      for (var i = 0; i < data.length; i++) {
+        norseUtils.log(i);
+        var tempData = prepareData(data[i]);
+        createMonster(tempData);
+      }
+    }
 
-    delete data.perception;
-    delete data.stealth;
-    delete data.acrobatics;
-    delete data.performance;
-    delete data.survival;
-    delete data.athletics;
-    delete data.intimidation;
-    delete data.nature;
-    delete data.insight;
-    delete data.investigation;
-    delete data.deception;
-    delete data.history;
-    delete data.religion;
-    delete data.arcana;
-    delete data.medicine;
-    delete data.sleightOfHand;
-    delete data.animalHandling;
-    delete data.persuasion;
-    return data;
+    function createMonster(data) {
+      var site = portal.getSiteConfig();
+      var monstersLocation = contentLib.get({ key: site.monstersLocation });
+      var displayName = data.name;
+      var name = data.slug;
+      delete data.slug;
+      delete data.name;
+      return contextLib.runInDraftAsAdmin(function() {
+        var result = contentLib.create({
+          name: name,
+          parentPath: monstersLocation._path,
+          displayName: displayName,
+          contentType: app.name + ":monster",
+          data: data
+        });
+        return result;
+      });
+    }
+
+    function prepareData(data) {
+      var mappedData = {};
+      if (data.skills) {
+        mappedData.skills = {
+          perception: data.skills.perception,
+          stealth: data.skills.stealth,
+          acrobatics: data.skills.acrobatics,
+          performance: data.skills.performance,
+          survival: data.skills.survival,
+          athletics: data.skills.athletics,
+          intimidation: data.skills.intimidation,
+          nature: data.skills.nature,
+          insight: data.skills.insight,
+          investigation: data.skills.investigation,
+          deception: data.skills.deception,
+          history: data.skills.history,
+          religion: data.skills.religion,
+          arcana: data.skills.arcana,
+          medicine: data.skills.medicine,
+          sleightOfHand: data.skills.sleightOfHand,
+          animalHandling: data.skills.animalHandling,
+          persuasion: data.skills.persuasion
+        };
+      }
+      if (data.speed) {
+        mappedData.speed = {
+          climb: data.speed.climb,
+          fly: data.speed.fly,
+          walk: data.speed.walk,
+          swim: data.speed.swim,
+          burrow: data.speed.burrow
+        };
+      }
+
+      mappedData.armorClass = data.armor_class;
+      mappedData.hitPoints = data.hit_points;
+      mappedData.hitDice = data.hit_dice;
+      mappedData.alignmentOld = data.alignment;
+      mappedData.challengeRating = data.challenge_rating;
+      mappedData.armorDesc = data.armor_desc;
+      mappedData.size = data.size.toLowerCase();
+      mappedData.languages = data.languages;
+      mappedData.senses = data.senses;
+      mappedData.charisma = data.constitution;
+      mappedData.dexterity = data.dexterity;
+      mappedData.intelligence = data.intelligence;
+      mappedData.wisdom = data.wisdom;
+      mappedData.strength = data.strength;
+      mappedData.charismaSave = data.charisma_save;
+      mappedData.constitutionSave = data.constitution_save;
+      mappedData.dexteritySave = data.dexterity_save;
+      mappedData.intelligenceSave = data.intelligence_save;
+      mappedData.strengthSave = data.strength_save;
+      mappedData.wisdomSave = data.wisdom_save;
+      mappedData.spellList = data.spell_list;
+      mappedData.actions = data.actions
+        ? prepareActionsArray(data.actions)
+        : null;
+      mappedData.legendaryActions = data.legendary_actions
+        ? prepareActionsArray(data.legendary_actions)
+        : null;
+      mappedData.reactions = data.reactions
+        ? prepareActionsArray(data.reactions)
+        : null;
+      mappedData.specialAbilities = data.special_abilities
+        ? prepareActionsArray(data.special_abilities)
+        : null;
+      mappedData.damageVulnerabilities = data.damage_vulnerabilities;
+      mappedData.damageResistances = data.damage_resistances;
+      mappedData.damageImmunities = data.damage_immunities;
+      mappedData.conditionImmunities = data.condition_immunities;
+      mappedData.typeOld = data.type;
+      mappedData.subType = data.subtype;
+      mappedData.group = data.group;
+      mappedData.slug = data.slug;
+      mappedData.name = data.name;
+
+      return mappedData;
+
+      function prepareActionsArray(actions) {
+        actions = norseUtils.forceArray(actions);
+        for (var i = 0; i < actions.length; i++) {
+          delete actions[i].attack_bonus;
+          delete actions[i].damage_dice;
+          delete actions[i].damage_bonus;
+        }
+        return actions;
+      }
+    }
   }
-}
-
-function handleGet(req) {
-  return renderView(req);
-}
-
-function renderView(req) {
-  var view = resolve("newMonster.html");
-  var site = portal.getSiteConfig();
-  var body = thymeleaf.render(view, {
-    app: app,
-    site: site,
-    pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
-  });
-  return {
-    body: body,
-    contentType: "text/html"
-  };
-}
+};

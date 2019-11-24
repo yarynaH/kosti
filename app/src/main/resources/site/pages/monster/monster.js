@@ -11,9 +11,9 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var spellLib = require(libLocation + "spellsLib");
+var contextLib = require(libLocation + "contextLib");
 
 exports.get = handleReq;
-exports.post = handleReq;
 
 function handleReq(req) {
   var me = this;
@@ -22,15 +22,29 @@ function handleReq(req) {
     var view = resolve("monster.html");
     var model = createModel();
     var body = thymeleaf.render(view, model);
+    var fileName = portal.assetUrl({ path: "js/monster.js" });
     return {
       body: body,
-      contentType: "text/html"
+      contentType: "text/html",
+      pageContributions: {
+        bodyEnd: ["<script src='" + fileName + "'></script>"]
+      }
     };
   }
 
   function createModel() {
     var up = req.params;
-    var content = portal.getContent();
+    var content = contextLib.runInDraftAsAdmin(function() {
+      return portal.getContent();
+    });
+    content.data.actions = norseUtils.forceArray(content.data.actions);
+    content.data.reactions = norseUtils.forceArray(content.data.reactions);
+    content.data.legendaryActions = norseUtils.forceArray(
+      content.data.legendaryActions
+    );
+    content.data.specialAbilities = norseUtils.forceArray(
+      content.data.specialAbilities
+    );
     var response = [];
     var site = portal.getSiteConfig();
 

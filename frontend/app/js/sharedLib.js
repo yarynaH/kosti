@@ -53,7 +53,12 @@ function checkUserLoggedIn() {
 function getFormData(el) {
   var formData = {};
   $.each($(el).serializeArray(), function() {
-    formData[this.name] = this.value;
+    if (formData[this.name] === null || formData[this.name] === undefined) {
+      formData[this.name] = this.value;
+    } else {
+      formData[this.name] = forceArray(formData[this.name]);
+      formData[this.name].push(this.value);
+    }
   });
   return formData;
 }
@@ -96,4 +101,11 @@ function doUpvote(el) {
     }
     $(btn).html("<span>" + result + "</span>");
   });
+}
+
+function forceArray(data) {
+  if (!Array.isArray(data)) {
+    data = [data];
+  }
+  return data;
 }

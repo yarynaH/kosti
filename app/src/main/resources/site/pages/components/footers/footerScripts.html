@@ -81,6 +81,13 @@
 <script
   type="text/javascript"
   data-th-inline="javascript"
+  data-th-if="${monsterServiceUrl}"
+>
+  var monsterServiceUrl = [[${monsterServiceUrl}]];
+</script>
+<script
+  type="text/javascript"
+  data-th-inline="javascript"
   data-th-if="${cartId}"
 >
   var cartId = [[${cartId}]];

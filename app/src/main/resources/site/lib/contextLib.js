@@ -28,6 +28,7 @@ function runInDraft(callback) {
 function runInDraftAsAdmin(callback) {
   return contextLib.run(
     {
+      repository: "com.enonic.cms.default",
       branch: "draft",
       user: {
         login: "mvy",
