@@ -209,131 +209,127 @@
             </div>
           </div>
 
-          <h5 class="title-5 h-mb-15">Actions</h5>
-          <div class="form-group-column_wrap">
-            <div
-              class="form-group"
-              data-th-each="action: ${content.data.actions}"
-            >
-              <div class="h-mb-15">
-                <label for="monster_gen-actionsName-input" class="label"
-                  >Name</label
-                >
-                <input
-                  name="actionsName"
-                  type="text"
-                  class="input-text"
-                  id="monster_gen-actionsName-input"
-                  data-th-value="${action.name}"
-                />
-              </div>
-              <div>
-                <label for="monster_gen-actionsDesc-input" class="label"
-                  >action description</label
-                >
-                <textarea
-                  name="actionsDesc"
-                  class="input-text"
-                  id="monster_gen-actionsDesc-input"
-                  data-th-text="${action.desc}"
-                ></textarea>
-              </div>
+          <h5 class="title-5 h-mb-15 h-mt-30">Actions</h5>
+          <div
+            class="form-group"
+            data-th-each="action: ${content.data.actions}"
+          >
+            <div class="h-mb-15">
+              <label for="monster_gen-actionsName-input" class="label"
+                >Name</label
+              >
+              <input
+                name="actionsName"
+                type="text"
+                class="input-text"
+                id="monster_gen-actionsName-input"
+                data-th-value="${action.name}"
+              />
+            </div>
+            <div>
+              <label for="monster_gen-actionsDesc-input" class="label"
+                >action description</label
+              >
+              <textarea
+                name="actionsDesc"
+                class="input-text"
+                id="monster_gen-actionsDesc-input"
+                data-th-text="${action.desc}"
+                rows="5"
+              ></textarea>
             </div>
           </div>
 
-          <h5 class="title-5 h-mb-15">Legendary Actions</h5>
-          <div class="form-group-column_wrap">
-            <div
-              class="form-group"
-              data-th-each="action: ${content.data.legendaryActions}"
-            >
-              <div class="h-mb-15">
-                <label for="monster_gen-actionsNameLeg-input" class="label"
-                  >Name</label
-                >
-                <input
-                  name="actionsNameLeg"
-                  type="text"
-                  class="input-text"
-                  id="monster_gen-actionsNameLeg-input"
-                  data-th-value="${action.name}"
-                />
-              </div>
-              <div>
-                <label for="monster_gen-actionsDescLeg-input" class="label"
-                  >Legendary action description</label
-                >
-                <textarea
-                  name="actionsDescLeg"
-                  class="input-text"
-                  id="monster_gen-actionsDescLeg-input"
-                  data-th-text="${action.desc}"
-                ></textarea>
-              </div>
+          <h5 class="title-5 h-mb-15 h-mt-30">Legendary Actions</h5>
+          <div
+            class="form-group"
+            data-th-each="action: ${content.data.legendaryActions}"
+          >
+            <div class="h-mb-15">
+              <label for="monster_gen-actionsNameLeg-input" class="label"
+                >Name</label
+              >
+              <input
+                name="actionsNameLeg"
+                type="text"
+                class="input-text"
+                id="monster_gen-actionsNameLeg-input"
+                data-th-value="${action.name}"
+              />
+            </div>
+            <div>
+              <label for="monster_gen-actionsDescLeg-input" class="label"
+                >Legendary action description</label
+              >
+              <textarea
+                name="actionsDescLeg"
+                class="input-text"
+                id="monster_gen-actionsDescLeg-input"
+                data-th-text="${action.desc}"
+                rows="5"
+              ></textarea>
             </div>
           </div>
 
-          <h5 class="title-5 h-mb-15">Reactions</h5>
-          <div class="form-group-column_wrap">
-            <div
-              class="form-group"
-              data-th-each="reaction: ${content.data.reactions}"
-            >
-              <div class="h-mb-15">
-                <label for="monster_gen-reactionName-input" class="label"
-                  >Name</label
-                >
-                <input
-                  name="reactionName"
-                  type="text"
-                  class="input-text"
-                  id="monster_gen-reactionName-input"
-                  data-th-value="${reaction.name}"
-                />
-              </div>
-              <div>
-                <label for="monster_gen-reactionDesc-input" class="label"
-                  >reaction description</label
-                >
-                <textarea
-                  name="reactionDesc"
-                  class="input-text"
-                  id="monster_gen-reactionDesc-input"
-                  data-th-text="${reaction.desc}"
-                ></textarea>
-              </div>
+          <h5 class="title-5 h-mb-15 h-mt-30">Reactions</h5>
+          <div
+            class="form-group"
+            data-th-each="reaction: ${content.data.reactions}"
+          >
+            <div class="h-mb-15">
+              <label for="monster_gen-reactionName-input" class="label"
+                >Name</label
+              >
+              <input
+                name="reactionName"
+                type="text"
+                class="input-text"
+                id="monster_gen-reactionName-input"
+                data-th-value="${reaction.name}"
+              />
+            </div>
+            <div>
+              <label for="monster_gen-reactionDesc-input" class="label"
+                >reaction description</label
+              >
+              <textarea
+                name="reactionDesc"
+                class="input-text"
+                id="monster_gen-reactionDesc-input"
+                data-th-text="${reaction.desc}"
+                rows="5"
+              ></textarea>
             </div>
           </div>
 
-          <h5 class="title-5 h-mb-15">Special Abilities</h5>
-          <div class="form-group-column_wrap">
-            <div
-              class="form-group"
-              data-th-each="specialAbility: ${content.data.specialAbilities}"
-            >
-              <div class="h-mb-15">
-                <label for="monster_gen-specialAbilityName-input" class="label"
-                  >Name</label
-                >
-                <input
-                  name="specialAbilityName"
-                  type="text"
-                  class="input-text"
-                  id="monster_gen-specialAbilityName-input"
-                  data-th-value="${specialAbility.name}"
-                />
-              </div>
-              <div>
-                <label for="monster_gen-specialAbilityDesc-input" class="label"
-                  >special Ability description</label
-                >
-                <textarea
-                  name="specialAbilityDesc"
-                  class="input-text"
-                  id="monster_gen-specialAbilityDesc-input"
-                  data-th-text="${specialAbility.desc}"
-                ></textarea>
-              </div>
+          <h5 class="title-5 h-mb-15 h-mt-30">Special Abilities</h5>
+          <div
+            class="form-group"
+            data-th-each="specialAbility: ${content.data.specialAbilities}"
+          >
+            <div class="h-mb-15">
+              <label for="monster_gen-specialAbilityName-input" class="label"
+                >Name</label
+              >
+              <input
+                name="specialAbilityName"
+                type="text"
+                class="input-text"
+                id="monster_gen-specialAbilityName-input"
+                data-th-value="${specialAbility.name}"
+              />
+            </div>
+            <div>
+              <label for="monster_gen-specialAbilityDesc-input" class="label"
+                >special Ability description</label
+              >
+              <textarea
+                name="specialAbilityDesc"
+                class="input-text"
+                id="monster_gen-specialAbilityDesc-input"
+                data-th-text="${specialAbility.desc}"
+                rows="5"
+              ></textarea>
             </div>
           </div>
 
