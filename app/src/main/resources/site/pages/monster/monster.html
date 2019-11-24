@@ -78,15 +78,15 @@
                     data-th-selected="${!content.data.alignment}"
                     >Choose alignment</option
                   >
-                  <option value="lg">Lawful Good</option>
-                  <option value="ng">Neutral Good</option>
-                  <option value="cg">Chaotic Good</option>
-                  <option value="ln">Lawful Neutral</option>
-                  <option value="nn">Neutral </option>
-                  <option value="cn">Chaotic Neutral</option>
-                  <option value="le">Lawful Evil</option>
-                  <option value="ne">Neutral Evil</option>
-                  <option value="ce">Chaotic Evil</option>
+                  <option data-th-selected="${content.data.alignment == 'lg'}"value="lg">Lawful Good</option>
+                  <option data-th-selected="${content.data.alignment == 'ng'}"value="ng">Neutral Good</option>
+                  <option data-th-selected="${content.data.alignment == 'cg'}"value="cg">Chaotic Good</option>
+                  <option data-th-selected="${content.data.alignment == 'ln'}"value="ln">Lawful Neutral</option>
+                  <option data-th-selected="${content.data.alignment == 'nn'}"value="nn">Neutral </option>
+                  <option data-th-selected="${content.data.alignment == 'cn'}"value="cn">Chaotic Neutral</option>
+                  <option data-th-selected="${content.data.alignment == 'le'}"value="le">Lawful Evil</option>
+                  <option data-th-selected="${content.data.alignment == 'ne'}"value="ne">Neutral Evil</option>
+                  <option data-th-selected="${content.data.alignment == 'ce'}"value="ce">Chaotic Evil</option>
                 </select>
               </div>
             </div>
@@ -127,22 +127,22 @@
                     data-th-selected="${!content.data.type}"
                     >Choose type</option
                   >
-                  <option value="aberration">aberration</option>
-                  <option value="beast">beast</option>
-                  <option value="celestial">celestial</option>
-                  <option value="dragon">dragon</option>
-                  <option value="fey">fey</option>
-                  <option value="fiend">fiend</option>
-                  <option value="giant">giant</option>
-                  <option value="elemental">elemental</option>
-                  <option value="humanoid">humanoid</option>
-                  <option value="monstrosity">monstrosity</option>
-                  <option value="ooze">ooze</option>
-                  <option value="plant">plant</option>
-                  <option value="undead">undead</option>
-                  <option value="swarm">swarm</option>
-                  <option value="titan">titan</option>
-                  <option value="construct">construct</option>
+                  <option data-th-selected="${content.data.type == 'aberration'}"value="aberration">aberration</option>
+                  <option data-th-selected="${content.data.type == 'beast'}"value="beast">beast</option>
+                  <option data-th-selected="${content.data.type == 'celestial'}"value="celestial">celestial</option>
+                  <option data-th-selected="${content.data.type == 'dragon'}"value="dragon">dragon</option>
+                  <option data-th-selected="${content.data.type == 'fey'}"value="fey">fey</option>
+                  <option data-th-selected="${content.data.type == 'fiend'}"value="fiend">fiend</option>
+                  <option data-th-selected="${content.data.type == 'giant'}"value="giant">giant</option>
+                  <option data-th-selected="${content.data.type == 'elemental'}"value="elemental">elemental</option>
+                  <option data-th-selected="${content.data.type == 'humanoid'}"value="humanoid">humanoid</option>
+                  <option data-th-selected="${content.data.type == 'monstrosity'}"value="monstrosity">monstrosity</option>
+                  <option data-th-selected="${content.data.type == 'ooze'}"value="ooze">ooze</option>
+                  <option data-th-selected="${content.data.type == 'plant'}"value="plant">plant</option>
+                  <option data-th-selected="${content.data.type == 'undead'}"value="undead">undead</option>
+                  <option data-th-selected="${content.data.type == 'swarm'}"value="swarm">swarm</option>
+                  <option data-th-selected="${content.data.type == 'titan'}"value="titan">titan</option>
+                  <option data-th-selected="${content.data.type == 'construct'}"value="construct">construct</option>
                 </select>
               </div>
             </div>
