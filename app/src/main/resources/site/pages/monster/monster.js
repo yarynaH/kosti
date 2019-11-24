@@ -45,8 +45,6 @@ function handleReq(req) {
     content.data.specialAbilities = norseUtils.forceArray(
       content.data.specialAbilities
     );
-    var response = [];
-    var site = portal.getSiteConfig();
 
     var model = {
       content: content,

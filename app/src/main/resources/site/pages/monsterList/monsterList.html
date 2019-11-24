@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head data-th-utext="${pageComponents.pagehead}"></head>
+  <body class="page-wrapper">
+    <div
+      data-th-remove="tag"
+      data-th-utext="${pageComponents.loginRegisterModal}"
+    ></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+      <div data-th-each="monster: ${monsters}">
+        <div class="blog_width  h-mt-10">
+          <a
+            data-th-href="${monster.url}"
+            data-th-text="${monster.displayName}"
+          ></a>
+          <span data-th-if="${monster.translated}">Переведен.</span>
+        </div>
+      </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+  </body>
+</html>

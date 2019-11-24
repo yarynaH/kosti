@@ -52,35 +52,7 @@ exports.post = function(req) {
 };
 
 exports.get = function(req) {
-  if (req.params.import) {
-    doImport();
-  } else {
-    var monsters = contextLib.runInDraftAsAdmin(function() {
-      var monsters = contentLib.query({
-        query: "",
-        start: 0,
-        count: -1,
-        contentTypes: [app.name + ":monster"]
-      });
-      var result = [];
-      for (var i = 0; i < monsters.hits.length; i++) {
-        result.push({
-          url: portal.pageUrl({ id: monsters.hits[i]._id }),
-          displayName: monsters.hits[i].displayName
-        });
-      }
-      return result;
-    });
-    var body = thymeleaf.render(resolve("monster.html"), {
-      pageComponents: helpers.getPageComponents(req),
-      monsters: monsters
-    });
-    var fileName = portal.assetUrl({ path: "js/monster.js" });
-    return {
-      body: body,
-      contentType: "text/html"
-    };
-  }
+  doImport();
 
   function doImport() {
     for (var p = 1; p < 23; p++) {
