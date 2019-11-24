@@ -476,12 +476,22 @@
             </div>
           </div>
 
-          <button type="submit" class="button button-light h-mt-25">
-            submit
-          </button>
+          <div class="monster_gen-actions">
+            <button type="submit" class="button button-light h-mt-25">
+              Save
+            </button>
+          </div>
         </form>
       </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
   </body>
+  <style>
+    .monster_gen-actions {
+      position: fixed;
+      bottom: 30px;
+      right: 0;
+      max-width: 190px;
+    }
+  </style>
 </html>
