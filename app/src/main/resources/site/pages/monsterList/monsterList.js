@@ -21,7 +21,7 @@ exports.get = function(req) {
       result.push({
         url: portal.pageUrl({ id: monsters.hits[i]._id }),
         displayName: monsters.hits[i].displayName,
-        translated: monsters.hits[i].publish && monsters.hits[i].publish.from
+        translated: monsters.hits[i].data.translated
       });
     }
     return result;

@@ -40,6 +40,7 @@ exports.post = function(req) {
         c.data.armorDesc = data.armorDesc;
         c.data.languages = data.languages;
         c.data.senses = data.senses;
+        c.data.translated = true;
         return c;
       }
     });

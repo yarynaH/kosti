@@ -322,5 +322,9 @@
       <label>damage vulnerabilities</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="translated" type="CheckBox">
+      <label>Translated</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
   </form>
 </content-type>
