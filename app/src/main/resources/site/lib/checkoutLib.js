@@ -23,12 +23,22 @@ function getLiqpayData(cart) {
     action: "pay",
     currency: "UAH",
     description: "test",
+    order_id: cart.userId,
     result_url: sharedLib.generateNiceServiceUrl(
       "/payment-processing",
       null,
       true
     ),
     amount: cart.price.totalDiscount
+  };
+}
+
+function getLiqpayStatusData(cart) {
+  return {
+    public_key: app.config.liqpayPublicKey,
+    version: "3",
+    action: "status",
+    order_id: cart.userId
   };
 }
 
