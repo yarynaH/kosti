@@ -14,6 +14,7 @@ exports.get = function(req) {
       query: "",
       start: 0,
       count: -1,
+      sort: "displayName ASC",
       contentTypes: [app.name + ":monster"]
     });
     var result = [];
