@@ -23,6 +23,11 @@ exports.post = function(req) {
         key: id,
         editor: editor
       });
+      contentLib.publish({
+        keys: [id],
+        sourceBranch: "draft",
+        targetBranch: "master"
+      });
       function editor(c) {
         c.displayName = displayName;
         c.data.actions = data.actions;
@@ -43,11 +48,6 @@ exports.post = function(req) {
         c.data.translated = true;
         return c;
       }
-    });
-    contentLib.publish({
-      keys: [id],
-      sourceBranch: "draft",
-      targetBranch: "master"
     });
   }
 };
