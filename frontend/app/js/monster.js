@@ -1,6 +1,10 @@
 function initMonster() {
   $(".js_monster-form").on("submit", function(e) {
     e.preventDefault();
+    if (!checkUserLoggedIn()) {
+      showLogin(e);
+      return false;
+    }
     var data = getFormData(this);
     data = prepareActions(data);
     var call = $.ajax({
