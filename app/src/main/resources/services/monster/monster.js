@@ -53,7 +53,51 @@ exports.post = function(req) {
 };
 
 exports.get = function(req) {
-  doImport();
+  //doImport();
+  doFix();
+
+  function doFix() {
+    for (var p = 1; p < 23; p++) {
+      norseUtils.log(p);
+      var data = JSON.parse(
+        httpClientLib.request({
+          url: "https://api.open5e.com/monsters/?page=" + p,
+          method: "GET",
+          connectionTimeout: 2000000,
+          readTimeout: 500000
+        }).body
+      );
+      data = data.results;
+      for (var i = 0; i < data.length; i++) {
+        fixMonster(data[i]);
+      }
+    }
+    function fixMonster(data) {
+      var monster = contentLib.query({ query: "_name = '" + data.slug + "'" });
+      if (monster && monster.hits && monster.hits[0]) {
+        var id = monster.hits[0]._id;
+      } else {
+        return false;
+      }
+      return contextLib.runInDraftAsAdmin(function() {
+        var result = contentLib.modify({
+          key: id,
+          editor: editor
+        });
+        contentLib.publish({
+          keys: [id],
+          sourceBranch: "draft",
+          targetBranch: "master"
+        });
+        return result;
+      });
+      function editor(c) {
+        c.data.constitution = data.constitution;
+        c.data.charisma = data.charisma;
+        return c;
+      }
+    }
+  }
 
   function doImport() {
     for (var p = 1; p < 23; p++) {
@@ -68,7 +112,6 @@ exports.get = function(req) {
       );
       data = data.results;
       for (var i = 0; i < data.length; i++) {
-        norseUtils.log(i);
         var tempData = prepareData(data[i]);
         createMonster(tempData);
       }
@@ -136,7 +179,8 @@ exports.get = function(req) {
       mappedData.size = data.size.toLowerCase();
       mappedData.languages = data.languages;
       mappedData.senses = data.senses;
-      mappedData.charisma = data.constitution;
+      mappedData.constitution = data.constitution;
+      mappedData.charisma = data.charisma;
       mappedData.dexterity = data.dexterity;
       mappedData.intelligence = data.intelligence;
       mappedData.wisdom = data.wisdom;
