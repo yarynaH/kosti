@@ -29,6 +29,14 @@ exports.get = function(req) {
     var monsterData = monster.data;
     monsterData.name = monster.displayName;
     monsterData.id = monster._id;
+    monsterData.specialAbilities = norseUtils.forceArray(
+      monsterData.specialAbilities
+    );
+    monsterData.reactions = norseUtils.forceArray(monsterData.reactions);
+    monsterData.actions = norseUtils.forceArray(monsterData.actions);
+    monsterData.legendaryActions = norseUtils.forceArray(
+      monsterData.legendaryActions
+    );
     return monsterData;
   }
 
@@ -42,7 +50,6 @@ exports.get = function(req) {
     var result = [];
     for (var i = 0; i < monsters.hits.length; i++) {
       result.push({
-        hitPoints: monsters.hits[i].data.hitPoints,
         name: monsters.hits[i].displayName,
         type: monsters.hits[i].data.type,
         size: monsters.hits[i].data.size,
