@@ -32,7 +32,7 @@ exports.get = function(req) {
     monsters: monsters
   });
   var fileName = portal.assetUrl({ path: "js/monster.js" });
-  var fileNames = portal.assetUrl({ path: "encounterBuilder/src.e6c5e80b.js" });
+  var fileNames = portal.assetUrl({ path: "encounterBuilder/src.636b5d2f.js" });
   var fileNamess = portal.assetUrl({
     path: "encounterBuilder/src.a35a9c10.css"
   });
