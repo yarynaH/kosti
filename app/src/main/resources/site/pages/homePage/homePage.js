@@ -40,7 +40,7 @@ function handleReq(req) {
     var content = portal.getContent();
     var site = portal.getSiteConfig();
     var schedule = getSchedule(site.slider);
-    var video = getVideoFromCache(site.gApiKey);
+    var video = getVideoFromCache(app.config.gApiKey);
     var active = {};
     switch (req.params.feed) {
       case "new":

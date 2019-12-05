@@ -4,12 +4,14 @@ var portalLib = require("/lib/xp/portal");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
 var userLib = require("userLib");
+var common = require("/lib/xp/common");
 
 exports.checkSpace = checkSpace;
 exports.submitForm = submitForm;
 exports.getForms = getForms;
 exports.checkUserRegistered = checkUserRegistered;
 exports.prepareEvents = prepareEvents;
+exports.addGame = addGame;
 
 function submitForm(params) {
   contextLib.runAsAdmin(function() {
@@ -88,4 +90,25 @@ function prepareEvents(events) {
     events[i].currUsers = events[i].users.length;
   }
   return events;
+}
+
+function addGame(data) {
+  var parent = contentLib.get({ key: data.blockId });
+  var displayName = data.title;
+  delete data.title;
+  delete data.blockId;
+  var game = contentLib.create({
+    name: common.sanitize(displayName),
+    parentPath: parent._path,
+    displayName: displayName,
+    contentType: app.name + "game",
+    data: data
+  });
+  var result = contentLib.publish({
+    keys: [game._id],
+    sourceBranch: "draft",
+    targetBranch: "master",
+    includeDependencies: true
+  });
+  return result;
 }

@@ -8,9 +8,22 @@ var norseUtils = require(libLocation + "norseUtils");
 var formLib = require(libLocation + "formLib");
 
 exports.post = function(req) {
-  var params = req.params;
+  var action = req.params.action;
+  delete req.params.action;
   var result = {};
-  switch (params.action) {
+  switch (action) {
+    case "addGame":
+      /*
+        title: displayName and _name
+        blockId: parent, where data is created
+        description
+        maxPlayers
+        kidsGame: true || false
+        system: game system(dnd, vtm, etc.)
+        masterName
+        masterNickname
+      */
+      break;
     default:
       break;
   }

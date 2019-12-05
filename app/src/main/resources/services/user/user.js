@@ -23,9 +23,6 @@ exports.get = function(req) {
   var model = {};
   var view = false;
   switch (params.action) {
-    case "logout":
-      return logout();
-      break;
     case "confirmRegister":
       view = resolve(templates.userActivation);
       model.activation = userLib.activateUser(
@@ -59,6 +56,7 @@ exports.get = function(req) {
       );
       break;
     default:
+      return logout();
       break;
   }
   model.pageComponents = helpers.getPageComponents(req);
