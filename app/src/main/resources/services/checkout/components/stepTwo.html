@@ -30,7 +30,7 @@
 </div>
 <h2 class="checkout-title">Метод доставки</h2>
 <form
-  class="checkout-form js_checkout-form"
+  class="checkout-form js_shipping-form"
   method="POST"
   data-th-action="${checkoutUrl}"
 >
@@ -40,9 +40,9 @@
         name="shipping"
         type="radio"
         class="input-radio"
-        data-th-attr="id=${ship.id}, value=${ship.id}"
-        checked
+        data-th-attr="id=${ship.id}, value=${ship.id}, data-price=${ship.price}"
         hidden
+        required
       />
       <label data-th-attr="for=${ship.id}" class="label-radio">
         <div class="radio_align-type">
@@ -50,27 +50,21 @@
             <span class="radio_align-title" data-th-text="${ship.title}"></span>
             <span
               class="delivery_m-subtitle"
+              data-th-classappend="${'js_shippingPrice' + ship.id}"
               data-th-text="'UAH '+${ship.price}"
             ></span>
           </div>
           <div class="radio_align-description">
-            <span data-th-remove="tag" data-th-if="${ship.id != 'digital'}"
-              >Ожидаемое время вашей доставки
-            </span>
             <span data-th-text="${ship.terms}"></span>
-            <span data-th-remove="tag" data-th-if="${ship.id != 'digital'}"
-              >дней.</span
-            >
           </div>
         </div>
       </label>
     </div>
   </div>
-  <div data-th-if="${cart.country == 'ua'}" class="delivery_details">
+  <div data-th-if="${cart.country == 'ua'}" class="delivery_details hidden">
     <div class="form-group suggestion-wrap">
       <label for="delivery_np-input-city" class="label">Введите город</label>
       <input
-        required
         name="novaPoshtaСity"
         autocomplete="off"
         type="text"
@@ -80,7 +74,7 @@
       <ul id="suggestion-list" class="suggestion-list"></ul>
     </div>
     <div class="select-field">
-      <select required name="novaPoshtaWarehouse" id="delivery_np-warehouses">
+      <select name="novaPoshtaWarehouse" id="delivery_np-warehouses">
         <option disabled="disabled" selected="selected"
           >Выберите отделение</option
         >

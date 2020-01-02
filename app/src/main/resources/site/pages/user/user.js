@@ -9,8 +9,10 @@ var moment = require(libLocation + "moment");
 var votesLib = require(libLocation + "votesLib");
 var sharedLib = require(libLocation + "sharedLib");
 var blogLib = require(libLocation + "blogLib");
+var cartLib = require(libLocation + "cartLib");
 var userLib = require(libLocation + "userLib");
 var helpers = require(libLocation + "helpers");
+var pdfLib = require(libLocation + "pdfLib");
 var commentsLib = require(libLocation + "commentsLib");
 var notificationLib = require(libLocation + "notificationLib");
 
@@ -67,7 +69,8 @@ function handleReq(req) {
         true
       ),
       comments: commentsLib.getCommentsByUser(content._id, 0, 1, true),
-      games: getGames().total
+      games: getGames(true),
+      orders: cartLib.getCartsByUser(content.data.email, content._id, true)
     };
 
     var active = {};
@@ -106,6 +109,14 @@ function handleReq(req) {
       var articles = thymeleaf.render(resolve("gamesView.html"), {
         games: games.hits
       });
+    } else if (up.action == "orders" && currUserFlag) {
+      var orders = cartLib.getCartsByUser(content.data.email, content._id);
+      totalArticles.curr = orders.total;
+      active.orders = "active";
+      var currTitle = "orders";
+      var articles = thymeleaf.render(resolve("ordersView.html"), {
+        orders: orders.hits
+      });
     } else {
       totalArticles.curr = totalArticles.articles;
       active.articles = "active";
@@ -143,15 +154,18 @@ function handleReq(req) {
       pageComponents: helpers.getPageComponents(req, "footerBlog")
     };
 
-    function getGames() {
-      var result = [];
-      var count = 0;
+    function getGames(countOnly) {
       var games = contentLib.query({
         start: 0,
         count: -1,
         query: "fulltext('data.*', '" + content._id + "', 'OR')",
         contentTypes: [app.name + ":form"]
       });
+      if (countOnly) {
+        return games.total;
+      }
+      var result = [];
+      var count = 0;
       var tempGames = games.hits;
       for (var i = 0; i < tempGames.length; i++) {
         if (!result[i]) {

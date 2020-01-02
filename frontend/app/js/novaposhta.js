@@ -95,10 +95,14 @@ function initNovaPoshta() {
       dataType: "json",
       data: JSON.stringify(dataCity),
       success: function(response) {
-        $(".delivery_m-subtitle").text("UAH " + response.data[0].Cost);
+        $(".js_shippingPricenovaposhta").text("UAH " + response.data[0].Cost);
         $("input[name=shippingPrice]").val(response.data[0].Cost);
+        $("input#novaposhta").attr("data-price", response.data[0].Cost);
       }
     });
+  });
+  $("input[name=shipping]").on("click", function() {
+    $("input[name=shippingPrice]").val($(this).data("price"));
   });
 }
 

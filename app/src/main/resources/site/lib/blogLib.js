@@ -282,6 +282,7 @@ function countUserRating(id) {
 }
 
 function updateSchedule() {
+  norseUtils.log("Started updating schedule.");
   contextLib.runInDraftAsAdmin(function() {
     var currDate = new Date();
     var schedules = contentLib.query({
@@ -293,6 +294,7 @@ function updateSchedule() {
         "') AND data.repeat = 'true'"
     });
     for (var i = 0; i < schedules.hits.length; i++) {
+      norseUtils.log("Updating " + schedules.hits[i]._id);
       contentLib.modify({
         key: schedules.hits[i]._id,
         editor: editor
@@ -312,4 +314,5 @@ function updateSchedule() {
       }
     }
   });
+  norseUtils.log("Finished updating schedule.");
 }

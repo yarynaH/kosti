@@ -8,6 +8,7 @@ var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 var cartLib = require(libLocation + "cartLib");
 var sharedLib = require(libLocation + "sharedLib");
+var norseUtils = require(libLocation + "norseUtils");
 
 exports.post = function(req) {
   var params = req.params;

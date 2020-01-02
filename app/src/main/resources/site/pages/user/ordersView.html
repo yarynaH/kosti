@@ -1,0 +1,127 @@
+<div data-th-each="order : ${orders}" class="comments-item view_orders-item">
+  <div class="view_orders-header">
+    <div class="view_orders-order_id">
+      <span class="label">
+        Заказ №
+      </span>
+      <span
+        class="value"
+        data-th-if="${order.userId}"
+        data-th-text="${order.userId}"
+      ></span>
+    </div>
+    <div class="post-date" data-th-text="${order.dates.transactionTime}"></div>
+    <div class="view_orders-status">
+      <span
+        data-th-text="${portal.localize({'_key=order.status.' + order.status, '_locale=ru'})}"
+      ></span>
+    </div>
+  </div>
+  <div class="view_orders-product-list">
+    <div
+      data-th-each="product: ${order.items}"
+      class="view_orders-product-item"
+    >
+      <div class="view_orders-product-image">
+        <img
+          data-th-src="${product.imageCart.url}"
+          data-th-alt="${product.imageCart.alt}"
+        />
+      </div>
+      <div class="view_orders-product-info">
+        <div class="view_orders-product-description">
+          <div
+            class="cart-product_title"
+            data-th-text="${product.displayName}"
+          ></div>
+          <div class="cart-product_size" data-th-if="${product.itemSize}">
+            <span class="label">Размер:</span>
+            <span class="value" data-th-text="${product.itemSize}"></span>
+          </div>
+          <div
+            data-th-if="${product.itemsIds and product.productType == 'ticket'}"
+            class="cart-product_size"
+            data-th-each="downloadable: ${product.itemsIds}"
+          >
+            <a
+              data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + downloadable.id, 'action=ticketPdf', 'ticketType=' + product.ticketType})}"
+              >Скачать</a
+            >
+          </div>
+        </div>
+        <div
+          class="view_orders-product-qty"
+          data-th-text="${product.amount}"
+        ></div>
+        <div class="cart-product_price">
+          <span class="price-curency">UAH</span>
+          <span data-th-text="${product.transactionPrice}"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="view_orders-footer">
+    <div class="summary-purchase">
+      <div class="summary-subtotal">
+        <span class="label">Товар</span>
+        <span class="value"
+          >UAH <span data-th-text="${order.price.items}"></span
+        ></span>
+      </div>
+      <div class="summary-shipping">
+        <span class="label">Доставка</span>
+        <span class="value"
+          >UAH
+          <span
+            data-th-text="${order.price.shipping}"
+            data-th-remove="tag"
+          ></span
+        ></span>
+      </div>
+      <div class="summary-discount js_summary-discount">
+        <span class="label">Скидка</span>
+        <span class="value"
+          >UAH <span data-th-text="${order.price.discount.discount}"></span
+        ></span>
+      </div>
+      <div class="summary-total js_summary-total">
+        <span class="label">Всего</span>
+        <span class="value"
+          >UAH <span data-th-text="${order.price.totalDiscount}"></span
+        ></span>
+      </div>
+    </div>
+    <div class="view_orders-address">
+      <div class="view_orders-address-item">
+        Эл. почта:
+        <span data-th-text="${order.email}"></span>
+      </div>
+      <div class="view_orders-address-item">
+        Тел.
+        <span data-th-text="${order.phone}"></span>
+      </div>
+      <div data-th-if="${order.trackNum}" class="view_orders-address-item">
+        Метод доставки:
+        <span
+          data-th-text="${portal.localize({'_key=store.shipping.' + order.shipping, '_locale=ru'})}"
+        ></span>
+      </div>
+      <div class="view_orders-address-item">
+        <span data-th-text="${order.city + ', '}" data-th-remove="tag"></span>
+        <span
+          data-th-text="${portal.localize({'_key=countries.title.' + order.country, '_locale=ru'})}"
+          data-th-remove="tag"
+        ></span>
+        <span
+          data-th-if="${order.novaPoshtaWarehouse}"
+          data-th-text="${', ' + order.novaPoshtaWarehouse}"
+          data-th-remove="tag"
+        ></span>
+      </div>
+      <div data-th-if="${order.trackNum}" class="view_orders-address-item">
+        Трек номер:
+        <span data-th-text="${order.trackNum}"></span>
+      </div>
+    </div>
+  </div>
+</div>

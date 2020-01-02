@@ -58,7 +58,10 @@
       <label for="country-checkout-select" class="label">СТРАНА</label>
       <div class="select-field">
         <select name="country" id="country-checkout-select" required>
-          <option value="Выберите страну" disabled="disabled"
+          <option
+            value="Выберите страну"
+            disabled="disabled"
+            data-th-selected="${!cart.country}"
             >Выберите страну</option
           >
           <option data-th-selected="${cart.country == 'ua'}" value="ua"

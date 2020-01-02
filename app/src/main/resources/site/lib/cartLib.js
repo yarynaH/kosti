@@ -14,6 +14,18 @@ exports.getCreatedCarts = getCreatedCarts;
 exports.modifyCartWithParams = modifyCartWithParams;
 exports.setUserDetails = setUserDetails;
 exports.modifyInventory = modifyInventory;
+exports.getShippingPrice = getShippingPrice;
+exports.getCartsByUser = getCartsByUser;
+exports.fixCartDate = fixCartDate;
+exports.fixCartPrice = fixCartPrice;
+exports.getCartByQr = getCartByQr;
+exports.markTicketUsed = markTicketUsed;
+exports.modify = modify;
+exports.generateItemsIds = generateItemsIds;
+exports.getNextId = getNextId;
+exports.savePrices = savePrices;
+exports.fixItemIds = fixItemIds;
+exports.getCartUtils = getCartUtils;
 
 function getCart(cartId) {
   var cart = {};
@@ -25,17 +37,39 @@ function getCart(cartId) {
   } else {
     cart = createCart();
   }
-  cart.date = moment(cart._ts).format("DD.MM.YYYY");
-  cart.dateTime = moment(cart._ts).format("DD.MM.YYYY HH:MM");
   cart.items = getCartItems(cart.items);
   cart.itemsNum = calculateCartItems(cart.items);
   cart.itemsWeight = caclculateCartWeight(cart.items);
-  cart.price = calculateCart(cart);
+  cart.dates = getCartDates(cart);
+  if (!cart.price) {
+    cart.price = calculateCart(cart);
+  }
   cart.stock = checkCartStock(cart.items);
   return cart;
 }
 
-exports.getCartByQr = function(qr) {
+function getCartsByUser(email, id, count) {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query:
+      "(email = '" +
+      email +
+      "' or userRelation = '" +
+      id +
+      "') and status in ('failed', 'paid', 'pending', 'shipped')"
+  });
+  if (count) {
+    return result.total;
+  }
+  for (var i = 0; i < result.hits.length; i++) {
+    result.hits[i] = getCart(result.hits[i].id);
+  }
+  return result;
+}
+
+function getCartByQr(qr) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -62,9 +96,9 @@ exports.getCartByQr = function(qr) {
     return cart;
   }
   return null;
-};
+}
 
-exports.markTicketUsed = function(qr) {
+function markTicketUsed(qr) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -97,7 +131,7 @@ exports.markTicketUsed = function(qr) {
     }
     return node;
   }
-};
+}
 
 function getCreatedCarts(params) {
   var cartRepo = connectCartRepo();
@@ -137,7 +171,30 @@ function modifyCartWithParams(id, params) {
   });
 }
 
-exports.modify = function(cartId, id, amount, itemSize, force) {
+function savePrices(cartId) {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.modify({
+    key: cartId,
+    editor: editor
+  });
+
+  function editor(node) {
+    if (node.items) {
+      node.items = norseUtils.forceArray(node.items);
+      for (var i = 0; i < node.items.length; i++) {
+        var item = contextLib.runInDefault(function() {
+          return contentLib.get({ key: node.items[i].id });
+        });
+        if (item && item.data && item.data.price) {
+          node.items[i].transactionPrice = item.data.price;
+        }
+      }
+    }
+    return node;
+  }
+}
+
+function modify(cartId, id, amount, itemSize, force) {
   var cart = getCart(cartId);
   var cartRepo = connectCartRepo();
   var item = contentLib.get({ key: id });
@@ -190,7 +247,7 @@ exports.modify = function(cartId, id, amount, itemSize, force) {
     }
   }
   return result;
-};
+}
 
 function modifyInventory(items) {
   items = norseUtils.forceArray(items);
@@ -247,6 +304,12 @@ function setUserDetails(cartId, params) {
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = params.userId ? params.userId : node.userId;
     node.index = params.index ? params.index : node.index;
+    node.userRelation = params.userRelation
+      ? params.userRelation
+      : node.userRelation;
+    node.transactionDate = params.transactionDate
+      ? params.transactionDate
+      : node.transactionDate;
     node.novaPoshtaСity = params.novaPoshtaСity
       ? params.novaPoshtaСity
       : node.novaPoshtaСity;
@@ -257,27 +320,65 @@ function setUserDetails(cartId, params) {
       ? params.shippingPrice
       : node.shippingPrice;
     node.trackNum = params.trackNum ? params.trackNum : node.trackNum;
+    node.price = params.price ? params.price : node.price;
     return node;
   }
   return getCart(cartId);
 }
 
-exports.generateItemsIds = function(cartId) {
+function getCartUtils() {
   var cartRepo = connectCartRepo();
+  var utils = cartRepo.query({
+    query: "_name = 'utils'"
+  });
+  if (utils.hits[0]) {
+    return cartRepo.get(utils.hits[0].id);
+  } else {
+    return cartRepo.create({
+      _name: "utils",
+      ticketCount: 0
+    });
+  }
+}
+
+function modifyCartUtils(data) {
+  var cartRepo = connectCartRepo();
+  var utils = getCartUtils();
+  var result = cartRepo.modify({
+    key: utils._id,
+    editor: editor
+  });
+  function editor(node) {
+    node.ticketCount = data.ticketCount ? data.ticketCount : node.ticketCount;
+    return node;
+  }
+}
+
+function generateItemsIds(cartId) {
+  var cartRepo = connectCartRepo();
+  var utils = getCartUtils();
   var result = cartRepo.modify({
     key: cartId,
     editor: editor
   });
+  modifyCartUtils({ ticketCount: utils.ticketCount });
   function editor(node) {
     if (node && node.items) {
       node.items = norseUtils.forceArray(node.items);
       for (var i = 0; i < node.items.length; i++) {
         node.items[i].itemsIds = [];
+        var item = contextLib.runInDefault(function() {
+          return contentLib.get({ key: node.items[i].id });
+        });
+        if (item.data.type !== "ticket") {
+          continue;
+        }
         var idsCount = parseInt(node.items[i].amount);
         if (node.items[i].generateIds) {
           idsCount = idsCount * parseInt(node.items[i].generateIds);
         }
         for (var j = 0; j < idsCount; j++) {
+          utils.ticketCount++;
           node.items[i].itemsIds.push({
             id: textEncoding.md5(
               node.name +
@@ -292,7 +393,8 @@ exports.generateItemsIds = function(cartId) {
                 " " +
                 i
             ),
-            activated: false
+            activated: false,
+            friendlyId: utils.ticketCount
           });
         }
       }
@@ -300,9 +402,9 @@ exports.generateItemsIds = function(cartId) {
     return node;
   }
   return getCart(cartId);
-};
+}
 
-exports.getNextId = function() {
+function getNextId() {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
@@ -310,7 +412,7 @@ exports.getNextId = function() {
     query: ""
   });
   return (result.total + 1).toFixed();
-};
+}
 
 function connectCartRepo() {
   return nodeLib.connect({
@@ -376,6 +478,15 @@ function calculateCart(cart) {
   };
 }
 
+function getCartDates(cart) {
+  return {
+    createdDate: moment(cart._ts).format("DD.MM.YYYY"),
+    createdTime: moment(cart._ts).format("DD.MM.YYYY HH:MM"),
+    transactionDate: moment(cart.transactionDate).format("DD.MM.YYYY"),
+    transactionTime: moment(cart.transactionDate).format("DD.MM.YYYY HH:MM")
+  };
+}
+
 function getCartItems(items) {
   if (!items) {
     return [];
@@ -412,6 +523,13 @@ function getCartItems(items) {
         finalPrice: item.data.finalPrice,
         amount: parseInt(items[i].amount).toFixed(),
         itemSize: items[i].itemSize,
+        digital: item.data.digital ? true : false,
+        ticketType: item.data.ticketType ? item.data.ticketType : false,
+        productType: item.data.type,
+        transactionPrice: items[i].transactionPrice
+          ? items[i].transactionPrice
+          : false,
+
         itemSizeStock: checkItemSizeStock(
           items[i].itemSize,
           parseInt(items[i].amount),
@@ -488,8 +606,6 @@ function getShippingPrice(cart) {
   return method[method.length - 1].price;
 }
 
-exports.getShippingPrice = getShippingPrice;
-
 function checkCartStock(items) {
   for (var i = 0; i < items.length; i++) {
     if (!items[i].stock || !items[i].itemSizeStock) {
@@ -529,6 +645,9 @@ function checkCartDiscount(cart, itemsTotal) {
   var promos = promosLib.getPromosArray(cart.promos);
   var cartCodes = [];
   for (var i = 0; i < promos.length; i++) {
+    if (!promos[i] || !promos[i].data) {
+      continue;
+    }
     if (promos[i].data.type == "percent") {
       discount += itemsTotal * (promos[i].data.discount / 100);
     } else {
@@ -580,5 +699,83 @@ function removePromo(code, cartId) {
     node.promos = norseUtils.forceArray(node.promos);
     node.promos.splice(node.promos.indexOf(code), 1);
     return node;
+  }
+}
+
+function fixCartDate() {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "status in ('failed', 'paid', 'pending', 'shipped')",
+    filters: {
+      notExists: {
+        field: "transactionDate"
+      }
+    }
+  });
+  norseUtils.log(
+    "Fixing cart transaction date for " + result.total + " items."
+  );
+  for (var i = 0; i < result.hits.length; i++) {
+    result.hits[i] = cartRepo.get(result.hits[i].id);
+    setUserDetails(result.hits[i]._id, { transactionDate: result.hits[i]._ts });
+  }
+}
+
+function fixCartPrice(force) {
+  if (!force) {
+    var filters = {
+      notExists: {
+        field: "price"
+      }
+    };
+  } else {
+    filters = {};
+  }
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "status in ('failed', 'paid', 'pending', 'shipped')",
+    filters: filters
+  });
+  norseUtils.log("Fixing cart price for " + result.total + " items.");
+  for (var i = 0; i < result.hits.length; i++) {
+    result.hits[i] = getCart(result.hits[i].id);
+    setUserDetails(result.hits[i]._id, { price: result.hits[i].price });
+  }
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "status in ('failed', 'paid', 'pending', 'shipped')",
+    filters: {
+      notExists: {
+        field: "items.transactionPrice"
+      }
+    }
+  });
+  norseUtils.log("Fixing items price for " + result.total + " items.");
+  for (var i = 0; i < result.hits.length; i++) {
+    result.hits[i] = getCart(result.hits[i].id);
+    savePrices(result.hits[i]._id);
+  }
+}
+
+function fixItemIds() {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "status in ('failed', 'paid', 'pending', 'shipped')",
+    filters: {
+      notExists: {
+        field: "items.itemsIds.id"
+      }
+    }
+  });
+  norseUtils.log("Fixing cart ids for " + result.total + " items.");
+  for (var i = 0; i < result.hits.length; i++) {
+    generateItemsIds(result.hits[i].id);
   }
 }

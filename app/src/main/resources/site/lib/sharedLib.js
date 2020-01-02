@@ -46,12 +46,17 @@ function getSiteConfig() {
   return site;
 }
 
-function generateNiceServiceUrl(url, params) {
+function generateNiceServiceUrl(url, params, absolute) {
+  var type = absolute ? "absolute" : "server";
   var site = getSite();
   if (url && url.indexOf("/") !== 0) {
     url = "/" + url;
   }
-  return portal.pageUrl({ path: site._path + url, params: params });
+  return portal.pageUrl({
+    path: site._path + url,
+    params: params,
+    type: type
+  });
 }
 
 function getTranslationCounter(count) {

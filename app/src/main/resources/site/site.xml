@@ -61,6 +61,12 @@
       <config>
       </config>
     </input>
+    <input name="monstersLocation" type="ContentSelector">
+      <label>Monsters location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
     <input name="agreements" type="ContentSelector">
       <label>Agreements</label>
       <occurrences minimum="0" maximum="3"/>
@@ -149,6 +155,9 @@
     </mapping>
     <mapping controller="/services/newArticle/newArticle.js" order="10">
       <pattern>/create</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/liqpay.js" order="10">
+      <pattern>/payment-processing</pattern>
     </mapping>
   </mappings>
 </site>

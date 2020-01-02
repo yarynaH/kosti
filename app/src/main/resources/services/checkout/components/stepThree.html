@@ -14,7 +14,6 @@
         type="radio"
         class="input-radio"
         id="intecasa-payment"
-        checked
         value="interkassa"
         hidden
       />
@@ -27,6 +26,34 @@
                 src="#"
                 data-th-src="${portal.assetUrl({'_path=images/interkassa.png'})}"
                 alt="interkassa image"
+              />
+            </span>
+          </div>
+          <div class="radio_align-description">
+            Вы будете перенаправлены на страницу сервиса для завершения
+            безопасной оплаты
+          </div>
+        </div>
+      </label>
+    </div>
+    <div class="form-group">
+      <input
+        name="step"
+        type="radio"
+        class="input-radio"
+        id="liqpay-payment"
+        value="liqpay"
+        hidden
+      />
+      <label for="liqpay-payment" class="label-radio">
+        <div class="radio_align-type">
+          <div class="radio_align-top">
+            <span class="radio_align-title">Liqpay</span>
+            <span class="radio_align-subtitle payment_m-img_wrap">
+              <img
+                src="#"
+                data-th-src="${portal.assetUrl({'_path=images/liqpay.png'})}"
+                alt="liqpay image"
               />
             </span>
           </div>

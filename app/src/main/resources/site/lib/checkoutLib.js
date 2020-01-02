@@ -8,11 +8,13 @@ var helpers = require("helpers");
 var cartLib = require("cartLib");
 var mailsLib = require("mailsLib");
 var sharedLib = require("sharedLib");
+var promosLib = require("promosLib");
 
 exports.getShipping = getShipping;
 exports.getShippingById = getShippingById;
 exports.renderSuccessPage = renderSuccessPage;
 exports.checkIKResponse = checkIKResponse;
+exports.getLiqpayData = getLiqpayData;
 
 function getLiqpayData(cart) {
   return {
@@ -21,7 +23,22 @@ function getLiqpayData(cart) {
     action: "pay",
     currency: "UAH",
     description: "test",
-    amount: model.cart.price.totalDiscount
+    order_id: cart.userId,
+    result_url: sharedLib.generateNiceServiceUrl(
+      "/payment-processing",
+      null,
+      true
+    ),
+    amount: cart.price.totalDiscount
+  };
+}
+
+function getLiqpayStatusData(cart) {
+  return {
+    public_key: app.config.liqpayPublicKey,
+    version: "3",
+    action: "status",
+    order_id: cart.userId
   };
 }
 
@@ -98,12 +115,15 @@ function renderSuccessPage(req, cart, pendingPage) {
     );
   }
   return {
-    body: thymeleaf.render(resolve("../../services/checkout/success.html"), {
-      pageComponents: helpers.getPageComponents(req),
-      cart: cart,
-      pendingPage: pendingPage,
-      shopUrl: sharedLib.getShopUrl()
-    }),
+    body: thymeleaf.render(
+      resolve("../../services/checkout/components/success.html"),
+      {
+        pageComponents: helpers.getPageComponents(req),
+        cart: cart,
+        pendingPage: pendingPage,
+        shopUrl: sharedLib.getShopUrl()
+      }
+    ),
     contentType: "text/html"
   };
 }
@@ -111,9 +131,17 @@ function renderSuccessPage(req, cart, pendingPage) {
 function checkIKResponse(params, model) {
   if (params.ik_inv_st == "success") {
     params.step = "success";
-    cartLib.modifyCartWithParams(model.cart._id, { status: "paid" });
+    cartLib.modifyCartWithParams(model.cart._id, {
+      status: "paid",
+      transactionDate: new Date(),
+      price: model.cart.price
+    });
     contextLib.runAsAdmin(function() {
+      cartLib.savePrices(model.cart._id);
       cartLib.modifyInventory(model.cart.items);
+      if (model.cart.promos) {
+        promosLib.reduceUsePromos(model.cart.promos);
+      }
     });
   } else if (params.ik_inv_st == "fail" || params.ik_inv_st == "canceled") {
     params.error = true;
@@ -121,9 +149,14 @@ function checkIKResponse(params, model) {
     cartLib.modifyCartWithParams(model.cart._id, { status: "failed" });
   } else if (params.ik_inv_st == "waitAccept") {
     params.step = "pending";
-    cartLib.modifyCartWithParams(model.cart._id, { status: "pending" });
     contextLib.runAsAdmin(function() {
       cartLib.modifyInventory(model.cart.items);
+      cartLib.savePrices(model.cart._id);
+      cartLib.modifyCartWithParams(model.cart._id, {
+        status: "pending",
+        transactionDate: new Date(),
+        price: model.cart.price
+      });
     });
   }
   return params;

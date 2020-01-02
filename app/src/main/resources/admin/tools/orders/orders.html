@@ -62,7 +62,17 @@
               </div>
               <div class="order-row">
                 <h3 class="order-label">Order Date:</h3>
-                <div class="order-value" data-th-text="${cart.dateTime}"></div>
+                <div
+                  class="order-value"
+                  data-th-text="${cart.dates.createdTime}"
+                ></div>
+              </div>
+              <div data-th-if="${cart.dates.transactionTime}" class="order-row">
+                <h3 class="order-label">Payment Date:</h3>
+                <div
+                  class="order-value"
+                  data-th-text="${cart.dates.transactionTime}"
+                ></div>
               </div>
               <div class="order-row">
                 <h3 class="order-label">Address:</h3>
@@ -78,9 +88,12 @@
                 <h3 class="order-label">Index:</h3>
                 <div class="order-value" data-th-text="${cart.index}"></div>
               </div>
-              <div class="order-row" data-th-if="${cart.country == 'ua'}">
+              <div class="order-row">
                 <h3 class="order-label">Shipping:</h3>
                 <div class="order-value">
+                  <p
+                    data-th-text="${portal.localize({'_key=store.shipping.' + cart.shipping, '_locale=ru'})}"
+                  ></p>
                   <p data-th-text="${cart.novaPoshtaСity}"></p>
                   <p data-th-text="${cart.novaPoshtaWarehouse}"></p>
                 </div>

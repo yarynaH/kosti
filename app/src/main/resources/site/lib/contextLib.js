@@ -1,6 +1,10 @@
 var contextLib = require("/lib/xp/context");
+exports.runInDefault = runInDefault;
+exports.runAsAdmin = runAsAdmin;
+exports.runInDraft = runInDraft;
+exports.runInDraftAsAdmin = runInDraftAsAdmin;
 
-exports.runAsAdmin = function(callback) {
+function runAsAdmin(callback) {
   return contextLib.run(
     {
       user: {
@@ -11,19 +15,20 @@ exports.runAsAdmin = function(callback) {
     },
     callback
   );
-};
-exports.runInDraft = function(callback) {
+}
+function runInDraft(callback) {
   return contextLib.run(
     {
       branch: "draft"
     },
     callback
   );
-};
+}
 
-exports.runInDraftAsAdmin = function(callback) {
+function runInDraftAsAdmin(callback) {
   return contextLib.run(
     {
+      repository: "com.enonic.cms.default",
       branch: "draft",
       user: {
         login: "mvy",
@@ -33,4 +38,14 @@ exports.runInDraftAsAdmin = function(callback) {
     },
     callback
   );
-};
+}
+
+function runInDefault(callback) {
+  return contextLib.run(
+    {
+      repository: "com.enonic.cms.default",
+      branch: "master"
+    },
+    callback
+  );
+}

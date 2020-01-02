@@ -1,120 +1,141 @@
-var norseUtils = require("norseUtils");
-var userLib = require("userLib");
-var cartLib = require("cartLib");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
-var helpers = require("helpers");
 var thymeleaf = require("/lib/thymeleaf");
 var nodeLib = require("/lib/xp/node");
-var contextLib = require("/lib/contextLib");
-var qrLib = require("qrLib");
-var hashLib = require("hashLib");
 var htmlExporter = require("/lib/openxp/html-exporter");
 var textEncodingLib = require("/lib/text-encoding");
-var mailsLib = require("mailsLib");
+var httpClientLib = require("/lib/http-client");
+
+var libLocation = "../../site/lib/";
+var norseUtils = require(libLocation + "norseUtils");
+var contextLib = require(libLocation + "contextLib");
+var helpers = require(libLocation + "helpers");
 
 exports.get = function(req) {
-  var params = req.params;
-  switch (params.action) {
-    case "testOrderMail":
-      var result = false;
-      var view = resolve("../../pages/mails/orderCreated.html");
-      var site = portal.getSiteConfig();
-      var shopUrl = portal.pageUrl({
-        id: site.shopLocation
-      });
-      return {
-        body: thymeleaf.render(view, {
-          cart: cartLib.getCart(req.cookies.cartId),
-          site: portal.getSite()
-        }),
-        contentType: "text/html"
-      };
-    case "pdfPage":
-      var typeNumber = 4;
-      var errorCorrectionLevel = "L";
-      var qr = qrLib(typeNumber, errorCorrectionLevel);
-      qr.addData("Hi! Its me, Max!");
-      qr.make();
-      var code = qr.createTableTag(7, 0);
-      return {
-        body: thymeleaf.render(resolve("../../pages/pdfs/regularTicket.html"), {
-          qrcode: code
-        }),
-        contentType: "text/html"
-      };
-    case "pdfPageFile":
-      var typeNumber = 4;
-      var errorCorrectionLevel = "L";
-      var qr = qrLib(typeNumber, errorCorrectionLevel);
-      qr.addData(params.hash);
-      qr.make();
-      var code = qr.createTableTag(7, 0);
-      return {
-        body: getStream(
-          htmlExporter.exportToPdf(
-            thymeleaf.render(resolve("../../pages/pdfs/legendaryTicket.html"), {
-              qrcode: code
-            })
-          )
-        ),
-        headers: {
-          "Content-Disposition": 'attachment; filename="test.pdf"'
-        }
-      };
-    case "checkSubscription":
-      mailsLib.prepareNewsletter();
-      break;
-    case "importUsersToNode":
-      var site = portal.getSiteConfig();
-      var emails = contentLib.get({ key: site.mailsLocation });
-      emails = emails.data.mail;
-      var newsletterRepo = nodeLib.connect({
-        repoId: "newsletter",
-        branch: "master"
-      });
-      for (var i = 0; i < emails.length; i++) {
-        var created = newsletterRepo.query({
-          start: 0,
-          count: 1,
-          query: "email = '" + emails[i] + "'"
-        });
-        if (created.total > 0) {
-          continue;
-        }
-        newsletterRepo.create({
-          email: emails[i],
-          subscriptionHash: hashLib.generateHash(emails[i])
-        });
-      }
-      for (var i = 0; i < surveyEmails.length; i++) {
-        var created = newsletterRepo.query({
-          start: 0,
-          count: 1,
-          query: "email = '" + surveyEmails[i] + "'"
-        });
-        if (created.total > 0) {
-          continue;
-        }
-        newsletterRepo.create({
-          email: surveyEmails[i],
-          subscriptionHash: hashLib.generateHash(surveyEmails[i])
-        });
-      }
-      break;
+  for (var p = 1; p < 23; p++) {
+    norseUtils.log(p);
+    var data = JSON.parse(
+      httpClientLib.request({
+        url: "https://api.open5e.com/monsters/?page=" + p,
+        method: "GET",
+        connectionTimeout: 2000000,
+        readTimeout: 500000
+      }).body
+    );
+    data = data.results;
+    for (var i = 0; i < data.length; i++) {
+      norseUtils.log(i);
+      var tempData = prepareData(data[i]);
+      createMonster(tempData);
+    }
   }
 
-  function getStream(fileSource, charsetDecode, encoding) {
-    var stream = textEncodingLib.base64Decode(fileSource.content);
+  function createMonster(data) {
+    var site = portal.getSiteConfig();
+    var monstersLocation = contentLib.get({ key: site.monstersLocation });
+    var displayName = data.name;
+    var name = data.slug;
+    delete data.slug;
+    delete data.name;
+    return contextLib.runInDraftAsAdmin(function() {
+      var result = contentLib.create({
+        name: name,
+        parentPath: monstersLocation._path,
+        displayName: displayName,
+        contentType: app.name + ":monster",
+        data: data
+      });
+      return result;
+    });
+  }
 
-    if (encoding == undefined) {
-      encoding = "UTF-8";
+  function prepareData(data) {
+    var mappedData = {};
+    if (data.skills) {
+      mappedData.skills = {
+        perception: data.skills.perception,
+        stealth: data.skills.stealth,
+        acrobatics: data.skills.acrobatics,
+        performance: data.skills.performance,
+        survival: data.skills.survival,
+        athletics: data.skills.athletics,
+        intimidation: data.skills.intimidation,
+        nature: data.skills.nature,
+        insight: data.skills.insight,
+        investigation: data.skills.investigation,
+        deception: data.skills.deception,
+        history: data.skills.history,
+        religion: data.skills.religion,
+        arcana: data.skills.arcana,
+        medicine: data.skills.medicine,
+        sleightOfHand: data.skills.sleightOfHand,
+        animalHandling: data.skills.animalHandling,
+        persuasion: data.skills.persuasion
+      };
+    }
+    if (data.speed) {
+      mappedData.speed = {
+        climb: data.speed.climb,
+        fly: data.speed.fly,
+        walk: data.speed.walk,
+        swim: data.speed.swim,
+        burrow: data.speed.burrow
+      };
     }
 
-    if (charsetDecode != undefined && charsetDecode === true) {
-      stream = textEncodingLib.charsetDecode(stream, encoding);
-    }
+    mappedData.armorClass = data.armor_class;
+    mappedData.hitPoints = data.hit_points;
+    mappedData.hitDice = data.hit_dice;
+    mappedData.alignmentOld = data.alignment;
+    mappedData.challengeRating = data.challenge_rating;
+    mappedData.armorDesc = data.armor_desc;
+    mappedData.size = data.size.toLowerCase();
+    mappedData.languages = data.languages;
+    mappedData.senses = data.senses;
+    mappedData.charisma = data.constitution;
+    mappedData.dexterity = data.dexterity;
+    mappedData.intelligence = data.intelligence;
+    mappedData.wisdom = data.wisdom;
+    mappedData.strength = data.strength;
+    mappedData.charismaSave = data.charisma_save;
+    mappedData.constitutionSave = data.constitution_save;
+    mappedData.dexteritySave = data.dexterity_save;
+    mappedData.intelligenceSave = data.intelligence_save;
+    mappedData.strengthSave = data.strength_save;
+    mappedData.wisdomSave = data.wisdom_save;
+    mappedData.spellList = data.spell_list;
+    mappedData.actions = data.actions
+      ? prepareActionsArray(data.actions)
+      : null;
+    mappedData.legendaryActions = data.legendary_actions
+      ? prepareActionsArray(data.legendary_actions)
+      : null;
+    mappedData.reactions = data.reactions
+      ? prepareActionsArray(data.reactions)
+      : null;
+    mappedData.specialAbilities = data.special_abilities
+      ? prepareActionsArray(data.special_abilities)
+      : null;
+    mappedData.damageVulnerabilities = data.damage_vulnerabilities;
+    mappedData.damageResistances = data.damage_resistances;
+    mappedData.damageImmunities = data.damage_immunities;
+    mappedData.conditionImmunities = data.condition_immunities;
+    mappedData.typeOld = data.type;
+    mappedData.subType = data.subtype;
+    mappedData.group = data.group;
+    mappedData.slug = data.slug;
+    mappedData.name = data.name;
 
-    return stream;
+    return mappedData;
+
+    function prepareActionsArray(actions) {
+      actions = norseUtils.forceArray(actions);
+      for (var i = 0; i < actions.length; i++) {
+        delete actions[i].attack_bonus;
+        delete actions[i].damage_dice;
+        delete actions[i].damage_bonus;
+      }
+      return actions;
+    }
   }
 };

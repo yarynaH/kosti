@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Monster</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="armorClass" type="Long">
+      <label>Armor class</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="charisma" type="Long">
+      <label>charisma</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="charismaSave" type="Long">
+      <label>charisma save</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="constitution" type="Long">
+      <label>constitution</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="constitutionSave" type="Long">
+      <label>constitution save</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="dexterity" type="Long">
+      <label>dexterity</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="dexteritySave" type="Long">
+      <label>dexterity save</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="hitPoints" type="Long">
+      <label>hit points</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="intelligence" type="Long">
+      <label>intelligence</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="intelligenceSave" type="Long">
+      <label>intelligence save</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="strength" type="Long">
+      <label>strength</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="strengthSave" type="Long">
+      <label>strength save</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="wisdom" type="Long">
+      <label>wisdom</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="wisdomSave" type="Long">
+      <label>wisdom save</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <item-set name="actions">
+      <label>Actions</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="specialAbilities">
+      <label>Special abilities</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="reactions">
+      <label>reactions</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="legendaryActions">
+      <label>Legendary actions</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="speed">
+      <label>Speed</label>
+      <occurrences minimum="0" maximum="1"/>
+      <items>
+        <input name="climb" type="Long">
+          <label>Climb</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="fly" type="Long">
+          <label>Fly</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="walk" type="Long">
+          <label>Walk</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="swim" type="Long">
+          <label>Swim</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="burrow" type="Long">
+          <label>Burrow</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="skills">
+      <label>Skills</label>
+      <occurrences minimum="0" maximum="1"/>
+      <items>
+        <input name="acrobatics" type="Long">
+          <label>acrobatics</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="animalHandling" type="Long">
+          <label>animal-handling</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="arcana" type="Long">
+          <label>arcana</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="athletics" type="Long">
+          <label>athletics</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="deception" type="Long">
+          <label>deception</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="history" type="Long">
+          <label>history</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="insight" type="Long">
+          <label>insight</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="intimidation" type="Long">
+          <label>intimidation</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="investigation" type="Long">
+          <label>investigation</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="medicine" type="Long">
+          <label>medicine</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="nature" type="Long">
+          <label>nature</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="perception" type="Long">
+          <label>perception</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="performance" type="Long">
+          <label>performance</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="persuasion" type="Long">
+          <label>persuasion</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="religion" type="Long">
+          <label>religion</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="sleightOfHand" type="Long">
+          <label>sleight-of-hand</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="stealth" type="Long">
+          <label>stealth</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="survival" type="Long">
+          <label>survival</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <input name="languages" type="TextLine">
+      <label>Languages</label>
+    </input>
+    <input name="group" type="TextLine">
+      <label>group</label>
+    </input>
+    <input name="size" type="ComboBox">
+      <label>Size</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="tiny">Tiny</option>
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+        <option value="huge">Huge</option>
+        <option value="gargantuan">Gargantuan</option>
+      </config>
+    </input>
+    <input name="alignment" type="ComboBox">
+      <label>Alignment</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="lg">Lawful good</option>
+        <option value="ln">Lawful newutral</option>
+        <option value="le">Lawful evil</option>
+        <option value="ng">Neutral good</option>
+        <option value="nn">Neutral neutral</option>
+        <option value="ne">Neutral evil</option>
+        <option value="cg">Chaotic good</option>
+        <option value="cn">Chaotic neutral</option>
+        <option value="ce">Chaotic evil</option>
+      </config>
+    </input>
+    <input name="type" type="ComboBox">
+      <label>type</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="aberration">aberration</option>
+        <option value="beast">beast</option>
+        <option value="celestial">celestial</option>
+        <option value="dragon">dragon</option>
+        <option value="fey">fey</option>
+        <option value="fiend">fiend</option>
+        <option value="giant">giant</option>
+        <option value="elemental">elemental</option>
+        <option value="humanoid">humanoid</option>
+        <option value="monstrosity">monstrosity</option>
+        <option value="ooze">ooze</option>
+        <option value="plant">plant</option>
+        <option value="undead">undead</option>
+        <option value="swarm">swarm</option>
+        <option value="titan">titan</option>
+        <option value="construct">construct</option>
+      </config>
+    </input>
+    <input name="challengeRating" type="TextLine">
+      <label>Challenge rating</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="alignmentOld" type="TextLine">
+      <label>alignment Old</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="typeOld" type="TextLine">
+      <label>type old</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="subType" type="TextLine">
+      <label>sub type</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="armorDesc" type="TextLine">
+      <label>Armor description</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="senses" type="TextLine">
+      <label>Senses</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="hitDice" type="TextLine">
+      <label>Hit dice</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="spellList" type="TextLine">
+      <label>Spell list</label>
+      <occurrences minimum="0" maximum="0"/>
+    </input>
+    <input name="damageImmunities" type="TextLine">
+      <label>damage immunities</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="damageResistances" type="TextLine">
+      <label>damage resistances</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="conditionImmunities" type="TextLine">
+      <label>damage immunities</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="damageVulnerabilities" type="TextLine">
+      <label>damage vulnerabilities</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="translated" type="CheckBox">
+      <label>Translated</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+  </form>
+</content-type>
