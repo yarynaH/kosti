@@ -57,7 +57,7 @@ function handlePost(req) {
       content: content,
       site: site,
       mainRegion: false,
-      sidebar: blogLib.getSidebar(),
+      //sidebar: blogLib.getSidebar(),
       articleFooter: blogLib.getArticleFooter(createRes),
       content: createRes,
       errorMessage: createRes.error

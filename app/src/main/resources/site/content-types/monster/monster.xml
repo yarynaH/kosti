@@ -250,6 +250,8 @@
         <option value="cg">Chaotic good</option>
         <option value="cn">Chaotic neutral</option>
         <option value="ce">Chaotic evil</option>
+        <option value="unaligned">Unaligned</option>
+        <option value="any">Any</option>
       </config>
     </input>
     <input name="type" type="ComboBox">

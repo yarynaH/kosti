@@ -148,7 +148,7 @@ function generateCheckoutPage(req) {
       promos: thymeleaf.render(resolve("components/promos.html"), {
         promos: cart.price.discount.codes
       }),
-      ik_id: site.ik_id,
+      ik_id: app.config.interkassaID,
       pageComponents: helpers.getPageComponents(
         req,
         "footerCheckout",
