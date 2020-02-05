@@ -23,7 +23,7 @@ exports.get = function(req) {
     episodes.push(beautifyEpisode(podcasts.hits[i]));
   }
   let result = OBJtoXML({ channel: createPodcast(episodes) });
-  var view = resolve("kitchenSink.html");
+  var view = resolve("podcast.html");
   var body = thymeleaf.render(view, { rssFeed: result });
   return {
     body: body,
