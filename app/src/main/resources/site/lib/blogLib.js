@@ -46,6 +46,9 @@ function getSolialLinks() {
 function getWeekArticle() {
   var weekArticleId = votesLib.getWeekArticleId();
   var article = contentLib.get({ key: weekArticleId });
+  if (!article) {
+    return "";
+  }
   article = beautifyArticle(article);
   return thymeleaf.render(resolve("../pages/components/blog/weeksPost.html"), {
     article: article
