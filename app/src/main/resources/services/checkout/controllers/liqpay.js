@@ -43,6 +43,7 @@ function generateCheckoutPage(req) {
   } else {
     var status = "pending";
   }
+  norseUtils.log(status);
   var model = {
     shopUrl: sharedLib.getShopUrl(),
     cart: cart,

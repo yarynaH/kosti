@@ -15,6 +15,7 @@ exports.getShippingById = getShippingById;
 exports.renderSuccessPage = renderSuccessPage;
 exports.checkIKResponse = checkIKResponse;
 exports.getLiqpayData = getLiqpayData;
+exports.getLiqpayStatusData = getLiqpayStatusData;
 
 function getLiqpayData(cart) {
   return {
