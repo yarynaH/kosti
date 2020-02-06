@@ -11,6 +11,12 @@
         ></span>
       </a>
       <span class="post-date" data-th-text="${comment.date}"></span>
+      <a
+        class="post-date hidden"
+        data-th-if="${comment.url}"
+        data-th-href="${comment.url}"
+        data-th-text="ссылка"
+      ></a>
     </div>
     <div data-th-if="${!comment.deleted}" class="comments-actions">
       <span
