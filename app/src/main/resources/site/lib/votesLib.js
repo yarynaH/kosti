@@ -265,8 +265,10 @@ function getWeekArticleId() {
   });
   if (result && result.hits && result.hits.length > 0) {
     var article = votesRepo.get(result.hits[0].id);
-    if (article) {
-      return article.id;
+    if (article && article.id) {
+      if (contentLib.get({ key: article.id })) {
+        return article.id;
+      }
     }
   }
   var site = portal.getSiteConfig();
