@@ -1,10 +1,7 @@
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var thymeleaf = require("/lib/thymeleaf");
-var nodeLib = require("/lib/xp/node");
-var htmlExporter = require("/lib/openxp/html-exporter");
-var textEncodingLib = require("/lib/text-encoding");
-var httpClientLib = require("/lib/http-client");
+var i18nLib = require("/lib/xp/i18n");
 
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -24,8 +21,8 @@ exports.get = function(req) {
     episodes.push(beautifyEpisode(podcasts.hits[i]));
   }
   let result = OBJtoXML({ channel: createPodcast(episodes) });
-  var view = resolve("podcast.html");
-  var body = thymeleaf.render(view, { rssFeed: result });
+  let view = resolve("podcast.html");
+  let body = thymeleaf.render(view, { rssFeed: result });
   return {
     body: body,
     contentType: "text/xml"
@@ -70,19 +67,23 @@ exports.get = function(req) {
   function createPodcast(episodes) {
     let year = new Date().getFullYear();
     let imageUrl = portal.assetUrl({
-      path: "images/extended-logo-min.png",
+      path: "images/vk-podcast.jpg",
       type: "absolute"
     });
     return {
-      title: "ЭНОА",
-      link: "https://www.kostirpg.com",
-      language: "ru-ru",
+      title: "Эноа | Настольная Ролевая Игра",
+      link: portal.serviceUrl({ service: "podcast", type: "absolute" }),
+      language: "ru",
       copyright: "&#169; " + year + " Вечерние Кости",
       author: "Вечерние Кости",
       "googleplay:author": "Вечерние Кости",
-      description: "Новая кампания по ЭНОА от Вечерние Кости.",
+      description: i18nLib.localize({
+        key: "podcast.kosti.descr",
+        locale: "ru"
+      }),
       "itunes:author": "Вечерние Кости",
       "itunes:type": "serial",
+      "googleplay:email": "info@kostirpg.com",
       "itunes:owner": {
         "itunes:name": "Вечерние Кости",
         "itunes:email": "info@kostirpg.com"
@@ -93,12 +94,12 @@ exports.get = function(req) {
       },
       image: {
         link: "https://www.kostirpg.com",
-        title: "ЭНОА",
+        title: "Эноа | Настольная Ролевая Игра",
         url: imageUrl
       },
       "itunes:image": imageUrl,
       "itunes:explicit": "true",
-      "googleplay:explicit": "true",
+      "googleplay:explicit": "yes",
       "itunes:category": {
         text: "Leisure",
         "itunes:category": { text: "Hobbies" }
@@ -113,7 +114,7 @@ exports.get = function(req) {
   function OBJtoXML(obj) {
     var xml = "";
     for (var prop in obj) {
-      if (prop === "itunes:category") {
+      if (prop === "itunes:category" || prop === "googleplay:category") {
         xml += getCategoryText(obj[prop]);
         continue;
       } else if (prop === "itunes:image") {
