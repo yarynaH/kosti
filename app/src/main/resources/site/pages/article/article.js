@@ -53,7 +53,7 @@ function handleReq(req) {
     }
     content = blogLib.beautifyArticle(content);
     let audio = null;
-    if (content.type === app.name + ":podcast") {
+    if (content.type === app.name + ":podcast" && content.data.audioFile) {
       audio = thymeleaf.render(resolve("../../parts/audio/audio.html"), {
         audioUrl: portal.attachmentUrl({
           name: content.data.audioFile
