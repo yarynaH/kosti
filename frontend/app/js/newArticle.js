@@ -39,7 +39,10 @@ $("#newArticleForm").on("submit", function(e) {
     data: form_data,
     processData: false,
     contentType: false,
-    type: "POST"
+    type: "POST",
+    success: function(data) {
+      showSnackBar(data.message, data.error ? "error" : "success");
+    }
   });
 });
 
