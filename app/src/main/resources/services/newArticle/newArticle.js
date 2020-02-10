@@ -84,7 +84,10 @@ function handleGet(req) {
     var view = resolve("newArticleNew.html");
     var user = userLib.getCurrentUser();
     if (!user) {
-      return false;
+      return {
+        body: helpers.getLoginRequest(),
+        contentType: "text/html"
+      };
     }
     var model = createModel();
     var body = thymeleaf.render(view, model);

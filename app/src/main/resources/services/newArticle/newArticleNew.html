@@ -23,7 +23,7 @@
         id="newArticleForm"
       >
         <div class="article-header">
-          <div class="post-info">
+          <div data-th-if="${author}" class="post-info">
             <a data-th-href="${author.url}">
               <span class="post-user_avatar">
                 <img data-th-src="${author.image.url}" alt="" />
