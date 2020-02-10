@@ -8,6 +8,7 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
+var kostiUtils = require(libLocation + "kostiUtils");
 var spellLib = require(libLocation + "spellsLib");
 var articlesLib = require(libLocation + "articlesLib");
 var blogLib = require(libLocation + "blogLib");
@@ -21,7 +22,7 @@ function handlePut(req) {
 
   function renderView() {
     return {
-      body: '"' + articlesLib.createImage(req.params) + '"',
+      body: articlesLib.createImage(req.params),
       contentType: "application/json"
     };
   }
@@ -33,9 +34,9 @@ function handlePost(req) {
   var me = this;
 
   function renderView() {
-    var result = articlesLib.createArticle(req.params);
+    var result = articlesLib.createArticle(JSON.parse(req.params.data));
     if (result.error) {
-      var view = resolve("newArticle.html");
+      var view = resolve("newArticleNew.html");
     } else {
       //var view = resolve("../../site/pages/article/article.html");
       var view = resolve("articleSubmit.html");
@@ -80,7 +81,7 @@ function handleGet(req) {
   var me = this;
 
   function renderView() {
-    var view = resolve("newArticle.html");
+    var view = resolve("newArticleNew.html");
     var user = userLib.getCurrentUser();
     if (!user) {
       return false;
@@ -101,7 +102,6 @@ function handleGet(req) {
     var content = portal.getContent();
     var response = [];
     var site = portal.getSiteConfig();
-
     var model = {
       content: content,
       app: app,
@@ -110,7 +110,10 @@ function handleGet(req) {
         id: portal.getSiteConfig().agreementPage
       }),
       data: up,
+      sidebar: blogLib.getSidebar(),
       social: site.social,
+      author: userLib.getCurrentUser(),
+      date: kostiUtils.getTimePassedSincePostCreation(new Date()),
       pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };
 
@@ -119,13 +122,3 @@ function handleGet(req) {
 
   return renderView();
 }
-
-//page -> regions -> main -> components -> []
-/*
-  component: {
-    path: "/main/0"
-    type: "text"
-    text: { value:"string" }
-    image: { id: "id"}
-  }
-*/
