@@ -129,6 +129,7 @@
       </items>
       <occurrences minimum="0" maximum="1"/>
     </item-set>
+    <mixin name="recaptcha"/>
   </form>
 
   <mappings>

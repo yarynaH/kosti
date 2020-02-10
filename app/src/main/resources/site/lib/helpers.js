@@ -8,6 +8,7 @@ var cartLib = require("cartLib");
 var nodeLib = require("/lib/xp/node");
 var sharedLib = require("sharedLib");
 var i18nLib = require("/lib/xp/i18n");
+var recaptcha = require("/lib/recaptcha");
 
 exports.fixPermissions = fixPermissions;
 exports.getPageComponents = getPageComponents;
@@ -108,8 +109,24 @@ function getPageComponents(req, footerType, activeEl, title) {
     "&v=5.102";
   pageComponents["loginRegisterModal"] = thymeleaf.render(
     resolve("../pages/components/loginRegisterModal.html"),
-    { discordUrl: discordUrl, vkUrl: vkUrl }
+    { discordUrl: discordUrl, vkUrl: vkUrl, recaptcha: getRecaptcha() }
   );
+
+  function getRecaptcha() {
+    let model = {};
+    model.recaptchaSiteKey = recaptcha.getSiteKey();
+    model.recaptchaIsConfigured = recaptcha.isConfigured();
+
+    model.editMode = req.mode === "edit";
+
+    model.postUrl = portal.pageUrl({
+      path: content._path
+    });
+    return thymeleaf.render(
+      resolve("../pages/components/recaptcha.html"),
+      model
+    );
+  }
 
   pageComponents["header"] = thymeleaf.render(
     resolve("../pages/components/header.html"),

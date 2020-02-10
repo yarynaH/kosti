@@ -165,3 +165,16 @@ function handleReq(req) {
   }
   return renderView();
 }
+exports.post = handlePost;
+
+function handlePost(req) {
+  // Verify the g-recaptcha-response
+  var recaptchaVerified = recaptcha.verify(req.params["g-recaptcha-response"]);
+
+  return {
+    contentType: "text/json",
+    body: {
+      recaptchaVerified: recaptchaVerified
+    }
+  };
+}
