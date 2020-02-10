@@ -40,6 +40,10 @@
       <label>Season</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
+    <input name="duration" type="TextLine">
+      <label>Duration</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
     <input name="explicit" type="CheckBox">
       <label>Explicit</label>
       <occurrences minimum="0" maximum="1"/>

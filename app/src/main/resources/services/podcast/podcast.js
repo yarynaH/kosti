@@ -39,6 +39,7 @@ exports.get = function(req) {
     });
     return {
       title: episode.displayName,
+      "itunes:title": episode.displayName,
       description: episode.data.intro,
       guid: episode._id,
       link: portal.pageUrl({ id: episode._id, type: "absolute" }),
@@ -48,6 +49,8 @@ exports.get = function(req) {
       "itunes:episode": episode.data.episode,
       "itunes:season": episode.data.season,
       "itunes:explicit": episode.data.explicit,
+      "itunes:duration": episode.data.duration,
+      "itunes:episodeType": "full",
       episode: episode.data.episode,
       season: episode.data.season,
       image: {
@@ -120,6 +123,9 @@ exports.get = function(req) {
       } else if (prop === "itunes:image") {
         xml += getImageTag(obj[prop]);
         continue;
+      } else if (prop === "enclosure") {
+        xml += getEnclosure(obj[prop]);
+        continue;
       }
       xml += obj[prop] instanceof Array ? "" : "<" + prop + ">";
       if (obj[prop] instanceof Array) {
@@ -150,5 +156,17 @@ exports.get = function(req) {
 
   function getImageTag(image) {
     return '<itunes:image href="' + image + '"></itunes:image>';
+  }
+
+  function getEnclosure(enc) {
+    return (
+      "<enclosure length='" +
+      enc.length +
+      "' type='" +
+      enc.type +
+      "' url='" +
+      enc.url +
+      "'></enclosure>"
+    );
   }
 };
