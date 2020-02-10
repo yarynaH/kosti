@@ -119,3 +119,13 @@ function handleGet(req) {
 
   return renderView();
 }
+
+//page -> regions -> main -> components -> []
+/*
+  component: {
+    path: "/main/0"
+    type: "text"
+    text: { value:"string" }
+    image: { id: "id"}
+  }
+*/
