@@ -347,3 +347,32 @@ function copyStringToClipboard(str) {
   document.execCommand("copy");
   document.body.removeChild(el);
 }
+
+function checkCaptcha() {
+  $("#recaptchaForm").submit(function(e) {
+    var postData = $(this).serializeArray();
+    var formURL = $(this).attr("action");
+
+    // Simple ajax submit with check if recaptcha verified ok or not
+    var result = $.ajax({
+      type: "POST",
+      url: formURL,
+      data: postData,
+      success: function(data) {
+        if (data.recaptchaVerified) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      dataType: "json"
+    });
+
+    e.preventDefault();
+    return result;
+  });
+}
+
+function recaptchaReset() {
+  grecaptcha.reset();
+}

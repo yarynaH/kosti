@@ -86,6 +86,8 @@ function initLoginRegisterForm() {
   });
   $(".register-form").on("submit", function(e) {
     e.preventDefault();
+    console.log(checkCaptcha());
+    return false;
     if (!$(".register-form").valid()) {
       return false;
     }
@@ -125,6 +127,7 @@ function initLoginRegisterForm() {
       }
     });
   });
+
   $(".login-form").validate({
     highlight: function(element, errorClass, validClass) {},
     unhighlight: function(element, errorClass, validClass) {}
