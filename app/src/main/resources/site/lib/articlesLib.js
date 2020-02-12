@@ -77,7 +77,12 @@ function createArticleObject(data) {
 
 function checkIfArticleExist(title) {
   var result = contentLib.query({
-    query: "displayName = '" + title + "'",
+    query:
+      "displayName = '" +
+      title +
+      "' or _name = '" +
+      common.sanitize(data.title) +
+      "'",
     contentType: app.name + ":article"
   });
   if (result.total > 0) {

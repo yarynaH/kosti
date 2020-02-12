@@ -7,6 +7,7 @@ $(".js_new-part").on("click", function() {
 });
 
 $("#newArticleForm").validate({
+  ignore: [],
   highlight: function(element, errorClass, validClass) {},
   unhighlight: function(element, errorClass, validClass) {}
 });
@@ -36,8 +37,12 @@ $("#newArticleForm").on("submit", function(e) {
   var data = {
     components: result,
     params: {
-      intro: $("#article-intro-input").val(),
-      title: $("#article-title-input").val()
+      intro: $(".js_intro-input")
+        .val()
+        .trim(),
+      title: $(".js_title-input")
+        .val()
+        .trim()
     }
   };
   var file_data = $("#article-image-input").prop("files")[0];
@@ -76,7 +81,7 @@ $("#article-image-input").on("change", function(e) {
   var file_data = $(this).prop("files")[0];
   var form_data = new FormData();
   form_data.append("file", file_data);
-  form_data.append("json", true);
+  form_data.append("json", "true");
   form_data.append("type", "imageMain");
   $.ajax({
     url: "/create",
@@ -85,7 +90,7 @@ $("#article-image-input").on("change", function(e) {
     contentType: false,
     type: "PUT",
     success: function(data) {
-      $(".js_main-image img").attr("src", data.url);
+      $(".js_main-image").html("<img src='" + data.url + "'/>");
     }
   });
 });
@@ -185,3 +190,20 @@ function removeEditor(id) {
     tinymce.get("js_single-part-" + id).destroy();
   }
 }
+
+$(".js_title-div").on("input", function() {
+  console.log("test");
+  $(".js_title-input").val(
+    $(this)
+      .text()
+      .trim()
+  );
+});
+
+$(".js_intro-div").on("input", function() {
+  $(".js_intro-input").val(
+    $(this)
+      .text()
+      .trim()
+  );
+});

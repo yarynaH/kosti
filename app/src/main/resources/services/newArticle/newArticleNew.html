@@ -10,8 +10,8 @@
     ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="article-img_wrap js_main-image">
-        <div class="article-img_wrap-placeholder"></div>
+      <div class="article-img_wrap">
+        <div class="article-img_wrap-placeholder js_main-image"></div>
       </div>
       <form
         class="blog blog_width clearfix"
@@ -40,26 +40,29 @@
               name="title"
               required
               contenteditable="true"
-              class="post-title"
-            />Введите здесь название статьи
+              class="post-title js_title-div"
+            >
+              Введите здесь название статьи
             </h1>
+            <input type="hidden" required class="js_title-input" />
           </div>
         </div>
         <div class="blog-content">
           <div class="article-body">
             <div class="article-content">
               <div class="form-group">
-                <div 
-                  contenteditable="true"
-                  class="post-text"
-                >
-                  Введите здесь краткий текст, который опишет о чем именно будет статья.
-                  Появляется при просмотре списка статей.
+                <div contenteditable="true" class="post-text js_intro-div">
+                  Введите здесь краткий текст, который опишет о чем именно будет
+                  статья. Появляется при просмотре списка статей. Не появляется
+                  на странице самой статьи.
                 </div>
+                <input type="hidden" required class="js_intro-input" />
               </div>
               <div class="create_article-add_img-wrap">
-                <label for="article-image-input" class="create_article-add_img js_label-file"
-                  >
+                <label
+                  for="article-image-input"
+                  class="create_article-add_img js_label-file"
+                >
                   <span
                     data-th-text="${portal.localize({'_key=user.newArticle.article.chooseImage', '_locale=ru'})}"
                     data-th-remove="tag"
@@ -75,9 +78,11 @@
                   hidden
                 />
                 <div class="form-caption">
-                  Рекоммендуемый размер изображения 1920х560 пикселей, или больше.
+                  Рекоммендуемый размер изображения 1920х560 пикселей, или
+                  больше.
                 </div>
               </div>
+              <div class="js_parts-block"></div>
               <div>
                 <div class="new-part-dropdown js_new-part-dropdown"></div>
                 <div class="dropdown-content hidden js_dropdown-content">
