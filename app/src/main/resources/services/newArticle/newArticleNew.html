@@ -10,8 +10,8 @@
     ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="article-img_wrap">
-        <div class="article-img_wrap-placeholder js_main-image"></div>
+      <div class="article-img_wrap js_main-image">
+        <div class="article-img_wrap-placeholder"></div>
       </div>
       <form
         class="blog blog_width clearfix"
@@ -35,7 +35,6 @@
           </div>
           <div class="form-group">
             <h1
-              data-th-value="${data.title}"
               id="article-title-input"
               name="title"
               required
@@ -51,7 +50,13 @@
           <div class="article-body">
             <div class="article-content">
               <div class="form-group">
-                <div contenteditable="true" class="post-text js_intro-div">
+                <div
+                  contenteditable="true"
+                  id="article-intro-input"
+                  name="intro"
+                  class="post-text js_intro-div"
+                  required
+                >
                   Введите здесь краткий текст, который опишет о чем именно будет
                   статья. Появляется при просмотре списка статей. Не появляется
                   на странице самой статьи.
