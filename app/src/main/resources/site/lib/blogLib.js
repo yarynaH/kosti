@@ -182,7 +182,7 @@ function getNewArticles(page) {
     start: page * pageSize,
     count: pageSize,
     sort: "publish.from DESC",
-    contentTypes: [app.name + ":article"]
+    contentTypes: [app.name + ":article", app.name + ":podcast"]
   });
   result.hits = beautifyArticleArray(result.hits);
   return result;
@@ -218,7 +218,7 @@ function getSearchArticles(q, page, useHashtag) {
     query: query,
     start: page * pageSize,
     count: pageSize,
-    contentTypes: [app.name + ":article"]
+    contentTypes: [app.name + ":article", app.name + ":podcast"]
   });
   if (result && result.hits && result.hits.length > 0) {
     articles = beautifyArticleArray(result.hits);
@@ -249,7 +249,7 @@ function getArticlesByUser(id, page, count, pageSize) {
     start: page * pageSize,
     count: pageSize,
     query: "data.author = '" + id + "'",
-    contentTypes: [app.name + ":article"]
+    contentTypes: [app.name + ":article", app.name + ":podcast"]
   });
   if (count) {
     return articles.total;
