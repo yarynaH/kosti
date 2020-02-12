@@ -12,6 +12,7 @@ var sharedLib = require("sharedLib");
 exports.createArticle = createArticle;
 exports.createImage = createImage;
 exports.insertComponents = insertComponents;
+exports.getTextComponent = getTextComponent;
 
 function createArticle(data) {
   return contextLib.runInDraftAsAdmin(function() {
@@ -93,12 +94,26 @@ function createImage(data) {
     image = norseUtils.getImage(image._id);
     if (data.json) return image;
     return {
-      image: thymeleaf.render(resolve("../../services/newArticle/image.html"), {
-        id: data.id,
-        image: image
-      })
+      html: thymeleaf.render(
+        resolve("../../services/newArticle/components/image.html"),
+        {
+          id: data.id,
+          image: image
+        }
+      )
     };
   });
+}
+
+function getTextComponent(data) {
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/text.html"),
+      {
+        id: data.id
+      }
+    )
+  };
 }
 
 function createImageObj(stream, user) {

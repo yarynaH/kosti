@@ -21,8 +21,21 @@ function handlePut(req) {
   var me = this;
 
   function renderView() {
+    let data = req.params;
+    let result = {};
+    switch (data.type) {
+      case "textPart":
+        result = articlesLib.getTextComponent(data);
+        break;
+      case "imagePart":
+      case "imageMain":
+        result = articlesLib.createImage(data);
+        break;
+      default:
+        break;
+    }
     return {
-      body: articlesLib.createImage(req.params),
+      body: result,
       contentType: "application/json"
     };
   }

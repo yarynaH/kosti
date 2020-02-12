@@ -7,22 +7,32 @@ $(".js_new-part").on("click", function() {
 });
 
 $("#newArticleForm").validate({
-  ignore: ""
+  highlight: function(element, errorClass, validClass) {},
+  unhighlight: function(element, errorClass, validClass) {}
 });
 
 $("#newArticleForm").on("submit", function(e) {
   e.preventDefault();
+  if (!$("#newArticleForm").valid()) {
+    return false;
+  }
   var partsLength = parseInt($(".js_single-part").length);
   var result = [];
-  for (var i = 0; i < partsLength; i++) {
-    var part = $(".js_single-part-" + i);
+  $(".js_single-part").each(function() {
+    var part = $(this);
     if (part.hasClass("tinymce-editor")) {
-      var value = tinymce.get("js_single-part-" + i).getContent();
+      var value = tinymce
+        .get("js_single-part-" + part.data().tinymce)
+        .getContent();
       result.push({ type: "text", value: value });
     } else if (part.hasClass("image-editor")) {
-      result.push({ type: "image", value: part.data().id });
+      result.push({
+        type: "image",
+        value: part.data().imageid,
+        caption: part.find("input").val()
+      });
     }
-  }
+  });
   var data = {
     components: result,
     params: {
@@ -46,34 +56,19 @@ $("#newArticleForm").on("submit", function(e) {
   });
 });
 
-$(".js_add-block").on("click", function() {
-  var id = $(".js_single-part").length;
-  $(".js_parts-block").append(
-    '<div class="form-group"><textarea class="tinymce-editor js_single-part js_single-part-' +
-      id +
-      '" id="js_single-part-' +
-      id +
-      '"></textarea></div>'
-  );
-  initEditor(id);
+$(".js_add-text").on("click", function() {
+  var id = getNextId();
+  var form_data = new FormData();
+  form_data.append("type", "textPart");
+  addPart(form_data, initEditor);
 });
 
 $(".js_add-image input").on("change", function(e) {
   var file_data = $(this).prop("files")[0];
-  var id = $(".js_single-part").length;
   var form_data = new FormData();
   form_data.append("file", file_data);
-  form_data.append("id", id);
-  $.ajax({
-    url: "/create",
-    data: form_data,
-    processData: false,
-    contentType: false,
-    type: "PUT",
-    success: function(data) {
-      $(".js_parts-block").append(data.image);
-    }
-  });
+  form_data.append("type", "imagePart");
+  addPart(form_data);
   $(this).val("");
 });
 
@@ -82,6 +77,7 @@ $("#article-image-input").on("change", function(e) {
   var form_data = new FormData();
   form_data.append("file", file_data);
   form_data.append("json", true);
+  form_data.append("type", "imageMain");
   $.ajax({
     url: "/create",
     data: form_data,
@@ -90,14 +86,60 @@ $("#article-image-input").on("change", function(e) {
     type: "PUT",
     success: function(data) {
       $(".js_main-image img").attr("src", data.url);
-      console.log(data);
     }
   });
 });
 
+$(".js_parts-block").on("click", ".js_remove-part", function() {
+  var btn = $(this);
+  var parent = btn.parent();
+  if (parent.data("tinymce") !== undefined && parent.data("tinymce") !== null) {
+    removeEditor(parent.data("tinymce"));
+  }
+  parent.remove();
+});
+
+$(".js_parts-block").on("click", ".js_move-part", function() {
+  var btn = $(this);
+  var parent = btn.parent();
+  moveElement(parent.data().id, btn.data().type);
+});
+
+function getNextId() {
+  if ($(".js_single-part").length === 0) {
+    return 0;
+  }
+  var id =
+    $(".js_single-part")
+      .last()
+      .data().id + 1;
+  while ($("js_single-part-" + id).length) {
+    id++;
+  }
+  return id;
+}
+
+function addPart(form_data, callback) {
+  var id = getNextId();
+  form_data.append("id", id);
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(".js_parts-block").append(data.html);
+      if (callback) {
+        callback(id);
+      }
+    }
+  });
+}
+
 function initEditor(id) {
   tinymce.init({
-    selector: ".js_single-part-" + id,
+    selector: "#js_single-part-" + id,
     menubar: false,
     branding: false,
     statusbar: false,
@@ -109,4 +151,37 @@ function initEditor(id) {
     toolbar:
       "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist"
   });
+}
+
+function moveElement(id, direction) {
+  var el = $(".js_single-part-" + id);
+  var el2 = null;
+  if (direction === "top") {
+    el2 = el.prev();
+    if (el2.length) {
+      el2.insertAfter(el);
+    }
+  } else if (direction === "bot") {
+    el2 = el.next();
+    if (el2.length) {
+      el2.insertBefore(el);
+    }
+  }
+  if (el2.length) {
+    $(".tinymce-editor").each(function() {
+      reinitializeEditor($(this).data().id);
+    });
+  }
+}
+
+function reinitializeEditor(id) {
+  removeEditor(id);
+  initEditor(id);
+}
+
+function removeEditor(id) {
+  tinymce.remove("js_single-part-" + id);
+  if (tinymce.get("js_single-part-" + id)) {
+    tinymce.get("js_single-part-" + id).destroy();
+  }
 }

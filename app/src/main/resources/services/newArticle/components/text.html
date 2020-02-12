@@ -1,0 +1,16 @@
+<div
+  class="form-group"
+  data-th-class="${'tinymce-editor js_single-part js_single-part-' + id}"
+  data-th-attr="data-tinymce=${id}, data-id=${id}"
+>
+  <textarea data-th-id="${'js_single-part-' + id}"></textarea>
+  <div class="js_remove-part">
+    remove
+  </div>
+  <div class="js_move-part" data-type="top">
+    top
+  </div>
+  <div class="js_move-part" data-type="bot">
+    bot
+  </div>
+</div>
