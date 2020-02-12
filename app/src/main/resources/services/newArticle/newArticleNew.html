@@ -11,9 +11,7 @@
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
       <div class="article-img_wrap js_main-image">
-        <img
-          src=""
-        />
+        <div class="article-img_wrap-placeholder"></div>
       </div>
       <form
         class="blog blog_width clearfix"
@@ -36,15 +34,6 @@
             <span class="post-date" data-th-text="${date}"></span>
           </div>
           <div class="form-group">
-            <input
-              data-th-value="${data.title}"
-              id="article-title-input"
-              type="text"
-              name="title"
-              required
-              placeholder="Введите здесь название статьи"
-              class="borderless_input hidden"
-            />
             <h1
               data-th-value="${data.title}"
               id="article-title-input"
@@ -58,22 +47,7 @@
         </div>
         <div class="blog-content">
           <div class="article-body">
-            <div class="article-content js_parts-block"></div>
             <div class="article-content">
-              <div class="form-group hidden">
-                <textarea
-                  data-th-text="${data.intro}"
-                  id="article-intro-input"
-                  name="intro"
-                  required
-                  placeholder="Введите интро"
-                  class="borderless_input"
-                ></textarea>
-                <div class="form-caption">
-                  Краткий текст, который опишет о чем именно будет статья.
-                  Появляется при просмотре списка статей.
-                </div>
-              </div>
               <div class="form-group">
                 <div 
                   contenteditable="true"
@@ -83,31 +57,14 @@
                   Появляется при просмотре списка статей.
                 </div>
               </div>
-              <div class="form-group hidden">
-                <label
-                  for="article-image-input"
-                  class="label-file js_label-file"
-                  data-th-text="${portal.localize({'_key=user.newArticle.article.chooseImage', '_locale=ru'})}"
-                ></label>
-                <input
-                  data-th-value="${data.image}"
-                  id="article-image-input"
-                  type="file"
-                  name="image"
-                  required
-                  hidden
-                />
-                <div class="form-caption">
-                  Рекоммендуемый размер изображения 1920х560 пикселей, или больше.
-                </div>
-              </div>
-              <div class="new_post-add_img-wrap">
-                <span class="new_post-add_img-icon"></span>
-                <label
-                  for="article-image-input"
-                  class="new_post-add_img js_label-file"
-                  data-th-text="${portal.localize({'_key=user.newArticle.article.chooseImage', '_locale=ru'})}"
-                >
+              <div class="create_article-add_img-wrap">
+                <label for="article-image-input" class="create_article-add_img js_label-file"
+                  >
+                  <span
+                    data-th-text="${portal.localize({'_key=user.newArticle.article.chooseImage', '_locale=ru'})}"
+                    data-th-remove="tag"
+                  ></span>
+                  <span class="create_article-add_img-icon"></span>
                 </label>
                 <input
                   data-th-value="${data.image}"
@@ -186,40 +143,3 @@
     ></script>
   </body>
 </html>
-
-<style>
-.new_post-add_img-wrap {
-    position: absolute;
-    top: 200px;
-    right: 0;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.new_post-add_img-icon:after, 
-.new_post-add_img-icon:before {
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translate(0, -50%);
-    transform: translate(0, -50%);
-    content: '';
-    border: 2px solid #909090;
-    width: 24px;
-    left: 0;
-}
-
-.new_post-add_img-icon {
-    width: 24px;
-    height: 24px;
-    position: relative;
-    margin-bottom: 10px;
-}
-
-.new_post-add_img-icon:before {
-    transform: rotate(90deg);
-    margin-top: -1px;
-}
-</style>

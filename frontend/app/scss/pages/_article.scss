@@ -168,6 +168,13 @@
 
     width: 100%;
 
+    &-placeholder {
+      background: $color-primary7;
+      height: 560px;
+      width: 100%;
+      display: block;
+    }
+
     &:after {
       @include position(absolute, top 0 right 0);
 
