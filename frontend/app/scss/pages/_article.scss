@@ -197,9 +197,15 @@
       font-size: rem(32);
       font-weight: bold;
       color: $color-primary13;
+      border-bottom: 1px solid transparent;
 
       @include tablet-all {
         font-size: rem(48);
+      }
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $color-primary1;
       }
     }
 
