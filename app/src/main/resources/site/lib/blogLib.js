@@ -218,6 +218,7 @@ function getSearchArticles(q, page, useHashtag) {
     query: query,
     start: page * pageSize,
     count: pageSize,
+    sort: "publish.from DESC",
     contentTypes: [app.name + ":article", app.name + ":podcast"]
   });
   if (result && result.hits && result.hits.length > 0) {
