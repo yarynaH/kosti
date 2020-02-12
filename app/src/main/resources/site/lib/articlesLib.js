@@ -81,7 +81,7 @@ function checkIfArticleExist(title) {
       "displayName = '" +
       title +
       "' or _name = '" +
-      common.sanitize(data.title) +
+      common.sanitize(title) +
       "'",
     contentType: app.name + ":article"
   });
