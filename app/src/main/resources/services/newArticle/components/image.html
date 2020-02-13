@@ -1,15 +1,13 @@
 <div
-  class="form-group"
-  data-th-class="${'image-editor js_single-part js_single-part-' + id}"
-  data-th-attr="data-imageid=${image._id}, data-id=${id}"
+data-th-class="${'create_article-image_editor image-editor js_single-part js_single-part-' + id}"
+data-th-attr="data-imageid=${image._id}, data-id=${id}"
 >
-  <img data-th-id="${'js_single-part-' + id}" data-th-src="${image.url}" />
-  <input class="js_img_caption" />
-  <div class="js_remove-part">remove</div>
-  <div class="js_move-part" data-type="top">
-    top
-  </div>
-  <div class="js_move-part" data-type="bot">
-    bot
-  </div>
+    <img data-th-id="${'js_single-part-' + id}" data-th-src="${image.url}" />
+    <div class="create_article-image_editor-caption js_img_caption" 
+        contenteditable="true">Введите здесь подпись для картинки</div>
+    <div class="create_article-editor_actions">
+        <div class="create_article-editor_actions-remove js_remove-part"></div>
+        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
+        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+    </div>
 </div>

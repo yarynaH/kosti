@@ -38,7 +38,6 @@
       content: '';
       border: $stroke-width solid $color;
       width: $width;
-      transition: transition(transform);
   }
 
   &::after {
