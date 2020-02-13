@@ -192,7 +192,6 @@ function removeEditor(id) {
 }
 
 $(".js_title-div").on("input", function() {
-  console.log("test");
   $(".js_title-input").val(
     $(this)
       .text()
@@ -206,4 +205,12 @@ $(".js_intro-div").on("input", function() {
       .text()
       .trim()
   );
+});
+
+$(".js_intro-div").on("focus", function() {
+  $(this).text($(".js_intro-input").val());
+});
+
+$(".js_title-div").on("focus", function() {
+  $(this).text($(".js_title-input").val());
 });

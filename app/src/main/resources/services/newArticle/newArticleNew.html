@@ -36,14 +36,12 @@
           <div class="form-group">
             <h1
               id="article-title-input"
-              name="title"
-              required
               contenteditable="true"
               class="post-title js_title-div"
             >
               Введите здесь название статьи
             </h1>
-            <input type="hidden" required class="js_title-input" />
+            <input name="title" type="hidden" required class="js_title-input" />
           </div>
         </div>
         <div class="blog-content">
@@ -53,15 +51,18 @@
                 <div
                   contenteditable="true"
                   id="article-intro-input"
-                  name="intro"
                   class="post-text js_intro-div"
-                  required
                 >
                   Введите здесь краткий текст, который опишет о чем именно будет
                   статья. Появляется при просмотре списка статей. Не появляется
                   на странице самой статьи.
                 </div>
-                <input type="hidden" required class="js_intro-input" />
+                <input
+                  name="intro"
+                  type="hidden"
+                  required
+                  class="js_intro-input"
+                />
               </div>
               <div class="create_article-add_img-wrap">
                 <label
