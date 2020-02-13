@@ -1,3 +1,52 @@
+
+
+@mixin absolute($args: ()) {
+  @include position(absolute, $args);
+}
+
+@mixin center-v($args: (), $height: null) {
+  $offsets: join(top 50%, $args);
+
+  @if not $height {
+      @include absolute($offsets);
+
+      transform: translate(0, -50%);
+  }
+
+  @else if is-valid-length($height) {
+      @include absolute($offsets);
+
+      margin-top: -($height / 2);
+      height: $height;
+  }
+
+  @else {
+      @warn 'Invalid argument $height: #{$height}';
+  }
+}
+
+@mixin plus-minus (
+  $width: 10px,
+  $stroke-width: 1px,
+  $position: left 5px,
+  $color: $color-primary1
+) {
+  &::before,
+  &::after {
+      @include center-v($position);
+
+      content: '';
+      border: $stroke-width solid $color;
+      width: $width;
+      transition: transition(transform);
+  }
+
+  &::after {
+      transform: rotate(90deg);
+      margin-top: -1px;
+  }
+}
+
 ///
 /// Mixin which truncate text
 ///
