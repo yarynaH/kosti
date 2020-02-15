@@ -116,14 +116,17 @@
     @if $filename == upload {
         $char: "\F13D";
     }
-    @if $filename == views {
+    @if $filename == video {
         $char: "\F13E";
     }
-    @if $filename == vk {
+    @if $filename == views {
         $char: "\F13F";
     }
-    @if $filename == youtube {
+    @if $filename == vk {
         $char: "\F140";
+    }
+    @if $filename == youtube {
+        $char: "\F141";
     }
 
     @return $char;
@@ -178,6 +181,7 @@ category: Basic
     <div class="sg-icon icon-twitch" title="twitch"></div>
     <div class="sg-icon icon-twitter" title="twitter"></div>
     <div class="sg-icon icon-upload" title="upload"></div>
+    <div class="sg-icon icon-video" title="video"></div>
     <div class="sg-icon icon-views" title="views"></div>
     <div class="sg-icon icon-vk" title="vk"></div>
     <div class="sg-icon icon-youtube" title="youtube"></div>
@@ -273,6 +277,9 @@ category: Basic
 }
 .icon-upload {
     @include icon(upload);
+}
+.icon-video {
+    @include icon(video);
 }
 .icon-views {
     @include icon(views);

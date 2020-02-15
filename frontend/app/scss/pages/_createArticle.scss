@@ -1,4 +1,8 @@
 .create_article {
+    &-post_text_wrap {
+        margin-bottom: 25px;
+    }
+
     &-add_main_img {
         display: flex;
         flex-direction: column-reverse;
@@ -198,6 +202,23 @@
                 background: $color-primary10;
                 color: $color-primary1;
             }
+        }
+    }
+}
+
+.article-page-create_article {
+    .article-content {
+        padding: 30px 15px;
+    
+        @include tablet-all {
+            padding: 30px 30px;
+        }
+    }
+
+    .error {
+        .post-title,
+        .post-text {
+            border-color: $color-primary32;
         }
     }
 }
