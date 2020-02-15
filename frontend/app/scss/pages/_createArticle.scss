@@ -12,18 +12,28 @@
 
         &:hover,
         &:focus {
-            color: $color-primary1;
-    
-            .create_article-add_main_img-icon:after,
-            .create_article-add_main_img-icon:before {
-                border-color: $color-primary1;
+            @include tablet-all {
+                color: $color-primary1;
+        
+                .create_article-add_main_img-icon:after,
+                .create_article-add_main_img-icon:before {
+                    border-color: $color-primary1;
+                }
             }
         }
 
         &-wrap {
-            @include position(absolute, top 200px right 0);
+            @include tablet-all {
+                @include position(absolute, top 150px right 20px);
 
-            width: 200px;
+                width: 200px;
+            }
+
+
+            @include mobile {
+                margin-bottom: 25px;
+            }
+
             text-align: center;
         }
 
@@ -68,11 +78,13 @@
             transition: transition(color);
 
             &:hover {
-                color: $color-primary6;
+                @include tablet-all {
+                    color: $color-primary6;
 
-                .create_article-add_content-icon:before,
-                .create_article-add_content-icon:after {
-                    border-color: $color-primary6;
+                    .create_article-add_content-icon:before,
+                    .create_article-add_content-icon:after {
+                        border-color: $color-primary6;
+                    }
                 }
             }
         }
@@ -121,6 +133,10 @@
             margin-bottom: 25px;
         }
     } //END of .create_article-add_content
+
+    &-video_editor {
+        margin-bottom: 25px;
+    }
 
     &-tinymce_editor {
         position: relative;
@@ -199,8 +215,10 @@
             transition: transition(all);
 
             &:hover {
-                background: $color-primary10;
-                color: $color-primary1;
+                @include tablet-all {
+                    background: $color-primary10;
+                    color: $color-primary1;
+                }
             }
         }
     }
