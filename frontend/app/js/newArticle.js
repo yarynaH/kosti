@@ -21,12 +21,12 @@ $("#newArticleForm").on("submit", function(e) {
   var result = [];
   $(".js_single-part").each(function() {
     var part = $(this);
-    if (part.hasClass("tinymce-editor")) {
+    if (part.hasClass("js_tinymce-editor")) {
       var value = tinymce
         .get("js_single-part-" + part.data().tinymce)
         .getContent();
       result.push({ type: "text", value: value });
-    } else if (part.hasClass("image-editor")) {
+    } else if (part.hasClass("js_image-editor")) {
       result.push({
         type: "image",
         value: part.data().imageid,
@@ -97,7 +97,7 @@ $("#article-image-input").on("change", function(e) {
 
 $(".js_parts-block").on("click", ".js_remove-part", function() {
   var btn = $(this);
-  var parent = btn.parent();
+  var parent = btn.parent().parent();
   if (parent.data("tinymce") !== undefined && parent.data("tinymce") !== null) {
     removeEditor(parent.data("tinymce"));
   }
@@ -106,7 +106,7 @@ $(".js_parts-block").on("click", ".js_remove-part", function() {
 
 $(".js_parts-block").on("click", ".js_move-part", function() {
   var btn = $(this);
-  var parent = btn.parent();
+  var parent = btn.parent().parent();
   moveElement(parent.data().id, btn.data().type);
 });
 
@@ -173,7 +173,7 @@ function moveElement(id, direction) {
     }
   }
   if (el2.length) {
-    $(".tinymce-editor").each(function() {
+    $(".js_tinymce-editor").each(function() {
       reinitializeEditor($(this).data().id);
     });
   }
@@ -207,10 +207,30 @@ $(".js_intro-div").on("input", function() {
   );
 });
 
+$(".js_parts-block").on("input", ".js_img_caption", function() {
+  $(this)
+    .parent()
+    .find(".js_img_caption_input")
+    .val(
+      $(this)
+        .text()
+        .trim()
+    );
+});
+
 $(".js_intro-div").on("focus", function() {
   $(this).text($(".js_intro-input").val());
 });
 
 $(".js_title-div").on("focus", function() {
   $(this).text($(".js_title-input").val());
+});
+
+$(".js_parts-block").on("focus", ".js_img_caption", function() {
+  $(this).text(
+    $(this)
+      .parent()
+      .find(".js_img_caption_input")
+      .val()
+  );
 });
