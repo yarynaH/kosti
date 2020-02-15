@@ -31,6 +31,9 @@ function handlePut(req) {
       case "imageMain":
         result = articlesLib.createImage(data);
         break;
+      case "videoPart":
+        result = articlesLib.getVideoComponent(data);
+        break;
       default:
         break;
     }

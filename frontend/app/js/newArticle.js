@@ -68,6 +68,14 @@ $(".js_add-text").on("click", function() {
   addPart(form_data, initEditor);
 });
 
+$(".js_add-video").on("click", function() {
+  var id = getNextId();
+  var form_data = new FormData();
+  form_data.append("type", "videoPart");
+  form_data.append("form", "true");
+  addPart(form_data);
+});
+
 $(".js_add-image input").on("change", function(e) {
   var file_data = $(this).prop("files")[0];
   var form_data = new FormData();

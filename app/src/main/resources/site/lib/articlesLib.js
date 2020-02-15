@@ -13,6 +13,7 @@ exports.createArticle = createArticle;
 exports.createImage = createImage;
 exports.insertComponents = insertComponents;
 exports.getTextComponent = getTextComponent;
+exports.getVideoComponent = getVideoComponent;
 
 function createArticle(data) {
   return contextLib.runInDraftAsAdmin(function() {
@@ -116,6 +117,28 @@ function getTextComponent(data) {
       resolve("../../services/newArticle/components/text.html"),
       {
         id: data.id
+      }
+    )
+  };
+}
+
+function getVideoComponent(data) {
+  var url = data.videoId;
+  var videoId = null;
+  if (url) {
+    if (url.split("?v=")[1]) {
+      videoId = "https://www.youtube.com/embed/" + url.split("?v=")[1];
+    } else {
+      videoId = "https://www.youtube.com/embed/" + url;
+    }
+  }
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/video.html"),
+      {
+        id: data.id,
+        form: data.form,
+        videoId: videoId
       }
     )
   };
