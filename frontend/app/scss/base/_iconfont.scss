@@ -89,44 +89,47 @@
     @if $filename == network {
         $char: "\F134";
     }
-    @if $filename == pin-location {
+    @if $filename == new_arrow {
         $char: "\F135";
     }
-    @if $filename == quote {
+    @if $filename == pin-location {
         $char: "\F136";
     }
-    @if $filename == rock {
+    @if $filename == quote {
         $char: "\F137";
     }
-    @if $filename == search {
+    @if $filename == rock {
         $char: "\F138";
     }
-    @if $filename == share {
+    @if $filename == search {
         $char: "\F139";
     }
-    @if $filename == text {
+    @if $filename == share {
         $char: "\F13A";
     }
-    @if $filename == twitch {
+    @if $filename == text {
         $char: "\F13B";
     }
-    @if $filename == twitter {
+    @if $filename == twitch {
         $char: "\F13C";
     }
-    @if $filename == upload {
+    @if $filename == twitter {
         $char: "\F13D";
     }
-    @if $filename == video {
+    @if $filename == upload {
         $char: "\F13E";
     }
-    @if $filename == views {
+    @if $filename == video {
         $char: "\F13F";
     }
-    @if $filename == vk {
+    @if $filename == views {
         $char: "\F140";
     }
-    @if $filename == youtube {
+    @if $filename == vk {
         $char: "\F141";
+    }
+    @if $filename == youtube {
+        $char: "\F142";
     }
 
     @return $char;
@@ -172,6 +175,7 @@ category: Basic
     <div class="sg-icon icon-instagram" title="instagram"></div>
     <div class="sg-icon icon-logout" title="logout"></div>
     <div class="sg-icon icon-network" title="network"></div>
+    <div class="sg-icon icon-new_arrow" title="new_arrow"></div>
     <div class="sg-icon icon-pin-location" title="pin-location"></div>
     <div class="sg-icon icon-quote" title="quote"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
@@ -250,6 +254,9 @@ category: Basic
 }
 .icon-network {
     @include icon(network);
+}
+.icon-new_arrow {
+    @include icon(new_arrow);
 }
 .icon-pin-location {
     @include icon(pin-location);
