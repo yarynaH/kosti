@@ -210,7 +210,6 @@ function checkArticleStatus(id) {
   var article = contextLib.runInDraft(function() {
     return contentLib.get({ key: id });
   });
-  norseUtils.log(user);
   if (!article) {
     return {
       author: false,

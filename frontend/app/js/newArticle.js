@@ -17,6 +17,7 @@ $("#newArticleForm").on("submit", function(e) {
   if (!$("#newArticleForm").valid()) {
     return false;
   }
+  var file_data = $("#article-image-input").prop("files")[0];
   var partsLength = parseInt($(".js_single-part").length);
   var result = [];
   $(".js_single-part").each(function() {
@@ -45,7 +46,6 @@ $("#newArticleForm").on("submit", function(e) {
         .trim()
     }
   };
-  var file_data = $("#article-image-input").prop("files")[0];
   var form_data = new FormData();
   form_data.append("image", file_data);
   form_data.append("data", JSON.stringify(data));
@@ -84,6 +84,10 @@ $(".js_add-video").on("click", function() {
 
 $(".js_add-image input").on("change", function(e) {
   var file_data = $(this).prop("files")[0];
+  if (!validateImage(file_data)) {
+    showSnackBar("Картинки такого типа не поддерживаются.", "error");
+    return false;
+  }
   var form_data = new FormData();
   form_data.append("file", file_data);
   form_data.append("type", "imagePart");
@@ -93,6 +97,10 @@ $(".js_add-image input").on("change", function(e) {
 
 $("#article-image-input").on("change", function(e) {
   var file_data = $(this).prop("files")[0];
+  if (!validateImage(file_data)) {
+    showSnackBar("Картинки такого типа не поддерживаются.", "error");
+    return false;
+  }
   var form_data = new FormData();
   form_data.append("file", file_data);
   form_data.append("json", "true");
@@ -248,3 +256,9 @@ $(".js_parts-block").on("focus", ".js_img_caption", function() {
       .val()
   );
 });
+
+function validateImage(img) {
+  var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
+
+  return img && acceptedImageTypes.includes(img["type"]);
+}
