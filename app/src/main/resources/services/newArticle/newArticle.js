@@ -1,5 +1,4 @@
 var thymeleaf = require("/lib/thymeleaf");
-var authLib = require("/lib/xp/auth");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var i18nLib = require("/lib/xp/i18n");
@@ -9,7 +8,6 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
-var spellLib = require(libLocation + "spellsLib");
 var articlesLib = require(libLocation + "articlesLib");
 var blogLib = require(libLocation + "blogLib");
 
@@ -63,6 +61,7 @@ function handlePost(req) {
     } else {
       result = {
         error: false,
+        article: article,
         message: i18nLib.localize({
           key: "user.newArticle.success",
           locale: "ru"
@@ -85,10 +84,7 @@ function handleGet(req) {
     var view = resolve("newArticleNew.html");
     var user = userLib.getCurrentUser();
     if (!user) {
-      return {
-        body: helpers.getLoginRequest(),
-        contentType: "text/html"
-      };
+      return helpers.getLoginRequest();
     }
     var model = createModel();
     var body = thymeleaf.render(view, model);
@@ -104,7 +100,6 @@ function handleGet(req) {
       up = {};
     }
     var content = portal.getContent();
-    var response = [];
     var site = portal.getSiteConfig();
     var model = {
       content: content,

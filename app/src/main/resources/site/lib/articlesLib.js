@@ -14,10 +14,12 @@ exports.createImage = createImage;
 exports.insertComponents = insertComponents;
 exports.getTextComponent = getTextComponent;
 exports.getVideoComponent = getVideoComponent;
+exports.checkArticleStatus = checkArticleStatus;
 
 function createArticle(data) {
+  var user = userLib.getCurrentUser();
   return contextLib.runInDraftAsAdmin(function() {
-    var article = createArticleObject(data.params);
+    var article = createArticleObject(data.params, user);
     if (!article.error) {
       article = insertComponents(article._id, data.components);
     }
@@ -25,7 +27,7 @@ function createArticle(data) {
   });
 }
 
-function createArticleObject(data) {
+function createArticleObject(data, user) {
   var site = portal.getSiteConfig();
   var articleExist = checkIfArticleExist(data.title);
   if (articleExist) {
@@ -35,7 +37,6 @@ function createArticleObject(data) {
     };
   }
   var blog = contentLib.get({ key: site.blogLocation });
-  var user = userLib.getCurrentUser();
   var stream = portal.getMultipartStream("image");
   var image = createImageObj(stream, user);
   var result = contentLib.create({
@@ -202,4 +203,24 @@ function generatePageJson(data) {
     }
   });
   return componentsJson;
+}
+
+function checkArticleStatus(id) {
+  var user = userLib.getCurrentUser();
+  var article = contextLib.runInDraft(function() {
+    return contentLib.get({ key: id });
+  });
+  norseUtils.log(user);
+  if (!article) {
+    return {
+      author: false,
+      published: false,
+      exists: false
+    };
+  }
+  return {
+    author: article.data.author === user._id,
+    published: article.publish && article.publish.from ? true : false,
+    exists: article ? true : false
+  };
 }

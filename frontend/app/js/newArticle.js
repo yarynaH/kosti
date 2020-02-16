@@ -49,6 +49,7 @@ $("#newArticleForm").on("submit", function(e) {
   var form_data = new FormData();
   form_data.append("image", file_data);
   form_data.append("data", JSON.stringify(data));
+  showLoader();
   $.ajax({
     url: "/create",
     data: form_data,
@@ -56,7 +57,12 @@ $("#newArticleForm").on("submit", function(e) {
     contentType: false,
     type: "POST",
     success: function(data) {
-      showSnackBar(data.message, data.error ? "error" : "success");
+      hideLoader();
+      if (!data.error && data.article && data.article._id) {
+        window.location = "/article/edit?id=" + data.article._id;
+      } else {
+        showSnackBar(data.message, "error");
+      }
     }
   });
 });

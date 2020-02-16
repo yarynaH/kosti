@@ -260,7 +260,13 @@ function getRandomString() {
 }
 
 function getLoginRequest() {
-  return thymeleaf.render(resolve("../pages/components/user/loginError.html"), {
-    pageComponents: getPageComponents()
-  });
+  return {
+    body: thymeleaf.render(
+      resolve("../pages/components/user/loginError.html"),
+      {
+        pageComponents: getPageComponents()
+      }
+    ),
+    contentType: "text/html"
+  };
 }
