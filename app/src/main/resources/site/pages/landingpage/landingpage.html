@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html class="landingPage">
   <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="announce-page transparent-header">
+  <body class="announce-page transparent-header landingPage">
     <div
       data-th-remove="tag"
       data-th-utext="${pageComponents.loginRegisterModal}"
@@ -10,145 +10,35 @@
 
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="main-top">
-        <div class="announce blog_width">
-          <div class="announce-image">
-            <img
-              data-th-src="${portal.assetUrl({'_path=images/announce/poster.png'})}"
-              alt="Картинка анонса"
-            />
-          </div>
-          <div class="announce-info">
-            <div class="announce-date">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/date.png'})}"
-                alt="10-12 Мая Ужгород"
-              />
-            </div>
-            <h3 class="announce-countdown_title">Начало через:</h3>
-            <div class="announce-countdown">
-              <span class="announce-item">
-                <span
-                  class="announce-value announce-value__days"
-                  id="days"
-                ></span>
-                <span class="announce-label">ДНЕЙ</span>
-              </span>
-              <span class="announce-value">:</span>
-              <span class="announce-item">
-                <span class="announce-value" id="hours"></span>
-                <span class="announce-label">ЧАСОВ</span>
-              </span>
-              <span class="announce-value">:</span>
-              <span class="announce-item">
-                <span class="announce-value" id="minutes"></span>
-                <span class="announce-label">МИНУТ</span>
-              </span>
-              <span class="announce-value">:</span>
-              <span class="announce-item">
-                <span class="announce-value" id="seconds"></span>
-                <span class="announce-label">СЕКУНД</span>
-              </span>
-            </div>
-            <div class="announce-action">
-              <a
-                data-th-href="${shopUrl}"
-                class="announce-buy_ticket"
-                title="Купить Билет"
-                >КУПИТЬ БИЛЕТ</a
+      <div class="landingWrapper">
+        <div>
+          <div class="landingHeading">
+            <div class="landingTitle">KOSTICON2020</div>
+            <div class="landingCounter">
+              <span id="days" data-th-text="${timeRemaining.days}">00</span>
+              <span class="landingTimeSeparator">:</span>
+              <span id="hours" data-th-text="${timeRemaining.hours}">00</span>
+              <span class="landingTimeSeparator">:</span>
+              <span id="minutes" data-th-text="${timeRemaining.minutes}"
+                >00</span
               >
-              <span class="announce-caption"
-                >Билеты только по предпродаже!</span
+              <span class="landingTimeSeparator">:</span>
+              <span id="seconds" data-th-text="${timeRemaining.seconds}"
+                >00</span
               >
             </div>
-            <div class="announce-place">
-              <div class="announce-place-text">
-                <div class="announce-place_name">Совиное Гнездо</div>
-                <div class="announce-place_street">ул. Ференца Ракоци, 2</div>
-              </div>
-            </div>
           </div>
-        </div>
-      </div>
-      <div class="main-bottom">
-        <div class="announce blog_width">
-          <div class="announce-image">
-            <img
-              data-th-src="${portal.assetUrl({'_path=images/announce/details.png'})}"
-              alt="Картинка анонса"
-            />
-          </div>
-          <div class="announce-info">
-            <h3 class="announce-countdown_title">Вас ждут культовые игры!</h3>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/dungeons-dragons.png'})}"
-                alt="Dungeons & Dragons"
-              />
+          <div class="landingContacts">
+            <div class="landingSubscribe">
+              <div data-th-text="${'оставьте нам свой мейл'}"></div>
+              <input type="text" />
+              <button>Submit</button>
             </div>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/vampire.png'})}"
-                alt="vampire the masquerade"
-              />
-            </div>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/cyber-punk.png'})}"
-                alt="Cyberpunk"
-              />
-            </div>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/koriolis.png'})}"
-                alt="Кориолис"
-              />
-            </div>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/call-of-cthulhu.png'})}"
-                alt="Сall of Сthulhu"
-              />
-            </div>
-            <h3 class="announce-countdown_subtitle">И многие другие…</h3>
-          </div>
-        </div>
-        <div class="latest_news">
-          <div class="blog_width">
-            <div class="freshest">
-              <h4 class="latest_news-title">САМОЕ СВЕЖЕЕ</h4>
-              <div class="latest_news-iframe_wrap">
-                <iframe data-th-src="${video}"> </iframe>
-              </div>
-            </div>
-            <div class="schedule">
-              <h4 class="latest_news-title">РАСПИСАНИЕ</h4>
+            <div class="landingTelegram">
               <div
-                data-th-each="scheduleItem: ${schedule}"
-                class="schedule-item"
-                data-th-style="${'background-image:url(\'' + scheduleItem.image.url} + '\')'"
-              >
-                <div class="schedule-content">
-                  <div class="schedule-date">
-                    <span class="date" data-th-text="${scheduleItem.day}"
-                      >7</span
-                    >
-                    <span class="month" data-th-text="${scheduleItem.month}"
-                      >Декабрь</span
-                    >
-                  </div>
-                  <h3
-                    class="schedule-title"
-                    data-th-text="${scheduleItem.displayName}"
-                  >
-                    Дело Кобольдское
-                  </h3>
-                  <div class="tag-list tag-list__small hidden">
-                    <a href="#" class="tag-item">D&D</a>
-                    <a href="#" class="tag-item">5e</a>
-                  </div>
-                </div>
-              </div>
+                data-th-text="${'найди друзай с кем поехать на костикон'}"
+              ></div>
+              <button>Telegram</button>
             </div>
           </div>
         </div>
