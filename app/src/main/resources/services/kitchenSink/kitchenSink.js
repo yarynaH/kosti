@@ -16,9 +16,16 @@ exports.get = function(req) {
   var qr = qrLib(4, "L");
   qr.addData("KOSTICON2020");
   qr.make();
-  var html = thymeleaf.render(resolve("kitchenSink.html"), {
-    qrcode: qr.createTableTag(15, 0)
-  });
+  var html = thymeleaf.render(
+    /*resolve("kitchenSink.html"),
+    {
+      qrcode: qr.createTableTag(15, 0)
+    }*/
+    resolve("../../site/pages/pdfs/regularTicket.html"),
+    {
+      qrcode: qr.createTableTag(7, 0)
+    }
+  );
   if (req.params.pdf) {
     var bean = __.newBean("com.myurchenko.lib.pdf.PdfHandler");
     return {
