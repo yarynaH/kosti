@@ -21,6 +21,7 @@ public class PdfHandler {
 
     renderer.setDocument(doc, null);
     renderer.getFontResolver().addFont("assets/fonts/openSans.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+    renderer.getFontResolver().addFont("assets/fonts/Bahnschrift.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
     renderer.layout();
     renderer.createPDF(out);
     out.flush();
