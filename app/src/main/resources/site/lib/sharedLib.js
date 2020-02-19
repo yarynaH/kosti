@@ -10,10 +10,13 @@ exports.getSite = getSite;
 exports.getSiteConfig = getSiteConfig;
 exports.getShopUrl = getShopUrl;
 
-function connectRepo(id) {
+function connectRepo(id, branch) {
+  if (!branch) {
+    var branch = "master";
+  }
   return nodeLib.connect({
     repoId: id,
-    branch: "master"
+    branch: branch
   });
 }
 

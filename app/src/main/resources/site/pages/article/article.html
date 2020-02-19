@@ -44,6 +44,10 @@
         <div class="blog-content">
           <div class="article-body">
             <div class="article-content" data-portal-region="main">
+              <section data-th-if="${audio}">
+                <p data-th-text="${content.data.intro}"></p>
+                <div data-th-utext="${audio}"></div>
+              </section>
               <div
                 data-th-if="${content.data.body}"
                 data-th-utext="${content.data.body}"

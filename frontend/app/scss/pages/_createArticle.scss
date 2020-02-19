@@ -1,0 +1,242 @@
+.create_article {
+  &-post_text_wrap {
+    margin-bottom: 25px;
+  }
+
+  &-add_main_img {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    transition: transition(color);
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      @include tablet-all {
+        color: $color-primary1;
+
+        .create_article-add_main_img-icon:after,
+        .create_article-add_main_img-icon:before {
+          border-color: $color-primary1;
+        }
+      }
+    }
+
+    &-wrap {
+      @include tablet-all {
+        @include position(absolute, top 205px right 65px);
+
+        width: 200px;
+      }
+
+      @include mobile {
+        margin-bottom: 25px;
+      }
+
+      text-align: center;
+    }
+
+    &-icon {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      margin-bottom: 10px;
+
+      &:after,
+      &:before {
+        @include position(absolute, top 50% left 0);
+
+        transform: translate(0, -50%);
+        content: "";
+        border: 2px solid $color-primary7;
+        width: 24px;
+        transition: transition(border-color);
+      }
+
+      &:before {
+        transform: rotate(90deg);
+        margin-top: -1px;
+      }
+    }
+  } // END OF .create_article-add_main_img
+
+  &-add_content {
+    width: 100%;
+    margin: 15px 0 25px;
+    padding: 10px;
+    border: 2px dashed $color-primary7;
+    background: $color-primary1;
+
+    &-btn {
+      padding: 30px 0;
+      text-align: center;
+      color: $color-primary1;
+      font-size: rem(12);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transition(color);
+
+      &:hover {
+        @include tablet-all {
+          color: $color-primary6;
+
+          .create_article-add_content-icon:before,
+          .create_article-add_content-icon:after {
+            border-color: $color-primary6;
+          }
+        }
+      }
+    }
+
+    &-icon {
+      @include plus-minus(24px, 2px, left 0);
+
+      position: relative;
+      padding-left: 34px;
+
+      &:before,
+      &:after {
+        transition: transition(border-color);
+      }
+    }
+
+    &-inner {
+      width: 100%;
+      height: 100%;
+      background: $color-primary7;
+    }
+
+    &-actions {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+    }
+
+    &-action {
+      color: $color-primary1;
+      font-size: rem(12);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transition(color);
+
+      &:hover {
+        color: $color-primary6;
+      }
+
+      &:before {
+        padding-right: 10px;
+      }
+    }
+
+    .post-text {
+      margin-bottom: 25px;
+    }
+  } //END of .create_article-add_content
+
+  &-video_editor {
+    margin-bottom: 25px;
+  }
+
+  &-tinymce_editor {
+    position: relative;
+    margin-bottom: 25px;
+  }
+
+  &-image_editor {
+    position: relative;
+    margin: 0 -30px 25px;
+
+    img {
+      margin-bottom: 25px;
+    }
+
+    &-caption {
+      margin: 0 15px;
+      font-size: rem(14);
+      font-style: italic;
+      color: $color-primary28;
+      border-bottom: 1px solid transparent;
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $color-primary16;
+      }
+
+      @include tablet-all {
+        margin: 0 30px;
+      }
+    }
+
+    .create_article-editor_actions {
+      left: 0;
+    }
+  }
+
+  &-editor_actions {
+    @include position(absolute, top 0 left -30px);
+
+    width: 30px;
+
+    &-remove {
+      @include icon(delete);
+
+      &:before {
+        font-size: 20px;
+      }
+    }
+
+    &-top {
+      @include icon(new_arrow);
+
+      &:before {
+        font-size: 20px;
+      }
+    }
+
+    &-bot {
+      @include icon(new_arrow);
+
+      &:before {
+        font-size: 20px;
+        transform: rotate(180deg);
+      }
+    }
+
+    &-remove,
+    &-top,
+    &-bot {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background: rgba($color-primary1, 0.5);
+      transition: transition(all);
+
+      &:hover {
+        @include tablet-all {
+          background: $color-primary10;
+          color: $color-primary1;
+        }
+      }
+    }
+  }
+}
+
+.article-page-create_article {
+  .article-content {
+    padding: 30px 15px;
+
+    @include tablet-all {
+      padding: 30px 30px;
+    }
+  }
+
+  .error {
+    .post-title,
+    .post-text {
+      border-color: $color-primary32;
+    }
+  }
+}

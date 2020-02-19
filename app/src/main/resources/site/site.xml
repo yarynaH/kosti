@@ -159,6 +159,9 @@
     <mapping controller="/services/newArticle/newArticle.js">
       <pattern>/create</pattern>
     </mapping>
+    <mapping controller="/services/newArticle/edit.js">
+      <pattern>/article/edit</pattern>
+    </mapping>
     <mapping controller="/services/checkout/controllers/liqpay.js">
       <pattern>/payment-processing</pattern>
     </mapping>

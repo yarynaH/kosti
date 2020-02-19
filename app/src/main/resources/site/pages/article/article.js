@@ -52,9 +52,18 @@ function handleReq(req) {
       );
     }
     content = blogLib.beautifyArticle(content);
+    let audio = null;
+    if (content.type === app.name + ":podcast" && content.data.audioFile) {
+      audio = thymeleaf.render(resolve("../../parts/audio/audio.html"), {
+        audioUrl: portal.attachmentUrl({
+          name: content.data.audioFile
+        })
+      });
+    }
 
     var model = {
       content: content,
+      audio: audio,
       sidebar: blogLib.getSidebar(),
       mainRegion: mainRegion,
       removeCommentModal: removeCommentModal,

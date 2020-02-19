@@ -452,7 +452,7 @@ exports.getTranslation = function() {
 function getImage(id, size, placeholderType, urlType) {
   var result = false;
   if (!size || size == "") {
-    size = "max(1280)";
+    size = "max(1366)";
   }
   if (typeof urlType == "undefined") {
     urlType = "server";
@@ -494,7 +494,8 @@ function getImage(id, size, placeholderType, urlType) {
         urlAbsolute: urlAbsolute,
         alt: image.data.caption ? image.data.caption : image.displayName,
         caption: image.data.caption ? image.data.caption : "",
-        artist: image.data.artist
+        artist: image.data.artist,
+        _id: image._id
       };
     } else {
       result = this.getPlaceholder(placeholderType, size);

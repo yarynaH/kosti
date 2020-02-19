@@ -21,6 +21,7 @@
 @import "base/loader";
 @import "base/back_to_top";
 @import "base/snackbar";
+@import "base/max";
 
 @import "components/mobile_menu";
 @import "components/header";
@@ -44,3 +45,4 @@
 @import "pages/searchpage";
 @import "pages/gameReg";
 @import "pages/viewOrders";
+@import "pages/createArticle";

@@ -1,0 +1,24 @@
+<div
+  data-th-class="${'create_article-image_editor js_image-editor image-editor js_single-part js_single-part-' + id}"
+  data-th-attr="data-imageid=${image._id}, data-id=${id}"
+>
+  <img data-th-id="${'js_single-part-' + id}" data-th-src="${image.url}" />
+  <div
+    class="create_article-image_editor-caption js_img_caption"
+    contenteditable="true"
+  >
+    Введите здесь подпись для картинки
+  </div>
+  <input type="hidden" class="js_img_caption_input" />
+  <div class="create_article-editor_actions">
+    <div class="create_article-editor_actions-remove js_remove-part"></div>
+    <div
+      class="create_article-editor_actions-top js_move-part"
+      data-type="top"
+    ></div>
+    <div
+      class="create_article-editor_actions-bot js_move-part"
+      data-type="bot"
+    ></div>
+  </div>
+</div>

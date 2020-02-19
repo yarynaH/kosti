@@ -168,6 +168,13 @@
 
     width: 100%;
 
+    &-placeholder {
+      background: $color-primary7;
+      height: 560px;
+      width: 100%;
+      display: block;
+    }
+
     &:after {
       @include position(absolute, top 0 right 0);
 
@@ -197,9 +204,15 @@
       font-size: rem(32);
       font-weight: bold;
       color: $color-primary13;
+      border-bottom: 1px solid transparent;
 
       @include tablet-all {
         font-size: rem(48);
+      }
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $color-primary1;
       }
     }
 
