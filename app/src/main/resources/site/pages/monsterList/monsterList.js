@@ -31,7 +31,7 @@ exports.get = function(req) {
     pageComponents: helpers.getPageComponents(req),
     monsters: monsters
   });
-  var fileNames = portal.assetUrl({ path: "encounterBuilder/src.ab113043.js" });
+  var fileNames = portal.assetUrl({ path: "encounterBuilder/src.f22229b2.js" });
   var fileNamess = portal.assetUrl({
     path: "encounterBuilder/src.541416be.css"
   });
