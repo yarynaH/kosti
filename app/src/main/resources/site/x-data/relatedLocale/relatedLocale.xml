@@ -1,0 +1,26 @@
+<x-data>
+  <display-name>Related locales</display-name>
+  <form>
+    <input name="en" type="ContentSelector">
+      <label>En</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="ru" type="ContentSelector">
+      <label>Ru</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="ua" type="ContentSelector">
+      <label>Ua</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+  </form>
+</x-data>

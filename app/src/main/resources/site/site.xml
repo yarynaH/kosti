@@ -130,6 +130,7 @@
       <occurrences minimum="0" maximum="1"/>
     </item-set>
   </form>
+  <x-data name="relatedLocale"/>
 
   <mappings>
     <mapping controller="/services/monsterApi/monsterApi.js">
