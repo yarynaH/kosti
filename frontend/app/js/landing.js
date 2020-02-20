@@ -26,7 +26,6 @@ function initLandingScripts() {
       async: false,
       data: { email: email, lang: lang },
       success: function(data) {
-        console.log(data);
         showSnackBar(data.text, "kosticon2020");
       }
     });

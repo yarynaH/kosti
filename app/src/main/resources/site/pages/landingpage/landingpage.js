@@ -14,12 +14,6 @@ exports.get = handleReq;
 exports.post = handlePost;
 
 function handlePost(req) {
-  norseUtils.log(
-    i18nLib.localize({
-      key: "kosticon2020.landing.thanks",
-      locale: req.params.lang
-    })
-  );
   if (req && req.params && req.params.email) {
     if (newsletterLib.addEmailToNewsletter(req.params.email)) {
       return {
