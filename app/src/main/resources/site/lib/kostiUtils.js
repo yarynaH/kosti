@@ -2,6 +2,8 @@ var contentLib = require("/lib/xp/content");
 var portal = require("/lib/xp/portal");
 var norseUtils = require("norseUtils");
 
+exports.getRelatedLocales = getRelatedLocales;
+
 //Takes post creation date in '2014-10-10' string format as an argument
 //and return string with how much time past since creation date
 exports.getTimePassedSincePostCreation = function(postCreationDate) {
@@ -130,4 +132,23 @@ function getMinutesDifference(dateString) {
     now = new Date().getTime();
 
   return Math.round((now - creationDate) / 60 / 1000);
+}
+
+function getRelatedLocales(content) {
+  if (
+    content &&
+    content.x &&
+    content.x["com-myurchenko-kostirpg"] &&
+    content.x["com-myurchenko-kostirpg"].relatedLocale
+  ) {
+    var relatedLocale = content.x["com-myurchenko-kostirpg"].relatedLocale;
+    if (relatedLocale) {
+      return {
+        en: portal.pageUrl({ id: relatedLocale.en }),
+        ru: portal.pageUrl({ id: relatedLocale.ru }),
+        ua: portal.pageUrl({ id: relatedLocale.ua })
+      };
+    }
+  }
+  return {};
 }

@@ -50,15 +50,11 @@ function handleReq(req) {
 
   function createModel() {
     var up = req.params;
-    if (up && up.lang) {
-      var lang = up.lang;
-    } else {
-      var lang = "ru";
-    }
+    var content = portal.getContent();
 
     var model = {
-      lang: lang,
-      content: portal.getContent(),
+      content: content,
+      relatedLocales: kostiUtils.getRelatedLocales(content),
       timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
       pageComponents: helpers.getPageComponents(req)
     };

@@ -19,27 +19,27 @@
             />
           </a>
         </div>
-        <ul class="landing-lang-list">
+        <ul class="landing-lang-list" data-th-if="${relatedLocales}">
           <li class="landing-lang-item">
             <a
-              data-th-classappend="${lang == 'ru' ? 'active' :''}"
-              data-th-href="${portal.pageUrl({'_path='+content._path})}"
+              data-th-classappend="${content.language == 'ru' ? 'active' :''}"
+              data-th-href="${relatedLocales.ru}"
               class="landing-lang-link"
               >RU</a
             >
           </li>
           <li class="landing-lang-item">
             <a
-              data-th-classappend="${lang == 'ua' ? 'active' :''}"
-              data-th-href="${portal.pageUrl({'_path='+content._path, 'lang=ua'})}"
+              data-th-classappend="${content.language == 'ua' ? 'active' :''}"
+              data-th-href="${relatedLocales.ua}"
               class="landing-lang-link"
               >UA</a
             >
           </li>
           <li class="landing-lang-item">
             <a
-              data-th-classappend="${lang == 'en' ? 'active' :''}"
-              data-th-href="${portal.pageUrl({'_path='+content._path, 'lang=en'})}"
+              data-th-classappend="${content.language == 'en' ? 'active' :''}"
+              data-th-href="${relatedLocales.en}"
               class="landing-lang-link"
               >EN</a
             >
