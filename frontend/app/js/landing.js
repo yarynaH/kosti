@@ -11,8 +11,35 @@ function initCountdown() {
   }
 }
 
+function initLandingScripts() {
+  $(".js_landing-subscribe-form").on("submit", function(e) {
+    e.preventDefault();
+    if (!$(this).valid()) {
+      return false;
+    }
+    var email = $(this)
+      .find("input[name=email]")
+      .val();
+    $.ajax({
+      url: "",
+      type: "POST",
+      async: false,
+      data: { email: email, lang: lang },
+      success: function(data) {
+        console.log(data);
+        showSnackBar(data.text, "kosticon2020");
+      }
+    });
+  });
+  $(".js_landing-subscribe-form").validate({
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
+}
+
 $(document).ready(function() {
   initCountdown();
+  initLandingScripts();
 });
 
 function countdown(endDate) {

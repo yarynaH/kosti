@@ -7,9 +7,34 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
+var newsletterLib = require(libLocation + "newsletterLib");
+var i18nLib = require("/lib/xp/i18n");
 
 exports.get = handleReq;
-exports.post = handleReq;
+exports.post = handlePost;
+
+function handlePost(req) {
+  norseUtils.log(
+    i18nLib.localize({
+      key: "kosticon2020.landing.thanks",
+      locale: req.params.lang
+    })
+  );
+  if (req && req.params && req.params.email) {
+    if (newsletterLib.addEmailToNewsletter(req.params.email)) {
+      return {
+        body: {
+          text: i18nLib.localize({
+            key: "kosticon2020.landing.thanks",
+            locale: req.params.lang
+          })
+        },
+        contentType: "application/json"
+      };
+    }
+  }
+  return false;
+}
 
 function handleReq(req) {
   var me = this;
@@ -31,8 +56,15 @@ function handleReq(req) {
 
   function createModel() {
     var up = req.params;
+    if (up && up.lang) {
+      var lang = up.lang;
+    } else {
+      var lang = "ru";
+    }
 
     var model = {
+      lang: lang,
+      content: portal.getContent(),
       timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
       pageComponents: helpers.getPageComponents(req)
     };
