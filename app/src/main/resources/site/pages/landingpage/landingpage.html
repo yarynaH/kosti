@@ -2,158 +2,265 @@
 <html>
   <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="announce-page transparent-header">
+  <body class="landing-page transparent-header landingPage">
     <div
       data-th-remove="tag"
       data-th-utext="${pageComponents.loginRegisterModal}"
     ></div>
 
-    <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main">
-      <div class="main-top">
-        <div class="announce blog_width">
-          <div class="announce-image">
+    <header class="header landing-header">
+      <div class="site_width">
+        <div class="header-logo">
+          <!-- BE TO DO: ADD CORRECT LINK  and correct logotype-->
+          <a href="#">
             <img
-              data-th-src="${portal.assetUrl({'_path=images/announce/poster.png'})}"
-              alt="Картинка анонса"
+              data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}"
+              alt="Vechernie kosti logo"
             />
-          </div>
-          <div class="announce-info">
-            <div class="announce-date">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/date.png'})}"
-                alt="10-12 Мая Ужгород"
-              />
-            </div>
-            <h3 class="announce-countdown_title">Начало через:</h3>
-            <div class="announce-countdown">
-              <span class="announce-item">
+          </a>
+        </div>
+        <ul class="landing-lang-list">
+          <li class="landing-lang-item">
+            <a
+              data-th-classappend="${lang == 'ru' ? 'active' :''}"
+              data-th-href="${portal.pageUrl({'_path='+content._path})}"
+              class="landing-lang-link"
+              >RU</a
+            >
+          </li>
+          <li class="landing-lang-item">
+            <a
+              data-th-classappend="${lang == 'ua' ? 'active' :''}"
+              data-th-href="${portal.pageUrl({'_path='+content._path, 'lang=ua'})}"
+              class="landing-lang-link"
+              >UA</a
+            >
+          </li>
+          <li class="landing-lang-item">
+            <a
+              data-th-classappend="${lang == 'en' ? 'active' :''}"
+              data-th-href="${portal.pageUrl({'_path='+content._path, 'lang=en'})}"
+              class="landing-lang-link"
+              >EN</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main class="main landing-main">
+      <div class="landing-wrapper">
+        <div class="landing-inner blog_width">
+          <div class="landing-top">
+            <div class="landing-top-text">
+              <div class="landing-caption-wrap">
                 <span
-                  class="announce-value announce-value__days"
-                  id="days"
-                ></span>
-                <span class="announce-label">ДНЕЙ</span>
-              </span>
-              <span class="announce-value">:</span>
-              <span class="announce-item">
-                <span class="announce-value" id="hours"></span>
-                <span class="announce-label">ЧАСОВ</span>
-              </span>
-              <span class="announce-value">:</span>
-              <span class="announce-item">
-                <span class="announce-value" id="minutes"></span>
-                <span class="announce-label">МИНУТ</span>
-              </span>
-              <span class="announce-value">:</span>
-              <span class="announce-item">
-                <span class="announce-value" id="seconds"></span>
-                <span class="announce-label">СЕКУНД</span>
-              </span>
-            </div>
-            <div class="announce-action">
-              <a
-                data-th-href="${shopUrl}"
-                class="announce-buy_ticket"
-                title="Купить Билет"
-                >КУПИТЬ БИЛЕТ</a
-              >
-              <span class="announce-caption"
-                >Билеты только по предпродаже!</span
-              >
-            </div>
-            <div class="announce-place">
-              <div class="announce-place-text">
-                <div class="announce-place_name">Совиное Гнездо</div>
-                <div class="announce-place_street">ул. Ференца Ракоци, 2</div>
+                  class="landing-caption"
+                  data-th-text="${portal.localize({'_key=kosticon2020.landing.title', '_locale='+lang})}"
+                  >фестиваль настольных ролевых игр</span
+                >
+                <span
+                  class="landing-info"
+                  data-th-text="${portal.localize({'_key=kosticon2020.landing.date', '_locale='+lang})}"
+                  >ужгород 21-24 мая</span
+                >
+              </div>
+              <div class="landing-kosticon_img">
+                <picture>
+                  <source
+                    data-th-srcset="${portal.assetUrl({'_path=images/kosticon2020/kosticon-logo.png'})}"
+                    media="(min-width: 767px)"
+                  />
+                  <img
+                    data-th-src="${portal.assetUrl({'_path=images/kosticon2020/kosticon-logo-mobile.png'})}"
+                  />
+                </picture>
+              </div>
+              <div class="landing-counter">
+                <span class="landing-counter-item">
+                  <span class="landing-counter-value">
+                    <span
+                      id="days"
+                      class="landing-counter-qty"
+                      data-th-text="${timeRemaining.days}"
+                      >00</span
+                    >
+                    <span class="landing-counter-separator">:</span>
+                  </span>
+                  <span
+                    class="landing-counter-label"
+                    data-th-text="${portal.localize({'_key=kosticon2020.landing.days', '_locale='+lang})}"
+                    >дней</span
+                  >
+                </span>
+                <span class="landing-counter-item">
+                  <span class="landing-counter-value">
+                    <span
+                      id="hours"
+                      class="landing-counter-qty"
+                      data-th-text="${timeRemaining.hours}"
+                      >00</span
+                    >
+                    <span class="landing-counter-separator">:</span>
+                  </span>
+                  <span
+                    class="landing-counter-label"
+                    data-th-text="${portal.localize({'_key=kosticon2020.landing.hours', '_locale='+lang})}"
+                    >часов</span
+                  >
+                </span>
+                <span class="landing-counter-item">
+                  <span class="landing-counter-value">
+                    <span
+                      id="minutes"
+                      class="landing-counter-qty"
+                      data-th-text="${timeRemaining.minutes}"
+                      >00</span
+                    >
+                    <span class="landing-counter-separator">:</span>
+                  </span>
+                  <span
+                    class="landing-counter-label"
+                    data-th-text="${portal.localize({'_key=kosticon2020.landing.minutes', '_locale='+lang})}"
+                    >минут</span
+                  >
+                </span>
+                <span class="landing-counter-item">
+                  <span class="landing-counter-value">
+                    <span
+                      id="seconds"
+                      class="landing-counter-qty"
+                      data-th-text="${timeRemaining.seconds}"
+                      >00</span
+                    >
+                  </span>
+                  <span
+                    class="landing-counter-label"
+                    data-th-text="${portal.localize({'_key=kosticon2020.landing.seconds', '_locale='+lang})}"
+                    >секунд</span
+                  >
+                </span>
               </div>
             </div>
+            <div class="landing-top-image">
+              <picture>
+                <source
+                  data-th-srcset="${portal.assetUrl({'_path=images/kosticon2020/snake-logo.png'})}"
+                  media="(min-width: 767px)"
+                />
+                <img
+                  data-th-src="${portal.assetUrl({'_path=images/kosticon2020/snake-logo-mobile.png'})}"
+                />
+              </picture>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="main-bottom">
-        <div class="announce blog_width">
-          <div class="announce-image">
+          <div class="landing-bot">
+            <form
+              class="landing-bot-item landing-bot-subscribe js_landing-subscribe-form"
+            >
+              <h3
+                class="landing-title"
+                data-th-text="${portal.localize({'_key=kosticon2020.landing.subscribe.title', '_locale='+lang})}"
+              >
+                Подпишись на рассылку
+              </h3>
+              <p
+                class="landing-description"
+                data-th-text="${portal.localize({'_key=kosticon2020.landing.subscribe.description', '_locale='+lang})}"
+              >
+                Не пропусти начало продажи билетов.
+              </p>
+              <div class="landing-subscribe-wrap">
+                <input
+                  class="landing-subscribe-input"
+                  type="text"
+                  name="email"
+                  id="landingEmailInput"
+                  required
+                />
+                <button class="landing-subscribe-btn " type="submit">
+                  <span
+                    class="landing-subscribe-text"
+                    data-th-text="${portal.localize({'_key=kosticon2020.landing.subscribe.button', '_locale='+lang})}"
+                    >Подписаться
+                  </span>
+                  <span class="icon-selected"></span>
+                </button>
+              </div>
+            </form>
+            <div class="landing-bot-item landing-bot-telegram">
+              <h3
+                class="landing-title"
+                data-th-text="${portal.localize({'_key=kosticon2020.landing.telegram.title', '_locale='+lang})}"
+              >
+                Чат фестиваля
+              </h3>
+              <p
+                class="landing-description"
+                data-th-text="${portal.localize({'_key=kosticon2020.landing.telegram.description', '_locale='+lang})}"
+              >
+                Найдите попутчиков и соседей.
+              </p>
+              <ul class="landing-actions-list">
+                <li class="landing-actions-item">
+                  <a href="" class="landing-link">Telegram</a>
+                </li>
+              </ul>
+            </div>
+            <div class="landing-bot-item landing-bot-registration">
+              <h3
+                class="landing-title"
+                data-th-text="${portal.localize({'_key=kosticon2020.landing.registration.title', '_locale='+lang})}"
+              >
+                Регистрация
+              </h3>
+              <p
+                class="landing-description"
+                data-th-text="${portal.localize({'_key=kosticon2020.landing.registration.description', '_locale='+lang})}"
+              >
+                Для желающих принять участие.
+              </p>
+              <ul class="landing-actions-list">
+                <li class="landing-actions-item">
+                  <a
+                    href=""
+                    class="landing-link"
+                    data-th-text="${portal.localize({'_key=kosticon2020.landing.registration.button.masters', '_locale='+lang})}"
+                    >МАСТЕРА</a
+                  >
+                </li>
+                <li class="landing-actions-item">
+                  <a
+                    href=""
+                    class="landing-link"
+                    data-th-text="${portal.localize({'_key=kosticon2020.landing.registration.button.lecturer', '_locale='+lang})}"
+                    >ЛЕКТОРЫ</a
+                  >
+                </li>
+                <li class="landing-actions-item">
+                  <a
+                    href=""
+                    class="landing-link"
+                    data-th-text="${portal.localize({'_key=kosticon2020.landing.registration.button.cosplayer', '_locale='+lang})}"
+                    >КОСПЛЕЕРЫ</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="landing-snake_logo">
             <img
-              data-th-src="${portal.assetUrl({'_path=images/announce/details.png'})}"
-              alt="Картинка анонса"
+              data-th-src="${portal.assetUrl({'_path=images/kosticon2020/snake-logo-white.png'})}"
             />
           </div>
-          <div class="announce-info">
-            <h3 class="announce-countdown_title">Вас ждут культовые игры!</h3>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/dungeons-dragons.png'})}"
-                alt="Dungeons & Dragons"
-              />
-            </div>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/vampire.png'})}"
-                alt="vampire the masquerade"
-              />
-            </div>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/cyber-punk.png'})}"
-                alt="Cyberpunk"
-              />
-            </div>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/koriolis.png'})}"
-                alt="Кориолис"
-              />
-            </div>
-            <div class="announce-info-image">
-              <img
-                data-th-src="${portal.assetUrl({'_path=images/announce/call-of-cthulhu.png'})}"
-                alt="Сall of Сthulhu"
-              />
-            </div>
-            <h3 class="announce-countdown_subtitle">И многие другие…</h3>
-          </div>
-        </div>
-        <div class="latest_news">
-          <div class="blog_width">
-            <div class="freshest">
-              <h4 class="latest_news-title">САМОЕ СВЕЖЕЕ</h4>
-              <div class="latest_news-iframe_wrap">
-                <iframe data-th-src="${video}"> </iframe>
-              </div>
-            </div>
-            <div class="schedule">
-              <h4 class="latest_news-title">РАСПИСАНИЕ</h4>
-              <div
-                data-th-each="scheduleItem: ${schedule}"
-                class="schedule-item"
-                data-th-style="${'background-image:url(\'' + scheduleItem.image.url} + '\')'"
-              >
-                <div class="schedule-content">
-                  <div class="schedule-date">
-                    <span class="date" data-th-text="${scheduleItem.day}"
-                      >7</span
-                    >
-                    <span class="month" data-th-text="${scheduleItem.month}"
-                      >Декабрь</span
-                    >
-                  </div>
-                  <h3
-                    class="schedule-title"
-                    data-th-text="${scheduleItem.displayName}"
-                  >
-                    Дело Кобольдское
-                  </h3>
-                  <div class="tag-list tag-list__small hidden">
-                    <a href="#" class="tag-item">D&D</a>
-                    <a href="#" class="tag-item">5e</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+      <footer
+        class="footer hidden"
+        data-th-utext="${pageComponents.footer}"
+      ></footer>
+      <script type="text/javascript" data-th-inline="javascript">
+        var lang = [[${lang}]];
+      </script>
     </main>
-    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
   </body>
 </html>

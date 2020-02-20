@@ -1,0 +1,377 @@
+.landing {
+  &-page {
+    background-color: #000000;
+    font-family: $font-additional-regular;
+
+    .blog_width {
+      padding: 0 20px;
+
+      @include tablet-all {
+        max-width: 924px;
+      }
+    }
+  }
+
+  &-main {
+    background-image: url("../images/kosticon2020/background-mobile.png");
+    background-position: top;
+    background-color: #000000;
+
+    @include tablet-all {
+      background-image: url("../images/kosticon2020/background.png");
+      background-position: center;
+    }
+  }
+
+  &-wrapper {
+    @include mobile {
+      position: relative;
+      overflow: hidden;
+    }
+  }
+
+  &-inner {
+    div {
+      z-index: 5;
+    }
+    position: relative;
+
+    &:after {
+      @include desktop {
+        background-image: url("../images/kosticon2020/deco-bg.png");
+        background-position: left center;
+        content: "";
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: -55px;
+      }
+    }
+  }
+
+  &-header.header {
+    background: transparent;
+    box-shadow: none;
+
+    &:after {
+      content: none;
+    }
+
+    .site_width {
+      max-width: 950px;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      @include tablet {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      @include desktop {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+
+  &-lang {
+    &-list {
+      display: flex;
+    }
+
+    &-link {
+      display: inline-block;
+      padding: 4px;
+      font-size: rem(14);
+      font-weight: 600;
+      color: rgba($color-primary1, 0.5);
+      text-transform: uppercase;
+
+      &.active,
+      &:hover {
+        color: $color-primary1;
+      }
+    }
+  }
+
+  &-caption {
+    font-size: rem(12);
+    font-weight: bold;
+    color: $color-primary1;
+
+    @include tablet-all {
+      font-size: rem(14);
+    }
+  }
+
+  &-info {
+    display: inline-block;
+    padding: 5px;
+    background-color: #ee1e5d;
+    font-size: rem(12);
+    font-weight: bold;
+    color: #ffffff;
+
+    @include mobile {
+      margin-bottom: 5px;
+    }
+
+    @include tablet-all {
+      font-size: rem(14);
+    }
+  }
+
+  &-caption-wrap {
+    margin-bottom: 10px;
+
+    @include mobile {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: baseline;
+    }
+  }
+
+  &-kosticon_img {
+    margin-bottom: 10px;
+  }
+
+  &-top {
+    margin-bottom: 40px;
+
+    @include tablet-all {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 70px;
+    }
+  }
+
+  &-top-image {
+    @include mobile {
+      position: absolute;
+      right: -72px;
+      top: 176px;
+    }
+
+    @include tablet-all {
+      padding-left: 90px;
+    }
+
+    img {
+      @include mobile {
+        height: 190px;
+      }
+    }
+  }
+
+  &-top-text {
+    @include tablet-all {
+      flex: 0 0 56%;
+    }
+  }
+
+  &-counter-separator,
+  &-counter-qty {
+    font-size: 40px;
+
+    @include tablet-all {
+      font-size: 92px;
+      letter-spacing: -6px;
+    }
+
+    @include tablet {
+      font-size: 64px;
+    }
+  }
+
+  &-counter-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &-counter {
+    display: flex;
+  }
+
+  &-counter-separator {
+    @include mobile {
+      padding-right: 7px;
+    }
+  }
+
+  &-counter-value {
+    font-weight: normal;
+    color: #ee1e5d;
+  }
+
+  &-counter-label {
+    font-size: rem(14);
+    font-weight: bold;
+    color: $color-primary1;
+  }
+
+  &-bot {
+    @include tablet-all {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 100px;
+    }
+
+    @include mobile {
+      margin-bottom: 30px;
+    }
+  }
+
+  &-bot-item {
+    @include tablet-all {
+      display: flex;
+      flex-direction: column;
+    }
+
+    & + & {
+      @include mobile {
+        margin-top: 40px;
+      }
+    }
+  }
+
+  &-bot-subscribe {
+    @include tablet-all {
+      min-width: 330px;
+      padding-right: 40px;
+    }
+  }
+  &-bot-telegram {
+    @include tablet-all {
+      padding-right: 40px;
+    }
+  }
+
+  &-actions-list {
+    margin-top: auto;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    @include tablet-portrait {
+      display: block;
+    }
+  }
+
+  &-actions-item {
+    & + & {
+      @include tablet-portrait {
+        margin-top: 10px;
+      }
+      @include desktop {
+        margin-left: 25px;
+      }
+    }
+  }
+
+  &-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ee1e5d;
+    margin-bottom: 10px;
+  }
+
+  &-description {
+    font-size: 14px;
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 15px;
+  }
+
+  &-link {
+    font-size: 16px;
+    color: #3aa4e4;
+    text-transform: uppercase;
+
+    &:hover {
+      @include tablet-all {
+        color: #ee1e5d;
+      }
+    }
+  }
+
+  &-subscribe-input {
+    border: solid 1px #3aa4e4;
+    background-color: #101b21;
+    border-radius: 0;
+    color: #ee1e5d;
+    height: 42px;
+    padding-right: 60px;
+
+    @include mobile {
+      margin-bottom: 7px;
+    }
+  }
+
+  &-subscribe-wrap {
+    position: relative;
+
+    @include tablet {
+      margin-top: auto;
+    }
+  }
+
+  &-subscribe-btn {
+    width: 100%;
+
+    @include mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+      background: #3aa4e4;
+      color: #ffffff;
+      text-transform: uppercase;
+      font-size: 16px;
+      border: 1px solid #3aa4e4;
+    }
+
+    @include tablet-all {
+      position: absolute;
+      top: auto;
+      right: 0;
+      height: 100%;
+      width: 50px;
+      background-color: #3aa4e4;
+      border: 1px solid #3aa4e4;
+      color: white;
+    }
+
+    &:hover {
+      @include tablet-all {
+        color: #ee1e5d;
+      }
+    }
+
+    .icon-selected {
+      font-size: 14px;
+
+      @include mobile {
+        margin-left: 10px;
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  &-subscribe-text {
+    @include tablet-all {
+      display: none;
+    }
+  }
+
+  &-snake_logo {
+    max-width: 80px;
+    margin: 0 auto;
+
+    @include tablet-all {
+      display: none;
+    }
+  }
+}

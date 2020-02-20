@@ -10,6 +10,7 @@ var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var blogLib = require(libLocation + "blogLib");
 var sharedLib = require(libLocation + "sharedLib");
+var storeLib = require(libLocation + "storeLib");
 var hashtagLib = require(libLocation + "hashtagLib");
 
 var youtubeCache = cache.newCache({

@@ -104,32 +104,35 @@
     @if $filename == search {
         $char: "\F139";
     }
-    @if $filename == share {
+    @if $filename == selected {
         $char: "\F13A";
     }
-    @if $filename == text {
+    @if $filename == share {
         $char: "\F13B";
     }
-    @if $filename == twitch {
+    @if $filename == text {
         $char: "\F13C";
     }
-    @if $filename == twitter {
+    @if $filename == twitch {
         $char: "\F13D";
     }
-    @if $filename == upload {
+    @if $filename == twitter {
         $char: "\F13E";
     }
-    @if $filename == video {
+    @if $filename == upload {
         $char: "\F13F";
     }
-    @if $filename == views {
+    @if $filename == video {
         $char: "\F140";
     }
-    @if $filename == vk {
+    @if $filename == views {
         $char: "\F141";
     }
-    @if $filename == youtube {
+    @if $filename == vk {
         $char: "\F142";
+    }
+    @if $filename == youtube {
+        $char: "\F143";
     }
 
     @return $char;
@@ -180,6 +183,7 @@ category: Basic
     <div class="sg-icon icon-quote" title="quote"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
+    <div class="sg-icon icon-selected" title="selected"></div>
     <div class="sg-icon icon-share" title="share"></div>
     <div class="sg-icon icon-text" title="text"></div>
     <div class="sg-icon icon-twitch" title="twitch"></div>
@@ -269,6 +273,9 @@ category: Basic
 }
 .icon-search {
     @include icon(search);
+}
+.icon-selected {
+    @include icon(selected);
 }
 .icon-share {
     @include icon(share);
