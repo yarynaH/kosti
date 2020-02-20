@@ -32,6 +32,7 @@ function addComment(parent, body, articleId) {
     parent: parent,
     user: user,
     articleId: articleId,
+    createdDate: new Date(),
     _permissions: [
       {
         principal: "role:system.authenticated",
@@ -152,6 +153,9 @@ function upvote(user, node) {
     if (!node.votes) {
       node.votes = [];
     }
+    if (!node.createdDate) {
+      node.createdDate = node._ts;
+    }
     var temp = norseUtils.forceArray(node.votes);
     temp.push(user);
     node.votes = temp;
@@ -167,6 +171,9 @@ function downvote(user, node) {
     editor: editor
   });
   function editor(node) {
+    if (!node.createdDate) {
+      node.createdDate = node._ts;
+    }
     node.votes = norseUtils.forceArray(node.votes);
     node.votes.splice(node.votes.indexOf(user), 1);
     node.rate = node.votes.length;
@@ -215,11 +222,20 @@ function beautifyComment(comment, counter, level) {
     comment.nextLevel = true;
   }
   if (!counter) {
+    if (comment.createdDate) {
+      var date = comment.createdDate;
+    } else {
+      var date = comment._ts;
+    }
     comment.date = kostiUtils.getTimePassedSincePostCreation(
-      comment._ts.replace("Z", "")
+      date.replace("Z", "")
     );
     comment.author = userLib.getUserDataById(comment.user);
     comment.voted = comment.votes && comment.votes.indexOf(user.key) !== -1;
+    if (comment.articleId) {
+      comment.url =
+        portalLib.pageUrl({ id: comment.articleId }) + "#" + comment._id;
+    }
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
   return comment;

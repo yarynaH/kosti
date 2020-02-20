@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Podcast</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input type="AttachmentUploader" name="audioFile">
+      <label>Audio file</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="image" type="ImageSelector">
+      <label>Image</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="intro" type="TextArea">
+      <label>Description</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="author" type="ContentSelector">
+      <label>Author</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowContentType>com.myurchenko.kostirpg:user</allowContentType>
+      </config>
+    </input>
+    <input name="hashtags" type="ContentSelector">
+      <label>Hashtags</label>
+      <occurrences minimum="0" maximum="5"/>
+      <config>
+        <allowContentType>hashtag</allowContentType>
+      </config>
+    </input>
+    <input name="episode" type="TextLine">
+      <label>Episode</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="season" type="TextLine">
+      <label>Season</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="duration" type="TextLine">
+      <label>Duration</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="explicit" type="CheckBox">
+      <label>Explicit</label>
+      <occurrences minimum="0" maximum="1"/>
+      <default>checked</default>
+    </input>
+    <input name="similarArticles" type="ContentSelector">
+      <label>Similar articles</label>
+      <occurrences minimum="0" maximum="3"/>
+      <config>
+        <allowContentType>article</allowContentType>
+        <allowContentType>podcast</allowContentType>
+      </config>
+    </input>
+  </form>
+</content-type>

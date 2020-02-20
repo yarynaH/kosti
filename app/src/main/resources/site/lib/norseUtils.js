@@ -452,7 +452,7 @@ exports.getTranslation = function() {
 function getImage(id, size, placeholderType, urlType) {
   var result = false;
   if (!size || size == "") {
-    size = "max(1280)";
+    size = "max(1366)";
   }
   if (typeof urlType == "undefined") {
     urlType = "server";

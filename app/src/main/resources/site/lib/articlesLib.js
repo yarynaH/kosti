@@ -89,17 +89,17 @@ function createImageObj(stream, user) {
   var site = portal.getSiteConfig();
   var path = contentLib.get({ key: site.userImages })._path;
   var date = new Date();
-  var image = contextLib.runInDraftAsAdmin(function() {
-    return contentLib.createMedia({
+  return contextLib.runInDraftAsAdmin(function() {
+    var image = contentLib.createMedia({
       name: hashLib.generateHash(user.displayName + date.toISOString()),
       parentPath: path,
       data: stream
     });
+    var publishResult = contentLib.publish({
+      keys: [image._id],
+      sourceBranch: "draft",
+      targetBranch: "master"
+    });
+    return image;
   });
-  var publishResult = contentLib.publish({
-    keys: [image._id],
-    sourceBranch: "draft",
-    targetBranch: "master"
-  });
-  return image;
 }

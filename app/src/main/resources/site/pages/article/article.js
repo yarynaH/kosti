@@ -21,12 +21,19 @@ function handleReq(req) {
     var model = createModel();
     var body = thymeleaf.render(view, model);
     var fileName = portal.assetUrl({ path: "js/comments.js" });
+    //TODO: refactor script injecions
+    var player = portal.assetUrl({ path: "lib/player56s.js" });
+    var styles = portal.assetUrl({ path: "lib/player56s.css" });
     // Return the result
     return {
       body: body,
       contentType: "text/html",
       pageContributions: {
-        bodyEnd: ["<script src='" + fileName + "'></script>"]
+        bodyEnd: [
+          "<script src='" + fileName + "'></script>",
+          "<script src='" + player + "'></script>",
+          "<link href='" + styles + "' rel='stylesheet'/>"
+        ]
       }
     };
   }
@@ -52,9 +59,20 @@ function handleReq(req) {
       );
     }
     content = blogLib.beautifyArticle(content);
+    let audio = null;
+    if (content.type === app.name + ":podcast" && content.data.audioFile) {
+      audio = thymeleaf.render(resolve("../../parts/audio/audio.html"), {
+        audioUrl: portal.attachmentUrl({
+          name: content.data.audioFile
+        }),
+        title: content.displayName,
+        preview: req.mode === "edit"
+      });
+    }
 
     var model = {
       content: content,
+      audio: audio,
       sidebar: blogLib.getSidebar(),
       mainRegion: mainRegion,
       removeCommentModal: removeCommentModal,

@@ -12,130 +12,86 @@ var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 
 exports.get = function(req) {
-  for (var p = 1; p < 23; p++) {
-    norseUtils.log(p);
-    var data = JSON.parse(
-      httpClientLib.request({
-        url: "https://api.open5e.com/monsters/?page=" + p,
-        method: "GET",
-        connectionTimeout: 2000000,
-        readTimeout: 500000
-      }).body
-    );
-    data = data.results;
-    for (var i = 0; i < data.length; i++) {
-      norseUtils.log(i);
-      var tempData = prepareData(data[i]);
-      createMonster(tempData);
-    }
+  var podcasts = contentLib.query({
+    start: 0,
+    limit: -1,
+    query: "",
+    contentTypes: [app.name + ":podcast"]
+  });
+  let episodes = [];
+  for (let i = 0; i < podcasts.hits.length; i++) {
+    episodes.push(beautifyEpisode(podcasts.hits[i]));
   }
+  let result = OBJtoXML({ channel: createPodcast(episodes) });
+  var view = resolve("kitchenSink.html");
+  var body = thymeleaf.render(view, { rssFeed: result });
+  return {
+    body: body,
+    contentType: "text/xml"
+  };
 
-  function createMonster(data) {
-    var site = portal.getSiteConfig();
-    var monstersLocation = contentLib.get({ key: site.monstersLocation });
-    var displayName = data.name;
-    var name = data.slug;
-    delete data.slug;
-    delete data.name;
-    return contextLib.runInDraftAsAdmin(function() {
-      var result = contentLib.create({
-        name: name,
-        parentPath: monstersLocation._path,
-        displayName: displayName,
-        contentType: app.name + ":monster",
-        data: data
-      });
-      return result;
+  function beautifyEpisode(episode) {
+    let type = episode.attachments[episode.data.audioFile].mimeType;
+    let size = episode.attachments[episode.data.audioFile].size;
+    let date = new Date(episode.publish.from);
+    date = date.toUTCString();
+    let fileUrl = portal.attachmentUrl({
+      id: episode._id,
+      type: "absolute",
+      name: episode.data.audioFile
     });
+    return {
+      title: episode.displayName,
+      description: episode.data.intro,
+      guid: episode._id,
+      link: portal.pageUrl({ id: episode._id, type: "absolute" }),
+      pubDate: date,
+      "itunes:explicit": episode.data.explicit,
+      enclosure: { url: fileUrl, length: size, type: type },
+      "itunes:episode": episode.data.episode,
+      "itunes:season": episode.data.season
+    };
   }
 
-  function prepareData(data) {
-    var mappedData = {};
-    if (data.skills) {
-      mappedData.skills = {
-        perception: data.skills.perception,
-        stealth: data.skills.stealth,
-        acrobatics: data.skills.acrobatics,
-        performance: data.skills.performance,
-        survival: data.skills.survival,
-        athletics: data.skills.athletics,
-        intimidation: data.skills.intimidation,
-        nature: data.skills.nature,
-        insight: data.skills.insight,
-        investigation: data.skills.investigation,
-        deception: data.skills.deception,
-        history: data.skills.history,
-        religion: data.skills.religion,
-        arcana: data.skills.arcana,
-        medicine: data.skills.medicine,
-        sleightOfHand: data.skills.sleightOfHand,
-        animalHandling: data.skills.animalHandling,
-        persuasion: data.skills.persuasion
-      };
-    }
-    if (data.speed) {
-      mappedData.speed = {
-        climb: data.speed.climb,
-        fly: data.speed.fly,
-        walk: data.speed.walk,
-        swim: data.speed.swim,
-        burrow: data.speed.burrow
-      };
-    }
+  function createPodcast(episodes) {
+    let year = new Date().getFullYear();
+    return {
+      title: "ЭНОА",
+      link: "https://www.kostirpg.com",
+      language: "ru-ru",
+      copyright: "&#169; " + year + " Вечерние Кости",
+      "itunes:author": "Вечерние Кости",
+      description: "Новая кампания по ЭНОА от Вечерние Кости.",
+      "itunes:type": "serial",
+      "itunes:owner": {
+        "itunes:name": "Вечерние Кости",
+        "itunes:email": "info@kostirpg.com"
+      },
+      "itunes:image": "",
+      "itunes:explicit": "true",
+      "itunes:category": "hobbies",
+      item: episodes
+    };
+  }
 
-    mappedData.armorClass = data.armor_class;
-    mappedData.hitPoints = data.hit_points;
-    mappedData.hitDice = data.hit_dice;
-    mappedData.alignmentOld = data.alignment;
-    mappedData.challengeRating = data.challenge_rating;
-    mappedData.armorDesc = data.armor_desc;
-    mappedData.size = data.size.toLowerCase();
-    mappedData.languages = data.languages;
-    mappedData.senses = data.senses;
-    mappedData.charisma = data.constitution;
-    mappedData.dexterity = data.dexterity;
-    mappedData.intelligence = data.intelligence;
-    mappedData.wisdom = data.wisdom;
-    mappedData.strength = data.strength;
-    mappedData.charismaSave = data.charisma_save;
-    mappedData.constitutionSave = data.constitution_save;
-    mappedData.dexteritySave = data.dexterity_save;
-    mappedData.intelligenceSave = data.intelligence_save;
-    mappedData.strengthSave = data.strength_save;
-    mappedData.wisdomSave = data.wisdom_save;
-    mappedData.spellList = data.spell_list;
-    mappedData.actions = data.actions
-      ? prepareActionsArray(data.actions)
-      : null;
-    mappedData.legendaryActions = data.legendary_actions
-      ? prepareActionsArray(data.legendary_actions)
-      : null;
-    mappedData.reactions = data.reactions
-      ? prepareActionsArray(data.reactions)
-      : null;
-    mappedData.specialAbilities = data.special_abilities
-      ? prepareActionsArray(data.special_abilities)
-      : null;
-    mappedData.damageVulnerabilities = data.damage_vulnerabilities;
-    mappedData.damageResistances = data.damage_resistances;
-    mappedData.damageImmunities = data.damage_immunities;
-    mappedData.conditionImmunities = data.condition_immunities;
-    mappedData.typeOld = data.type;
-    mappedData.subType = data.subtype;
-    mappedData.group = data.group;
-    mappedData.slug = data.slug;
-    mappedData.name = data.name;
-
-    return mappedData;
-
-    function prepareActionsArray(actions) {
-      actions = norseUtils.forceArray(actions);
-      for (var i = 0; i < actions.length; i++) {
-        delete actions[i].attack_bonus;
-        delete actions[i].damage_dice;
-        delete actions[i].damage_bonus;
+  function OBJtoXML(obj) {
+    var xml = "";
+    for (var prop in obj) {
+      xml += obj[prop] instanceof Array ? "" : "<" + prop + ">";
+      if (obj[prop] instanceof Array) {
+        for (var array in obj[prop]) {
+          xml += "<" + prop + ">";
+          xml += OBJtoXML(new Object(obj[prop][array]));
+          xml += "</" + prop + ">";
+        }
+      } else if (typeof obj[prop] == "object") {
+        xml += OBJtoXML(new Object(obj[prop]));
+      } else {
+        xml += obj[prop];
       }
-      return actions;
+      xml += obj[prop] instanceof Array ? "" : "</" + prop + ">";
     }
+    var xml = xml.replace(/<\/?[0-9]{1,}>/g, "");
+    return xml;
   }
 };
