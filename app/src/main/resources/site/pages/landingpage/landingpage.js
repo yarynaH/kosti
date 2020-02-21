@@ -9,13 +9,17 @@ var userLib = require(libLocation + "userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
 var newsletterLib = require(libLocation + "newsletterLib");
 var i18nLib = require("/lib/xp/i18n");
+var contextLib = require(libLocation + "contextLib");
 
 exports.get = handleReq;
 exports.post = handlePost;
 
 function handlePost(req) {
   if (req && req.params && req.params.email) {
-    if (newsletterLib.addEmailToNewsletter(req.params.email)) {
+    var result = contextLib.runInDraftAsAdmin(function() {
+      return newsletterLib.addEmailToNewsletter(req.params.email);
+    });
+    if (result) {
       return {
         body: {
           text: i18nLib.localize({
