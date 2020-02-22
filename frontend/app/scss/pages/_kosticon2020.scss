@@ -1,5 +1,8 @@
 .landing {
   &-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background-color: #000000;
     font-family: $font-additional-regular;
 
@@ -15,9 +18,12 @@
   &-main {
     background-image: url("../images/kosticon2020/background.jpg");
     background-position: top center;
-    background-size: cover;
+    background-size: 200%;
     background-color: #000000;
-    height: 100%;
+
+    @include tablet-all {
+      background-size: cover;
+    }
   }
 
   &-wrapper {
@@ -144,21 +150,27 @@
   }
 
   &-top {
-    margin-bottom: 40px;
+    @include mobile {
+      background-image: url("../images/kosticon2020/line.png");
+      background-position: left bottom;
+      position: relative;
+      padding-bottom: 30px;
+      margin-bottom: 20px;
+    }
 
     @include tablet-all {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 70px;
+      padding-bottom: 70px;
     }
   }
 
   &-top-image {
     @include mobile {
       position: absolute;
-      right: -72px;
-      top: 176px;
+      right: -84px;
+      bottom: -145px;
     }
 
     @include tablet-all {
@@ -232,7 +244,7 @@
     }
 
     @include mobile {
-      margin-bottom: 30px;
+      padding-bottom: 50px;
     }
   }
 
