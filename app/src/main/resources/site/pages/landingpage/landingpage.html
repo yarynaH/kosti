@@ -15,7 +15,7 @@
           <a href="#">
             <img
               data-th-src="${portal.assetUrl({'_path=images/kosticon2020/logo.png'})}"
-              alt="Vechernie kosti logo"
+              alt="kosticon2020 logo"
             />
           </a>
         </div>
@@ -53,18 +53,18 @@
           <div class="landing-top">
             <div class="landing-top-text">
               <div class="landing-caption-wrap">
-                <span
+                <h2
                   class="landing-caption"
                   data-th-text="${portal.localize({'_key=kosticon2020.landing.title', '_locale='+content.language})}"
-                  >фестиваль настольных ролевых игр</span
+                  >фестиваль настольных ролевых игр</h2
                 >
-                <span
+                <h2
                   class="landing-info"
                   data-th-text="${portal.localize({'_key=kosticon2020.landing.date', '_locale='+content.language})}"
-                  >ужгород 21-24 мая</span
+                  >ужгород 21-24 мая</h2
                 >
               </div>
-              <div class="landing-kosticon_img">
+              <h1 class="landing-kosticon_img">
                 <picture>
                   <source
                     data-th-srcset="${portal.assetUrl({'_path=images/kosticon2020/kosticon-logo.png'})}"
@@ -72,9 +72,10 @@
                   />
                   <img
                     data-th-src="${portal.assetUrl({'_path=images/kosticon2020/kosticon-logo-mobile.png'})}"
+                    alt="kosticon2020 logo"
                   />
                 </picture>
-              </div>
+              </h1>
               <div class="landing-counter">
                 <span class="landing-counter-item">
                   <span class="landing-counter-value">
@@ -146,9 +147,11 @@
                 <source
                   data-th-srcset="${portal.assetUrl({'_path=images/kosticon2020/snake-logo.png'})}"
                   media="(min-width: 767px)"
+                  alt="snake city logo"
                 />
                 <img
                   data-th-src="${portal.assetUrl({'_path=images/kosticon2020/snake-logo-mobile.png'})}"
+                  alt="snake city logo"
                 />
               </picture>
             </div>
@@ -258,6 +261,7 @@
           <div class="landing-snake_logo">
             <img
               data-th-src="${portal.assetUrl({'_path=images/kosticon2020/snake-logo-white.png'})}"
+              alt="snake city logo"
             />
           </div>
         </div>

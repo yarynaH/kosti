@@ -58,34 +58,43 @@ function initHeaderFunctions() {
       $(this).removeClass("new");
     }
   );
-  $(document).on("scroll", function() {
-    if ($(document).scrollTop() > 85) {
-      if (
-        $("body").hasClass("homepage") ||
-        $("body").hasClass("article-page") ||
-        $("body").hasClass("announce-page")
-      ) {
+  if (!$("body").hasClass("landing-page")) {
+    $(document).on("scroll", function() {
+      if ($(document).scrollTop() > 85) {
+        if (
+          $("body").hasClass("homepage") ||
+          $("body").hasClass("article-page")
+        ) {
+          $(".header").addClass("header-scroll");
+        }
+        if (!$(".header").hasClass("change-logo")) {
+          $(".header").addClass("change-logo");
+          setTimeout(function() {
+            $(".active_element").css(
+              "left",
+              activeEl.offset().left - 3 + activeEl.width() / 2
+            );
+          }, 100);
+        }
+      } else {
+        if ($(".header").hasClass("change-logo")) {
+          $(".header").removeClass("header-scroll change-logo");
+          setTimeout(function() {
+            $(".active_element").css(
+              "left",
+              activeEl.offset().left - 3 + activeEl.width() / 2
+            );
+          }, 100);
+        }
+      }
+    });
+  } else {
+    $(document).on("scroll", function() {
+      if ($(document).scrollTop()) {
         $(".header").addClass("header-scroll");
+      } else {
+        $(".header").removeClass("header-scroll");
       }
-      if (!$(".header").hasClass("change-logo")) {
-        $(".header").addClass("change-logo");
-        setTimeout(function() {
-          $(".active_element").css(
-            "left",
-            activeEl.offset().left - 3 + activeEl.width() / 2
-          );
-        }, 100);
-      }
-    } else {
-      if ($(".header").hasClass("change-logo")) {
-        $(".header").removeClass("header-scroll change-logo");
-        setTimeout(function() {
-          $(".active_element").css(
-            "left",
-            activeEl.offset().left - 3 + activeEl.width() / 2
-          );
-        }, 100);
-      }
-    }
-  });
+    });
+  }
 }

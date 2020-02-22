@@ -31,10 +31,8 @@
   }
 
   &-inner {
-    div {
-      z-index: 5;
-    }
     position: relative;
+    z-index: 1;
 
     &:after {
       @include desktop {
@@ -47,16 +45,23 @@
         width: 100%;
         top: 0;
         left: -55px;
+        z-index: -1;
       }
     }
   }
 
-  &-header.header {
+  &-header {
     background: transparent;
     box-shadow: none;
 
     &:after {
       content: none;
+    }
+
+    &.header-scroll {
+      &:after {
+        content: '';
+      }
     }
 
     .site_width {
@@ -100,6 +105,7 @@
   }
 
   &-caption {
+    display: inline-block;
     font-size: rem(12);
     font-weight: bold;
     color: $color-primary1;
@@ -298,6 +304,10 @@
         color: #ee1e5d;
       }
     }
+
+    &:focus {
+      color: #ee1e5d;
+    }
   }
 
   &-subscribe-input {
@@ -351,6 +361,10 @@
       @include tablet-all {
         color: #ee1e5d;
       }
+    }
+
+    &:focus {
+      color: #ee1e5d;
     }
 
     .icon-selected {
