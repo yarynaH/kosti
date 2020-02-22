@@ -15,8 +15,12 @@
   &-main {
     background-image: url("../images/kosticon2020/background.jpg");
     background-position: top center;
-    background-size: cover;
+    background-size: 200%;
     background-color: #000000;
+
+    @include tablet-all {
+      background-size: cover;
+    }
   }
 
   &-wrapper {
@@ -143,13 +147,17 @@
   }
 
   &-top {
-    margin-bottom: 40px;
+    padding-bottom: 40px;
+
+    @include mobile {
+      background-image: url("../images/kosticon2020/line.png");
+    }
 
     @include tablet-all {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 70px;
+      padding-bottom: 70px;
     }
   }
 
@@ -231,7 +239,7 @@
     }
 
     @include mobile {
-      margin-bottom: 30px;
+      padding-bottom: 50px;
     }
   }
 
