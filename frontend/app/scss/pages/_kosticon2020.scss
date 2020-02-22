@@ -13,14 +13,10 @@
   }
 
   &-main {
-    background-image: url("../images/kosticon2020/background-mobile.png");
-    background-position: top;
+    background-image: url("../images/kosticon2020/background.jpg");
+    background-position: top center;
+    background-size: cover;
     background-color: #000000;
-
-    @include tablet-all {
-      background-image: url("../images/kosticon2020/background.png");
-      background-position: center;
-    }
   }
 
   &-wrapper {
@@ -198,6 +194,12 @@
   &-counter-item {
     display: flex;
     flex-direction: column;
+
+    & + & {
+      .landing-counter-label {
+        padding-left: 10px;
+      }
+    }
   }
 
   &-counter {
