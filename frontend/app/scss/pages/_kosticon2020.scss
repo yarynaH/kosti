@@ -17,6 +17,7 @@
     background-position: top center;
     background-size: cover;
     background-color: #000000;
+    height: 100%;
   }
 
   &-wrapper {
@@ -56,7 +57,7 @@
 
     &.header-scroll {
       &:after {
-        content: '';
+        content: "";
       }
     }
 
