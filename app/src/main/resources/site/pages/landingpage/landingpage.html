@@ -12,7 +12,7 @@
       <div class="site_width">
         <div class="header-logo">
           <!-- BE TO DO: ADD CORRECT LINK  and correct logotype-->
-          <a href="#">
+          <a data-th-href="${frontPageUrl}">
             <img
               data-th-src="${portal.assetUrl({'_path=images/kosticon2020/logo.png'})}"
               alt="kosticon2020 logo"
@@ -56,13 +56,15 @@
                 <h2
                   class="landing-caption"
                   data-th-utext="${portal.localize({'_key=kosticon2020.landing.title', '_locale='+content.language})}"
-                  >фестиваль настольных ролевых игр</h2
                 >
+                  фестиваль настольных ролевых игр
+                </h2>
                 <h2
                   class="landing-info"
                   data-th-utext="${portal.localize({'_key=kosticon2020.landing.date', '_locale='+content.language})}"
-                  >ужгород 21-24 мая</h2
                 >
+                  ужгород 21-24 мая
+                </h2>
               </div>
               <h1 class="landing-kosticon_img">
                 <picture>

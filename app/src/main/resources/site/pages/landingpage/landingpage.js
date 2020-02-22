@@ -58,6 +58,7 @@ function handleReq(req) {
 
     var model = {
       content: content,
+      frontPageUrl: portal.pageUrl({ _path: portal.getSite()._path }),
       relatedLocales: kostiUtils.getRelatedLocales(content),
       timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
       pageComponents: helpers.getPageComponents(req)
