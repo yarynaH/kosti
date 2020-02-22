@@ -1,5 +1,8 @@
 .landing {
   &-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background-color: #000000;
     font-family: $font-additional-regular;
 
@@ -60,7 +63,7 @@
 
     &.header-scroll {
       &:after {
-        content: '';
+        content: "";
       }
     }
 
@@ -147,10 +150,12 @@
   }
 
   &-top {
-    padding-bottom: 40px;
-
     @include mobile {
       background-image: url("../images/kosticon2020/line.png");
+      background-position: left bottom;
+      position: relative;
+      padding-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     @include tablet-all {
@@ -164,8 +169,8 @@
   &-top-image {
     @include mobile {
       position: absolute;
-      right: -72px;
-      top: 176px;
+      right: -84px;
+      bottom: -145px;
     }
 
     @include tablet-all {
