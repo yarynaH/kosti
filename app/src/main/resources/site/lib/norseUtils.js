@@ -494,7 +494,8 @@ function getImage(id, size, placeholderType, urlType) {
         urlAbsolute: urlAbsolute,
         alt: image.data.caption ? image.data.caption : image.displayName,
         caption: image.data.caption ? image.data.caption : "",
-        artist: image.data.artist
+        artist: image.data.artist,
+        _id: image._id
       };
     } else {
       result = this.getPlaceholder(placeholderType, size);

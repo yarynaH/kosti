@@ -12,7 +12,7 @@ var fontName = "iconfont";
 
 gulp.task("build", function(callback) {
   gulpSequence(
-    ["sass", "images", "fonts", "js", "css", "lib"],
+    ["sass", "images", "fonts", "js", "css", "lib", "encounterBuilder"],
     "copy"
   )(callback);
 });
@@ -27,6 +27,12 @@ gulp.task("sass", function() {
 
 gulp.task("images", function() {
   return gulp.src("app/images/**/*").pipe(gulp.dest("build/images"));
+});
+
+gulp.task("encounterBuilder", function() {
+  return gulp
+    .src("app/encounterBuilder/**/*")
+    .pipe(gulp.dest("build/encounterBuilder"));
 });
 
 gulp.task("lib", function() {

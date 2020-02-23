@@ -31,9 +31,16 @@ exports.get = function(req) {
     pageComponents: helpers.getPageComponents(req),
     monsters: monsters
   });
-  var fileName = portal.assetUrl({ path: "js/monster.js" });
+  var fileNames = portal.assetUrl({ path: "encounterBuilder/src.d60558fe.js" });
+  var fileNamess = portal.assetUrl({
+    path: "encounterBuilder/src.541416be.css"
+  });
   return {
     body: body,
-    contentType: "text/html"
+    contentType: "text/html",
+    pageContributions: {
+      bodyEnd: ["<script src='" + fileNames + "'></script>"],
+      headBegin: ["<link rel='stylesheet' href='" + fileNamess + "'>"]
+    }
   };
 };
