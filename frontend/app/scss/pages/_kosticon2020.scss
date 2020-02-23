@@ -7,10 +7,11 @@
     font-family: $font-additional-regular;
 
     .blog_width {
-      padding: 0 20px;
+      padding: 0 15px;
 
       @include tablet-all {
         max-width: 924px;
+        padding: 0 20px;
       }
     }
   }
@@ -298,9 +299,14 @@
 
   &-actions-item {
     & + & {
+      @include tablet-landscape  {
+        margin-left: 10px;
+      }
+
       @include tablet-portrait {
         margin-top: 10px;
       }
+
       @include desktop {
         margin-left: 25px;
       }
@@ -322,7 +328,7 @@
   }
 
   &-link {
-    font-size: 16px;
+    font-size: 15px;
     color: #3aa4e4;
     text-transform: uppercase;
 
