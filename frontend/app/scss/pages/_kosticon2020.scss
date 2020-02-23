@@ -31,14 +31,24 @@
       position: relative;
       overflow: hidden;
     }
+
+    @media only screen and (max-width : #{$breakpoint-portrait-max}) {
+      height: 100%;
+    }
   }
 
   &-inner {
     position: relative;
     z-index: 1;
 
+    @media only screen and (max-width : #{$breakpoint-portrait-max}) {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
     &:after {
-      @include desktop {
+      @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
         background-image: url("../images/kosticon2020/deco-bg.png");
         background-position: left center;
         content: "";
@@ -399,11 +409,46 @@
   }
 
   &-snake_logo {
-    max-width: 80px;
-    margin: 0 auto;
+    position: relative;
+    margin-bottom: 50px;
 
-    @include tablet-all {
+    @include tablet {
+      margin-top: auto;
+    }
+
+    @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
       display: none;
+    }
+
+    &::before,
+    &::after {
+      @media only screen and (max-width : #{$breakpoint-portrait-max}) {
+        position: absolute;
+        top: 50%;
+        width: calc(50% - 33px);
+        height: 1px;
+        content: '';
+        background-image: url("../images/kosticon2020/line.png");
+      }
+    }
+
+    &::before {
+      @media only screen and (max-width : #{$breakpoint-portrait-max}) {
+        right: -20px;
+        background-position: center right;
+      }
+    }
+
+    &::after {
+      @media only screen and (max-width : #{$breakpoint-portrait-max}) {
+        left: -20px;
+        background-position: center left;
+      }
+    }
+
+    &-img_wrap {
+      max-width: 60px;
+      margin: 0 auto;
     }
   }
 }
