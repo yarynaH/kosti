@@ -449,7 +449,8 @@ function addBookmark(contentId) {
   var publishResult = contentLib.publish({
     keys: [user._id],
     sourceBranch: "master",
-    targetBranch: "draft"
+    targetBranch: "draft",
+    includeDependencies: false
   });
   function userEditor(user) {
     var temp = norseUtils.forceArray(user.data.bookmarks);
