@@ -40,9 +40,15 @@ $("#newArticleForm").on("submit", function(e) {
     var hashtag = $(this);
     hashtags.push(hashtag.data().id);
   });
+  var similarArticles = [];
+  $(".js_similar_posts-item").each(function() {
+    var similarArticle = $(this);
+    similarArticles.push(similarArticle.data().id);
+  });
   var data = {
     components: components,
     params: {
+      similarArticles: similarArticles,
       hashtags: hashtags,
       intro: $(".js_intro-input")
         .val()
@@ -179,7 +185,7 @@ function initEditor(id) {
     plugins: [
       "advlist autolink lists link charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
-      "insertdatetime table paste code help autoresize"
+      "insertdatetime table paste help autoresize"
     ],
     toolbar:
       "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist"
@@ -235,8 +241,23 @@ $(".js_add-hashtag-input").on("focus", function() {
   }
 });
 
+$(".js_add-article-input").on("input", function() {
+  if ($(this).val()) {
+    getArticlesList($(this));
+  } else {
+    $(".js_article-suggestion-list").remove();
+  }
+});
+
+$(".js_add-article-input").on("focus", function() {
+  if ($(this).val()) {
+    getArticlesList($(this));
+  } else {
+    $(".js_article-suggestion-list").remove();
+  }
+});
+
 function getHashTagList(el) {
-  el.addClass("js_hashtag-edit");
   var text = el.val().trim();
   var form_data = new FormData();
   form_data.append("type", "hashtagList");
@@ -253,8 +274,64 @@ function getHashTagList(el) {
   });
 }
 
+function getArticlesList(el) {
+  var text = el.val().trim();
+  var form_data = new FormData();
+  form_data.append("type", "articlesList");
+  form_data.append("q", text);
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(".js_article-suggestion-wrapper").html(data.html);
+    }
+  });
+}
+$(".js_similar_posts").on("click", ".js_article-suggest-item", function() {
+  var el = $(this);
+  var form_data = new FormData();
+  form_data.append("type", "similarArticle");
+  form_data.append("id", el.data().id);
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(".js_similar_posts-list").append(data.html);
+      checkSimilarArticlesAmount();
+    }
+  });
+  $(".js_article-suggestion-list").remove();
+  $(".js_add-article-input").val("");
+});
+
+$(".js_similar_posts").on("click", ".js_similar_posts-item", function() {
+  $(this).remove();
+  checkSimilarArticlesAmount();
+});
+
+function checkSimilarArticlesAmount() {
+  if ($(".js_similar_posts-item").length >= 3) {
+    $(".js_add-article-input").addClass("hidden");
+  } else {
+    $(".js_add-article-input").removeClass("hidden");
+  }
+}
+
+function checkHashtagsAmount() {
+  if ($(".js_tag-item").length >= 6) {
+    $(".js_add-hashtag-input").addClass("hidden");
+  } else {
+    $(".js_add-hashtag-input").removeClass("hidden");
+  }
+}
+
 $(".js_tag-list").on("click", ".js_hashtag-suggest-item", function() {
-  var el = $(".js_hashtag-edit");
   var form_data = new FormData();
   form_data.append("type", "hashtag");
   form_data.append(
@@ -271,15 +348,16 @@ $(".js_tag-list").on("click", ".js_hashtag-suggest-item", function() {
     type: "PUT",
     success: function(data) {
       $(data.html).insertBefore($(".js_add-hashtag-input"));
+      checkHashtagsAmount();
     }
   });
   $(".js_hashtag-suggestion-list").remove();
   $(".js_add-hashtag-input").val("");
-  el.removeClass("js_hashtag-edit");
 });
 
 $(".js_tag-list").on("click", ".js_tag-item", function() {
   $(this).remove();
+  checkHashtagsAmount();
 });
 
 $(".js_title-div").on("input", function() {
@@ -328,6 +406,5 @@ $(".js_parts-block").on("focus", ".js_img_caption", function() {
 
 function validateImage(img) {
   var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
-
   return img && acceptedImageTypes.includes(img["type"]);
 }

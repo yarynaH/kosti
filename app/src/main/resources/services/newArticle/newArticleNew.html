@@ -136,30 +136,61 @@
                   <div class="js_hashtag-suggestion-wrapper"></div>
                 </div>
               </div>
-              <div class="form-group">
-                <input
-                  required
-                  type="checkbox"
-                  name="agreement"
-                  id="agreement"
-                  checked
-                  hidden
-                />
-                <label for="agreement" class="label-checkbox"
-                  >Я прочитал и принимаю
-                  <a data-th-href="${agreementPage}" target="_blank"
-                    >условия публикации статей</a
-                  ></label
-                >
+            </div>
+            <div class="post-footer">
+              <div class="post-counters">
+                <div class="share-block social">
+                  <span class="post-counter icon-share">0</span>
+                </div>
+                <span class="post-counter icon-views">0</span>
+                <a class="post-counter icon-comment"></a>
               </div>
-              <div class="form-group">
-                <div data-th-text="${errorMessage}" class="error-msg"></div>
-                <input
-                  type="submit"
-                  class="button button-light"
-                  data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}"
-                />
+              <div class="post-actions">
+                <span
+                  class="add_to_bookmarks-btn icon-bookmark js_bookmarks"
+                ></span>
+                <span class="like-btn icon-rock js_like-article">
+                  <span>0</span>
+                </span>
               </div>
+            </div>
+          </div>
+          <div class="similar_posts js_similar_posts">
+            <h4
+              class="similar_posts-title"
+              data-th-text="${portal.localize({'_key=blog.title.similarArticles', '_locale=ru'})}"
+            ></h4>
+            <ul class="similar_posts-list js_similar_posts-list"></ul>
+            <input
+              class="js_add-article-input"
+              placeholder="Добавить похожую статью"
+            />
+            <div class="js_article-suggestion-wrapper"></div>
+          </div>
+          <div class="post">
+            <div class="form-group">
+              <input
+                required
+                type="checkbox"
+                name="agreement"
+                id="agreement"
+                checked
+                hidden
+              />
+              <label for="agreement" class="label-checkbox"
+                >Я прочитал и принимаю
+                <a data-th-href="${agreementPage}" target="_blank"
+                  >условия публикации статей</a
+                ></label
+              >
+            </div>
+            <div class="form-group">
+              <div data-th-text="${errorMessage}" class="error-msg"></div>
+              <input
+                type="submit"
+                class="button button-light"
+                data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}"
+              />
             </div>
           </div>
         </div>

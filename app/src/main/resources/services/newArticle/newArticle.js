@@ -43,6 +43,14 @@ function handlePut(req) {
           hashtagLib.getHashtagIdByName(data.q, true, true)
         );
         break;
+      case "articlesList":
+        result = articlesLib.renderArticlesSuggestion(
+          blogLib.getSearchArticles(data.q, null, null, true).hits
+        );
+        break;
+      case "similarArticle":
+        result = articlesLib.renderSimilarArticle(data.id);
+        break;
       default:
         break;
     }

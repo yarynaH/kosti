@@ -188,7 +188,7 @@ function getNewArticles(page) {
   return result;
 }
 
-function getSearchArticles(q, page, useHashtag) {
+function getSearchArticles(q, page, useHashtag, json) {
   var pageSize = 10;
   if (!page) {
     page = 0;
@@ -221,6 +221,9 @@ function getSearchArticles(q, page, useHashtag) {
     sort: "publish.from DESC",
     contentTypes: [app.name + ":article", app.name + ":podcast"]
   });
+  if (json) {
+    return result;
+  }
   if (result && result.hits && result.hits.length > 0) {
     articles = beautifyArticleArray(result.hits);
   }

@@ -8,6 +8,7 @@ var userLib = require("userLib");
 var contextLib = require("contextLib");
 var hashLib = require("hashLib");
 var sharedLib = require("sharedLib");
+var blogLib = require("blogLib");
 
 exports.createArticle = createArticle;
 exports.createImage = createImage;
@@ -17,6 +18,8 @@ exports.getVideoComponent = getVideoComponent;
 exports.checkArticleStatus = checkArticleStatus;
 exports.renderHashtagSuggestion = renderHashtagSuggestion;
 exports.renderHashtagItem = renderHashtagItem;
+exports.renderArticlesSuggestion = renderArticlesSuggestion;
+exports.renderSimilarArticle = renderSimilarArticle;
 
 function createArticle(data) {
   var user = userLib.getCurrentUser();
@@ -50,7 +53,8 @@ function createArticleObject(data, user) {
       author: user._id,
       image: image._id,
       intro: data.intro,
-      hashtags: data.hashtags
+      hashtags: data.hashtags,
+      similarArticles: data.similarArticles
     }
   });
   contentLib.setPermissions({
@@ -121,6 +125,29 @@ function renderHashtagSuggestion(hashtags) {
       resolve("../../services/newArticle/components/hashtagSuggestion.html"),
       {
         hashtags: hashtags
+      }
+    )
+  };
+}
+
+function renderArticlesSuggestion(articles) {
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/articlesSuggestion.html"),
+      {
+        articles: articles
+      }
+    )
+  };
+}
+
+function renderSimilarArticle(id) {
+  var article = blogLib.beautifyArticle(contentLib.get({ key: id }));
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/similarArticle.html"),
+      {
+        article: article
       }
     )
   };
