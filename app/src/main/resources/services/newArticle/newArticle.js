@@ -35,7 +35,7 @@ function handlePut(req) {
         break;
       case "hashtagList":
         result = articlesLib.renderHashtagSuggestion(
-          hashtagLib.getHashtagList(data.q)
+          hashtagLib.getHashtagList(data.q, data.ids)
         );
         break;
       case "hashtag":
@@ -45,7 +45,7 @@ function handlePut(req) {
         break;
       case "articlesList":
         result = articlesLib.renderArticlesSuggestion(
-          blogLib.getSearchArticles(data.q, null, null, true).hits
+          blogLib.getSearchArticles(data.q, null, null, true, data.ids).hits
         );
         break;
       case "similarArticle":

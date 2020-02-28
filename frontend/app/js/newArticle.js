@@ -35,21 +35,11 @@ $("#newArticleForm").on("submit", function(e) {
       });
     }
   });
-  var hashtags = [];
-  $(".js_tag-item").each(function() {
-    var hashtag = $(this);
-    hashtags.push(hashtag.data().id);
-  });
-  var similarArticles = [];
-  $(".js_similar_posts-item").each(function() {
-    var similarArticle = $(this);
-    similarArticles.push(similarArticle.data().id);
-  });
   var data = {
     components: components,
     params: {
-      similarArticles: similarArticles,
-      hashtags: hashtags,
+      similarArticles: getSimilarArticlesIds(),
+      hashtags: getHashtagsIds(),
       intro: $(".js_intro-input")
         .val()
         .trim(),
@@ -262,6 +252,7 @@ function getHashTagList(el) {
   var form_data = new FormData();
   form_data.append("type", "hashtagList");
   form_data.append("q", text);
+  form_data.append("ids", getHashtagsIds());
   $.ajax({
     url: "/create",
     data: form_data,
@@ -279,6 +270,7 @@ function getArticlesList(el) {
   var form_data = new FormData();
   form_data.append("type", "articlesList");
   form_data.append("q", text);
+  form_data.append("ids", getSimilarArticlesIds());
   $.ajax({
     url: "/create",
     data: form_data,
@@ -403,6 +395,24 @@ $(".js_parts-block").on("focus", ".js_img_caption", function() {
       .val()
   );
 });
+
+function getHashtagsIds() {
+  var hashtags = [];
+  $(".js_tag-item").each(function() {
+    var hashtag = $(this);
+    hashtags.push(hashtag.data().id);
+  });
+  return hashtags;
+}
+
+function getSimilarArticlesIds() {
+  var similarArticles = [];
+  $(".js_similar_posts-item").each(function() {
+    var similarArticle = $(this);
+    similarArticles.push(similarArticle.data().id);
+  });
+  return similarArticles;
+}
 
 function validateImage(img) {
   var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];

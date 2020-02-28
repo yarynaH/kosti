@@ -15,15 +15,20 @@ exports.getHashtagName = getHashtagName;
 exports.getHashtagIdByName = getHashtagIdByName;
 exports.getHashtagList = getHashtagList;
 
-function getHashtagList(q) {
+function getHashtagList(q, skipIds) {
   if (!q) var q = "";
   var query =
-    "fulltext('displayName', '" +
+    "(fulltext('displayName', '" +
     q +
     "', 'AND') OR " +
     "ngram('displayName', '" +
     q +
-    "', 'AND')";
+    "', 'AND'))";
+  if (skipIds) {
+    skipIds = skipIds.split(",");
+    query += " AND not _id in ('" + skipIds.join("','") + "')";
+  }
+  norseUtils.log(query);
   var temp = contentLib.query({
     query: query,
     start: 0,
