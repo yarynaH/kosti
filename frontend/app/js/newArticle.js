@@ -19,25 +19,31 @@ $("#newArticleForm").on("submit", function(e) {
   }
   var file_data = $("#article-image-input").prop("files")[0];
   var partsLength = parseInt($(".js_single-part").length);
-  var result = [];
+  var components = [];
   $(".js_single-part").each(function() {
     var part = $(this);
     if (part.hasClass("js_tinymce-editor")) {
       var value = tinymce
         .get("js_single-part-" + part.data().tinymce)
         .getContent();
-      result.push({ type: "text", value: value });
+      components.push({ type: "text", value: value });
     } else if (part.hasClass("js_image-editor")) {
-      result.push({
+      components.push({
         type: "image",
         value: part.data().imageid,
         caption: part.find("input").val()
       });
     }
   });
+  var hashtags = [];
+  $(".js_tag-item").each(function() {
+    var hashtag = $(this);
+    hashtags.push(hashtag.data().id);
+  });
   var data = {
-    components: result,
+    components: components,
     params: {
+      hashtags: hashtags,
       intro: $(".js_intro-input")
         .val()
         .trim(),
@@ -212,6 +218,69 @@ function removeEditor(id) {
     tinymce.get("js_single-part-" + id).destroy();
   }
 }
+
+$(".js_add-hashtag-input").on("input", function() {
+  if ($(this).val()) {
+    getHashTagList($(this));
+  } else {
+    $(".js_hashtag-suggestion-list").remove();
+  }
+});
+
+$(".js_add-hashtag-input").on("focus", function() {
+  if ($(this).val()) {
+    getHashTagList($(this));
+  } else {
+    $(".js_hashtag-suggestion-list").remove();
+  }
+});
+
+function getHashTagList(el) {
+  el.addClass("js_hashtag-edit");
+  var text = el.val().trim();
+  var form_data = new FormData();
+  form_data.append("type", "hashtagList");
+  form_data.append("q", text);
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(".js_hashtag-suggestion-wrapper").html(data.html);
+    }
+  });
+}
+
+$(".js_tag-list").on("click", ".js_hashtag-suggest-item", function() {
+  var el = $(".js_hashtag-edit");
+  var form_data = new FormData();
+  form_data.append("type", "hashtag");
+  form_data.append(
+    "q",
+    $(this)
+      .text()
+      .trim()
+  );
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(data.html).insertBefore($(".js_add-hashtag-input"));
+    }
+  });
+  $(".js_hashtag-suggestion-list").remove();
+  $(".js_add-hashtag-input").val("");
+  el.removeClass("js_hashtag-edit");
+});
+
+$(".js_tag-list").on("click", ".js_tag-item", function() {
+  $(this).remove();
+});
 
 $(".js_title-div").on("input", function() {
   $(".js_title-input").val(

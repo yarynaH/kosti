@@ -1,4 +1,14 @@
+.js_add-hashtag-input {
+  width: inherit;
+  min-width: 10px;
+  padding: 5px 10px;
+  border: none;
+  height: inherit;
+}
 .create_article {
+  .add-hashtag {
+    min-width: 20px;
+  }
   &-post_text_wrap {
     margin-bottom: 25px;
   }
@@ -169,6 +179,20 @@
 
     .create_article-editor_actions {
       left: 0;
+    }
+  }
+
+  &-hashtag_actions {
+    @include position(absolute, top 0 left -30px);
+
+    width: 30px;
+
+    &-remove {
+      @include icon(delete);
+
+      &:after {
+        font-size: 20px;
+      }
     }
   }
 

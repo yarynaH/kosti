@@ -9,6 +9,7 @@ var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
 var articlesLib = require(libLocation + "articlesLib");
+var hashtagLib = require(libLocation + "hashtagLib");
 var blogLib = require(libLocation + "blogLib");
 
 exports.get = handleGet;
@@ -31,6 +32,16 @@ function handlePut(req) {
         break;
       case "videoPart":
         result = articlesLib.getVideoComponent(data);
+        break;
+      case "hashtagList":
+        result = articlesLib.renderHashtagSuggestion(
+          hashtagLib.getHashtagList(data.q)
+        );
+        break;
+      case "hashtag":
+        result = articlesLib.renderHashtagItem(
+          hashtagLib.getHashtagIdByName(data.q, true, true)
+        );
         break;
       default:
         break;

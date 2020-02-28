@@ -15,6 +15,8 @@ exports.insertComponents = insertComponents;
 exports.getTextComponent = getTextComponent;
 exports.getVideoComponent = getVideoComponent;
 exports.checkArticleStatus = checkArticleStatus;
+exports.renderHashtagSuggestion = renderHashtagSuggestion;
+exports.renderHashtagItem = renderHashtagItem;
 
 function createArticle(data) {
   var user = userLib.getCurrentUser();
@@ -47,7 +49,8 @@ function createArticleObject(data, user) {
     data: {
       author: user._id,
       image: image._id,
-      intro: data.intro
+      intro: data.intro,
+      hashtags: data.hashtags
     }
   });
   contentLib.setPermissions({
@@ -110,6 +113,28 @@ function createImage(data) {
       )
     };
   });
+}
+
+function renderHashtagSuggestion(hashtags) {
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/hashtagSuggestion.html"),
+      {
+        hashtags: hashtags
+      }
+    )
+  };
+}
+
+function renderHashtagItem(hashtag) {
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/hashtagItem.html"),
+      {
+        hashtag: hashtag
+      }
+    )
+  };
 }
 
 function getTextComponent(data) {

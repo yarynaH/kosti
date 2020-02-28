@@ -128,6 +128,15 @@
                 </div>
               </div>
               <div class="form-group">
+                <div class="tag-list add-article-tag-list js_tag-list">
+                  <input
+                    class="js_add-hashtag-input"
+                    placeholder="Добавить хештег"
+                  />
+                  <div class="js_hashtag-suggestion-wrapper"></div>
+                </div>
+              </div>
+              <div class="form-group">
                 <input
                   required
                   type="checkbox"
@@ -150,18 +159,6 @@
                   class="button button-light"
                   data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}"
                 />
-              </div>
-            </div>
-            <div>
-              <div class="post" data-th-if="${content.hashtags}">
-                <div class="tag-list ">
-                  <a
-                    data-th-each="hashtag : ${content.hashtags}"
-                    data-th-href="${hashtag.url}"
-                    class="tag-item"
-                    data-th-text="${hashtag.displayName}"
-                  ></a>
-                </div>
               </div>
             </div>
           </div>
