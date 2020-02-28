@@ -28,7 +28,6 @@ function getHashtagList(q, skipIds) {
     skipIds = skipIds.split(",");
     query += " AND not _id in ('" + skipIds.join("','") + "')";
   }
-  norseUtils.log(query);
   var temp = contentLib.query({
     query: query,
     start: 0,
