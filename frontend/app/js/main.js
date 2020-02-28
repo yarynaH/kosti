@@ -221,13 +221,13 @@ function loadMoreArticles() {
   $(".js_lazyload-icon").removeClass("hidden");
   $(".js_blog-load_more").addClass("hidden");
   var wrapper = $(".blog-list");
-  var page = wrapper.data("page");
+  var page = wrapper.data().page;
   if (!page) {
     page = 0;
   }
-  var feedType = wrapper.data("feedtype");
-  var date = wrapper.data("date");
-  var query = wrapper.data("query");
+  var feedType = wrapper.data().feedtype;
+  var date = wrapper.data().date;
+  var query = wrapper.data().query;
   var call = makeAjaxCall(
     contentServiceUrl,
     "GET",
@@ -253,13 +253,13 @@ function loadMoreArticles() {
     if (data.hideButton) {
       $(".js_blog-load_more").addClass("hidden");
       $(".js_blog-list-empty").removeClass("hidden");
-      wrapper.attr("data-nomorearticles", true);
+      wrapper.data("nomorearticles", true);
     }
-    wrapper.attr("data-date", data.date);
+    wrapper.data("date", data.date);
     if (data.newPage) {
-      wrapper.attr("data-page", 0);
+      wrapper.data("page", 0);
     } else {
-      wrapper.attr("data-page", page + 1);
+      wrapper.data("page", page + 1);
     }
     $(".js_lazyload-icon").addClass("hidden");
   });

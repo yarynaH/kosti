@@ -1,0 +1,15 @@
+div {
+  .player56s {
+    .player56s-timeline,
+    .player56s-volume .player56s-vol-pin:before,
+    .player56s-timeline .player56s-timeline-load,
+    .player56s-volume .player56s-vol-pin:before {
+      background: #dedede;
+    }
+    .player56s-timeline .player56s-timeline-done,
+    .player56s-volume .player56s-vol-pin.active:before,
+    .player56s-volume .player56s-vol-pin.active:before {
+      background: #909090;
+    }
+  }
+}

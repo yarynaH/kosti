@@ -1,4 +1,13 @@
-<audio controls controlsList="nodownload">
-  <source data-th-src="${audioUrl}" />
-  Your browser does not support the audio element.
-</audio>
+<section>
+  <audio data-th-if="${preview}" controls controlsList="nodownload">
+    <source data-th-src="${audioUrl}" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <a
+    data-th-unless="${preview}"
+    data-th-href="${audioUrl}"
+    class="player56s"
+    data-th-text="${title}"
+  ></a>
+</section>

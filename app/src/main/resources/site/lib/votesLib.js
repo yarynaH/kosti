@@ -127,7 +127,8 @@ function createBlankVote(node, type) {
     votes: [],
     rate: 0,
     shares: { vk: [], facebook: [], twitter: [] },
-    type: type
+    type: type,
+    date: new Date()
   });
 }
 
@@ -139,7 +140,8 @@ function createVote(user, content, type) {
   return votesRepo.create({
     id: content,
     votes: [user],
-    type: type
+    type: type,
+    date: new Date()
   });
 }
 
@@ -235,7 +237,7 @@ function getHotArticlesQuery(start, count, date, oldDate) {
     start: start,
     count: count,
     query:
-      "type = 'article' AND date > dateTime('" +
+      "(type = 'article' or type = 'podcast') AND date > dateTime('" +
       date.toISOString() +
       "') AND date < dateTime('" +
       oldDate.toISOString() +

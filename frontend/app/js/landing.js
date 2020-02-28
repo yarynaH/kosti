@@ -6,13 +6,39 @@ function initCountdown() {
     $("#seconds").length
   ) {
     (function() {
-      countdown("05/10/2019 06:00:00 PM");
+      countdown("05/21/2020 06:00:00 PM");
     })();
   }
 }
 
+function initLandingScripts() {
+  $(".js_landing-subscribe-form").on("submit", function(e) {
+    e.preventDefault();
+    if (!$(this).valid()) {
+      return false;
+    }
+    var email = $(this)
+      .find("input[name=email]")
+      .val();
+    $.ajax({
+      url: "",
+      type: "POST",
+      async: false,
+      data: { email: email, lang: lang },
+      success: function(data) {
+        showSnackBar(data.text, "kosticon2020");
+      }
+    });
+  });
+  $(".js_landing-subscribe-form").validate({
+    highlight: function(element, errorClass, validClass) {},
+    unhighlight: function(element, errorClass, validClass) {}
+  });
+}
+
 $(document).ready(function() {
   initCountdown();
+  initLandingScripts();
 });
 
 function countdown(endDate) {
@@ -44,12 +70,10 @@ function countdown(endDate) {
 
       seconds = parseInt(timeRemaining);
 
-      document.getElementById("days").innerHTML = parseInt(days, 10);
-      document.getElementById("hours").innerHTML = ("0" + hours).slice(-2);
-      document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2);
-      document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
-    } else {
-      return;
+      $("#days").text(parseInt(days, 10));
+      $("#hours").text(("0" + hours).slice(-2));
+      $("#minutes").text(("0" + minutes).slice(-2));
+      $("#seconds").text(("0" + seconds).slice(-2));
     }
   }
 }

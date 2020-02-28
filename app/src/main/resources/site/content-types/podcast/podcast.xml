@@ -49,5 +49,13 @@
       <occurrences minimum="0" maximum="1"/>
       <default>checked</default>
     </input>
+    <input name="similarArticles" type="ContentSelector">
+      <label>Similar articles</label>
+      <occurrences minimum="0" maximum="3"/>
+      <config>
+        <allowContentType>article</allowContentType>
+        <allowContentType>podcast</allowContentType>
+      </config>
+    </input>
   </form>
 </content-type>

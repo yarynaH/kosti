@@ -74,62 +74,68 @@
     @if $filename == guest {
         $char: "\F12F";
     }
-    @if $filename == image {
+    @if $filename == hashtag {
         $char: "\F130";
     }
-    @if $filename == info {
+    @if $filename == image {
         $char: "\F131";
     }
-    @if $filename == instagram {
+    @if $filename == info {
         $char: "\F132";
     }
-    @if $filename == logout {
+    @if $filename == instagram {
         $char: "\F133";
     }
-    @if $filename == network {
+    @if $filename == logout {
         $char: "\F134";
     }
-    @if $filename == new_arrow {
+    @if $filename == network {
         $char: "\F135";
     }
-    @if $filename == pin-location {
+    @if $filename == new_arrow {
         $char: "\F136";
     }
-    @if $filename == quote {
+    @if $filename == pin-location {
         $char: "\F137";
     }
-    @if $filename == rock {
+    @if $filename == quote {
         $char: "\F138";
     }
-    @if $filename == search {
+    @if $filename == rock {
         $char: "\F139";
     }
-    @if $filename == share {
+    @if $filename == search {
         $char: "\F13A";
     }
-    @if $filename == text {
+    @if $filename == selected {
         $char: "\F13B";
     }
-    @if $filename == twitch {
+    @if $filename == share {
         $char: "\F13C";
     }
-    @if $filename == twitter {
+    @if $filename == text {
         $char: "\F13D";
     }
-    @if $filename == upload {
+    @if $filename == twitch {
         $char: "\F13E";
     }
-    @if $filename == video {
+    @if $filename == twitter {
         $char: "\F13F";
     }
-    @if $filename == views {
+    @if $filename == upload {
         $char: "\F140";
     }
-    @if $filename == vk {
+    @if $filename == video {
         $char: "\F141";
     }
-    @if $filename == youtube {
+    @if $filename == views {
         $char: "\F142";
+    }
+    @if $filename == vk {
+        $char: "\F143";
+    }
+    @if $filename == youtube {
+        $char: "\F144";
     }
 
     @return $char;
@@ -170,6 +176,7 @@ category: Basic
     <div class="sg-icon icon-gear" title="gear"></div>
     <div class="sg-icon icon-google" title="google"></div>
     <div class="sg-icon icon-guest" title="guest"></div>
+    <div class="sg-icon icon-hashtag" title="hashtag"></div>
     <div class="sg-icon icon-image" title="image"></div>
     <div class="sg-icon icon-info" title="info"></div>
     <div class="sg-icon icon-instagram" title="instagram"></div>
@@ -180,6 +187,7 @@ category: Basic
     <div class="sg-icon icon-quote" title="quote"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
+    <div class="sg-icon icon-selected" title="selected"></div>
     <div class="sg-icon icon-share" title="share"></div>
     <div class="sg-icon icon-text" title="text"></div>
     <div class="sg-icon icon-twitch" title="twitch"></div>
@@ -240,6 +248,9 @@ category: Basic
 .icon-guest {
     @include icon(guest);
 }
+.icon-hashtag {
+    @include icon(hashtag);
+}
 .icon-image {
     @include icon(image);
 }
@@ -269,6 +280,9 @@ category: Basic
 }
 .icon-search {
     @include icon(search);
+}
+.icon-selected {
+    @include icon(selected);
 }
 .icon-share {
     @include icon(share);
