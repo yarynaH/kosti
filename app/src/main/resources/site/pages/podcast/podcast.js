@@ -68,7 +68,12 @@ exports.get = function(req) {
   function createPodcast(episodes) {
     let year = new Date().getFullYear();
     let imageUrl = portal.assetUrl({
-      path: "images/extended-logo-min.png",
+      path: norseUtils.getImage(
+        content.data.image,
+        "block(1400,1400)",
+        null,
+        "absolute"
+      ).url,
       type: "absolute"
     });
     return {
