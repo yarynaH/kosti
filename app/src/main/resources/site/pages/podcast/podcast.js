@@ -67,15 +67,12 @@ exports.get = function(req) {
 
   function createPodcast(episodes) {
     let year = new Date().getFullYear();
-    let imageUrl = portal.assetUrl({
-      path: norseUtils.getImage(
-        content.data.image,
-        "block(1400,1400)",
-        null,
-        "absolute"
-      ).url,
-      type: "absolute"
-    });
+    var imageUrl = norseUtils.getImage(
+      content.data.image,
+      "block(2000,2000)",
+      null,
+      "absolute"
+    ).url;
     return {
       title: content.displayName,
       link: portal.pageUrl({ id: content._id, type: "absolute" }),
