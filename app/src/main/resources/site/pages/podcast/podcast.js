@@ -95,7 +95,7 @@ exports.get = function(req) {
         email: "info@kostirpg.com"
       },
       image: {
-        link: portal.pageUrl({ id: episode._id, type: "absolute" }),
+        link: portal.pageUrl({ id: content._id, type: "absolute" }),
         title: content.displayName,
         url: imageUrl
       },
