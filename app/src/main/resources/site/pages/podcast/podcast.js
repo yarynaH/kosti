@@ -96,7 +96,7 @@ exports.get = function(req) {
       },
       image: {
         link: portal.pageUrl({ id: episode._id, type: "absolute" }),
-        title: "ЭНОА",
+        title: content.displayName,
         url: imageUrl
       },
       "itunes:image": imageUrl,
