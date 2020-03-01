@@ -55,8 +55,10 @@ exports.get = function(req) {
         true
       );
       break;
-    default:
+    case "logout":
       return logout();
+      break;
+    default:
       break;
   }
   model.pageComponents = helpers.getPageComponents(req);
