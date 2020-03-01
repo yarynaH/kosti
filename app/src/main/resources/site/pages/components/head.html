@@ -17,10 +17,11 @@
   sizes="16x16"
 />
 <link
+  data-th-each="podcast: ${podcasts}"
   type="application/rss+xml"
   rel="alternate"
-  title="Эноа"
-  href="https://www.kostirpg.com/_/service/com.myurchenko.kostirpg/podcast"
+  data-th-title="${podcast.displayName}"
+  data-th-href="${podcast.url}"
 />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="description" data-th-attr="content=${site.data.description}" />

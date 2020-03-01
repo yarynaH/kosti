@@ -91,7 +91,8 @@ function getPageComponents(req, footerType, activeEl, title) {
       ogImage: ogImage,
       site: site,
       title: title,
-      ogDescription: ogDescription
+      ogDescription: ogDescription,
+      podcasts: getPodcasts()
     }
   );
   var discordUrl = "https://discordapp.com/api/oauth2/authorize?";
@@ -155,6 +156,26 @@ function getPageComponents(req, footerType, activeEl, title) {
           ._id
       }
     );
+
+  function getPodcasts() {
+    let podcasts = contentLib.query({
+      start: 0,
+      limit: -1,
+      query: "",
+      contentTypes: [app.name + ":podcastWrapper"]
+    });
+    let result = [];
+    for (let i = 0; i < podcasts.hits.length; i++) {
+      result.push({
+        url: portal.pageUrl({
+          id: podcasts.hits[i]._id,
+          type: "absolute"
+        }),
+        displayName: podcasts.hits[i].displayName
+      });
+    }
+    return result;
+  }
 
   function getFooterLinks() {
     var result = [];
