@@ -55,9 +55,6 @@ exports.get = function(req) {
         true
       );
       break;
-    case "logout":
-      return logout();
-      break;
     default:
       break;
   }
@@ -71,6 +68,9 @@ exports.get = function(req) {
         Location: portal.pageUrl({ path: portal.getSite()._path })
       }
     };
+  }
+  if (!view) {
+    return logout();
   }
   return {
     body: thymeleaf.render(view, model),
