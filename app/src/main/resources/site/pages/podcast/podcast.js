@@ -116,11 +116,14 @@ exports.get = function(req) {
   function OBJtoXML(obj) {
     var xml = "";
     for (var prop in obj) {
-      if (prop === "itunes:category") {
+      if (prop === "itunes:category" || prop === "googleplay:category") {
         xml += getCategoryText(obj[prop]);
         continue;
       } else if (prop === "itunes:image") {
         xml += getImageTag(obj[prop]);
+        continue;
+      } else if (prop === "enclosure") {
+        xml += getEnclosure(obj[prop]);
         continue;
       }
       xml += obj[prop] instanceof Array ? "" : "<" + prop + ">";
@@ -152,5 +155,17 @@ exports.get = function(req) {
 
   function getImageTag(image) {
     return '<itunes:image href="' + image + '"></itunes:image>';
+  }
+
+  function getEnclosure(enc) {
+    return (
+      "<enclosure length='" +
+      enc.length +
+      "' type='" +
+      enc.type +
+      "' url='" +
+      enc.url +
+      "'></enclosure>"
+    );
   }
 };
