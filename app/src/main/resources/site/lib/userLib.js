@@ -44,12 +44,12 @@ function getCurrentUser() {
         return createUserContentType(user.displayName, user.email, user.key);
       });
     }
-    return beautifyUser(userObj, user.key);
+    return beautifyUser(userObj, user);
   }
   return userObj;
 }
 
-function beautifyUser(userObj, key) {
+function beautifyUser(userObj, user) {
   var notificationLib = require("notificationLib");
   userObj.url = portal.pageUrl({ id: userObj._id });
   userObj.image = norseUtils.getImage(
@@ -57,7 +57,8 @@ function beautifyUser(userObj, key) {
     "block(32,32)",
     1
   );
-  userObj.key = key;
+  userObj.key = user.key;
+  userObj.login = user.login;
   userObj.moderator = checkRole(["role:moderator", "role:system.admin"]);
   userObj.notificationsCounter = notificationLib.getNotificationsForUser(
     userObj._id,
@@ -449,7 +450,8 @@ function addBookmark(contentId) {
   var publishResult = contentLib.publish({
     keys: [user._id],
     sourceBranch: "master",
-    targetBranch: "draft"
+    targetBranch: "draft",
+    includeDependencies: false
   });
   function userEditor(user) {
     var temp = norseUtils.forceArray(user.data.bookmarks);

@@ -1,0 +1,12 @@
+<li
+  class="similar_posts-item js_similar_posts-item"
+  data-th-attr="data-id=${article._id}"
+>
+  <a class="similar_posts-link" data-th-text="${article.displayName}"></a>
+  <span
+    class="like-btn icon-rock js_like-article"
+    data-th-classappend="${article.voted} ? 'active' : ''"
+  >
+    <span data-th-text="${article.votes}"></span>
+  </span>
+</li>

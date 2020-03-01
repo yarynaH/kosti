@@ -42,7 +42,7 @@ exports.get = function(req) {
 
   function getMonstersList() {
     var monsters = contentLib.query({
-      query: "",
+      query: "data.translated = 'true'",
       start: 0,
       count: -1,
       contentTypes: [app.name + ":monster"]

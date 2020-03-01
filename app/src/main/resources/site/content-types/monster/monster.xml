@@ -252,6 +252,14 @@
         <option value="ce">Chaotic evil</option>
         <option value="unaligned">Unaligned</option>
         <option value="any">Any</option>
+        <option value="ag">Any good</option>
+        <option value="al">Any lawful</option>
+        <option value="ac">Any chaotic</option>
+        <option value="ae">Any evil</option>
+        <option value="nol">Any non-lawful</option>
+        <option value="nog">Any non-good</option>
+        <option value="noc">Any non-chaotic</option>
+        <option value="noe">Any non-evil</option>
       </config>
     </input>
     <input name="type" type="ComboBox">

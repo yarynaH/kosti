@@ -19,16 +19,16 @@ $("#newArticleForm").on("submit", function(e) {
   }
   var file_data = $("#article-image-input").prop("files")[0];
   var partsLength = parseInt($(".js_single-part").length);
-  var result = [];
+  var components = [];
   $(".js_single-part").each(function() {
     var part = $(this);
     if (part.hasClass("js_tinymce-editor")) {
       var value = tinymce
         .get("js_single-part-" + part.data().tinymce)
         .getContent();
-      result.push({ type: "text", value: value });
+      components.push({ type: "text", value: value });
     } else if (part.hasClass("js_image-editor")) {
-      result.push({
+      components.push({
         type: "image",
         value: part.data().imageid,
         caption: part.find("input").val()
@@ -36,8 +36,10 @@ $("#newArticleForm").on("submit", function(e) {
     }
   });
   var data = {
-    components: result,
+    components: components,
     params: {
+      similarArticles: getSimilarArticlesIds(),
+      hashtags: getHashtagsIds(),
       intro: $(".js_intro-input")
         .val()
         .trim(),
@@ -173,7 +175,7 @@ function initEditor(id) {
     plugins: [
       "advlist autolink lists link charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
-      "insertdatetime table paste code help autoresize"
+      "insertdatetime table paste help autoresize"
     ],
     toolbar:
       "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist"
@@ -212,6 +214,143 @@ function removeEditor(id) {
     tinymce.get("js_single-part-" + id).destroy();
   }
 }
+
+$(".js_add-hashtag-input").on("input", function() {
+  if ($(this).val()) {
+    getHashTagList($(this));
+  } else {
+    $(".js_hashtag-suggestion-list").remove();
+  }
+});
+
+$(".js_add-hashtag-input").on("focus", function() {
+  if ($(this).val()) {
+    getHashTagList($(this));
+  } else {
+    $(".js_hashtag-suggestion-list").remove();
+  }
+});
+
+$(".js_add-article-input").on("input", function() {
+  if ($(this).val()) {
+    getArticlesList($(this));
+  } else {
+    $(".js_article-suggestion-list").remove();
+  }
+});
+
+$(".js_add-article-input").on("focus", function() {
+  if ($(this).val()) {
+    getArticlesList($(this));
+  } else {
+    $(".js_article-suggestion-list").remove();
+  }
+});
+
+function getHashTagList(el) {
+  var text = el.val().trim();
+  var form_data = new FormData();
+  form_data.append("type", "hashtagList");
+  form_data.append("q", text);
+  form_data.append("ids", getHashtagsIds());
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(".js_hashtag-suggestion-wrapper").html(data.html);
+    }
+  });
+}
+
+function getArticlesList(el) {
+  var text = el.val().trim();
+  var form_data = new FormData();
+  form_data.append("type", "articlesList");
+  form_data.append("q", text);
+  form_data.append("ids", getSimilarArticlesIds());
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(".js_article-suggestion-wrapper").html(data.html);
+    }
+  });
+}
+$(".js_similar_posts").on("click", ".js_article-suggest-item", function() {
+  var el = $(this);
+  var form_data = new FormData();
+  form_data.append("type", "similarArticle");
+  form_data.append("id", el.data().id);
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(".js_similar_posts-list").append(data.html);
+      checkSimilarArticlesAmount();
+    }
+  });
+  $(".js_article-suggestion-list").remove();
+  $(".js_add-article-input").val("");
+});
+
+$(".js_similar_posts").on("click", ".js_similar_posts-item", function() {
+  $(this).remove();
+  checkSimilarArticlesAmount();
+});
+
+function checkSimilarArticlesAmount() {
+  if ($(".js_similar_posts-item").length >= 3) {
+    $(".js_add-article-input").addClass("hidden");
+  } else {
+    $(".js_add-article-input").removeClass("hidden");
+  }
+}
+
+function checkHashtagsAmount() {
+  if ($(".js_tag-item").length >= 6) {
+    $(".js_add-hashtag-input").addClass("hidden");
+  } else {
+    $(".js_add-hashtag-input").removeClass("hidden");
+  }
+}
+
+$(".js_tag-list").on("click", ".js_hashtag-suggest-item", function() {
+  var form_data = new FormData();
+  form_data.append("type", "hashtag");
+  form_data.append(
+    "q",
+    $(this)
+      .text()
+      .trim()
+  );
+  $.ajax({
+    url: "/create",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "PUT",
+    success: function(data) {
+      $(data.html).insertBefore($(".js_add-hashtag-input"));
+      checkHashtagsAmount();
+    }
+  });
+  $(".js_hashtag-suggestion-list").remove();
+  $(".js_add-hashtag-input").val("");
+});
+
+$(".js_tag-list").on("click", ".js_tag-item", function() {
+  $(this).remove();
+  checkHashtagsAmount();
+});
 
 $(".js_title-div").on("input", function() {
   $(".js_title-input").val(
@@ -257,8 +396,25 @@ $(".js_parts-block").on("focus", ".js_img_caption", function() {
   );
 });
 
+function getHashtagsIds() {
+  var hashtags = [];
+  $(".js_tag-item").each(function() {
+    var hashtag = $(this);
+    hashtags.push(hashtag.data().id);
+  });
+  return hashtags;
+}
+
+function getSimilarArticlesIds() {
+  var similarArticles = [];
+  $(".js_similar_posts-item").each(function() {
+    var similarArticle = $(this);
+    similarArticles.push(similarArticle.data().id);
+  });
+  return similarArticles;
+}
+
 function validateImage(img) {
   var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
-
   return img && acceptedImageTypes.includes(img["type"]);
 }

@@ -1,14 +1,52 @@
 var contentLib = require("/lib/xp/content");
+var common = require("/lib/xp/common");
+var portal = require("/lib/xp/portal");
 
 var sharedLib = require("sharedLib");
 var norseUtils = require("norseUtils");
 var votesLib = require("votesLib");
+var contextLib = require("contextLib");
+var userLib = require("userLib");
 
 exports.getHashtags = getHashtags;
 exports.hotHashtagCheck = hotHashtagCheck;
 exports.getHotHashtags = getHotHashtags;
 exports.getHashtagName = getHashtagName;
 exports.getHashtagIdByName = getHashtagIdByName;
+exports.getHashtagList = getHashtagList;
+
+function getHashtagList(q, skipIds) {
+  if (!q) var q = "";
+  var query =
+    "(fulltext('displayName', '" +
+    q +
+    "', 'AND') OR " +
+    "ngram('displayName', '" +
+    q +
+    "', 'AND'))";
+  if (skipIds) {
+    skipIds = skipIds.split(",");
+    query += " AND not _id in ('" + skipIds.join("','") + "')";
+  }
+  var temp = contentLib.query({
+    query: query,
+    start: 0,
+    count: 10,
+    contentTypes: [app.name + ":hashtag"]
+  });
+  var result = [];
+  var showQuery = true;
+  for (var i = 0; i < temp.hits.length; i++) {
+    if (q === temp.hits[i].displayName) {
+      showQuery = false;
+    }
+    result.push(temp.hits[i].displayName);
+  }
+  if (q && showQuery) {
+    result.push(q);
+  }
+  return result;
+}
 
 function getHashtags(ids) {
   if (!ids) {
@@ -86,7 +124,7 @@ function getHashtagName(id) {
   return "";
 }
 
-function getHashtagIdByName(name) {
+function getHashtagIdByName(name, returnObj, createIfMissing) {
   if (!name) return "";
   var query = "displayName = '" + name + "'";
   var temp = contentLib.query({
@@ -95,6 +133,37 @@ function getHashtagIdByName(name) {
     count: 1,
     contentTypes: [app.name + ":hashtag"]
   });
-  if (temp && temp.hits && temp.hits.length > 0) return temp.hits[0]._id;
-  return "";
+  var hashtag = temp.hits[0];
+  if (!hashtag && createIfMissing) {
+    hashtag = createHashtag(name);
+  }
+  if (hashtag) {
+    if (returnObj) {
+      hashtag.exists = true;
+      return hashtag;
+    }
+    return hashtag._id;
+  }
+  return { exists: false, displayName: name };
+}
+
+function createHashtag(name) {
+  if (!name) return false;
+  var site = portal.getSiteConfig();
+  var hashtags = contentLib.get({ key: site.hashtagsLocation });
+  return contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
+    var article = contentLib.create({
+      parentPath: hashtags._path,
+      displayName: name,
+      name: common.sanitize(name),
+      contentType: app.name + ":hashtag",
+      data: {}
+    });
+    contentLib.publish({
+      keys: [article._id],
+      sourceBranch: "master",
+      targetBranch: "draft"
+    });
+    return article;
+  });
 }
