@@ -16,6 +16,22 @@ exports.renderSuccessPage = renderSuccessPage;
 exports.checkIKResponse = checkIKResponse;
 exports.getLiqpayData = getLiqpayData;
 exports.getLiqpayStatusData = getLiqpayStatusData;
+exports.checkoutCart = checkoutCart;
+
+function checkoutCart(cart, status) {
+  cartLib.modifyCartWithParams(cart._id, {
+    status: status,
+    transactionDate: new Date(),
+    price: cart.price
+  });
+  contextLib.runAsAdmin(function() {
+    cartLib.savePrices(cart._id);
+    cartLib.modifyInventory(cart.items);
+    if (cart.promos) {
+      promosLib.reduceUsePromos(cart.promos);
+    }
+  });
+}
 
 function getLiqpayData(cart) {
   return {
