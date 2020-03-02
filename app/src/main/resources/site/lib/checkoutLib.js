@@ -34,12 +34,22 @@ function checkoutCart(cart, status) {
 }
 
 function getLiqpayData(cart) {
+  var description = "";
+  for (var i = 0; i < cart.items.length; i++) {
+    description +=
+      cart.items[i].displayName +
+      (cart.items[i].itemSize ? " " + cart.items[i].itemSize : "") +
+      " x" +
+      cart.items[i].amount +
+      ", ";
+  }
+  description = description.substring(0, description.length - 2);
   return {
     public_key: app.config.liqpayPublicKey,
     version: "3",
     action: "pay",
     currency: "UAH",
-    description: "test",
+    description: description,
     order_id: cart.userId,
     result_url: sharedLib.generateNiceServiceUrl(
       "/payment-processing",
