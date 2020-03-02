@@ -1,10 +1,3 @@
-.js_add-hashtag-input {
-  width: inherit;
-  min-width: 10px;
-  padding: 5px 10px;
-  border: none;
-  height: inherit;
-}
 .create_article {
   .add-hashtag {
     min-width: 20px;
@@ -261,6 +254,16 @@
     .post-title,
     .post-text {
       border-color: $color-primary32;
+    }
+  }
+
+  .tag-item {
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+
+    &:focus {
+      outline: 0;
+      border-bottom-color: #e9462d;
     }
   }
 }
