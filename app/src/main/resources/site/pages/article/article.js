@@ -1,6 +1,7 @@
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var thymeleaf = require("/lib/thymeleaf");
+var util = require("/lib/util");
 
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -33,7 +34,8 @@ function handleReq(req) {
           "<script src='" + fileName + "'></script>",
           "<script src='" + player + "'></script>",
           "<link href='" + styles + "' rel='stylesheet'/>"
-        ]
+        ],
+        headEnd: [model.podcastUrl ? model.podcastUrl : ""]
       }
     };
   }
@@ -60,6 +62,7 @@ function handleReq(req) {
     }
     content = blogLib.beautifyArticle(content);
     let audio = null;
+    let podcastUrl = null;
     if (content.type === app.name + ":podcast" && content.data.audioFile) {
       audio = thymeleaf.render(resolve("../../parts/audio/audio.html"), {
         audioUrl: portal.attachmentUrl({
@@ -68,11 +71,19 @@ function handleReq(req) {
         title: content.displayName,
         preview: req.mode === "edit"
       });
+      var parent = util.content.getParent(content._id);
+      podcastUrl =
+        '<link type="application/rss+xml" rel="alternate" title="' +
+        content.displayName +
+        '" href="' +
+        portal.pageUrl({ id: parent._id, type: "absolute" }) +
+        '"/>';
     }
 
     var model = {
       content: content,
       audio: audio,
+      podcastUrl: podcastUrl,
       sidebar: blogLib.getSidebar(),
       mainRegion: mainRegion,
       removeCommentModal: removeCommentModal,

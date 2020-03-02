@@ -56,7 +56,6 @@ exports.get = function(req) {
       );
       break;
     default:
-      return logout();
       break;
   }
   model.pageComponents = helpers.getPageComponents(req);
@@ -69,6 +68,9 @@ exports.get = function(req) {
         Location: portal.pageUrl({ path: portal.getSite()._path })
       }
     };
+  }
+  if (!view) {
+    return logout();
   }
   return {
     body: thymeleaf.render(view, model),
