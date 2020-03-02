@@ -61,13 +61,13 @@
                 class="plp-prod_price"
               >
                 <span
-                  data-th-if="${product.data.price and product.data.finalPrice and product.data.price < product.data.finalPrice}"
                   class="sale"
-                  data-th-text="${'UAH ' + product.data.finalPrice}"
+                  data-th-text="${'UAH ' + product.data.price}"
                 ></span>
                 <span
+                  data-th-if="${product.data.price and product.data.finalPrice and product.data.price < product.data.finalPrice}"
                   class="default"
-                  data-th-text="${'UAH ' + product.data.price}"
+                  data-th-text="${'UAH ' + product.data.finalPrice}"
                 ></span>
               </div>
               <div
