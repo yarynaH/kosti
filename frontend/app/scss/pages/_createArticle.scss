@@ -304,15 +304,15 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
-  }
 
-  .suggestion-list {
-    padding: 0;
-    list-style: none;
-    width: calc(100% - 10px);
-
-    li {
-      margin: 0;
+    .suggestion-list {
+      padding: 0;
+      list-style: none;
+      width: calc(100% - 10px);
+  
+      li {
+        margin: 0;
+      }
     }
   }
 }
