@@ -8,6 +8,20 @@ exports.getUserByHash = getUserByHash;
 exports.generateHash = generateHash;
 exports.generateLiqpayData = generateLiqpayData;
 exports.generateLiqpaySignature = generateLiqpaySignature;
+exports.createNiceNumericHash = createNiceNumericHash;
+
+function createNiceNumericHash(str) {
+  var hash = 0,
+    i,
+    chr;
+  if (str.length === 0) return hash;
+  for (i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0;
+  }
+  return Math.abs(parseInt(hash));
+}
 
 function generateLiqpayData(data) {
   return textEncoding.base64Encode(JSON.stringify(data));
