@@ -11,6 +11,7 @@ var norseUtils = require(libLocation + "norseUtils");
 var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 var qrLib = require(libLocation + "qrLib");
+var pdfLib = require(libLocation + "pdfLib");
 
 exports.get = function(req) {
   var qr = qrLib(4, "L");
@@ -27,9 +28,13 @@ exports.get = function(req) {
     // }
   );
   if (req.params.pdf) {
-    var bean = __.newBean("com.myurchenko.lib.pdf.PdfHandler");
+    var html = pdfLib.generatePdf({
+      type: "ticket",
+      template: "regularTicket2020",
+      qrData: "123123123123"
+    });
     return {
-      body: bean.exportHtml(html),
+      body: html,
       contentType: "application/pdf"
     };
   }

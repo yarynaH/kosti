@@ -2,6 +2,7 @@ package com.myurchenko.lib.pdf;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,5 +28,16 @@ public class PdfHandler {
     out.flush();
     out.close();
     return out.toByteArray();
+  }
+
+  public FileSource exportToPdf(String html) {
+    FileSource fileSource = new FileSource();
+    try {
+      fileSource.setContent(exportHtml(html));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return fileSource;
   }
 }
