@@ -34,7 +34,8 @@ exports.get = function(req) {
     var html = pdfLib.generatePdf({
       type: "ticket",
       template: "regularTicket2020",
-      qrData: "123123123123"
+      qrData: "123123123123",
+      friendlyId: 123123
     });
     return {
       body: html,
