@@ -2,19 +2,37 @@ var norseUtils = require("norseUtils");
 var nodeLib = require("/lib/xp/node");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
+var repoLib = require("/lib/xp/repo");
+var contextLib = require("contextLib");
 
-exports.connectRepo = connectRepo;
+exports.connectRepo = getRepoConnection;
 exports.generateNiceServiceUrl = generateNiceServiceUrl;
 exports.getTranslationCounter = getTranslationCounter;
 exports.getSite = getSite;
 exports.getSiteConfig = getSiteConfig;
 exports.getShopUrl = getShopUrl;
 
-function connectRepo(id) {
+function getRepoConnection(id, branch) {
+  let conn = null;
+  if (!branch) {
+    var branch = "master";
+  }
+  contextLib.runAsAdmin(function() {
+    if (!repoLib.get(id)) {
+      createRepo(id);
+    }
+  });
   return nodeLib.connect({
     repoId: id,
     branch: "master"
   });
+}
+
+function createRepo(id) {
+  let repo = repoLib.create({
+    id: id
+  });
+  return repo;
 }
 
 function getShopUrl() {

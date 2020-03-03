@@ -7,6 +7,7 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
+var userLib = require(libLocation + "userLib");
 
 exports.post = function(req) {
   var data = JSON.parse(req.params.data);
@@ -18,15 +19,15 @@ exports.post = function(req) {
     var id = data.id;
     delete data.name;
     delete data.id;
-    contextLib.runInDraftAsAdmin(function() {
+    contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
       var result = contentLib.modify({
         key: id,
         editor: editor
       });
       contentLib.publish({
         keys: [id],
-        sourceBranch: "draft",
-        targetBranch: "master"
+        sourceBranch: "master",
+        targetBranch: "draft"
       });
       function editor(c) {
         c.displayName = displayName;

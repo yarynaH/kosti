@@ -46,6 +46,9 @@ function getSolialLinks() {
 function getWeekArticle() {
   var weekArticleId = votesLib.getWeekArticleId();
   var article = contentLib.get({ key: weekArticleId });
+  if (!article) {
+    return "";
+  }
   article = beautifyArticle(article);
   return thymeleaf.render(resolve("../pages/components/blog/weeksPost.html"), {
     article: article
@@ -218,6 +221,7 @@ function getSearchArticles(q, page, useHashtag) {
     query: query,
     start: page * pageSize,
     count: pageSize,
+    sort: "publish.from DESC",
     contentTypes: [app.name + ":article", app.name + ":podcast"]
   });
   if (result && result.hits && result.hits.length > 0) {

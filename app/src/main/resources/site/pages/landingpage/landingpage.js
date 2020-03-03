@@ -1,27 +1,42 @@
 var thymeleaf = require("/lib/thymeleaf");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
-var mailLib = require("/lib/xp/mail");
-var httpClientLib = require("/lib/xp/http-client");
-var cache = require("/lib/cache");
 
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
-var votesLib = require(libLocation + "votesLib");
 var userLib = require(libLocation + "userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
+var newsletterLib = require(libLocation + "newsletterLib");
+var i18nLib = require("/lib/xp/i18n");
+var contextLib = require(libLocation + "contextLib");
 
 exports.get = handleReq;
-exports.post = handleReq;
+exports.post = handlePost;
+
+function handlePost(req) {
+  if (req && req.params && req.params.email) {
+    var result = contextLib.runInDraftAsAdmin(function() {
+      return newsletterLib.addEmailToNewsletter(req.params.email);
+    });
+    if (result) {
+      return {
+        body: {
+          text: i18nLib.localize({
+            key: "kosticon2020.landing.thanks",
+            locale: req.params.lang
+          })
+        },
+        contentType: "application/json"
+      };
+    }
+  }
+  return false;
+}
 
 function handleReq(req) {
   var me = this;
   var user = userLib.getCurrentUser();
-  var youtubeCache = cache.newCache({
-    size: 500,
-    expire: 60 * 60 * 24
-  });
 
   function renderView() {
     var view = resolve("landingpage.html");
@@ -40,94 +55,41 @@ function handleReq(req) {
   function createModel() {
     var up = req.params;
     var content = portal.getContent();
-    var response = [];
-    var site = portal.getSiteConfig();
-    var description = portal.getSite().data.description;
-    var showDescription = true;
-    var schedule = getSchedule(site.slider);
-    var video = getVideoViaApi(app.config.gApiKey);
 
     var model = {
       content: content,
-      url: portal.pageUrl({ path: content._path }),
-      app: app,
-      shopUrl: portal.pageUrl({ id: site.shopLocation }),
-      video: video
-        ? "https://www.youtube.com/embed/" + video
-        : getVideoUrl(site.video),
-      schedule: schedule,
-      social: site.social,
-      pageComponents: helpers.getPageComponents(req),
-      showDescription: showDescription
+      frontPageUrl: portal.pageUrl({ path: portal.getSite()._path }),
+      relatedLocales: kostiUtils.getRelatedLocales(content),
+      timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
+      pageComponents: helpers.getPageComponents(req)
     };
 
     return model;
+  }
 
-    function getSchedule() {
-      var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
-      var now = new Date();
-      now.setDate(now.getDate() - 1);
-      now = now.toISOString();
-      var result = contentLib.query({
-        query: "data.date > dateTime('" + now + "')",
-        start: 0,
-        count: 3,
-        sort: "data.date ASC",
-        contentTypes: [app.name + ":schedule"]
-      }).hits;
-      for (var i = 0; i < result.length; i++) {
-        result[i].image = norseUtils.getImage(
-          result[i].data.image,
-          "block(301, 109)"
-        );
-        var itemDate = new Date(result[i].data.date);
-        result[i].month = norseUtils.getMonthName(itemDate);
-        result[i].day = itemDate.getDate().toFixed();
-      }
-      return result;
+  function getRemainingTime(date) {
+    var days, hours, minutes, seconds;
+    date = new Date(date).getTime();
+    if (isNaN(date)) {
+      return;
     }
-
-    function getVideoFromCache(key) {
-      return youtubeCache.get("key", function() {
-        return getVideoViaApi(key);
-      });
-    }
-
-    function getVideoViaApi(key) {
-      var response = JSON.parse(
-        httpClientLib.request({
-          url:
-            "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCETKVT-Uj-gAqdSTd2YNaMg&maxResults=1&order=date&type=video&key=" +
-            key,
-          method: "GET",
-          headers: {
-            "X-Custom-Header": "header-value"
-          },
-          connectionTimeout: 2000000,
-          readTimeout: 500000,
-          contentType: "application/json"
-        }).body
-      );
-      if (
-        response.items &&
-        response.items[0] &&
-        response.items[0].id &&
-        response.items[0].id.videoId
-      ) {
-        return response.items[0].id.videoId;
-      }
-      return false;
-    }
-
-    function getVideoUrl(url) {
-      url = url.split("/");
-      url = url[url.length - 1];
-
-      if (url.split("?v=")[1]) {
-        return "https://www.youtube.com/embed/" + url.split("?v=")[1];
-      } else {
-        return "https://www.youtube.com/embed/" + url;
-      }
+    var startDate = new Date();
+    startDate = startDate.getTime();
+    var timeRemaining = parseInt((date - startDate) / 1000);
+    if (timeRemaining >= 0) {
+      days = parseInt(timeRemaining / 86400);
+      timeRemaining = timeRemaining % 86400;
+      hours = parseInt(timeRemaining / 3600);
+      timeRemaining = timeRemaining % 3600;
+      minutes = parseInt(timeRemaining / 60);
+      timeRemaining = timeRemaining % 60;
+      seconds = parseInt(timeRemaining);
+      return {
+        days: parseInt(days, 10).toFixed(),
+        hours: ("0" + hours).slice(-2),
+        minutes: ("0" + minutes).slice(-2),
+        seconds: ("0" + seconds).slice(-2)
+      };
     }
   }
   return renderView();

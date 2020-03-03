@@ -1,0 +1,16 @@
+<part>
+  <display-name>Tickets bar</display-name>
+  <form>
+    <input name="milestone" type="TextLine">
+      <label>Milestone</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="products" type="ContentSelector">
+      <label>Products</label>
+      <occurrences minimum="1" maximum="0"/>
+      <config>
+        <allowContentType>product</allowContentType>
+      </config>
+    </input>
+  </form>
+</part>
