@@ -4,7 +4,9 @@ var thymeleaf = require("/lib/thymeleaf");
 var qrLib = require("qrLib");
 var templates = {
   regularTicket: "../pages/pdfs/regularTicket.html",
-  legendaryTicket: "../pages/pdfs/legendaryTicket.html"
+  legendaryTicket: "../pages/pdfs/legendaryTicket.html",
+  regularTicket2020: "../pages/pdfs/regularTicket.html",
+  legendaryTicket2020: "../pages/pdfs/legendaryTicket.html"
 };
 
 /*
