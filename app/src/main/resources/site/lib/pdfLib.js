@@ -9,8 +9,8 @@ var qrLib = require("qrLib");
 var templates = {
   regularTicket: "../pages/pdfs/regularTicket.html",
   legendaryTicket: "../pages/pdfs/legendaryTicket.html",
-  regularTicket2020: "../pages/pdfs/regularTicket2020.html",
-  legendaryTicket2020: "../pages/pdfs/legendaryTicket2020.html"
+  regularTicket2020: "../pages/pdfs/ticket2020.html",
+  legendaryTicket2020: "../pages/pdfs/ticket2020.html"
 };
 
 /*
@@ -35,7 +35,8 @@ function generateTicket(params) {
   var html = thymeleaf.render(resolve(templates[params.template]), {
     qrcode: qr.createTableTag(10, 0),
     id: params.qrData,
-    friendlyId: params.friendlyId
+    friendlyId: params.friendlyId.toFixed(),
+    legendary: params.template === "legendaryTicket2020"
   });
 
   var filesource = __.toNativeObject(
