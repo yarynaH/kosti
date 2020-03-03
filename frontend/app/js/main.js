@@ -155,7 +155,7 @@ function initSharedEvents() {
   if ($("form[name=payment]").length > 0) {
     $("form[name=payment]").submit();
   }
-  if ($("#payment-success").length > 0) {
+  if ($(".js_payment-success").length > 0) {
     deleteCookie("cartId");
   }
   $(

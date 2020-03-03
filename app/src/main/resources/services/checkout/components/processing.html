@@ -8,7 +8,11 @@
       data-th-utext="${pageComponents.loginRegisterModal}"
     ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main" id="payment-success">
+    <main
+      class="main"
+      id="payment-success"
+      data-th-classappend="${status == 'success' ? 'js_payment-success' : ''}"
+    >
       <div class="confirmation-wrap">
         <div class="site_width">
           <h2

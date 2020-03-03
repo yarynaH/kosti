@@ -31,7 +31,8 @@ function generateCheckoutPage(req) {
     }).body
   );
   if (result && result.status && result.status === "success") {
-    var status = "success";
+    checkoutLib.checkoutCart(cart, "paid");
+    return checkoutLib.renderSuccessPage(req, cart, false);
   } else if (
     result &&
     result.status &&
@@ -41,9 +42,9 @@ function generateCheckoutPage(req) {
   ) {
     var status = "error";
   } else {
-    var status = "pending";
+    checkoutLib.checkoutCart(cart, "pending");
+    return checkoutLib.renderSuccessPage(req, cart, true);
   }
-  norseUtils.log(status);
   var model = {
     shopUrl: sharedLib.getShopUrl(),
     cart: cart,

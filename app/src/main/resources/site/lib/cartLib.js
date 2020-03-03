@@ -5,6 +5,7 @@ var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
 var textEncoding = require("/lib/text-encoding");
 var moment = require("moment");
+var hashLib = require("hashLib");
 var sharedLib = require("sharedLib");
 
 exports.addPromo = addPromo;
@@ -380,7 +381,7 @@ function generateItemsIds(cartId) {
         for (var j = 0; j < idsCount; j++) {
           utils.ticketCount++;
           node.items[i].itemsIds.push({
-            id: textEncoding.md5(
+            id: hashLib.createNiceNumericHash(
               node.name +
                 " " +
                 node.surname +
