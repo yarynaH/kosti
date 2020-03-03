@@ -33,7 +33,7 @@ function generateTicket(params) {
   qr.addData(params.qrData);
   qr.make();
   var html = thymeleaf.render(resolve(templates[params.template]), {
-    qrcode: qr.createTableTag(7, 0),
+    qrcode: qr.createTableTag(10, 0),
     id: params.qrData,
     friendlyId: params.friendlyId
   });
