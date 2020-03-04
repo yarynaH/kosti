@@ -1,0 +1,14 @@
+.price {
+  font-size: rem(24);
+  font-weight: bold;
+  color: $color-primary28;
+
+  &.old {
+    color: $color-primary28;
+    text-decoration: line-through;
+  }
+
+  &.sale {
+    color: $color-primary15;
+  }
+}

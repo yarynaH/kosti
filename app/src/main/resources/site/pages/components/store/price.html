@@ -1,18 +1,18 @@
-<div data-th-unless="${product.data.inventory == 0}" class="plp-prod_price">
+<div data-th-unless="${product.data.inventory == 0}" data-th-remove="tag">
   <!--SALE BLOCK-->
   <div data-th-if="${sale}" data-th-remove="tag">
     <span
       data-th-if="${sale}"
-      class="old"
+      class="price old"
       data-th-text="${'UAH ' + product.data.finalPrice}"
     ></span>
-    <span class="sale" data-th-text="${'UAH ' + product.data.price}"></span>
+    <span class="price sale" data-th-text="${'UAH ' + product.data.price}"></span>
   </div>
   <!--DEFAULT PRICE BLOCK-->
   <div data-th-unless="${sale}" data-th-remove="tag">
-    <span class="default" data-th-text="${'UAH ' + product.data.price}"></span>
+    <span class="price " data-th-text="${'UAH ' + product.data.price}"></span>
   </div>
-  <div data-th-if="${product.data.preorder}" class="out-of-stock-msg">
+  <div data-th-if="${product.data.preorder}" class="preorder-msg">
     Предзаказ
   </div>
 </div>

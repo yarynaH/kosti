@@ -200,8 +200,9 @@
       padding-top: 25px;
     }
 
-    .out-of-stock-msg {
-      font-size: rem(16);
+    .out-of-stock-msg,
+    .preorder-msg {
+      font-size: rem(14);
     }
   }
 
@@ -229,10 +230,9 @@
   }
 
   &-product-price {
-    font-weight: bold;
-
-    &-wrap {
-      color: $color-primary28;
+    .price {
+      display: block;
+      font-size: rem(14);
     }
   }
 
