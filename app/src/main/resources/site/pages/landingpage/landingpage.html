@@ -54,16 +54,16 @@
             <div class="landing-top-text">
               <div class="landing-caption-wrap">
                 <h2
-                  class="landing-caption"
-                  data-th-utext="${portal.localize({'_key=kosticon2020.landing.title', '_locale='+content.language})}"
-                >
-                  фестиваль настольных ролевых игр
-                </h2>
-                <h2
                   class="landing-info"
                   data-th-utext="${portal.localize({'_key=kosticon2020.landing.date', '_locale='+content.language})}"
                 >
                   ужгород 21-24 мая
+                </h2>
+                <h2
+                  class="landing-caption"
+                  data-th-utext="${portal.localize({'_key=kosticon2020.landing.title', '_locale='+content.language})}"
+                >
+                  фестиваль настольных ролевых игр
                 </h2>
               </div>
               <h1 class="landing-kosticon_img">
@@ -159,45 +159,21 @@
             </div>
           </div>
           <div class="landing-bot">
-            <form
-              class="landing-bot-item landing-bot-subscribe js_landing-subscribe-form"
+            <div
+              class="landing-bot-item landing-bot-buy_ticket"
             >
-              <h3
-                class="landing-title"
-                data-th-utext="${portal.localize({'_key=kosticon2020.landing.subscribe.title', '_locale='+content.language})}"
-              >
-                Подпишись на рассылку
-              </h3>
-              <p
-                class="landing-description"
-                data-th-utext="${portal.localize({'_key=kosticon2020.landing.subscribe.description', '_locale='+content.language})}"
-              >
-                Не пропусти начало продажи билетов.
-              </p>
-              <div class="landing-subscribe-wrap">
-                <input
-                  class="landing-subscribe-input"
-                  type="text"
-                  name="email"
-                  id="landingEmailInput"
-                  required
-                />
-                <button class="landing-subscribe-btn " type="submit">
-                  <span
-                    class="landing-subscribe-text"
-                    data-th-utext="${portal.localize({'_key=kosticon2020.landing.subscribe.button', '_locale='+content.language})}"
-                    >Подписаться
-                  </span>
-                  <span class="icon-selected"></span>
-                </button>
+              <button class="button landing-buy_ticket">КУПИТЬ БИЛЕТ</button>
+              <div class="landing-buy_ticket-caption">Билетов первой партии осталось…</div>
+              <div class="landing-buy_ticket-progress">
+                <div class="landing-buy_ticket-current"></div>
               </div>
-            </form>
+            </div>
             <div class="landing-bot-item landing-bot-telegram">
               <h3
                 class="landing-title"
                 data-th-utext="${portal.localize({'_key=kosticon2020.landing.telegram.title', '_locale='+content.language})}"
               >
-                Чат фестиваля
+                Telegram чат
               </h3>
               <p
                 class="landing-description"
