@@ -12,6 +12,7 @@ var sharedLib = require(libLocation + "sharedLib");
 var hashLib = require(libLocation + "hashLib");
 var checkoutLib = require(libLocation + "checkoutLib");
 var userLib = require(libLocation + "userLib");
+var storeLib = require(libLocation + "storeLib");
 
 exports.get = function(req) {
   return generateCheckoutPage(req);
@@ -143,6 +144,9 @@ function generateCheckoutPage(req) {
   function getCheckoutMainModel(params) {
     var cart = cartLib.getCart(req.cookies.cartId);
     var site = portal.getSiteConfig();
+    for (var i = 0; i < cart.items.length; i++) {
+      cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]._id);
+    }
     return {
       cart: cart,
       promos: thymeleaf.render(resolve("components/promos.html"), {

@@ -57,30 +57,14 @@
                 data-th-text="${product.displayName}"
               ></h2>
               <div
-                data-th-unless="${product.data.inventory == 0}"
-                class="plp-prod_price"
-              >
-                <span
-                  class="sale"
-                  data-th-text="${'UAH ' + product.data.price}"
-                ></span>
-                <span
-                  data-th-if="${product.data.price and product.data.finalPrice and product.data.price < product.data.finalPrice}"
-                  class="default"
-                  data-th-text="${'UAH ' + product.data.finalPrice}"
-                ></span>
-              </div>
+                data-th-utext="${product.priceBlock}"
+                data-th-remove="tag"
+              ></div>
               <div
                 data-th-if="${product.data.inventory == 0}"
                 class="out-of-stock-msg"
               >
                 Нет в наличии
-              </div>
-              <div
-                data-th-if="${product.data.preorder}"
-                class="out-of-stock-msg"
-              >
-                Предзаказ
               </div>
             </div>
           </div>

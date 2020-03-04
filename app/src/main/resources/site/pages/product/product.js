@@ -9,6 +9,7 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var sharedLib = require(libLocation + "sharedLib");
+var storeLib = require(libLocation + "storeLib");
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -39,6 +40,7 @@ function handleReq(req) {
     var model = {
       content: content,
       app: app,
+      priceBlock: storeLib.getPriceBlock(content._id),
       cart: cartLib.getCart(req.cookies.cartId),
       mainImage: getMainImage(content.data),
       images: getImages(content.data),
