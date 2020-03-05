@@ -258,6 +258,7 @@
 
     @include mobile {
       padding-bottom: 50px;
+      position: relative;
     }
   }
 
@@ -312,6 +313,13 @@
         margin-left: 10px;
       }
     }
+
+    .icon-telegram {
+      background-image: url("../images/kosticon2020/telegram.svg");
+      width: 24px;
+      height: 22px;
+      margin-right: 15px;
+    }
   }
 
   &-title {
@@ -339,6 +347,8 @@
   }
 
   &-link {
+    display: flex;
+    align-items: center;
     font-size: 15px;
     color: #3aa4e4;
     text-transform: uppercase;
@@ -507,6 +517,72 @@
       height: 8px;
       background-color: #ee1e5d;
       width: 20%;
+    }
+  }
+
+  &-faq-accordion {
+    &-title {
+      font-size: 16px;
+      color: #3aa4e4;
+      line-height: 22px;
+      padding: 5px 0;
+      cursor: pointer;
+      transition: all .2s ease 0s;
+
+      &:hover {
+        color: #ee1e5d;
+      }
+    }
+
+    &-icon {
+      position: relative;
+      display: inline;
+
+      &:after,
+      &:before {
+        position: absolute;
+        top: 50%;
+        right: -15px;
+        transform: translate(0, -50%);
+        content: '';
+        border: 1px solid #076795;
+        width: 10px;
+        transition: all .2s ease 0s;
+
+        .landing-faq-accordion-title:hover & {
+          border-color: #ee1e5d;
+        }
+      }
+
+      &:after {
+        transform: rotate(90deg);
+        margin-top: -1px;
+
+        .active & {
+          transform: rotate(0);
+        }
+      }
+    }
+  
+    &-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin: 0;
+      transition: all .2s ease 0s;
+      font-size: 14px;
+      line-height: 16px;
+      color: white;
+      font-weight: 300;
+      padding: 0 15px;
+      border-left: 1px solid #ee1e5d;
+      
+      .active & {
+        max-height: 500px;
+        overflow: visible;
+        opacity: 1;
+        margin: 15px 0;
+      }
     }
   }
 }

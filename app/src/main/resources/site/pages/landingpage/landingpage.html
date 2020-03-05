@@ -162,8 +162,14 @@
             <div
               class="landing-bot-item landing-bot-buy_ticket"
             >
-              <button class="button landing-buy_ticket">КУПИТЬ БИЛЕТ</button>
-              <div class="landing-buy_ticket-caption">Билетов первой партии осталось…</div>
+              <button class="button landing-buy_ticket"
+              data-th-utext="${portal.localize({'_key=kosticon2020.landing.buy.ticket.btn', '_locale='+content.language})}">
+                КУПИТЬ БИЛЕТ
+              </button>
+              <div class="landing-buy_ticket-caption" 
+              data-th-utext="${portal.localize({'_key=kosticon2020.landing.buy.ticket.left', '_locale='+content.language})}">
+                Билетов первой партии осталось…
+              </div>
               <div class="landing-buy_ticket-progress">
                 <div class="landing-buy_ticket-current"></div>
               </div>
@@ -187,7 +193,10 @@
                     target="_blank"
                     href="https://t.me/joinchat/Eat2ghd-6G_H6q86-8x9rw"
                     class="landing-link"
-                    >Telegram</a
+                    >
+                      <span class="icon-telegram"></span>
+                      <span data-th-utext="${portal.localize({'_key=kosticon2020.landing.telegram.join', '_locale='+content.language})}">ПРИСОЕДИНИТЬСЯ</span>
+                    </a
                   >
                 </li>
               </ul>
@@ -234,6 +243,30 @@
                   >
                 </li>
               </ul>
+            </div>
+          </div>
+          <div class="landing-bot-item">
+            <h3
+              class="landing-title"
+              data-th-utext="${portal.localize({'_key=kosticon2020.landing.registration.chavo', '_locale='+content.language})}"
+            >
+            ЧаВо
+            </h3>
+          </div>
+          <div class="landing-faq-accordion">
+            <div class="landing-faq-accordion-item">
+              <h4 class="landing-faq-accordion-title">
+                <span>Что такое KostiCon 2020?</span>
+                <span class="landing-faq-accordion-icon"></span>
+              </h4>
+              <div class="landing-faq-accordion-content">Фестиваль настольных ролевых игр, который организовывает сообщество Вечерние Кости.</div>
+            </div>
+            <div class="landing-faq-accordion-item active">
+              <h4 class="landing-faq-accordion-title">
+                <span>Где и когда состоится KostiCon 2020?</span>
+                <span class="landing-faq-accordion-icon"></span>
+              </h4>
+              <div class="landing-faq-accordion-content">Фестиваль настольных ролевых игр, который организовывает сообщество Вечерние Кости.</div>
             </div>
           </div>
           <div class="landing-snake_logo">
