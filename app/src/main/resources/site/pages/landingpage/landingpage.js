@@ -67,7 +67,7 @@ function handleReq(req) {
       content: content,
       faqArray: norseUtils.forceArray(content.data.faq),
       progress: progress.toFixed(),
-      frontPageUrl: portal.pageUrl({ _path: portal.getSite()._path }),
+      frontPageUrl: portal.pageUrl({ path: portal.getSite()._path }),
       ticketsUrl: sharedLib.getShopUrl({ type: "ticket" }),
       relatedLocales: kostiUtils.getRelatedLocales(content),
       timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
