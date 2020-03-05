@@ -22,6 +22,9 @@ exports.get = function(req) {
     case "fixItemIds":
       cartLib.fixItemIds();
       break;
+    case "removeUnusedVotes":
+      votesLib.removeUnusedVotes();
+      break;
   }
   return {
     body: "",
