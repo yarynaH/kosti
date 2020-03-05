@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Landing</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <field-set>
+      <label>Tickets milestone</label>
+      <items>
+        <input name="milestone" type="Long">
+          <label>Tickets milestone</label>
+          <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="products" type="ContentSelector">
+          <label>Products</label>
+          <occurrences minimum="1" maximum="0"/>
+          <config>
+            <allowContentType>product</allowContentType>
+          </config>
+        </input>
+      </items>
+    </field-set>
+    <item-set name="faq">
+      <label>FAQ</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="question" type="TextLine">
+          <label>Question</label>
+          <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="answer" type="HtmlArea">
+          <label>Answer</label>
+          <occurrences minimum="1" maximum="1"/>
+          <config>
+          </config>
+        </input>
+      </items>
+    </item-set>
+  </form>
+</content-type>

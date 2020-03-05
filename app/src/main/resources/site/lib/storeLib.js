@@ -27,11 +27,8 @@ function countTickets(orderId, itemIds) {
   let result = 0;
   order.items = norseUtils.forceArray(order.items);
   for (let i = 0; i < order.items.length; i++) {
-    if (
-      itemIds.indexOf(order.items[i].id) !== -1 &&
-      order.items[i].itemsIds &&
-      order.items[i].itemsIds.length
-    ) {
+    if (itemIds.indexOf(order.items[i].id) !== -1 && order.items[i].itemsIds) {
+      order.items[i].itemsIds = norseUtils.forceArray(order.items[i].itemsIds);
       result += order.items[i].itemsIds.length;
     }
   }

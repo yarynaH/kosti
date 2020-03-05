@@ -32,10 +32,14 @@ function createRepo(id) {
   return repo;
 }
 
-function getShopUrl() {
+function getShopUrl(params) {
+  if (!params) {
+    var params = {};
+  }
   var site = portal.getSiteConfig();
   return portal.pageUrl({
-    id: site.shopLocation
+    id: site.shopLocation,
+    params: params
   });
 }
 

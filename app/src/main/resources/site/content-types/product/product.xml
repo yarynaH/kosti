@@ -90,6 +90,7 @@
       <config>
         <option value="ticket">Ticket</option>
         <option value="clothes">Clothes</option>
+        <option value="accessory">Accessory</option>
       </config>
     </input>
     <input name="ticketType" type="ComboBox">

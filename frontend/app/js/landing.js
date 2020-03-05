@@ -12,6 +12,15 @@ function initCountdown() {
 }
 
 function initLandingScripts() {
+  $(".js_faq-item").on("click", function() {
+    if ($(this).hasClass("active")) {
+      $(this).removeClass("active");
+    } else {
+      $(".js_faq-item.active").removeClass("active");
+      $(this).addClass("active");
+    }
+  });
+
   $(".js_landing-subscribe-form").on("submit", function(e) {
     e.preventDefault();
     if (!$(this).valid()) {
