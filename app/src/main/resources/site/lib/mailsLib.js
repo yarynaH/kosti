@@ -115,7 +115,7 @@ function unsubscribe(hash) {
 }
 
 function getorderCreatedMail(params) {
-  var d = new Date();
+  var d = new Date(params.cart.transactionDate);
   var dateString =
     d.getDate() +
     " " +
@@ -150,7 +150,8 @@ function getorderCreatedMail(params) {
               template: item.data.ticketType,
               qrData: params.cart.items[i].itemsIds[j].id,
               type: "ticket",
-              name: name
+              name: name,
+              friendlyId: params.cart.items[i].itemsIds[j].friendlyId
             }),
             mimeType: "application/pdf",
             headers: {
