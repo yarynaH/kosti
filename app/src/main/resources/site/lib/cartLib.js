@@ -304,6 +304,9 @@ function setUserDetails(cartId, params) {
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = params.userId ? params.userId : node.userId;
     node.index = params.index ? params.index : node.index;
+    node.paymentMethod = params.paymentMethod
+      ? params.paymentMethod
+      : node.paymentMethod;
     node.userRelation = params.userRelation
       ? params.userRelation
       : node.userRelation;

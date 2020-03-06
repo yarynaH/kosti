@@ -59,6 +59,9 @@ function generateCheckoutPage(req) {
       break;
     case "interkassa":
       if (model.cart && model.cart.ik_id) {
+        model.cart = cartLib.modifyCartWithParams(model.cart._id, {
+          paymentMethod: "interkassa"
+        });
         model.checkoutForm = thymeleaf.render(
           resolve("components/interkassaForm.html"),
           { cart: model.cart, ik_id: model.ik_id }
@@ -66,6 +69,9 @@ function generateCheckoutPage(req) {
       }
       break;
     case "liqpay":
+      model.cart = cartLib.modifyCartWithParams(model.cart._id, {
+        paymentMethod: "liqpay"
+      });
       var liqpayData = hashLib.generateLiqpayData(
         checkoutLib.getLiqpayData(model.cart)
       );
