@@ -263,7 +263,7 @@
     @include tablet-all {
       display: flex;
       justify-content: space-between;
-      padding-bottom: 100px;
+      padding-bottom: 45px;
     }
 
     @include mobile {
@@ -276,7 +276,7 @@
     @include tablet-all {
       display: flex;
       flex-direction: column;
-      width: 30%;
+      width: 31%;
     }
 
     & + & {
@@ -461,8 +461,8 @@
     }
 
     @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
-      margin: 15px 0 40px;
-      height: 60px;
+      margin: 15px 0 20px;
+      height: 75px;
     }
 
     &::before,
@@ -645,7 +645,37 @@
   }
 
   &-bottom {
-    display: flex;
-    justify-content: space-between;
+    @include tablet-all {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &-kosticon2019 {
+    @include tablet-all {
+      margin-top: 46px;
+    }
+  }
+
+  &-main-video {
+    @include tablet-all {
+      padding-bottom: 56px;
+    }
+
+    iframe {
+      width: 100%;
+    }
+  }
+
+  &-video-wrap {
+    margin-top: 15px;
+
+    iframe {
+      width: 100%;
+    }
+  }
+
+  &-footer {
+    padding-bottom: 40px;
   }
 }

@@ -248,6 +248,9 @@
               </ul>
             </div>
           </div>
+          <div class="landing-main-video">
+            <iframe src="https://www.youtube.com/watch?v=MdAPzl6S6hc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
           <div class="landing-bottom">
             <div class="landing-middle-item landing-middle-faq">
               <h3
@@ -338,16 +341,18 @@
           </div>
         </div>
       </div>
-      <footer
-        class="footer"
-        data-th-utext="${pageComponents.footer}"
-      >
-        <a
-        data-th-each="footer: ${footerLinks}"
-        data-th-text="${footer.displayName}"
-        data-th-href="${footer.url}"
-      ></a>
-    </footer>
+      <div class="blog_width">
+        <footer
+          class="landing-footer"
+        >
+          <a
+          data-th-each="footer: ${footerLinks}"
+          data-th-href="${footer.url}"
+          >
+            Соглашение
+          </a>
+        </footer>
+      </div>
       <script type="text/javascript" data-th-inline="javascript">
         var lang = [[${lang}]];
       </script>
