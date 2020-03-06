@@ -267,7 +267,7 @@
     }
 
     @include mobile {
-      padding-bottom: 50px;
+      padding-bottom: 15px;
       position: relative;
     }
   }
@@ -592,7 +592,9 @@
       transition: all .2s ease 0s;
 
       &:hover {
-        color: #ee1e5d;
+        @include tablet-all {
+          color: #ee1e5d;
+        }
       }
     }
 
@@ -614,7 +616,9 @@
         transition: all .2s ease 0s;
 
         .landing-faq-accordion-title:hover & {
-          border-color: #ee1e5d;
+          @include tablet-all {
+            border-color: #ee1e5d;
+          }
         }
       }
 
@@ -667,20 +671,46 @@
   }
 
   &-main-video {
-    @include tablet-all {
-      padding-bottom: 56px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 52%;
+    padding-top: 25px;
+    height: 0;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
+
+    &-wrap {
+      @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      @include tablet-all {
+        margin-bottom: 56px;
+      }
     }
 
     iframe {
+      @include position(absolute, top 0 left 0);
+
       width: 100%;
+      height: 100%;
     }
   }
 
   &-video-wrap {
     margin-top: 15px;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 51.903%;
+    padding-top: 25px;
+    height: 0;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.16);
 
     iframe {
+      @include position(absolute, top 0 left 0);
+
       width: 100%;
+      height: 100%;
     }
   }
 
