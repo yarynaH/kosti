@@ -378,9 +378,11 @@
       </div>
       <div class="blog_width">
         <footer class="landing-footer">
-          <a data-th-each="footer: ${footerLinks}" data-th-href="${footer.url}">
-            Соглашение
-          </a>
+          <a
+            data-th-each="footer: ${footerLinks}"
+            data-th-text="${footer.displayName}"
+            data-th-href="${footer.url}"
+          ></a>
         </footer>
       </div>
       <script type="text/javascript" data-th-inline="javascript">
