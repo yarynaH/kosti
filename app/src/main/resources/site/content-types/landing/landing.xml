@@ -3,6 +3,16 @@
   <display-name>Landing</display-name>
   <super-type>base:structured</super-type>
   <form>
+    <input type="AttachmentUploader" name="program">
+      <label>Program</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="footer" type="ContentSelector">
+      <label>Footer</label>
+      <occurrences minimum="0" maximum="5"/>
+      <config>
+      </config>
+    </input>
     <field-set>
       <label>Tickets milestone</label>
       <items>

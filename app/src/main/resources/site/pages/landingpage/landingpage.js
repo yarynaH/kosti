@@ -62,11 +62,20 @@ function handleReq(req) {
       (ticketsSold / parseInt(content.data.milestone)) * 100,
       100
     );
+    if (content.data.program) {
+      var programUrl = portal.attachmentUrl({
+        name: content.data.program
+      });
+    } else {
+      var programUrl = null;
+    }
 
     var model = {
       content: content,
       faqArray: norseUtils.forceArray(content.data.faq),
       progress: progress.toFixed(),
+      programUrl: programUrl,
+      footerLinks: getFooterLinks(content),
       frontPageUrl: portal.pageUrl({ path: portal.getSite()._path }),
       ticketsUrl: sharedLib.getShopUrl({ type: "ticket" }),
       relatedLocales: kostiUtils.getRelatedLocales(content),
@@ -75,6 +84,21 @@ function handleReq(req) {
     };
 
     return model;
+  }
+
+  function getFooterLinks(content) {
+    var result = [];
+    if (content.data.footer) {
+      content.data.footer = norseUtils.forceArray(content.data.footer);
+      for (var i = 0; i < content.data.footer.length; i++) {
+        result.push({
+          url: portal.pageUrl({ id: content.data.footer[i] }),
+          displayName: contentLib.get({ key: content.data.footer[i] })
+            .displayName
+        });
+      }
+    }
+    return result;
   }
 
   function getRemainingTime(date) {
