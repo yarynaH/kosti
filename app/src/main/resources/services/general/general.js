@@ -3,6 +3,7 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var votesLib = require(libLocation + "votesLib");
 var cartLib = require(libLocation + "cartLib");
+var newsletterLib = require(libLocation + "newsletterLib");
 
 exports.get = function(req) {
   var params = req.params;
@@ -21,6 +22,10 @@ exports.get = function(req) {
       break;
     case "fixItemIds":
       cartLib.fixItemIds();
+      break;
+    case "getEmailsFromNewsletter":
+      var emails = newsletterLib.getSubscribedEmails();
+      norseUtils.log(emails);
       break;
   }
   return {

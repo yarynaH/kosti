@@ -7,6 +7,23 @@ var sharedLib = require("sharedLib");
 var contextLib = require("contextLib");
 
 exports.addEmailToNewsletter = addEmailToNewsletter;
+exports.getSubscribedEmails = getSubscribedEmails;
+
+function getSubscribedEmails() {
+  var result = [];
+  var repo = sharedLib.connectRepo("newsletter");
+  var tempItems = repo.query({
+    start: 0,
+    limit: -1
+  });
+  for (var i = 0; i < tempItems.hits.length; i++) {
+    var item = repo.get(tempItems.hits[i].id);
+    if (item.email) {
+      result.push(item.email);
+    }
+  }
+  return result;
+}
 
 function addEmailToNewsletter(email) {
   var result = null;

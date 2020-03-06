@@ -45,6 +45,7 @@
         <option value="vtm">V:tM</option>
         <option value="skeletons">Skeletons</option>
         <option value="runequest">Runequest</option>
+        <option value="pathfinder">Pathfinder</option>
         <option value="wfrp">WFRP</option>
         <option value="cyberpunk2020">Cyberpunk 2020</option>
         <option value="cyberpunkRed">Cyberpunk RED</option>
