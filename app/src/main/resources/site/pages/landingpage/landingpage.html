@@ -234,11 +234,11 @@
               >
                 Расписание по фестивальным дням.
               </p>
-              <ul class="landing-actions-list">
+              <ul class="landing-actions-list"
+              data-th-if="${programUrl}">
                 <li class="landing-actions-item">
                   <a
                     data-th-href="${programUrl}"
-                    data-th-if="${programUrl}"
                     target="_blank"
                     class="landing-link"
                     data-th-utext="${portal.localize({'_key=kosticon2020.landing.fest.program.download', '_locale='+content.language})}"
@@ -248,12 +248,14 @@
               </ul>
             </div>
           </div>
-          <div class="landing-main-video">
-            <iframe
-              src="https://www.youtube.com/embed/MdAPzl6S6hc"
-              frameborder="0"
-              allowfullscreen
-            ></iframe>
+          <div class="landing-main-video-wrap">
+            <div class="landing-main-video">
+              <iframe
+                src="https://www.youtube.com/embed/MdAPzl6S6hc"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
           </div>
           <div class="landing-bottom">
             <div class="landing-middle-item landing-middle-faq">
@@ -378,11 +380,13 @@
       </div>
       <div class="blog_width">
         <footer class="landing-footer">
-          <a
-            data-th-each="footer: ${footerLinks}"
-            data-th-text="${footer.displayName}"
-            data-th-href="${footer.url}"
-          ></a>
+          <div class="landing-footer-item">
+            <a
+              data-th-each="footer: ${footerLinks}"
+              data-th-text="${footer.displayName}"
+              data-th-href="${footer.url}"
+            ></a>
+          </div>
         </footer>
       </div>
       <div data-th-utext="${pageComponents.footer}"></div>
