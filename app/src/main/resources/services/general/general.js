@@ -27,6 +27,9 @@ exports.get = function(req) {
       var emails = newsletterLib.getSubscribedEmails();
       norseUtils.log(emails);
       break;
+    case "removeUnusedVotes":
+      votesLib.removeUnusedVotes();
+      break;
   }
   return {
     body: "",

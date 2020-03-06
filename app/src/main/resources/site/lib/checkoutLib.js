@@ -15,20 +15,57 @@ exports.getShippingById = getShippingById;
 exports.renderSuccessPage = renderSuccessPage;
 exports.checkIKResponse = checkIKResponse;
 exports.getLiqpayData = getLiqpayData;
+exports.getLiqpayStatusData = getLiqpayStatusData;
+exports.checkoutCart = checkoutCart;
+
+function checkoutCart(cart, status) {
+  cartLib.modifyCartWithParams(cart._id, {
+    status: status,
+    transactionDate: new Date(),
+    price: cart.price
+  });
+  contextLib.runAsAdmin(function() {
+    cartLib.savePrices(cart._id);
+    cartLib.modifyInventory(cart.items);
+    if (cart.promos) {
+      promosLib.reduceUsePromos(cart.promos);
+    }
+  });
+}
 
 function getLiqpayData(cart) {
+  var description = "";
+  for (var i = 0; i < cart.items.length; i++) {
+    description +=
+      cart.items[i].displayName +
+      (cart.items[i].itemSize ? " " + cart.items[i].itemSize : "") +
+      " x" +
+      cart.items[i].amount +
+      ", ";
+  }
+  description = description.substring(0, description.length - 2);
   return {
     public_key: app.config.liqpayPublicKey,
     version: "3",
     action: "pay",
     currency: "UAH",
-    description: "test",
+    description: description,
+    order_id: cart.userId,
     result_url: sharedLib.generateNiceServiceUrl(
       "/payment-processing",
       null,
       true
     ),
     amount: cart.price.totalDiscount
+  };
+}
+
+function getLiqpayStatusData(cart) {
+  return {
+    public_key: app.config.liqpayPublicKey,
+    version: "3",
+    action: "status",
+    order_id: cart.userId
   };
 }
 

@@ -3,6 +3,7 @@ exports.runInDefault = runInDefault;
 exports.runAsAdmin = runAsAdmin;
 exports.runInDraft = runInDraft;
 exports.runInDraftAsAdmin = runInDraftAsAdmin;
+exports.runAsAdminAsUser = runAsAdminAsUser;
 
 function runAsAdmin(callback) {
   return contextLib.run(
@@ -16,6 +17,20 @@ function runAsAdmin(callback) {
     callback
   );
 }
+
+function runAsAdminAsUser(user, callback) {
+  return contextLib.run(
+    {
+      user: {
+        login: user.login,
+        userStore: "system"
+      },
+      principals: ["role:system.admin"]
+    },
+    callback
+  );
+}
+
 function runInDraft(callback) {
   return contextLib.run(
     {

@@ -1,46 +1,86 @@
 .footer {
-    &-nav {
+  &-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 0;
+
+    @include tablet-all {
+      justify-content: center;
+    }
+
+    .checkout-wrap & {
+      padding: 35px 0 0;
+
+      @include tablet-all {
+        justify-content: left;
+      }
+    }
+  }
+
+  &-item {
+    @include tablet-all {
+      padding: 0 10px;
+    }
+
+    .checkout-wrap &:first-child {
+      padding-left: 0;
+    }
+  }
+
+  &-checkout {
+    .checkout-info {
+      @include tablet-all {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 40px 0;
-
-        @include tablet-all {
-            justify-content: center;
-        }
-
-        .checkout-wrap & {
-            @include tablet-all {
-                justify-content: left;
-            }
-        }
+        flex-wrap: wrap;
+        padding-bottom: 35px;
+      }
     }
+  }
+
+  &-link {
+    color: $color-primary6;
+    font-size: 14px;
+
+    &:hover {
+      color: $color-primary22;
+    }
+  }
+
+  &-payment_methods {
+    margin: 0 -5px;
+    overflow: hidden;
+    padding-top: 35px;
 
     &-item {
-        @include tablet-all {
-            padding: 0 10px;
-        }
-
-        .checkout-wrap &:first-child {
-            padding-left: 0;
-        }
+      height: 24px;
+      display: inline-block;
+      width: 35px;
+      margin: 5px;
     }
 
-    &-link {
-        color: $color-primary6;
-        font-size: 14px;
-
-        &:hover {
-            color: $color-primary22;
-        }
+    .liqpay {
+      width: 115px;
+      background-image: url("../images/liqpay.svg");
     }
 
-    .checkout-info {
-        padding-top: 0;
-        padding-bottom: 0;
+    .mastercard {
+      background-image: url("../images/mastercard.svg");
     }
 
-    .checkout-summary {
-        padding: 0;
+    .visa {
+      background-image: url("../images/visa.svg");
     }
+  }
+
+  .checkout-info {
+    // padding-top: 0;
+    // padding-bottom: 0;
+  }
+
+  .checkout-summary {
+    padding: 0;
+  }
 }

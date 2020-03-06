@@ -8,6 +8,7 @@ var cartLib = require(libLocation + "cartLib");
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var sharedLib = require(libLocation + "sharedLib");
+var storeLib = require(libLocation + "storeLib");
 
 exports.get = handleReq;
 
@@ -79,6 +80,7 @@ function handleReq(req) {
     for (var i = 0; i < products.length; i++) {
       products[i].image = getMainImage(products[i].data);
       products[i].url = portal.pageUrl({ id: products[i]._id });
+      products[i].priceBlock = storeLib.getPriceBlock(products[i]._id);
     }
     return products;
   }
