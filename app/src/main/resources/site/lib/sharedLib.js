@@ -17,9 +17,11 @@ function getRepoConnection(id, branch) {
   if (!branch) {
     var branch = "master";
   }
-  if (!repoLib.get(id)) {
-    createRepo(id);
-  }
+  contextLib.runAsAdmin(function() {
+    if (!repoLib.get(id)) {
+      createRepo(id);
+    }
+  });
   return nodeLib.connect({
     repoId: id,
     branch: branch
