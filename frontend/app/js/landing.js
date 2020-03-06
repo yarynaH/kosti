@@ -12,12 +12,13 @@ function initCountdown() {
 }
 
 function initLandingScripts() {
-  $(".js_faq-item").on("click", function() {
-    if ($(this).hasClass("active")) {
-      $(this).removeClass("active");
+  $(".js_faq-item h4").on("click", function() {
+    var parent = $(this).parent();
+    if (parent.hasClass("active")) {
+      parent.removeClass("active");
     } else {
       $(".js_faq-item.active").removeClass("active");
-      $(this).addClass("active");
+      parent.addClass("active");
     }
   });
 
