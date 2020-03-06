@@ -34,7 +34,7 @@ function handleReq(req) {
       content: content,
       cart: cartLib.getCart(req.cookies.cartId),
       social: site.social,
-      products: getProducts(),
+      products: getProducts(up),
       cartUrl: sharedLib.generateNiceServiceUrl("cart"),
       pageComponents: helpers.getPageComponents(req)
     };
@@ -49,10 +49,15 @@ function handleReq(req) {
     return image;
   }
 
-  function getProducts() {
+  function getProducts(params) {
+    var query = "";
+    if (params.type) {
+      query += "data.type = '" + params.type + "'";
+    }
     var products = contentLib.query({
       start: 0,
       count: -1,
+      query: query,
       contentTypes: [app.name + ":product"],
       sort: "_manualOrderValue DESC",
       filters: {

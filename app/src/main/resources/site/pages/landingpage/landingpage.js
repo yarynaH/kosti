@@ -1,6 +1,7 @@
 var thymeleaf = require("/lib/thymeleaf");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
+var i18nLib = require("/lib/xp/i18n");
 
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -8,8 +9,9 @@ var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var kostiUtils = require(libLocation + "kostiUtils");
 var newsletterLib = require(libLocation + "newsletterLib");
-var i18nLib = require("/lib/xp/i18n");
 var contextLib = require(libLocation + "contextLib");
+var storeLib = require(libLocation + "storeLib");
+var sharedLib = require(libLocation + "sharedLib");
 
 exports.get = handleReq;
 exports.post = handlePost;
@@ -55,16 +57,48 @@ function handleReq(req) {
   function createModel() {
     var up = req.params;
     var content = portal.getContent();
+    var ticketsSold = storeLib.getSoldTicketsAmount(content.data.products);
+    var progress = Math.min(
+      (ticketsSold / parseInt(content.data.milestone)) * 100,
+      100
+    );
+    if (content.data.program) {
+      var programUrl = portal.attachmentUrl({
+        name: content.data.program
+      });
+    } else {
+      var programUrl = null;
+    }
 
     var model = {
       content: content,
+      faqArray: norseUtils.forceArray(content.data.faq),
+      progress: progress.toFixed(),
+      programUrl: programUrl,
+      footerLinks: getFooterLinks(content),
       frontPageUrl: portal.pageUrl({ path: portal.getSite()._path }),
+      ticketsUrl: sharedLib.getShopUrl({ type: "ticket" }),
       relatedLocales: kostiUtils.getRelatedLocales(content),
       timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
       pageComponents: helpers.getPageComponents(req)
     };
 
     return model;
+  }
+
+  function getFooterLinks(content) {
+    var result = [];
+    if (content.data.footer) {
+      content.data.footer = norseUtils.forceArray(content.data.footer);
+      for (var i = 0; i < content.data.footer.length; i++) {
+        result.push({
+          url: portal.pageUrl({ id: content.data.footer[i] }),
+          displayName: contentLib.get({ key: content.data.footer[i] })
+            .displayName
+        });
+      }
+    }
+    return result;
   }
 
   function getRemainingTime(date) {

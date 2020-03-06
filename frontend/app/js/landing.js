@@ -12,6 +12,16 @@ function initCountdown() {
 }
 
 function initLandingScripts() {
+  $(".js_faq-item h4").on("click", function() {
+    var parent = $(this).parent();
+    if (parent.hasClass("active")) {
+      parent.removeClass("active");
+    } else {
+      $(".js_faq-item.active").removeClass("active");
+      parent.addClass("active");
+    }
+  });
+
   $(".js_landing-subscribe-form").on("submit", function(e) {
     e.preventDefault();
     if (!$(this).valid()) {
