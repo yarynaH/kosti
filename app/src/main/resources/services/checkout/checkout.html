@@ -78,31 +78,15 @@
                     <span class="value" data-th-text="${product.amount}"></span>
                   </div>
                   <div
-                    data-th-if="${product.stock and product.itemSizeStock}"
-                    class="summary-product-price-wrap"
-                  >
-                    <div
-                      class="summary-product-price price-sale"
-                      data-th-if="${product.price and product.finalPrice and product.price < product.finalPrice}"
-                    >
-                      UAH
-                      <span data-th-text="${product.finalPrice}"></span>
-                    </div>
-                    <div class="summary-product-price">
-                      UAH <span data-th-text="${product.price}"></span>
-                    </div>
-                  </div>
+                    class="summary-product-price"
+                    data-th-utext="${product.priceBlock}"
+                    data-th-classappend="${product.stock and product.itemSizeStock ? '' : 'hidden'}"
+                  ></div>
                   <div
                     data-th-unless="${product.stock and product.itemSizeStock}"
                     class="out-of-stock-msg"
                   >
                     Нет в наличии
-                  </div>
-                  <div
-                    data-th-if="${product.preorder}"
-                    class="out-of-stock-msg"
-                  >
-                    Предзаказ
                   </div>
                 </div>
               </div>
@@ -181,6 +165,9 @@
       <input type="hidden" name="signature" data-th-value="${signature}" />
       <input type="submit" value="Pay" />
     </form>-->
-    <footer class="footer footer-checkout" data-th-utext="${pageComponents.footer}"></footer>
+    <footer
+      class="footer footer-checkout"
+      data-th-utext="${pageComponents.footer}"
+    ></footer>
   </body>
 </html>

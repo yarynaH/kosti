@@ -238,6 +238,7 @@ function loadMoreArticles() {
       page: page,
       date: date ? date : null,
       query: query ? query : null,
+      start: wrapper.data("start"),
       userId: $(".js_user-page-id").data("userid")
     },
     false
@@ -254,6 +255,11 @@ function loadMoreArticles() {
       $(".js_blog-load_more").addClass("hidden");
       $(".js_blog-list-empty").removeClass("hidden");
       wrapper.data("nomorearticles", true);
+    }
+    if (data.nextStart === null || data.nextStart === undefined) {
+      wrapper.data("start", 0);
+    } else {
+      wrapper.data("start", data.nextStart);
     }
     wrapper.data("date", data.date);
     if (data.newPage) {

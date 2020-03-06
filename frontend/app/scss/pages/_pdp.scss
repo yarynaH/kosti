@@ -166,6 +166,14 @@
             flex-wrap: wrap;
             justify-content: flex-end;
         }
+
+        .price {
+            display: block;
+            white-space: nowrap;
+            min-width: 120px;
+            text-align: left;
+            margin-left: 5px;
+        }
     }
 }
 
@@ -251,21 +259,6 @@
     &-text {
         font-weight: bold;
         color: $color-primary6;
-    }
-}
-
-.price {
-    font-size: rem(24);
-    font-weight: bold;
-    color: $color-primary28;
-    white-space: nowrap;
-    min-width: 120px;
-    text-align: left;
-    margin-left: 5px;
-
-    &-sale {
-        color: $color-primary24;
-        text-decoration: line-through;
     }
 }
 

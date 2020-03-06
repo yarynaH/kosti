@@ -2,8 +2,24 @@ let contentLib = require("/lib/xp/content");
 let portal = require("/lib/xp/portal");
 let norseUtils = require("norseUtils");
 let sharedLib = require("sharedLib");
+let thymeleaf = require("/lib/thymeleaf");
 
 exports.getSoldTicketsAmount = getSoldTicketsAmount;
+exports.getPriceBlock = getPriceBlock;
+
+function getPriceBlock(id) {
+  let product = contentLib.get({ key: id });
+  let view = resolve("../pages/components/store/price.html");
+  let price = product.data.price;
+  let finalPrice = product.data.finalPrice;
+  return thymeleaf.render(view, {
+    product: product,
+    sale:
+      product.data.price &&
+      product.data.finalPrice &&
+      product.data.price < product.data.finalPrice
+  });
+}
 
 function getSoldTicketsAmount(ids) {
   if (!ids) return false;

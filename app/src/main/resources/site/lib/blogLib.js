@@ -239,16 +239,16 @@ function getSearchArticles(q, page, useHashtag, json, skipIds) {
   return result;
 }
 
-function getHotArticles(page, date) {
-  if (!page) {
-    page = 0;
+function getHotArticles(start, date) {
+  if (!start) {
+    start = 0;
   }
   if (!date) {
     date = new Date();
   } else {
     date = new Date(date);
   }
-  var hotIds = votesLib.getHotArticleIds(page, date);
+  var hotIds = votesLib.getHotArticleIds(start, date);
   var temp = getArticlesByIds(hotIds.hits);
   hotIds.hits = temp.hits;
   return hotIds;

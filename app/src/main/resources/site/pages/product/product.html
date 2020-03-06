@@ -71,32 +71,8 @@
                     data-th-text="${content.displayName}"
                   ></h2>
                   <div
-                    data-th-unless="${content.data.inventory == 0}"
-                    class="pdp-price"
+                    data-th-utext="${priceBlock}" class="pdp-price"
                   >
-                    <div
-                      class="price price-sale"
-                      data-th-if="${content.data.price and content.data.finalPrice and content.data.price < content.data.finalPrice}"
-                    >
-                      <span
-                        class="price-curency"
-                        data-th-text="${portal.localize({'_key=shop.title.currency.uan', '_locale=ru'})}"
-                      ></span>
-                      <span
-                        class="price-value"
-                        data-th-text="${content.data.finalPrice}"
-                      ></span>
-                    </div>
-                    <div class="price">
-                      <span
-                        class="price-curency"
-                        data-th-text="${portal.localize({'_key=shop.title.currency.uan', '_locale=ru'})}"
-                      ></span>
-                      <span
-                        class="price-value"
-                        data-th-text="${content.data.price}"
-                      ></span>
-                    </div>
                   </div>
                 </div>
                 <div
@@ -104,12 +80,6 @@
                   data-th-if="${content.data.inventory == 0}"
                 >
                   Нет в наличии
-                </div>
-                <div
-                  class="out-of-stock-msg"
-                  data-th-if="${content.data.preorder}"
-                >
-                  Предзаказ
                 </div>
                 <div
                   class="pdp-composition"

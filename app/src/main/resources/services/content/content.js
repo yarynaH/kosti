@@ -37,6 +37,11 @@ exports.get = function(req) {
   } else {
     var page = 0;
   }
+  if (params.start) {
+    var start = parseInt(params.start);
+  } else {
+    var start = 0;
+  }
   switch (params.feedType) {
     case "new":
       var articlesObj = blogLib.getNewArticles(page);
@@ -59,7 +64,7 @@ exports.get = function(req) {
       var articlesView = commentsLib.getCommentsView(articlesObj.hits);
       break;
     case "hot":
-      var articlesObj = blogLib.getHotArticles(page, params.date);
+      var articlesObj = blogLib.getHotArticles(start, params.date);
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "search":
@@ -83,6 +88,7 @@ exports.get = function(req) {
       articles: articlesView,
       hideButton: articlesObj.count < 10,
       buttonText: helpers.getRandomString(),
+      nextStart: articlesObj.nextStart,
       date: articlesObj.date ? articlesObj.date : null,
       newPage: articlesObj.newPage ? articlesObj.newPage : null
     },

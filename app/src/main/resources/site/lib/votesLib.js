@@ -24,6 +24,36 @@ exports.addShare = addShare;
 exports.countShares = countShares;
 exports.fixVotesTimestamps = fixVotesTimestamps;
 exports.setVoteDate = setVoteDate;
+exports.removeUnusedVotes = removeUnusedVotes;
+
+function removeUnusedVotes() {
+  var votesRepo = getVotesRepo();
+  var result = votesRepo.query({
+    query: "_parentPath = '/'",
+    count: -1,
+    start: 0
+  });
+  var items = [];
+  var j = 0;
+  for (var i = 0; i < result.hits.length; i++) {
+    var item = votesRepo.get(result.hits[i].id);
+    if (!item.id) {
+      j++;
+      deleteVotes(item._id);
+      continue;
+    }
+    if (!contentLib.get({ key: item.id })) {
+      j++;
+      deleteVotes(item._id);
+      continue;
+    }
+  }
+}
+
+function deleteVotes(id) {
+  var votesRepo = getVotesRepo();
+  votesRepo.delete(id);
+}
 
 function vote(content) {
   var user = userLib.getCurrentUser();
@@ -190,7 +220,7 @@ function getNode(id) {
   return false;
 }
 
-function getHotArticleIds(page, date) {
+function getHotArticleIds(start, date) {
   var pageSize = 10;
   var votesRepo = getVotesRepo();
   var result = { hits: [], total: 0, count: 0 };
@@ -202,7 +232,7 @@ function getHotArticleIds(page, date) {
     var oldDate = date;
     date = new Date(date.getTime() - 3 * 24 * 60 * 60 * 1000);
     var temp = getHotArticlesQuery(
-      usePaging ? page * pageSize + result.count : 0,
+      usePaging ? start : 0,
       pageSize - result.count,
       date,
       oldDate
@@ -216,6 +246,13 @@ function getHotArticleIds(page, date) {
     ) {
       usePaging = false;
     }
+    if (result.total - start > pageSize) {
+      var returnDate = oldDate;
+      var nextStart = temp.count;
+    } else {
+      var returnDate = date;
+      var nextStart = null;
+    }
   }
 
   var resArr = [];
@@ -226,7 +263,8 @@ function getHotArticleIds(page, date) {
     }
   }
   result.hits = resArr;
-  result.date = date.toISOString();
+  result.nextStart = nextStart;
+  result.date = returnDate.toISOString();
   result.newPage = !usePaging;
   return result;
 }

@@ -80,7 +80,7 @@ function handleReq(req) {
       ticketsUrl: sharedLib.getShopUrl({ type: "ticket" }),
       relatedLocales: kostiUtils.getRelatedLocales(content),
       timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
-      pageComponents: helpers.getPageComponents(req)
+      pageComponents: helpers.getPageComponents(req, "empty")
     };
 
     return model;

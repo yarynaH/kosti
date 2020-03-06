@@ -47,4 +47,21 @@
     .attention {
         color: $color-primary11;
     }
+
+    ol {
+      list-style: decimal;
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ol,
+    ul {
+      padding-left: 40px;
+
+      li {
+        margin-bottom: 10px;
+      }
+    }
 }
