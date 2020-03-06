@@ -18,12 +18,12 @@
 
   &-main {
     background-image: url("../images/kosticon2020/background.jpg");
-    background-position: top center;
-    background-size: 200%;
+    // background-position: top center;
+    // background-size: 200%;
     background-color: #000000;
 
     @include tablet-all {
-      background-size: cover;
+      // background-size: cover;
     }
   }
 
@@ -48,10 +48,10 @@
       height: 100%;
     }
 
-    &:after {
+    &:before {
       @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
         background-image: url("../images/kosticon2020/deco-bg.png");
-        background-position: left center;
+        background-position: left top;
         content: "";
         display: block;
         position: absolute;
@@ -59,6 +59,22 @@
         width: 100%;
         top: 0;
         left: -55px;
+        z-index: -1;
+      }
+    }
+
+    &:after {
+      @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
+        background-image: url("../images/kosticon2020/line-devider.png");
+        background-position: left top;
+        background-repeat: repeat-y;
+        content: "";
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: -1px;
         z-index: -1;
       }
     }
@@ -315,10 +331,15 @@
     }
 
     .icon-telegram {
-      background-image: url("../images/kosticon2020/telegram.svg");
+      // background-image: url("../images/kosticon2020/telegram.svg");
       width: 24px;
       height: 22px;
       margin-right: 15px;
+
+      svg>g {
+        stroke: #3AA4E4;
+        transition: all .2s ease 0s;
+      }
     }
   }
 
@@ -356,6 +377,10 @@
     &:hover {
       @include tablet-all {
         color: #ee1e5d;
+
+        svg>g {
+          stroke: #ee1e5d;
+        }
       }
     }
 
@@ -440,13 +465,15 @@
   &-snake_logo {
     position: relative;
     margin-bottom: 50px;
+    margin-top: 30px;
 
     @include tablet {
       margin-top: auto;
     }
 
     @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
-      display: none;
+      margin: 15px 0 40px;
+      height: 60px;
     }
 
     &::before,
@@ -473,11 +500,29 @@
         left: -20px;
         background-position: center left;
       }
+
+      @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
+        position: absolute;
+        left: 10px;
+        top: 39px;
+        width: calc(50% - 33px);
+        height: 1px;
+        content: '';
+        background-image: url("../images/kosticon2020/line.png");
+        background-repeat: repeat-x;
+      }
     }
 
     &-img_wrap {
       max-width: 60px;
       margin: 0 auto;
+
+      @media only screen and (min-width : #{$breakpoint-tablet-landscape-min}) {
+        position: absolute;
+        left: -55px;
+        background: #000;
+        padding: 10px 0 5px;
+      }
     }
   }
 
@@ -522,6 +567,7 @@
 
   &-faq-accordion {
     &-title {
+      display: inline-block;
       font-size: 16px;
       color: #3aa4e4;
       line-height: 22px;
@@ -536,13 +582,15 @@
 
     &-icon {
       position: relative;
-      display: inline;
+      display: inline-block;
+      width: 10px;
+      height: 10px;
 
       &:after,
       &:before {
         position: absolute;
         top: 50%;
-        right: -15px;
+        right: 0;
         transform: translate(0, -50%);
         content: '';
         border: 1px solid #076795;
