@@ -10,88 +10,40 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
+var qrLib = require(libLocation + "qrLib");
+var pdfLib = require(libLocation + "pdfLib");
 
 exports.get = function(req) {
-  var podcasts = contentLib.query({
-    start: 0,
-    limit: -1,
-    query: "",
-    contentTypes: [app.name + ":podcast"]
-  });
-  let episodes = [];
-  for (let i = 0; i < podcasts.hits.length; i++) {
-    episodes.push(beautifyEpisode(podcasts.hits[i]));
-  }
-  let result = OBJtoXML({ channel: createPodcast(episodes) });
-  var view = resolve("kitchenSink.html");
-  var body = thymeleaf.render(view, { rssFeed: result });
-  return {
-    body: body,
-    contentType: "text/xml"
-  };
-
-  function beautifyEpisode(episode) {
-    let type = episode.attachments[episode.data.audioFile].mimeType;
-    let size = episode.attachments[episode.data.audioFile].size;
-    let date = new Date(episode.publish.from);
-    date = date.toUTCString();
-    let fileUrl = portal.attachmentUrl({
-      id: episode._id,
-      type: "absolute",
-      name: episode.data.audioFile
+  var qr = qrLib(4, "L");
+  qr.addData("KOSTICON2020");
+  qr.make();
+  var html = thymeleaf.render(
+    resolve("kitchenSink.html"),
+    {
+      qrcode: qr.createTableTag(10, 0),
+      type: "ticket",
+      friendlyId: "123123",
+      id: "123123123123"
+    }
+    // resolve("../../site/pages/pdfs/regularTicket.html"),
+    // {
+    //   qrcode: qr.createTableTag(7, 0)
+    // }
+  );
+  if (req.params.pdf) {
+    var html = pdfLib.generatePdf({
+      type: "ticket",
+      template: "regularTicket2020",
+      qrData: "123123123123",
+      friendlyId: 123123
     });
     return {
-      title: episode.displayName,
-      description: episode.data.intro,
-      guid: episode._id,
-      link: portal.pageUrl({ id: episode._id, type: "absolute" }),
-      pubDate: date,
-      "itunes:explicit": episode.data.explicit,
-      enclosure: { url: fileUrl, length: size, type: type },
-      "itunes:episode": episode.data.episode,
-      "itunes:season": episode.data.season
+      body: html,
+      contentType: "application/pdf"
     };
   }
-
-  function createPodcast(episodes) {
-    let year = new Date().getFullYear();
-    return {
-      title: "ЭНОА",
-      link: "https://www.kostirpg.com",
-      language: "ru-ru",
-      copyright: "&#169; " + year + " Вечерние Кости",
-      "itunes:author": "Вечерние Кости",
-      description: "Новая кампания по ЭНОА от Вечерние Кости.",
-      "itunes:type": "serial",
-      "itunes:owner": {
-        "itunes:name": "Вечерние Кости",
-        "itunes:email": "info@kostirpg.com"
-      },
-      "itunes:image": "",
-      "itunes:explicit": "true",
-      "itunes:category": "hobbies",
-      item: episodes
-    };
-  }
-
-  function OBJtoXML(obj) {
-    var xml = "";
-    for (var prop in obj) {
-      xml += obj[prop] instanceof Array ? "" : "<" + prop + ">";
-      if (obj[prop] instanceof Array) {
-        for (var array in obj[prop]) {
-          xml += "<" + prop + ">";
-          xml += OBJtoXML(new Object(obj[prop][array]));
-          xml += "</" + prop + ">";
-        }
-      } else if (typeof obj[prop] == "object") {
-        xml += OBJtoXML(new Object(obj[prop]));
-      } else {
-        xml += obj[prop];
-      }
-      xml += obj[prop] instanceof Array ? "" : "</" + prop + ">";
-    }
-    var xml = xml.replace(/<\/?[0-9]{1,}>/g, "");
-    return xml;
-  }
+  return {
+    body: html,
+    contentType: "text/html"
+  };
 };

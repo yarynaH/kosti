@@ -37,11 +37,11 @@
 
         @if $style == light {
             box-shadow: 0 4px 8px 0 rgba($color-primary38, 0.16);
-            background: linear-gradient(79deg, $color-primary23, $color-primary24);
+            background-color: $color-primary15;
             color: $color-primary1;
 
             &:hover {
-                background: linear-gradient(79deg, darken($color-primary23, 5%), darken($color-primary24, 5%));
+                background-color: $color-primary23;
             }
         }
 

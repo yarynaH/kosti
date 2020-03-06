@@ -12,6 +12,7 @@ var sharedLib = require(libLocation + "sharedLib");
 var hashLib = require(libLocation + "hashLib");
 var checkoutLib = require(libLocation + "checkoutLib");
 var userLib = require(libLocation + "userLib");
+var storeLib = require(libLocation + "storeLib");
 
 exports.get = function(req) {
   return generateCheckoutPage(req);
@@ -59,6 +60,9 @@ function generateCheckoutPage(req) {
       break;
     case "interkassa":
       if (model.cart && model.cart.ik_id) {
+        model.cart = cartLib.modifyCartWithParams(model.cart._id, {
+          paymentMethod: "interkassa"
+        });
         model.checkoutForm = thymeleaf.render(
           resolve("components/interkassaForm.html"),
           { cart: model.cart, ik_id: model.ik_id }
@@ -66,6 +70,9 @@ function generateCheckoutPage(req) {
       }
       break;
     case "liqpay":
+      model.cart = cartLib.modifyCartWithParams(model.cart._id, {
+        paymentMethod: "liqpay"
+      });
       var liqpayData = hashLib.generateLiqpayData(
         checkoutLib.getLiqpayData(model.cart)
       );
@@ -143,6 +150,9 @@ function generateCheckoutPage(req) {
   function getCheckoutMainModel(params) {
     var cart = cartLib.getCart(req.cookies.cartId);
     var site = portal.getSiteConfig();
+    for (var i = 0; i < cart.items.length; i++) {
+      cart.items[i].priceBlock = storeLib.getPriceBlock(cart.items[i]._id);
+    }
     return {
       cart: cart,
       promos: thymeleaf.render(resolve("components/promos.html"), {

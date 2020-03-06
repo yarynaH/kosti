@@ -7,6 +7,7 @@ function initUserPageFunctions() {
         .val()
         .match(/.(jpg|jpeg|png|gif)$/i)
     ) {
+      showLoader();
       $.ajax({
         type: "POST",
         url: userServiceUrl,
@@ -17,10 +18,12 @@ function initUserPageFunctions() {
         success: function(data) {
           $(".user-avatar-img_wrap img").attr("src", data.url);
           $(".profile-upload-image img").attr("src", data.url);
+          hideLoader();
         },
         error: function(data) {
           console.log("error");
           console.log(data);
+          hideLoader();
         }
       });
     } else {

@@ -5,6 +5,7 @@ var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
 var textEncoding = require("/lib/text-encoding");
 var moment = require("moment");
+var hashLib = require("hashLib");
 var sharedLib = require("sharedLib");
 
 exports.addPromo = addPromo;
@@ -304,6 +305,9 @@ function setUserDetails(cartId, params) {
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
     node.userId = params.userId ? params.userId : node.userId;
     node.index = params.index ? params.index : node.index;
+    node.paymentMethod = params.paymentMethod
+      ? params.paymentMethod
+      : node.paymentMethod;
     node.userRelation = params.userRelation
       ? params.userRelation
       : node.userRelation;
@@ -380,7 +384,7 @@ function generateItemsIds(cartId) {
         for (var j = 0; j < idsCount; j++) {
           utils.ticketCount++;
           node.items[i].itemsIds.push({
-            id: textEncoding.md5(
+            id: hashLib.createNiceNumericHash(
               node.name +
                 " " +
                 node.surname +

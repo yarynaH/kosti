@@ -97,8 +97,10 @@
       <label>Ticket type</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <option value="regularTicket">Regular</option>
-        <option value="legendaryTicket">Legendary</option>
+        <option value="regularTicket2020">Regular 2020</option>
+        <option value="legendaryTicket2020">Legendary 2020</option>
+        <option value="regularTicket">Regular 2019</option>
+        <option value="legendaryTicket">Legendary 2019</option>
       </config>
     </input>
     <input name="generateIds" type="Long">

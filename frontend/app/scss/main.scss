@@ -1,5 +1,6 @@
 @import "base/reset";
 @import "base/iconfont";
+@import "base/fonts";
 
 @import "utilities/variables";
 @import "utilities/extends";
@@ -30,6 +31,7 @@
 @import "components/social";
 @import "components/social_login";
 @import "components/action_buttons";
+@import "components/price";
 
 @import "pages/homepage";
 @import "pages/comingSoon";

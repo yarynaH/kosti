@@ -3,6 +3,7 @@ var nodeLib = require("/lib/xp/node");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var repoLib = require("/lib/xp/repo");
+var contextLib = require("contextLib");
 
 exports.connectRepo = getRepoConnection;
 exports.generateNiceServiceUrl = generateNiceServiceUrl;
@@ -16,9 +17,11 @@ function getRepoConnection(id, branch) {
   if (!branch) {
     var branch = "master";
   }
-  if (!repoLib.get(id)) {
-    createRepo(id);
-  }
+  contextLib.runAsAdmin(function() {
+    if (!repoLib.get(id)) {
+      createRepo(id);
+    }
+  });
   return nodeLib.connect({
     repoId: id,
     branch: "master"

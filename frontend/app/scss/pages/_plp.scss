@@ -75,21 +75,14 @@
   }
 
   &-prod_price {
-    font-size: rem(20);
-    font-weight: bold;
-    line-height: 1.4;
+    .price {
+      font-size: rem(20);
+      font-weight: bold;
+      line-height: 1.4;
+    }
 
-    span + span {
+    .price + .price {
       padding-left: 10px;
-    }
-
-    .default {
-      color: $color-primary28;
-    }
-
-    .sale {
-      color: $color-primary24;
-      text-decoration: line-through;
     }
   }
 }

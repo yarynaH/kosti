@@ -8,19 +8,28 @@
       data-th-utext="${pageComponents.loginRegisterModal}"
     ></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main" id="payment-success">
+    <main
+      class="main"
+      id="payment-success"
+      data-th-classappend="${status == 'success' ? 'js_payment-success' : ''}"
+    >
       <div class="confirmation-wrap">
         <div class="site_width">
-          <h2 class="checkout-title">Спасибо за ваш заказ!</h2>
-          <div class="confirmation-msg" data-th-if="${pendingPage}">
-            Ваш заказ получен под номером
-            <span data-th-text="${cart.userId}"></span>. В ближайшее время мы
-            свяжемся с вами для уточнения заказа.
-          </div>
-          <div class="confirmation-msg" data-th-unless="${pendingPage}">
-            Все прошло как по маслу! Ваш заказ получен под номером
-            <span data-th-text="${cart.userId}"></span>. В ближайшее время мы
-            свяжемся с вами для уточнения заказа.
+          <h2
+            class="checkout-title"
+            data-th-text="${portal.localize({'_key=shop.payment.status.heading.' + status, '_locale=ru'})}"
+          >
+            Спасибо за ваш заказ!
+          </h2>
+          <div class="confirmation-msg">
+            <div data-th-if="${status != 'error'}" data-th-remove="tag">
+              Ваш заказ получен под номером
+              <span data-th-text="${cart.userId}"></span>.
+            </div>
+            <span
+              data-th-remove="tag"
+              data-th-text="${portal.localize({'_key=shop.payment.status.' + status, '_locale=ru'})}"
+            ></span>
           </div>
           <a
             data-th-href="${shopUrl}"

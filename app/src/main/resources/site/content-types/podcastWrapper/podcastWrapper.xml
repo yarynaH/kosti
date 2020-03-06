@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Podcast wrapper</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="image" type="ImageSelector">
+      <label>Image</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowPath>./*</allowPath>
+      </config>
+    </input>
+    <input name="description" type="TextArea">
+      <label>Description</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input name="explicit" type="CheckBox">
+      <label>Explicit</label>
+      <occurrences minimum="0" maximum="1"/>
+      <default>checked</default>
+    </input>
+  </form>
+</content-type>
