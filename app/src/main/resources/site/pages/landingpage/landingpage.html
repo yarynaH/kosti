@@ -234,8 +234,7 @@
               >
                 Расписание по фестивальным дням.
               </p>
-              <ul class="landing-actions-list"
-              data-th-if="${programUrl}">
+              <ul class="landing-actions-list" data-th-if="${programUrl}">
                 <li class="landing-actions-item">
                   <a
                     data-th-href="${programUrl}"
@@ -380,9 +379,11 @@
       </div>
       <div class="blog_width">
         <footer class="landing-footer">
-          <div class="landing-footer-item">
+          <div
+            class="landing-footer-item"
+            data-th-each="footer: ${footerLinks}"
+          >
             <a
-              data-th-each="footer: ${footerLinks}"
               data-th-text="${footer.displayName}"
               data-th-href="${footer.url}"
             ></a>
