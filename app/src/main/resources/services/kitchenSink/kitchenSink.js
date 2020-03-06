@@ -20,7 +20,7 @@ exports.get = function(req) {
   var html = thymeleaf.render(
     resolve("kitchenSink.html"),
     {
-      qrcode: qr.createTableTag(10, 0),
+      qrcode: qr.createTableTag(9, 0),
       type: "ticket",
       friendlyId: "123123",
       id: "123123123123"
