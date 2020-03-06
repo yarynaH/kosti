@@ -158,8 +158,8 @@
               </picture>
             </div>
           </div>
-          <div class="landing-bot">
-            <div class="landing-bot-item landing-bot-buy_ticket">
+          <div class="landing-middle">
+            <div class="landing-middle-item landing-middle-buy_ticket">
               <a
                 data-th-href="${ticketsUrl}"
                 class="button landing-buy_ticket"
@@ -178,49 +178,7 @@
                 ></div>
               </div>
             </div>
-            <div class="landing-bot-item landing-bot-telegram">
-              <h3
-                class="landing-title"
-                data-th-utext="${portal.localize({'_key=kosticon2020.landing.telegram.title', '_locale='+content.language})}"
-              >
-                Telegram чат
-              </h3>
-              <p
-                class="landing-description"
-                data-th-utext="${portal.localize({'_key=kosticon2020.landing.telegram.description', '_locale='+content.language})}"
-              >
-                Найдите попутчиков и соседей.
-              </p>
-              <ul class="landing-actions-list">
-                <li class="landing-actions-item">
-                  <a
-                    target="_blank"
-                    href="https://t.me/joinchat/Eat2ghd-6G_H6q86-8x9rw"
-                    class="landing-link"
-                  >
-                    <span class="icon-telegram">
-
-                      <svg width="24px" height="21px" viewBox="0 0 24 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g id="2020-Mobile-R1" transform="translate(-23.000000, -526.000000)" fill-rule="nonzero" stroke-width="2">
-                                <g id="TELEGRAM" transform="translate(24.000000, 452.000000)">
-                                    <g id="Group" transform="translate(1.000000, 72.000000)">
-                                        <path d="M8.21280985,13.6688215 C7.71561076,13.9817032 7.23771595,14.268078 6.72094295,14.5648724 C5.91378944,15.0091947 5.03263283,15.1042216 4.04122206,14.9450616 C3.54825303,14.8659209 3.11128768,14.7473908 2.39745777,14.5208867 C2.12013728,14.4324299 1.98931485,14.3909017 1.77294566,14.3197512 C1.6319171,14.2613615 1.72744464,14.2989184 1.18380019,14.086547 C0.343202223,13.7581725 -0.0555689226,13.5721737 -0.412927813,13.2770005 C-1.20668098,12.6213721 -1.20316353,11.6208168 -0.358518021,10.9511694 L-0.304667624,10.897319 L-0.180374918,10.8288552 C0.955577758,10.2031419 2.16662217,9.62406899 3.8414218,8.88270786 C4.28336628,8.68707822 5.869936,7.99433027 6.2008248,7.84825463 C6.28105973,7.8128143 6.28105973,7.8128143 6.37747584,7.77029632 C10.7929701,5.90786325 14.1683483,4.53436016 17.5302765,3.25603881 C18.1135462,3.06165472 18.7068907,2.95842871 19.2506477,3.01510211 C20.1754278,3.11148786 20.8749471,3.68974378 20.9930071,4.68279719 L20.9989447,4.84678129 C20.955717,5.78696075 20.8652754,6.52640852 20.6236792,8.15892742 C20.5255888,8.82174605 20.48419,9.10990758 20.4343014,9.49057834 C20.0812578,11.834187 19.7690939,13.7159392 19.0548558,17.8920483 C18.9527626,18.4889711 18.9071052,18.756075 18.8508756,19.0856092 C18.8195171,19.2694304 18.8195171,19.2694304 18.787211,19.4589229 C18.4611988,21.3081193 16.1969915,22.2152465 14.7826592,21.0820078 C14.3711185,20.8040214 13.9975017,20.5524237 13.3256368,20.1005303 C13.1832273,20.0047481 13.1832273,20.0047481 13.0407764,19.9089362 C10.8141179,18.4112517 9.69506072,17.650438 8.40611273,16.7480847 L8.26687129,16.6303059 C7.37343693,15.7224582 7.54768754,14.5632782 8.21280985,13.6688215 Z" id="Path"></path>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </svg>
-                    </span>
-                    <span
-                      data-th-utext="${portal.localize({'_key=kosticon2020.landing.telegram.join', '_locale='+content.language})}"
-                      >ПРИСОЕДИНИТЬСЯ</span
-                    >
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="landing-bot-item landing-bot-registration">
+            <div class="landing-middle-item landing-middle-registration">
               <h3
                 class="landing-title"
                 data-th-utext="${portal.localize({'_key=kosticon2020.landing.registration.title', '_locale='+content.language})}"
@@ -263,28 +221,111 @@
                 </li>
               </ul>
             </div>
+            <div class="landing-middle-item landing-middle-fest_program">
+              <h3
+                class="landing-title"
+                data-th-utext="${portal.localize({'_key=kosticon2020.landing.fest.program', '_locale='+content.language})}"
+              >
+                Программа фестиваля
+              </h3>
+              <p
+                class="landing-description"
+                data-th-utext="${portal.localize({'_key=kosticon2020.landing.fest.program.description', '_locale='+content.language})}"
+              >
+                Расписание по фестивальным дням.
+              </p>
+              <ul class="landing-actions-list">
+                <li class="landing-actions-item">
+                  <a
+                    data-th-href="${programUrl}"
+                    data-th-if="${programUrl}"
+                    target="_blank"
+                    class="landing-link"
+                    data-th-utext="${portal.localize({'_key=kosticon2020.landing.fest.program.download', '_locale='+content.language})}"
+                    >СКАЧАТЬ</a
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="landing-bot-item">
-            <h3
-              class="landing-title"
-              data-th-utext="${portal.localize({'_key=kosticon2020.landing.registration.chavo', '_locale='+content.language})}"
-            >
-              ЧаВо
-            </h3>
-          </div>
-          <div class="landing-faq-accordion">
-            <div
-              class="landing-faq-accordion-item js_faq-item"
-              data-th-each="faq: ${faqArray}"
-            >
-              <h4 class="landing-faq-accordion-title">
-                <span data-th-text="${faq.question}"></span>
-                <span class="landing-faq-accordion-icon"></span>
-              </h4>
-              <div
-                class="landing-faq-accordion-content"
-                data-th-utext="${faq.answer}"
-              ></div>
+          <div class="landing-bottom">
+            <div class="landing-middle-item landing-middle-faq">
+              <h3
+                class="landing-title"
+                data-th-utext="${portal.localize({'_key=kosticon2020.landing.registration.chavo', '_locale='+content.language})}"
+              >
+                ЧаВо
+              </h3>
+              <div class="landing-faq-accordion">
+                <div
+                  class="landing-faq-accordion-item js_faq-item"
+                  data-th-each="faq: ${faqArray}"
+                >
+                  <h4 class="landing-faq-accordion-title">
+                    <span data-th-text="${faq.question}"></span>
+                    <span class="landing-faq-accordion-icon"></span>
+                  </h4>
+                  <div
+                    class="landing-faq-accordion-content"
+                    data-th-utext="${faq.answer}"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="landing-middle-item landing-middle-telegram">
+              <div>
+                <h3
+                  class="landing-title"
+                  data-th-utext="${portal.localize({'_key=kosticon2020.landing.telegram.title', '_locale='+content.language})}"
+                >
+                  Telegram чат
+                </h3>
+                <p
+                  class="landing-description"
+                  data-th-utext="${portal.localize({'_key=kosticon2020.landing.telegram.description', '_locale='+content.language})}"
+                >
+                  Найдите попутчиков и соседей.
+                </p>
+                <ul class="landing-actions-list">
+                  <li class="landing-actions-item">
+                    <a
+                      target="_blank"
+                      href="https://t.me/joinchat/Eat2ghd-6G_H6q86-8x9rw"
+                      class="landing-link"
+                    >
+                      <span class="icon-telegram">
+  
+                        <svg width="24px" height="21px" viewBox="0 0 24 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                              <g id="2020-Mobile-R1" transform="translate(-23.000000, -526.000000)" fill-rule="nonzero" stroke-width="2">
+                                  <g id="TELEGRAM" transform="translate(24.000000, 452.000000)">
+                                      <g id="Group" transform="translate(1.000000, 72.000000)">
+                                          <path d="M8.21280985,13.6688215 C7.71561076,13.9817032 7.23771595,14.268078 6.72094295,14.5648724 C5.91378944,15.0091947 5.03263283,15.1042216 4.04122206,14.9450616 C3.54825303,14.8659209 3.11128768,14.7473908 2.39745777,14.5208867 C2.12013728,14.4324299 1.98931485,14.3909017 1.77294566,14.3197512 C1.6319171,14.2613615 1.72744464,14.2989184 1.18380019,14.086547 C0.343202223,13.7581725 -0.0555689226,13.5721737 -0.412927813,13.2770005 C-1.20668098,12.6213721 -1.20316353,11.6208168 -0.358518021,10.9511694 L-0.304667624,10.897319 L-0.180374918,10.8288552 C0.955577758,10.2031419 2.16662217,9.62406899 3.8414218,8.88270786 C4.28336628,8.68707822 5.869936,7.99433027 6.2008248,7.84825463 C6.28105973,7.8128143 6.28105973,7.8128143 6.37747584,7.77029632 C10.7929701,5.90786325 14.1683483,4.53436016 17.5302765,3.25603881 C18.1135462,3.06165472 18.7068907,2.95842871 19.2506477,3.01510211 C20.1754278,3.11148786 20.8749471,3.68974378 20.9930071,4.68279719 L20.9989447,4.84678129 C20.955717,5.78696075 20.8652754,6.52640852 20.6236792,8.15892742 C20.5255888,8.82174605 20.48419,9.10990758 20.4343014,9.49057834 C20.0812578,11.834187 19.7690939,13.7159392 19.0548558,17.8920483 C18.9527626,18.4889711 18.9071052,18.756075 18.8508756,19.0856092 C18.8195171,19.2694304 18.8195171,19.2694304 18.787211,19.4589229 C18.4611988,21.3081193 16.1969915,22.2152465 14.7826592,21.0820078 C14.3711185,20.8040214 13.9975017,20.5524237 13.3256368,20.1005303 C13.1832273,20.0047481 13.1832273,20.0047481 13.0407764,19.9089362 C10.8141179,18.4112517 9.69506072,17.650438 8.40611273,16.7480847 L8.26687129,16.6303059 C7.37343693,15.7224582 7.54768754,14.5632782 8.21280985,13.6688215 Z" id="Path"></path>
+                                      </g>
+                                  </g>
+                              </g>
+                          </g>
+                      </svg>
+                      </span>
+                      <span
+                        data-th-utext="${portal.localize({'_key=kosticon2020.landing.telegram.join', '_locale='+content.language})}"
+                        >ПРИСОЕДИНИТЬСЯ</span
+                      >
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="landing-kosticon2019">
+                <h3
+                  class="landing-title"
+                  data-th-utext="${portal.localize({'_key=kosticon2020.landing.kosticon2019', '_locale='+content.language})}"
+                >
+                  Как было в прошлом году?
+                </h3>
+                <div class="landing-video-wrap">
+                  <iframe src="https://www.youtube.com/watch?v=MdAPzl6S6hc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
             </div>
           </div>
           <div class="landing-snake_logo">
@@ -298,9 +339,15 @@
         </div>
       </div>
       <footer
-        class="footer hidden"
+        class="footer"
         data-th-utext="${pageComponents.footer}"
-      ></footer>
+      >
+        <a
+        data-th-each="footer: ${footerLinks}"
+        data-th-text="${footer.displayName}"
+        data-th-href="${footer.url}"
+      ></a>
+    </footer>
       <script type="text/javascript" data-th-inline="javascript">
         var lang = [[${lang}]];
       </script>
