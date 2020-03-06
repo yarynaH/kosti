@@ -267,7 +267,6 @@
     }
 
     @include mobile {
-      padding-bottom: 15px;
       position: relative;
     }
   }
@@ -693,6 +692,10 @@
 
       @include tablet-all {
         margin-bottom: 56px;
+      }
+
+      @include mobile {
+        margin-top: 15px;
       }
     }
 
