@@ -512,11 +512,11 @@
 
   &-buy_ticket {
     &.button {
-      padding: 10px 32px;
+      padding: 11px 32px;
       background-color: #3aa4e4;
       border-radius: 0;
       color: white;
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 100;
       margin-bottom: 15px;
 
@@ -526,15 +526,18 @@
     }
 
     &-caption {
-      font-size: 12px;
-      font-weight: bold;
-      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
       text-align: center;
-      margin-bottom: 10px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-transform: lowercase;
     }
 
     &-progress {
-      height: 8px;
+      height: 16px;
       background-color: rgba(255, 255, 255, 0.24);
       position: relative;
     }
@@ -543,7 +546,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      height: 8px;
+      height: 16px;
       background-color: #ee1e5d;
       width: 20%;
     }
