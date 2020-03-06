@@ -28,7 +28,7 @@
     }
 
     @media only screen and (max-width : #{$breakpoint-portrait-max}) {
-      height: 100%;
+      // height: 100%;
     }
   }
 
@@ -286,7 +286,13 @@
     }
 
     &.landing-middle-faq {
-      width: 66%;
+      @include mobile {
+        margin-top: 45px;
+      }
+
+      @include tablet-all {
+        width: 66%;
+      }
     }
   
     &.landing-middle-telegram {
@@ -649,12 +655,15 @@
       display: flex;
       justify-content: space-between;
     }
+
+    @include mobile {
+      display: flex;
+      flex-direction: column-reverse;
+    }
   }
 
   &-kosticon2019 {
-    @include tablet-all {
-      margin-top: 46px;
-    }
+    margin-top: 45px;
   }
 
   &-main-video {
@@ -676,6 +685,26 @@
   }
 
   &-footer {
+    display: flex;
     padding-bottom: 40px;
+
+
+    @media only screen and (max-width : #{$breakpoint-portrait-max}) {
+      justify-content: center;
+    }
+
+    &-item + &-item {
+      margin-left: 25px;
+    }
+
+    &-link {
+      font-size: 16px;
+      color: #3aa4e4;
+      text-transform: capitalize;
+
+      &:hover {
+        color: #ee1e5d;
+      }
+    }
   }
 }

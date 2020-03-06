@@ -378,9 +378,16 @@
       </div>
       <div class="blog_width">
         <footer class="landing-footer">
-          <a data-th-each="footer: ${footerLinks}" data-th-href="${footer.url}">
-            Соглашение
-          </a>
+          <div class="landing-footer-item">
+            <a class="landing-footer-link" data-th-each="footer: ${footerLinks}" data-th-href="${footer.url}">
+              Соглашение
+            </a>
+          </div>
+          <div class="landing-footer-item">
+            <a class="landing-footer-link" data-th-each="footer: ${footerLinks}" data-th-href="${footer.url}">
+              контакти
+            </a>
+          </div>
         </footer>
       </div>
       <script type="text/javascript" data-th-inline="javascript">
