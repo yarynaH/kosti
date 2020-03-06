@@ -378,11 +378,13 @@
       </div>
       <div class="blog_width">
         <footer class="landing-footer">
-          <a
-            data-th-each="footer: ${footerLinks}"
-            data-th-text="${footer.displayName}"
-            data-th-href="${footer.url}"
-          ></a>
+          <div class="landing-footer-item">
+            <a
+              data-th-each="footer: ${footerLinks}"
+              data-th-text="${footer.displayName}"
+              data-th-href="${footer.url}"
+            ></a>
+          </div>
         </footer>
       </div>
       <div data-th-utext="${pageComponents.footer}"></div>
