@@ -152,7 +152,7 @@ function getorderCreatedMail(params) {
           pdfs.push({
             data: pdfLib.generatePdf({
               template: item.data.ticketType,
-              qrData: params.cart.items[i].itemsIds[j].id.toFixed(),
+              qrData: params.cart.items[i].itemsIds[j].id,
               type: "ticket",
               name: name,
               friendlyId: params.cart.items[i].itemsIds[j].friendlyId
