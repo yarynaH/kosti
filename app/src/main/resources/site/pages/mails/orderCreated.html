@@ -184,13 +184,10 @@
                       <div style="font-weight: bold; color: #707070;">
                         Способ оплаты
                       </div>
-                      <div style="padding-bottom: 40px;">
-                        <img
-                          data-th-src="${portal.assetUrl({'_path=images/interkassa-1.png', '_type=absolute'})}"
-                          alt="интеркаса"
-                          color="#707070"
-                        />
-                      </div>
+                      <div
+                        style="padding-bottom: 40px;"
+                        data-th-text="${portal.localize({'_key=store.payment.'+cart.paymentMethod, '_locale=ru'})}"
+                      ></div>
                     </td>
                   </tr>
                   <tr>

@@ -27,6 +27,7 @@ exports.getNextId = getNextId;
 exports.savePrices = savePrices;
 exports.fixItemIds = fixItemIds;
 exports.getCartUtils = getCartUtils;
+exports.getPendingLiqpayCarts = getPendingLiqpayCarts;
 
 function getCart(cartId) {
   var cart = {};
@@ -68,6 +69,20 @@ function getCartsByUser(email, id, count) {
     result.hits[i] = getCart(result.hits[i].id);
   }
   return result;
+}
+
+function getPendingLiqpayCarts() {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "paymentMethod = 'liqpay' and status = 'pending'"
+  });
+  var carts = [];
+  for (var i = 0; i < result.hits.length; i++) {
+    carts.push(cartRepo.get(result.hits[i].id));
+  }
+  return carts;
 }
 
 function getCartByQr(qr) {
@@ -252,6 +267,9 @@ function modify(cartId, id, amount, itemSize, force) {
 function modifyInventory(items) {
   items = norseUtils.forceArray(items);
   for (var i = 0; i < items.length; i++) {
+    if (items[i].id && !items[i]._id) {
+      items[i]._id = items[i].id;
+    }
     var result = contentLib.modify({
       key: items[i]._id,
       requireValid: false,
