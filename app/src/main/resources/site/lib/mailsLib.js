@@ -131,7 +131,11 @@ function getorderCreatedMail(params) {
       order: params.order,
       site: sharedLib.getSite(),
       dateString: dateString,
-      cart: params.cart
+      cart: params.cart,
+      specialText:
+        params.cart.country === "ru" && params.cart.shipping === "digital"
+          ? true
+          : false
     }),
     subject: "Ваш заказ получен",
     from: "noreply@kostirpg.com",
