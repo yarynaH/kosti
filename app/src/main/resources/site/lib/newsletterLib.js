@@ -14,12 +14,24 @@ function getSubscribedEmails() {
   var repo = sharedLib.connectRepo("newsletter");
   var tempItems = repo.query({
     start: 0,
-    limit: -1
+    count: -1
   });
   for (var i = 0; i < tempItems.hits.length; i++) {
     var item = repo.get(tempItems.hits[i].id);
     if (item.email) {
       result.push(item.email);
+    }
+  }
+  var users = contentLib.query({
+    start: 0,
+    count: -1,
+    contentTypes: [app.name + ":user"]
+  });
+  for (var i = 0; i < users.hits.length; i++) {
+    if (users.hits[i].data.email) {
+      if (result.indexOf(users.hits[i].data.email === -1)) {
+        result.push(users.hits[i].data.email);
+      }
     }
   }
   return result;
