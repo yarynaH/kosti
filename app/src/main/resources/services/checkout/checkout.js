@@ -43,7 +43,6 @@ function generateCheckoutPage(req) {
       model.shipping = "active";
       break;
     case "3":
-      params.userId = cartLib.getNextId();
       params.status = "created";
       var user = userLib.getCurrentUser();
       if (user) {
