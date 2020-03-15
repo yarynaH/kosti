@@ -339,7 +339,7 @@ $(".js_tag-list").on("click", ".js_hashtag-suggest-item", function() {
     contentType: false,
     type: "PUT",
     success: function(data) {
-      $(data.html).insertBefore($(".js_add-hashtag-input"));
+      $(data.html).insertBefore($(".js_add-hashtag-input-wrapper"));
       checkHashtagsAmount();
     }
   });
