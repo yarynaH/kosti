@@ -143,7 +143,10 @@
   &-tinymce_editor {
     position: relative;
     margin-bottom: 25px;
-    padding-left: 15px;
+
+    @include mobile {
+      padding-left: 15px;
+    }
   }
 
   &-image_editor {
