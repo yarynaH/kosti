@@ -27,7 +27,7 @@
 
     &-wrap {
       @include tablet-all {
-        @include position(absolute, top 205px right 65px);
+        @include position(absolute, top 190px right 65px);
 
         width: 200px;
       }
@@ -143,11 +143,20 @@
   &-tinymce_editor {
     position: relative;
     margin-bottom: 25px;
+    padding-left: 15px;
   }
 
   &-image_editor {
     position: relative;
-    margin: 0 -30px 25px;
+    margin: 0 -15px 25px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    @include tablet-all {
+      margin: 0 -30px 25px;
+    }
 
     img {
       margin-bottom: 25px;
@@ -190,9 +199,13 @@
   }
 
   &-editor_actions {
-    @include position(absolute, top 0 left -30px);
+    @include position(absolute, top 0 left -15px);
 
     width: 30px;
+
+    @include tablet-all {
+      left: -30px;
+    }
 
     &-remove {
       @include icon(delete);
