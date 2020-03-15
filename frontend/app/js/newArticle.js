@@ -15,6 +15,7 @@ $("#newArticleForm").validate({
 $("#newArticleForm").on("submit", function(e) {
   e.preventDefault();
   if (!$("#newArticleForm").valid()) {
+    scrollToItem($(".error-msg").parent());
     return false;
   }
   var file_data = $("#article-image-input").prop("files")[0];
