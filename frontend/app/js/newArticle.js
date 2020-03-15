@@ -387,6 +387,21 @@ $(".js_title-div").on("focus", function() {
   $(this).text($(".js_title-input").val());
 });
 
+$(".js_intro-div").on("focusout", function() {
+  checkPlaceholder(this);
+});
+
+$(".js_title-div").on("focusout", function() {
+  checkPlaceholder(this);
+});
+
+function checkPlaceholder(el) {
+  el = $(el);
+  if (el.text().trim() === "") {
+    el.text(el.data().placeholder);
+  }
+}
+
 $(".js_parts-block").on("focus", ".js_img_caption", function() {
   $(this).text(
     $(this)
