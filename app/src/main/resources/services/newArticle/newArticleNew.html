@@ -129,11 +129,14 @@
               </div>
               <div class="form-group">
                 <div class="tag-list add-article-tag-list js_tag-list">
-                  <input
-                    class="js_add-hashtag-input"
-                    placeholder="Добавить хештег"
-                  />
-                  <div class="js_hashtag-suggestion-wrapper"></div>
+                  <div class="tag-list-add_new js_add-hashtag-input-wrapper">
+                    <input
+                      class="js_add-hashtag-input tag-item"
+                      placeholder="Добавить хештег"
+                      size="16"
+                    />
+                    <div class="js_hashtag-suggestion-wrapper"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -161,11 +164,14 @@
               data-th-text="${portal.localize({'_key=blog.title.similarArticles', '_locale=ru'})}"
             ></h4>
             <ul class="similar_posts-list js_similar_posts-list"></ul>
-            <input
-              class="js_add-article-input"
-              placeholder="Добавить похожую статью"
-            />
-            <div class="js_article-suggestion-wrapper"></div>
+
+            <div class="similar_posts-add_new">
+              <input
+                class="js_add-article-input"
+                placeholder="Добавить похожую статью"
+              />
+              <div class="js_article-suggestion-wrapper suggestion-wrap"></div>
+            </div>
           </div>
           <div class="post">
             <div class="form-group">

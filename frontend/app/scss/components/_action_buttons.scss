@@ -12,6 +12,7 @@
 
   span {
     transition: transition(color);
+    white-space: nowrap;
   }
 
   &.active,
