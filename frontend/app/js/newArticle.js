@@ -104,6 +104,7 @@ $("#article-image-input").on("change", function(e) {
     showSnackBar("Картинки такого типа не поддерживаются.", "error");
     return false;
   }
+  showLoader();
   var form_data = new FormData();
   form_data.append("file", file_data);
   form_data.append("json", "true");
@@ -116,6 +117,7 @@ $("#article-image-input").on("change", function(e) {
     type: "PUT",
     success: function(data) {
       $(".js_main-image").html("<img src='" + data.url + "'/>");
+      hideLoader();
     }
   });
 });
@@ -150,6 +152,7 @@ function getNextId() {
 }
 
 function addPart(form_data, callback) {
+  showLoader();
   var id = getNextId();
   form_data.append("id", id);
   $.ajax({
@@ -163,6 +166,7 @@ function addPart(form_data, callback) {
       if (callback) {
         callback(id);
       }
+      hideLoader();
     }
   });
 }

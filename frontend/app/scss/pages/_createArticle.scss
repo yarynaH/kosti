@@ -27,7 +27,7 @@
 
     &-wrap {
       @include tablet-all {
-        @include position(absolute, top 190px right 65px);
+        @include position(absolute, top 170px right 65px);
 
         width: 200px;
       }
