@@ -3,44 +3,6 @@
   <head data-th-utext="${pageComponents.pagehead}"></head>
 
   <script src="https://cdn.tiny.cloud/1/bjocqei8sx4e4qom6muuy7eugbpc20u5bim7tu2zg8veawoj/tinymce/5/tinymce.min.js"></script>
-  <script>
-    tinymce.init({
-      selector: "#article-body-input",
-      height: 500,
-      menubar: false,
-      image_class_list: [{ title: "img-tinymce", value: "img-tinymce" }],
-      plugins: [
-        "advlist autolink lists link image charmap print preview anchor textcolor",
-        "searchreplace visualblocks code fullscreen",
-        "insertdatetime media table paste code help wordcount"
-      ],
-      image_caption: true,
-      images_upload_handler: function(blobInfo, success, failure) {
-        var xhr, formData;
-        xhr = new XMLHttpRequest();
-        xhr.withCredentials = false;
-        xhr.open("PUT", "/create");
-        xhr.onload = function() {
-          var json;
-          if (xhr.status != 200) {
-            failure("HTTP Error: " + xhr.status);
-            return;
-          }
-          json = JSON.parse(xhr.responseText);
-          if (!json) {
-            failure("Invalid JSON: " + xhr.responseText);
-            return;
-          }
-          success(json);
-        };
-        formData = new FormData();
-        formData.append("file", blobInfo.blob(), blobInfo.filename());
-        xhr.send(formData);
-      },
-      toolbar:
-        "undo redo | image | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat | help"
-    });
-  </script>
   <body class="page-wrapper">
     <div
       data-th-remove="tag"
@@ -107,17 +69,10 @@
               Появляется при просмотре списка статей.
             </div>
           </div>
-          <div class="form-group">
-            <label
-              for="article-body-input"
-              class="label"
-              data-th-text="${portal.localize({'_key=user.newArticle.article.text', '_locale=ru'})}"
-            ></label>
-            <textarea
-              data-th-text="${data.body}"
-              id="article-body-input"
-              name="body"
-            ></textarea>
+          <div class="js_parts-block"></div>
+          <div class="form-group js_add-block">add block</div>
+          <div class="form-group js_add-image">
+            <input type="file" />
           </div>
           <div class="form-group">
             <input
@@ -154,16 +109,83 @@
   $("#newArticleForm").validate({
     ignore: ""
   });
-  $("#article-image-input").on("change", function(e) {
-    var fileName = "";
-    if (this.files && this.files.length > 1)
-      fileName = (this.getAttribute("data-multiple-caption") || "").replace(
-        "{count}",
-        this.files.length
-      );
-    else fileName = e.target.value.split("\\").pop();
-    if (fileName && fileName.trim !== "") {
-      $(".js_label-file").text(fileName);
+
+  $("#newArticleForm").on("submit", function(e) {
+    e.preventDefault();
+    let partsLength = parseInt($(".js_single-part").length);
+    let result = [];
+    for (let i = 0; i < partsLength; i++) {
+      let part = $(".js_single-part-" + i);
+      if (part.hasClass("tinymce-editor")) {
+        let value = tinymce.get("js_single-part-" + i).getContent();
+        result.push({ type: "text", value: value });
+      } else if (part.hasClass("image-editor")) {
+        result.push({ type: "image", value: part.data().id });
+      }
     }
+    let data = {
+      components: result,
+      params: {
+        intro: $("#article-intro-input").val(),
+        title: $("#article-title-input").val()
+      }
+    };
+    var file_data = $("#article-image-input").prop("files")[0];
+    let form_data = new FormData();
+    form_data.append("image", file_data);
+    form_data.append("data", JSON.stringify(data));
+    $.ajax({
+      url: "/create",
+      data: form_data,
+      processData: false,
+      contentType: false,
+      type: "POST"
+    });
   });
+
+  $(".js_add-block").on("click", function() {
+    let id = $(".js_single-part").length;
+    $(".js_parts-block").append(
+      '<div class="form-group"><textarea class="create_article-tinymce_editor tinymce-editor js_single-part js_single-part-' +
+        id +
+        '" id="js_single-part-' +
+        id +
+        '"></textarea></div>'
+    );
+    initEditor(id);
+  });
+
+  $(".js_add-image input").on("change", function(e) {
+    var file_data = $(this).prop("files")[0];
+    let id = $(".js_single-part").length;
+    let form_data = new FormData();
+    form_data.append("file", file_data);
+    form_data.append("id", id);
+    $.ajax({
+      url: "/create",
+      data: form_data,
+      processData: false,
+      contentType: false,
+      type: "PUT",
+      success: function(data) {
+        $(".js_parts-block").append(data.image);
+      }
+    });
+    $(this).val("");
+  });
+
+  function initEditor(id) {
+    tinymce.init({
+      selector: ".js_single-part-" + id,
+      height: 500,
+      menubar: false,
+      plugins: [
+        "advlist autolink lists link charmap print preview anchor",
+        "searchreplace visualblocks code fullscreen",
+        "insertdatetime table paste code help wordcount"
+      ],
+      toolbar:
+        "undo redo | formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist"
+    });
+  }
 </script>

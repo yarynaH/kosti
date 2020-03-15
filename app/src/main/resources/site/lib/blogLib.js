@@ -191,7 +191,7 @@ function getNewArticles(page) {
   return result;
 }
 
-function getSearchArticles(q, page, useHashtag) {
+function getSearchArticles(q, page, useHashtag, json, skipIds) {
   var pageSize = 10;
   if (!page) {
     page = 0;
@@ -199,12 +199,13 @@ function getSearchArticles(q, page, useHashtag) {
   q = q.replaceAll("'", '"');
 
   if (useHashtag)
-    var query = "data.hashtags IN ('" + q + "') OR data.hashtags = '" + q + "'";
+    var query =
+      "(data.hashtags IN ('" + q + "') OR data.hashtags = '" + q + "')";
   else {
     if (q.charAt(0) == "#") q = q.substring(1);
     var hid = hashtagLib.getHashtagIdByName(q);
     var query =
-      "fulltext('displayName^5,data.*,page.*', '" +
+      "(fulltext('displayName^5,data.*,page.*', '" +
       q +
       "', 'AND') OR " +
       "ngram('displayName^5,data.*,page.*', '" +
@@ -214,7 +215,11 @@ function getSearchArticles(q, page, useHashtag) {
       hid +
       "') OR data.hashtags = '" +
       hid +
-      "'";
+      "')";
+  }
+  if (skipIds) {
+    skipIds = skipIds.split(",");
+    query += " AND not _id in ('" + skipIds.join("','") + "')";
   }
   var articles = [];
   var result = contentLib.query({
@@ -224,6 +229,9 @@ function getSearchArticles(q, page, useHashtag) {
     sort: "publish.from DESC",
     contentTypes: [app.name + ":article", app.name + ":podcast"]
   });
+  if (json) {
+    return result;
+  }
   if (result && result.hits && result.hits.length > 0) {
     articles = beautifyArticleArray(result.hits);
   }

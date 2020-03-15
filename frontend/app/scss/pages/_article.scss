@@ -168,6 +168,13 @@
 
     width: 100%;
 
+    &-placeholder {
+      background: $color-primary7;
+      height: 560px;
+      width: 100%;
+      display: block;
+    }
+
     &:after {
       @include position(absolute, top 0 right 0);
 
@@ -197,9 +204,15 @@
       font-size: rem(32);
       font-weight: bold;
       color: $color-primary13;
+      border-bottom: 1px solid transparent;
 
       @include tablet-all {
         font-size: rem(48);
+      }
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $color-primary1;
       }
     }
 
@@ -215,8 +228,13 @@
 .similar_posts {
   background-color: $color-primary1;
   margin-top: 10px;
-  padding: 30px;
+  padding: 30px 15px;
   box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+
+
+  @include tablet-all {
+    padding: 30px;
+  }
 
   &-title {
     color: $color-primary17;

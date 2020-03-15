@@ -1,0 +1,8 @@
+<ul class="js_article-suggestion-list suggestion-list">
+  <li
+    data-th-each="article: ${articles}"
+    data-th-text="${article.displayName}"
+    data-th-attr="data-id=${article._id}"
+    class="js_article-suggest-item"
+  ></li>
+</ul>

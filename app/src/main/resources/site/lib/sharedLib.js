@@ -24,7 +24,7 @@ function getRepoConnection(id, branch) {
   });
   return nodeLib.connect({
     repoId: id,
-    branch: "master"
+    branch: branch
   });
 }
 

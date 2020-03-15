@@ -1,5 +1,4 @@
 var thymeleaf = require("/lib/thymeleaf");
-var authLib = require("/lib/xp/auth");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var i18nLib = require("/lib/xp/i18n");
@@ -8,8 +7,9 @@ var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
-var spellLib = require(libLocation + "spellsLib");
+var kostiUtils = require(libLocation + "kostiUtils");
 var articlesLib = require(libLocation + "articlesLib");
+var hashtagLib = require(libLocation + "hashtagLib");
 var blogLib = require(libLocation + "blogLib");
 
 exports.get = handleGet;
@@ -20,8 +20,42 @@ function handlePut(req) {
   var me = this;
 
   function renderView() {
+    let data = req.params;
+    let result = {};
+    switch (data.type) {
+      case "textPart":
+        result = articlesLib.getTextComponent(data);
+        break;
+      case "imagePart":
+      case "imageMain":
+        result = articlesLib.createImage(data);
+        break;
+      case "videoPart":
+        result = articlesLib.getVideoComponent(data);
+        break;
+      case "hashtagList":
+        result = articlesLib.renderHashtagSuggestion(
+          hashtagLib.getHashtagList(data.q, data.ids)
+        );
+        break;
+      case "hashtag":
+        result = articlesLib.renderHashtagItem(
+          hashtagLib.getHashtagIdByName(data.q, true, true)
+        );
+        break;
+      case "articlesList":
+        result = articlesLib.renderArticlesSuggestion(
+          blogLib.getSearchArticles(data.q, null, null, true, data.ids).hits
+        );
+        break;
+      case "similarArticle":
+        result = articlesLib.renderSimilarArticle(data.id);
+        break;
+      default:
+        break;
+    }
     return {
-      body: '"' + articlesLib.createImage(req.params) + '"',
+      body: result,
       contentType: "application/json"
     };
   }
@@ -33,44 +67,30 @@ function handlePost(req) {
   var me = this;
 
   function renderView() {
-    var result = articlesLib.createArticle(req.params);
-    if (result.error) {
-      var view = resolve("newArticle.html");
+    var article = articlesLib.createArticle(JSON.parse(req.params.data));
+    var result;
+    if (article.error) {
+      result = {
+        error: true,
+        message: i18nLib.localize({
+          key: "user.newArticle.error." + article.message,
+          locale: "ru"
+        })
+      };
     } else {
-      //var view = resolve("../../site/pages/article/article.html");
-      var view = resolve("articleSubmit.html");
+      result = {
+        error: false,
+        article: article,
+        message: i18nLib.localize({
+          key: "user.newArticle.success",
+          locale: "ru"
+        })
+      };
     }
-    var model = createModel(result);
-    var body = thymeleaf.render(view, model);
     return {
-      body: body,
-      contentType: "text/html"
+      body: result,
+      contentType: "application/json"
     };
-  }
-
-  function createModel(createRes) {
-    var content = portal.getContent();
-    var site = portal.getSiteConfig();
-    createRes = blogLib.beautifyArticle(createRes);
-
-    var model = {
-      content: content,
-      site: site,
-      mainRegion: false,
-      //sidebar: blogLib.getSidebar(),
-      articleFooter: blogLib.getArticleFooter(createRes),
-      content: createRes,
-      errorMessage: createRes.error
-        ? i18nLib.localize({
-            key: "article.create.error." + createRes.message
-          })
-        : "",
-      data: req.params,
-      social: site.social,
-      pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
-    };
-
-    return model;
   }
 
   return renderView();
@@ -80,10 +100,10 @@ function handleGet(req) {
   var me = this;
 
   function renderView() {
-    var view = resolve("newArticle.html");
+    var view = resolve("newArticleNew.html");
     var user = userLib.getCurrentUser();
     if (!user) {
-      return false;
+      return helpers.getLoginRequest();
     }
     var model = createModel();
     var body = thymeleaf.render(view, model);
@@ -99,9 +119,7 @@ function handleGet(req) {
       up = {};
     }
     var content = portal.getContent();
-    var response = [];
     var site = portal.getSiteConfig();
-
     var model = {
       content: content,
       app: app,
@@ -110,7 +128,10 @@ function handleGet(req) {
         id: portal.getSiteConfig().agreementPage
       }),
       data: up,
+      sidebar: blogLib.getSidebar(),
       social: site.social,
+      author: userLib.getCurrentUser(),
+      date: kostiUtils.getTimePassedSincePostCreation(new Date()),
       pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };
 

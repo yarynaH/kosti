@@ -13,6 +13,7 @@ exports.fixPermissions = fixPermissions;
 exports.getPageComponents = getPageComponents;
 exports.getLoadMore = getLoadMore;
 exports.getRandomString = getRandomString;
+exports.getLoginRequest = getLoginRequest;
 
 function getPageComponents(req, footerType, activeEl, title) {
   var pageComponents = {};
@@ -256,4 +257,16 @@ function getRandomString() {
   return i18nLib.localize({
     key: "blog.loadMoreText." + randomNumber
   });
+}
+
+function getLoginRequest() {
+  return {
+    body: thymeleaf.render(
+      resolve("../pages/components/user/loginError.html"),
+      {
+        pageComponents: getPageComponents()
+      }
+    ),
+    contentType: "text/html"
+  };
 }

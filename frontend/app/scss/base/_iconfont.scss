@@ -74,53 +74,68 @@
     @if $filename == guest {
         $char: "\F12F";
     }
-    @if $filename == info {
+    @if $filename == hashtag {
         $char: "\F130";
     }
-    @if $filename == instagram {
+    @if $filename == image {
         $char: "\F131";
     }
-    @if $filename == logout {
+    @if $filename == info {
         $char: "\F132";
     }
-    @if $filename == network {
+    @if $filename == instagram {
         $char: "\F133";
     }
-    @if $filename == pin-location {
+    @if $filename == logout {
         $char: "\F134";
     }
-    @if $filename == quote {
+    @if $filename == network {
         $char: "\F135";
     }
-    @if $filename == rock {
+    @if $filename == new_arrow {
         $char: "\F136";
     }
-    @if $filename == search {
+    @if $filename == pin-location {
         $char: "\F137";
     }
-    @if $filename == selected {
+    @if $filename == quote {
         $char: "\F138";
     }
-    @if $filename == share {
+    @if $filename == rock {
         $char: "\F139";
     }
-    @if $filename == twitch {
+    @if $filename == search {
         $char: "\F13A";
     }
-    @if $filename == twitter {
+    @if $filename == selected {
         $char: "\F13B";
     }
-    @if $filename == upload {
+    @if $filename == share {
         $char: "\F13C";
     }
-    @if $filename == views {
+    @if $filename == text {
         $char: "\F13D";
     }
-    @if $filename == vk {
+    @if $filename == twitch {
         $char: "\F13E";
     }
-    @if $filename == youtube {
+    @if $filename == twitter {
         $char: "\F13F";
+    }
+    @if $filename == upload {
+        $char: "\F140";
+    }
+    @if $filename == video {
+        $char: "\F141";
+    }
+    @if $filename == views {
+        $char: "\F142";
+    }
+    @if $filename == vk {
+        $char: "\F143";
+    }
+    @if $filename == youtube {
+        $char: "\F144";
     }
 
     @return $char;
@@ -161,19 +176,24 @@ category: Basic
     <div class="sg-icon icon-gear" title="gear"></div>
     <div class="sg-icon icon-google" title="google"></div>
     <div class="sg-icon icon-guest" title="guest"></div>
+    <div class="sg-icon icon-hashtag" title="hashtag"></div>
+    <div class="sg-icon icon-image" title="image"></div>
     <div class="sg-icon icon-info" title="info"></div>
     <div class="sg-icon icon-instagram" title="instagram"></div>
     <div class="sg-icon icon-logout" title="logout"></div>
     <div class="sg-icon icon-network" title="network"></div>
+    <div class="sg-icon icon-new_arrow" title="new_arrow"></div>
     <div class="sg-icon icon-pin-location" title="pin-location"></div>
     <div class="sg-icon icon-quote" title="quote"></div>
     <div class="sg-icon icon-rock" title="rock"></div>
     <div class="sg-icon icon-search" title="search"></div>
     <div class="sg-icon icon-selected" title="selected"></div>
     <div class="sg-icon icon-share" title="share"></div>
+    <div class="sg-icon icon-text" title="text"></div>
     <div class="sg-icon icon-twitch" title="twitch"></div>
     <div class="sg-icon icon-twitter" title="twitter"></div>
     <div class="sg-icon icon-upload" title="upload"></div>
+    <div class="sg-icon icon-video" title="video"></div>
     <div class="sg-icon icon-views" title="views"></div>
     <div class="sg-icon icon-vk" title="vk"></div>
     <div class="sg-icon icon-youtube" title="youtube"></div>
@@ -228,6 +248,12 @@ category: Basic
 .icon-guest {
     @include icon(guest);
 }
+.icon-hashtag {
+    @include icon(hashtag);
+}
+.icon-image {
+    @include icon(image);
+}
 .icon-info {
     @include icon(info);
 }
@@ -239,6 +265,9 @@ category: Basic
 }
 .icon-network {
     @include icon(network);
+}
+.icon-new_arrow {
+    @include icon(new_arrow);
 }
 .icon-pin-location {
     @include icon(pin-location);
@@ -258,6 +287,9 @@ category: Basic
 .icon-share {
     @include icon(share);
 }
+.icon-text {
+    @include icon(text);
+}
 .icon-twitch {
     @include icon(twitch);
 }
@@ -266,6 +298,9 @@ category: Basic
 }
 .icon-upload {
     @include icon(upload);
+}
+.icon-video {
+    @include icon(video);
 }
 .icon-views {
     @include icon(views);

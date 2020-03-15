@@ -329,6 +329,15 @@ function scrollToHash() {
   }
 }
 
+function scrollToItem(item) {
+  $("html, body").animate(
+    {
+      scrollTop: item.offset().top - 85
+    },
+    "slow"
+  );
+}
+
 $(document).ready(function() {
   initSharedEvents();
   initLoginRegisterForm();

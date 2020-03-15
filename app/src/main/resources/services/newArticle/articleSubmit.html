@@ -14,12 +14,23 @@
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
       <div class="confirmation-wrap">
-        <div class="site_width">
+        <div class="site_width" data-th-if="${access && !published}">
           <h2 class="checkout-title">Спасибо!</h2>
           <div class="confirmation-msg">
-            Мы приняли вашу статью. Вскоре она появится на сайте. Тем временем,
-            можете почитать
-            <a data-th-href="${homeUrl}">что-нибудь другое</a>.
+            Ваша статья сейчас модерируется. В ближашее время она появится на
+            сайте.
+          </div>
+        </div>
+        <div class="site_width" data-th-if="${!access}">
+          <h2 class="checkout-title">Статья не найдена.</h2>
+          <div class="confirmation-msg">
+            Такой статьи не существует, или у вас нет доступа к ней.
+          </div>
+        </div>
+        <div class="site_width" data-th-if="${published}">
+          <h2 class="checkout-title">Статья опубликована.</h2>
+          <div class="confirmation-msg">
+            Ура! Статья опубликована и появилась на сайте.
           </div>
         </div>
       </div>
