@@ -1,9 +1,30 @@
-<div data-th-each="game : ${games}" class="comments-item">
-
-    <div class="my_games">
-        <div class="my_games-event_name" 
-        data-th-text="${myGames.kosticon2020}"></div>
-        <h1 class="my_games-title"></h1>
-        <p class="my_games-caption"></p>
+<div class="my_games">
+    <div class="my_games-event_name" 
+    data-th-text="${portal.localize({'_key=myGames.kosticon2020', '_locale=ru'})}"></div>
+    <h1 class="my_games-title"
+    data-th-text="${portal.localize({'_key=myGames.forGM', '_locale=ru'})}"></h1>
+    <p class="my_games-caption"
+    data-th-text="${portal.localize({'_key=myGames.forGM.caption', '_locale=ru'})}"></p>
+    <div class="my_games-schedule-list">
+        <div class="my_games-schedule-item">
+            <div class="my_games-day_slot">
+                <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
+                <span>1.</span>
+                <span>Пятница</span>
+                <span>, </span>
+                <span>22 Мая</span> 
+            </div>
+            <div class="my_games-table_slot">
+                <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
+                <span>6 / 53</span>
+            </div>
+        </div>
     </div>
+    <h1 class="my_games-title"
+    data-th-text="${portal.localize({'_key=myGames.forPlayer', '_locale=ru'})}"></h1>
+    <p class="my_games-caption"
+    data-th-text="${portal.localize({'_key=myGames.forPlayer.caption', '_locale=ru'})}"></p>
+    <button
+    class="button button-light"
+    data-th-text="${portal.localize({'_key=myGames.enterHash', '_locale=ru'})}"></button>
 </div>

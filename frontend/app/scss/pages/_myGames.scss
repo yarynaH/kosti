@@ -1,0 +1,55 @@
+.my_games {
+    &-event_name {
+        font-weight: bold;
+        color: #1d1f24;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #e9462d;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+    &-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333333;
+        line-height: normal;
+        margin-bottom: 5px;
+    }
+
+    &-caption {
+        font-size: 14px;
+        line-height: normal;
+        color: #333333;
+        margin-bottom: 15px;
+    }
+
+    &-schedule-item {
+        border-radius: 3px;
+        box-shadow: 0 2px 8px 0 #0000000a;
+        border: solid 1px #dedede;
+        background-color: #ffffff;
+        padding: 15px 25px;
+    }
+
+    &-day_slot {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5;
+        color: #1b2125;
+    }
+
+    &-table_slot {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.43;
+        color: #505050;
+    }
+
+    &-schedule-list {
+        margin-bottom: 40px;
+    }
+
+    &-schedule-item+&-schedule-item {
+        margin-top: 10px;
+    }
+}
