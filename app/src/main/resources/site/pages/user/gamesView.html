@@ -1,17 +1,9 @@
 <div data-th-each="game : ${games}" class="comments-item">
-  <div class="comments-header">
-    <div class="post-info">
-      <div>
-        <span class="post-user_name" data-th-text="${game.title}"></span>
-      </div>
+
+    <div class="my_games">
+        <div class="my_games-event_name" 
+        data-th-text="${myGames.kosticon2020}"></div>
+        <h1 class="my_games-title"></h1>
+        <p class="my_games-caption"></p>
     </div>
-  </div>
-  <div data-th-each="singleGame : ${game.games}">
-    <span class="comments-body" data-th-utext="${singleGame.title}"></span>
-    <span
-      data-th-if="${singleGame.time}"
-      class="comments-body"
-      data-th-utext="${singleGame.time}"
-    ></span>
-  </div>
 </div>
