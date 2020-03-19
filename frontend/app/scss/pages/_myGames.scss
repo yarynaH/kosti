@@ -1,17 +1,32 @@
 .my_games {
+    box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+    background: $color-primary1;
+    padding: 40px;
+
     &-event_name {
-        font-weight: bold;
-        color: #1d1f24;
-        padding-bottom: 5px;
-        border-bottom: 1px solid #e9462d;
-        display: inline-block;
-        margin-bottom: 20px;
+
+        &-item {
+            display: inline-block;
+            margin-bottom: 20px;
+            margin-right: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid transparent;
+            font-weight: bold;
+            color: $color-primary17;
+            transition: transition(border-color);
+            cursor: pointer;
+
+            &:hover,
+            &.active {
+                border-color: $color-primary15;
+            }
+        }
     }
 
     &-title {
         font-size: 24px;
         font-weight: bold;
-        color: #333333;
+        color: $color-primary6;
         line-height: normal;
         margin-bottom: 5px;
     }
@@ -19,37 +34,203 @@
     &-caption {
         font-size: 14px;
         line-height: normal;
-        color: #333333;
+        color: $color-primary6;
         margin-bottom: 15px;
-    }
-
-    &-schedule-item {
-        border-radius: 3px;
-        box-shadow: 0 2px 8px 0 #0000000a;
-        border: solid 1px #dedede;
-        background-color: #ffffff;
-        padding: 15px 25px;
-    }
-
-    &-day_slot {
-        font-size: 16px;
-        font-weight: bold;
-        line-height: 1.5;
-        color: #1b2125;
-    }
-
-    &-table_slot {
-        font-size: 14px;
-        font-weight: normal;
-        line-height: 1.43;
-        color: #505050;
     }
 
     &-schedule-list {
         margin-bottom: 40px;
     }
 
-    &-schedule-item+&-schedule-item {
-        margin-top: 10px;
+    &-schedule-item {
+        padding: 15px 25px;
+        border-radius: 3px;
+        box-shadow: 0 2px 8px 0 rgba($color-primary21, 0.16);
+        border: solid 1px $color-primary20;
+        background-color: $color-primary1;
+        cursor: pointer;
+        transition: transition(box-shadow);
+
+        & + & {
+            margin-top: 10px;
+        }
+
+        &.active,
+        &:hover {
+            box-shadow: 0 2px 8px 0 rgba($color-primary3,.5);
+            border: solid 1px $color-primary3;
+        }
+    }
+
+    &-day_slot {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5;
+        color: $color-primary2;
+    }
+
+    &-table_slot {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.43;
+        color: $color-primary16;
+        max-height: 150px;
+        opacity: 1;
+        visibility: visible;
+        transition: all .2s ease 0s;
+
+        .my_games-schedule-item.active & {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+    }
+
+    &-btn {
+        width: auto;
+    }
+
+    &-location {
+        $parent: &;
+
+        &-name {
+            font-weight: bold;
+            line-height: 1.43;
+            color: #333333;
+            transition: transition(color);
+        }
+
+        &-qty {
+            color: #505050;
+            transition: transition(color);
+        }
+
+        &-list {
+            margin-top: 15px;
+        }
+
+        &-item {
+            margin: 0 5px 5px 0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: none;
+            transition: transition(background);
+
+            &.active,
+            &:hover {
+                background: #0095f8;
+
+                #{$parent}-name,
+                #{$parent}-qty {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    &-game_block {
+        &-list {
+            margin-bottom: 16px;
+        }
+
+        &-item {
+            display: block;
+            margin: 10px 0 0;
+            padding: 16px 16px 16px 45px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            border: 1px solid  #dedede;
+            border-left: 4px solid #ed1f2e;
+            box-shadow: 0 2px 8px 0 #0000000a;
+            text-transform: none;
+
+            &:before {
+                left: 10px;
+                top: 16px;
+            }
+    
+            &:after {
+                left: 15px;
+                top: 21px;
+            }
+        }
+
+        &-time {
+            color: #333333;
+
+            &:after {
+                content: '';
+                display: inline-block;
+                width: 1px;
+                height: 20px;
+                margin: 0px 8px -4px;
+                background: #dddddd;
+            }
+        }
+
+        &-duration {
+            color: #333333;
+        }
+
+        &-item-top {
+            font-size: 14px;
+            line-height: 1.43;
+        }
+
+        &-name {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.5;
+            color: #333333;
+        }
+    }
+
+    &-action {
+        &-block {
+            display: flex;
+
+            .button {
+                width: auto;
+                padding: 10px 20px;
+            }
+        }
+
+        &-select {
+            background: #0095f8;
+            color: #ffffff;
+            border: 3px solid #0095f8;
+            margin-right: 15px;
+    
+            &:hover {
+                background: #fff;
+                color: #0095f8;
+            }
+        }
+    
+        &-discard {
+            background: #fff;
+            color: #0095f8;
+            text-transform: none;
+            border: 3px solid #fff;
+    
+            &:hover {
+                border-color: #0095f8;
+            }
+        }
+    }
+
+    &-step2-block {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: all .5s ease 0s;
+
+        .active & {
+            max-height: 1000px;
+            opacity: 1;
+            overflow: visible;
+        }
     }
 }

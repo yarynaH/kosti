@@ -1,6 +1,8 @@
 <div class="my_games">
-    <div class="my_games-event_name" 
-    data-th-text="${portal.localize({'_key=myGames.kosticon2020', '_locale=ru'})}"></div>
+    <div class="my_games-event_name-lis">
+        <div class="my_games-event_name-item active"
+        data-th-text="${portal.localize({'_key=myGames.kosticon2020', '_locale=ru'})}"></div>
+    </div>
     <h1 class="my_games-title"
     data-th-text="${portal.localize({'_key=myGames.forGM', '_locale=ru'})}"></h1>
     <p class="my_games-caption"
@@ -19,12 +21,67 @@
                 <span>6 / 53</span>
             </div>
         </div>
+        <div class="my_games-schedule-item active">
+            <div class="my_games-day_slot">
+                <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
+                <span>1.</span>
+                <span>Пятница</span>
+                <span>, </span>
+                <span>22 Мая</span> 
+            </div>
+            <div class="my_games-table_slot">
+                <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
+                <span>6 / 53</span>
+            </div>
+            <div class="my_games-step2-block">
+                <div class="my_games-location-list">
+                    <input type="radio" id="location1" value="Зал" hidden>
+                    <label for="location1" class="my_games-location-item active">
+                        <span class="my_games-location-name">Зал</span>
+                        <span class="my_games-location-qty">13 / 45</span>
+                    </label>
+                    <input type="radio" id="location2" value="Башня" hidden>
+                    <label for="location2" class="my_games-location-item">
+                        <span class="my_games-location-name">Башня</span>
+                        <span class="my_games-location-qty">13 / 45</span>
+                    </label>
+                </div>
+                <div class="my_games-game_block-list">
+                    <input type="radio" id="game_block1" value="Фэнтези" hidden>
+                    <label for="game_block1" class="my_games-game_block-item label-radio">
+                        <div class="my_games-game_block-item-top">
+                            <span class="my_games-game_block-time">11:00-13:30</span>
+                            <span class="my_games-game_block-duration">2ч 30м</span>
+                        </div>
+                        <div class="my_games-game_block-item-bottom">
+                            <span class="my_games-game_block-name">Фэнтези</span>
+                        </div>
+                    </label>
+                    <input type="radio" id="game_block1" value="Открытые игры" hidden>
+                    <label for="game_block1" class="my_games-game_block-item label-radio">
+                        <div class="my_games-game_block-item-top">
+                            <span class="my_games-game_block-time">11:00-13:30</span>
+                            <span class="my_games-game_block-duration">2ч 30м</span>
+                        </div>
+                        <div class="my_games-game_block-item-bottom">
+                            <span class="my_games-game_block-name">Открытые игры</span>
+                        </div>
+                    </label>
+                </div>
+                <div class="my_games-action-block">
+                    <button class="my_games-action-select button"
+                    data-th-text="${portal.localize({'_key=myGames.select', '_locale=ru'})}"></button>
+                    <button class="my_games-action-discard button"
+                    data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>
+                </div>
+            </div>
+        </div>
     </div>
     <h1 class="my_games-title"
     data-th-text="${portal.localize({'_key=myGames.forPlayer', '_locale=ru'})}"></h1>
     <p class="my_games-caption"
     data-th-text="${portal.localize({'_key=myGames.forPlayer.caption', '_locale=ru'})}"></p>
     <button
-    class="button button-light"
+    class="my_games-btn button button-light"
     data-th-text="${portal.localize({'_key=myGames.enterHash', '_locale=ru'})}"></button>
 </div>
