@@ -1,7 +1,7 @@
 var event = require("/lib/xp/event");
 var content = require("/lib/xp/content");
-var slackLib = require("/lib/slackLib");
-var telegramLib = require("/lib/telegramLib");
+// var slackLib = require("/lib/slackLib");
+// var telegramLib = require("/lib/telegramLib");
 
 var libLocation = "site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -21,16 +21,16 @@ event.listener({
           contextLib.runAsAdmin(function() {
             votesLib.createBlankVote(node._id, "article");
           });
-          slackLib.sendMessage({
-            channel: app.config.slackChannelSystem,
-            title: "New article created."
-          });
-          telegramLib.sendMessage({
-            title: "Привет!",
-            body: "На kostirpg.com написали новую статью.",
-            chatId: app.config.telegramAdminChat,
-            botId: app.config.telegramBotToken
-          });
+          // slackLib.sendMessage({
+          //   channel: app.config.slackChannelSystem,
+          //   title: "New article created."
+          // });
+          // telegramLib.sendMessage({
+          //   title: "Привет!",
+          //   body: "На kostirpg.com написали новую статью.",
+          //   chatId: app.config.telegramAdminChat,
+          //   botId: app.config.telegramBotToken
+          // });
         } else if (node && node.type && node.type == app.name + ":hashtag") {
           contextLib.runAsAdmin(function() {
             votesLib.createBlankVote(node._id, "hashtag");
