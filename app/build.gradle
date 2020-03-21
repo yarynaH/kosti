@@ -23,7 +23,7 @@ dependencies {
   include "com.enonic.xp:lib-context:${xpVersion}"
   include "com.enonic.xp:lib-event:${xpVersion}"
   include 'com.enonic.lib:lib-text-encoding:2.0.0'
-  // include "com.enonic.lib:slack:1.0.0"
+  include "com.enonic.lib:slack:1.0.0"
 
   include "com.enonic.xp:lib-auth:${xpVersion}"
   include "com.enonic.xp:lib-io:${xpVersion}"
