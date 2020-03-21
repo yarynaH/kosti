@@ -1,13 +1,22 @@
 .my_games {
     box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
     background: $color-primary1;
-    padding: 40px;
+
+    &-gm-block {
+        padding: 0 40px;
+    }
+
+    &-player-block {
+        padding: 40px;
+    }
 
     &-event_name {
+        &-list {
+            padding: 40px 40px 20px 40px;
+        }
 
         &-item {
             display: inline-block;
-            margin-bottom: 20px;
             margin-right: 10px;
             padding-bottom: 5px;
             border-bottom: 1px solid transparent;
@@ -38,27 +47,18 @@
         margin-bottom: 15px;
     }
 
-    &-schedule-list {
-        margin-bottom: 40px;
-    }
-
     &-schedule-item {
-        padding: 15px 25px;
-        border-radius: 3px;
-        box-shadow: 0 2px 8px 0 rgba($color-primary21, 0.16);
-        border: solid 1px $color-primary20;
+        padding: 15px 40px;
         background-color: $color-primary1;
         cursor: pointer;
-        transition: transition(box-shadow);
+        border-bottom: 1px solid $color-primary20;
 
         & + & {
             margin-top: 10px;
         }
 
-        &.active,
-        &:hover {
-            box-shadow: 0 2px 8px 0 rgba($color-primary3,.5);
-            border: solid 1px $color-primary3;
+        &:first-child {
+            border-top: 1px solid $color-primary20;
         }
     }
 
@@ -231,6 +231,26 @@
             max-height: 1000px;
             opacity: 1;
             overflow: visible;
+        }
+    }
+
+    &-activate_ticket {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 15px;
+    
+        .form-group {
+            flex:  0 0 64%;
+        }
+    }
+    
+    &-find_hash {
+        font-weight: bold;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 }

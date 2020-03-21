@@ -3,11 +3,13 @@
         <div class="my_games-event_name-item active"
         data-th-text="${portal.localize({'_key=myGames.kosticon2020', '_locale=ru'})}"></div>
     </div>
-    <div class="hidden">
-        <h1 class="my_games-title"
-        data-th-text="${portal.localize({'_key=myGames.forGM', '_locale=ru'})}"></h1>
-        <p class="my_games-caption"
-        data-th-text="${portal.localize({'_key=myGames.forGM.caption', '_locale=ru'})}"></p>
+    <div class="">
+        <div class="my_games-gm-block">
+            <h2 class="my_games-title"
+            data-th-text="${portal.localize({'_key=myGames.forGM', '_locale=ru'})}"></h2>
+            <p class="my_games-caption"
+            data-th-text="${portal.localize({'_key=myGames.forGM.caption', '_locale=ru'})}"></p>
+        </div>
         <div class="my_games-schedule-list">
             <div class="my_games-schedule-item">
                 <div class="my_games-day_slot">
@@ -78,15 +80,30 @@
                 </div>
             </div>
         </div>
-        <h1 class="my_games-title"
-        data-th-text="${portal.localize({'_key=myGames.forPlayer', '_locale=ru'})}"></h1>
-        <p class="my_games-caption"
-        data-th-text="${portal.localize({'_key=myGames.forPlayer.caption', '_locale=ru'})}"></p>
-        <button
-        class="my_games-btn button button-light"
-        data-th-text="${portal.localize({'_key=myGames.enterHash', '_locale=ru'})}"></button>
+        <div class="my_games-player-block">
+            <h2 class="my_games-title"
+            data-th-text="${portal.localize({'_key=myGames.forPlayer', '_locale=ru'})}"></h2>
+            <p class="my_games-caption"
+            data-th-text="${portal.localize({'_key=myGames.forPlayer.caption', '_locale=ru'})}"></p>
+            <div class="my_games-activate_ticket">
+                <div class="form-group">
+                    <label for="ticketHash" data-th-text="${portal.localize({'_key=myGames.ticketHash', '_locale=ru'})}"></label>
+                    <input
+                      data-th-placeholder="${portal.localize({'_key=myGames.ticketHash.placeholder', '_locale=ru'})}"
+                      type="text"
+                      name="ticketHash"
+                      id="ticketHash"
+                    />
+                </div>
+                <button
+                class="my_games-btn button button-light"
+                data-th-text="${portal.localize({'_key=myGames.activateBtn', '_locale=ru'})}"></button>
+            </div>
+            <a href="" class="my_games-find_hash"
+            data-th-text="${portal.localize({'_key=myGames.findHash', '_locale=ru'})}"></a>
+        </div>
     </div>
-    <div class="my_games-step3">
+    <div class="my_games-step3 hidden">
         <h1 class="my_games-title">
             <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
             <span>1.</span>
@@ -106,7 +123,7 @@
             <button class="my_games-back button" data-th-text="${portal.localize({'_key=myGames.back', '_locale=ru'})}"></button>
         </p>
         <form action="" class="my_games-form">
-            <h2 class="my_games-subtitle" data-th-text="${portal.localize({'_key=myGames.form.gameDetails', '_locale=ru'})}"></h2>
+            <h3 class="my_games-subtitle" data-th-text="${portal.localize({'_key=myGames.form.gameDetails', '_locale=ru'})}"></h3>
             <div class="form-group">
                 <label for="my_games_name" data-th-text="${portal.localize({'_key=myGames.form.name', '_locale=ru'})}"></label>
                 <input
