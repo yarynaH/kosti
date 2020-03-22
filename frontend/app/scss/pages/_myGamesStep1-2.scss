@@ -62,11 +62,25 @@
         }
     }
 
-    &-day_slot {
+    &-day_slot-title {
         font-size: 16px;
         font-weight: bold;
         line-height: 1.5;
         color: $color-primary2;
+
+        .icon-arrow {
+            margin-left: 5px;
+
+            &:before {
+                font-size: 12px;
+                font-weight: bold;
+                transition: transition(transform);
+
+                .active & {
+                    transform: rotate(90deg);
+                }
+            }
+        }
     }
 
     &-table_slot {
@@ -131,10 +145,6 @@
     }
 
     &-game_block {
-        &-list {
-            margin-bottom: 16px;
-        }
-
         &-item {
             display: block;
             margin: 10px 0 0;
@@ -190,14 +200,16 @@
     &-action {
         &-block {
             display: flex;
+            margin-top: 16px;
 
-            .button {
+            .my_games-action-primary,
+            .my_games-action-secondary {
                 width: auto;
                 padding: 10px 20px;
             }
         }
 
-        &-select {
+        &-primary {
             background: #0095f8;
             color: #ffffff;
             border: 3px solid #0095f8;
@@ -209,7 +221,7 @@
             }
         }
     
-        &-discard {
+        &-secondary {
             background: #fff;
             color: #0095f8;
             text-transform: none;
@@ -221,7 +233,7 @@
         }
     }
 
-    &-step2-block {
+    &-step2 {
         max-height: 0;
         opacity: 0;
         overflow: hidden;
@@ -247,10 +259,19 @@
     }
     
     &-find_hash {
-        font-weight: bold;
+        line-height: 20px;
 
-        &:hover {
-            text-decoration: underline;
+        &-link {
+            font-weight: bold;
+    
+            .expanded &,
+            &:hover {
+                color: #666666;
+            }
+        }
+
+        &-answer {
+            color: #333333;
         }
     }
 }

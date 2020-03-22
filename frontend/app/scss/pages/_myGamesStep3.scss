@@ -1,11 +1,8 @@
 .my_games {
     &-step3 {
-        .my_games-action-block {
-            margin-top: 10px;
-        }
     }
 
-    &-back {
+    &-link {
         width: auto;
         background: none;
         color: #0095f8;
@@ -13,6 +10,8 @@
         text-transform: none;
         line-height: 20px;
         padding: 0;
+        margin-right: 15px;
+
         &:hover {
             text-decoration: underline;
         }
@@ -80,10 +79,13 @@
         }
 
         .label-checkbox {
-            margin-bottom: 15px;
             font-size: 16px;
             text-transform: none;
             color: #333333;
+
+            & + & {
+                margin-top: 15px;
+            }
         }
     }
 }

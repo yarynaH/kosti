@@ -12,31 +12,98 @@
         </div>
         <div class="my_games-schedule-list">
             <div class="my_games-schedule-item">
-                <div class="my_games-day_slot">
+                <h4 class="my_games-day_slot-title">
                     <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
                     <span>1.</span>
                     <span>Пятница</span>
                     <span>, </span>
-                    <span>22 Мая</span> 
-                </div>
+                    <span>22 Мая</span>
+                    <span class="icon-arrow"></span>
+                </h4>
                 <div class="my_games-table_slot">
                     <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
                     <span>6 / 53</span>
                 </div>
             </div>
             <div class="my_games-schedule-item active">
-                <div class="my_games-day_slot">
+                <h4 class="my_games-day_slot-title">
                     <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
                     <span>1.</span>
                     <span>Пятница</span>
                     <span>, </span>
-                    <span>22 Мая</span> 
-                </div>
+                    <span>22 Мая</span>
+                    <span class="icon-arrow"></span>
+                </h4>
                 <div class="my_games-table_slot">
                     <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
                     <span>6 / 53</span>
                 </div>
-                <div class="my_games-step2-block">
+
+                <div class="my_games-step4">
+                    <div class="my_games-available-list">
+                        <div class="my_games-available-item expanded">
+                            <div class="my_games-short_info">
+                                <div class="my_games-short_info-left">
+                                    <div class="my_games-short_info-time">11:00-13:30</div>
+                                    <div class="my_games-short_info-location">
+                                        <span>Зал</span>
+                                        <span>, </span>
+                                        <span>Стол 14</span>
+                                    </div>
+                                </div>
+                                <div class="my_games-short_info-right">
+                                    <div class="my_games-short_info-name">
+                                        <span>Невероятные приключения пули</span>
+                                        <span class="icon-arrow"></span>
+                                    </div>
+                                    <div class="my_games-short_info-desccription">
+                                        <span>Dungeons & Dragons 5e</span>
+                                        <span>, </span>
+                                        <span>Открытая игра</span>
+                                        <span>(2ч 30м)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my_games-long_info">
+                                <div class="my_games-description">
+                                    Невероятные приключения пули или даже еще более странные. Невероятные приключения пули или даже еще более странныеНевероятные приключения пули или даже еще более странные. Невероятные приключения пули или даже еще более странные. Невероятные приключения пули или даже еще более странные
+                                </div>
+                                <div class="my_games-text">
+                                    <span class="label"
+                                     data-th-text="${portal.localize({'_key=myGames.players', '_locale=ru'})}"></span>
+                                    <span class="value">3/4</span>
+                                </div>
+                                <div class="my_games-text">
+                                    <span class="label"
+                                     data-th-text="${portal.localize({'_key=myGames.language', '_locale=ru'})}"></span>
+                                    <span class="value">Русский</span>
+                                </div>
+                                <div class="my_games-text">
+                                    <span class="label"
+                                     data-th-text="${portal.localize({'_key=myGames.form.additional', '_locale=ru'})}"></span>
+                                    <span class="value">Подойдет детям, Ненормативная лексика</span>
+                                </div>
+                            </div>
+                            <div class="my_games-action-block">
+                                <button class="my_games-link button"
+                                data-th-text="${portal.localize({'_key=myGames.edit', '_locale=ru'})}"></button>
+                                <button class="my_games-link button"
+                                data-th-text="${portal.localize({'_key=myGames.remove', '_locale=ru'})}"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my_games-action-block hidden">
+                        <button class="my_games-action-primary button"
+                        data-th-text="${portal.localize({'_key=myGames.addGame', '_locale=ru'})}"></button>
+                    </div>
+                </div>
+
+                <div class="my_games-step5">
+                    <h4 class="my_games-day_slot-title"
+                    data-th-text="${portal.localize({'_key=myGames.newGame', '_locale=ru'})}"></h4>
+                </div>
+
+                <div class="my_games-step2">
                     <div class="my_games-location-list">
                         <input type="radio" name="location" id="location1" value="Зал" hidden>
                         <label for="location1" class="my_games-location-item active">
@@ -72,9 +139,9 @@
                         </label>
                     </div>
                     <div class="my_games-action-block">
-                        <button class="my_games-action-select button"
+                        <button class="my_games-action-primary button"
                         data-th-text="${portal.localize({'_key=myGames.select', '_locale=ru'})}"></button>
-                        <button class="my_games-action-discard button"
+                        <button class="my_games-action-secondary button"
                         data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>
                     </div>
                 </div>
@@ -99,8 +166,13 @@
                 class="my_games-btn button button-light"
                 data-th-text="${portal.localize({'_key=myGames.activateBtn', '_locale=ru'})}"></button>
             </div>
-            <a href="" class="my_games-find_hash"
-            data-th-text="${portal.localize({'_key=myGames.findHash', '_locale=ru'})}"></a>
+            <div class="my_games-find_hash expanded">
+                <a href="" class="my_games-find_hash-link"
+                data-th-text="${portal.localize({'_key=myGames.findHash', '_locale=ru'})}"></a>
+                <div class="my_games-find_hash-answer"
+                    data-th-text="${portal.localize({'_key=myGames.findHash.answer', '_locale=ru'})}">
+                </div>
+            </div>
         </div>
     </div>
     <div class="my_games-step3 hidden">
@@ -120,7 +192,7 @@
             <span>, </span>
             <span>Стол 14</span>
             <span>.</span>
-            <button class="my_games-back button" data-th-text="${portal.localize({'_key=myGames.back', '_locale=ru'})}"></button>
+            <button class="my_games-link button" data-th-text="${portal.localize({'_key=myGames.back', '_locale=ru'})}"></button>
         </p>
         <form action="" class="my_games-form">
             <h3 class="my_games-subtitle" data-th-text="${portal.localize({'_key=myGames.form.gameDetails', '_locale=ru'})}"></h3>
@@ -216,9 +288,9 @@
                 </label>
             </div>
             <div class="my_games-action-block">
-                <button class="my_games-action-select button"
+                <button class="my_games-action-primary button"
                 data-th-text="${portal.localize({'_key=myGames.save', '_locale=ru'})}"></button>
-                <button class="my_games-action-discard button"
+                <button class="my_games-action-secondary button"
                 data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>
             </div>
         </form>

@@ -1,0 +1,58 @@
+.my_games {
+    &-available-item {
+        display: block;
+        margin: 10px 0 0;
+        padding: 16px 16px 16px 18px;
+        border-radius: 4px;
+        background-color: #fff;
+        border: 1px solid #dedede;
+        border-left: 4px solid #ed1f2e;
+        box-shadow: 0 2px 8px 0 #0000000a;
+        line-height: 20px;
+        color: #333;
+    }
+
+    &-short_info {
+        display: flex;
+
+        &-time {
+            font-weight: bold;
+            color: #1b2125;
+        }
+
+        &-left {
+            border-right: 1px solid #ddd;
+            padding-right: 25px;
+            margin-right: 25px;
+        }
+
+        &-name {
+            font-weight: bold;
+
+            .icon-arrow:before {
+                font-size: 10px;
+
+                .expanded & {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+    }
+
+    &-description {
+        margin: 15px 0 5px;
+    }
+    
+    &-long_info {
+        color: #505050;
+    }
+    
+    &-text .label {
+        color: #1b2125;
+        font-weight: bold;
+    }
+
+    &-step5 {
+        margin-top: 15px;
+    }
+}
