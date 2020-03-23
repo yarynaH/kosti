@@ -107,7 +107,22 @@ function handleReq(req) {
       active.games = "active";
       var currTitle = "games";
       var articles = thymeleaf.render(resolve("gamesView.html"), {
-        games: games.hits
+        form: thymeleaf.render(resolve("games/gm/gmComp.html"), {
+          days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
+            /*locations: thymeleaf.render(
+              resolve("games/shared/locationComp.html"),
+              {}
+            ),
+            available: thymeleaf.render(
+              resolve("games/shared/availableComp.html"),
+              {}
+            ),
+            gameBlocks: thymeleaf.render(
+              resolve("games/gm/gameBlocksComp.html"),
+              {}
+            )*/
+          })
+        })
       });
     } else if (up.action == "orders" && currUserFlag) {
       var orders = cartLib.getCartsByUser(content.data.email, content._id);

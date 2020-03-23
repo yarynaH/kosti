@@ -4,7 +4,7 @@ var thymeleaf = require("/lib/thymeleaf");
 
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
-var formLib = require(libLocation + "formLib");
+var formGMLib = require(libLocation + "formGMLib");
 
 exports.get = function(req) {
   var result = {};
@@ -21,7 +21,7 @@ exports.get = function(req) {
         gameSystem: { select: { system: "dnd" }, _selected: "select" },
         masterName: "max"
       };
-      formLib.addGame(data);
+      formGMLib.addGame(data);
       /*
         displayName: displayName and _name
         blockId: parent, where data is created
@@ -46,7 +46,7 @@ exports.get = function(req) {
         gameSystem: { select: { system: "dnd" }, _selected: "select" },
         masterName: "ivan"
       };
-      formLib.modifyGame(data);
+      formGMLib.modifyGame(data);
       /*
         _id
         displayName: displayName and _name
@@ -61,7 +61,7 @@ exports.get = function(req) {
       break;
     case "deleteGame":
       var id = "ffebc45a-3b73-4cd1-816f-8b62883509e1";
-      formLib.deleteGame(id);
+      formGMLib.deleteGame(id);
       /*
         id
       */
