@@ -1,0 +1,57 @@
+<div class="my_games-schedule-list">
+    <div class="my_games-schedule-item">
+        <h4 class="my_games-day_slot-title">
+            <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
+            <span>1.</span>
+            <span>Пятница</span>
+            <span>, </span>
+            <span>22 Мая</span>
+            <span class="icon-arrow"></span>
+        </h4>
+        <div class="my_games-table_slot">
+            <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
+            <span>6 / 53</span>
+        </div>
+    </div>
+    <div class="my_games-schedule-item active">
+        <h4 class="my_games-day_slot-title">
+            <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
+            <span>1.</span>
+            <span>Пятница</span>
+            <span>, </span>
+            <span>22 Мая</span>
+            <span class="icon-arrow"></span>
+        </h4>
+        <div class="my_games-table_slot">
+            <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
+            <span>6 / 53</span>
+        </div>
+
+        <div class="my_games-available-wrapper" data-th-utext="${pageComponents.availableComp}"></div>
+
+        <div class="my_games-step4">
+            <div class="my_games-action-block hidden">
+                <button class="my_games-action-primary button"
+                data-th-text="${portal.localize({'_key=myGames.addGame', '_locale=ru'})}"></button>
+            </div>
+        </div>
+
+        <div class="my_games-step5">
+            <h4 class="my_games-day_slot-title"
+            data-th-text="${portal.localize({'_key=myGames.newGame', '_locale=ru'})}"></h4>
+        </div>
+
+        <div class="my_games-location-wrapper" data-th-utext="${pageComponents.locationComp}"></div>
+
+        <div class="my_games-game_block-wrapper" data-th-utext="${pageComponents.gameBlocksComp}"></div>
+
+        <div class="my_games-step2">
+            <div class="my_games-action-block">
+                <button class="my_games-action-primary button"
+                data-th-text="${portal.localize({'_key=myGames.select', '_locale=ru'})}"></button>
+                <button class="my_games-action-secondary button"
+                data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>
+            </div>
+        </div>
+    </div>
+</div>

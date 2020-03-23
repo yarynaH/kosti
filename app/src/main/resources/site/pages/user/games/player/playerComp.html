@@ -1,0 +1,27 @@
+<div class="my_games-player-block">
+    <h2 class="my_games-title"
+    data-th-text="${portal.localize({'_key=myGames.forPlayer', '_locale=ru'})}"></h2>
+    <p class="my_games-caption"
+    data-th-text="${portal.localize({'_key=myGames.forPlayer.caption', '_locale=ru'})}"></p>
+    <div class="my_games-activate_ticket">
+        <div class="form-group">
+            <label for="ticketHash" data-th-text="${portal.localize({'_key=myGames.ticketHash', '_locale=ru'})}"></label>
+            <input
+                data-th-placeholder="${portal.localize({'_key=myGames.ticketHash.placeholder', '_locale=ru'})}"
+                type="text"
+                name="ticketHash"
+                id="ticketHash"
+            />
+        </div>
+        <button
+        class="my_games-btn button button-light"
+        data-th-text="${portal.localize({'_key=myGames.activateBtn', '_locale=ru'})}"></button>
+    </div>
+    <div class="my_games-find_hash expanded">
+        <a href="" class="my_games-find_hash-link"
+        data-th-text="${portal.localize({'_key=myGames.findHash', '_locale=ru'})}"></a>
+        <div class="my_games-find_hash-answer"
+            data-th-text="${portal.localize({'_key=myGames.findHash.answer', '_locale=ru'})}">
+        </div>
+    </div>
+</div>
