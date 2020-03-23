@@ -5,6 +5,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var formGMLib = require(libLocation + "formGMLib");
+var formSharedLib = require(libLocation + "formSharedLib");
 
 exports.get = function(req) {
   var result = {};
@@ -65,6 +66,9 @@ exports.get = function(req) {
       /*
         id
       */
+      break;
+    case "getView":
+      result.html = formSharedLib.getView(req.params.viewType);
       break;
     default:
       break;

@@ -24,7 +24,11 @@ function getLocationSpace(locationId, gameBlockId) {
     start: 0,
     count: 0
   });
-  return (parseInt(location.data.maxGames) - games.total).toFixed();
+  return {
+    total: parseInt(location.data.maxGames),
+    reserved: games.total,
+    available: (parseInt(location.data.maxGames) - games.total).toFixed()
+  };
 }
 
 function checkIfGameExists(data) {
@@ -81,7 +85,7 @@ function modifyGame(data) {
 
 function addGame(data) {
   if (
-    getLocationSpace(data.location, data.blockId) < 1 ||
+    getLocationSpace(data.location, data.blockId).available < 1 ||
     checkIfGameExists(data)
   ) {
     return false;
