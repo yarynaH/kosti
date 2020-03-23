@@ -7,10 +7,6 @@
       <label>Master name</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
-    <input name="masterNickname" type="TextLine">
-      <label>Master nickname</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
     <input name="description" type="HtmlArea">
       <label>Form description</label>
       <config>
@@ -23,7 +19,6 @@
       <label>Max players</label>
       <occurrences minimum="1" maximum="1"/>
       <config>
-        <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
         <option value="6">6</option>
@@ -35,28 +30,61 @@
         <alignment>right</alignment>
       </config>
     </input>
-    <input name="system" type="ComboBox">
-      <label>Game system</label>
+    <input name="location" type="ContentSelector">
+      <label>Location</label>
       <occurrences minimum="1" maximum="1"/>
       <config>
-        <option value="dnd">DnD</option>
-        <option value="gurps">GURPS</option>
-        <option value="dcc">DCC</option>
-        <option value="vtm">V:tM</option>
-        <option value="skeletons">Skeletons</option>
-        <option value="runequest">Runequest</option>
-        <option value="pathfinder">Pathfinder</option>
-        <option value="wfrp">WFRP</option>
-        <option value="cyberpunk2020">Cyberpunk 2020</option>
-        <option value="cyberpunkRed">Cyberpunk RED</option>
-        <option value="trailOfChtulhu">Trail Of Chtulhu</option>
-        <option value="callOfChtulhu">Call Of Chtulhu</option>
-        <option value="deltaGreen">Delta Green</option>
-        <option value="mothership">Mothership</option>
-        <option value="koriolis">Koriolis</option>
-        <option value="mutants">Mutants</option>
-        <option value="other">Other</option>
+        <allowContentType>gamesLocation</allowContentType>
       </config>
     </input>
+    <input name="explicit" type="CheckBox">
+      <label>Explicit</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
+    <option-set name="gameSystem">
+      <label>Game system</label>
+      <occurrences minimum="1" maximum="1"/>
+      <options minimum="1" maximum="1">
+        <option name="select">
+          <label>Select</label>
+          <items>
+            <input name="system" type="ComboBox">
+              <label>Dropdown</label>
+              <occurrences minimum="1" maximum="1"/>
+              <config>
+                <option value="dnd">DnD</option>
+                <option value="gurps">GURPS</option>
+                <option value="dcc">DCC</option>
+                <option value="vtm">V:tM</option>
+                <option value="skeletons">Skeletons</option>
+                <option value="runequest">Runequest</option>
+                <option value="pathfinder">Pathfinder</option>
+                <option value="wfrp">WFRP</option>
+                <option value="cyberpunk2020">Cyberpunk 2020</option>
+                <option value="cyberpunkRed">Cyberpunk RED</option>
+                <option value="trailOfChtulhu">Trail Of Chtulhu</option>
+                <option value="callOfChtulhu">Call Of Chtulhu</option>
+                <option value="deltaGreen">Delta Green</option>
+                <option value="mothership">Mothership</option>
+                <option value="koriolis">Koriolis</option>
+                <option value="mutants">Mutants</option>
+                <option value="other">Other</option>
+              </config>
+            </input>
+          </items>
+        </option>
+        <option name="text">
+          <label>Text</label>
+          <items>
+            <input name="system" type="TextLine">
+              <label>Manual input</label>
+              <occurrences minimum="1" maximum="1"/>
+            </input>
+          </items>
+        </option>
+      </options>
+    </option-set>
   </form>
 </content-type>

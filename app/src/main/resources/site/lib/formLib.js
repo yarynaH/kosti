@@ -6,109 +6,103 @@ var contextLib = require("contextLib");
 var userLib = require("userLib");
 var common = require("/lib/xp/common");
 
-exports.checkSpace = checkSpace;
-exports.submitForm = submitForm;
-exports.getForms = getForms;
-exports.checkUserRegistered = checkUserRegistered;
-exports.prepareEvents = prepareEvents;
+exports.modifyGame = modifyGame;
+exports.deleteGame = deleteGame;
 exports.addGame = addGame;
+exports.getLocationSpace = getLocationSpace;
 
-function submitForm(params) {
-  contextLib.runAsAdmin(function() {
-    var formNode = connectFormRepo();
-    formNode.create(params);
+function getLocationSpace(locationId, gameBlockId) {
+  var location = contentLib.get({ key: locationId });
+  var gameBlock = contentLib.get({ key: gameBlockId });
+  var games = contentLib.query({
+    query:
+      "data.location = '" +
+      locationId +
+      "' and _parentPath = '/content" +
+      gameBlock._path +
+      "'",
+    start: 0,
+    count: 0
   });
+  return (parseInt(location.data.maxGames) - games.total).toFixed();
 }
 
-function checkSpace(params) {
-  var result;
-  contextLib.runAsAdmin(function() {
-    var formNode = connectFormRepo();
-    result = formNode.query({
-      query: params.game + " = '" + params.name + "'"
-    });
+function checkIfGameExists(data) {
+  var gameBlock = contentLib.get({ key: data.blockId });
+  var games = contentLib.query({
+    query:
+      "data.location = '" +
+      data.location +
+      "' and _parentPath = '/content" +
+      gameBlock._path +
+      "' and _name = '" +
+      common.sanitize(data.displayName) +
+      "'",
+    start: 0,
+    count: 0
   });
-  return result.total;
-}
-
-function getForms(formType) {
-  var result = [];
-  contextLib.runAsAdmin(function() {
-    var formNode = connectFormRepo();
-    var hits = formNode.query({
-      query: "formType = '" + formType + "'",
-      count: -1
-    }).hits;
-    for (var i = 0; i < hits.length; i++) {
-      result.push(formNode.get(hits[i].id));
-    }
-  });
-  return result;
-}
-
-function checkUserRegistered() {
-  var user = userLib.getCurrentUser();
-  var content = portalLib.getContent();
-  content.data.eventsBlock = norseUtils.forceArray(content.data.eventsBlock);
-  for (var j = 0; j < content.data.eventsBlock.length; j++) {
-    content.data.eventsBlock[j].events = norseUtils.forceArray(
-      content.data.eventsBlock[j].events
-    );
-    for (var i = 0; i < content.data.eventsBlock[j].events.length; i++) {
-      if (content.data.eventsBlock[j].events[i].users) {
-        content.data.eventsBlock[j].events[i].users = norseUtils.forceArray(
-          content.data.eventsBlock[j].events[i].users
-        );
-        for (
-          var k = 0;
-          k < content.data.eventsBlock[j].events[i].users.length;
-          k++
-        ) {
-          if (
-            user._id === content.data.eventsBlock[j].events[i].users[k].user
-          ) {
-            return true;
-          }
-        }
-      }
-    }
+  if (games.total > 0) {
+    return true;
   }
   return false;
 }
 
-function prepareEvents(events) {
-  if (!events) {
-    return [];
+function deleteGame(id) {
+  contentLib.delete({
+    key: id
+  });
+  contextLib.runInDraft(function() {
+    contentLib.delete({
+      key: id
+    });
+  });
+}
+
+function modifyGame(data) {
+  var game = contentLib.modify({
+    key: data._id,
+    editor: editor
+  });
+  function editor(c) {
+    c.displayName = data.displayName;
+    data.location = c.data.location;
+    delete data.displayName;
+    delete data._id;
+    c.data = data;
+    return c;
   }
-  events = norseUtils.forceArray(events);
-  for (var i = 0; i < events.length; i++) {
-    if (!events[i].users) {
-      events[i].users = [];
-    }
-    events[i].users = norseUtils.forceArray(events[i].users);
-    events[i].available = parseInt(events[i].maxSpace) > events[i].users.length;
-    events[i].currUsers = events[i].users.length;
-  }
-  return events;
+  var result = contentLib.publish({
+    keys: [game._id],
+    sourceBranch: "master",
+    targetBranch: "draft"
+  });
+  return result;
 }
 
 function addGame(data) {
-  var parent = contentLib.get({ key: data.blockId });
-  var displayName = data.title;
-  delete data.title;
-  delete data.blockId;
-  var game = contentLib.create({
-    name: common.sanitize(displayName),
-    parentPath: parent._path,
-    displayName: displayName,
-    contentType: app.name + "game",
-    data: data
+  if (
+    getLocationSpace(data.location, data.blockId) < 1 ||
+    checkIfGameExists(data)
+  ) {
+    return false;
+  }
+  return contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
+    var parent = contentLib.get({ key: data.blockId });
+    var displayName = data.displayName;
+    delete data.displayName;
+    delete data.blockId;
+    var game = contentLib.create({
+      name: common.sanitize(displayName),
+      parentPath: parent._path,
+      displayName: displayName,
+      contentType: app.name + ":game",
+      data: data
+    });
+    var result = contentLib.publish({
+      keys: [game._id],
+      sourceBranch: "master",
+      targetBranch: "draft"
+    });
+    return result;
   });
-  var result = contentLib.publish({
-    keys: [game._id],
-    sourceBranch: "draft",
-    targetBranch: "master",
-    includeDependencies: true
-  });
-  return result;
 }
