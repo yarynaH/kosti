@@ -1,5 +1,5 @@
 <div class="my_games-schedule-list">
-    <div class="my_games-schedule-item">
+    <div class="my_games-schedule-item js-my_games-step1">
         <h4 class="my_games-day_slot-title">
             <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
             <span>1.</span>
@@ -13,7 +13,7 @@
             <span>6 / 53</span>
         </div>
     </div>
-    <div class="my_games-schedule-item active">
+    <div class="my_games-schedule-item js-my_games-step1 active">
         <h4 class="my_games-day_slot-title">
             <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
             <span>1.</span>
@@ -41,9 +41,13 @@
                 data-th-text="${portal.localize({'_key=myGames.newGame', '_locale=ru'})}"></h4>
         </div>
 
-        <div class="my_games-location-wrapper" data-th-if="${locations}" data-th-utext="${locations}"></div>
+        <div class="js-my_games-location-wrapper">
+            <div data-th-if="${locations}" data-th-utext="${locations}" data-th-remove="tag"></div>
+        </div>
 
-        <div class="my_games-game_block-wrapper" data-th-if="${gameBlocks}" data-th-utext="${gameBlocks}"></div>
+        <div class="js-my_games-game_block-wrapper">
+            <div data-th-if="${gameBlocks}" data-th-utext="${gameBlocks}" data-th-remove="tag"></div>
+        </div>
 
         <div class="my_games-step2">
             <div class="my_games-action-block">
