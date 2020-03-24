@@ -18,5 +18,14 @@
       </config>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="blockType" type="ComboBox">
+      <label>Block type</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="day">Day</option> 
+        <option value="block">Block</option>
+      </config>
+      <default>one</default> 
+    </input>
   </form>
 </content-type>
