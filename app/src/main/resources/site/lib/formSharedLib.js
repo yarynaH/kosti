@@ -97,6 +97,7 @@ function getDays() {
     days[i].dayName = norseUtils.getDayName(dayDate);
     days[i].monthName = norseUtils.getMonthName(dayDate);
     days[i].locations = getLocations(days[i]._id);
+    days[i].space = getDaySpace(days[i]._id);
   }
   return days;
 }
@@ -128,4 +129,26 @@ function getGameBlocks(locationId) {
     };
   }
   return blocks;
+}
+
+function getDaySpace(dayId) {
+  var dayLocations = getLocations(dayId);
+  var space = {
+    total: 0,
+    reserved: 0
+  };
+  for (var i = 0; i < dayLocations.length; i++) {
+    var blocks = getGameBlocks(dayLocations[i]._id);
+    for (var j = 0; j < blocks.length; j++) {
+      space = {
+        total: space.total + blocks[j].space.total,
+        reserved: space.reserved + blocks[j].space.reserved
+      };
+    }
+  }
+  space = {
+    total: space.total.toFixed(),
+    reserved: space.reserved.toFixed()
+  };
+  return space;
 }
