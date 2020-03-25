@@ -11,7 +11,9 @@
             </h4>
             <div class="my_games-table_slot">
                 <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
-                <span>6 / 53</span>
+                <span data-th-text="${day.space.reserved}"></span>
+                <span>/</span>
+                <span data-th-text="${day.space.total}"></span>
             </div>
         </div>
 
