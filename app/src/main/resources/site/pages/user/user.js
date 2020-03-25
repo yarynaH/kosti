@@ -13,6 +13,7 @@ var cartLib = require(libLocation + "cartLib");
 var userLib = require(libLocation + "userLib");
 var helpers = require(libLocation + "helpers");
 var pdfLib = require(libLocation + "pdfLib");
+var formSharedLib = require(libLocation + "formSharedLib");
 var commentsLib = require(libLocation + "commentsLib");
 var notificationLib = require(libLocation + "notificationLib");
 
@@ -109,7 +110,9 @@ function handleReq(req) {
       var articles = thymeleaf.render(resolve("gamesView.html"), {
         form: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
-            /*locations: thymeleaf.render(
+            days: formSharedLib.getDays()
+            /*
+            locations: thymeleaf.render(
               resolve("games/shared/locationComp.html"),
               {}
             ),
@@ -120,7 +123,8 @@ function handleReq(req) {
             gameBlocks: thymeleaf.render(
               resolve("games/gm/gameBlocksComp.html"),
               {}
-            )*/
+            )
+            */
           })
         })
       });

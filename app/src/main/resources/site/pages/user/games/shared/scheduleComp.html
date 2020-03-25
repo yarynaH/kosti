@@ -1,25 +1,11 @@
 <div class="my_games-schedule-list">
-    <div class="my_games-schedule-item js-my_games-step1">
+    <div class="my_games-schedule-item js-my_games-step1 active" data-th-each="day : ${days}"
+        data-th-attr="data-id=${day._id}">
         <h4 class="my_games-day_slot-title">
-            <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
-            <span>1.</span>
-            <span>Пятница</span>
-            <span>, </span>
-            <span>22 Мая</span>
-            <span class="icon-arrow"></span>
-        </h4>
-        <div class="my_games-table_slot">
-            <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
-            <span>6 / 53</span>
-        </div>
-    </div>
-    <div class="my_games-schedule-item js-my_games-step1 active">
-        <h4 class="my_games-day_slot-title">
-            <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
-            <span>1.</span>
-            <span>Пятница</span>
-            <span>, </span>
-            <span>22 Мая</span>
+            <span data-th-text="${day.displayName}"></span>
+            <span data-th-text="${day.dayName + ', '}"></span>
+            <span data-th-text="${day.date}"></span>
+            <span data-th-text="${day.monthName}"></span>
             <span class="icon-arrow"></span>
         </h4>
         <div class="my_games-table_slot">
