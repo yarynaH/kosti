@@ -1,13 +1,12 @@
 function appendStep(viewType, js_wrap) {
   showLoader();
-  var form_data = new FormData();
-  form_data.append("action", "getView");
-  form_data.append("viewType", viewType);
+  var data = {
+    action: "getView",
+    viewType: viewType
+  };
   $.ajax({
-    url: "http://localhost:8080/_/service/com.myurchenko.kostirpg/formGM",
-    data: form_data,
-    processData: false,
-    contentType: false,
+    url: "/_/service/com.myurchenko.kostirpg/formGM",
+    data: data,
     type: "GET",
     success: function(data) {
       // AddAction();
