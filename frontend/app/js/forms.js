@@ -15,12 +15,25 @@ function appendStep(viewType, js_wrap) {
     }
   });
 }
+// $(".js-my_games-step1").on("click", function(e) {
+//   appendStep("locationComp", $(this).find(".js-my_games-location-wrapper"));
+// });
 
 $(".js-my_games-step1").on("click", function(e) {
-  appendStep("locationComp", ".js-my_games-location-wrapper");
-});
+  if ($(this).hasClass("active")) {
+    $(this).removeClass("active");
+    $(this)
+      .find(".js-my_games-location-wrapper")
+      .html("");
+    $(this)
+      .find(".js-my_games-game_block-wrapper")
+      .html("");
+  } else {
+    $(".js-my_games-step1").removeClass("active");
+    $(".js-my_games-game_block-wrapper").html("");
+  }
 
-$(".js-my_games-step1").on("click", function(e) {
-  appendStep("gameBlocksComp", ".js-my_games-game_block-wrapper");
-  $(this).toggleClass("active");
+  $(this).addClass("active");
+  appendStep("locationComp", $(this).find(".js-my_games-location-wrapper"));
+  appendStep("gameBlocksComp", $(this).find(".js-my_games-game_block-wrapper"));
 });
