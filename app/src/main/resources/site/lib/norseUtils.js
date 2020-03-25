@@ -9,6 +9,7 @@ exports.getPlaceholder = getPlaceholder;
 exports.getMonthName = getMonthName;
 exports.getFormattedDate = getFormattedDate;
 exports.getGravatar = getGravatar;
+exports.getDayName = getDayName;
 
 function getMonthName(date) {
   var month = date.getMonth();
@@ -78,6 +79,13 @@ function getMonthName(date) {
   }
 
   return monthName;
+}
+
+function getDayName(date) {
+  var day = date.getDay();
+  return i18n.localize({
+    key: "days.name." + day
+  });
 }
 
 function getFormattedDate(date) {

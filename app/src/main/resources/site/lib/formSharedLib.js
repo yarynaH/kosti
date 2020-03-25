@@ -20,6 +20,7 @@ var views = {
 
 exports.getView = getView;
 exports.getItemsList = getItemsList;
+exports.getDays = getDays;
 
 function getView(viewType) {
   return thymeleaf.render(resolve(views[viewType]), {});
@@ -43,4 +44,23 @@ function getItemsList(filters) {
     count: -1
   });
   return games.hits;
+}
+
+function getDays() {
+  var id = "21e95588-90aa-411d-84a7-d11508b46e5c";
+  var festivalPage = contentLib.get({ key: id });
+  var days = contentLib.query({
+    query:
+      "_parentPath LIKE '/content" +
+      festivalPage._path +
+      "*' AND data.blockType = 'day'",
+    contentTypes: [app.name + ":gameBlock"]
+  }).hits;
+  for (var i = 0; i < days.length; i++) {
+    var dayDate = new Date(days[i].data.datetime);
+    days[i].date = dayDate.getDate().toFixed();
+    days[i].dayName = norseUtils.getDayName(dayDate);
+    days[i].monthName = norseUtils.getMonthName(dayDate);
+  }
+  return days;
 }
