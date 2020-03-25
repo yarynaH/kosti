@@ -9,27 +9,6 @@ var common = require("/lib/xp/common");
 exports.modifyGame = modifyGame;
 exports.deleteGame = deleteGame;
 exports.addGame = addGame;
-exports.getLocationSpace = getLocationSpace;
-
-function getLocationSpace(locationId, gameBlockId) {
-  var location = contentLib.get({ key: locationId });
-  var gameBlock = contentLib.get({ key: gameBlockId });
-  var games = contentLib.query({
-    query:
-      "data.location = '" +
-      locationId +
-      "' and _parentPath = '/content" +
-      gameBlock._path +
-      "'",
-    start: 0,
-    count: 0
-  });
-  return {
-    total: parseInt(location.data.maxGames),
-    reserved: games.total,
-    available: (parseInt(location.data.maxGames) - games.total).toFixed()
-  };
-}
 
 function checkIfGameExists(data) {
   var gameBlock = contentLib.get({ key: data.blockId });

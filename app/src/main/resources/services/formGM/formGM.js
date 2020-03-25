@@ -68,7 +68,7 @@ exports.get = function(req) {
       */
       break;
     case "getView":
-      result.html = formSharedLib.getView(req.params.viewType);
+      result.html = formSharedLib.getView(req.params.viewType, req.params.id);
       break;
     default:
       break;

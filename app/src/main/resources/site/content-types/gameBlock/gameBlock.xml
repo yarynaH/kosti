@@ -10,6 +10,13 @@
       </config>
       <occurrences minimum="1" maximum="1"/>
     </input>
+    <input name="datetimeEnd" type="DateTime">
+      <label>Date and time end</label>
+      <config>
+        <timezone>true</timezone>
+      </config>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
     <input name="description" type="HtmlArea">
       <label>Game block description</label>
       <config>

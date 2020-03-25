@@ -1,22 +1,20 @@
 <div class="my_games-game_block-list">
-    <input type="radio" name="game_block" id="game_block1" value="Фэнтези" hidden>
-    <label for="game_block1" class="my_games-game_block-item label-radio">
-        <div class="my_games-game_block-item-top">
-            <span class="my_games-game_block-time">11:00-13:30</span>
-            <span class="my_games-game_block-duration">2ч 30м</span>
-        </div>
-        <div class="my_games-game_block-item-bottom">
-            <span class="my_games-game_block-name">Фэнтези</span>
-        </div>
-    </label>
-    <input type="radio" name="game_block" id="game_block2" value="Открытые игры" hidden>
-    <label for="game_block2" class="my_games-game_block-item label-radio">
-        <div class="my_games-game_block-item-top">
-            <span class="my_games-game_block-time">11:00-13:30</span>
-            <span class="my_games-game_block-duration">2ч 30м</span>
-        </div>
-        <div class="my_games-game_block-item-bottom">
-            <span class="my_games-game_block-name">Открытые игры</span>
-        </div>
-    </label>
+    <div data-th-each="block : ${blocks}" data-th-attr="data-id=${block._id}">
+        <input type="radio" name="game_block" data-th-id="${block._id}" value="Фэнтези" hidden>
+        <label data-th-for="${block._id}" class="my_games-game_block-item label-radio">
+            <div class="my_games-game_block-item-top">
+                <span class="my_games-game_block-time"
+                    data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
+                <span class="my_games-game_block-duration">
+                    <span data-th-if="${block.duration.hours > 0}"
+                        data-th-text="${block.duration.hours+portal.localize({'_key=myGames.misc.time.h', '_locale=ru'})}"></span>
+                    <span data-th-if="${block.duration.minutes > 0}"
+                        data-th-text="${block.duration.minutes+portal.localize({'_key=myGames.misc.time.m', '_locale=ru'})}"></span>
+                </span>
+            </div>
+            <div class="my_games-game_block-item-bottom">
+                <span class="my_games-game_block-name" data-th-text="${block.displayName}"></span>
+            </div>
+        </label>
+    </div>
 </div>

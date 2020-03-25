@@ -21,13 +21,49 @@ var views = {
 exports.getView = getView;
 exports.getItemsList = getItemsList;
 exports.getDays = getDays;
+exports.getLocations = getLocations;
+exports.getLocationSpace = getLocationSpace;
 
-function getView(viewType) {
-  return thymeleaf.render(resolve(views[viewType]), {});
+function getView(viewType, id) {
+  var model = {};
+  switch (viewType) {
+    case "locationComp":
+      model.locations = getLocations(id);
+      break;
+    case "gameBlocksComp":
+      model.blocks = getGameBlocks(id);
+      break;
+    case "scheduleComp":
+      model.blocks = getDays();
+      break;
+    default:
+      break;
+  }
+  return thymeleaf.render(resolve(views[viewType]), model);
+}
+
+function getLocationSpace(locationId, gameBlockId) {
+  var location = contentLib.get({ key: locationId });
+  var gameBlock = contentLib.get({ key: gameBlockId });
+  var games = contentLib.query({
+    query:
+      "data.location = '" +
+      locationId +
+      "' and _parentPath = '/content" +
+      gameBlock._path +
+      "'",
+    start: 0,
+    count: 0
+  });
+  return {
+    total: parseInt(location.data.maxGames),
+    reserved: games.total,
+    available: (parseInt(location.data.maxGames) - games.total).toFixed()
+  };
 }
 
 function getItemsList(filters) {
-  var query = "type = '" + app.name + ":" + filters.type + "'";
+  var query = "type = '" + app.name + ":" + filters.type + "' ";
   if (filters.user) {
     query += "AND data.user = '" + filters.user + "'";
   }
@@ -38,12 +74,11 @@ function getItemsList(filters) {
     var parent = contentLib.get({ key: filters.parentId });
     query += "and _parentPath = '/content" + parent._path + "'";
   }
-  var games = contentLib.query({
+  return contentLib.query({
     query: query,
     start: 0,
     count: -1
-  });
-  return games.hits;
+  }).hits;
 }
 
 function getDays() {
@@ -61,6 +96,36 @@ function getDays() {
     days[i].date = dayDate.getDate().toFixed();
     days[i].dayName = norseUtils.getDayName(dayDate);
     days[i].monthName = norseUtils.getMonthName(dayDate);
+    days[i].locations = getLocations(days[i]._id);
   }
   return days;
+}
+
+function getLocations(dayId) {
+  return getItemsList({
+    parentId: dayId,
+    type: "gamesLocation"
+  });
+}
+
+function getGameBlocks(locationId) {
+  var blocks = getItemsList({
+    parentId: locationId,
+    type: "gameBlock"
+  });
+  for (var i = 0; i < blocks.length; i++) {
+    blocks[i].space = getLocationSpace(locationId, blocks[i]._id);
+    var duration =
+      new Date(blocks[i].data.datetimeEnd) - new Date(blocks[i].data.datetime);
+    var hours = Math.floor(duration / 60 / 60 / 1000);
+    blocks[i].duration = {
+      hours: hours.toFixed(),
+      minutes: (Math.floor(duration / 60 / 1000) - hours * 60).toFixed()
+    };
+    blocks[i].time = {
+      start: norseUtils.getTime(new Date(blocks[i].data.datetime)),
+      end: norseUtils.getTime(new Date(blocks[i].data.datetimeEnd))
+    };
+  }
+  return blocks;
 }
