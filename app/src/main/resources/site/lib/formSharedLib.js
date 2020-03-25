@@ -12,9 +12,10 @@ var baseUrl = "/site/pages/user/games/";
 var views = {
   gmComp: baseUrl + "gm/gmComp.html",
   scheduleComp: baseUrl + "shared/scheduleComp.html",
-  locationComp: baseUrl + "shared/locationComp.html",
+  locationAndGameBlockComp: baseUrl + "gm/locationBlocksWrapper.html",
   availableComp: baseUrl + "shared/availableComp.html",
   addGameForm: baseUrl + "gm/addGameForm.html",
+  locationComp: baseUrl + "shared/locationComp.html",
   gameBlocksComp: baseUrl + "gm/gameBlocksComp.html"
 };
 
@@ -27,8 +28,8 @@ exports.getLocationSpace = getLocationSpace;
 function getView(viewType, id) {
   var model = {};
   switch (viewType) {
-    case "locationComp":
-      model.locations = getLocations(id);
+    case "locationAndGameBlockComp":
+      model = getLocationsGameBlocksModel(id);
       break;
     case "gameBlocksComp":
       model.blocks = getGameBlocks(id);
@@ -40,6 +41,19 @@ function getView(viewType, id) {
       break;
   }
   return thymeleaf.render(resolve(views[viewType]), model);
+}
+
+function getLocationsGameBlocksModel(id) {
+  var locations = getLocations(id);
+  locations[0].active = true;
+  return {
+    locations: thymeleaf.render(resolve(views["locationComp"]), {
+      locations: locations
+    }),
+    gameBlocks: thymeleaf.render(resolve(views["gameBlocksComp"]), {
+      blocks: getGameBlocks(locations[0]._id)
+    })
+  };
 }
 
 function getLocationSpace(locationId, gameBlockId) {

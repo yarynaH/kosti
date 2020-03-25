@@ -23,19 +23,17 @@ $(".js-my_games-step1").on("click", function(e) {
   var parent = $(this).parent();
   if (parent.hasClass("active")) {
     parent.removeClass("active");
-    parent.find(".js-my_games-location-wrapper").html("");
-    parent.find(".js-my_games-game_block-wrapper").html("");
+    parent.find(".js-my_games-step2-data").html("");
     return;
   } else {
     $(".js-my_games-step1-parent").removeClass("active");
-    $(".js-my_games-game_block-wrapper").html("");
-    $(".js-my_games-location-wrapper").html("");
+    $(".js-my_games-step2-data").html("");
   }
 
   parent.addClass("active");
   appendStep(
-    "locationComp",
-    parent.find(".js-my_games-location-wrapper"),
+    "locationAndGameBlockComp",
+    parent.find(".js-my_games-step2-data"),
     parent.data().id
   );
 });
