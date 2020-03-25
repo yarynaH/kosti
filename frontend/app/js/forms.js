@@ -10,7 +10,7 @@ function appendStep(viewType, js_wrap) {
     contentType: false,
     type: "GET",
     success: function(data) {
-      AddAction();
+      // AddAction();
       $(js_wrap).html(data.html);
       hideLoader();
     }
@@ -23,4 +23,5 @@ $(".js-my_games-step1").on("click", function(e) {
 
 $(".js-my_games-step1").on("click", function(e) {
   appendStep("gameBlocksComp", ".js-my_games-game_block-wrapper");
+  $(this).toggleClass("active");
 });
