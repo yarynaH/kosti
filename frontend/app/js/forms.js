@@ -16,18 +16,11 @@ function appendStep(viewType, js_wrap) {
     }
   });
 }
-function someAction();
 
 $(".js-my_games-step1").on("click", function(e) {
-  appendStep(
-    "locationComp",
-    ".js-my_games-location-wrapper"
-  );
+  appendStep("locationComp", ".js-my_games-location-wrapper");
 });
 
 $(".js-my_games-step1").on("click", function(e) {
-  appendStep(
-    "gameBlocksComp",
-    ".js-my_games-game_block-wrapper"
-  );
+  appendStep("gameBlocksComp", ".js-my_games-game_block-wrapper");
 });
