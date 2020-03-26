@@ -7,7 +7,7 @@ var norseUtils = require(libLocation + "norseUtils");
 var formGMLib = require(libLocation + "formGMLib");
 var formSharedLib = require(libLocation + "formSharedLib");
 
-exports.get = function(req) {
+exports.post = function(req) {
   var result = {};
   switch (req.params.action) {
     case "addGame":
@@ -67,6 +67,18 @@ exports.get = function(req) {
         id
       */
       break;
+    default:
+      break;
+  }
+  return {
+    body: result,
+    contentType: "application/json"
+  };
+};
+
+exports.get = function(req) {
+  var result = {};
+  switch (req.params.action) {
     case "getView":
       result.html = formSharedLib.getView(req.params.viewType, req.params.id);
       break;
