@@ -12,10 +12,26 @@ function appendStep(viewType, js_wrap, id) {
     data: data,
     type: "GET",
     success: function(data) {
-      // AddAction();
       $(js_wrap).html(data.html);
       hideLoader();
       $(js_wrap).slideDown("slow");
+    }
+  });
+}
+
+function addNewGame(dataJson) {
+  showLoader();
+  var data = {
+    action: "addGame",
+    data: dataJson
+  };
+  $.ajax({
+    url: "/_/service/com.myurchenko.kostirpg/formGM",
+    data: data,
+    type: "POST",
+    success: function(data) {
+      console.log(data);
+      hideLoader();
     }
   });
 }
@@ -73,4 +89,18 @@ $(".js-my_games").on("click", ".js-my_games-step1-select", function(e) {
 
 $(".js-my_games").on("click", ".js-my_games-step3-discard", function(e) {
   appendStep("scheduleComp", $(".js-my_games-wrapper"));
+});
+
+$(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
+  e.preventDefault();
+  var addNewGameData = {};
+  $(".js-my_games-form input").each(function() {
+    addNewGameData[$(this).attr("name")] = $(this).val();
+  });
+
+  addNewGameData[$(".js-my_games-form select").attr("name")] = $(
+    ".js-my_games-form select"
+  ).val();
+
+  addNewGame(JSON.stringify(addNewGameData));
 });
