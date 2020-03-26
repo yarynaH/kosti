@@ -103,15 +103,16 @@
         font-weight: normal;
         line-height: 1.43;
         color: $color-primary16;
-        max-height: 150px;
-        opacity: 1;
-        visibility: visible;
-        transition: all .2s ease 0s;
+        // max-height: 150px;
+        // opacity: 1;
+        // visibility: visible;
+        // transition: all .2s ease 0s;
 
         .my_games-schedule-item.active & {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
+            // max-height: 0;
+            // opacity: 0;
+            // overflow: hidden;
+            display: none;
         }
     }
 
@@ -249,15 +250,17 @@
     }
 
     &-step2 {
-        max-height: 0;
-        opacity: 0;
-        overflow: hidden;
-        transition: all .5s ease 0s;
+        // max-height: 0;
+        // opacity: 0;
+        // overflow: hidden;
+        // transition: all .5s ease 0s;
+        display: none;
 
         .active & {
-            max-height: 1000px;
-            opacity: 1;
-            overflow: visible;
+            // max-height: 1000px;
+            // opacity: 1;
+            // overflow: visible;
+            display: block;
         }
     }
 

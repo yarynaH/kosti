@@ -1,6 +1,7 @@
 <div class="my_games-game_block-list">
-    <div data-th-each="block : ${blocks}" data-th-attr="data-id=${block._id}">
-        <input type="radio" name="game_block" data-th-id="${block._id}" value="Фэнтези" hidden>
+    <div data-th-each="block : ${blocks}">
+        <input type="radio" name="game_block" data-th-attr="data-id=${block._id}" data-th-id="${block._id}"
+            value="Фэнтези" hidden>
         <label data-th-for="${block._id}" class="my_games-game_block-item label-radio">
             <div class="my_games-game_block-item-top">
                 <span class="my_games-game_block-time"

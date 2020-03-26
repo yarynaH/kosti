@@ -1,5 +1,6 @@
 .my_games {
     &-step3 {
+        padding: 20px 40px 40px;
     }
 
     &-link {
@@ -16,7 +17,7 @@
             text-decoration: underline;
         }
     }
-    
+
     &-subtitle {
         font-size: 20px;
         font-weight: bold;
@@ -35,17 +36,17 @@
             margin: 0;
             flex: 0 0 33%;
         }
-    
+
         .form-group {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
         }
-    
+
         label {
             flex: 1 1 100%;
         }
-    
+
         input,
         .select-field,
         textarea {
@@ -83,7 +84,7 @@
             text-transform: none;
             color: #333333;
 
-            & + & {
+            &+& {
                 margin-top: 15px;
             }
         }

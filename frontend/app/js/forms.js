@@ -19,7 +19,7 @@ function appendStep(viewType, js_wrap, id) {
   });
 }
 
-$(".js-my_games-step1").on("click", function(e) {
+$(".js-my_games").on("click", ".js-my_games-step1", function(e) {
   var parent = $(this).parent();
   if (parent.hasClass("active")) {
     parent.removeClass("active");
@@ -36,4 +36,36 @@ $(".js-my_games-step1").on("click", function(e) {
     parent.find(".js-my_games-step2-data"),
     parent.data().id
   );
+});
+
+$(".js-my_games").on("click", ".js-my_games-location-item", function(e) {
+  if ($(this).hasClass("active")) {
+    return;
+  } else {
+    $(".js-my_games-location-item").removeClass("active");
+  }
+
+  $(this).addClass("active");
+  appendStep(
+    "gameBlocksComp",
+    $(".js-my_games-game_block-wrapper"),
+    $(this).data().id
+  );
+});
+
+$(".js-my_games").on("click", ".js-my_games-step1-discard", function(e) {
+  $(".js-my_games-step1-parent").removeClass("active");
+  $(".js-my_games-step2-data").html("");
+});
+
+$(".js-my_games").on("click", ".js-my_games-step1-select", function(e) {
+  appendStep(
+    "addGameForm",
+    $(".js-my_games-wrapper"),
+    $("input[name='game_block']:checked").data().id
+  );
+});
+
+$(".js-my_games").on("click", ".js-my_games-step3-discard", function(e) {
+  appendStep("scheduleComp", $(".js-my_games-wrapper"));
 });
