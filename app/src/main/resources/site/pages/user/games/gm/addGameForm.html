@@ -13,7 +13,7 @@
         <button class="my_games-link button"
             data-th-text="${portal.localize({'_key=myGames.back', '_locale=ru'})}"></button>
     </p>
-    <form action="" class="my_games-form">
+    <form action="" class="my_games-form js-my_games-form">
         <h3 class="my_games-subtitle"
             data-th-text="${portal.localize({'_key=myGames.form.gameDetails', '_locale=ru'})}"></h3>
         <div class="form-group">
@@ -106,7 +106,7 @@
             </label>
         </div>
         <div class="my_games-action-block">
-            <button class="my_games-action-primary button"
+            <button class="my_games-action-primary button js-my_games-step3-save"
                 data-th-text="${portal.localize({'_key=myGames.save', '_locale=ru'})}"></button>
             <button class="my_games-action-secondary button js-my_games-step3-discard"
                 data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>

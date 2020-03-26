@@ -15,6 +15,7 @@ function appendStep(viewType, js_wrap, id) {
       // AddAction();
       $(js_wrap).html(data.html);
       hideLoader();
+      $(js_wrap).slideDown("slow");
     }
   });
 }
@@ -22,12 +23,16 @@ function appendStep(viewType, js_wrap, id) {
 $(".js-my_games").on("click", ".js-my_games-step1", function(e) {
   var parent = $(this).parent();
   if (parent.hasClass("active")) {
-    parent.removeClass("active");
-    parent.find(".js-my_games-step2-data").html("");
+    parent.find(".js-my_games-step2-data").slideUp("slow", function() {
+      parent.find(".js-my_games-step2-data").html("");
+      parent.removeClass("active");
+    });
     return;
   } else {
-    $(".js-my_games-step1-parent").removeClass("active");
-    $(".js-my_games-step2-data").html("");
+    $(".js-my_games-step2-data").slideUp("slow", function() {
+      $(".js-my_games-step2-data").html("");
+      $(".js-my_games-step1-parent").removeClass("active");
+    });
   }
 
   parent.addClass("active");
