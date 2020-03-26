@@ -32,22 +32,13 @@
                     data-th-text="${portal.localize({'_key=myGames.newGame', '_locale=ru'})}"></h4>
             </div>
 
-            <div class="js-my_games-step2-data">
+            <div class="js-my_games-step2-data my_games-step2-data">
                 <div class="js-my_games-location-wrapper">
                     <div data-th-if="${locations}" data-th-utext="${locations}" data-th-remove="tag"></div>
                 </div>
 
                 <div class="js-my_games-game_block-wrapper">
                     <div data-th-if="${gameBlocks}" data-th-utext="${gameBlocks}" data-th-remove="tag"></div>
-                </div>
-            </div>
-
-            <div class="my_games-step2">
-                <div class="my_games-action-block">
-                    <button class="my_games-action-primary button js-my_games-step1-select"
-                        data-th-text="${portal.localize({'_key=myGames.select', '_locale=ru'})}"></button>
-                    <button class="my_games-action-secondary button js-my_games-step1-discard"
-                        data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>
                 </div>
             </div>
         </div>
