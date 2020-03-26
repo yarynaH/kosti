@@ -6,6 +6,7 @@ var contextLib = require("contextLib");
 var userLib = require("userLib");
 var common = require("/lib/xp/common");
 var thymeleaf = require("/lib/thymeleaf");
+var util = require("/lib/util");
 
 var baseUrl = "/site/pages/user/games/";
 
@@ -37,10 +38,22 @@ function getView(viewType, id) {
     case "scheduleComp":
       model.blocks = getDays();
       break;
+    case "addGameForm":
+      model = getFormComponent(id);
+      break;
     default:
       break;
   }
   return thymeleaf.render(resolve(views[viewType]), model);
+}
+
+function getFormComponent(blockId) {
+  var location = util.content.getParent({ key: blockId });
+  return {
+    block: beautifyGameBlock(location._id, contentLib.get({ key: blockId })),
+    location: location,
+    day: beautifyDay(util.content.getParent({ key: location._id }))
+  };
 }
 
 function getLocationsGameBlocksModel(id) {
@@ -106,12 +119,7 @@ function getDays() {
     contentTypes: [app.name + ":gameBlock"]
   }).hits;
   for (var i = 0; i < days.length; i++) {
-    var dayDate = new Date(days[i].data.datetime);
-    days[i].date = dayDate.getDate().toFixed();
-    days[i].dayName = norseUtils.getDayName(dayDate);
-    days[i].monthName = norseUtils.getMonthName(dayDate);
-    days[i].locations = getLocations(days[i]._id);
-    days[i].space = getDaySpace(days[i]._id);
+    days[i] = beautifyDay(days[i]);
   }
   return days;
 }
@@ -129,20 +137,35 @@ function getGameBlocks(locationId) {
     type: "gameBlock"
   });
   for (var i = 0; i < blocks.length; i++) {
-    blocks[i].space = getLocationSpace(locationId, blocks[i]._id);
-    var duration =
-      new Date(blocks[i].data.datetimeEnd) - new Date(blocks[i].data.datetime);
-    var hours = Math.floor(duration / 60 / 60 / 1000);
-    blocks[i].duration = {
-      hours: hours.toFixed(),
-      minutes: (Math.floor(duration / 60 / 1000) - hours * 60).toFixed()
-    };
-    blocks[i].time = {
-      start: norseUtils.getTime(new Date(blocks[i].data.datetime)),
-      end: norseUtils.getTime(new Date(blocks[i].data.datetimeEnd))
-    };
+    blocks[i] = beautifyGameBlock(locationId, blocks[i]);
   }
   return blocks;
+}
+
+function beautifyGameBlock(locationId, block) {
+  block.space = getLocationSpace(locationId, block._id);
+  var duration =
+    new Date(block.data.datetimeEnd) - new Date(block.data.datetime);
+  var hours = Math.floor(duration / 60 / 60 / 1000);
+  block.duration = {
+    hours: hours.toFixed(),
+    minutes: (Math.floor(duration / 60 / 1000) - hours * 60).toFixed()
+  };
+  block.time = {
+    start: norseUtils.getTime(new Date(block.data.datetime)),
+    end: norseUtils.getTime(new Date(block.data.datetimeEnd))
+  };
+  return block;
+}
+
+function beautifyDay(day) {
+  var dayDate = new Date(day.data.datetime);
+  day.date = dayDate.getDate().toFixed();
+  day.dayName = norseUtils.getDayName(dayDate);
+  day.monthName = norseUtils.getMonthName(dayDate);
+  day.locations = getLocations(day._id);
+  day.space = getDaySpace(day._id);
+  return day;
 }
 
 function getDaySpace(dayId) {

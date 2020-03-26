@@ -1,20 +1,15 @@
 <div class="my_games-step3">
     <h1 class="my_games-title">
-        <span data-th-text="${portal.localize({'_key=myGames.day', '_locale=ru'})}"></span>
-        <span>1.</span>
-        <span>Пятница</span>
-        <span>, </span>
-        <span>22 Мая</span>
+        <span data-th-text="${day.displayName}"></span>
+        <span data-th-text="${day.dayName + ', '}"></span>
+        <span data-th-text="${day.date}"></span>
+        <span data-th-text="${day.monthName}"></span>
+        <span class="icon-arrow"></span>
     </h1>
     <p class="my_games-caption">
-        <span>14:00-16:30</span>
-        <span>, </span>
-        <span>Открытые игры</span>
-        <span>, </span>
-        <span>Зал</span>
-        <span>, </span>
-        <span>Стол 14</span>
-        <span>.</span>
+        <span data-th-text="${block.time.start + ' - ' + block.time.end + ', '}"></span>
+        <span data-th-text="${block.displayName + ', '}"></span>
+        <span data-th-text="${location.displayName + '.'}"></span>
         <button class="my_games-link button"
             data-th-text="${portal.localize({'_key=myGames.back', '_locale=ru'})}"></button>
     </p>
@@ -116,5 +111,7 @@
             <button class="my_games-action-secondary button js-my_games-step3-discard"
                 data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>
         </div>
+        <input type="hidden" data-th-value="${location._id}" name="locationId" />
+        <input type="hidden" data-th-value="${block._id}" name="blockId" />
     </form>
 </div>
