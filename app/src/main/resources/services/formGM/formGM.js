@@ -11,17 +11,13 @@ exports.post = function(req) {
   var result = {};
   switch (req.params.action) {
     case "addGame":
-      var data = {
-        displayName: "new game",
-        blockId: "b0b239d3-f7e9-4abb-a286-ca0c151479fc",
-        description: "new game is super cool",
-        maxPlayers: 4,
-        location: "13f3a27a-e726-4cdd-a96b-c8e30c92c415",
-        kidsGame: true,
-        explicit: false,
-        gameSystem: { select: { system: "dnd" }, _selected: "select" },
-        masterName: "max"
+      var data = JSON.parse(req.params.data);
+      data.gameSystem = {
+        select: { system: data.gameSystem },
+        _selected: "select"
       };
+      data.description = "test descr";
+      norseUtils.log(data);
       formGMLib.addGame(data);
       /*
         displayName: displayName and _name

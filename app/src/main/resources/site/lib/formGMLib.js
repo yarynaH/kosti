@@ -4,6 +4,7 @@ var portalLib = require("/lib/xp/portal");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
 var userLib = require("userLib");
+var formSharedLib = require("formSharedLib");
 var common = require("/lib/xp/common");
 
 exports.modifyGame = modifyGame;
@@ -64,7 +65,7 @@ function modifyGame(data) {
 
 function addGame(data) {
   if (
-    getLocationSpace(data.location, data.blockId).available < 1 ||
+    formSharedLib.getLocationSpace(data.location, data.blockId).available < 1 ||
     checkIfGameExists(data)
   ) {
     return false;
