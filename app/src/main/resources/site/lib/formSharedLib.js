@@ -115,8 +115,16 @@ function getItemsList(filters) {
   }).hits;
 }
 
+function getFestivals() {
+  var site = portalLib.getSite();
+  return getItemsList({ type: "landing", parentId: site._id });
+}
+
 function getDays() {
-  var id = "21e95588-90aa-411d-84a7-d11508b46e5c";
+  var festivals = getFestivals();
+  if (festivals && festivals[0]) {
+    var id = festivals[0]._id;
+  }
   var festivalPage = contentLib.get({ key: id });
   var days = contentLib.query({
     query:
