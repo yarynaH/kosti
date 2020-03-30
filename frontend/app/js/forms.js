@@ -121,12 +121,12 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
 
   var gameSystem = {};
   if ($(".js-my_games-system").val() == "other") {
-    gameSystem["select"] = $(".js-my_games-system").val();
-    gameSystem["text"] = $(".js-my_games-system-input").val();
+    gameSystem["select"] = { system: $(".js-my_games-system").val() };
+    gameSystem["text"] = { system: $(".js-my_games-system-input").val() };
     gameSystem["_selected"] = "input";
   } else {
-    gameSystem["select"] = $(".js-my_games-system").val();
-    gameSystem["text"] = "";
+    gameSystem["select"] = { system: $(".js-my_games-system").val() };
+    gameSystem["text"] = { system: "" };
     gameSystem["_selected"] = "select";
   }
   addNewGameData["gameSystem"] = gameSystem;
