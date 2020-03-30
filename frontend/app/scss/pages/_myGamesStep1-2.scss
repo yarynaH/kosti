@@ -183,7 +183,8 @@
             }
         }
 
-        &-time {
+        &-time,
+        &-duration {
             color: #333333;
 
             &:after {
@@ -196,7 +197,7 @@
             }
         }
 
-        &-duration {
+        &-table_slot {
             color: #333333;
         }
 
