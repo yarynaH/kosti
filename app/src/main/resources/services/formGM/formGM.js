@@ -13,7 +13,7 @@ exports.post = function(req) {
     case "addGame":
       var data = JSON.parse(req.params.data);
       norseUtils.log(data);
-      formGMLib.addGame(data);
+      result = formGMLib.addGame(data);
       /*
         displayName: displayName and _name
         blockId: parent, where data is created
