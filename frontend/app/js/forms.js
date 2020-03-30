@@ -32,11 +32,15 @@ function addNewGame(dataJson) {
     success: function(data) {
       console.log(data);
       if (data.error == true) {
-        console.log("error !!!");
+        showSnackBar(data.message, "error");
       } else {
+        showSnackBar(data.message, "success");
         $(".js-my_games-wrapper").html(data.html);
       }
       hideLoader();
+    },
+    error: function(data) {
+      showSnackBar(data.message, "error");
     }
   });
 }
