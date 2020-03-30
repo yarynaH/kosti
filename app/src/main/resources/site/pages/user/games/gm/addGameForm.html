@@ -20,7 +20,7 @@
             <label for="my_games_name"
                 data-th-text="${portal.localize({'_key=myGames.form.name', '_locale=ru'})}"></label>
             <input data-th-placeholder="${portal.localize({'_key=myGames.form.name.placeholder', '_locale=ru'})}"
-                type="text" name="masterName" id="my_games_name" />
+                type="text" name="masterName" required id="my_games_name" />
             <div class="form-caption"
                 data-th-text="${portal.localize({'_key=myGames.form.name.caption', '_locale=ru'})}"></div>
         </div>
@@ -28,7 +28,7 @@
             <label for="my_games_system"
                 data-th-text="${portal.localize({'_key=myGames.form.gameSystem', '_locale=ru'})}"></label>
             <div class="select-field">
-                <select name="gameSystem" id="my_games_system" class="select js-my_games-system">
+                <select required name="gameSystem" id="my_games_system" class="select js-my_games-system">
                     <option data-th-text="${portal.localize({'_key=myGames.form.gameSystem.choose', '_locale=ru'})}">
                     </option>
                     <option value="dnd">DnD</option>
@@ -59,14 +59,14 @@
                 data-th-text="${portal.localize({'_key=myGames.form.adventureName', '_locale=ru'})}"></label>
             <input
                 data-th-placeholder="${portal.localize({'_key=myGames.form.adventureName.placeholder', '_locale=ru'})}"
-                type="text" name="displayName" id="my_games_adventure_name" />
+                type="text" name="displayName" required id="my_games_adventure_name" />
             <div class="form-caption"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureName.caption', '_locale=ru'})}"></div>
         </div>
         <div class="form-group">
             <label for="my_games_adventure_description"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureDescription', '_locale=ru'})}"></label>
-            <textarea
+            <textarea required
                 data-th-placeholder="${portal.localize({'_key=myGames.form.adventureDescription.placeholder', '_locale=ru'})}"
                 type="text" name="description" id="my_games_adventure_description"></textarea>
             <div class="form-caption"
@@ -77,7 +77,7 @@
             <h5 class="form-group-title"
                 data-th-text="${portal.localize({'_key=myGames.form.qtyOfPlayers', '_locale=ru'})}"></h5>
 
-            <input type="radio" name="maxPlayers" id="playears_qty_4" value="4" hidden>
+            <input required type="radio" name="maxPlayers" id="playears_qty_4" value="4" hidden>
             <label for="playears_qty_4" class="my_games-playears_qty-item active label-radio">
                 <span>4</span>
             </label>
@@ -96,7 +96,7 @@
             <h5 class="form-group-title"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureLang', '_locale=ru'})}"></h5>
 
-            <input type="radio" name="language" id="ukrainian" value="ua" hidden>
+            <input required type="radio" name="language" id="ukrainian" value="ua" hidden>
             <label for="ukrainian" class="my_games-adventure_lang-item active label-radio"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureLang.ua', '_locale=ru'})}">
             </label>
@@ -115,12 +115,12 @@
             <h5 class="form-group-title"
                 data-th-text="${portal.localize({'_key=myGames.form.additional', '_locale=ru'})}"></h5>
 
-            <input required type="checkbox" name="explicit" id="explicit" hidden />
+            <input type="checkbox" name="explicit" id="explicit" hidden />
             <label for="explicit" class="label-checkbox"
                 data-th-text="${portal.localize({'_key=myGames.form.additional.explicit', '_locale=ru'})}">
             </label>
 
-            <input required type="checkbox" name="kidsGame" id="kidsGame" hidden />
+            <input type="checkbox" name="kidsGame" id="kidsGame" hidden />
             <label for="kidsGame" class="label-checkbox"
                 data-th-text="${portal.localize({'_key=myGames.form.additional.forChildren', '_locale=ru'})}">
             </label>

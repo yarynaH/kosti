@@ -95,6 +95,14 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
   e.preventDefault();
   var addNewGameData = {};
   $(".js-my_games-form input").each(function() {
+    if ($(this).is(":checkbox")) {
+      if ($(this).is(":checked")) {
+        addNewGameData[$(this).attr("name")] = "true";
+      } else {
+        addNewGameData[$(this).attr("name")] = "false";
+      }
+      return;
+    }
     addNewGameData[$(this).attr("name")] = $(this).val();
   });
 
