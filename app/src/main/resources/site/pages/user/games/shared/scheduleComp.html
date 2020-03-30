@@ -18,7 +18,8 @@
         </div>
 
         <div class="my_games-schedule-item-body">
-            <div class="my_games-available-wrapper" data-th-if="${available}" data-th-utext="${available}"></div>
+            <div class="my_games-available-wrapper" data-th-if="${day.available}" data-th-utext="${day.available}">
+            </div>
 
             <div class="my_games-step4">
                 <div class="my_games-action-block hidden">

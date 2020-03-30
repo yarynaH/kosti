@@ -102,7 +102,11 @@ function getItemsList(filters) {
   }
   if (filters.parentId) {
     var parent = contentLib.get({ key: filters.parentId });
-    query += "and _parentPath = '/content" + parent._path + "'";
+    if (filters.parentPathLike) {
+      query += "and _parentPath like '/content" + parent._path + "*'";
+    } else {
+      query += "and _parentPath = '/content" + parent._path + "'";
+    }
   }
   return contentLib.query({
     query: query,
@@ -169,13 +173,43 @@ function beautifyDay(day) {
   day.locations = getLocations(day._id);
   day.space = getDaySpace(day._id);
   day.games = getDaysByUser(day._id);
+  day.available = thymeleaf.render(resolve(views["availableComp"]), {
+    games: day.games
+  });
   return day;
 }
 
 function getDaysByUser(parent) {
   var user = userLib.getCurrentUser();
-  var games = getItemsList({ user: user._id, parent: parent });
-  norseUtils.log(games);
+  var games = getItemsList({
+    user: user._id,
+    parent: parent,
+    parentPathLike: true,
+    type: "game"
+  });
+  for (var i = 0; i < games.length; i++) {
+    games[i] = beautifyGame(games[i]);
+  }
+  return games;
+}
+
+function beautifyGame(game) {
+  var gameBlock = util.content.getParent({ key: game._id });
+  var location = util.content.getParent({ key: gameBlock._id });
+  game.block = beautifyGameBlock(location._id, gameBlock);
+  game.location = location.displayName;
+  if (game.data.gameSystem[game.data.gameSystem._selected]) {
+    game.system = {
+      text: game.data.gameSystem[game.data.gameSystem._selected].system,
+      localizable: game.data.gameSystem._selected === "select"
+    };
+  } else {
+    game.system = {
+      text: "",
+      localizable: false
+    };
+  }
+  return game;
 }
 
 function getDaySpace(dayId) {

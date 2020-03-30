@@ -1,32 +1,38 @@
 <div class="my_games-available-list">
-    <div class="my_games-available-item expanded">
+    <div data-th-each="game : ${games}" class="my_games-available-item expanded">
         <div class="my_games-short_info">
             <div class="my_games-short_info-left">
-                <div class="my_games-short_info-time">11:00-13:30</div>
+                <div class="my_games-short_info-time"
+                    data-th-text="${game.block.time.start + ' - ' + game.block.time.end}"></div>
                 <div class="my_games-short_info-location">
-                    <span>Зал</span>
+                    <span data-th-text="${game.location}"></span>
                     <span>, </span>
                     <span>Стол 14</span>
                 </div>
             </div>
             <div class="my_games-short_info-right">
                 <div class="my_games-short_info-name">
-                    <span>Невероятные приключения пули</span>
+                    <span data-th-text="${game.displayName}"></span>
                     <span class="icon-arrow"></span>
                 </div>
                 <div class="my_games-short_info-desccription">
-                    <span>Dungeons & Dragons 5e</span>
-                    <span>, </span>
-                    <span>Открытая игра</span>
-                    <span>(2ч 30м)</span>
+                    <span data-th-text="${game.system.text + ', '}"></span>
+                    <span data-th-text="${game.block.displayName}"></span>
+                    <span>
+                        (
+                        <span data-th-if="${game.block.duration.hours > 0}"
+                            data-th-text="${game.block.duration.hours+portal.localize({'_key=myGames.misc.time.h', '_locale=ru'})}">
+                        </span>
+                        <span data-th-if="${game.block.duration.minutes > 0}"
+                            data-th-text="${game.block.duration.minutes+portal.localize({'_key=myGames.misc.time.m', '_locale=ru'})}">
+                        </span>
+                        )
+                    </span>
                 </div>
             </div>
         </div>
         <div class="my_games-long_info">
-            <div class="my_games-description">
-                Невероятные приключения пули или даже еще более странные. Невероятные приключения пули или даже еще
-                более странныеНевероятные приключения пули или даже еще более странные. Невероятные приключения пули или
-                даже еще более странные. Невероятные приключения пули или даже еще более странные
+            <div class="my_games-description" data-th-text="${game.description}">
             </div>
             <div class="my_games-text">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.players', '_locale=ru'})}"></span>
