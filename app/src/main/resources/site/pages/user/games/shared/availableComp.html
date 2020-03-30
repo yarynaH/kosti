@@ -1,5 +1,5 @@
 <div class="my_games-available-list">
-    <div data-th-each="game : ${games}" class="my_games-available-item">
+    <div data-th-each="game : ${games}" class="my_games-available-item js-my_games-available-item">
         <div class="my_games-short_info">
             <div class="my_games-short_info-left">
                 <div class="my_games-short_info-time"
@@ -31,8 +31,8 @@
                 </div>
             </div>
         </div>
-        <div class="my_games-long_info">
-            <div class="my_games-description" data-th-text="${game.description}">
+        <div class="my_games-long_info js-my_games-available-long_info">
+            <div class="my_games-description" data-th-text="${game.data.description}">
             </div>
             <div class="my_games-text">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.players', '_locale=ru'})}"></span>
@@ -47,12 +47,12 @@
                     data-th-text="${portal.localize({'_key=myGames.form.additional', '_locale=ru'})}"></span>
                 <span class="value">Подойдет детям, Ненормативная лексика</span>
             </div>
-        </div>
-        <div class="my_games-action-block">
-            <button class="my_games-link button"
-                data-th-text="${portal.localize({'_key=myGames.edit', '_locale=ru'})}"></button>
-            <button class="my_games-link button"
-                data-th-text="${portal.localize({'_key=myGames.remove', '_locale=ru'})}"></button>
+            <div class="my_games-action-block">
+                <button class="my_games-link button"
+                    data-th-text="${portal.localize({'_key=myGames.edit', '_locale=ru'})}"></button>
+                <button class="my_games-link button"
+                    data-th-text="${portal.localize({'_key=myGames.remove', '_locale=ru'})}"></button>
+            </div>
         </div>
     </div>
 </div>
