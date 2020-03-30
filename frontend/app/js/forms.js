@@ -31,6 +31,11 @@ function addNewGame(dataJson) {
     type: "POST",
     success: function(data) {
       console.log(data);
+      if (data.error == true) {
+        console.log("error !!!");
+      } else {
+        $(".js-my_games-wrapper").html(data.html);
+      }
       hideLoader();
     }
   });
