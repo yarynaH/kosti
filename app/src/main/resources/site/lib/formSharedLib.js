@@ -41,6 +41,9 @@ function getView(viewType, id) {
     case "addGameForm":
       model = getFormComponent(id);
       break;
+    case "gmComp":
+      model.days = getDays();
+      break;
     default:
       break;
   }

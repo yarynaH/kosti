@@ -68,9 +68,9 @@ function addGame(data) {
     formSharedLib.getLocationSpace(data.location, data.blockId).available < 1 ||
     checkIfGameExists(data)
   ) {
-    return false;
+    return { error: true, errorCode: "noSpace" };
   }
-  return contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
+  var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
     var parent = contentLib.get({ key: data.blockId });
     var displayName = data.displayName;
     delete data.displayName;
@@ -82,11 +82,21 @@ function addGame(data) {
       contentType: app.name + ":game",
       data: data
     });
+    if (!game) {
+      return { error: true, errorCode: "unableToCreate" };
+    }
     var result = contentLib.publish({
       keys: [game._id],
       sourceBranch: "master",
       targetBranch: "draft"
     });
-    return result;
+    if (!result) {
+      return { error: true, errorCode: "unableToPublish" };
+    }
+    return game;
   });
+  return {
+    error: false,
+    html: formSharedLib.getView("gmComp", null)
+  };
 }
