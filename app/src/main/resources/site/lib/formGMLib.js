@@ -43,6 +43,8 @@ function deleteGame(id) {
 }
 
 function modifyGame(data) {
+  var user = userLib.getCurrentUser();
+  data.user = user._id;
   var game = contentLib.modify({
     key: data._id,
     editor: editor
@@ -68,13 +70,15 @@ function addGame(data) {
     formSharedLib.getLocationSpace(data.location, data.blockId).available < 1 ||
     checkIfGameExists(data)
   ) {
-    return { error: true, errorCode: "noSpace" };
+    return { error: true, message: "noSpace" };
   }
   var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
     var parent = contentLib.get({ key: data.blockId });
     var displayName = data.displayName;
     delete data.displayName;
     delete data.blockId;
+    var user = userLib.getCurrentUser();
+    data.user = user._id;
     var game = contentLib.create({
       name: common.sanitize(displayName),
       parentPath: parent._path,
@@ -83,7 +87,7 @@ function addGame(data) {
       data: data
     });
     if (!game) {
-      return { error: true, errorCode: "unableToCreate" };
+      return { error: true, message: "unableToCreate" };
     }
     var result = contentLib.publish({
       keys: [game._id],
@@ -91,12 +95,13 @@ function addGame(data) {
       targetBranch: "draft"
     });
     if (!result) {
-      return { error: true, errorCode: "unableToPublish" };
+      return { error: true, message: "unableToPublish" };
     }
     return game;
   });
   return {
     error: false,
+    message: "success",
     html: formSharedLib.getView("gmComp", null)
   };
 }

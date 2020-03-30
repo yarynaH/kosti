@@ -36,13 +36,13 @@ function getView(viewType, id) {
       model.blocks = getGameBlocks(id);
       break;
     case "scheduleComp":
-      model.blocks = getDays();
+      model.days = getDays();
       break;
     case "addGameForm":
       model = getFormComponent(id);
       break;
     case "gmComp":
-      model.days = getDays();
+      model.days = getView("scheduleComp");
       break;
     default:
       break;
@@ -168,7 +168,14 @@ function beautifyDay(day) {
   day.monthName = norseUtils.getMonthName(dayDate);
   day.locations = getLocations(day._id);
   day.space = getDaySpace(day._id);
+  day.games = getDaysByUser(day._id);
   return day;
+}
+
+function getDaysByUser(parent) {
+  var user = userLib.getCurrentUser();
+  var games = getItemsList({ user: user._id, parent: parent });
+  norseUtils.log(games);
 }
 
 function getDaySpace(dayId) {
