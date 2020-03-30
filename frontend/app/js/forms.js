@@ -91,10 +91,23 @@ $(".js-my_games").on("click", ".js-my_games-step3-discard", function(e) {
   appendStep("scheduleComp", $(".js-my_games-wrapper"));
 });
 
+$(".js-my_games").on("change", ".js-my_games-system", function(e) {
+  var target = $(".js-my_games-system option:selected").val();
+
+  if (target == "other") {
+    $(".js-my_games-system-input").show();
+  } else {
+    $(".js-my_games-system-input").hide();
+  }
+});
+
 $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
   e.preventDefault();
   var addNewGameData = {};
   $(".js-my_games-form input").each(function() {
+    if ($(this).attr("name") == "systemInput") {
+      return;
+    }
     if ($(this).is(":checkbox")) {
       if ($(this).is(":checked")) {
         addNewGameData[$(this).attr("name")] = "true";
@@ -106,24 +119,23 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
     addNewGameData[$(this).attr("name")] = $(this).val();
   });
 
-  addNewGameData[$(".js-my_games-form select").attr("name")] = $(
-    ".js-my_games-form select"
-  ).val();
+  var gameSystem = {};
+  if ($(".js-my_games-system").val() == "other") {
+    gameSystem["select"] = "";
+    gameSystem["text"] = $(".js-my_games-system-input").val();
+    gameSystem["_selected"] = "input";
+  } else {
+    gameSystem["select"] = $(".js-my_games-system").val();
+    gameSystem["text"] = "";
+    gameSystem["_selected"] = "select";
+  }
+  addNewGameData["gameSystem"] = gameSystem;
 
   addNewGameData[$(".js-my_games-form textarea").attr("name")] = $(
     ".js-my_games-form textarea"
   ).val();
+
   console.log(addNewGameData);
 
   addNewGame(JSON.stringify(addNewGameData));
-});
-
-$(".js-my_games").on("change", ".js-my_games-system", function(e) {
-  var target = $(".js-my_games-system option:selected").val();
-
-  if (target == "other") {
-    $(".js-my_games-system-input").show();
-  } else {
-    $(".js-my_games-system-input").hide();
-  }
 });
