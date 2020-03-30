@@ -108,6 +108,14 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
     if ($(this).attr("name") == "systemInput") {
       return;
     }
+
+    if ($(this).is(":radio")) {
+      if ($(this).is(":checked")) {
+        addNewGameData[$(this).attr("name")] = $(this).val();
+      }
+      return;
+    }
+
     if ($(this).is(":checkbox")) {
       if ($(this).is(":checked")) {
         addNewGameData[$(this).attr("name")] = true;
@@ -123,7 +131,7 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
   if ($(".js-my_games-system").val() == "other") {
     gameSystem["select"] = { system: $(".js-my_games-system").val() };
     gameSystem["text"] = { system: $(".js-my_games-system-input").val() };
-    gameSystem["_selected"] = "input";
+    gameSystem["_selected"] = "text";
   } else {
     gameSystem["select"] = { system: $(".js-my_games-system").val() };
     gameSystem["text"] = { system: "" };
