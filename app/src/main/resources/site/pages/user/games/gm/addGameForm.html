@@ -28,7 +28,7 @@
             <label for="my_games_system"
                 data-th-text="${portal.localize({'_key=myGames.form.gameSystem', '_locale=ru'})}"></label>
             <div class="select-field">
-                <select name="gameSystem" id="my_games_system" class="select">
+                <select name="gameSystem" id="my_games_system" class="select js-my_games-system">
                     <option data-th-text="${portal.localize({'_key=myGames.form.gameSystem.choose', '_locale=ru'})}">
                     </option>
                     <option value="dnd">DnD</option>
@@ -50,6 +50,9 @@
                     <option value="other">Other</option>
                 </select>
             </div>
+            <input data-th-placeholder="${portal.localize({'_key=myGames.form.gameSystem.placeholder', '_locale=ru'})}"
+                type="text" name="systemImput" id="my_games_system-input"
+                class="js-my_games-system-input my_games-system-input" />
         </div>
         <div class="form-group">
             <label for="my_games_adventure_name"

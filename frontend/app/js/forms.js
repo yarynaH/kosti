@@ -102,5 +102,20 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
     ".js-my_games-form select"
   ).val();
 
+  addNewGameData[$(".js-my_games-form textarea").attr("name")] = $(
+    ".js-my_games-form textarea"
+  ).val();
+  console.log(addNewGameData);
+
   addNewGame(JSON.stringify(addNewGameData));
+});
+
+$(".js-my_games").on("change", ".js-my_games-system", function(e) {
+  var target = $(".js-my_games-system option:selected").val();
+
+  if (target == "other") {
+    $(".js-my_games-system-input").show();
+  } else {
+    $(".js-my_games-system-input").hide();
+  }
 });
