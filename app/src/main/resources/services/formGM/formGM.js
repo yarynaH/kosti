@@ -14,9 +14,9 @@ exports.post = function(req) {
       var data = JSON.parse(req.params.data);
       data.gameSystem = {
         select: { system: data.gameSystem },
+        text: { system: data.gameSystem },
         _selected: "select"
       };
-      data.description = "test descr";
       norseUtils.log(data);
       formGMLib.addGame(data);
       /*
