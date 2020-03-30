@@ -12,11 +12,6 @@ exports.post = function(req) {
   switch (req.params.action) {
     case "addGame":
       var data = JSON.parse(req.params.data);
-      data.gameSystem = {
-        select: { system: data.gameSystem },
-        text: { system: data.gameSystem },
-        _selected: "select"
-      };
       norseUtils.log(data);
       formGMLib.addGame(data);
       /*

@@ -110,9 +110,9 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
     }
     if ($(this).is(":checkbox")) {
       if ($(this).is(":checked")) {
-        addNewGameData[$(this).attr("name")] = "true";
+        addNewGameData[$(this).attr("name")] = true;
       } else {
-        addNewGameData[$(this).attr("name")] = "false";
+        addNewGameData[$(this).attr("name")] = false;
       }
       return;
     }
@@ -121,7 +121,7 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
 
   var gameSystem = {};
   if ($(".js-my_games-system").val() == "other") {
-    gameSystem["select"] = "";
+    gameSystem["select"] = $(".js-my_games-system").val();
     gameSystem["text"] = $(".js-my_games-system-input").val();
     gameSystem["_selected"] = "input";
   } else {
