@@ -59,12 +59,15 @@ function getFormComponent(id) {
       location._id,
       util.content.getParent({ key: game._id })
     );
+    var action = "editGame";
   } else {
+    var action = "addGame";
     var game = null;
     var location = util.content.getParent({ key: id });
     var block = beautifyGameBlock(location._id, contentLib.get({ key: id }));
   }
   return {
+    action: action,
     game: game,
     block: block,
     location: location,

@@ -22,7 +22,6 @@ function appendStep(viewType, js_wrap, id) {
 function addNewGame(dataJson) {
   showLoader();
   var data = {
-    action: "addGame",
     data: dataJson
   };
   $.ajax({
@@ -30,7 +29,6 @@ function addNewGame(dataJson) {
     data: data,
     type: "POST",
     success: function(data) {
-      console.log(data);
       if (data.error == true) {
         showSnackBar(data.message, "error");
       } else {
@@ -48,8 +46,10 @@ function addNewGame(dataJson) {
 function removeGame(id) {
   showLoader();
   var data = {
-    action: "deleteGame",
-    id: id
+    data: JSON.stringify({
+      action: "deleteGame",
+      id: id
+    })
   };
   $.ajax({
     url: "/_/service/com.myurchenko.kostirpg/formGM",
@@ -171,8 +171,6 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
     ".js-my_games-form textarea"
   ).val();
 
-  console.log(addNewGameData);
-
   addNewGame(JSON.stringify(addNewGameData));
 });
 
@@ -199,6 +197,5 @@ $(".js-my_games").on("click", ".js-my_games-remove-game", function(e) {
 
 $(".js-my_games").on("click", ".js-my_games-edit-game", function(e) {
   var id = $(this).data().id;
-  console.log(id);
   appendStep("addGameForm", $(".js-my_games-wrapper"), id);
 });

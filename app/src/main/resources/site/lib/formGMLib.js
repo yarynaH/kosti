@@ -46,6 +46,7 @@ function deleteGame(id) {
 function modifyGame(data) {
   var user = userLib.getCurrentUser();
   data.user = user._id;
+  delete data.blockId;
   var game = contentLib.modify({
     key: data._id,
     editor: editor

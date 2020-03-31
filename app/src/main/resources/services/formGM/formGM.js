@@ -9,9 +9,11 @@ var formSharedLib = require(libLocation + "formSharedLib");
 
 exports.post = function(req) {
   var result = {};
-  switch (req.params.action) {
+  var data = JSON.parse(req.params.data);
+  var action = data.action;
+  delete data.action;
+  switch (action) {
     case "addGame":
-      var data = JSON.parse(req.params.data);
       norseUtils.log(data);
       result = formGMLib.addGame(data);
       /*
@@ -28,16 +30,6 @@ exports.post = function(req) {
       */
       break;
     case "editGame":
-      var data = {
-        _id: "82f0b63d-27b8-4319-bfd5-cba2b99778cc",
-        displayName: "new game",
-        description: "new game is super cool",
-        maxPlayers: 4,
-        kidsGame: true,
-        explicit: false,
-        gameSystem: { select: { system: "dnd" }, _selected: "select" },
-        masterName: "ivan"
-      };
       formGMLib.modifyGame(data);
       /*
         _id
@@ -52,7 +44,7 @@ exports.post = function(req) {
       */
       break;
     case "deleteGame":
-      formGMLib.deleteGame(req.params.id);
+      formGMLib.deleteGame(data.id);
       /*
         id
       */
