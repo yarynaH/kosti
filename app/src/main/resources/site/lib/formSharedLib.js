@@ -50,10 +50,23 @@ function getView(viewType, id, params) {
   return thymeleaf.render(resolve(views[viewType]), model);
 }
 
-function getFormComponent(blockId) {
-  var location = util.content.getParent({ key: blockId });
+function getFormComponent(id) {
+  var content = contentLib.get({ key: id });
+  if (content.type === app.name + ":game") {
+    var game = beautifyGame(content);
+    var location = contentLib.get({ key: game.data.location });
+    var block = beautifyGameBlock(
+      location._id,
+      util.content.getParent({ key: game._id })
+    );
+  } else {
+    var game = null;
+    var location = util.content.getParent({ key: id });
+    var block = beautifyGameBlock(location._id, contentLib.get({ key: id }));
+  }
   return {
-    block: beautifyGameBlock(location._id, contentLib.get({ key: blockId })),
+    game: game,
+    block: block,
     location: location,
     day: beautifyDay(util.content.getParent({ key: location._id }))
   };
@@ -177,10 +190,10 @@ function beautifyGameBlock(locationId, block) {
 }
 
 function beautifyDay(day, expanded) {
-  if (expanded === day._id) {
-    day.expanded = true;
-    day.games = getDaysByUser(day._id);
-  }
+  //if (expanded === day._id) {
+  day.expanded = true;
+  day.games = getDaysByUser(day._id);
+  //}
   var dayDate = new Date(day.data.datetime);
   day.date = dayDate.getDate().toFixed();
   day.dayName = norseUtils.getDayName(dayDate);
