@@ -1,6 +1,7 @@
 <div class="my_games-available-list">
-    <div data-th-each="game : ${games}" class="my_games-available-item js-my_games-available-item">
-        <div class="my_games-short_info">
+    <div data-th-each="game : ${games}" data-th-attr="data-id=${game._id}"
+        class="my_games-available-item js-my_games-available-item">
+        <div class="my_games-short_info js-my_games-available-short_info">
             <div class="my_games-short_info-left">
                 <div class="my_games-short_info-time"
                     data-th-text="${game.block.time.start + ' - ' + game.block.time.end}"></div>
@@ -50,7 +51,7 @@
             <div class="my_games-action-block">
                 <button class="my_games-link button"
                     data-th-text="${portal.localize({'_key=myGames.edit', '_locale=ru'})}"></button>
-                <button class="my_games-link button"
+                <button class="my_games-link button js-my_games-remove-game" data-th-attr="data-id=${game._id}"
                     data-th-text="${portal.localize({'_key=myGames.remove', '_locale=ru'})}"></button>
             </div>
         </div>

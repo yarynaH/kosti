@@ -52,8 +52,7 @@ exports.post = function(req) {
       */
       break;
     case "deleteGame":
-      var id = "ffebc45a-3b73-4cd1-816f-8b62883509e1";
-      formGMLib.deleteGame(id);
+      formGMLib.deleteGame(req.params.id);
       /*
         id
       */

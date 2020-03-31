@@ -45,6 +45,25 @@ function addNewGame(dataJson) {
   });
 }
 
+function removeGame(id) {
+  showLoader();
+  var data = {
+    action: "deleteGame",
+    id: id
+  };
+  $.ajax({
+    url: "/_/service/com.myurchenko.kostirpg/formGM",
+    data: data,
+    type: "POST",
+    success: function() {
+      showSnackBar("Game is deleted", "success");
+    },
+    error: function() {
+      showSnackBar("Some errror!", "error");
+    }
+  });
+}
+
 $(".js-my_games").on("click", ".js-my_games-step1", function(e) {
   var parent = $(this).parent();
   if (parent.hasClass("active")) {
@@ -157,20 +176,23 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
   addNewGame(JSON.stringify(addNewGameData));
 });
 
-$(".js-my_games").on("click", ".js-my_games-available-item", function(e) {
-  if ($(this).hasClass("expanded")) {
-    $(this).removeClass("expanded");
-    $(this)
-      .find(".js-my_games-available-long_info")
-      .slideUp("slow");
+$(".js-my_games").on("click", ".js-my_games-available-short_info", function(e) {
+  var parent = $(this).parent();
+  if (parent.hasClass("expanded")) {
+    parent.removeClass("expanded");
+    parent.find(".js-my_games-available-long_info").slideUp("slow");
     return;
   } else {
     $(".js-my_games-available-item").removeClass("expanded");
     $(".js-my_games-available-long_info").slideUp("slow");
   }
 
-  $(this).addClass("expanded");
-  $(this)
-    .find(".js-my_games-available-long_info")
-    .slideDown("slow");
+  parent.addClass("expanded");
+  parent.find(".js-my_games-available-long_info").slideDown("slow");
+});
+
+$(".js-my_games").on("click", ".js-my_games-remove-game", function(e) {
+  var id = $(".js-my_games-remove-game").data().id;
+  removeGame(id);
+  $(".js-my_games-available-item[data-id=" + id + "]").remove();
 });

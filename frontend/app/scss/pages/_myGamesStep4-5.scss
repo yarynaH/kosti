@@ -2,7 +2,6 @@
     &-available-item {
         display: block;
         margin: 10px 0 0;
-        padding: 16px 16px 16px 18px;
         border-radius: 4px;
         background-color: #fff;
         border: 1px solid #dedede;
@@ -14,6 +13,7 @@
 
     &-short_info {
         display: flex;
+        padding: 16px 16px 16px 18px;
 
         &-time {
             font-weight: bold;
@@ -46,6 +46,7 @@
 
     &-long_info {
         display: none;
+        padding: 0 16px 16px 18px;
         color: #505050;
     }
 
