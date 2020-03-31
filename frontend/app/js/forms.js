@@ -198,6 +198,7 @@ $(".js-my_games").on("click", ".js-my_games-remove-game", function(e) {
 });
 
 $(".js-my_games").on("click", ".js-my_games-edit-game", function(e) {
-  var id = $(".js-my_games-remove-game").data().id;
+  var id = $(this).data().id;
+  console.log(id);
   appendStep("addGameForm", $(".js-my_games-wrapper"), id);
 });
