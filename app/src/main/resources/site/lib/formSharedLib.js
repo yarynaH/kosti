@@ -102,8 +102,8 @@ function getLocationSpace(locationId, gameBlockId) {
     count: 0
   });
   return {
-    total: parseInt(location.data.maxGames),
-    reserved: games.total,
+    total: parseInt(location.data.maxGames).toFixed(),
+    reserved: parseInt(games.total).toFixed(),
     available: (parseInt(location.data.maxGames) - games.total).toFixed()
   };
 }
@@ -266,14 +266,14 @@ function getDaySpace(dayId) {
     var blocks = getGameBlocks(dayLocations[i]._id);
     for (var j = 0; j < blocks.length; j++) {
       space = {
-        total: space.total + blocks[j].space.total,
-        reserved: space.reserved + blocks[j].space.reserved
+        total: space.total + parseInt(blocks[j].space.total),
+        reserved: space.reserved + parseInt(blocks[j].space.reserved)
       };
     }
   }
   space = {
-    total: space.total.toFixed(),
-    reserved: space.reserved.toFixed()
+    total: parseInt(space.total).toFixed(),
+    reserved: parseInt(space.reserved).toFixed()
   };
   return space;
 }

@@ -7,6 +7,7 @@ var userLib = require("userLib");
 var formSharedLib = require("formSharedLib");
 var common = require("/lib/xp/common");
 var util = require("/lib/util");
+var i18nLib = require("/lib/xp/i18n");
 
 exports.modifyGame = modifyGame;
 exports.deleteGame = deleteGame;
@@ -72,7 +73,12 @@ function addGame(data) {
     formSharedLib.getLocationSpace(data.location, data.blockId).available < 1 ||
     checkIfGameExists(data)
   ) {
-    return { error: true, message: "noSpace" };
+    return {
+      error: true,
+      message: i18nLib.localize({
+        key: "myGames.form.message.noSpace"
+      })
+    };
   }
   var day = util.content.getParent({ key: data.location });
   var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
@@ -90,7 +96,12 @@ function addGame(data) {
       data: data
     });
     if (!game) {
-      return { error: true, message: "unableToCreate" };
+      return {
+        error: true,
+        message: i18nLib.localize({
+          key: "myGames.form.message.unableToCreate"
+        })
+      };
     }
     var result = contentLib.publish({
       keys: [game._id],
@@ -98,13 +109,20 @@ function addGame(data) {
       targetBranch: "draft"
     });
     if (!result) {
-      return { error: true, message: "unableToPublish" };
+      return {
+        error: true,
+        message: i18nLib.localize({
+          key: "myGames.form.message.unableToPublish"
+        })
+      };
     }
     return game;
   });
   return {
     error: false,
-    message: "success",
+    message: i18nLib.localize({
+      key: "myGames.form.message.success"
+    }),
     html: formSharedLib.getView("gmComp", null, { expanded: day._id })
   };
 }
