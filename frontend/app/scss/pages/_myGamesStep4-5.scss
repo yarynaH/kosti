@@ -31,6 +31,7 @@
 
             .icon-arrow:before {
                 font-size: 10px;
+                transition: transition(transform);
 
                 .expanded & {
                     transform: rotate(90deg);
@@ -42,11 +43,12 @@
     &-description {
         margin: 15px 0 5px;
     }
-    
+
     &-long_info {
+        display: none;
         color: #505050;
     }
-    
+
     &-text .label {
         color: #1b2125;
         font-weight: bold;

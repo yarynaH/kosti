@@ -156,3 +156,21 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function(e) {
 
   addNewGame(JSON.stringify(addNewGameData));
 });
+
+$(".js-my_games").on("click", ".js-my_games-available-item", function(e) {
+  if ($(this).hasClass("expanded")) {
+    $(this).removeClass("expanded");
+    $(this)
+      .find(".js-my_games-available-long_info")
+      .slideUp("slow");
+    return;
+  } else {
+    $(".js-my_games-available-item").removeClass("expanded");
+    $(".js-my_games-available-long_info").slideUp("slow");
+  }
+
+  $(this).addClass("expanded");
+  $(this)
+    .find(".js-my_games-available-long_info")
+    .slideDown("slow");
+});
