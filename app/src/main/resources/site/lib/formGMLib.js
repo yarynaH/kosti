@@ -73,7 +73,7 @@ function addGame(data) {
   ) {
     return { error: true, message: "noSpace" };
   }
-  var day = util.content.getParent({ key: location });
+  var day = util.content.getParent({ key: data.location });
   var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
     var parent = contentLib.get({ key: data.blockId });
     var displayName = data.displayName;
