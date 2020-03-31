@@ -6,9 +6,9 @@
                 <div class="my_games-short_info-time"
                     data-th-text="${game.block.time.start + ' - ' + game.block.time.end}"></div>
                 <div class="my_games-short_info-location">
-                    <span data-th-text="${game.location}"></span>
-                    <span>, </span>
-                    <span>Стол 14</span>
+                    <span data-th-text="${game.location + ', '}"></span>
+                    <span
+                        data-th-text="${portal.localize({'_key=myGames.misc.table', '_locale=ru'}) + ' ' + game.table}"></span>
                 </div>
             </div>
             <div class="my_games-short_info-right">

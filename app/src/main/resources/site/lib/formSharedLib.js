@@ -228,6 +228,7 @@ function beautifyGame(game) {
   var location = util.content.getParent({ key: gameBlock._id });
   game.block = beautifyGameBlock(location._id, gameBlock);
   game.location = location.displayName;
+  game.table = getGameTable(game._id, game.block);
   game.seatsReserver = game.data.players
     ? norseUtils.forceArray(game.data.players).length
     : 0;
@@ -243,6 +244,16 @@ function beautifyGame(game) {
     };
   }
   return game;
+}
+
+function getGameTable(id, block) {
+  var games = getItemsList({ type: "game", parentId: block._id });
+  for (var i = 0; i < games.length; i++) {
+    if (games[i]._id === id) {
+      return (i + 1).toFixed();
+    }
+  }
+  return false;
 }
 
 function getDaySpace(dayId) {
