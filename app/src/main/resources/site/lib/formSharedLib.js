@@ -193,10 +193,10 @@ function beautifyGameBlock(locationId, block) {
 }
 
 function beautifyDay(day, expanded) {
-  //if (expanded === day._id) {
-  day.expanded = true;
+  if (expanded === day._id) {
+    day.expanded = true;
+  }
   day.games = getDaysByUser(day._id);
-  //}
   var dayDate = new Date(day.data.datetime);
   day.date = dayDate.getDate().toFixed();
   day.dayName = norseUtils.getDayName(dayDate);
@@ -228,6 +228,9 @@ function beautifyGame(game) {
   var location = util.content.getParent({ key: gameBlock._id });
   game.block = beautifyGameBlock(location._id, gameBlock);
   game.location = location.displayName;
+  game.seatsReserver = game.data.players
+    ? norseUtils.forceArray(game.data.players).length
+    : 0;
   if (game.data.gameSystem[game.data.gameSystem._selected]) {
     game.system = {
       text: game.data.gameSystem[game.data.gameSystem._selected].system,

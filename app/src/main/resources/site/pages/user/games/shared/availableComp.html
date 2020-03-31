@@ -37,16 +37,23 @@
             </div>
             <div class="my_games-text">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.players', '_locale=ru'})}"></span>
-                <span class="value">3/4</span>
+                <span class="value" data-th-text="${game.seatsReserver + '/' + game.data.maxPlayers}"></span>
             </div>
             <div class="my_games-text">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.language', '_locale=ru'})}"></span>
-                <span class="value">Русский</span>
+                <span class="value"
+                    data-th-text="${portal.localize({'_key=myGames.form.adventureLang.' + game.data.language, '_locale=ru'})}"></span>
             </div>
-            <div class="my_games-text">
+            <div class="my_games-text" data-th-if="${game.data.explicit or game.data.kidsGame}">
                 <span class="label"
                     data-th-text="${portal.localize({'_key=myGames.form.additional', '_locale=ru'})}"></span>
-                <span class="value">Подойдет детям, Ненормативная лексика</span>
+                <span class="value">
+                    <span data-th-remove="tag" data-th-if="${game.data.explicit}"
+                        data-th-text="${portal.localize({'_key=myGames.form.additional.explicit', '_locale=ru'})}"></span>
+                    <span data-th-if="${game.data.explicit and game.data.kidsGame}">, </span>
+                    <span data-th-remove="tag" data-th-if="${game.data.kidsGame}"
+                        data-th-text="${portal.localize({'_key=myGames.form.additional.forChildren', '_locale=ru'})}"></span>
+                </span>
             </div>
             <div class="my_games-action-block">
                 <button class="my_games-link button js-my_games-edit-game" data-th-attr="data-id=${game._id}"
