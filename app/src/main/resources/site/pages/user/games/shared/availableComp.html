@@ -46,7 +46,7 @@
             </div>
             <div class="my_games-text" data-th-if="${game.data.explicit or game.data.kidsGame}">
                 <span class="label"
-                    data-th-text="${portal.localize({'_key=myGames.form.additional', '_locale=ru'})}"></span>
+                    data-th-text="${portal.localize({'_key=myGames.additionalInfo', '_locale=ru'})}"></span>
                 <span class="value">
                     <span data-th-remove="tag" data-th-if="${game.data.explicit}"
                         data-th-text="${portal.localize({'_key=myGames.form.additional.explicit', '_locale=ru'})}"></span>
