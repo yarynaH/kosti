@@ -26,7 +26,7 @@ exports.getDays = getDays;
 exports.getLocations = getLocations;
 exports.getLocationSpace = getLocationSpace;
 
-function getView(viewType, id) {
+function getView(viewType, id, params) {
   var model = {};
   switch (viewType) {
     case "locationAndGameBlockComp":
@@ -36,13 +36,13 @@ function getView(viewType, id) {
       model.blocks = getGameBlocks(id);
       break;
     case "scheduleComp":
-      model.days = getDays();
+      model.days = getDays(params);
       break;
     case "addGameForm":
       model = getFormComponent(id);
       break;
     case "gmComp":
-      model.days = getView("scheduleComp");
+      model.days = getView("scheduleComp", null, params);
       break;
     default:
       break;
@@ -120,7 +120,10 @@ function getFestivals() {
   return getItemsList({ type: "landing", parentId: site._id });
 }
 
-function getDays() {
+function getDays(params) {
+  if (!params) {
+    var params = {};
+  }
   var festivals = getFestivals();
   if (festivals && festivals[0]) {
     var id = festivals[0]._id;
@@ -134,7 +137,7 @@ function getDays() {
     contentTypes: [app.name + ":gameBlock"]
   }).hits;
   for (var i = 0; i < days.length; i++) {
-    days[i] = beautifyDay(days[i]);
+    days[i] = beautifyDay(days[i], params.expanded);
   }
   return days;
 }
@@ -173,14 +176,17 @@ function beautifyGameBlock(locationId, block) {
   return block;
 }
 
-function beautifyDay(day) {
+function beautifyDay(day, expanded) {
+  if (expanded === day._id) {
+    day.expanded = true;
+    day.games = getDaysByUser(day._id);
+  }
   var dayDate = new Date(day.data.datetime);
   day.date = dayDate.getDate().toFixed();
   day.dayName = norseUtils.getDayName(dayDate);
   day.monthName = norseUtils.getMonthName(dayDate);
   day.locations = getLocations(day._id);
   day.space = getDaySpace(day._id);
-  day.games = getDaysByUser(day._id);
   day.available = thymeleaf.render(resolve(views["availableComp"]), {
     games: day.games
   });
@@ -191,7 +197,7 @@ function getDaysByUser(parent) {
   var user = userLib.getCurrentUser();
   var games = getItemsList({
     user: user._id,
-    parent: parent,
+    parentId: parent,
     parentPathLike: true,
     type: "game"
   });

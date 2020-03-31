@@ -6,6 +6,7 @@ var contextLib = require("contextLib");
 var userLib = require("userLib");
 var formSharedLib = require("formSharedLib");
 var common = require("/lib/xp/common");
+var util = require("/lib/util");
 
 exports.modifyGame = modifyGame;
 exports.deleteGame = deleteGame;
@@ -72,6 +73,7 @@ function addGame(data) {
   ) {
     return { error: true, message: "noSpace" };
   }
+  var day = util.content.getParent({ key: location });
   var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
     var parent = contentLib.get({ key: data.blockId });
     var displayName = data.displayName;
@@ -102,6 +104,6 @@ function addGame(data) {
   return {
     error: false,
     message: "success",
-    html: formSharedLib.getView("gmComp", null)
+    html: formSharedLib.getView("gmComp", null, { expanded: day._id })
   };
 }
