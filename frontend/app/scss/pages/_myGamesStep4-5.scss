@@ -1,4 +1,8 @@
 .my_games {
+    &-available-wrapper {
+        display: none;
+    }
+
     &-available-item {
         display: block;
         margin: 10px 0 0;

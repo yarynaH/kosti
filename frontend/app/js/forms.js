@@ -71,12 +71,14 @@ $(".js-my_games").on("click", ".js-my_games-step1", function(e) {
       parent.find(".js-my_games-step2-data").html("");
       parent.removeClass("active");
     });
+    console.log("11");
     return;
   } else {
     $(".js-my_games-step2-data").slideUp("slow", function() {
       $(".js-my_games-step2-data").html("");
       $(".js-my_games-step1-parent").removeClass("active");
     });
+    console.log("22");
   }
 
   parent.addClass("active");
@@ -85,6 +87,14 @@ $(".js-my_games").on("click", ".js-my_games-step1", function(e) {
     parent.find(".js-my_games-step2-data"),
     parent.data().id
   );
+  console.log("33");
+
+  // if (parent.find(".js-my_games-available-list")) {
+  //   parent.find(".js-my_games-available-wrapper").slideDown("slow");
+  //   if (parent.hasClass("active")) {
+
+  //   }
+  // }
 });
 
 $(".js-my_games").on("click", ".js-my_games-location-item", function(e) {
