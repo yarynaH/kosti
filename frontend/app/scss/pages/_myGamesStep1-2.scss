@@ -62,10 +62,6 @@
 
         &-header {
             padding: 15px 40px;
-
-            .active & {
-                padding-bottom: 0;
-            }
         }
 
         &-body {
@@ -103,17 +99,6 @@
         font-weight: normal;
         line-height: 1.43;
         color: $color-primary16;
-        max-height: 150px;
-        opacity: 1;
-        visibility: visible;
-        transition: all .2s ease 0s;
-
-        .my_games-schedule-item.active & {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            // display: none;
-        }
     }
 
     &-btn {
@@ -135,10 +120,6 @@
             transition: transition(color);
         }
 
-        &-list {
-            margin-top: 15px;
-        }
-
         &-item {
             margin: 0 5px 5px 0;
             padding: 2px 8px;
@@ -158,6 +139,10 @@
                 }
             }
         }
+    }
+
+    &-available-list {
+        margin-bottom: 15px;
     }
 
     &-game_block {

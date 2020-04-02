@@ -7,7 +7,7 @@ function appendStep(viewType, js_wrap, id) {
   if (id) {
     data.id = id;
   }
-  $.ajax({
+  return $.ajax({
     url: "/_/service/com.myurchenko.kostirpg/formGM",
     data: data,
     type: "GET",
@@ -67,34 +67,34 @@ function removeGame(id) {
 $(".js-my_games").on("click", ".js-my_games-step1", function(e) {
   var parent = $(this).parent();
   if (parent.hasClass("active")) {
+    parent.find(".js-my_games-available-wrapper").slideUp("slow");
+    parent.find(".js-my_games-table_slot").slideDown();
     parent.find(".js-my_games-step2-data").slideUp("slow", function() {
       parent.find(".js-my_games-step2-data").html("");
       parent.removeClass("active");
     });
-    console.log("11");
-    return;
   } else {
+    var clearData;
+    $(".js-my_games-available-wrapper").slideUp("slow");
+    $(".js-my_games-table_slot").slideDown();
     $(".js-my_games-step2-data").slideUp("slow", function() {
-      $(".js-my_games-step2-data").html("");
+      clearData = $(".js-my_games").find(".js-my_games-step2-data");
       $(".js-my_games-step1-parent").removeClass("active");
+
+      var call = appendStep(
+        "locationAndGameBlockComp",
+        parent.find(".js-my_games-step2-data"),
+        parent.data().id
+      );
+
+      call.done(function() {
+        parent.addClass("active");
+        parent.find(".js-my_games-available-wrapper").slideDown("slow");
+        parent.find(".js-my_games-table_slot").slideUp();
+      });
     });
-    console.log("22");
+    clearData.html("");
   }
-
-  parent.addClass("active");
-  appendStep(
-    "locationAndGameBlockComp",
-    parent.find(".js-my_games-step2-data"),
-    parent.data().id
-  );
-  console.log("33");
-
-  // if (parent.find(".js-my_games-available-list")) {
-  //   parent.find(".js-my_games-available-wrapper").slideDown("slow");
-  //   if (parent.hasClass("active")) {
-
-  //   }
-  // }
 });
 
 $(".js-my_games").on("click", ".js-my_games-location-item", function(e) {
