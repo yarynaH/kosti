@@ -63,38 +63,61 @@ function removeGame(id) {
     }
   });
 }
+function appendBlock(parent) {
+  var call = appendStep(
+    "locationAndGameBlockComp",
+    parent.find(".js-my_games-step2-data"),
+    parent.data().id
+  );
+
+  call.done(function() {
+    parent.addClass("active");
+    parent.find(".js-my_games-available-wrapper").slideDown("slow");
+    parent.find(".js-my_games-table_slot").slideUp();
+  });
+}
+
+function removeBlock(append, parent) {
+  var clearData;
+  $(".js-my_games-step2-data").slideUp("slow", function() {
+    clearData = $(".js-my_games").find(".js-my_games-step2-data");
+    $(".js-my_games-step1-parent").removeClass("active");
+    if (append == true) {
+      appendBlock(parent);
+    }
+  });
+  $(".js-my_games-available-wrapper").slideUp("slow");
+  $(".js-my_games-add_game_btn-wrap").slideUp("slow");
+  $(".js-my_games-table_slot").slideDown();
+  $(".js-my_games-day_slot-title").slideUp("slow");
+  $(".js-my_games-available-item").removeClass("expanded");
+  $(".js-my_games-available-long_info").slideUp("slow");
+  clearData.html("");
+}
 
 $(".js-my_games").on("click", ".js-my_games-step1", function(e) {
   var parent = $(this).parent();
   if (parent.hasClass("active")) {
-    parent.find(".js-my_games-available-wrapper").slideUp("slow");
-    parent.find(".js-my_games-table_slot").slideDown();
-    parent.find(".js-my_games-step2-data").slideUp("slow", function() {
-      parent.find(".js-my_games-step2-data").html("");
-      parent.removeClass("active");
-    });
+    removeBlock();
   } else {
-    var clearData;
-    $(".js-my_games-available-wrapper").slideUp("slow");
-    $(".js-my_games-table_slot").slideDown();
-    $(".js-my_games-step2-data").slideUp("slow", function() {
-      clearData = $(".js-my_games").find(".js-my_games-step2-data");
-      $(".js-my_games-step1-parent").removeClass("active");
-
-      var call = appendStep(
-        "locationAndGameBlockComp",
-        parent.find(".js-my_games-step2-data"),
-        parent.data().id
-      );
-
-      call.done(function() {
-        parent.addClass("active");
-        parent.find(".js-my_games-available-wrapper").slideDown("slow");
-        parent.find(".js-my_games-table_slot").slideUp();
-      });
-    });
-    clearData.html("");
+    if (parent.find(".js-my_games-available-list").length > 0) {
+      removeBlock();
+      parent.addClass("active");
+      parent.find(".js-my_games-available-wrapper").slideDown("slow");
+      parent.find(".js-my_games-add_game_btn-wrap").slideDown("slow");
+      parent.find(".js-my_games-table_slot").slideUp();
+    } else {
+      removeBlock(true, parent);
+    }
   }
+});
+
+$(".js-my_games").on("click", ".js-my_games-add_game_btn", function(e) {
+  var parent = $(this).closest(".js-my_games-step1-parent");
+  console.log(parent);
+  appendBlock(parent);
+  $(".js-my_games-add_game_btn-wrap").slideUp("slow");
+  parent.find(".js-my_games-day_slot-title").slideDown("slow");
 });
 
 $(".js-my_games").on("click", ".js-my_games-location-item", function(e) {
@@ -113,8 +136,7 @@ $(".js-my_games").on("click", ".js-my_games-location-item", function(e) {
 });
 
 $(".js-my_games").on("click", ".js-my_games-step1-discard", function(e) {
-  $(".js-my_games-step1-parent").removeClass("active");
-  $(".js-my_games-step2-data").html("");
+  removeBlock();
 });
 
 $(".js-my_games").on("click", ".js-my_games-step1-select", function(e) {

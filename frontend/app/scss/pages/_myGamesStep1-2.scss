@@ -67,6 +67,11 @@
         &-body {
             padding: 0 40px;
 
+            .my_games-day_slot-title {
+                display: none;
+                margin: 10px 0;
+            }
+
             .active & {
                 padding-bottom: 15px;
             }
@@ -208,6 +213,10 @@
             .my_games-action-secondary {
                 width: auto;
                 padding: 10px 20px;
+            }
+
+            &-add_game {
+                display: none;
             }
         }
 

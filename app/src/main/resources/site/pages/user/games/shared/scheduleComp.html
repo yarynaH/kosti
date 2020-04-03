@@ -22,17 +22,13 @@
                 data-th-utext="${day.available}">
             </div>
 
-            <div class="my_games-step4">
-                <div class="my_games-action-block hidden">
-                    <button class="my_games-action-primary button"
-                        data-th-text="${portal.localize({'_key=myGames.addGame', '_locale=ru'})}"></button>
-                </div>
+            <div class="my_games-action-block my_games-action-block-add_game js-my_games-add_game_btn-wrap">
+                <button class="my_games-action-primary button js-my_games-add_game_btn"
+                    data-th-text="${portal.localize({'_key=myGames.addGame', '_locale=ru'})}"></button>
             </div>
 
-            <div class="my_games-step5 hidden">
-                <h4 class="my_games-day_slot-title"
-                    data-th-text="${portal.localize({'_key=myGames.newGame', '_locale=ru'})}"></h4>
-            </div>
+            <h4 class="my_games-day_slot-title js-my_games-day_slot-title"
+                data-th-text="${portal.localize({'_key=myGames.newGame', '_locale=ru'})}"></h4>
 
             <div class="js-my_games-step2-data my_games-step2-data">
                 <div class="js-my_games-location-wrapper">
