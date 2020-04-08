@@ -1,6 +1,7 @@
 <div class="my_games-schedule-list">
-    <div class="my_games-schedule-item js-my_games-step1-parent" data-th-classappend="${day.expanded ? 'active' : ''}"
-        data-th-each="day : ${days}" data-th-attr="data-id=${day._id}">
+    <div class="my_games-schedule-item js-my_games-step1-parent"
+        data-th-classappend="${day.expanded ? 'game_added' : ''}" data-th-each="day : ${days}"
+        data-th-attr="data-id=${day._id}">
         <div class="my_games-schedule-item-header  js-my_games-step1">
             <h4 class="my_games-day_slot-title">
                 <span data-th-text="${day.displayName}"></span>

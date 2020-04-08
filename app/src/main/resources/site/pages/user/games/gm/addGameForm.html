@@ -30,7 +30,8 @@
                 data-th-text="${portal.localize({'_key=myGames.form.gameSystem', '_locale=ru'})}"></label>
             <div class="select-field">
                 <select required name="gameSystem" id="my_games_system" class="select js-my_games-system">
-                    <option data-th-text="${portal.localize({'_key=myGames.form.gameSystem.choose', '_locale=ru'})}">
+                    <option data-th-text="${portal.localize({'_key=myGames.form.gameSystem.choose', '_locale=ru'})}"
+                        disabled="disabled" selected>
                     </option>
                     <option data-th-selected="${game && game.data.gameSystem.select.system == 'dnd'}" value="dnd">DnD
                     </option>
@@ -111,13 +112,13 @@
                 <span>4</span>
             </label>
 
-            <input data-th-attr="checked=${game && game.data.maxPlayers == 5}" type="radio" name="maxPlayers"
+            <input data-th-attr="checked=${game && game.data.maxPlayers == 5}" required type="radio" name="maxPlayers"
                 id="playears_qty_5" value="5" hidden>
             <label for="playears_qty_5" class="my_games-playears_qty-item label-radio">
                 <span>5</span>
             </label>
 
-            <input data-th-attr="checked=${game && game.data.maxPlayers == 6}" type="radio" name="maxPlayers"
+            <input data-th-attr="checked=${game && game.data.maxPlayers == 6}" required type="radio" name="maxPlayers"
                 id="playears_qty_6" value="6" hidden>
             <label for="playears_qty_6" class="my_games-playears_qty-item label-radio">
                 <span>6</span>
@@ -133,14 +134,14 @@
                 data-th-text="${portal.localize({'_key=myGames.form.adventureLang.ua', '_locale=ru'})}">
             </label>
 
-            <input data-th-attr="checked=${game && game.data.language == 'ru'}" type="radio" name="language"
+            <input data-th-attr="checked=${game && game.data.language == 'ru'}" required type="radio" name="language"
                 id="russian" value="ru" hidden>
             <label for="russian" class="my_games-adventure_lang-item label-radio"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureLang.ru', '_locale=ru'})}">
             </label>
 
-            <input data-th-attr="checked=${game && game.data.language == 'en'}" type="radio" name="language"
-                id="english" value="en" checked hidden>
+            <input data-th-attr="checked=${game && game.data.language == 'en'}" required type="radio" name="language"
+                id="english" value="en" hidden>
             <label for="english" class="my_games-adventure_lang-item label-radio"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureLang.en', '_locale=ru'})}">
             </label>

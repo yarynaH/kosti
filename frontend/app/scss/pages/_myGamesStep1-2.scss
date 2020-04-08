@@ -72,7 +72,8 @@
                 margin: 10px 0;
             }
 
-            .active & {
+            .active &,
+            .game_added & {
                 padding-bottom: 15px;
             }
         }
@@ -92,7 +93,8 @@
                 font-weight: bold;
                 transition: transition(transform);
 
-                .active & {
+                .active &,
+                .game_added & {
                     transform: rotate(90deg);
                 }
             }

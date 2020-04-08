@@ -1,6 +1,10 @@
 .my_games {
     &-available-wrapper {
         display: none;
+
+        .game_added & {
+            display: block;
+        }
     }
 
     &-available-item {
