@@ -28,6 +28,11 @@ exports.login = login;
 exports.discordRegister = discordRegister;
 exports.fbRegister = fbRegister;
 exports.vkRegister = vkRegister;
+exports.addRole = addRole;
+
+function addRole(roleId, userKey) {
+  authLib.addMembers("role:" + roleId, [userKey]);
+}
 
 function getCurrentUser() {
   var user = authLib.getUser();
