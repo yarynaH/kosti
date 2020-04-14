@@ -48,6 +48,19 @@
           вашего заказа в любой момент.
         </td>
       </tr>
+      <tr data-th-if="${specialText}">
+        <td
+          style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;"
+        >
+          Сообщаем также, что всем нашим гостям из РФ мы предоставляем именные
+          приглашения, которые могут потребовать на границе. Кроме того, если у
+          работников пограничной службы возникнут к Вам дополнительные вопросы,
+          Вы можете дать ему номер организатора фестиваля. Будьте добры,
+          напишите нам на <a>info@kostirpg.com</a> письмо с пометкой
+          “Приглашение для гражданина РФ” и укажите в нем Ваши данные (ФИО,
+          номер загранпаспорта, срок его окончания).
+        </td>
+      </tr>
       <tr>
         <td style="padding: 0 0 10px;">
           <table
@@ -171,13 +184,10 @@
                       <div style="font-weight: bold; color: #707070;">
                         Способ оплаты
                       </div>
-                      <div style="padding-bottom: 40px;">
-                        <img
-                          data-th-src="${portal.assetUrl({'_path=images/interkassa-1.png', '_type=absolute'})}"
-                          alt="интеркаса"
-                          color="#707070"
-                        />
-                      </div>
+                      <div
+                        style="padding-bottom: 40px;"
+                        data-th-text="${portal.localize({'_key=store.payment.'+cart.paymentMethod, '_locale=ru'})}"
+                      ></div>
                     </td>
                   </tr>
                   <tr>

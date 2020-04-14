@@ -1,6 +1,7 @@
 var contentLib = require("/lib/xp/content");
 var portal = require("/lib/xp/portal");
 var i18n = require("/lib/xp/i18n");
+var moment = require("moment");
 
 // Returns the full month name from a Date object.
 
@@ -9,6 +10,8 @@ exports.getPlaceholder = getPlaceholder;
 exports.getMonthName = getMonthName;
 exports.getFormattedDate = getFormattedDate;
 exports.getGravatar = getGravatar;
+exports.getDayName = getDayName;
+exports.getTime = getTime;
 
 function getMonthName(date) {
   var month = date.getMonth();
@@ -78,6 +81,17 @@ function getMonthName(date) {
   }
 
   return monthName;
+}
+
+function getDayName(date) {
+  var day = date.getDay();
+  return i18n.localize({
+    key: "days.name." + day
+  });
+}
+
+function getTime(date) {
+  return moment(date).format("HH:mm");
 }
 
 function getFormattedDate(date) {

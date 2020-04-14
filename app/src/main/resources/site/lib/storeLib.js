@@ -2,10 +2,50 @@ let contentLib = require("/lib/xp/content");
 let portal = require("/lib/xp/portal");
 let norseUtils = require("norseUtils");
 let sharedLib = require("sharedLib");
+let cartLib = require("cartLib");
+let hashLib = require("hashLib");
+let checkoutLib = require("checkoutLib");
 let thymeleaf = require("/lib/thymeleaf");
+var httpClientLib = require("/lib/http-client");
+var contextLib = require("contextLib");
+var mailsLib = require("mailsLib");
 
 exports.getSoldTicketsAmount = getSoldTicketsAmount;
 exports.getPriceBlock = getPriceBlock;
+exports.checkLiqpayOrderStatus = checkLiqpayOrderStatus;
+
+function checkLiqpayOrderStatus() {
+  var carts = cartLib.getPendingLiqpayCarts();
+  norseUtils.log(carts.length + " total pending carts found.");
+  for (var i = 0; i < carts.length; i++) {
+    norseUtils.log("fixing cart " + carts[i].userId);
+    var data = hashLib.generateLiqpayData(
+      checkoutLib.getLiqpayStatusData(carts[i])
+    );
+    var signature = hashLib.generateLiqpaySignature(data);
+    var result = JSON.parse(
+      httpClientLib.request({
+        url: "https://www.liqpay.ua/api/request",
+        method: "POST",
+        connectionTimeout: 2000000,
+        readTimeout: 500000,
+        body: "data=" + data + "&signature=" + signature + "",
+        contentType: "application/x-www-form-urlencoded"
+      }).body
+    );
+    if (result && result.status && result.status === "success") {
+      norseUtils.log("cart is paid");
+      checkoutLib.checkoutCart(carts[i], "paid");
+      carts[i] = contextLib.runAsAdmin(function() {
+        return (carts[i] = cartLib.generateItemsIds(carts[i]._id));
+      });
+      norseUtils.log("sending mail");
+      mailsLib.sendMail("orderCreated", carts[i].email, {
+        cart: carts[i]
+      });
+    }
+  }
+}
 
 function getPriceBlock(id) {
   let product = contentLib.get({ key: id });

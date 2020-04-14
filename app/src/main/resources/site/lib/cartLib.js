@@ -27,6 +27,7 @@ exports.getNextId = getNextId;
 exports.savePrices = savePrices;
 exports.fixItemIds = fixItemIds;
 exports.getCartUtils = getCartUtils;
+exports.getPendingLiqpayCarts = getPendingLiqpayCarts;
 
 function getCart(cartId) {
   var cart = {};
@@ -70,17 +71,26 @@ function getCartsByUser(email, id, count) {
   return result;
 }
 
+function getPendingLiqpayCarts() {
+  var cartRepo = connectCartRepo();
+  var result = cartRepo.query({
+    start: 0,
+    count: -1,
+    query: "paymentMethod = 'liqpay' and status = 'pending'"
+  });
+  var carts = [];
+  for (var i = 0; i < result.hits.length; i++) {
+    carts.push(cartRepo.get(result.hits[i].id));
+  }
+  return carts;
+}
+
 function getCartByQr(qr) {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
     count: 1,
-    query:
-      "fulltext('items.itemsIds.id', '\"" +
-      qr +
-      "\"', 'OR') or ngram('items.itemsIds.id', '\"" +
-      qr +
-      "\"', 'OR')"
+    query: "items.itemsIds.id=" + qr + ""
   });
   if (result.total > 0) {
     var cart = getCart(result.hits[0].id);
@@ -90,7 +100,11 @@ function getCartByQr(qr) {
       for (var j = 0; j < cart.items[i].itemsIds.length; j++) {
         cart.items[i].itemsIds = norseUtils.forceArray(cart.items[i].itemsIds);
         if (cart.items[i].itemsIds[j].id == qr) {
+          cart.currentTicketType = contentLib.get({
+            key: cart.items[i]._id
+          }).data.ticketType;
           cart.currentQrStatus = cart.items[i].itemsIds[j].activated;
+          cart.currentFriendlyId = cart.items[i].itemsIds[j].friendlyId;
         }
       }
     }
@@ -253,6 +267,9 @@ function modify(cartId, id, amount, itemSize, force) {
 function modifyInventory(items) {
   items = norseUtils.forceArray(items);
   for (var i = 0; i < items.length; i++) {
+    if (items[i].id && !items[i]._id) {
+      items[i]._id = items[i].id;
+    }
     var result = contentLib.modify({
       key: items[i]._id,
       requireValid: false,
@@ -303,7 +320,7 @@ function setUserDetails(cartId, params) {
     node.step = params.step ? params.step : node.step;
     node.status = params.status ? params.status : node.status;
     node.ik_id = params.ik_id ? params.ik_id : node.ik_id;
-    node.userId = params.userId ? params.userId : node.userId;
+    node.userId = node.userId ? node.userId : getNextId();
     node.index = params.index ? params.index : node.index;
     node.paymentMethod = params.paymentMethod
       ? params.paymentMethod
@@ -504,6 +521,18 @@ function getCartItems(items) {
     var item = contentLib.get({ key: items[i].id });
     if (item && item.data && typeof item.data.inventory === "undefined") {
       item.data.inventory = 99999999;
+    }
+    if (items[i].itemsIds) {
+      items[i].itemsIds = norseUtils.forceArray(items[i].itemsIds);
+      for (var n = 0; n < items[i].itemsIds.length; n++) {
+        if (items[i].itemsIds[n] && items[i].itemsIds[n].id) {
+          if (parseInt(items[i].itemsIds[n].id)) {
+            items[i].itemsIds[n].id = parseInt(
+              items[i].itemsIds[n].id
+            ).toFixed();
+          }
+        }
+      }
     }
     if (item && item.data) {
       result.push({

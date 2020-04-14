@@ -44,7 +44,7 @@
             data-th-each="downloadable: ${product.itemsIds}"
           >
             <a
-              data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + downloadable.id, 'action=ticketPdf', 'ticketType=' + product.ticketType})}"
+              data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + downloadable.id, 'action=ticketPdf'})}"
               >Скачать</a
             >
           </div>

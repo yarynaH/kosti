@@ -13,6 +13,7 @@ var cartLib = require(libLocation + "cartLib");
 var userLib = require(libLocation + "userLib");
 var helpers = require(libLocation + "helpers");
 var pdfLib = require(libLocation + "pdfLib");
+var formSharedLib = require(libLocation + "formSharedLib");
 var commentsLib = require(libLocation + "commentsLib");
 var notificationLib = require(libLocation + "notificationLib");
 
@@ -107,7 +108,25 @@ function handleReq(req) {
       active.games = "active";
       var currTitle = "games";
       var articles = thymeleaf.render(resolve("gamesView.html"), {
-        games: games.hits
+        form: thymeleaf.render(resolve("games/gm/gmComp.html"), {
+          days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
+            days: formSharedLib.getDays()
+            /*
+            locations: thymeleaf.render(
+              resolve("games/shared/locationComp.html"),
+              {}
+            ),
+            available: thymeleaf.render(
+              resolve("games/shared/availableComp.html"),
+              {}
+            ),
+            gameBlocks: thymeleaf.render(
+              resolve("games/gm/gameBlocksComp.html"),
+              {}
+            )
+            */
+          })
+        })
       });
     } else if (up.action == "orders" && currUserFlag) {
       var orders = cartLib.getCartsByUser(content.data.email, content._id);

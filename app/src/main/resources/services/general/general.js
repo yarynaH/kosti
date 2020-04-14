@@ -3,6 +3,7 @@ var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var votesLib = require(libLocation + "votesLib");
 var cartLib = require(libLocation + "cartLib");
+var storeLib = require(libLocation + "storeLib");
 var newsletterLib = require(libLocation + "newsletterLib");
 
 exports.get = function(req) {
@@ -29,6 +30,9 @@ exports.get = function(req) {
       break;
     case "removeUnusedVotes":
       votesLib.removeUnusedVotes();
+      break;
+    case "fixPendingOrders":
+      storeLib.checkLiqpayOrderStatus();
       break;
   }
   return {

@@ -131,7 +131,11 @@ function getorderCreatedMail(params) {
       order: params.order,
       site: sharedLib.getSite(),
       dateString: dateString,
-      cart: params.cart
+      cart: params.cart,
+      specialText:
+        params.cart.country === "ru" && params.cart.shipping === "digital"
+          ? true
+          : false
     }),
     subject: "Ваш заказ получен",
     from: "noreply@kostirpg.com",
@@ -148,7 +152,7 @@ function getorderCreatedMail(params) {
           pdfs.push({
             data: pdfLib.generatePdf({
               template: item.data.ticketType,
-              qrData: params.cart.items[i].itemsIds[j].id.toFixed(),
+              qrData: params.cart.items[i].itemsIds[j].id,
               type: "ticket",
               name: name,
               friendlyId: params.cart.items[i].itemsIds[j].friendlyId

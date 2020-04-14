@@ -59,7 +59,9 @@ function handleReq(req) {
     var content = portal.getContent();
     var ticketsSold = storeLib.getSoldTicketsAmount(content.data.products);
     var progress = Math.min(
-      (ticketsSold / parseInt(content.data.milestone)) * 100,
+      ((ticketsSold - parseInt(content.data.prevMilestone)) /
+        parseInt(content.data.milestone)) *
+        100,
       100
     );
     if (content.data.program) {
