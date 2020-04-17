@@ -115,7 +115,7 @@ function handleReq(req) {
             days: formSharedLib.getDays(),
           }),
         }),
-        playerComp: thymeleaf.render(
+        playerForm: thymeleaf.render(
           resolve("games/player/playerComp.html"),
           {}
         ),
