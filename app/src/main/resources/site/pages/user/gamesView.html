@@ -4,7 +4,8 @@
             data-th-text="${portal.localize({'_key=myGames.kosticon2020', '_locale=ru'})}"></div>
     </div>
     <div class="js-my_games-wrapper">
-        <div data-th-utext="${form}" data-th-remove="tag"></div>
+        <div data-th-utext="${gameMasterForm}" data-th-if="${currUserFlag && currUser.roles.gameMaster}"
+            data-th-remove="tag"></div>
         <!--
 
         <div
