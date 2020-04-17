@@ -115,6 +115,10 @@ function handleReq(req) {
             days: formSharedLib.getDays(),
           }),
         }),
+        playerComp: thymeleaf.render(
+          resolve("games/player/playerComp.html"),
+          {}
+        ),
       });
     } else if (up.action == "orders" && currUserFlag) {
       var orders = cartLib.getCartsByUser(content.data.email, content._id);

@@ -6,12 +6,9 @@
     <div class="js-my_games-wrapper">
         <div data-th-utext="${gameMasterForm}" data-th-if="${currUserFlag && currUser.roles.gameMaster}"
             data-th-remove="tag"></div>
-        <!--
 
-        <div
-        class="my_games-player-wrapper"
-        data-th-utext="${pageComponents.playerComp}"
-        ></div>
+        <div class="my_games-player-wrapper" data-th-utext="${playerComp}"></div>
+        <!--
 
         <div
         class="my_games-addGame-wrapper"
