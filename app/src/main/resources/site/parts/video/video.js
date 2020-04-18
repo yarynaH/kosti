@@ -1,60 +1,62 @@
-var portal = require("/lib/xp/portal"); // Import the portal functions
-var thymeleaf = require("/lib/thymeleaf"); // Import the thymeleaf render function
+var portal = require("/lib/xp/portal");
+var thymeleaf = require("/lib/thymeleaf");
 var contentLib = require("/lib/xp/content");
 
-// Handle GET requests
-exports.get = function(req) {
-  // Find the current component from request
+var libLocation = "../../lib/";
+var norseUtils = require(libLocation + "norseUtils");
+
+exports.get = function (req) {
   var component = portal.getComponent();
 
-  // Find a config variable for the component
   var video = component.config || [],
     url = "",
-    iframe = true;
+    iframe = true,
+    videoSource = null,
+    videoId = null;
 
-  if (video && video.VIDEO_URL) {
-    url = video.VIDEO_URL.split("/");
-    url = url[url.length - 1];
-
-    if (video.VIDEO_SOURCE == "vimeo") {
-      url = "https://player.vimeo.com/video/" + url;
-    } else if (video.VIDEO_SOURCE == "youtube") {
-      if (url.split("?v=")[1]) {
-        url = "https://www.youtube.com/embed/" + url.split("?v=")[1];
-      } else {
-        url = "https://www.youtube.com/embed/" + url;
+  if (video.VIDEO_URL) {
+    if (video.VIDEO_URL.indexOf("vimeo.") !== -1) {
+      videoSource = "vimeo";
+      videoId = video.VIDEO_URL.split("/");
+      videoId = videoId[videoId.length - 1];
+    } else {
+      videoSource = "youtube";
+      if (video.VIDEO_URL.indexOf("?") !== -1) {
+        var videoUrlParts = video.VIDEO_URL.split("?");
+        var videoParams = videoUrlParts[1].split("&");
+        for (var i = 0; i < videoParams.length; i++) {
+          if (videoParams[i].indexOf("v=") !== -1) {
+            videoId = videoParams[i].replace("v=", "");
+          }
+        }
       }
     }
   }
-  if (
-    video &&
-    video.VIDEO_FILE &&
-    video.VIDEO_SOURCE &&
-    video.VIDEO_SOURCE === "upload"
-  ) {
+
+  if (video && video.VIDEO_URL) {
+    if (videoSource == "vimeo") {
+      url = "https://player.vimeo.com/video/" + videoId;
+    } else if (videoSource == "youtube") {
+      url = "https://www.youtube.com/embed/" + videoId;
+    }
+  }
+  if (video && video.VIDEO_FILE) {
     iframe = false;
     var source = portal.attachmentUrl({
-      name: video.VIDEO_FILE
+      name: video.VIDEO_FILE,
     });
   }
 
-  // Define the model
   var model = {
-    component: component,
     iframe: iframe,
     url: url,
-    source: source
+    source: source,
   };
 
-  // Resolve the view
-  var view = resolve("video.html");
+  var body = thymeleaf.render(resolve("video.html"), model);
 
-  // Render a thymeleaf template
-  var body = thymeleaf.render(view, model);
-
-  // Return the result
   return {
     body: body,
-    contentType: "text/html"
+    contentType: "text/html",
   };
 };
