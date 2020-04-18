@@ -268,10 +268,15 @@
             &:hover {
                 color: #666666;
             }
+
+            .expanded &:hover {
+                color: #0095f8;
+            }
         }
 
         &-answer {
             color: #333333;
+            display: none;
         }
     }
 
