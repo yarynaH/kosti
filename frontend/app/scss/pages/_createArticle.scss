@@ -244,12 +244,12 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      background: rgba($color-primary1, 0.5);
+      background: $color-primary1;
       transition: transition(all);
 
       &:hover {
         @include tablet-all {
-          background: $color-primary10;
+          background: $color-primary28;
           color: $color-primary1;
         }
       }
