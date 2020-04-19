@@ -63,6 +63,7 @@
     h1 {
       font-size: rem(48);
     }
+
     h2 {
       font-size: rem(32);
     }
@@ -161,7 +162,9 @@
         text-transform: none;
       }
     }
-  }//end article-content
+  }
+
+  //end article-content
 
   &-img_wrap {
     @include position(absolute, top 0 right 0);
@@ -326,7 +329,7 @@
     padding: 5px 0;
     margin: -5px 0px;
 
-    & + & {
+    &+& {
       margin-top: 20px;
     }
 
@@ -434,6 +437,14 @@
     &:hover {
       color: $color-primary22;
     }
+  }
+
+  &-url {
+    @include truncate();
+
+    flex-basis: 60%;
+    margin-bottom: 10px;
+    align-self: center;
   }
 }
 
