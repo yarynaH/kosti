@@ -8,7 +8,6 @@ var ioLib = require("/lib/xp/io");
 var qrLib = require("qrLib");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
-var newsletter = require("../pages/newsletter/newsletter");
 var sharedLib = require("sharedLib");
 var pdfLib = require("pdfLib");
 
@@ -20,8 +19,12 @@ var mailsTemplates = {
   orderShipped: "../pages/mails/orderShipped.html",
   pendingItem: "../pages/mails/pendingItem.html",
   regularTicket: "../pages/pdfs/regularTicket.html",
-  legendaryTicket: "../pages/pdfs/legendaryTicket.html"
+  legendaryTicket: "../pages/pdfs/legendaryTicket.html",
 };
+
+exports.sendMail = sendMail;
+exports.unsubscribe = unsubscribe;
+exports.prepareNewsletter = prepareNewsletter;
 
 function sendMail(type, email, params) {
   var mail = null;
@@ -39,8 +42,8 @@ function sendMail(type, email, params) {
       mail = getForgotPassMail(email, params);
       break;
     case "newsletter":
-      mail = sendNewsletter();
-      return;
+      mail = getNewsletter(params);
+      email = ["maxskywalker94@gmail.com"];
       break;
     case "pendingItem":
       mail = getPendingItemMail(params);
@@ -54,19 +57,19 @@ function sendMail(type, email, params) {
     subject: mail.subject,
     body: mail.body,
     contentType: 'text/html; charset="UTF-8"',
-    attachments: mail.attachments
+    attachments: mail.attachments,
   });
 }
 
 function prepareNewsletter() {
   var newsletterRepo = nodeLib.connect({
     repoId: "newsletter",
-    branch: "master"
+    branch: "master",
   });
   var nodes = newsletterRepo.query({
     start: 0,
     count: -1,
-    query: "email != ''"
+    query: "email != ''",
   });
   if (nodes.total < 1) {
     return false;
@@ -77,33 +80,33 @@ function prepareNewsletter() {
     var tempEmail = newsletterRepo.get(nodes[i].id);
     emails.push({
       email: tempEmail.email,
-      hash: tempEmail.subscriptionHash
+      hash: tempEmail.subscriptionHash,
     });
   }
   return emails;
 }
 
-function sendNewsletter(email) {
-  var newsletterView = newsletter.renderView();
-  var sent = mailLib.send({
+function getNewsletter(params) {
+  return {
     from: "noreply@kostirpg.com",
     to: ["maxskywalker94@gmail.com"],
-    subject: newsletterView.displayName,
-    body: newsletterView.body,
-    contentType: 'text/html; charset="UTF-8"'
-  });
+    subject: params.displayName,
+    body: params.body,
+    contentType: 'text/html; charset="UTF-8"',
+    attachments: null,
+  };
 }
 
 function unsubscribe(hash) {
-  var result = contextLib.runAsAdmin(function() {
+  var result = contextLib.runAsAdmin(function () {
     var newsletterRepo = nodeLib.connect({
       repoId: "newsletter",
-      branch: "master"
+      branch: "master",
     });
     var node = newsletterRepo.query({
       start: 0,
       count: 1,
-      query: "subscriptionHash = '" + hash + "'"
+      query: "subscriptionHash = '" + hash + "'",
     });
     if (node.total < 1) {
       return false;
@@ -135,11 +138,11 @@ function getorderCreatedMail(params) {
       specialText:
         params.cart.country === "ru" && params.cart.shipping === "digital"
           ? true
-          : false
+          : false,
     }),
     subject: "Ваш заказ получен",
     from: "noreply@kostirpg.com",
-    attachments: getTickets(params)
+    attachments: getTickets(params),
   };
 
   function getTickets(params) {
@@ -155,13 +158,13 @@ function getorderCreatedMail(params) {
               qrData: params.cart.items[i].itemsIds[j].id,
               type: "ticket",
               name: name,
-              friendlyId: params.cart.items[i].itemsIds[j].friendlyId
+              friendlyId: params.cart.items[i].itemsIds[j].friendlyId,
             }),
             mimeType: "application/pdf",
             headers: {
-              "Content-Disposition": 'attachment; filename="' + name + '"'
+              "Content-Disposition": 'attachment; filename="' + name + '"',
             },
-            fileName: name
+            fileName: name,
           });
         }
       }
@@ -186,10 +189,10 @@ function getorderShippedMail(params) {
     body: thymeleaf.render(resolve(mailsTemplates.orderShipped), {
       site: sharedLib.getSite(),
       dateString: dateString,
-      cart: params.cart
+      cart: params.cart,
     }),
     subject: "Ваш заказ отправлен",
-    from: "noreply@kostirpg.com"
+    from: "noreply@kostirpg.com",
   };
 }
 
@@ -200,16 +203,16 @@ function getActivationMail(mail, params) {
     params: {
       mail: encodeURI(mail),
       action: "confirmRegister",
-      hash: params.activationHash
-    }
+      hash: params.activationHash,
+    },
   });
   return {
     body: thymeleaf.render(resolve(mailsTemplates.userActivation), {
       activationUrl: activationUrl,
-      site: sharedLib.getSite()
+      site: sharedLib.getSite(),
     }),
     subject: "Активация аккаунта",
-    from: "noreply@kostirpg.com"
+    from: "noreply@kostirpg.com",
   };
 }
 
@@ -220,16 +223,16 @@ function getForgotPassMail(mail, params) {
     params: {
       action: "forgotPass",
       email: encodeURI(mail),
-      hash: params.forgotPassHash
-    }
+      hash: params.forgotPassHash,
+    },
   });
   return {
     body: thymeleaf.render(resolve(mailsTemplates.forgotPass), {
       resetUrl: resetUrl,
-      site: sharedLib.getSite()
+      site: sharedLib.getSite(),
     }),
     subject: "Смена пароля",
-    from: "noreply@kostirpg.com"
+    from: "noreply@kostirpg.com",
   };
 }
 
@@ -241,16 +244,12 @@ function getPendingItemMail(params) {
         type: "absolute",
         params: {
           action: "details",
-          id: params.id
-        }
+          id: params.id,
+        },
       }),
-      site: sharedLib.getSite()
+      site: sharedLib.getSite(),
     }),
     subject: "Новый заказ ожидание",
-    from: "noreply@kostirpg.com"
+    from: "noreply@kostirpg.com",
   };
 }
-
-exports.sendMail = sendMail;
-exports.unsubscribe = unsubscribe;
-exports.prepareNewsletter = prepareNewsletter;
