@@ -5,36 +5,19 @@
         <h2 class="modal-title">
           Вход
         </h2>
-        <a href="" class="modal-action modal-action-register"
-          >Зарегистрироваться</a
-        >
+        <a href="" class="modal-action modal-action-register">Зарегистрироваться</a>
       </div>
       <div class="modal-body">
         <form class="login-form">
           <div class="form-group">
-            <label for="email-login-input" class="label"
-              >ЭЛЕКТРОННАЯ ПОЧТА</label
-            >
-            <input
-              name="username"
-              class="input-text"
-              id="email-login-input"
-              required
-            />
+            <label for="email-login-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+            <input name="username" class="input-text" id="email-login-input" required />
           </div>
 
           <div class="form-group form-group__action">
-            <label for="password-login-input" class="label">ПАРОЛЬ</label>
-            <a href="" class="modal-action modal-action-forgotpass"
-              >Забыли пароль?</a
-            >
-            <input
-              name="password"
-              type="password"
-              class="input-text"
-              id="password-login-input"
-              required
-            />
+            <label for="password-login-input" class="label label-password">ПАРОЛЬ</label>
+            <input name="password" type="password" class="input-text" id="password-login-input" required />
+            <a href="" class="modal-action modal-action-forgotpass">Забыли пароль?</a>
           </div>
           <div class="form-group form-group-error is-invalid hidden"></div>
 
@@ -48,16 +31,9 @@
         <div class="social_login-action">
           <button class="button social_login-fb">Facebook</button>
           <button class="button social_login-twitter hidden">Twitter</button>
-          <a data-th-href="${vkUrl}" class="button social_login-vk"
-            >Вконтакте</a
-          >
-          <a data-th-href="${discordUrl}" class="button social_login-discord"
-            >Discord</a
-          >
-          <button
-            class="button social_login-google js_social_login-google"
-            id="google-login"
-          >
+          <a data-th-href="${vkUrl}" class="button social_login-vk">Вконтакте</a>
+          <a data-th-href="${discordUrl}" class="button social_login-discord">Discord</a>
+          <button class="button social_login-google js_social_login-google" id="google-login">
             Google
           </button>
         </div>
@@ -79,39 +55,17 @@
         <form action="#" class="register-form">
           <div class="form-group">
             <label for="name-registration-input" class="label">ИМЯ</label>
-            <input
-              name="username"
-              type="text"
-              class="input-text"
-              id="name-registration-input"
-              required
-            />
+            <input name="username" type="text" class="input-text" id="name-registration-input" required />
           </div>
 
           <div class="form-group">
-            <label for="email-registration-input" class="label"
-              >ЭЛЕКТРОННАЯ ПОЧТА</label
-            >
-            <input
-              name="email"
-              type="email"
-              class="input-text"
-              id="emailRegistrationInput"
-              required
-            />
+            <label for="email-registration-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+            <input name="email" type="email" class="input-text" id="emailRegistrationInput" required />
           </div>
 
           <div class="form-group">
-            <label for="password-registration-input" class="label"
-              >ПАРОЛЬ</label
-            >
-            <input
-              name="password"
-              type="password"
-              class="input-text"
-              id="password-registration-input"
-              required
-            />
+            <label for="password-registration-input" class="label">ПАРОЛЬ</label>
+            <input name="password" type="password" class="input-text" id="password-registration-input" required />
           </div>
           <div class="form-group form-group-error is-invalid hidden">
             <span></span>
@@ -136,16 +90,8 @@
       <div class="modal-body">
         <form action="#" class="reset-form">
           <div class="form-group">
-            <label for="email-forgot-input" class="label"
-              >ЭЛЕКТРОННАЯ ПОЧТА</label
-            >
-            <input
-              name="email"
-              type="email"
-              class="input-text"
-              id="email-forgot-input"
-              required
-            />
+            <label for="email-forgot-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+            <input name="email" type="email" class="input-text" id="email-forgot-input" required />
           </div>
           <div class="form-group form-group-error is-invalid hidden">
             <span></span>
@@ -169,28 +115,13 @@
       <div class="modal-body">
         <form action="#" class="reset-form">
           <div class="form-group">
-            <label for="password-social-confirm-input" class="label"
-              >ПАРОЛЬ</label
-            >
-            <input
-              name="password"
-              type="password"
-              class="input-text"
-              id="password-social-confirm-input"
-              required
-            />
+            <label for="password-social-confirm-input" class="label">ПАРОЛЬ</label>
+            <input name="password" type="password" class="input-text" id="password-social-confirm-input" required />
           </div>
 
           <div class="form-group">
-            <label for="password-social-input" class="label"
-              >ПОДТВЕРДИТЕ ПАРОЛЬ</label
-            >
-            <input
-              type="password"
-              class="input-text"
-              id="password-social-input"
-              required
-            />
+            <label for="password-social-input" class="label">ПОДТВЕРДИТЕ ПАРОЛЬ</label>
+            <input type="password" class="input-text" id="password-social-input" required />
           </div>
           <div class="form-group form-group-error is-invalid hidden">
             <span></span>
