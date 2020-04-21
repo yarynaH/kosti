@@ -9,26 +9,22 @@ var sharedLib = require(libLocation + "sharedLib");
 var mailsLib = require(libLocation + "mailsLib");
 
 exports.get = handleReq;
-exports.createBody = createBody;
 
 function createBody(params) {
   var view = resolve("mails.html");
   var model = createModel(params);
-  return thymeleaf.render(view, model);
-}
-
-function sendMail() {
-  mailsLib.sendMail("newsletter", null, { id: content._id });
+  return portal.processHtml({
+    value: thymeleaf.render(view, model),
+    type: "absolute",
+  });
 }
 
 function createModel(params) {
   var content = portal.getContent();
-  var mainRegion = content.page.regions.main;
   var model = {
     showSendButton: params && params.mode && params.mode === "preview",
     content: content,
     site: portal.getSite(),
-    mainRegion: mainRegion,
   };
 
   return model;
