@@ -33,7 +33,13 @@ function createModel(params) {
 }
 
 function handleReq(req) {
-  if (req && req.params && req.params.action === "sendMail") {
+  var user = userLib.getCurrentUser();
+  if (
+    req &&
+    req.params &&
+    req.params.action === "sendMail" &&
+    user.roles.moderator
+  ) {
     var content = portal.getContent();
     mailsLib.sendMail("newsletter", null, {
       body: createBody(),
