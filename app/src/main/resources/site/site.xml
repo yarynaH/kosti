@@ -172,5 +172,8 @@
     <mapping controller="/services/checkout/controllers/liqpay.js">
       <pattern>/payment-processing</pattern>
     </mapping>
+    <mapping controller="/services/user/becomeGm.js">
+      <pattern>/become-gm</pattern>
+    </mapping>
   </mappings>
 </site>

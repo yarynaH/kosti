@@ -257,3 +257,18 @@ $(".js-my_games").on("click", ".js-my_games-edit-game", function (e) {
   var id = $(this).data().id;
   appendStep("addGameForm", $(".js-my_games-wrapper"), id);
 });
+
+//
+// Players Form
+//
+
+$(".js-my_games").on("click", ".js-my_games-find_hash", function (e) {
+  if ($(this).hasClass("expanded")) {
+    $(this).removeClass("expanded");
+    $(this).find(".js-my_games-find_hash-answer").slideUp("slow");
+    return;
+  } else {
+    $(this).addClass("expanded");
+    $(this).find(".js-my_games-find_hash-answer").slideDown("slow");
+  }
+});

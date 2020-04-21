@@ -6,3 +6,7 @@ var contextLib = require("contextLib");
 var userLib = require("userLib");
 var common = require("/lib/xp/common");
 var thymeleaf = require("/lib/thymeleaf");
+
+function validateTicketHash() {}
+
+function saveUserData() {}

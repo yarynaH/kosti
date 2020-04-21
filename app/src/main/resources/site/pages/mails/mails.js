@@ -7,6 +7,7 @@ var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var sharedLib = require(libLocation + "sharedLib");
 var mailsLib = require(libLocation + "mailsLib");
+var userLib = require(libLocation + "userLib");
 
 exports.get = handleReq;
 
@@ -21,8 +22,9 @@ function createBody(params) {
 
 function createModel(params) {
   var content = portal.getContent();
+  var user = userLib.getCurrentUser();
   var model = {
-    showSendButton: params && params.mode && params.mode === "preview",
+    showSendButton: params && params.mode !== "preview" && user.roles.moderator,
     content: content,
     site: portal.getSite(),
   };
