@@ -20,10 +20,9 @@
                 </a>
             </td>
         </tr>
-        <tr data-portal-region="main">
+        <tr>
             <td>
-                <div data-th-each="component : ${mainRegion.components}" data-th-remove="tag">
-                    <div data-portal-component="${component.path}" data-th-remove="tag"></div>
+                <div data-th-utext="${content.data.body}" data-th-remove="tag">
                 </div>
             </td>
         </tr>
