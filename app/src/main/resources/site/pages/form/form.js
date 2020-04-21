@@ -43,12 +43,12 @@ function submitForm(req) {
     var error = false;
     contentLib.modify({
       key: content._id,
-      editor: editor
+      editor: editor,
     });
     contentLib.publish({
       keys: [content._id],
       sourceBranch: "master",
-      targetBranch: "draft"
+      targetBranch: "draft",
     });
     return error;
     function editor(c) {
@@ -75,7 +75,7 @@ function submitForm(req) {
           c.data.eventsBlock[games[j].block].events[games[j].game].users.push({
             name: userName,
             phone: userPhone,
-            user: userId
+            user: userId,
           });
         } else {
           error = true;
@@ -92,7 +92,7 @@ function handleReq(req) {
   function renderView() {
     var view = resolve("form.html");
     var user = userLib.getCurrentUser();
-    if (user.moderator && req.params.admin) {
+    if (user.roles.moderator && req.params.admin) {
       return formAdmin(req, req.params.data);
     }
     if (formLib.checkUserRegistered()) {
@@ -105,8 +105,8 @@ function handleReq(req) {
       body: body,
       contentType: "text/html",
       pageContributions: {
-        bodyEnd: ["<script src='" + fileName + "'></script>"]
-      }
+        bodyEnd: ["<script src='" + fileName + "'></script>"],
+      },
     };
   }
 
@@ -125,7 +125,7 @@ function handleReq(req) {
       user: user,
       error: req.error,
       blocks: blocks,
-      pageComponents: helpers.getPageComponents(req)
+      pageComponents: helpers.getPageComponents(req),
     };
 
     return model;
@@ -142,13 +142,13 @@ function getFormSubmittedView(req) {
     gamesUrl: portal.pageUrl({
       id: user._id,
       params: {
-        action: "games"
-      }
-    })
+        action: "games",
+      },
+    }),
   });
   return {
     body: body,
-    contentType: "text/html"
+    contentType: "text/html",
   };
 }
 
@@ -166,22 +166,22 @@ function formAdmin(req, getData) {
   var model = {
     content: content,
     blocks: blocks,
-    pageComponents: helpers.getPageComponents(req)
+    pageComponents: helpers.getPageComponents(req),
   };
   var body = thymeleaf.render(view, model);
   return {
     body: body,
-    contentType: "text/html"
+    contentType: "text/html",
   };
 }
 
 function loginRequired(req) {
   var view = resolve("loginMessage.html");
   var body = thymeleaf.render(view, {
-    pageComponents: helpers.getPageComponents(req)
+    pageComponents: helpers.getPageComponents(req),
   });
   return {
     body: body,
-    contentType: "text/html"
+    contentType: "text/html",
   };
 }
