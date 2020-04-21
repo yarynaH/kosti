@@ -24,7 +24,6 @@ var mailsTemplates = {
 
 exports.sendMail = sendMail;
 exports.unsubscribe = unsubscribe;
-exports.prepareNewsletter = prepareNewsletter;
 
 function sendMail(type, email, params) {
   var mail = null;
@@ -61,29 +60,21 @@ function sendMail(type, email, params) {
   });
 }
 
-function prepareNewsletter() {
-  var newsletterRepo = nodeLib.connect({
-    repoId: "newsletter",
-    branch: "master",
-  });
-  var nodes = newsletterRepo.query({
-    start: 0,
+function getMailingList() {
+  var repo = sharedLib.connectRepo("newsletter");
+  var result = [];
+  var emails = repo.query({
+    query: "subscribed = 'true'",
     count: -1,
-    query: "email != ''",
   });
-  if (nodes.total < 1) {
-    return false;
+  for (var i = 0; i < emails.hits.length; i++) {
+    var email = repo.get(emails.hits[i].id);
+    result.push(email.email);
   }
-  nodes = norseUtils.forceArray(nodes.hits);
-  var emails = [];
-  for (var i = 0; i < nodes.length; i++) {
-    var tempEmail = newsletterRepo.get(nodes[i].id);
-    emails.push({
-      email: tempEmail.email,
-      hash: tempEmail.subscriptionHash,
-    });
-  }
-  return emails;
+  var unique = result.filter(function (elem, index, self) {
+    return index === self.indexOf(elem);
+  });
+  return unique;
 }
 
 function getNewsletter(params) {
