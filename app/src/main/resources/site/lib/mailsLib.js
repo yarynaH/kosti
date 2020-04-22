@@ -42,7 +42,7 @@ function sendMail(type, email, params) {
       break;
     case "newsletter":
       mail = getNewsletter(params);
-      email = ["maxskywalker94@gmail.com"];
+      email = mail.to;
       break;
     case "pendingItem":
       mail = getPendingItemMail(params);
@@ -109,7 +109,7 @@ function getNewsletter(params) {
   var mails = norseUtils.uniqueArray(customers.concat(subscribers));
   return {
     from: "noreply@kostirpg.com",
-    to: ["maxskywalker94@gmail.com"],
+    to: ["maxskywalker94@gmail.com", "yarynaholod@gmail.com"],
     subject: params.displayName,
     body: params.body,
     contentType: 'text/html; charset="UTF-8"',
