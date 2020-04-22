@@ -50,14 +50,21 @@ function sendMail(type, email, params) {
     default:
       break;
   }
-  var sent = mailLib.send({
-    from: mail.from,
-    to: email,
-    subject: mail.subject,
-    body: mail.body,
-    contentType: 'text/html; charset="UTF-8"',
-    attachments: mail.attachments,
-  });
+  email = norseUtils.forceArray(email);
+  for (var i = 0; i < email.length; i++) {
+    mailLib.send({
+      from: mail.from ? mail.from : "Vecherniye Kosti <noreply@kostirpg.com>",
+      to: [email[i]],
+      subject: mail.subject,
+      body: mail.body,
+      replyTo: "Vecherniye Kosti <info@kostirpg.com>",
+      contentType: 'text/html; charset="UTF-8"',
+      attachments: mail.attachments,
+      headers: {
+        "MIME-Version": "1.0",
+      },
+    });
+  }
 }
 
 function getSubscribersMailingList() {
@@ -108,8 +115,7 @@ function getNewsletter(params) {
     : [];
   var mails = norseUtils.uniqueArray(customers.concat(subscribers));
   return {
-    from: "noreply@kostirpg.com",
-    to: ["maxskywalker94@gmail.com", "yarynaholod@gmail.com"],
+    to: ["maxskywalker94@gmail.com"],
     subject: params.displayName,
     body: params.body,
     contentType: 'text/html; charset="UTF-8"',
@@ -161,7 +167,6 @@ function getorderCreatedMail(params) {
           : false,
     }),
     subject: "Ваш заказ получен",
-    from: "noreply@kostirpg.com",
     attachments: getTickets(params),
   };
 
@@ -212,7 +217,6 @@ function getorderShippedMail(params) {
       cart: params.cart,
     }),
     subject: "Ваш заказ отправлен",
-    from: "noreply@kostirpg.com",
   };
 }
 
@@ -232,7 +236,6 @@ function getActivationMail(mail, params) {
       site: sharedLib.getSite(),
     }),
     subject: "Активация аккаунта",
-    from: "noreply@kostirpg.com",
   };
 }
 
@@ -252,7 +255,6 @@ function getForgotPassMail(mail, params) {
       site: sharedLib.getSite(),
     }),
     subject: "Смена пароля",
-    from: "noreply@kostirpg.com",
   };
 }
 
@@ -270,6 +272,5 @@ function getPendingItemMail(params) {
       site: sharedLib.getSite(),
     }),
     subject: "Новый заказ ожидание",
-    from: "noreply@kostirpg.com",
   };
 }
