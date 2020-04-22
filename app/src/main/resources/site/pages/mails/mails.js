@@ -24,7 +24,7 @@ function createModel(params) {
   var content = portal.getContent();
   var user = userLib.getCurrentUser();
   var model = {
-    showSendButton: params && params.mode !== "preview" && user.roles.moderator,
+    showSendButton: params && params.mode === "live" && user.roles.moderator,
     content: content,
     site: portal.getSite(),
   };
@@ -44,6 +44,7 @@ function handleReq(req) {
     mailsLib.sendMail("newsletter", null, {
       body: createBody(),
       displayName: content.displayName,
+      mailLists: content.data.mailLists,
     });
   }
   function renderView() {

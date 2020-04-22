@@ -60,24 +60,53 @@ function sendMail(type, email, params) {
   });
 }
 
-function getMailingList() {
+function getSubscribersMailingList() {
   var repo = sharedLib.connectRepo("newsletter");
   var result = [];
   var emails = repo.query({
     query: "subscribed = 'true'",
     count: -1,
   });
+  return validateEmailList(repo, emails);
+}
+
+function getCustomersMailingList() {
+  var repo = sharedLib.connectRepo("cart");
+  var result = [];
+  var emails = repo.query({
+    count: -1,
+    filters: {
+      boolean: {
+        must: [
+          {
+            exists: {
+              field: "email",
+            },
+          },
+        ],
+      },
+    },
+  });
+  return validateEmailList(repo, emails);
+}
+
+function validateEmailList(repo, emails) {
+  var result = [];
   for (var i = 0; i < emails.hits.length; i++) {
     var email = repo.get(emails.hits[i].id);
-    result.push(email.email);
+    if (norseUtils.validateEmail(email.email)) {
+      result.push(email.email);
+    }
   }
-  var unique = result.filter(function (elem, index, self) {
-    return index === self.indexOf(elem);
-  });
-  return unique;
+  return norseUtils.uniqueArray(result);
 }
 
 function getNewsletter(params) {
+  var customers = params.mailLists.customers ? getCustomersMailingList() : [];
+  var subscribers = params.mailLists.subscribers
+    ? getSubscribersMailingList()
+    : [];
+  var mails = norseUtils.uniqueArray(customers.concat(subscribers));
   return {
     from: "noreply@kostirpg.com",
     to: ["maxskywalker94@gmail.com"],
