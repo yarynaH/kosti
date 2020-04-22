@@ -12,6 +12,22 @@ exports.getFormattedDate = getFormattedDate;
 exports.getGravatar = getGravatar;
 exports.getDayName = getDayName;
 exports.getTime = getTime;
+exports.validateEmail = validateEmail;
+exports.uniqueArray = uniqueArray;
+
+function validateEmail(email) {
+  if (/(.+)@(.+){1,}\.(.+){2,}/.test(email)) {
+    return true;
+  }
+  return false;
+}
+
+function uniqueArray(array) {
+  var unique = array.filter(function (elem, index, self) {
+    return index === self.indexOf(elem);
+  });
+  return unique;
+}
 
 function getMonthName(date) {
   var month = date.getMonth();
@@ -20,62 +36,62 @@ function getMonthName(date) {
   switch (month) {
     case 0:
       monthName = i18n.localize({
-        key: "months.jan.date"
+        key: "months.jan.date",
       });
       break;
     case 1:
       monthName = i18n.localize({
-        key: "months.feb.date"
+        key: "months.feb.date",
       });
       break;
     case 2:
       monthName = i18n.localize({
-        key: "months.mar.date"
+        key: "months.mar.date",
       });
       break;
     case 3:
       monthName = i18n.localize({
-        key: "months.apr.date"
+        key: "months.apr.date",
       });
       break;
     case 4:
       monthName = i18n.localize({
-        key: "months.may.date"
+        key: "months.may.date",
       });
       break;
     case 5:
       monthName = i18n.localize({
-        key: "months.jun.date"
+        key: "months.jun.date",
       });
       break;
     case 6:
       monthName = i18n.localize({
-        key: "months.jul.date"
+        key: "months.jul.date",
       });
       break;
     case 7:
       monthName = i18n.localize({
-        key: "months.aug.date"
+        key: "months.aug.date",
       });
       break;
     case 8:
       monthName = i18n.localize({
-        key: "months.sep.date"
+        key: "months.sep.date",
       });
       break;
     case 9:
       monthName = i18n.localize({
-        key: "months.oct.date"
+        key: "months.oct.date",
       });
       break;
     case 10:
       monthName = i18n.localize({
-        key: "months.nov.date"
+        key: "months.nov.date",
       });
       break;
     case 11:
       monthName = i18n.localize({
-        key: "months.dec.date"
+        key: "months.dec.date",
       });
       break;
   }
@@ -86,7 +102,7 @@ function getMonthName(date) {
 function getDayName(date) {
   var day = date.getDay();
   return i18n.localize({
-    key: "days.name." + day
+    key: "days.name." + day,
   });
 }
 
@@ -106,7 +122,7 @@ function getFormattedDate(date) {
 }
 // MD5 (Message-Digest Algorithm) by WebToolkit http://www.deluxeblogtips.com/2010/04/get-gravatar-using-only-javascript.html
 function getGravatar(email, size) {
-  var MD5 = function(s) {
+  var MD5 = function (s) {
     function L(k, d) {
       return (k << d) | (k >>> (32 - d));
     }
@@ -319,7 +335,7 @@ function getGravatar(email, size) {
   return "http://www.gravatar.com/avatar/" + MD5(email) + ".jpg?s=" + size;
 }
 
-exports.getSearchPage = function() {
+exports.getSearchPage = function () {
   var site = portal.getSite();
   var siteConfig = portal.getSiteConfig();
   var searchPageKey = siteConfig.searchPage;
@@ -332,7 +348,7 @@ exports.getSearchPage = function() {
   return site._path + "/search";
 };
 
-exports.log = function(data, location) {
+exports.log = function (data, location) {
   if (location) {
     log.info(
       "Utilities log at %s: %s",
@@ -344,23 +360,23 @@ exports.log = function(data, location) {
   }
 };
 
-exports.isInt = function(x) {
+exports.isInt = function (x) {
   return Math.round(x) === x;
 };
 
-exports.getContent = function(key) {
+exports.getContent = function (key) {
   var content;
   if (typeof key == "undefined") {
     content = portal.getContent();
   } else {
     content = contentLib.get({
-      key: key
+      key: key,
     });
   }
   return content;
 };
 
-exports.forceArray = function(data) {
+exports.forceArray = function (data) {
   if (!Array.isArray(data)) {
     data = [data];
   }
@@ -373,7 +389,7 @@ exports.forceArray = function(data) {
  * @param {Boolean} Flag true to delete properties in nested objects.
  * @return {Boolean} Returns true if the value is an integer or can be cast to an integer.
  */
-exports.deleteEmptyProperties = function(obj, recursive) {
+exports.deleteEmptyProperties = function (obj, recursive) {
   for (var i in obj) {
     if (obj[i] === "") {
       delete obj[i];
@@ -383,7 +399,7 @@ exports.deleteEmptyProperties = function(obj, recursive) {
   }
 };
 
-exports.getTranslation = function() {
+exports.getTranslation = function () {
   var params = parseParams(arguments);
 
   var result = params["defaultText"];
@@ -404,7 +420,7 @@ exports.getTranslation = function() {
       start: 0,
       count: 1,
       query: query,
-      contentTypes: [app.name + ":translation"]
+      contentTypes: [app.name + ":translation"],
     });
 
     if (translations && translations.count == 1) {
@@ -412,7 +428,7 @@ exports.getTranslation = function() {
       var translationLines = translations.hits[0].data.translation;
       translationLines = exports.forceArray(translationLines);
       if (translationLines.length && translationLines.length > 0) {
-        translationLines.forEach(function(translation) {
+        translationLines.forEach(function (translation) {
           if (translation.key == params.key) {
             result = translation.text;
             if (params.arguments.length > 0) {
@@ -432,7 +448,7 @@ exports.getTranslation = function() {
       arguments: [],
       defaultText: "",
       key: "",
-      context: false
+      context: false,
     };
     for (var i = 0; i < params.length; i++) {
       switch (i) {
@@ -488,19 +504,19 @@ function getImage(id, size, placeholderType, urlType) {
         var url = portal.attachmentUrl({
           path: image._path,
           name: image._name,
-          type: urlType
+          type: urlType,
         });
         var urlAbsolute = portal.attachmentUrl({
           path: image._path,
           name: image._name,
-          type: "absolute"
+          type: "absolute",
         });
       } else {
         var url = portal.imageUrl({ id: id, scale: size, type: urlType });
         var urlAbsolute = portal.imageUrl({
           id: id,
           scale: size,
-          type: "absolute"
+          type: "absolute",
         });
       }
       result = {
@@ -509,7 +525,7 @@ function getImage(id, size, placeholderType, urlType) {
         alt: image.data.caption ? image.data.caption : image.displayName,
         caption: image.data.caption ? image.data.caption : "",
         artist: image.data.artist,
-        _id: image._id
+        _id: image._id,
       };
     } else {
       result = this.getPlaceholder(placeholderType, size);
@@ -526,33 +542,33 @@ function getPlaceholder(placeholderType, size) {
     case 1: {
       result = {
         url: portal.assetUrl({
-          path: "images/default_avatar.png"
+          path: "images/default_avatar.png",
         }),
         alt: "City image",
         caption: "",
-        placeholder: true
+        placeholder: true,
       };
       break;
     }
     case 2: {
       result = {
         url: portal.assetUrl({
-          path: "images/townPlaceholder.jpg"
+          path: "images/townPlaceholder.jpg",
         }),
         alt: "City icon",
         caption: "",
-        placeholder: true
+        placeholder: true,
       };
       break;
     }
     default: {
       result = {
         url: portal.assetUrl({
-          path: "images/townPlaceholder.jpg"
+          path: "images/townPlaceholder.jpg",
         }),
         alt: "placeholder",
         caption: "",
-        placeholder: true
+        placeholder: true,
       };
       break;
     }
