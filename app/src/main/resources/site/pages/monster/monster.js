@@ -1,7 +1,7 @@
 var thymeleaf = require("/lib/thymeleaf");
 var authLib = require("/lib/xp/auth");
 var libs = {
-  context: require("/lib/xp/context")
+  context: require("/lib/xp/context"),
 };
 
 var libLocation = "../../lib/";
@@ -27,14 +27,14 @@ function handleReq(req) {
       body: body,
       contentType: "text/html",
       pageContributions: {
-        bodyEnd: ["<script src='" + fileName + "'></script>"]
-      }
+        bodyEnd: ["<script src='" + fileName + "'></script>"],
+      },
     };
   }
 
   function createModel() {
     var up = req.params;
-    var content = contextLib.runInDraftAsAdmin(function() {
+    var content = contextLib.runInDraftAsAdmin(function () {
       return portal.getContent();
     });
     content.data.actions = norseUtils.forceArray(content.data.actions);
@@ -45,11 +45,23 @@ function handleReq(req) {
     content.data.specialAbilities = norseUtils.forceArray(
       content.data.specialAbilities
     );
+    var contentType = contentLib.getType(app.name + ":monster");
+    var inputs = { alignments: null, sizes: null, types: null };
+    for (var i = 0; i < contentType.form.length; i++) {
+      if (contentType.form[i].name === "alignment") {
+        inputs.alignments = contentType.form[i].config.option;
+      } else if (contentType.form[i].name === "type") {
+        inputs.types = contentType.form[i].config.option;
+      } else if (contentType.form[i].name === "size") {
+        inputs.sizes = contentType.form[i].config.option;
+      }
+    }
 
     var model = {
       content: content,
       app: app,
-      pageComponents: helpers.getPageComponents(req)
+      inputs: inputs,
+      pageComponents: helpers.getPageComponents(req),
     };
 
     return model;
