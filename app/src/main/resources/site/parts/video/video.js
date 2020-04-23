@@ -4,6 +4,7 @@ var contentLib = require("/lib/xp/content");
 
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
+var articlesLib = require(libLocation + "articlesLib");
 
 exports.get = function (req) {
   var component = portal.getComponent();
@@ -21,15 +22,7 @@ exports.get = function (req) {
       videoId = videoId[videoId.length - 1];
     } else {
       videoSource = "youtube";
-      if (video.VIDEO_URL.indexOf("?") !== -1) {
-        var videoUrlParts = video.VIDEO_URL.split("?");
-        var videoParams = videoUrlParts[1].split("&");
-        for (var i = 0; i < videoParams.length; i++) {
-          if (videoParams[i].indexOf("v=") !== -1) {
-            videoId = videoParams[i].replace("v=", "");
-          }
-        }
-      }
+      videoId = articlesLib.getYoutubeVideoId(video.VIDEO_URL);
     }
   }
 

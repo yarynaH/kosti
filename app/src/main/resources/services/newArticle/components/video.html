@@ -1,17 +1,20 @@
-<div
-  data-th-class="${'create_article-video_editor js_video-editor js_single-part js_single-part-' + id}"
->
-  <div data-th-if="${videoId}" class="video-container">
-    <iframe
-      frameborder="0"
-      src="https://www.youtube.com/embed/UkWd0azv3fQ"
-      webkitallowfullscreen
-      mozallowfullscreen
-      allowfullscreen
-    ></iframe>
-  </div>
-  <div data-th-if="${form}" data-th-remove="tag">
-    <input type="text" />
-    <button type="text">Apply</button>
-  </div>
+<div data-th-if="${form}" data-th-attr="data-id=${id}"
+    data-th-class="${'create_article-video_editor js_video-editor js_single-part js_single-part-' + id}">
+    <div data-th-remove="tag">
+        <input type="text" />
+        <button type="text">Apply</button>
+    </div>
+    <div class="create_article-editor_actions">
+        <div class="create_article-editor_actions-remove js_remove-part"></div>
+        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
+        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+    </div>
+</div>
+<div data-th-if="${videoId}" data-th-remove="tag">
+    <img data-th-src="${'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg'}" data-th-attr="data-url=${url}">
+    <div class="create_article-editor_actions">
+        <div class="create_article-editor_actions-remove js_remove-part"></div>
+        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
+        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+    </div>
 </div>

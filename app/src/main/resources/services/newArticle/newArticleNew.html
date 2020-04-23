@@ -1,213 +1,137 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <script src="https://cdn.tiny.cloud/1/bjocqei8sx4e4qom6muuy7eugbpc20u5bim7tu2zg8veawoj/tinymce/5/tinymce.min.js"></script>
-  <body
-    class="page-wrapper article-page article-page-create_article transparent-header"
-  >
-    <div
-      data-th-remove="tag"
-      data-th-utext="${pageComponents.loginRegisterModal}"
-    ></div>
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<script src="https://cdn.tiny.cloud/1/bjocqei8sx4e4qom6muuy7eugbpc20u5bim7tu2zg8veawoj/tinymce/5/tinymce.min.js">
+</script>
+
+<body class="page-wrapper article-page article-page-create_article transparent-header">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="article-img_wrap js_main-image">
-        <div class="article-img_wrap-placeholder"></div>
-      </div>
-      <form
-        class="blog blog_width clearfix"
-        form
-        method="POST"
-        enctype="multipart/form-data"
-        id="newArticleForm"
-      >
-        <div class="article-header">
-          <div data-th-if="${author}" class="post-info">
-            <a data-th-href="${author.url}">
-              <span class="post-user_avatar">
-                <img data-th-src="${author.image.url}" alt="" />
-              </span>
-              <span
-                class="post-user_name"
-                data-th-text="${author.displayName}"
-              ></span>
-            </a>
-            <span class="post-date" data-th-text="${date}"></span>
-          </div>
-          <div class="form-group">
-            <h1
-              id="article-title-input"
-              contenteditable="true"
-              class="post-title js_title-div"
-              data-placeholder="Введите здесь название статьи"
-            >
-              Введите здесь название статьи
-            </h1>
-            <input name="title" type="hidden" required class="js_title-input" />
-          </div>
+        <div class="article-img_wrap js_main-image">
+            <div class="article-img_wrap-placeholder"></div>
         </div>
-        <div class="blog-content">
-          <div class="article-body">
-            <div class="article-content">
-              <div class="form-group create_article-post_text_wrap">
-                <div
-                  contenteditable="true"
-                  id="article-intro-input"
-                  class="post-text js_intro-div"
-                  data-placeholder="Введите здесь краткий текст, который опишет о чем именно будет статья. Появляется при просмотре списка статей. Не появляется на странице самой статьи."
-                >
-                  Введите здесь краткий текст, который опишет о чем именно будет
-                  статья. Появляется при просмотре списка статей. Не появляется
-                  на странице самой статьи.
+        <form class="blog blog_width clearfix" form method="POST" enctype="multipart/form-data" id="newArticleForm">
+            <div class="article-header">
+                <div data-th-if="${author}" class="post-info">
+                    <a data-th-href="${author.url}">
+                        <span class="post-user_avatar">
+                            <img data-th-src="${author.image.url}" alt="" />
+                        </span>
+                        <span class="post-user_name" data-th-text="${author.displayName}"></span>
+                    </a>
+                    <span class="post-date" data-th-text="${date}"></span>
                 </div>
-                <input
-                  name="intro"
-                  type="hidden"
-                  required
-                  class="js_intro-input"
-                />
-              </div>
-              <div class="create_article-add_main_img-wrap">
-                <label
-                  for="article-image-input"
-                  class="create_article-add_main_img js_label-file"
-                >
-                  <span
-                    data-th-text="${portal.localize({'_key=user.newArticle.article.chooseImage', '_locale=ru'})}"
-                    data-th-remove="tag"
-                  ></span>
-                  <span class="create_article-add_main_img-icon"></span>
-                </label>
-                <input
-                  data-th-value="${data.image}"
-                  id="article-image-input"
-                  type="file"
-                  name="image"
-                  required
-                  hidden
-                />
-                <div class="form-caption">
-                  Рекоммендуемый размер изображения 1920х560 пикселей, или
-                  больше.
+                <div class="form-group">
+                    <h1 id="article-title-input" contenteditable="true" class="post-title js_title-div"
+                        data-placeholder="Введите здесь название статьи">
+                        Введите здесь название статьи
+                    </h1>
+                    <input name="title" type="hidden" required class="js_title-input" />
                 </div>
-              </div>
-              <div class="js_parts-block"></div>
-              <div class="create_article-add_content">
-                <div class="create_article-add_content-inner">
-                  <div
-                    class="create_article-add_content-btn js_new-part-dropdown"
-                  >
-                    <span class="create_article-add_content-icon"
-                      >Добавить контент</span
-                    >
-                  </div>
-                  <div
-                    class="create_article-add_content-actions hidden js_dropdown-content"
-                  >
-                    <div
-                      class="create_article-add_content-action icon-text js_add-text js_new-part"
-                    >
-                      Текст
-                    </div>
-                    <label
-                      class="create_article-add_content-action icon-image js_add-image"
-                      for="new-part-image"
-                      >Картинку
-                      <input
-                        class="js_new-part"
-                        id="new-part-image"
-                        type="file"
-                        name="image_part"
-                        hidden
-                    /></label>
-                    <div
-                      class="hidden create_article-add_content-action icon-video js_add-video js_new-part"
-                    >
-                      Видео
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="tag-list add-article-tag-list js_tag-list">
-                  <div class="tag-list-add_new js_add-hashtag-input-wrapper">
-                    <input
-                      class="js_add-hashtag-input tag-item"
-                      placeholder="Добавить хештег"
-                      size="16"
-                    />
-                    <div class="js_hashtag-suggestion-wrapper"></div>
-                  </div>
-                </div>
-              </div>
             </div>
-            <div class="post-footer">
-              <div class="post-counters">
-                <div class="share-block social">
-                  <span class="post-counter icon-share">0</span>
+            <div class="blog-content">
+                <div class="article-body">
+                    <div class="article-content">
+                        <div class="form-group create_article-post_text_wrap">
+                            <div contenteditable="true" id="article-intro-input" class="post-text js_intro-div"
+                                data-placeholder="Введите здесь краткий текст, который опишет о чем именно будет статья. Появляется при просмотре списка статей. Не появляется на странице самой статьи.">
+                                Введите здесь краткий текст, который опишет о чем именно будет
+                                статья. Появляется при просмотре списка статей. Не появляется
+                                на странице самой статьи.
+                            </div>
+                            <input name="intro" type="hidden" required class="js_intro-input" />
+                        </div>
+                        <div class="create_article-add_main_img-wrap">
+                            <label for="article-image-input" class="create_article-add_main_img js_label-file">
+                                <span
+                                    data-th-text="${portal.localize({'_key=user.newArticle.article.chooseImage', '_locale=ru'})}"
+                                    data-th-remove="tag"></span>
+                                <span class="create_article-add_main_img-icon"></span>
+                            </label>
+                            <input data-th-value="${data.image}" id="article-image-input" type="file" name="image"
+                                required hidden />
+                            <div class="form-caption">
+                                Рекоммендуемый размер изображения 1920х560 пикселей, или
+                                больше.
+                            </div>
+                        </div>
+                        <div class="js_parts-block"></div>
+                        <div class="create_article-add_content">
+                            <div class="create_article-add_content-inner">
+                                <div class="create_article-add_content-btn js_new-part-dropdown">
+                                    <span class="create_article-add_content-icon">Добавить контент</span>
+                                </div>
+                                <div class="create_article-add_content-actions hidden js_dropdown-content">
+                                    <div class="create_article-add_content-action icon-text js_add-text js_new-part">
+                                        Текст
+                                    </div>
+                                    <label class="create_article-add_content-action icon-image js_add-image"
+                                        for="new-part-image">Картинку
+                                        <input class="js_new-part" id="new-part-image" type="file" name="image_part"
+                                            hidden /></label>
+                                    <div class="create_article-add_content-action icon-video js_add-video js_new-part">
+                                        Видео
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="tag-list add-article-tag-list js_tag-list">
+                                <div class="tag-list-add_new js_add-hashtag-input-wrapper">
+                                    <input class="js_add-hashtag-input tag-item" placeholder="Добавить хештег"
+                                        size="16" />
+                                    <div class="js_hashtag-suggestion-wrapper"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-footer">
+                        <div class="post-counters">
+                            <div class="share-block social">
+                                <span class="post-counter icon-share">0</span>
+                            </div>
+                            <span class="post-counter icon-views">0</span>
+                            <a class="post-counter icon-comment"></a>
+                        </div>
+                        <div class="post-actions">
+                            <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks"></span>
+                            <span class="like-btn icon-rock js_like-article">
+                                <span>0</span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <span class="post-counter icon-views">0</span>
-                <a class="post-counter icon-comment"></a>
-              </div>
-              <div class="post-actions">
-                <span
-                  class="add_to_bookmarks-btn icon-bookmark js_bookmarks"
-                ></span>
-                <span class="like-btn icon-rock js_like-article">
-                  <span>0</span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div class="similar_posts js_similar_posts">
-            <h4
-              class="similar_posts-title"
-              data-th-text="${portal.localize({'_key=blog.title.similarArticles', '_locale=ru'})}"
-            ></h4>
-            <ul class="similar_posts-list js_similar_posts-list"></ul>
+                <div class="similar_posts js_similar_posts">
+                    <h4 class="similar_posts-title"
+                        data-th-text="${portal.localize({'_key=blog.title.similarArticles', '_locale=ru'})}"></h4>
+                    <ul class="similar_posts-list js_similar_posts-list"></ul>
 
-            <div class="similar_posts-add_new">
-              <input
-                class="js_add-article-input"
-                placeholder="Добавить похожую статью"
-              />
-              <div class="js_article-suggestion-wrapper suggestion-wrap"></div>
+                    <div class="similar_posts-add_new">
+                        <input class="js_add-article-input" placeholder="Добавить похожую статью" />
+                        <div class="js_article-suggestion-wrapper suggestion-wrap"></div>
+                    </div>
+                </div>
+                <div class="post">
+                    <div class="form-group">
+                        <input required type="checkbox" name="agreement" id="agreement" checked hidden />
+                        <label for="agreement" class="label-checkbox">Я прочитал и принимаю
+                            <a data-th-href="${agreementPage}" target="_blank">условия публикации статей</a></label>
+                    </div>
+                    <div class="form-group">
+                        <div data-th-text="${errorMessage}" class="error-msg"></div>
+                        <input type="submit" class="button button-light"
+                            data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}" />
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="post">
-            <div class="form-group">
-              <input
-                required
-                type="checkbox"
-                name="agreement"
-                id="agreement"
-                checked
-                hidden
-              />
-              <label for="agreement" class="label-checkbox"
-                >Я прочитал и принимаю
-                <a data-th-href="${agreementPage}" target="_blank"
-                  >условия публикации статей</a
-                ></label
-              >
-            </div>
-            <div class="form-group">
-              <div data-th-text="${errorMessage}" class="error-msg"></div>
-              <input
-                type="submit"
-                class="button button-light"
-                data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}"
-              />
-            </div>
-          </div>
-        </div>
-        <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
-      </form>
+            <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
+        </form>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-    <script
-      data-th-src="${portal.assetUrl({'_path=js/newArticle.js'})}"
-    ></script>
-  </body>
+    <script data-th-src="${portal.assetUrl({'_path=js/newArticle.js'})}"></script>
+</body>
+
 </html>
