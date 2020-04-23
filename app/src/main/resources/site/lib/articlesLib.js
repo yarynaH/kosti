@@ -219,7 +219,6 @@ function insertComponents(id, data) {
   });
   function editor(node, json) {
     node.components = json;
-    norseUtils.log(node);
     return node;
   }
 }
