@@ -10,6 +10,10 @@
         <div class="blog_width  h-mt-70">
             <form method="POST" class="monster_gen js_monster-form">
                 <h2 class="title-2 h-mb-20">Monster Generator</h2>
+                <div data-th-each="stat, i : ${inputs.stats}">
+                    <div data-th-text="${stat.name}"></div>
+                    <div data-th-text="${inputs.savethrow[i.index].name}"></div>
+                </div>
                 <input name="id" type="text" class="input-text" id="monster_gen-id-input" data-th-value="${content._id}"
                     hidden />
                 <div class="form-group-column">

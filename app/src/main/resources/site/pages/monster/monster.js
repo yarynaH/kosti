@@ -46,14 +46,28 @@ function handleReq(req) {
       content.data.specialAbilities
     );
     var contentType = contentLib.getType(app.name + ":monster");
-    var inputs = { alignments: null, sizes: null, types: null };
+    var inputs = {
+      alignments: null,
+      sizes: null,
+      types: null,
+      stats: [],
+      savethrow: [],
+    };
     for (var i = 0; i < contentType.form.length; i++) {
-      if (contentType.form[i].name === "alignment") {
-        inputs.alignments = contentType.form[i].config.option;
-      } else if (contentType.form[i].name === "type") {
-        inputs.types = contentType.form[i].config.option;
-      } else if (contentType.form[i].name === "size") {
-        inputs.sizes = contentType.form[i].config.option;
+      var item = contentType.form[i];
+      var itemDisplay =
+        item && item.config && item.config.display && item.config.display[0]
+          ? item.config && item.config.display && item.config.display[0]
+          : null;
+      if (item.name === "alignment") {
+        inputs.alignments = item.config.option;
+      } else if (item.name === "type") {
+        inputs.types = item.config.option;
+      } else if (item.name === "size") {
+        inputs.sizes = item.config.option;
+      } else if (itemDisplay && itemDisplay["@group"]) {
+        item.display = itemDisplay;
+        inputs[itemDisplay["@group"]].push(prepareInput(item));
       }
     }
 
@@ -65,6 +79,13 @@ function handleReq(req) {
     };
 
     return model;
+
+    function prepareInput(input) {
+      delete input.occurrences;
+      delete item.maximize;
+      delete item.config;
+      return input;
+    }
   }
 
   return renderView();

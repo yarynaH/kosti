@@ -6,30 +6,52 @@
     <input name="armorClass" type="Long">
       <label>Armor class</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="false" create="true"></display>
+        <group></group>
+      </config>
     </input>
-    <input name="charisma" type="Long">
-      <label>charisma</label>
+    <input name="strength" type="Long">
+      <label>strength</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="stats"/>
+      </config>
     </input>
-    <input name="charismaSave" type="Long">
-      <label>charisma save</label>
+    <input name="strengthSave" type="Long">
+      <label>strength save</label>
       <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="constitution" type="Long">
-      <label>constitution</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="constitutionSave" type="Long">
-      <label>constitution save</label>
-      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="savethrow"/>
+      </config>
     </input>
     <input name="dexterity" type="Long">
       <label>dexterity</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="stats"/>
+      </config>
     </input>
     <input name="dexteritySave" type="Long">
       <label>dexterity save</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="savethrow"/>
+      </config>
+    </input>
+    <input name="constitution" type="Long">
+      <label>constitution</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="stats"/>
+      </config>
+    </input>
+    <input name="constitutionSave" type="Long">
+      <label>constitution save</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="savethrow"/>
+      </config>
     </input>
     <input name="hitPoints" type="Long">
       <label>hit points</label>
@@ -38,26 +60,44 @@
     <input name="intelligence" type="Long">
       <label>intelligence</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="stats"/>
+      </config>
     </input>
     <input name="intelligenceSave" type="Long">
       <label>intelligence save</label>
       <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="strength" type="Long">
-      <label>strength</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="strengthSave" type="Long">
-      <label>strength save</label>
-      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="savethrow"/>
+      </config>
     </input>
     <input name="wisdom" type="Long">
       <label>wisdom</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="stats"/>
+      </config>
     </input>
     <input name="wisdomSave" type="Long">
       <label>wisdom save</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="savethrow"/>
+      </config>
+    </input>
+    <input name="charisma" type="Long">
+      <label>charisma</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="stats"/>
+      </config>
+    </input>
+    <input name="charismaSave" type="Long">
+      <label>charisma save</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="savethrow"/>
+      </config>
     </input>
     <item-set name="actions">
       <label>Actions</label>
@@ -319,18 +359,30 @@
     <input name="damageImmunities" type="TextLine">
       <label>damage immunities</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true"/>
+      </config>
     </input>
     <input name="damageResistances" type="TextLine">
       <label>damage resistances</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true"/>
+      </config>
     </input>
     <input name="conditionImmunities" type="TextLine">
       <label>damage immunities</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true"/>
+      </config>
     </input>
     <input name="damageVulnerabilities" type="TextLine">
       <label>damage vulnerabilities</label>
       <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true"/>
+      </config>
     </input>
     <input name="translated" type="CheckBox">
       <label>Translated</label>
