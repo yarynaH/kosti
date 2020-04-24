@@ -1,4 +1,4 @@
-<div class="my_games js-my_games">
+<div class="my_games js-my_games hidden">
     <div class="my_games-event_name-list">
         <div class="my_games-event_name-item active"
             data-th-text="${portal.localize({'_key=myGames.kosticon2020', '_locale=ru'})}"></div>
@@ -7,7 +7,8 @@
         <div data-th-utext="${gameMasterForm}" data-th-if="${currUserFlag && currUser.roles.gameMaster}"
             data-th-remove="tag"></div>
 
-        <div class="my_games-player-wrapper" data-th-utext="${playerForm}"></div>
+        <div class="my_games-player-wrapper" data-th-if="${currUserFlag && currUser.roles.gameMaster}"
+            data-th-utext="${playerForm}"></div>
         <!--
 
         <div
