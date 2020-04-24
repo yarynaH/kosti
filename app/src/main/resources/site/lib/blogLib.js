@@ -300,10 +300,18 @@ function updateSchedule() {
     var schedules = contentLib.query({
       start: 0,
       count: 5,
-      query:
-        "data.date < dateTime('" +
-        currDate.toISOString() +
-        "') AND data.repeat = 'true'"
+      query: "data.date < dateTime('" + currDate.toISOString() + "')",
+      filters: {
+        boolean: {
+          must: [
+            {
+              exists: {
+                field: "data.repeat"
+              }
+            }
+          ]
+        }
+      }
     });
     for (var i = 0; i < schedules.hits.length; i++) {
       norseUtils.log("Updating " + schedules.hits[i]._id);
@@ -319,7 +327,7 @@ function updateSchedule() {
       });
       function editor(c) {
         var tempDate = new Date(c.data.date);
-        tempDate.setDate(tempDate.getDate() + 7);
+        tempDate.setDate((tempDate.getDate() + 7) * parseInt(c.data.repeat));
         tempDate = tempDate.toISOString();
         c.data.date = tempDate;
         return c;

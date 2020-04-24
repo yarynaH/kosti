@@ -107,6 +107,7 @@ function handleReq(req) {
         result[i].month = norseUtils.getMonthName(itemDate);
         result[i].day = itemDate.getDate().toFixed();
         result[i].hashtags = hashtagLib.getHashtags(result[i].data.hashtags);
+        result[i].time = norseUtils.getTime(itemDate);
       }
       return result;
     }

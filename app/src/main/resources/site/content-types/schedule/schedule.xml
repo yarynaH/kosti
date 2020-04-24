@@ -24,11 +24,14 @@
         <allowContentType>hashtag</allowContentType>
       </config>
     </input>
-    <input name="repeat" type="CheckBox">
+    <input name="repeat" type="ComboBox">
       <label>Repeat</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <alignment>right</alignment>
+        <option value="1">Each week</option>
+        <option value="2">Each two weeks</option>
+        <option value="3">Each three weeks</option>
+        <option value="4">Each four weeks</option>
       </config>
     </input>
   </form>

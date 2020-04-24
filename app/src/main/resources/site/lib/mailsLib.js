@@ -19,7 +19,7 @@ var mailsTemplates = {
   orderShipped: "../pages/mails/orderShipped.html",
   pendingItem: "../pages/mails/pendingItem.html",
   regularTicket: "../pages/pdfs/regularTicket.html",
-  legendaryTicket: "../pages/pdfs/legendaryTicket.html",
+  legendaryTicket: "../pages/pdfs/legendaryTicket.html"
 };
 
 exports.sendMail = sendMail;
@@ -61,8 +61,8 @@ function sendMail(type, email, params) {
       contentType: 'text/html; charset="UTF-8"',
       attachments: mail.attachments,
       headers: {
-        "MIME-Version": "1.0",
-      },
+        "MIME-Version": "1.0"
+      }
     });
   }
 }
@@ -72,7 +72,7 @@ function getSubscribersMailingList() {
   var result = [];
   var emails = repo.query({
     query: "subscribed = 'true'",
-    count: -1,
+    count: -1
   });
   return validateEmailList(repo, emails);
 }
@@ -87,12 +87,12 @@ function getCustomersMailingList() {
         must: [
           {
             exists: {
-              field: "email",
-            },
-          },
-        ],
-      },
-    },
+              field: "email"
+            }
+          }
+        ]
+      }
+    }
   });
   return validateEmailList(repo, emails);
 }
@@ -119,7 +119,7 @@ function getNewsletter(params) {
     subject: params.displayName,
     body: params.body,
     contentType: 'text/html; charset="UTF-8"',
-    attachments: null,
+    attachments: null
   };
 }
 
@@ -127,12 +127,12 @@ function unsubscribe(hash) {
   var result = contextLib.runAsAdmin(function () {
     var newsletterRepo = nodeLib.connect({
       repoId: "newsletter",
-      branch: "master",
+      branch: "master"
     });
     var node = newsletterRepo.query({
       start: 0,
       count: 1,
-      query: "subscriptionHash = '" + hash + "'",
+      query: "subscriptionHash = '" + hash + "'"
     });
     if (node.total < 1) {
       return false;
@@ -164,10 +164,10 @@ function getorderCreatedMail(params) {
       specialText:
         params.cart.country === "ru" && params.cart.shipping === "digital"
           ? true
-          : false,
+          : false
     }),
     subject: "Ваш заказ получен",
-    attachments: getTickets(params),
+    attachments: getTickets(params)
   };
 
   function getTickets(params) {
@@ -183,13 +183,13 @@ function getorderCreatedMail(params) {
               qrData: params.cart.items[i].itemsIds[j].id,
               type: "ticket",
               name: name,
-              friendlyId: params.cart.items[i].itemsIds[j].friendlyId,
+              friendlyId: params.cart.items[i].itemsIds[j].friendlyId
             }),
             mimeType: "application/pdf",
             headers: {
-              "Content-Disposition": 'attachment; filename="' + name + '"',
+              "Content-Disposition": 'attachment; filename="' + name + '"'
             },
-            fileName: name,
+            fileName: name
           });
         }
       }
@@ -214,9 +214,9 @@ function getorderShippedMail(params) {
     body: thymeleaf.render(resolve(mailsTemplates.orderShipped), {
       site: sharedLib.getSite(),
       dateString: dateString,
-      cart: params.cart,
+      cart: params.cart
     }),
-    subject: "Ваш заказ отправлен",
+    subject: "Ваш заказ отправлен"
   };
 }
 
@@ -227,15 +227,15 @@ function getActivationMail(mail, params) {
     params: {
       mail: encodeURI(mail),
       action: "confirmRegister",
-      hash: params.activationHash,
-    },
+      hash: params.activationHash
+    }
   });
   return {
     body: thymeleaf.render(resolve(mailsTemplates.userActivation), {
       activationUrl: activationUrl,
-      site: sharedLib.getSite(),
+      site: sharedLib.getSite()
     }),
-    subject: "Активация аккаунта",
+    subject: "Активация аккаунта"
   };
 }
 
@@ -246,15 +246,15 @@ function getForgotPassMail(mail, params) {
     params: {
       action: "forgotPass",
       email: encodeURI(mail),
-      hash: params.forgotPassHash,
-    },
+      hash: params.forgotPassHash
+    }
   });
   return {
     body: thymeleaf.render(resolve(mailsTemplates.forgotPass), {
       resetUrl: resetUrl,
-      site: sharedLib.getSite(),
+      site: sharedLib.getSite()
     }),
-    subject: "Смена пароля",
+    subject: "Смена пароля"
   };
 }
 
@@ -266,11 +266,11 @@ function getPendingItemMail(params) {
         type: "absolute",
         params: {
           action: "details",
-          id: params.id,
-        },
+          id: params.id
+        }
       }),
-      site: sharedLib.getSite(),
+      site: sharedLib.getSite()
     }),
-    subject: "Новый заказ ожидание",
+    subject: "Новый заказ ожидание"
   };
 }
