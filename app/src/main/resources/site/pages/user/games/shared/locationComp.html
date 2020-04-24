@@ -1,0 +1,10 @@
+<div class="my_games-location-list">
+    <div data-th-each="location : ${locations}" data-th-remove="tag">
+        <input type="radio" name="location" data-th-id="${location._id}" data-th-value="${location._id}" hidden>
+        <label data-th-for="${location._id}" data-th-attr="data-id=${location._id}"
+            class="my_games-location-item js-my_games-location-item"
+            data-th-classappend="${location.active ? 'active' : ''}">
+            <span class="my_games-location-name" data-th-text="${location.displayName}"></span>
+        </label>
+    </div>
+</div>

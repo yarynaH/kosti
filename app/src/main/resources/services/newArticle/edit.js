@@ -26,7 +26,7 @@ function handleGet(req) {
     var view = resolve("articleSubmit.html");
     return {
       body: thymeleaf.render(view, createModel()),
-      contentType: "text/html"
+      contentType: "text/html",
     };
   }
 
@@ -35,9 +35,15 @@ function handleGet(req) {
     var articleStatus = articlesLib.checkArticleStatus(req.params.id);
 
     return {
-      access: articleStatus.exists && (articleStatus.author || user.moderator),
+      access:
+        articleStatus.exists && (articleStatus.author || user.roles.moderator),
       published: articleStatus.exists && articleStatus.published,
-      pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
+      pageComponents: helpers.getPageComponents(
+        req,
+        null,
+        null,
+        "Новая статья"
+      ),
     };
   }
 

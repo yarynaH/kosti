@@ -33,10 +33,10 @@ function handleReq(req) {
         bodyEnd: [
           "<script src='" + fileName + "'></script>",
           "<script src='" + player + "'></script>",
-          "<link href='" + styles + "' rel='stylesheet'/>"
+          "<link href='" + styles + "' rel='stylesheet'/>",
         ],
-        headEnd: [model.podcastUrl ? model.podcastUrl : ""]
-      }
+        headEnd: [model.podcastUrl ? model.podcastUrl : ""],
+      },
     };
   }
 
@@ -51,7 +51,7 @@ function handleReq(req) {
       {
         comments: comments,
         articleId: content._id,
-        moderator: user.moderator
+        moderator: user.roles.moderator,
       }
     );
     if (user) {
@@ -66,10 +66,10 @@ function handleReq(req) {
     if (content.type === app.name + ":podcast" && content.data.audioFile) {
       audio = thymeleaf.render(resolve("../../parts/audio/audio.html"), {
         audioUrl: portal.attachmentUrl({
-          name: content.data.audioFile
+          name: content.data.audioFile,
         }),
         title: content.displayName,
-        preview: req.mode === "edit"
+        preview: req.mode === "edit",
       });
       var parent = util.content.getParent(content._id);
       podcastUrl =
@@ -90,7 +90,7 @@ function handleReq(req) {
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       similarArticles: similarArticles,
       comments: comments,
-      articleFooter: blogLib.getArticleFooter(content)
+      articleFooter: blogLib.getArticleFooter(content),
     };
 
     return model;
@@ -108,7 +108,7 @@ function handleReq(req) {
             url: portal.pageUrl({ path: article._path }),
             displayName: article.displayName,
             votes: votesLib.countUpvotes(article._id),
-            voted: votesLib.checkIfVoted(article._id)
+            voted: votesLib.checkIfVoted(article._id),
           });
         }
       }

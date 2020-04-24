@@ -1,0 +1,288 @@
+.my_games {
+    box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+    background: $color-primary1;
+
+    &-gm-header {
+        padding: 0 40px;
+    }
+
+    &-player-block {
+        padding: 40px;
+    }
+
+    &-event_name {
+        &-list {
+            padding: 40px 40px 20px 40px;
+        }
+
+        &-item {
+            display: inline-block;
+            margin-right: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid transparent;
+            font-weight: bold;
+            color: $color-primary17;
+            transition: transition(border-color);
+            cursor: pointer;
+
+            &:hover,
+            &.active {
+                border-color: $color-primary15;
+            }
+        }
+    }
+
+    &-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: $color-primary6;
+        line-height: normal;
+        margin-bottom: 5px;
+    }
+
+    &-caption {
+        font-size: 14px;
+        line-height: normal;
+        color: $color-primary6;
+        margin-bottom: 15px;
+    }
+
+    &-schedule-item {
+        background-color: $color-primary1;
+        cursor: pointer;
+        border-bottom: 1px solid $color-primary20;
+
+        &+& {
+            margin-top: 10px;
+        }
+
+        &:first-child {
+            border-top: 1px solid $color-primary20;
+        }
+
+        &-header {
+            padding: 15px 40px;
+        }
+
+        &-body {
+            padding: 0 40px;
+
+            .my_games-day_slot-title {
+                display: none;
+                margin: 10px 0;
+            }
+
+            .active &,
+            .game_added & {
+                padding-bottom: 15px;
+            }
+        }
+    }
+
+    &-day_slot-title {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5;
+        color: $color-primary2;
+
+        .icon-arrow {
+            margin-left: 5px;
+
+            &:before {
+                font-size: 12px;
+                font-weight: bold;
+                transition: transition(transform);
+
+                .active &,
+                .game_added & {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+    }
+
+    &-table_slot {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.43;
+        color: $color-primary16;
+    }
+
+    &-btn {
+        width: auto;
+    }
+
+    &-location {
+        $parent: &;
+
+        &-name {
+            font-weight: bold;
+            line-height: 1.43;
+            color: #333333;
+            transition: transition(color);
+        }
+
+        &-qty {
+            color: #505050;
+            transition: transition(color);
+        }
+
+        &-item {
+            margin: 0 5px 5px 0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-transform: none;
+            transition: transition(background);
+
+            &.active,
+            &:hover {
+                background: #0095f8;
+
+                #{$parent}-name,
+                #{$parent}-qty {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    &-available-list {
+        margin-bottom: 15px;
+    }
+
+    &-game_block {
+        &-item {
+            display: block;
+            margin: 10px 0 0;
+            padding: 16px 16px 16px 45px;
+            border-radius: 4px;
+            background-color: #ffffff;
+            border: 1px solid #dedede;
+            border-left: 4px solid #ed1f2e;
+            box-shadow: 0 2px 8px 0 #0000000a;
+            text-transform: none;
+
+            &:before {
+                left: 10px;
+                top: 16px;
+            }
+
+            &:after {
+                left: 15px;
+                top: 21px;
+            }
+        }
+
+        &-time,
+        &-duration {
+            color: #333333;
+
+            &:after {
+                content: '';
+                display: inline-block;
+                width: 1px;
+                height: 20px;
+                margin: 0px 8px -4px;
+                background: #dddddd;
+            }
+        }
+
+        &-table_slot {
+            color: #333333;
+        }
+
+        &-item-top {
+            font-size: 14px;
+            line-height: 1.43;
+        }
+
+        &-name {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.5;
+            color: #333333;
+        }
+    }
+
+    &-action {
+        &-block {
+            display: flex;
+            margin-top: 16px;
+
+            .my_games-action-primary,
+            .my_games-action-secondary {
+                width: auto;
+                padding: 10px 20px;
+            }
+
+            &-add_game {
+                display: none;
+            }
+        }
+
+        &-primary {
+            background: #0095f8;
+            color: #ffffff;
+            border: 3px solid #0095f8;
+            margin-right: 15px;
+
+            &:hover {
+                background: #fff;
+                color: #0095f8;
+            }
+        }
+
+        &-secondary {
+            background: #fff;
+            color: #0095f8;
+            text-transform: none;
+            border: 3px solid #fff;
+
+            &:hover {
+                border-color: #0095f8;
+            }
+        }
+    }
+
+    &-activate_ticket {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 15px;
+
+        .form-group {
+            flex: 0 0 64%;
+        }
+    }
+
+    &-find_hash {
+        line-height: 20px;
+
+        &-link {
+            font-weight: bold;
+
+            .expanded &,
+            &:hover {
+                color: #666666;
+            }
+
+            .expanded &:hover {
+                color: #0095f8;
+            }
+        }
+
+        &-answer {
+            color: #333333;
+            display: none;
+        }
+    }
+
+    &-step2 {
+        &-data {
+            display: none;
+        }
+    }
+}
