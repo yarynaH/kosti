@@ -143,12 +143,10 @@ function handleReq(req) {
       articles: articles,
       active: active,
       createArticleUrl: sharedLib.generateNiceServiceUrl("create"),
-      loadMoreComponent: helpers.getLoadMore(
-        totalArticles.curr,
-        currTitle,
-        null,
-        true
-      ),
+      loadMoreComponent: helpers.getLoadMore({
+        articlesCount: totalArticles.curr,
+        noMoreTitle: currTitle
+      }),
       editUserModal: editUserModal,
       articlesView: articles,
       pageComponents: helpers.getPageComponents(req, "footerBlog")

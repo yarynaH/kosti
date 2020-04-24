@@ -295,7 +295,7 @@ function countUserRating(id) {
 
 function updateSchedule() {
   norseUtils.log("Started updating schedule.");
-  contextLib.runInDraftAsAdmin(function() {
+  contextLib.runInDraftAsAdmin(function () {
     var currDate = new Date();
     var schedules = contentLib.query({
       start: 0,

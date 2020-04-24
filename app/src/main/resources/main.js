@@ -12,13 +12,13 @@ var contextLib = require(libLocation + "contextLib");
 event.listener({
   type: "node.created",
   localOnly: false,
-  callback: function(e) {
+  callback: function (e) {
     if (e.data && e.data.nodes) {
       var nodes = parseNodes(e.data.nodes);
       for (var i = 0; i < nodes.length; i++) {
         var node = content.get({ key: nodes[0].id });
         if (node && node.type && node.type == app.name + ":article") {
-          contextLib.runAsAdmin(function() {
+          contextLib.runAsAdmin(function () {
             votesLib.createBlankVote(node._id, "article");
           });
           slackLib.sendMessage({
@@ -32,7 +32,7 @@ event.listener({
             botId: app.config.telegramBotToken
           });
         } else if (node && node.type && node.type == app.name + ":hashtag") {
-          contextLib.runAsAdmin(function() {
+          contextLib.runAsAdmin(function () {
             votesLib.createBlankVote(node._id, "hashtag");
           });
         }
@@ -46,7 +46,7 @@ event.listener({
 event.listener({
   type: "node.pushed",
   localOnly: false,
-  callback: function(e) {
+  callback: function (e) {
     if (e.data && e.data.nodes) {
       var nodes = parseNodes(e.data.nodes);
       for (var i = 0; i < nodes.length; i++) {
@@ -58,6 +58,20 @@ event.listener({
           }
           votesLib.setVoteDate(vote._id, node.publish.from);
         }
+      }
+    }
+    return true;
+  }
+});
+
+event.listener({
+  type: "node.deleted",
+  localOnly: false,
+  callback: function (e) {
+    if (e.data && e.data.nodes) {
+      var nodes = parseNodes(e.data.nodes);
+      for (var i = 0; i < nodes.length; i++) {
+        votesLib.removeVoteByItemId(nodes[0].id);
       }
     }
     return true;

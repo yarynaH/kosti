@@ -73,8 +73,12 @@ function handleReq(req) {
       sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
+      articlesQuery: articlesQuery,
       hotDate: articlesQuery.date ? articlesQuery.date : null,
-      loadMoreComponent: helpers.getLoadMore(articlesQuery.total, null, null),
+      loadMoreComponent: helpers.getLoadMore({
+        articlesCount: articlesQuery.total,
+        pageSize: articlesQuery.pageSize
+      }),
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       slider: getSlider(site.slider),
       articles: blogLib.getArticlesView(articles)
@@ -124,7 +128,7 @@ function handleReq(req) {
     }
 
     function getVideoFromCache(key) {
-      return youtubeCache.get("video", function() {
+      return youtubeCache.get("video", function () {
         return getVideoViaApi(key);
       });
     }

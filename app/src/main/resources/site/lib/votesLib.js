@@ -25,13 +25,14 @@ exports.countShares = countShares;
 exports.fixVotesTimestamps = fixVotesTimestamps;
 exports.setVoteDate = setVoteDate;
 exports.removeUnusedVotes = removeUnusedVotes;
+exports.removeVoteByItemId = removeVoteByItemId;
 
 function removeUnusedVotes() {
   var votesRepo = getVotesRepo();
   var result = votesRepo.query({
     query: "_parentPath = '/'",
     count: -1,
-    start: 0,
+    start: 0
   });
   var items = [];
   var j = 0;
@@ -83,7 +84,7 @@ function doAddView(content, id) {
   var votesRepo = getVotesRepo();
   return votesRepo.modify({
     key: node._id,
-    editor: editor,
+    editor: editor
   });
   function editor(node) {
     if (!node.views) {
@@ -148,6 +149,9 @@ function checkIfVoteExist(user, node) {
 }
 
 function createBlankVote(node, type) {
+  if (!node) {
+    return null;
+  }
   if (!type) {
     var type = "article";
   }
@@ -158,7 +162,7 @@ function createBlankVote(node, type) {
     rate: 0,
     shares: { vk: [], facebook: [], twitter: [] },
     type: type,
-    date: new Date(),
+    date: new Date()
   });
 }
 
@@ -171,7 +175,7 @@ function createVote(user, content, type) {
     id: content,
     votes: [user],
     type: type,
-    date: new Date(),
+    date: new Date()
   });
 }
 
@@ -179,7 +183,7 @@ function upvote(user, node) {
   var votesRepo = getVotesRepo();
   return votesRepo.modify({
     key: node._id,
-    editor: editor,
+    editor: editor
   });
   function editor(node) {
     if (!node.votes) {
@@ -197,7 +201,7 @@ function downvote(user, node) {
   var votesRepo = getVotesRepo();
   return votesRepo.modify({
     key: node._id,
-    editor: editor,
+    editor: editor
   });
   function editor(node) {
     node.votes = norseUtils.forceArray(node.votes);
@@ -212,7 +216,7 @@ function getNode(id) {
   var result = votesRepo.query({
     start: 0,
     count: 1,
-    query: "id = '" + id + "'",
+    query: "id = '" + id + "'"
   });
   if (result && result.hits && result.hits[0]) {
     return votesRepo.get(result.hits[0].id);
@@ -220,8 +224,15 @@ function getNode(id) {
   return false;
 }
 
+function removeVoteByItemId(id) {
+  var itemId = getNode(id);
+  if (itemId) {
+    deleteVotes(itemId._id);
+  }
+}
+
 function getHotArticleIds(start, date) {
-  var pageSize = 10;
+  var pageSize = 5;
   var votesRepo = getVotesRepo();
   var result = { hits: [], total: 0, count: 0 };
   var usePaging = true;
@@ -266,6 +277,7 @@ function getHotArticleIds(start, date) {
   result.nextStart = nextStart;
   result.date = returnDate.toISOString();
   result.newPage = !usePaging;
+  result.pageSize = pageSize;
   return result;
 }
 
@@ -280,7 +292,7 @@ function getHotArticlesQuery(start, count, date, oldDate) {
       "') AND date < dateTime('" +
       oldDate.toISOString() +
       "') ",
-    sort: "rate DESC, date DESC",
+    sort: "rate DESC, date DESC"
   });
 }
 
@@ -288,7 +300,7 @@ function getVotesRepo() {
   return nodeLib.connect({
     repoId: "votes",
     branch: "master",
-    principals: ["role:system.admin"],
+    principals: ["role:system.admin"]
   });
 }
 
@@ -301,7 +313,7 @@ function getWeekArticleId() {
     start: 0,
     count: 1,
     query: "type = 'article' AND _ts > dateTime('" + date + "')",
-    sort: "rate DESC",
+    sort: "rate DESC"
   });
   if (result && result.hits && result.hits.length > 0) {
     var article = votesRepo.get(result.hits[0].id);
@@ -326,7 +338,7 @@ function addShare(id, user, type, itemType) {
   var votesRepo = getVotesRepo();
   return votesRepo.modify({
     key: node._id,
-    editor: editor,
+    editor: editor
   });
   function editor(node) {
     if (!node.shares) {
@@ -349,7 +361,7 @@ function countShares(id) {
   var queryRes = votesRepo.query({
     start: 0,
     count: 1,
-    query: "id = '" + id + "'",
+    query: "id = '" + id + "'"
   });
   var result = 0;
   if (queryRes && queryRes.hits && queryRes.hits.length > 0) {
@@ -369,7 +381,7 @@ function fixVotesTimestamps() {
   var votes = votesRepo.query({
     query: "",
     start: 0,
-    count: -1,
+    count: -1
   });
   var temp = norseUtils.forceArray(votes.hits);
   for (var i = 0; i < temp.length; i++) {
@@ -388,7 +400,7 @@ function setVoteDate(id, date) {
   var votesRepo = getVotesRepo();
   var result = votesRepo.modify({
     key: id,
-    editor: editor,
+    editor: editor
   });
   function editor(node) {
     node.date = new Date(moment(date.replace("Z", "")));

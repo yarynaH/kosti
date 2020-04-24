@@ -1,35 +1,23 @@
 <div data-th-each="article: ${articles}" class="blog-item">
-  <a data-th-href="${article.url}" class="post-image_wrap" target="_blank">
-    <img data-th-src="${article.image.url}" alt="" />
-  </a>
-  <div class="post">
-    <div class="post-info">
-      <a data-th-href="${article.author.url}">
-        <span class="post-user_avatar">
-          <img data-th-src="${article.author.image.url}" alt="" />
-        </span>
-        <span
-          class="post-user_name"
-          data-th-text="${article.author.displayName}"
-        ></span>
-      </a>
-      <span class="post-date" data-th-text="${article.date}"></span>
+    <a data-th-href="${article.url}" class="post-image_wrap" target="_blank">
+        <img data-th-src="${article.image.url}" alt="" />
+    </a>
+    <div class="post">
+        <div class="post-info">
+            <a data-th-href="${article.author.url}">
+                <span class="post-user_avatar">
+                    <img data-th-src="${article.author.image.url}" alt="" />
+                </span>
+                <span class="post-user_name" data-th-text="${article.author.displayName}"></span>
+            </a>
+            <span class="post-date" data-th-text="${article.date}"></span>
+        </div>
+        <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}" target="_blank"></a>
+        <div class="post-text" data-th-utext="${article.data.intro}"></div>
+        <div class="tag-list" data-th-if="${article.hashtags}">
+            <a data-th-each="hashtag : ${article.hashtags}" data-th-href="${hashtag.url}" class="tag-item"
+                data-th-text="${hashtag.displayName}"></a>
+        </div>
     </div>
-    <a
-      data-th-href="${article.url}"
-      class="post-title"
-      data-th-text="${article.displayName}"
-      target="_blank"
-    ></a>
-    <div class="post-text" data-th-utext="${article.data.intro}"></div>
-    <div class="tag-list" data-th-if="${article.hashtags}">
-      <a
-        data-th-each="hashtag : ${article.hashtags}"
-        data-th-href="${hashtag.url}"
-        class="tag-item"
-        data-th-text="${hashtag.displayName}"
-      ></a>
-    </div>
-  </div>
-  <div data-th-remove="tag" data-th-utext="${article.footer}"></div>
+    <div data-th-remove="tag" data-th-utext="${article.footer}"></div>
 </div>
