@@ -84,19 +84,21 @@ function beautifyUser(userObj, user) {
 }
 
 function editUser(data) {
-  var user = getCurrentUser();
-  if (user._id != data.id) {
+  var currUser = getCurrentUser();
+  if (currUser._id != data.id) {
     return false;
   }
-  user = contentLib.modify({
-    key: user._id,
+  var user = contentLib.modify({
+    key: currUser._id,
     editor: userEditor
   });
-  var publishResult = contentLib.publish({
-    keys: [user._id],
-    sourceBranch: "master",
-    targetBranch: "draft",
-    includeDependencies: false
+  var publishResult = contextLib.runAsAdminAsUser(currUser, function () {
+    return contentLib.publish({
+      keys: [user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   function userEditor(node) {
     node.displayName = data.displayName ? data.displayName : node.displayName;
@@ -464,16 +466,18 @@ function login(name, pass, token) {
 }
 
 function addBookmark(contentId) {
-  var user = getCurrentUser();
-  user = contentLib.modify({
-    key: user._id,
+  var currUser = getCurrentUser();
+  var user = contentLib.modify({
+    key: currUser._id,
     editor: userEditor
   });
-  var publishResult = contentLib.publish({
-    keys: [user._id],
-    sourceBranch: "master",
-    targetBranch: "draft",
-    includeDependencies: false
+  var publishResult = contextLib.runAsAdminAsUser(currUser, function () {
+    return contentLib.publish({
+      keys: [user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   function userEditor(user) {
     var temp = norseUtils.forceArray(user.data.bookmarks);
