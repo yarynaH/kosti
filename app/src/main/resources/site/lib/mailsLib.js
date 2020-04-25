@@ -22,8 +22,30 @@ var mailsTemplates = {
   legendaryTicket: "../pages/pdfs/legendaryTicket.html"
 };
 
+var components = {
+  head: "../pages/mails/components/head.html",
+  header: "../pages/mails/components/header.html",
+  footer: "../pages/mails/components/footer.html"
+};
+
 exports.sendMail = sendMail;
 exports.unsubscribe = unsubscribe;
+exports.getMailComponents = getMailComponents;
+
+function getMailComponents(params) {
+  if (!params) {
+    params = {};
+  }
+  if (!params.title) {
+    params.title = "";
+  }
+  var site = portal.getSite();
+  return {
+    head: thymeleaf.render(resolve(components.head), { title: params.title }),
+    header: thymeleaf.render(resolve(components.header), { site: site }),
+    footer: thymeleaf.render(resolve(components.footer), {})
+  };
+}
 
 function sendMail(type, email, params) {
   var mail = null;
@@ -161,6 +183,9 @@ function getorderCreatedMail(params) {
       site: sharedLib.getSite(),
       dateString: dateString,
       cart: params.cart,
+      mailComponents: getMailComponents({
+        title: "Ваш заказ получен"
+      }),
       specialText:
         params.cart.country === "ru" && params.cart.shipping === "digital"
           ? true
@@ -214,6 +239,9 @@ function getorderShippedMail(params) {
     body: thymeleaf.render(resolve(mailsTemplates.orderShipped), {
       site: sharedLib.getSite(),
       dateString: dateString,
+      mailComponents: getMailComponents({
+        title: "Ваш заказ отправлен"
+      }),
       cart: params.cart
     }),
     subject: "Ваш заказ отправлен"
@@ -233,6 +261,9 @@ function getActivationMail(mail, params) {
   return {
     body: thymeleaf.render(resolve(mailsTemplates.userActivation), {
       activationUrl: activationUrl,
+      mailComponents: getMailComponents({
+        title: "Активация аккаунта"
+      }),
       site: sharedLib.getSite()
     }),
     subject: "Активация аккаунта"
@@ -252,7 +283,8 @@ function getForgotPassMail(mail, params) {
   return {
     body: thymeleaf.render(resolve(mailsTemplates.forgotPass), {
       resetUrl: resetUrl,
-      site: sharedLib.getSite()
+      site: sharedLib.getSite(),
+      mailComponents: getMailComponents({ title: content.displayName })
     }),
     subject: "Смена пароля"
   };
@@ -268,6 +300,9 @@ function getPendingItemMail(params) {
           action: "details",
           id: params.id
         }
+      }),
+      mailComponents: getMailComponents({
+        title: "Заказ в статусе ожидания"
       }),
       site: sharedLib.getSite()
     }),
