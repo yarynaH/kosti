@@ -9,7 +9,7 @@ var notificationLib = require(libLocation + "notificationLib");
 var commentsLib = require(libLocation + "commentsLib");
 var thymeleaf = require("/lib/thymeleaf");
 
-exports.post = function(req) {
+exports.post = function (req) {
   var params = req.params;
   var result = {};
   switch (params.action) {
@@ -17,7 +17,12 @@ exports.post = function(req) {
       result = votesLib.addView(params.content, params.id);
       break;
     case "addShare":
-      result = votesLib.addShare(params.id, params.user, params.type);
+      result = votesLib.addShare(
+        params.id,
+        params.user,
+        params.type,
+        params.itemType
+      );
       break;
     default:
       notificationLib.addNotification(params.content, "like");
@@ -30,7 +35,7 @@ exports.post = function(req) {
   };
 };
 
-exports.get = function(req) {
+exports.get = function (req) {
   var params = req.params;
   if (params.page) {
     var page = parseInt(params.page);
@@ -42,6 +47,7 @@ exports.get = function(req) {
   } else {
     var start = 0;
   }
+  var pageSize = 10;
   switch (params.feedType) {
     case "new":
       var articlesObj = blogLib.getNewArticles(page);
@@ -66,6 +72,7 @@ exports.get = function(req) {
     case "hot":
       var articlesObj = blogLib.getHotArticles(start, params.date);
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
+      pageSize = articlesObj.pageSize;
       break;
     case "search":
       var articlesObj = blogLib.getSearchArticles(params.query, page);
@@ -86,7 +93,7 @@ exports.get = function(req) {
   return {
     body: {
       articles: articlesView,
-      hideButton: articlesObj.count < 10,
+      hideButton: articlesObj.count < pageSize,
       buttonText: helpers.getRandomString(),
       nextStart: articlesObj.nextStart,
       date: articlesObj.date ? articlesObj.date : null,

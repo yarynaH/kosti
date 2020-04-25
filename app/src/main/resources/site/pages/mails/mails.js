@@ -16,7 +16,7 @@ function createBody(params) {
   var model = createModel(params);
   return portal.processHtml({
     value: thymeleaf.render(view, model),
-    type: "absolute",
+    type: "absolute"
   });
 }
 
@@ -27,6 +27,7 @@ function createModel(params) {
     showSendButton: params && params.mode === "live" && user.roles.moderator,
     content: content,
     site: portal.getSite(),
+    mailComponents: mailsLib.getMailComponents({ title: "Сброс пароля" })
   };
 
   return model;
@@ -45,12 +46,13 @@ function handleReq(req) {
       body: createBody(),
       displayName: content.displayName,
       mailLists: content.data.mailLists,
+      mailComponents: mailsLib.getMailComponents({ title: content.displayName })
     });
   }
   function renderView() {
     return {
       body: createBody(req),
-      contentType: "text/html",
+      contentType: "text/html"
     };
   }
   return renderView();

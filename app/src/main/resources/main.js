@@ -64,6 +64,20 @@ event.listener({
   },
 });
 
+event.listener({
+  type: "node.deleted",
+  localOnly: false,
+  callback: function (e) {
+    if (e.data && e.data.nodes) {
+      var nodes = parseNodes(e.data.nodes);
+      for (var i = 0; i < nodes.length; i++) {
+        votesLib.removeVoteByItemId(nodes[0].id);
+      }
+    }
+    return true;
+  }
+});
+
 function parseNodes(nodes) {
   if (typeof nodes != "string") {
     return nodes;

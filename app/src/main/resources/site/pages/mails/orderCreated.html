@@ -1,368 +1,163 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
-    <title>Спасибо за ваш заказ</title>
-  </head>
-  <body style="margin: 0px; padding: 0px">
-    <table
-      border="0"
-      cellpadding="0"
-      cellspacing="0"
-      align="center"
-      width="570"
-      style="max-width: 570px; background: white;"
-    >
-      <tr>
-        <td style="padding: 40px 0;">
-          <a
-            data-th-href="${portal.pageUrl({'_path=' + site._path, '_type=absolute'})}"
-            title="Вечерние кости"
-            style="text-decoration: none;"
-          >
-            <img
-              src="#"
-              data-th-src="${portal.assetUrl({'_path=images/mail-logo.jpg', '_type=absolute'})}"
-              alt="Вечерние кости лого"
-              color="#707070"
-              height="38px"
-            />
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td
-          style="font-size: 24px; font-family: Roboto; font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 0 15px;"
-        >
-          Привет, <span data-th-remove="tag" data-th-text="${cart.name}"></span>
-        </td>
-      </tr>
-      <tr>
-        <td
-          style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;"
-        >
-          Спасибо за ваш заказ! Гоблины и гномы-инженеры хаотично мечутся по
-          нашей мастерской в попытке его обработать. Вы можете уточнить детали
-          вашего заказа в любой момент.
-        </td>
-      </tr>
-      <tr data-th-if="${specialText}">
-        <td
-          style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;"
-        >
-          Сообщаем также, что всем нашим гостям из РФ мы предоставляем именные
-          приглашения, которые могут потребовать на границе. Кроме того, если у
-          работников пограничной службы возникнут к Вам дополнительные вопросы,
-          Вы можете дать ему номер организатора фестиваля. Будьте добры,
-          напишите нам на <a>info@kostirpg.com</a> письмо с пометкой
-          “Приглашение для гражданина РФ” и укажите в нем Ваши данные (ФИО,
-          номер загранпаспорта, срок его окончания).
-        </td>
-      </tr>
-      <tr>
-        <td style="padding: 0 0 10px;">
-          <table
-            border="0"
-            cellpadding="0"
-            cellspacing="0"
-            width="100%"
-            style="border: 1px solid #dedede; border-bottom: 0;"
-          >
-            <tr data-th-each="item: ${cart.items}">
-              <td
-                width="30%"
-                style="padding: 20px 15px 20px 8%; border-bottom: 1px solid #dedede;"
-              >
-                <img
-                  data-th-src="${item.imageCart.url}"
-                  alt="Product image"
-                  width="100px"
-                />
-              </td>
-              <td
-                width="70%"
-                style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;"
-              >
-                <div
-                  style="color: #505050;"
-                  data-th-text="${item.displayName}"
-                ></div>
-                <div>
-                  <span style="color: #707070; font-weight: bold;"
-                    >Размер:</span
-                  >
-                  <span style="color: #505050;" data-th-text="${item.itemSize}"
-                    >XS</span
-                  >
-                </div>
-                <div>
-                  <span style="color: #707070; font-weight: bold;"
-                    >Количество:</span
-                  >
-                  <span style="color: #505050;" data-th-text="${item.amount}"
-                    >1</span
-                  >
-                </div>
-                <div
-                  style="color: #707070; font-weight: bold;"
-                  data-th-text="${'UAH ' + item.price}"
-                ></div>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td style="padding: 0 0;">
-          <table
-            border="0"
-            cellpadding="0"
-            cellspacing="0"
-            width="100%"
-            style="border: 1px solid #dedede; padding: 25px 8%; line-height: 1.71; color: #505050;"
-          >
-            <tr>
-              <td
-                width="50%"
-                style="padding: 0 5px 25px 0; font-family: Roboto; font-size: 14px; vertical-align: top;"
-              >
-                <div style="font-weight: bold; color: #707070;">
-                  Номер заказа
-                </div>
-                <div data-th-text="${cart.userId}"></div>
-              </td>
-              <td
-                width="50%"
-                style="padding: 0 0 25px 5px; font-family: Roboto; font-size: 14px; vertical-align: top;"
-              >
-                <div style="font-weight: bold; color: #707070;">
-                  Время заказа
-                </div>
-                <div data-th-text="${dateString}">5 Марта, 2019, 12:58</div>
-              </td>
-            </tr>
-            <tr>
-              <td
-                width="50%"
-                style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-right: 5px;"
-              >
-                <div style="font-weight: bold; color: #707070;">
-                  Адресс доставки
-                </div>
-                <div
-                  style="color: #707070;"
-                  data-th-text="${cart.name + ' ' + cart.surname}"
-                ></div>
-                <div
-                  style="color: #707070;"
-                  data-th-text="${cart.address}"
-                ></div>
-                <div style="color: #707070;" data-th-text="${cart.city}"></div>
-                <div
-                  style="color: #707070;"
-                  data-th-text="${'Tel: ' + cart.phone}"
-                ></div>
-              </td>
-              <td
-                width="50%"
-                style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-left: 5px;"
-              >
-                <table
-                  border="0"
-                  cellpadding="0"
-                  cellspacing="0"
-                  width="100%"
-                  style="min-width: 100%;"
-                >
-                  <tr>
-                    <td
-                      colspan="2"
-                      style="font-family: Roboto; font-size: 14px;"
-                    >
-                      <div style="font-weight: bold; color: #707070;">
-                        Способ оплаты
-                      </div>
-                      <div
-                        style="padding-bottom: 40px;"
-                        data-th-text="${portal.localize({'_key=store.payment.'+cart.paymentMethod, '_locale=ru'})}"
-                      ></div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;"
-                    >
-                      Товар
-                    </td>
-                    <td
-                      style="text-align: right; font-family: Roboto; font-size: 14px;"
-                      data-th-text="${'UAH ' + cart.price.items}"
-                    >
-                      ₽ 1500
-                    </td>
-                  </tr>
-                  <tr>
-                    <td
-                      tyle="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;"
-                    >
-                      Доставка
-                    </td>
-                    <td
-                      style="text-align: right; font-family: Roboto; font-size: 14px;"
-                      data-th-text="${'UAH ' + cart.price.shipping}"
-                    ></td>
-                  </tr>
-                  <tr>
-                    <td
-                      style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;"
-                    >
-                      Скидка
-                    </td>
-                    <td
-                      style="text-align: right; font-family: Roboto; font-size: 14px;"
-                    >
-                      UAH 0
-                    </td>
-                  </tr>
+
+<div data-th-utext="${mailComponents.head}" data-th-remove="tag"></div>
+
+<body style="margin: 0px; padding: 0px">
+    <table border="0" cellpadding="0" cellspacing="0" align="center" width="570"
+        style="max-width: 570px; background: white;">
+        <div data-th-utext="${mailComponents.header}" data-th-remove="tag"></div>
+        <tr>
+            <td
+                style="font-size: 24px; font-family: Roboto; font-weight: bold; line-height: 1.33; color: #1d1f24; padding: 0 0 15px;">
+                Привет, <span data-th-remove="tag" data-th-text="${cart.name}"></span>
+            </td>
+        </tr>
+        <tr>
+            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;">
+                Спасибо за ваш заказ! Гоблины и гномы-инженеры хаотично мечутся по
+                нашей мастерской в попытке его обработать. Вы можете уточнить детали
+                вашего заказа в любой момент.
+            </td>
+        </tr>
+        <tr data-th-if="${specialText}">
+            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;">
+                Сообщаем также, что всем нашим гостям из РФ мы предоставляем именные
+                приглашения, которые могут потребовать на границе. Кроме того, если у
+                работников пограничной службы возникнут к Вам дополнительные вопросы,
+                Вы можете дать ему номер организатора фестиваля. Будьте добры,
+                напишите нам на <a>info@kostirpg.com</a> письмо с пометкой
+                “Приглашение для гражданина РФ” и укажите в нем Ваши данные (ФИО,
+                номер загранпаспорта, срок его окончания).
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 0 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                    style="border: 1px solid #dedede; border-bottom: 0;">
+                    <tr data-th-each="item: ${cart.items}">
+                        <td width="30%" style="padding: 20px 15px 20px 8%; border-bottom: 1px solid #dedede;">
+                            <img data-th-src="${item.imageCart.url}" alt="Product image" width="100px" />
+                        </td>
+                        <td width="70%"
+                            style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
+                            <div style="color: #505050;" data-th-text="${item.displayName}"></div>
+                            <div>
+                                <span style="color: #707070; font-weight: bold;">Размер:</span>
+                                <span style="color: #505050;" data-th-text="${item.itemSize}">XS</span>
+                            </div>
+                            <div>
+                                <span style="color: #707070; font-weight: bold;">Количество:</span>
+                                <span style="color: #505050;" data-th-text="${item.amount}">1</span>
+                            </div>
+                            <div style="color: #707070; font-weight: bold;" data-th-text="${'UAH ' + item.price}"></div>
+                        </td>
+                    </tr>
                 </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td style="padding: 0 0 20px;">
-          <table
-            border="0"
-            cellpadding="0"
-            cellspacing="0"
-            width="100%"
-            style="border: 1px solid #dedede; padding: 20px 8% 25px; border-top: 0; min-width: 100%;"
-          >
-            <tr>
-              <td width="50%" style="padding-right: 5px;">&nbsp;</td>
-              <td width="50%" style="padding-left: 5px;">
-                <table
-                  border="0"
-                  cellpadding="0"
-                  cellspacing="0"
-                  width="100%"
-                  style="font-weight: bold; min-width: 100%;"
-                >
-                  <tr>
-                    <td
-                      style="color: #333333; font-family: Roboto; font-size: 14px;"
-                    >
-                      Всего
-                    </td>
-                    <td
-                      style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;"
-                      data-th-text="${'UAH ' + cart.price.total}"
-                    >
-                      ₽ 1300
-                    </td>
-                  </tr>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 0;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                    style="border: 1px solid #dedede; padding: 25px 8%; line-height: 1.71; color: #505050;">
+                    <tr>
+                        <td width="50%"
+                            style="padding: 0 5px 25px 0; font-family: Roboto; font-size: 14px; vertical-align: top;">
+                            <div style="font-weight: bold; color: #707070;">
+                                Номер заказа
+                            </div>
+                            <div data-th-text="${cart.userId}"></div>
+                        </td>
+                        <td width="50%"
+                            style="padding: 0 0 25px 5px; font-family: Roboto; font-size: 14px; vertical-align: top;">
+                            <div style="font-weight: bold; color: #707070;">
+                                Время заказа
+                            </div>
+                            <div data-th-text="${dateString}">5 Марта, 2019, 12:58</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%"
+                            style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-right: 5px;">
+                            <div style="font-weight: bold; color: #707070;">
+                                Адресс доставки
+                            </div>
+                            <div style="color: #707070;" data-th-text="${cart.name + ' ' + cart.surname}"></div>
+                            <div style="color: #707070;" data-th-text="${cart.address}"></div>
+                            <div style="color: #707070;" data-th-text="${cart.city}"></div>
+                            <div style="color: #707070;" data-th-text="${'Tel: ' + cart.phone}"></div>
+                        </td>
+                        <td width="50%"
+                            style="font-family: Roboto; font-size: 14px; vertical-align: top; padding-left: 5px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="min-width: 100%;">
+                                <tr>
+                                    <td colspan="2" style="font-family: Roboto; font-size: 14px;">
+                                        <div style="font-weight: bold; color: #707070;">
+                                            Способ оплаты
+                                        </div>
+                                        <div style="padding-bottom: 40px;"
+                                            data-th-text="${portal.localize({'_key=store.payment.'+cart.paymentMethod, '_locale=ru'})}">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
+                                        Товар
+                                    </td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;"
+                                        data-th-text="${'UAH ' + cart.price.items}">
+                                        ₽ 1500
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td tyle="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
+                                        Доставка
+                                    </td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;"
+                                        data-th-text="${'UAH ' + cart.price.shipping}"></td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="font-weight: bold; color: #707070; font-family: Roboto; font-size: 14px;">
+                                        Скидка
+                                    </td>
+                                    <td style="text-align: right; font-family: Roboto; font-size: 14px;">
+                                        UAH 0
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
                 </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-      <tr>
-        <td style="padding: 0 0 20px;">
-          <table border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <td>
-                <a
-                  href="https://www.facebook.com/vecherniyekosti/"
-                  title="facebook"
-                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
-                >
-                  <img
-                    src="#"
-                    data-th-src="${portal.assetUrl({'_path=images/mails/fb.gif', '_type=absolute'})}"
-                    alt="facebook"
-                    color="#707070"
-                    width="16px"
-                  />
-                </a>
-                <a
-                  href="https://vk.com/vecherniyekosti"
-                  title="vk"
-                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
-                >
-                  <img
-                    src="#"
-                    data-th-src="${portal.assetUrl({'_path=images/mails/vk.gif', '_type=absolute'})}"
-                    alt="vk"
-                    color="#707070"
-                    width="16px"
-                  />
-                </a>
-                <a
-                  href="https://twitter.com/vecherniyekosti"
-                  title="twitter"
-                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
-                >
-                  <img
-                    src="#"
-                    data-th-src="${portal.assetUrl({'_path=images/mails/twitter.gif', '_type=absolute'})}"
-                    alt="twitter"
-                    color="#707070"
-                    width="16px"
-                  />
-                </a>
-                <a
-                  href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg"
-                  title="youtube"
-                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
-                >
-                  <img
-                    src="#"
-                    data-th-src="${portal.assetUrl({'_path=images/mails/youtube.gif', '_type=absolute'})}"
-                    alt="youtube"
-                    color="#707070"
-                    width="16px"
-                  />
-                </a>
-                <a
-                  href="https://www.instagram.com/vecherniye_kosti/"
-                  title="instagram"
-                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
-                >
-                  <img
-                    src="#"
-                    data-th-src="${portal.assetUrl({'_path=images/mails/instagram.gif', '_type=absolute'})}"
-                    alt="instagram"
-                    color="#707070"
-                    width="16px"
-                  />
-                </a>
-                <a
-                  href="https://www.twitch.tv/vecherniyekosti?fbclid=IwAR0-q-e8eqtOfcn4_ZaT_Q1sDWVWn3YPrwHzXoHTIBHIFGcBd7J3gwn26K8"
-                  title="twitch"
-                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
-                >
-                  <img
-                    src="#"
-                    data-th-src="${portal.assetUrl({'_path=images/mails/twitch.gif', '_type=absolute'})}"
-                    alt="twitch"
-                    color="#707070"
-                    width="16px"
-                  />
-                </a>
-              </td>
-              <td
-                style="color: #505050; font-family: Roboto; font-size: 14px; text-align: right; padding-right: 5px;"
-              >
-                Вечерние Кости 2019
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 0 0 20px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                    style="border: 1px solid #dedede; padding: 20px 8% 25px; border-top: 0; min-width: 100%;">
+                    <tr>
+                        <td width="50%" style="padding-right: 5px;">&nbsp;</td>
+                        <td width="50%" style="padding-left: 5px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                                style="font-weight: bold; min-width: 100%;">
+                                <tr>
+                                    <td style="color: #333333; font-family: Roboto; font-size: 14px;">
+                                        Всего
+                                    </td>
+                                    <td style="text-align: right; color: #1b2125; font-family: Roboto; font-size: 14px;"
+                                        data-th-text="${'UAH ' + cart.price.total}">
+                                        ₽ 1300
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <div data-th-utext="${mailComponents.footer}" data-th-remove="tag"></div>
     </table>
-  </body>
+</body>
+
 </html>

@@ -73,8 +73,12 @@ function handleReq(req) {
       sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
+      articlesQuery: articlesQuery,
       hotDate: articlesQuery.date ? articlesQuery.date : null,
-      loadMoreComponent: helpers.getLoadMore(articlesQuery.total, null, null),
+      loadMoreComponent: helpers.getLoadMore({
+        articlesCount: articlesQuery.total,
+        pageSize: articlesQuery.pageSize
+      }),
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
       slider: getSlider(site.slider),
       articles: blogLib.getArticlesView(articles)
@@ -85,6 +89,7 @@ function handleReq(req) {
     function getSchedule() {
       var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
       var now = new Date();
+      var repeatedItems = false;
       now.setDate(now.getDate() - 1);
       now = now.toISOString();
       var result = contentLib.query({
@@ -103,6 +108,29 @@ function handleReq(req) {
         result[i].month = norseUtils.getMonthName(itemDate);
         result[i].day = itemDate.getDate().toFixed();
         result[i].hashtags = hashtagLib.getHashtags(result[i].data.hashtags);
+        result[i].time = norseUtils.getTime(itemDate);
+        if (result[i].repeat) {
+          repeatedItems = true;
+        }
+      }
+      var resCopy = JSON.parse(JSON.stringify(result));
+      while (result.length < 3) {
+        for (var i = 0; i < resCopy.length; i++) {
+          if (result.length >= 3) {
+            break;
+          }
+          if (resCopy[i].data.repeat) {
+            var itemDate = new Date(resCopy[i].data.date);
+            itemDate.setDate(
+              itemDate.getDate() + 7 * parseInt(resCopy[i].data.repeat)
+            );
+            resCopy[i].month = norseUtils.getMonthName(itemDate);
+            resCopy[i].day = itemDate.getDate().toFixed();
+            resCopy[i].time = norseUtils.getTime(itemDate);
+            resCopy[i].data.date = itemDate;
+            result.push(JSON.parse(JSON.stringify(resCopy[i])));
+          }
+        }
       }
       return result;
     }
@@ -124,7 +152,7 @@ function handleReq(req) {
     }
 
     function getVideoFromCache(key) {
-      return youtubeCache.get("video", function() {
+      return youtubeCache.get("video", function () {
         return getVideoViaApi(key);
       });
     }
