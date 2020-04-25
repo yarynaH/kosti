@@ -8,16 +8,16 @@
         style="max-width: 570px; background: white;">
         <div data-th-utext="${mailComponents.header}" data-th-remove="tag"></div>
         <tr>
-            <td>
-                <div data-th-utext="${content.data.body}" data-th-remove="tag">
+            <td style="background: white;">
+                <div data-th-utext=" ${content.data.body}" data-th-remove="tag">
                 </div>
             </td>
         </tr>
         <div data-th-utext="${mailComponents.footer}" data-th-remove="tag"></div>
     </table>
-    <div data-th-if="${showSendButton}">
-        <a data-th-href="${portal.pageUrl({'_path=' + content._path, 'action=sendMail'})}"
-            data-th-text="'send mail'"></a>
+    <div data-th-if="${showSendButton}" style="text-align: center; margin: 20px 0">
+        <a data-th-href="${portal.pageUrl({'_path=' + content._path, 'action=sendMail'})}" data-th-text="'send mail'"
+            class="button-light"></a>
     </div>
 </body>
 
