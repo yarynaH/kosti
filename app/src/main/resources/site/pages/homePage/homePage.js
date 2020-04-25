@@ -89,6 +89,7 @@ function handleReq(req) {
     function getSchedule() {
       var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
       var now = new Date();
+      var repeatedItems = false;
       now.setDate(now.getDate() - 1);
       now = now.toISOString();
       var result = contentLib.query({
@@ -108,6 +109,9 @@ function handleReq(req) {
         result[i].day = itemDate.getDate().toFixed();
         result[i].hashtags = hashtagLib.getHashtags(result[i].data.hashtags);
         result[i].time = norseUtils.getTime(itemDate);
+        if (result[i].repeat) {
+          repeatedItems = true;
+        }
       }
       return result;
     }
