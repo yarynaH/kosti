@@ -39,7 +39,7 @@ function getMailComponents(params) {
   if (!params.title) {
     params.title = "";
   }
-  var site = portal.getSite();
+  var site = sharedLib.getSite();
   return {
     head: thymeleaf.render(resolve(components.head), { title: params.title }),
     header: thymeleaf.render(resolve(components.header), { site: site }),
