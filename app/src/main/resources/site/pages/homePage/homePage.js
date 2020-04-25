@@ -113,6 +113,25 @@ function handleReq(req) {
           repeatedItems = true;
         }
       }
+      var resCopy = JSON.parse(JSON.stringify(result));
+      while (result.length < 3) {
+        for (var i = 0; i < resCopy.length; i++) {
+          if (result.length >= 3) {
+            break;
+          }
+          if (resCopy[i].data.repeat) {
+            var itemDate = new Date(resCopy[i].data.date);
+            itemDate.setDate(
+              itemDate.getDate() + 7 * parseInt(resCopy[i].data.repeat)
+            );
+            resCopy[i].month = norseUtils.getMonthName(itemDate);
+            resCopy[i].day = itemDate.getDate().toFixed();
+            resCopy[i].time = norseUtils.getTime(itemDate);
+            resCopy[i].data.date = itemDate;
+            result.push(JSON.parse(JSON.stringify(resCopy[i])));
+          }
+        }
+      }
       return result;
     }
 
