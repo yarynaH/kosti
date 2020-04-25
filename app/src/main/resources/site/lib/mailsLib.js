@@ -284,7 +284,7 @@ function getForgotPassMail(mail, params) {
     body: thymeleaf.render(resolve(mailsTemplates.forgotPass), {
       resetUrl: resetUrl,
       site: sharedLib.getSite(),
-      mailComponents: getMailComponents({ title: content.displayName })
+      mailComponents: getMailComponents({ title: "Смена пароля" })
     }),
     subject: "Смена пароля"
   };
