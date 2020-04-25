@@ -1,94 +1,170 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
-  <title>Новости</title>
-</head>
-
-<body style="margin: 0px; padding: 0px">
-  <table border="0" cellpadding="0" cellspacing="0" align="center" width="570"
-    style="max-width: 570px; background: white;">
-    <tr>
-      <td style="padding: 40px 0;">
-        <a data-th-href="${portal.pageUrl({'_path=' + site._path, '_type=absolute'})}" title="Вечерние кости"
-          style="text-decoration: none;">
-          <img src="#" data-th-src="${portal.assetUrl({'_path=images/mail-logo.png', '_type=absolute'})}"
-            alt="Вечерние кости лого" color="#707070" height="38px" />
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td style="font-size: 16px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;">
-        <div data-portal-region="main">
-          <div data-th-if="${mainRegion}" data-th-each="component : ${mainRegion.components}" data-th-remove="tag">
-            <div data-portal-component="${component.path}" data-th-remove="tag"></div>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+    <title>Новости</title>
+  </head>
+  <body style="margin: 0px; padding: 0px">
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      align="center"
+      width="570"
+      style="max-width: 570px; background: white;"
+    >
+      <tr>
+        <td style="padding: 40px 0;">
+          <a
+            data-th-href="${portal.pageUrl({'_path=' + site._path, '_type=absolute'})}"
+            title="Вечерние кости"
+            style="text-decoration: none;"
+          >
+            <img
+              src="#"
+              data-th-src="${portal.assetUrl({'_path=images/mail-logo.jpg', '_type=absolute'})}"
+              alt="Вечерние кости лого"
+              color="#707070"
+              height="38px"
+            />
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="font-size: 16px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;"
+        >
+          <div data-portal-region="main">
+            <div
+              data-th-if="${mainRegion}"
+              data-th-each="component : ${mainRegion.components}"
+              data-th-remove="tag"
+            >
+              <div
+                data-portal-component="${component.path}"
+                data-th-remove="tag"
+              ></div>
+            </div>
           </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td style="font-size: 12px; font-family: Roboto; line-height: 1.71; color: #505050;">
-        Вы получили это письмо так как подписаны на рассылку KOSTIRPG.
-      </td>
-    </tr>
-    <tr>
-      <td style="font-size: 12px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;">
-        Вы можете
-        <a href="${portal.serviceUrl({'_service=user', '_type=absolute', 'hash=sfdsafs'})}" title="Отписаться"
-          style="color: #0095f8; text-decoration: none;">
-          отписаться
-        </a>
-        от рассылки.
-      </td>
-    </tr>
-    <tr>
-      <td style="padding: 0 0 20px;">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-          <tr>
-            <td>
-              <a href="https://www.facebook.com/vecherniyekosti/" title="facebook"
-                style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/fb.gif', '_type=absolute'})}"
-                  alt="facebook" color="#707070" width="16px" />
-              </a>
-              <a href="https://vk.com/vecherniyekosti" title="vk"
-                style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/vk.gif', '_type=absolute'})}" alt="vk"
-                  color="#707070" width="16px" />
-              </a>
-              <a href="https://twitter.com/vecherniyekosti" title="twitter"
-                style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/twitter.gif', '_type=absolute'})}"
-                  alt="twitter" color="#707070" width="16px" />
-              </a>
-              <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" title="youtube"
-                style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/youtube.gif', '_type=absolute'})}"
-                  alt="youtube" color="#707070" width="16px" />
-              </a>
-              <a href="https://www.instagram.com/vecherniye_kosti/" title="instagram"
-                style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/instagram.gif', '_type=absolute'})}"
-                  alt="instagram" color="#707070" width="16px" style="border-radius: 2px;" />
-              </a>
-              <a href="https://www.twitch.tv/vecherniyekosti?fbclid=IwAR0-q-e8eqtOfcn4_ZaT_Q1sDWVWn3YPrwHzXoHTIBHIFGcBd7J3gwn26K8"
-                title="twitch"
-                style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;">
-                <img src="#" data-th-src="${portal.assetUrl({'_path=images/mails/twitch.gif', '_type=absolute'})}"
-                  alt="twitch" color="#707070" width="16px" />
-              </a>
-            </td>
-            <td style="color: #505050; font-family: Roboto; font-size: 14px; text-align: right; padding-right: 5px;">
-              Вечерние Кости 2019
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="font-size: 12px; font-family: Roboto; line-height: 1.71; color: #505050;"
+        >
+          Вы получили это письмо так как подписаны на рассылку KOSTIRPG.
+        </td>
+      </tr>
+      <tr>
+        <td
+          style="font-size: 12px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;"
+        >
+          Вы можете
+          <a
+            href="${portal.serviceUrl({'_service=user', '_type=absolute', 'hash=sfdsafs'})}"
+            title="Отписаться"
+            style="color: #0095f8; text-decoration: none;"
+          >
+            отписаться
+          </a>
+          от рассылки.
+        </td>
+      </tr>
+      <tr>
+        <td style="padding: 0 0 20px;">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+              <td>
+                <a
+                  href="https://www.facebook.com/vecherniyekosti/"
+                  title="facebook"
+                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
+                >
+                  <img
+                    src="#"
+                    data-th-src="${portal.assetUrl({'_path=images/mails/fb.gif', '_type=absolute'})}"
+                    alt="facebook"
+                    color="#707070"
+                    width="16px"
+                  />
+                </a>
+                <a
+                  href="https://vk.com/vecherniyekosti"
+                  title="vk"
+                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
+                >
+                  <img
+                    src="#"
+                    data-th-src="${portal.assetUrl({'_path=images/mails/vk.gif', '_type=absolute'})}"
+                    alt="vk"
+                    color="#707070"
+                    width="16px"
+                  />
+                </a>
+                <a
+                  href="https://twitter.com/vecherniyekosti"
+                  title="twitter"
+                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
+                >
+                  <img
+                    src="#"
+                    data-th-src="${portal.assetUrl({'_path=images/mails/twitter.gif', '_type=absolute'})}"
+                    alt="twitter"
+                    color="#707070"
+                    width="16px"
+                  />
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg"
+                  title="youtube"
+                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
+                >
+                  <img
+                    src="#"
+                    data-th-src="${portal.assetUrl({'_path=images/mails/youtube.gif', '_type=absolute'})}"
+                    alt="youtube"
+                    color="#707070"
+                    width="16px"
+                  />
+                </a>
+                <a
+                  href="https://www.instagram.com/vecherniye_kosti/"
+                  title="instagram"
+                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
+                >
+                  <img
+                    src="#"
+                    data-th-src="${portal.assetUrl({'_path=images/mails/instagram.gif', '_type=absolute'})}"
+                    alt="instagram"
+                    color="#707070"
+                    width="16px"
+                  />
+                </a>
+                <a
+                  href="https://www.twitch.tv/vecherniyekosti?fbclid=IwAR0-q-e8eqtOfcn4_ZaT_Q1sDWVWn3YPrwHzXoHTIBHIFGcBd7J3gwn26K8"
+                  title="twitch"
+                  style="text-decoration: none; display: inline-block; padding: 5px; vertical-align: middle;"
+                >
+                  <img
+                    src="#"
+                    data-th-src="${portal.assetUrl({'_path=images/mails/twitch.gif', '_type=absolute'})}"
+                    alt="twitch"
+                    color="#707070"
+                    width="16px"
+                  />
+                </a>
+              </td>
+              <td
+                style="color: #505050; font-family: Roboto; font-size: 14px; text-align: right; padding-right: 5px;"
+              >
+                Вечерние Кости 2019
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
 </html>
