@@ -438,14 +438,6 @@
       color: $color-primary22;
     }
   }
-
-  &-url {
-    @include truncate();
-
-    flex-basis: 60%;
-    margin-bottom: 10px;
-    align-self: center;
-  }
 }
 
 @keyframes animate__comment-highlight {
