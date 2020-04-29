@@ -327,9 +327,7 @@ function updateSchedule() {
       });
       function editor(c) {
         var tempDate = new Date(c.data.date);
-        tempDate.setDate(
-          tempDate.getDate() + 7 * parseInt(resCopy[i].data.repeat)
-        );
+        tempDate.setDate(tempDate.getDate() + 7 * parseInt(c.data.repeat));
         tempDate = tempDate.toISOString();
         c.data.date = tempDate;
         return c;

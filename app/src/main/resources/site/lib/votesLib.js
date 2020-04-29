@@ -328,32 +328,34 @@ function getWeekArticleId() {
 }
 
 function addShare(id, user, type, itemType) {
-  var node = getNode(id);
-  if (!itemType) {
-    itemType = "article";
-  }
-  if (node === false) {
-    node = createBlankVote(id, itemType);
-  }
-  var votesRepo = getVotesRepo();
-  return votesRepo.modify({
-    key: node._id,
-    editor: editor
+  var result = contextLib.runAsAdmin(function () {
+    var node = getNode(id);
+    if (!itemType) {
+      itemType = "article";
+    }
+    if (node === false) {
+      node = createBlankVote(id, itemType);
+    }
+    var votesRepo = getVotesRepo();
+    return votesRepo.modify({
+      key: node._id,
+      editor: editor
+    });
+    function editor(node) {
+      if (!node.shares) {
+        node.shares = {};
+      }
+      if (!node.shares[type]) {
+        node.shares[type] = [];
+      }
+      var temp = norseUtils.forceArray(node.shares[type]);
+      if (temp.indexOf(user) === -1) {
+        temp.push(user);
+      }
+      node.shares[type] = temp;
+      return node;
+    }
   });
-  function editor(node) {
-    if (!node.shares) {
-      node.shares = {};
-    }
-    if (!node.shares[type]) {
-      node.shares[type] = [];
-    }
-    var temp = norseUtils.forceArray(node.shares[type]);
-    if (temp.indexOf(user) === -1) {
-      temp.push(user);
-    }
-    node.shares[type] = temp;
-    return node;
-  }
 }
 
 function countShares(id) {
