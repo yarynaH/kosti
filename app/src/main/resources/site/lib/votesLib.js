@@ -307,7 +307,7 @@ function getVotesRepo() {
 function getWeekArticleId() {
   var votesRepo = getVotesRepo();
   var date = new Date();
-  date = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
+  date.setDate(date.getDate() - 7);
   date = date.toISOString();
   var result = votesRepo.query({
     start: 0,
