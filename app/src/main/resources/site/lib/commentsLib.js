@@ -235,6 +235,9 @@ function beautifyComment(comment, counter, level) {
     if (comment.articleId) {
       comment.url =
         portalLib.pageUrl({ id: comment.articleId }) + "#" + comment._id;
+      comment.articleTitle = contentLib.get({
+        key: comment.articleId
+      }).displayName;
     }
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
@@ -264,7 +267,7 @@ function createTextLinks(text) {
   //text = processComment(text, /``[\s\S]+``/gim, "<code>", "</code>");
   return (text || "").replace(
     /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
-    function(match, space, url) {
+    function (match, space, url) {
       return space + '<a href="' + url + '">' + url + "</a>";
     }
   );
@@ -273,7 +276,7 @@ function createTextLinks(text) {
 function processComment(text, regexp, tagOpen, tagClose) {
   //TODO:
   //investigate this function and add bold and other stuff to comments.
-  return text.replace(regexp, function(match, space, content) {
+  return text.replace(regexp, function (match, space, content) {
     return space + tagOpen + content + tagClose;
   });
 }

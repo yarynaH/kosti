@@ -1,101 +1,54 @@
 <div class="comments js_article-comments" id="articleComments">
-  <h4 class="comments-title">Комментарии</h4>
-  <form
-    class="comments-write_comment-wrap js_comment-form"
-    data-th-attr="data-parentid=${articleId}"
-  >
-    <textarea
-      class="comments-write_comment-input"
-      name="body"
-      placeholder="Написать комментарий…"
-      cols="30"
-      rows="1"
-      required
-    ></textarea>
-    <button class="comments-write_comment-button" type="submit">
-      Отправить
-    </button>
-    <input value="addComment" type="hidden" name="action" />
-  </form>
-  <ul
-    data-th-fragment="comments(comments, id, moderator, nextFloor)"
-    class="comments-list js_comments-list"
-    data-th-if="${comments and comments.size != 0}"
-    data-th-attr="data-parentid=${id} ? ${id} : ${articleId}"
-    data-th-classappend="${nextFloor ? 'next_floor' : '' }"
-  >
-    <li
-      data-th-each="comment : ${comments}"
-      class="comments-item js_comment"
-      data-th-attr="data-id=${comment._id}"
-      data-th-id="${comment._id}"
-    >
-      <div class="comments-header">
-        <div class="post-info">
-          <a
-            data-th-if="${comment.author}"
-            data-th-href="${comment.author.url}"
-          >
-            <span class="post-user_avatar">
-              <img data-th-src="${comment.author.image.url}" alt="" />
-            </span>
-            <span
-              class="post-user_name"
-              data-th-text="${comment.author.displayName}"
-            ></span>
-          </a>
-          <span class="post-date" data-th-text="${comment.date}"></span>
-        </div>
-        <div data-th-if="${!comment.deleted}" class="comments-actions">
-          <span
-            data-th-attr="data-id=${comment._id}"
-            class="like-btn icon-rock js_comment-like"
-            data-th-classappend="${comment.voted} ? 'active' : ''"
-          >
-            <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
-          </span>
-          <span
-            data-th-if="${moderator}"
-            data-th-attr="data-id=${comment._id}"
-            class="comments-remove_btn remove-btn js_comment-remove_btn"
-          ></span>
-        </div>
-      </div>
-      <div
-        class="comments-body"
-        data-th-classappend="${comment.deleted? 'deleted' : ''}"
-        data-th-utext="${comment.deleted? 'Комментарий удален. Причина: ' + comment.reason : comment.body}"
-      ></div>
-      <div class="comments-footer">
-        <a
-          class="comments-link js_answer-comment"
-          data-th-attr="data-id=${comment._id}"
-          >Ответить</a
-        >
-        <a
-          class="comments-link js_report-comment"
-          data-th-attr="data-id=${comment._id}"
-          >Пожаловаться</a
-        >
-      </div>
-      <form
-        class="comments-answer_comment comments-write_comment-wrap js_comment-form hidden"
-        data-th-attr="data-parentid=${comment._id}"
-      >
-        <textarea
-          name="body"
-          class="comments-write_comment-input"
-          placeholder="Ответить на комментарий…"
-          cols="30"
-          rows="1"
-          required
-        ></textarea>
-        <button class="comments-write_comment-button">Отправить</button>
+    <h4 class="comments-title">Комментарии</h4>
+    <form class="comments-write_comment-wrap js_comment-form" data-th-attr="data-parentid=${articleId}">
+        <textarea class="comments-write_comment-input" name="body" placeholder="Написать комментарий…" cols="30"
+            rows="1" required></textarea>
+        <button class="comments-write_comment-button" type="submit">
+            Отправить
+        </button>
         <input value="addComment" type="hidden" name="action" />
-      </form>
-      <div
-        data-th-replace="this::comments(${comment.children}, ${comment._id}, ${moderator}, ${comment.nextLevel})"
-      ></div>
-    </li>
-  </ul>
+    </form>
+    <ul data-th-fragment="comments(comments, id, moderator, nextFloor)" class="comments-list js_comments-list"
+        data-th-if="${comments and comments.size != 0}" data-th-attr="data-parentid=${id} ? ${id} : ${articleId}"
+        data-th-classappend="${nextFloor ? 'next_floor' : '' }">
+        <li data-th-each="comment : ${comments}" class="comments-item js_comment" data-th-attr="data-id=${comment._id}"
+            data-th-id="${comment._id}">
+            <div class="comments-header">
+                <div class="post-info">
+                    <a data-th-if="${comment.author}" data-th-href="${comment.author.url}">
+                        <span class="post-user_avatar">
+                            <img data-th-src="${comment.author.image.url}" alt="" />
+                        </span>
+                        <span class="post-user_name" data-th-text="${comment.author.displayName}"></span>
+                    </a>
+                    <span class="post-date" data-th-text="${comment.date}"></span>
+                </div>
+                <div data-th-if="${!comment.deleted}" class="comments-actions">
+                    <span data-th-attr="data-id=${comment._id}" class="like-btn icon-rock js_comment-like"
+                        data-th-classappend="${comment.voted} ? 'active' : ''">
+                        <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
+                    </span>
+                    <span data-th-if="${moderator}" data-th-attr="data-id=${comment._id}"
+                        class="comments-remove_btn remove-btn js_comment-remove_btn"></span>
+                </div>
+            </div>
+            <div class="comments-body" data-th-classappend="${comment.deleted? 'deleted' : ''}"
+                data-th-utext="${comment.deleted? 'Комментарий удален. Причина: ' + comment.reason : comment.body}">
+            </div>
+            <div class="comments-footer">
+                <a class="comments-link js_answer-comment" data-th-attr="data-id=${comment._id}">Ответить</a>
+                <a class="comments-link js_report-comment" data-th-attr="data-id=${comment._id}">Пожаловаться</a>
+            </div>
+            <form class="comments-answer_comment comments-write_comment-wrap js_comment-form hidden"
+                data-th-attr="data-parentid=${comment._id}">
+                <textarea name="body" class="comments-write_comment-input" placeholder="Ответить на комментарий…"
+                    cols="30" rows="1" required></textarea>
+                <button class="comments-write_comment-button">Отправить</button>
+                <input value="addComment" type="hidden" name="action" />
+            </form>
+            <div
+                data-th-replace="this::comments(${comment.children}, ${comment._id}, ${moderator}, ${comment.nextLevel})">
+            </div>
+        </li>
+    </ul>
 </div>
