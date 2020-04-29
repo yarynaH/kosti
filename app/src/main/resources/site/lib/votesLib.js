@@ -312,7 +312,7 @@ function getWeekArticleId() {
   var result = votesRepo.query({
     start: 0,
     count: 1,
-    query: "type = 'article' AND _ts > dateTime('" + date + "')",
+    query: "type = 'article' AND date > dateTime('" + date + "')",
     sort: "rate DESC"
   });
   if (result && result.hits && result.hits.length > 0) {
