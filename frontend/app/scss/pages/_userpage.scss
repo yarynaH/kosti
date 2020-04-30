@@ -19,6 +19,24 @@
             padding: 30px 30px 15px;
         }
     }
+
+    &-comments {
+        .comments-header {
+            flex-wrap: nowrap;
+        }
+
+        .post-info {
+            flex: 0 0 auto;
+        }
+
+        .comments-url {
+            @include truncate();
+
+            align-self: center;
+            flex: 1 1 auto;
+            margin: 0 15px 10px;
+        }
+    }
 }
 
 .profile {
@@ -93,7 +111,7 @@
     }
 
     &-name {
-        color:  $color-primary17;
+        color: $color-primary17;
         font-size: 24px;
         font-weight: bold;
     }
@@ -128,7 +146,7 @@
         color: $color-primary2;
         font-weight: bold;
     }
-    
+
     &-action-link .value,
     &-action-link.active,
     &-action-link:hover {

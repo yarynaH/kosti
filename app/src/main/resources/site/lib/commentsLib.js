@@ -235,6 +235,9 @@ function beautifyComment(comment, counter, level) {
     if (comment.articleId) {
       comment.url =
         portalLib.pageUrl({ id: comment.articleId }) + "#" + comment._id;
+      comment.articleTitle = contentLib.get({
+        key: comment.articleId
+      }).displayName;
     }
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
