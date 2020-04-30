@@ -1,12 +1,10 @@
 <div data-th-utext="${weeksPost}" data-th-remove="tag"></div>
 <div data-th-utext="${libraryHot}" data-th-remove="tag"></div>
 <div class="blog-sidebar-sticky">
-  <div data-th-remove="tag" data-th-utext="${hotTags}"></div>
-  <a
-    data-th-href="${createArticleUrl}"
-    class="blog-write_post button button-light icon-edit js_login-required"
-  >
-    написать статью
-  </a>
-  <div data-th-remove="tag" data-th-utext="${socialLinks}"></div>
+    <div data-th-remove="tag" data-th-utext="${hotTags}"></div>
+    <a data-th-unless="${hideNewArticleButton}" data-th-href="${createArticleUrl}"
+        class="blog-write_post button button-light icon-edit js_login-required">
+        написать статью
+    </a>
+    <div data-th-remove="tag" data-th-utext="${socialLinks}"></div>
 </div>

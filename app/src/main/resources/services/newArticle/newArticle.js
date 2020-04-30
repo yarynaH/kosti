@@ -131,7 +131,7 @@ function handleGet(req) {
         id: portal.getSiteConfig().agreementPage
       }),
       data: up,
-      sidebar: blogLib.getSidebar(),
+      sidebar: blogLib.getSidebar({ hideNewArticleButton: true }),
       social: site.social,
       author: userLib.getCurrentUser(),
       date: kostiUtils.getTimePassedSincePostCreation(new Date()),

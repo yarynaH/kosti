@@ -65,7 +65,10 @@ function getHotTags() {
   });
 }
 
-function getSidebar() {
+function getSidebar(params) {
+  if (!params) {
+    params = {};
+  }
   return thymeleaf.render(
     resolve("../pages/components/blog/blogSidebar.html"),
     {
@@ -73,6 +76,7 @@ function getSidebar() {
       socialLinks: getSolialLinks(),
       libraryHot: getLibraryHot(),
       hotTags: getHotTags(),
+      hideNewArticleButton: params.hideNewArticleButton,
       createArticleUrl: sharedLib.generateNiceServiceUrl("create")
     }
   );
@@ -292,7 +296,7 @@ function countUserRating(id) {
 
 function updateSchedule() {
   norseUtils.log("Started updating schedule.");
-  contextLib.runInDraftAsAdmin(function() {
+  contextLib.runInDraftAsAdmin(function () {
     var currDate = new Date();
     var schedules = contentLib.query({
       start: 0,
