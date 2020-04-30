@@ -1,7 +1,7 @@
 var thymeleaf = require("/lib/thymeleaf");
 var authLib = require("/lib/xp/auth");
 var libs = {
-  context: require("/lib/xp/context"),
+  context: require("/lib/xp/context")
 };
 
 var libLocation = "../../lib/";
@@ -27,8 +27,8 @@ function handleReq(req) {
       body: body,
       contentType: "text/html",
       pageContributions: {
-        bodyEnd: ["<script src='" + fileName + "'></script>"],
-      },
+        bodyEnd: ["<script src='" + fileName + "'></script>"]
+      }
     };
   }
 
@@ -47,11 +47,21 @@ function handleReq(req) {
     );
     var contentType = contentLib.getType(app.name + ":monster");
     var inputs = {
-      alignments: null,
+      alignment: null,
       sizes: null,
-      types: null,
+      typeOptions: null,
       stats: [],
       savethrow: [],
+      misc: [],
+      type: [],
+      hp: [],
+      damageImmune: [],
+      skills: [],
+      speed: [],
+      actions: [],
+      specialAbilities: [],
+      reactions: [],
+      legendaryActions: []
     };
     for (var i = 0; i < contentType.form.length; i++) {
       var item = contentType.form[i];
@@ -60,11 +70,34 @@ function handleReq(req) {
           ? item.config && item.config.display && item.config.display[0]
           : null;
       if (item.name === "alignment") {
-        inputs.alignments = item.config.option;
+        inputs.alignment = item.config.option;
       } else if (item.name === "type") {
-        inputs.types = item.config.option;
+        inputs.typeOptions = item.config.option;
       } else if (item.name === "size") {
         inputs.sizes = item.config.option;
+      } else if (item.name === "skills" || item.name === "speed") {
+        for (var j = 0; j < item.items.length; j++) {
+          var tempItem = item.items[j];
+          tempItem.display =
+            tempItem &&
+            tempItem.config &&
+            tempItem.config.display &&
+            tempItem.config.display[0]
+              ? tempItem.config &&
+                tempItem.config.display &&
+                tempItem.config.display[0]
+              : null;
+          inputs[item.name].push(prepareInput(tempItem));
+        }
+      } else if (
+        [
+          "actions",
+          "legendaryActions",
+          "reactions",
+          "specialAbilities"
+        ].indexOf(item.name) !== -1
+      ) {
+        inputs[item.name] = prepareActions(content.data[item.name]);
       } else if (itemDisplay && itemDisplay["@group"]) {
         item.display = itemDisplay;
         inputs[itemDisplay["@group"]].push(prepareInput(item));
@@ -75,16 +108,35 @@ function handleReq(req) {
       content: content,
       app: app,
       inputs: inputs,
-      pageComponents: helpers.getPageComponents(req),
+      pageComponents: helpers.getPageComponents(req)
     };
 
     return model;
 
+    //TODO move current functions to a library to use from different places
     function prepareInput(input) {
       delete input.occurrences;
       delete item.maximize;
       delete item.config;
       return input;
+    }
+
+    function prepareActions(actions) {
+      if (!actions) {
+        return "";
+      }
+      var result = [];
+      var view = resolve("../components/form/action.html");
+      actions = norseUtils.forceArray(actions);
+      for (var i = 0; i < actions.length; i++) {
+        result.push(
+          thymeleaf.render(view, {
+            name: actions[i].name,
+            description: actions[i].desc
+          })
+        );
+      }
+      return result;
     }
   }
 

@@ -9,7 +9,7 @@ var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 
-exports.post = function(req) {
+exports.post = function (req) {
   var data = JSON.parse(req.params.data);
   editMonster(data);
   return true;
@@ -19,7 +19,7 @@ exports.post = function(req) {
     var id = data.id;
     delete data.name;
     delete data.id;
-    contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
+    contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
       var result = contentLib.modify({
         key: id,
         editor: editor
@@ -53,9 +53,9 @@ exports.post = function(req) {
   }
 };
 
-exports.get = function(req) {
+exports.get = function (req) {
   //doImport();
-  doFix();
+  //doFix();
 
   function doFix() {
     for (var p = 1; p < 23; p++) {
@@ -80,7 +80,7 @@ exports.get = function(req) {
       } else {
         return false;
       }
-      return contextLib.runInDraftAsAdmin(function() {
+      return contextLib.runInDraftAsAdmin(function () {
         var result = contentLib.modify({
           key: id,
           editor: editor
@@ -125,7 +125,7 @@ exports.get = function(req) {
       var name = data.slug;
       delete data.slug;
       delete data.name;
-      return contextLib.runInDraftAsAdmin(function() {
+      return contextLib.runInDraftAsAdmin(function () {
         var result = contentLib.create({
           name: name,
           parentPath: monstersLocation._path,

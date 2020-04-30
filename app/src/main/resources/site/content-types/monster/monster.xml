@@ -3,14 +3,6 @@
   <display-name>Monster</display-name>
   <super-type>base:structured</super-type>
   <form>
-    <input name="armorClass" type="Long">
-      <label>Armor class</label>
-      <occurrences minimum="0" maximum="1"/>
-      <config>
-        <display edit="false" create="true"></display>
-        <group></group>
-      </config>
-    </input>
     <input name="strength" type="Long">
       <label>strength</label>
       <occurrences minimum="0" maximum="1"/>
@@ -52,10 +44,6 @@
       <config>
         <display edit="true" create="true" group="savethrow"/>
       </config>
-    </input>
-    <input name="hitPoints" type="Long">
-      <label>hit points</label>
-      <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="intelligence" type="Long">
       <label>intelligence</label>
@@ -99,62 +87,67 @@
         <display edit="true" create="true" group="savethrow"/>
       </config>
     </input>
-    <item-set name="actions">
-      <label>Actions</label>
-      <occurrences minimum="0" maximum="0"/>
-      <items>
-        <input name="name" type="TextLine">
-          <label>Name</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="desc" type="TextArea">
-          <label>Description</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-      </items>
-    </item-set>
-    <item-set name="specialAbilities">
-      <label>Special abilities</label>
-      <occurrences minimum="0" maximum="0"/>
-      <items>
-        <input name="name" type="TextLine">
-          <label>Name</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="desc" type="TextArea">
-          <label>Description</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-      </items>
-    </item-set>
-    <item-set name="reactions">
-      <label>reactions</label>
-      <occurrences minimum="0" maximum="0"/>
-      <items>
-        <input name="name" type="TextLine">
-          <label>Name</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="desc" type="TextArea">
-          <label>Description</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-      </items>
-    </item-set>
-    <item-set name="legendaryActions">
-      <label>Legendary actions</label>
-      <occurrences minimum="0" maximum="0"/>
-      <items>
-        <input name="name" type="TextLine">
-          <label>Name</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-        <input name="desc" type="TextArea">
-          <label>Description</label>
-          <occurrences minimum="0" maximum="1"/>
-        </input>
-      </items>
-    </item-set>
+    <input name="armorClass" type="Long">
+      <label>Armor class</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="hp"/>
+      </config>
+    </input>
+    <input name="armorDesc" type="TextLine">
+      <label>Armor description</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="hp"/>
+      </config>
+    </input>
+    <input name="hitPoints" type="Long">
+      <label>hit points</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="hp"/>
+      </config>
+    </input>
+    <input name="hitDice" type="TextLine">
+      <label>Hit dice</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="hp"/>
+      </config>
+    </input>
+    <input name="languages" type="TextLine">
+      <label>Languages</label>
+      <config>
+        <display edit="true" create="true" group="misc"/>
+      </config>
+    </input>
+    <input name="subType" type="TextLine">
+      <label>sub type</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="type"/>
+      </config>
+    </input>
+    <input name="group" type="TextLine">
+      <label>group</label>
+      <config>
+        <display edit="true" create="true" group="type"/>
+      </config>
+    </input>
+    <input name="challengeRating" type="TextLine">
+      <label>Challenge rating</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="misc"/>
+      </config>
+    </input>
+    <input name="senses" type="TextLine">
+      <label>Senses</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display edit="true" create="true" group="misc"/>
+      </config>
+    </input>
     <item-set name="speed">
       <label>Speed</label>
       <occurrences minimum="0" maximum="1"/>
@@ -259,12 +252,6 @@
         </input>
       </items>
     </item-set>
-    <input name="languages" type="TextLine">
-      <label>Languages</label>
-    </input>
-    <input name="group" type="TextLine">
-      <label>group</label>
-    </input>
     <input name="size" type="ComboBox">
       <label>Size</label>
       <occurrences minimum="0" maximum="1"/>
@@ -324,10 +311,6 @@
         <option value="construct">construct</option>
       </config>
     </input>
-    <input name="challengeRating" type="TextLine">
-      <label>Challenge rating</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
     <input name="alignmentOld" type="TextLine">
       <label>alignment Old</label>
       <occurrences minimum="0" maximum="1"/>
@@ -336,22 +319,62 @@
       <label>type old</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
-    <input name="subType" type="TextLine">
-      <label>sub type</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="armorDesc" type="TextLine">
-      <label>Armor description</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="senses" type="TextLine">
-      <label>Senses</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="hitDice" type="TextLine">
-      <label>Hit dice</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
+    <item-set name="actions">
+      <label>Actions</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="specialAbilities">
+      <label>Special abilities</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="reactions">
+      <label>reactions</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="legendaryActions">
+      <label>Legendary actions</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
     <input name="spellList" type="TextLine">
       <label>Spell list</label>
       <occurrences minimum="0" maximum="0"/>
@@ -360,28 +383,28 @@
       <label>damage immunities</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true"/>
+        <display edit="true" create="true" group="damageImmune"/>
       </config>
     </input>
     <input name="damageResistances" type="TextLine">
       <label>damage resistances</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true"/>
+        <display edit="true" create="true" group="damageImmune"/>
       </config>
     </input>
     <input name="conditionImmunities" type="TextLine">
-      <label>damage immunities</label>
+      <label>condition immunities</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true"/>
+        <display edit="true" create="true" group="damageImmune"/>
       </config>
     </input>
     <input name="damageVulnerabilities" type="TextLine">
       <label>damage vulnerabilities</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true"/>
+        <display edit="true" create="true" group="damageImmune"/>
       </config>
     </input>
     <input name="translated" type="CheckBox">
