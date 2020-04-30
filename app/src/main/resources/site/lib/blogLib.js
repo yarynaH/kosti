@@ -89,6 +89,10 @@ function beautifyArticle(article) {
   );
   article.imageDesktop = norseUtils.getImage(
     article.data.image,
+    "block(1905, 560)"
+  );
+  article.imageSlider = norseUtils.getImage(
+    article.data.image,
     "block(1920, 1080)"
   );
   if (article.data.author) {
