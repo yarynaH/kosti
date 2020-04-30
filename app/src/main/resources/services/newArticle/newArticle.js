@@ -33,6 +33,9 @@ function handlePut(req) {
       case "videoPart":
         result = articlesLib.getVideoComponent(data);
         break;
+      case "blockquotePart":
+        result = articlesLib.getQuoteComponent(data);
+        break;
       case "hashtagList":
         result = articlesLib.renderHashtagSuggestion(
           hashtagLib.getHashtagList(data.q, data.ids)

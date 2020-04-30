@@ -21,6 +21,7 @@ exports.renderHashtagItem = renderHashtagItem;
 exports.renderArticlesSuggestion = renderArticlesSuggestion;
 exports.renderSimilarArticle = renderSimilarArticle;
 exports.getYoutubeVideoId = getYoutubeVideoId;
+exports.getQuoteComponent = getQuoteComponent;
 
 function createArticle(data) {
   var user = userLib.getCurrentUser();
@@ -39,7 +40,7 @@ function createArticleObject(data, user) {
   if (articleExist) {
     return {
       error: true,
-      message: "articleExists",
+      message: "articleExists"
     };
   }
   var blog = contentLib.get({ key: site.blogLocation });
@@ -55,8 +56,8 @@ function createArticleObject(data, user) {
       image: image._id,
       intro: data.intro,
       hashtags: data.hashtags,
-      similarArticles: data.similarArticles,
-    },
+      similarArticles: data.similarArticles
+    }
   });
   contentLib.setPermissions({
     key: result._id,
@@ -71,16 +72,16 @@ function createArticleObject(data, user) {
           "MODIFY",
           "PUBLISH",
           "READ_PERMISSIONS",
-          "WRITE_PERMISSIONS",
+          "WRITE_PERMISSIONS"
         ],
-        deny: ["DELETE"],
+        deny: ["DELETE"]
       },
       {
         principal: "role:system.everyone",
         allow: ["READ"],
-        deny: [],
-      },
-    ],
+        deny: []
+      }
+    ]
   });
   return result;
 }
@@ -93,7 +94,7 @@ function checkIfArticleExist(title) {
       "' or _name = '" +
       common.sanitize(title) +
       "'",
-    contentType: app.name + ":article",
+    contentType: app.name + ":article"
   });
   if (result.total > 0) {
     return true;
@@ -113,9 +114,9 @@ function createImage(data) {
         resolve("../../services/newArticle/components/image.html"),
         {
           id: data.id,
-          image: image,
+          image: image
         }
-      ),
+      )
     };
   });
 }
@@ -125,9 +126,9 @@ function renderHashtagSuggestion(hashtags) {
     html: thymeleaf.render(
       resolve("../../services/newArticle/components/hashtagSuggestion.html"),
       {
-        hashtags: hashtags,
+        hashtags: hashtags
       }
-    ),
+    )
   };
 }
 
@@ -136,9 +137,9 @@ function renderArticlesSuggestion(articles) {
     html: thymeleaf.render(
       resolve("../../services/newArticle/components/articlesSuggestion.html"),
       {
-        articles: articles,
+        articles: articles
       }
-    ),
+    )
   };
 }
 
@@ -148,9 +149,9 @@ function renderSimilarArticle(id) {
     html: thymeleaf.render(
       resolve("../../services/newArticle/components/similarArticle.html"),
       {
-        article: article,
+        article: article
       }
-    ),
+    )
   };
 }
 
@@ -159,9 +160,9 @@ function renderHashtagItem(hashtag) {
     html: thymeleaf.render(
       resolve("../../services/newArticle/components/hashtagItem.html"),
       {
-        hashtag: hashtag,
+        hashtag: hashtag
       }
-    ),
+    )
   };
 }
 
@@ -170,9 +171,20 @@ function getTextComponent(data) {
     html: thymeleaf.render(
       resolve("../../services/newArticle/components/text.html"),
       {
-        id: data.id,
+        id: data.id
       }
-    ),
+    )
+  };
+}
+
+function getQuoteComponent(data) {
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/blockquote.html"),
+      {
+        id: data.id
+      }
+    )
   };
 }
 
@@ -186,9 +198,9 @@ function getVideoComponent(data) {
         id: data.id,
         url: url,
         form: data.form,
-        videoId: videoId,
+        videoId: videoId
       }
-    ),
+    )
   };
 }
 
@@ -199,12 +211,12 @@ function createImageObj(stream, user) {
   var image = contentLib.createMedia({
     name: hashLib.generateHash(user.displayName + date.toISOString()),
     parentPath: path,
-    data: stream,
+    data: stream
   });
   var publishResult = contentLib.publish({
     keys: [image._id],
     sourceBranch: "draft",
-    targetBranch: "master",
+    targetBranch: "master"
   });
   return image;
 }
@@ -215,7 +227,7 @@ function insertComponents(id, data) {
     key: id,
     editor: function (node) {
       return editor(node, generatePageJson(data));
-    },
+    }
   });
   function editor(node, json) {
     node.components = json;
@@ -235,7 +247,7 @@ function generatePageJson(data) {
     } else if (data[i].type === "part") {
       componentsJson[i].part = {
         descriptor: app.name + ":" + data[i].descriptor,
-        config: { "com-myurchenko-kostirpg": {} },
+        config: { "com-myurchenko-kostirpg": {} }
       };
       componentsJson[i].part.config["com-myurchenko-kostirpg"][
         data[i].descriptor
@@ -250,10 +262,10 @@ function generatePageJson(data) {
       customized: true,
       config: {
         "com-myurchenko-kostirpg": {
-          article: {},
-        },
-      },
-    },
+          article: {}
+        }
+      }
+    }
   });
   return componentsJson;
 }
@@ -267,13 +279,13 @@ function checkArticleStatus(id) {
     return {
       author: false,
       published: false,
-      exists: false,
+      exists: false
     };
   }
   return {
     author: article.data.author === user._id,
     published: article.publish && article.publish.from ? true : false,
-    exists: article ? true : false,
+    exists: article ? true : false
   };
 }
 

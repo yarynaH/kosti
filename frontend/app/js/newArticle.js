@@ -9,7 +9,7 @@ $(".js_new-part").on("click", function () {
 $("#newArticleForm").validate({
   ignore: [],
   highlight: function (element, errorClass, validClass) {},
-  unhighlight: function (element, errorClass, validClass) {},
+  unhighlight: function (element, errorClass, validClass) {}
 });
 
 $("#newArticleForm").on("submit", function (e) {
@@ -32,13 +32,19 @@ $("#newArticleForm").on("submit", function (e) {
       components.push({
         type: "image",
         value: part.data().imageid,
-        caption: part.find("input").val(),
+        caption: part.find("input").val()
       });
     } else if (part.hasClass("js_video-editor")) {
       components.push({
         type: "part",
         descriptor: "video",
-        config: { VIDEO_URL: part.find("img").data().url },
+        config: { VIDEO_URL: part.find("img").data().url }
+      });
+    } else if (part.hasClass("js_quote-editor")) {
+      components.push({
+        type: "part",
+        descriptor: "quote",
+        config: { text: part.find("input").val() }
       });
     }
   });
@@ -48,8 +54,8 @@ $("#newArticleForm").on("submit", function (e) {
       similarArticles: getSimilarArticlesIds(),
       hashtags: getHashtagsIds(),
       intro: $(".js_intro-input").val().trim(),
-      title: $(".js_title-input").val().trim(),
-    },
+      title: $(".js_title-input").val().trim()
+    }
   };
   var form_data = new FormData();
   form_data.append("image", file_data);
@@ -68,7 +74,7 @@ $("#newArticleForm").on("submit", function (e) {
       } else {
         showSnackBar(data.message, "error");
       }
-    },
+    }
   });
 });
 
@@ -84,6 +90,13 @@ $(".js_add-video").on("click", function () {
   var form_data = new FormData();
   form_data.append("type", "videoPart");
   form_data.append("form", "true");
+  addPart(form_data);
+});
+
+$(".js_add-blockquote").on("click", function () {
+  var id = getNextId();
+  var form_data = new FormData();
+  form_data.append("type", "blockquotePart");
   addPart(form_data);
 });
 
@@ -130,7 +143,7 @@ $("#article-image-input").on("change", function (e) {
     success: function (data) {
       $(".js_main-image").html("<img src='" + data.url + "'/>");
       hideLoader();
-    },
+    }
   });
 });
 
@@ -187,7 +200,7 @@ function addPart(form_data, callback, appendTo, replace) {
         callback(id);
       }
       hideLoader();
-    },
+    }
   });
 }
 
@@ -200,10 +213,10 @@ function initEditor(id) {
     plugins: [
       "advlist autolink lists link charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
-      "insertdatetime table paste help autoresize",
+      "insertdatetime table paste help autoresize"
     ],
     toolbar:
-      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist",
+      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist"
   });
 }
 
@@ -286,7 +299,7 @@ function getHashTagList(el) {
     type: "PUT",
     success: function (data) {
       $(".js_hashtag-suggestion-wrapper").html(data.html);
-    },
+    }
   });
 }
 
@@ -304,7 +317,7 @@ function getArticlesList(el) {
     type: "PUT",
     success: function (data) {
       $(".js_article-suggestion-wrapper").html(data.html);
-    },
+    }
   });
 }
 $(".js_similar_posts").on("click", ".js_article-suggest-item", function () {
@@ -321,7 +334,7 @@ $(".js_similar_posts").on("click", ".js_article-suggest-item", function () {
     success: function (data) {
       $(".js_similar_posts-list").append(data.html);
       checkSimilarArticlesAmount();
-    },
+    }
   });
   $(".js_article-suggestion-list").remove();
   $(".js_add-article-input").val("");
@@ -361,7 +374,7 @@ $(".js_tag-list").on("click", ".js_hashtag-suggest-item", function () {
     success: function (data) {
       $(data.html).insertBefore($(".js_add-hashtag-input-wrapper"));
       checkHashtagsAmount();
-    },
+    }
   });
   $(".js_hashtag-suggestion-list").remove();
   $(".js_add-hashtag-input").val("");
@@ -392,12 +405,22 @@ $(".js_title-div").on("focus", function () {
   $(this).text($(".js_title-input").val());
 });
 
-$(".js_intro-div").on("focusout", function () {
+$(".js_intro-div, .js_title-div").on("focusout", function () {
   checkPlaceholder(this);
 });
 
-$(".js_title-div").on("focusout", function () {
+$(".js_parts-block").on("focus", ".js_editable-div", function () {
+  var input = $(this).parent().find("input.js_editable-div-value");
+  $(this).text(input.val());
+});
+
+$(".js_parts-block").on("focusout", ".js_editable-div", function () {
   checkPlaceholder(this);
+});
+
+$(".js_parts-block").on("input", ".js_editable-div", function () {
+  var input = $(this).parent().find("input.js_editable-div-value");
+  input.val($(this).text().trim());
 });
 
 function checkPlaceholder(el) {
