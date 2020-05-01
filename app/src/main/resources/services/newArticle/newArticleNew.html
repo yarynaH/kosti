@@ -11,7 +11,8 @@
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
         <div class="article-img_wrap js_main-image">
-            <div class="article-img_wrap-placeholder"></div>
+            <div class="article-img_wrap-placeholder" data-th-unless="${mainImage}"></div>
+            <img data-th-if="${mainImage}" data-th-src="${mainImage.url}" />
         </div>
         <form class="blog blog_width clearfix" form method="POST" enctype="multipart/form-data" id="newArticleForm">
             <div class="article-header">
@@ -26,10 +27,12 @@
                 </div>
                 <div class="form-group">
                     <h1 id="article-title-input" contenteditable="true" class="post-title js_title-div"
-                        data-placeholder="Введите здесь название статьи">
+                        data-placeholder="Введите здесь название статьи"
+                        data-th-text="${article ? article.displayName : 'Введите здесь название статьи'}">
                         Введите здесь название статьи
                     </h1>
-                    <input name="title" type="hidden" required class="js_title-input" />
+                    <input data-th-value="${article ? article.displayName : ''}" name="title" type="hidden" required
+                        class="js_title-input" />
                 </div>
             </div>
             <div class="blog-content">
@@ -37,12 +40,16 @@
                     <div class="article-content">
                         <div class="form-group create_article-post_text_wrap">
                             <div contenteditable="true" id="article-intro-input" class="post-text js_intro-div"
+                                data-th-text="${article ? article.data.intro : 'Введите здесь краткий текст, который опишет о чем именно будет
+                            статья. Появляется при просмотре списка статей. Не появляется
+                            на странице самой статьи.'}"
                                 data-placeholder="Введите здесь краткий текст, который опишет о чем именно будет статья. Появляется при просмотре списка статей. Не появляется на странице самой статьи.">
                                 Введите здесь краткий текст, который опишет о чем именно будет
                                 статья. Появляется при просмотре списка статей. Не появляется
                                 на странице самой статьи.
                             </div>
-                            <input name="intro" type="hidden" required class="js_intro-input" />
+                            <input data-th-value="${article ? article.data.intro : ''}" name="intro" type="hidden"
+                                required class="js_intro-input" />
                         </div>
                         <div class="create_article-add_main_img-wrap">
                             <label for="article-image-input" class="create_article-add_main_img js_label-file">
@@ -52,13 +59,17 @@
                                 <span class="create_article-add_main_img-icon"></span>
                             </label>
                             <input data-th-value="${data.image}" id="article-image-input" type="file" name="image"
-                                required hidden />
+                                data-th-attr="data-update=${mainImage ? 'false' : 'true'}" required hidden />
                             <div class="form-caption">
                                 Рекоммендуемый размер изображения 1920х560 пикселей, или
                                 больше.
                             </div>
                         </div>
-                        <div class="js_parts-block"></div>
+                        <div class="js_parts-block">
+                            <div data-th-each="component : ${components}" data-th-utext="${component.html}"
+                                data-th-remove="tag">
+                            </div>
+                        </div>
                         <div class="create_article-add_content">
                             <div class="create_article-add_content-inner">
                                 <div class="create_article-add_content-btn js_new-part-dropdown">
@@ -85,9 +96,13 @@
                         <div class="form-group">
                             <div class="tag-list add-article-tag-list js_tag-list">
                                 <div class="tag-list-add_new js_add-hashtag-input-wrapper">
+                                    <div data-th-each="hashtag : ${hashtags}" data-th-utext="${hashtag.html}"
+                                        data-th-remove="tag">
+                                    </div>
                                     <input class="js_add-hashtag-input tag-item" placeholder="Добавить хештег"
                                         size="16" />
-                                    <div class="js_hashtag-suggestion-wrapper"></div>
+                                    <div class="js_hashtag-suggestion-wrapper">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -111,7 +126,11 @@
                 <div class="similar_posts js_similar_posts">
                     <h4 class="similar_posts-title"
                         data-th-text="${portal.localize({'_key=blog.title.similarArticles', '_locale=ru'})}"></h4>
-                    <ul class="similar_posts-list js_similar_posts-list"></ul>
+                    <ul class="similar_posts-list js_similar_posts-list">
+                        <div data-th-each="simArt : ${similarArticles}" data-th-utext="${simArt.html}"
+                            data-th-remove="tag">
+                        </div>
+                    </ul>
 
                     <div class="similar_posts-add_new">
                         <input class="js_add-article-input" placeholder="Добавить похожую статью" />
@@ -132,6 +151,7 @@
                 </div>
             </div>
             <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
+            <input class="js_article-id-input hidden" data-th-if="${article}" data-th-value="${article._id}" disabled />
         </form>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>

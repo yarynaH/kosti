@@ -22,6 +22,7 @@ exports.renderArticlesSuggestion = renderArticlesSuggestion;
 exports.renderSimilarArticle = renderSimilarArticle;
 exports.getYoutubeVideoId = getYoutubeVideoId;
 exports.getQuoteComponent = getQuoteComponent;
+exports.getImageComponent = getImageComponent;
 
 function createArticle(data) {
   var user = userLib.getCurrentUser();
@@ -109,16 +110,28 @@ function createImage(data) {
     var image = createImageObj(stream, user);
     image = norseUtils.getImage(image._id);
     if (data.json) return image;
-    return {
-      html: thymeleaf.render(
-        resolve("../../services/newArticle/components/image.html"),
-        {
-          id: data.id,
-          image: image
-        }
-      )
-    };
+    return getImageComponent({
+      id: data.id,
+      image: image,
+      caption: data.caption
+    });
   });
+}
+
+function getImageComponent(data) {
+  if (!data) {
+    data = {};
+  }
+  return {
+    html: thymeleaf.render(
+      resolve("../../services/newArticle/components/image.html"),
+      {
+        id: data.id,
+        image: data.image,
+        caption: data.caption ? data.caption : ""
+      }
+    )
+  };
 }
 
 function renderHashtagSuggestion(hashtags) {
@@ -171,7 +184,8 @@ function getTextComponent(data) {
     html: thymeleaf.render(
       resolve("../../services/newArticle/components/text.html"),
       {
-        id: data.id
+        id: data.id,
+        text: data.text
       }
     )
   };
@@ -182,7 +196,8 @@ function getQuoteComponent(data) {
     html: thymeleaf.render(
       resolve("../../services/newArticle/components/blockquote.html"),
       {
-        id: data.id
+        id: data.id,
+        text: data.text ? data.text : ""
       }
     )
   };
@@ -198,7 +213,8 @@ function getVideoComponent(data) {
         id: data.id,
         url: url,
         form: data.form,
-        videoId: videoId
+        videoId: videoId,
+        addWrapper: data.addWrapper
       }
     )
   };
@@ -285,7 +301,8 @@ function checkArticleStatus(id) {
   return {
     author: article.data.author === user._id,
     published: article.publish && article.publish.from ? true : false,
-    exists: article ? true : false
+    exists: article ? true : false,
+    article: article
   };
 }
 

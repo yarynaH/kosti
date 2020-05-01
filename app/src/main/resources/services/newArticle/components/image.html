@@ -2,10 +2,10 @@
     data-th-attr="data-imageid=${image._id}, data-id=${id}">
     <img data-th-id="${'js_single-part-' + id}" data-th-src="${image.url}" />
     <div class="js_editable-div create_article-image_editor-caption js_img_caption" contenteditable="true"
-        data-placeholder="Введите здесь подпись для картинки">
-        Введите здесь подпись для картинки
+        data-placeholder="Введите здесь подпись для картинки"
+        data-th-text="${caption != '' ? caption : 'Введите здесь подпись для картинки'}">
     </div>
-    <input type="hidden" class="js_img_caption_input js_editable-div-value" />
+    <input type="hidden" class="js_img_caption_input js_editable-div-value" data-th-value="${caption}" />
     <div class="create_article-editor_actions">
         <div class="create_article-editor_actions-remove js_remove-part"></div>
         <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>

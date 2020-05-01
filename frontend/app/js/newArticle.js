@@ -12,13 +12,18 @@ $("#newArticleForm").validate({
   unhighlight: function (element, errorClass, validClass) {}
 });
 
+$(".js_tinymce-editor").each(function () {
+  initEditor($(this).data().tinymce);
+});
+checkSimilarArticlesAmount();
+checkHashtagsAmount();
+
 $("#newArticleForm").on("submit", function (e) {
   e.preventDefault();
   if (!$("#newArticleForm").valid()) {
     scrollToItem($(".error-msg").parent());
     return false;
   }
-  var file_data = $("#article-image-input").prop("files")[0];
   var partsLength = parseInt($(".js_single-part").length);
   var components = [];
   $(".js_single-part").each(function () {
@@ -59,7 +64,17 @@ $("#newArticleForm").on("submit", function (e) {
   };
   var form_data = new FormData();
   form_data.append("image", file_data);
-  form_data.append("data", JSON.stringify(data));
+  if ($("#article-image-input").data().update == "true") {
+    var file_data = $("#article-image-input").prop("files")[0];
+    form_data.append("data", JSON.stringify(data));
+  }
+  if ($(".js_article-id-input").length > 0) {
+    form_data.append("action", "update");
+    form_data.append("id", $(".js_article-id-input").val());
+  } else {
+    form_data.append("action", "create");
+  }
+  form_data.append("action", action);
   showLoader();
   $.ajax({
     url: "/create",
@@ -141,6 +156,7 @@ $("#article-image-input").on("change", function (e) {
     contentType: false,
     type: "PUT",
     success: function (data) {
+      $("#article-image-input").data("update", "true");
       $(".js_main-image").html("<img src='" + data.url + "'/>");
       hideLoader();
     }
@@ -354,7 +370,7 @@ function checkSimilarArticlesAmount() {
 }
 
 function checkHashtagsAmount() {
-  if ($(".js_tag-item").length >= 6) {
+  if ($(".js_tag-item").length >= 5) {
     $(".js_add-hashtag-input").addClass("hidden");
   } else {
     $(".js_add-hashtag-input").removeClass("hidden");

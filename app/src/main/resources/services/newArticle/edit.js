@@ -23,9 +23,10 @@ function handleGet(req) {
     if (!user) {
       return helpers.getLoginRequest();
     }
-    var view = resolve("articleSubmit.html");
+    //var view = resolve("articleSubmit.html");
+    var view = resolve("newArticleNew.html");
     return {
-      body: thymeleaf.render(view, createModel()),
+      body: thymeleaf.render(view, createModel(req)),
       contentType: "text/html"
     };
   }
@@ -33,12 +34,82 @@ function handleGet(req) {
   function createModel() {
     var user = userLib.getCurrentUser();
     var articleStatus = articlesLib.checkArticleStatus(req.params.id);
+    var up = req.params;
+    if (!up) {
+      up = {};
+    }
 
     return {
       access: articleStatus.exists && (articleStatus.author || user.moderator),
       published: articleStatus.exists && articleStatus.published,
+      article: articleStatus.article,
+      mainImage: norseUtils.getImage(articleStatus.article.data.image),
+      components: prepareComponentsForEdit(articleStatus.article),
+      similarArticles: getSimilairArticles(articleStatus.article),
+      hashtags: getHashtags(articleStatus.article),
+      data: up,
       pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };
+  }
+
+  function getSimilairArticles(article) {
+    var result = [];
+    for (var i = 0; i < article.data.similarArticles.length; i++) {
+      result.push(
+        articlesLib.renderSimilarArticle(article.data.similarArticles[i])
+      );
+    }
+    return result;
+  }
+
+  function getHashtags(article) {
+    var result = [];
+    for (var i = 0; i < article.data.hashtags.length; i++) {
+      var hashtag = contentLib.get({ key: article.data.hashtags[i] });
+      result.push(articlesLib.renderHashtagItem(hashtag));
+    }
+    return result;
+  }
+
+  function prepareComponentsForEdit(article) {
+    norseUtils.log(article);
+    var result = [];
+    for (var i = 0; i < article.page.regions.main.components.length; i++) {
+      var component = article.page.regions.main.components[i];
+      var id = component.path.split("/");
+      id = id[id.length - 1];
+      if (component.type === "image") {
+        result.push(
+          articlesLib.getImageComponent({
+            image: norseUtils.getImage(component.image),
+            id: id,
+            caption: component.caption
+          })
+        );
+      } else if (component.type === "text") {
+        result.push(
+          articlesLib.getTextComponent({ id: id, text: component.text })
+        );
+      } else if (component.type === "part") {
+        result.push(processPartComponent(component, id));
+      }
+    }
+    return result;
+  }
+
+  function processPartComponent(component, id) {
+    if (component.descriptor === app.name + ":video") {
+      return articlesLib.getVideoComponent({
+        url: component.config.VIDEO_URL,
+        addWrapper: true,
+        id: id
+      });
+    } else if (component.descriptor === app.name + ":quote") {
+      return articlesLib.getQuoteComponent({
+        id: id,
+        text: component.config.text
+      });
+    }
   }
 
   return renderView();
