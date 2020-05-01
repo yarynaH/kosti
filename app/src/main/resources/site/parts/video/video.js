@@ -3,7 +3,7 @@ var thymeleaf = require("/lib/thymeleaf"); // Import the thymeleaf render functi
 var contentLib = require("/lib/xp/content");
 
 // Handle GET requests
-exports.get = function(req) {
+exports.get = function (req) {
   // Find the current component from request
   var component = portal.getComponent();
 
@@ -11,19 +11,13 @@ exports.get = function(req) {
   var video = component.config || [],
     url = "",
     iframe = true;
-
-  if (video && video.VIDEO_URL) {
-    url = video.VIDEO_URL.split("/");
-    url = url[url.length - 1];
-
-    if (video.VIDEO_SOURCE == "vimeo") {
-      url = "https://player.vimeo.com/video/" + url;
-    } else if (video.VIDEO_SOURCE == "youtube") {
-      if (url.split("?v=")[1]) {
-        url = "https://www.youtube.com/embed/" + url.split("?v=")[1];
-      } else {
-        url = "https://www.youtube.com/embed/" + url;
-      }
+  var url = video.VIDEO_URL;
+  var videoId = null;
+  if (url) {
+    if (url.split("?v=")[1]) {
+      videoId = "https://www.youtube.com/embed/" + url.split("?v=")[1];
+    } else {
+      videoId = "https://www.youtube.com/embed/" + url;
     }
   }
   if (
@@ -43,6 +37,7 @@ exports.get = function(req) {
     component: component,
     iframe: iframe,
     url: url,
+    videoId: videoId,
     source: source
   };
 
