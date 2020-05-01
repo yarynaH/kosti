@@ -172,5 +172,8 @@
     <mapping controller="/services/user/becomeGm.js">
       <pattern>/become-gm</pattern>
     </mapping>
+    <mapping controller="/services/monsterApi/monsterApi.js">
+      <pattern>/api/monster</pattern>
+    </mapping>
   </mappings>
 </site>
