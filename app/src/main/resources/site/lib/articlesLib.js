@@ -293,7 +293,11 @@ function getYoutubeVideoId(url) {
   if (url.length === 11) {
     return url;
   }
-  if (url.indexOf("?") !== -1) {
+  if (url.indexOf("youtu.be") !== -1) {
+    var videoParts = url.split("/");
+    var urlPart = videoParts[videoParts.length - 1];
+    return urlPart.split("?")[0];
+  } else if (url.indexOf("?") !== -1) {
     var videoUrlParts = url.split("?");
     var videoParams = videoUrlParts[1].split("&");
     for (var i = 0; i < videoParams.length; i++) {
