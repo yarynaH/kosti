@@ -12,6 +12,8 @@ var helpers = require(libLocation + "helpers");
 var userLib = require(libLocation + "userLib");
 var spellLib = require(libLocation + "spellsLib");
 var contextLib = require(libLocation + "contextLib");
+var sharedLib = require(libLocation + "sharedLib");
+var monsterLib = require(libLocation + "monsterLib");
 
 exports.get = handleReq;
 
@@ -45,64 +47,10 @@ function handleReq(req) {
     content.data.specialAbilities = norseUtils.forceArray(
       content.data.specialAbilities
     );
-    var contentType = contentLib.getType(app.name + ":monster");
-    var inputs = {
-      alignment: null,
-      sizes: null,
-      typeOptions: null,
-      stats: [],
-      savethrow: [],
-      misc: [],
-      type: [],
-      hp: [],
-      damageImmune: [],
-      skills: [],
-      speed: [],
-      actions: [],
-      specialAbilities: [],
-      reactions: [],
-      legendaryActions: []
-    };
-    for (var i = 0; i < contentType.form.length; i++) {
-      var item = contentType.form[i];
-      var itemDisplay =
-        item && item.config && item.config.display && item.config.display[0]
-          ? item.config && item.config.display && item.config.display[0]
-          : null;
-      if (item.name === "alignment") {
-        inputs.alignment = item.config.option;
-      } else if (item.name === "type") {
-        inputs.typeOptions = item.config.option;
-      } else if (item.name === "size") {
-        inputs.sizes = item.config.option;
-      } else if (item.name === "skills" || item.name === "speed") {
-        for (var j = 0; j < item.items.length; j++) {
-          var tempItem = item.items[j];
-          tempItem.display =
-            tempItem &&
-            tempItem.config &&
-            tempItem.config.display &&
-            tempItem.config.display[0]
-              ? tempItem.config &&
-                tempItem.config.display &&
-                tempItem.config.display[0]
-              : null;
-          inputs[item.name].push(prepareInput(tempItem));
-        }
-      } else if (
-        [
-          "actions",
-          "legendaryActions",
-          "reactions",
-          "specialAbilities"
-        ].indexOf(item.name) !== -1
-      ) {
-        inputs[item.name] = prepareActions(content.data[item.name]);
-      } else if (itemDisplay && itemDisplay["@group"]) {
-        item.display = itemDisplay;
-        inputs[itemDisplay["@group"]].push(prepareInput(item));
-      }
-    }
+    var inputs = monsterLib.getInputs({
+      action: content.data.translated ? "edit" : "translate",
+      content: content
+    });
 
     var model = {
       content: content,
@@ -112,32 +60,6 @@ function handleReq(req) {
     };
 
     return model;
-
-    //TODO move current functions to a library to use from different places
-    function prepareInput(input) {
-      delete input.occurrences;
-      delete item.maximize;
-      delete item.config;
-      return input;
-    }
-
-    function prepareActions(actions) {
-      if (!actions) {
-        return "";
-      }
-      var result = [];
-      var view = resolve("../components/form/action.html");
-      actions = norseUtils.forceArray(actions);
-      for (var i = 0; i < actions.length; i++) {
-        result.push(
-          thymeleaf.render(view, {
-            name: actions[i].name,
-            description: actions[i].desc
-          })
-        );
-      }
-      return result;
-    }
   }
 
   return renderView();

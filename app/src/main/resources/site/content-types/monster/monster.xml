@@ -7,145 +7,145 @@
       <label>strength</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="stats"/>
+        <display translate="false" edit="true" create="true" group="stats"/>
       </config>
     </input>
     <input name="strengthSave" type="Long">
       <label>strength save</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="savethrow"/>
+        <display translate="false" edit="true" create="true" group="savethrow"/>
       </config>
     </input>
     <input name="dexterity" type="Long">
       <label>dexterity</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="stats"/>
+        <display translate="false" edit="true" create="true" group="stats"/>
       </config>
     </input>
     <input name="dexteritySave" type="Long">
       <label>dexterity save</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="savethrow"/>
+        <display translate="false" edit="true" create="true" group="savethrow"/>
       </config>
     </input>
     <input name="constitution" type="Long">
       <label>constitution</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="stats"/>
+        <display translate="false" edit="true" create="true" group="stats"/>
       </config>
     </input>
     <input name="constitutionSave" type="Long">
       <label>constitution save</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="savethrow"/>
+        <display translate="false" edit="true" create="true" group="savethrow"/>
       </config>
     </input>
     <input name="intelligence" type="Long">
       <label>intelligence</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="stats"/>
+        <display translate="false" edit="true" create="true" group="stats"/>
       </config>
     </input>
     <input name="intelligenceSave" type="Long">
       <label>intelligence save</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="savethrow"/>
+        <display translate="false" edit="true" create="true" group="savethrow"/>
       </config>
     </input>
     <input name="wisdom" type="Long">
       <label>wisdom</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="stats"/>
+        <display translate="false" edit="true" create="true" group="stats"/>
       </config>
     </input>
     <input name="wisdomSave" type="Long">
       <label>wisdom save</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="savethrow"/>
+        <display translate="false" edit="true" create="true" group="savethrow"/>
       </config>
     </input>
     <input name="charisma" type="Long">
       <label>charisma</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="stats"/>
+        <display translate="false" edit="true" create="true" group="stats"/>
       </config>
     </input>
     <input name="charismaSave" type="Long">
       <label>charisma save</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="savethrow"/>
+        <display translate="false" edit="true" create="true" group="savethrow"/>
       </config>
     </input>
     <input name="armorClass" type="Long">
       <label>Armor class</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="hp"/>
+        <display translate="false" edit="true" create="true" group="hp"/>
       </config>
     </input>
     <input name="armorDesc" type="TextLine">
       <label>Armor description</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="hp"/>
+        <display translate="true" edit="true" create="true" group="hp"/>
       </config>
     </input>
     <input name="hitPoints" type="Long">
       <label>hit points</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="hp"/>
+        <display translate="false" edit="true" create="true" group="hp"/>
       </config>
     </input>
     <input name="hitDice" type="TextLine">
       <label>Hit dice</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="hp"/>
+        <display translate="false" edit="true" create="true" group="hp"/>
       </config>
     </input>
     <input name="languages" type="TextLine">
       <label>Languages</label>
       <config>
-        <display edit="true" create="true" group="misc"/>
+        <display translate="true" edit="true" create="true" group="misc"/>
       </config>
     </input>
     <input name="subType" type="TextLine">
       <label>sub type</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="type"/>
+        <display translate="true" edit="true" create="true" group="type"/>
       </config>
     </input>
     <input name="group" type="TextLine">
       <label>group</label>
       <config>
-        <display edit="true" create="true" group="type"/>
+        <display translate="true" edit="true" create="true" group="type"/>
       </config>
     </input>
     <input name="challengeRating" type="TextLine">
       <label>Challenge rating</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="misc"/>
+        <display translate="true" edit="true" create="true" group="misc"/>
       </config>
     </input>
     <input name="senses" type="TextLine">
       <label>Senses</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="misc"/>
+        <display translate="true" edit="true" create="true" group="misc"/>
       </config>
     </input>
     <item-set name="speed">
@@ -383,28 +383,28 @@
       <label>damage immunities</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="damageImmune"/>
+        <display translate="true" edit="true" create="true" group="damageImmune"/>
       </config>
     </input>
     <input name="damageResistances" type="TextLine">
       <label>damage resistances</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="damageImmune"/>
+        <display translate="true" edit="true" create="true" group="damageImmune"/>
       </config>
     </input>
     <input name="conditionImmunities" type="TextLine">
       <label>condition immunities</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="damageImmune"/>
+        <display translate="true" edit="true" create="true" group="damageImmune"/>
       </config>
     </input>
     <input name="damageVulnerabilities" type="TextLine">
       <label>damage vulnerabilities</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
-        <display edit="true" create="true" group="damageImmune"/>
+        <display translate="true" edit="true" create="true" group="damageImmune"/>
       </config>
     </input>
     <input name="translated" type="CheckBox">

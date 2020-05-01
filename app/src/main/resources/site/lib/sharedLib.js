@@ -11,13 +11,14 @@ exports.getTranslationCounter = getTranslationCounter;
 exports.getSite = getSite;
 exports.getSiteConfig = getSiteConfig;
 exports.getShopUrl = getShopUrl;
+exports.prepareInput = prepareInput;
 
 function getRepoConnection(id, branch) {
   let conn = null;
   if (!branch) {
     var branch = "master";
   }
-  contextLib.runAsAdmin(function() {
+  contextLib.runAsAdmin(function () {
     if (!repoLib.get(id)) {
       createRepo(id);
     }
@@ -106,4 +107,11 @@ function getTranslationCounter(count) {
       return "3";
       break;
   }
+}
+
+function prepareInput(input) {
+  delete input.occurrences;
+  delete input.maximize;
+  delete input.config;
+  return input;
 }

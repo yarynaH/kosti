@@ -14,6 +14,7 @@ exports.getPageComponents = getPageComponents;
 exports.getLoadMore = getLoadMore;
 exports.getRandomString = getRandomString;
 exports.getLoginRequest = getLoginRequest;
+exports.getSelectComponent = getSelectComponent;
 
 function getPageComponents(req, footerType, activeEl, title) {
   var pageComponents = {};
@@ -269,4 +270,9 @@ function getLoginRequest() {
     ),
     contentType: "text/html"
   };
+}
+
+function getSelectComponent(params) {
+  var view = resolve("../pages/components/form/select.html");
+  return thymeleaf.render(view, params);
 }
