@@ -10,6 +10,17 @@ $(".js_tinymce-editor").each(function () {
 checkSimilarArticlesAmount();
 checkHashtagsAmount();
 
+$("[contenteditable]").bind("paste", function (e) {
+  e.preventDefault();
+  var data = e.originalEvent.clipboardData.getData("text");
+  data = data
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/"/g, "&quot;");
+  $(this).html(data);
+  $(this).parent().find("input").val($(this).text().trim());
+});
+
 $("form input[type=submit]").click(function () {
   $("input[type=submit]", $(this).parents("form")).removeAttr("clicked");
   $(this).attr("clicked", "true");
