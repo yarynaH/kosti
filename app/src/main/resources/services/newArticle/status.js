@@ -42,6 +42,7 @@ function handleGet(req) {
       access: articleStatus.exists && (articleStatus.author || user.moderator),
       published: articleStatus.exists && articleStatus.published,
       article: articleStatus.article,
+      futurePublish: articleStatus.futurePublish,
       data: up,
       pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };

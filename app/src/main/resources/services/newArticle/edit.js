@@ -12,6 +12,7 @@ var kostiUtils = require(libLocation + "kostiUtils");
 var spellLib = require(libLocation + "spellsLib");
 var articlesLib = require(libLocation + "articlesLib");
 var blogLib = require(libLocation + "blogLib");
+var statusPage = require("status");
 
 exports.get = handleGet;
 
@@ -23,12 +24,30 @@ function handleGet(req) {
     if (!user) {
       return helpers.getLoginRequest();
     }
-    //var view = resolve("articleSubmit.html");
+    if (!isArticleValid(req.params.id)) {
+      return statusPage.get(req);
+    }
+    var model = createModel(req);
     var view = resolve("newArticleNew.html");
     return {
-      body: thymeleaf.render(view, createModel(req)),
+      body: thymeleaf.render(view, model),
       contentType: "text/html"
     };
+  }
+
+  function isArticleValid(id) {
+    var status = articlesLib.checkArticleStatus(id);
+    var user = userLib.getCurrentUser();
+    if (!status.exists) {
+      return false;
+    }
+    if (status.published) {
+      return false;
+    }
+    if (!(status.exists && (status.author || user.moderator))) {
+      return false;
+    }
+    return true;
   }
 
   function createModel() {

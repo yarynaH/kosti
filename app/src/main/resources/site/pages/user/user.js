@@ -61,7 +61,12 @@ function handleReq(req) {
       " " +
       date.getFullYear();
     var totalArticles = {
-      articles: blogLib.getArticlesByUser(content._id, 0, true),
+      articles: blogLib.getArticlesByUser({
+        id: content._id,
+        page: 0,
+        count: true,
+        runInDraft: currUserFlag
+      }),
       notifications: notificationLib.getNotificationsForUser(
         content._id,
         null,
@@ -122,7 +127,8 @@ function handleReq(req) {
       active.articles = "active";
       var currTitle = "articles";
       var articles = blogLib.getArticlesView(
-        blogLib.getArticlesByUser(content._id).hits
+        blogLib.getArticlesByUser({ id: content._id, runInDraft: currUserFlag })
+          .hits
       );
     }
     var pluralArticlesString = sharedLib.getTranslationCounter(

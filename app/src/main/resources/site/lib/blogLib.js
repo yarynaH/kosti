@@ -127,7 +127,33 @@ function beautifyArticle(article) {
     article.voted = votesLib.checkIfVoted(article._id);
   }
   article.hashtags = hashtagLib.getHashtags(article.data.hashtags);
+  article.status = getArticleStatus(article._id);
   return article;
+}
+
+function getArticleStatus(id) {
+  var user = userLib.getCurrentUser();
+  var article = contextLib.runInDraft(function () {
+    return contentLib.get({ key: id });
+  });
+  if (!article) {
+    return {
+      exists: false
+    };
+  }
+  return {
+    author: article.data.author === user._id,
+    published:
+      article.workflow.state === "READY" &&
+      article.publish &&
+      article.publish.from &&
+      contentLib.get({ key: id })
+        ? true
+        : false,
+    draft: article.workflow.state === "IN_PROGRESS",
+    access: article && (article.data.author === user._id || user.moderator),
+    exists: article ? true : false
+  };
 }
 
 function getArticlesView(articles) {
@@ -255,16 +281,28 @@ function getHotArticles(page, date) {
   return hotIds;
 }
 
-function getArticlesByUser(id, page, count, pageSize) {
-  if (!pageSize) pageSize = 10;
-  if (!page) page = 0;
-  var articles = contentLib.query({
-    start: page * pageSize,
-    count: pageSize,
-    query: "data.author = '" + id + "'",
-    contentTypes: [app.name + ":article", app.name + ":podcast"]
-  });
-  if (count) {
+//function getArticlesByUser(id, page, count, pageSize) {
+function getArticlesByUser(params) {
+  if (!params.pageSize) params.pageSize = 10;
+  if (!params.page) params.page = 0;
+  if (params.runInDraft) {
+    var articles = contextLib.runInDraft(function () {
+      return contentLib.query({
+        start: params.page * params.pageSize,
+        count: params.pageSize,
+        query: "data.author = '" + params.id + "'",
+        contentTypes: [app.name + ":article", app.name + ":podcast"]
+      });
+    });
+  } else {
+    var articles = contentLib.query({
+      start: params.page * params.pageSize,
+      count: params.pageSize,
+      query: "data.author = '" + params.id + "'",
+      contentTypes: [app.name + ":article", app.name + ":podcast"]
+    });
+  }
+  if (params.count) {
     return articles.total;
   }
   articles.hits = beautifyArticleArray(articles.hits);
@@ -279,7 +317,12 @@ function getArticleFooter(article) {
 }
 
 function countUserRating(id) {
-  var articles = getArticlesByUser(id, 0, false, -1).hits;
+  var articles = getArticlesByUser({
+    id: id,
+    page: 0,
+    count: false,
+    pageSize: -1
+  }).hits;
   var articleVotes = 0;
   for (var i = 0; i < articles.length; i++) {
     var votes = votesLib.countUpvotes(articles[i]._id);

@@ -17,7 +17,8 @@
                 </div>
                 <div class="confirmation-msg">
                     Если вы желаете что-то подредактировать,
-                    или изменить статью до её публикации, вы можете сделать это по этой
+                    или изменить статью до её публикации,
+                    вы можете сделать это по этой
                     <a data-th-href="${'/article/edit?id=' + article._id}">ссылке</a>.
                 </div>
             </div>
@@ -31,6 +32,9 @@
                 <h2 class="checkout-title">Статья опубликована.</h2>
                 <div class="confirmation-msg">
                     Ура! Статья опубликована и появилась на сайте.
+                </div>
+                <div class="confirmation-msg">
+                    Почитать её можно <a data-th-href="${portal.pageUrl({'_id='+article._id})}">здесь</a>.
                 </div>
             </div>
         </div>
