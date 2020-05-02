@@ -79,19 +79,6 @@
             color: $color-primary1;
             font-size: rem(12);
             text-transform: uppercase;
-            cursor: pointer;
-            transition: transition(color);
-
-            &:hover {
-                @include tablet-all {
-                    color: $color-primary6;
-
-                    .create_article-add_content-icon:before,
-                    .create_article-add_content-icon:after {
-                        border-color: $color-primary6;
-                    }
-                }
-            }
         }
 
         &-icon {
@@ -99,11 +86,6 @@
 
             position: relative;
             padding-left: 34px;
-
-            &:before,
-            &:after {
-                transition: transition(border-color);
-            }
         }
 
         &-inner {
@@ -114,8 +96,16 @@
 
         &-actions {
             display: flex;
-            justify-content: space-around;
             padding: 10px;
+
+            @include desktop {
+                justify-content: space-around;
+            }
+
+            @include tablet-mobile {
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
         }
 
         &-action {
@@ -124,6 +114,14 @@
             text-transform: uppercase;
             cursor: pointer;
             transition: transition(color);
+
+            @include tablet {
+                flex: 0 0 33%;
+            }
+
+            @include mobile {
+                flex: 0 0 50%;
+            }
 
             &:hover {
                 color: $color-primary6;
@@ -143,12 +141,47 @@
 
     &-video_editor {
         position: relative;
-        margin-bottom: 25px;
+        margin: 0 -15px 25px;
+
+        @include tablet-all {
+            margin: 0 -30px 25px;
+        }
+
+        input {
+            width: calc(100% - 45px);
+            margin-left: 30px;
+
+            @include tablet-all {
+                width: calc(100% - 60px);
+                display: block;
+                margin: 0 auto;
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        &-btn {
+            width: auto;
+            margin-top: 20px;
+            padding: 10px;
+            margin-left: 30px;
+        }
+
+        .create_article-editor_actions {
+            left: 0;
+        }
     }
 
     &-quote_editor {
         position: relative;
         margin-bottom: 25px;
+        min-height: 90px;
+
+        @include mobile {
+            padding-left: 15px;
+        }
     }
 
     &-tinymce_editor {
@@ -274,6 +307,23 @@
 
         @include tablet-all {
             padding: 30px 30px;
+        }
+
+        blockquote {
+            width: 100%;
+            position: relative;
+            padding-left: 40px;
+            border-bottom: 1px solid transparent;
+
+            &:focus {
+                outline: 0;
+                border-bottom-color: $color-primary16;
+            }
+
+            &:before {
+                position: absolute;
+                left: 0;
+            }
         }
     }
 
