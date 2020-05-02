@@ -150,7 +150,8 @@ function getArticleStatus(id) {
       contentLib.get({ key: id })
         ? true
         : false,
-    draft: article.workflow.state === "IN_PROGRESS",
+    draft:
+      article.workflow.state === "IN_PROGRESS" && !contentLib.get({ key: id }),
     access: article && (article.data.author === user._id || user.moderator),
     exists: article ? true : false
   };

@@ -39,7 +39,7 @@ function editArticle(data) {
 function createArticle(data) {
   var user = userLib.getCurrentUser();
   return contextLib.runInDraftAsAdmin(function () {
-    var article = createArticleObject(data.params, user);
+    var article = createArticleObject(data.params, user, data.saveAsDraft);
     if (!article.error) {
       article = insertComponents(article._id, data.components);
     }
@@ -64,13 +64,24 @@ function editArticleObject(data, user) {
         hashtags: articleData.hashtags,
         similarArticles: articleData.similarArticles
       };
+      if (data.saveAsDraft) {
+        c.workflow = {
+          state: "IN_PROGRESS",
+          checks: { "Review by user": "PENDING" }
+        };
+      } else {
+        c.workflow = {
+          state: "READY",
+          checks: { "Review by user": "APPROVED" }
+        };
+      }
       return c;
     }
   });
   return result;
 }
 
-function createArticleObject(data, user) {
+function createArticleObject(data, user, saveAsDraft) {
   var site = portal.getSiteConfig();
   var articleExist = checkIfArticleExist(data.title);
   if (articleExist) {
@@ -93,7 +104,8 @@ function createArticleObject(data, user) {
       intro: data.intro,
       hashtags: data.hashtags,
       similarArticles: data.similarArticles
-    }
+    },
+    workflow: { state: saveAsDraft ? "IN_PROGRESS" : "READY" }
   });
   contentLib.setPermissions({
     key: result._id,
