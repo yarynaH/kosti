@@ -4,7 +4,7 @@
 
     height: 100%;
     width: 40px;
-    background: rgba($color-primary10, 0.2);
+    background: rgba($color-primary10, 0.6);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -12,12 +12,12 @@
     cursor: pointer;
     transition: transition(background);
 
-    @include mobile{
+    @include mobile {
         display: none;
     }
 
     &:hover {
-        background: rgba($color-primary10, 0.8);
+        background: rgba($color-primary10, 1);
     }
 
     &:before {
