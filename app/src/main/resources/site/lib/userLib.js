@@ -641,22 +641,22 @@ function sendConfirmationMail(mail) {
 }
 
 function createUserImageObj(stream, user) {
-  var image = {};
-  contextLib.runInDraft(function () {
-    image = contentLib.createMedia({
-      name: hashLib.generateHash(user.displayName),
-      parentPath: user._path,
-      data: stream
-    });
-    user = contentLib.modify({
-      key: user._path,
-      editor: userImageEditor
-    });
+  var image = contentLib.createMedia({
+    name: hashLib.generateHash(user.displayName),
+    parentPath: user._path,
+    data: stream
   });
-  var publishResult = contentLib.publish({
-    keys: [image._id, user._id],
-    sourceBranch: "draft",
-    targetBranch: "master"
+  user = contentLib.modify({
+    key: user._path,
+    editor: userImageEditor
+  });
+  contextLib.runAsAdminAsUser(user, function () {
+    contentLib.publish({
+      keys: [image._id, user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   return image;
   function userImageEditor(user) {
