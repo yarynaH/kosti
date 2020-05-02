@@ -1,7 +1,7 @@
 <div data-th-class="${'create_article-quote_editor js_quote-editor js_single-part js_single-part-' + id}"
     data-th-attr="data-id=${id}">
     <blockquote class="js_editable-div" contenteditable="true" data-placeholder="Введите цитату"
-        data-th-utext="${text != '' ? text : 'Введите цитату'}">
+        data-th-utext="${text != '' ? text : 'Введите цитату'}" data-th-id="${'quote-input-' + id}">
     </blockquote>
     <input type="hidden" class="js_editable-div-value" />
     <div class="create_article-editor_actions">
