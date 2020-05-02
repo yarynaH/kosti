@@ -37,7 +37,7 @@ function handleGet(req) {
   }
 
   function isArticleValid(id) {
-    var status = articlesLib.checkArticleStatus(id);
+    var status = blogLib.getArticleStatus(req.params.id);
     var user = userLib.getCurrentUser();
     if (!status.exists) {
       return false;
