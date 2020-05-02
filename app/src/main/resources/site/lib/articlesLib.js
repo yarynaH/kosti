@@ -15,7 +15,6 @@ exports.createImage = createImage;
 exports.insertComponents = insertComponents;
 exports.getTextComponent = getTextComponent;
 exports.getVideoComponent = getVideoComponent;
-exports.checkArticleStatus = checkArticleStatus;
 exports.renderHashtagSuggestion = renderHashtagSuggestion;
 exports.renderHashtagItem = renderHashtagItem;
 exports.renderArticlesSuggestion = renderArticlesSuggestion;
@@ -331,26 +330,6 @@ function generatePageJson(data) {
     }
   });
   return componentsJson;
-}
-
-function checkArticleStatus(id) {
-  var user = userLib.getCurrentUser();
-  var article = contextLib.runInDraft(function () {
-    return contentLib.get({ key: id });
-  });
-  if (!article) {
-    return {
-      author: false,
-      published: false,
-      exists: false
-    };
-  }
-  return {
-    author: article.data.author === user._id,
-    published: article.publish && article.publish.from ? true : false,
-    exists: article ? true : false,
-    article: article
-  };
 }
 
 function getYoutubeVideoId(url) {
