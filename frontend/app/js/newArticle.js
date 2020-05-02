@@ -10,15 +10,12 @@ $(".js_tinymce-editor").each(function () {
 checkSimilarArticlesAmount();
 checkHashtagsAmount();
 
-$("[contenteditable]").bind("paste", function (e) {
+$("[contenteditable='true']").bind("paste", function (e) {
   e.preventDefault();
   var data = e.originalEvent.clipboardData.getData("text");
-  data = data
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/"/g, "&quot;");
+  data = sanitizeString(data);
   $(this).html(data);
-  $(this).parent().find("input").val($(this).text().trim());
+  $(this).parent().find("input").val($(this).html().trim());
 });
 
 $("form input[type=submit]").click(function () {
@@ -48,17 +45,29 @@ $("#newArticleForm").on("submit", function (e) {
         caption: part.find("input").val()
       });
     } else if (part.hasClass("js_video-editor")) {
-      components.push({
-        type: "part",
-        descriptor: "video",
-        config: { VIDEO_URL: part.find("img").data().url }
-      });
+      if (
+        part.find("img").length &&
+        part.find("img").data().url &&
+        part.find("img").data().url.trim() != ""
+      ) {
+        components.push({
+          type: "part",
+          descriptor: "video",
+          config: { VIDEO_URL: part.find("img").data().url }
+        });
+      }
     } else if (part.hasClass("js_quote-editor")) {
-      components.push({
-        type: "part",
-        descriptor: "quote",
-        config: { text: part.find("input").val() }
-      });
+      if (
+        part.find("input").length &&
+        part.find("input").val() &&
+        part.find("input").val().trim() != ""
+      ) {
+        components.push({
+          type: "part",
+          descriptor: "quote",
+          config: { text: part.find("input").val() }
+        });
+      }
     }
   });
   var data = {
@@ -129,6 +138,10 @@ $(".js_add-blockquote").on("click", function () {
 $(".js_parts-block").on("click", ".js_video-editor button", function (e) {
   e.preventDefault();
   var parent = $(this).parent();
+  if (parent.find("input").val().trim() == "") {
+    showSnackBar("Вставьте ссылку на видео.", "error");
+    return;
+  }
   var form_data = new FormData();
   form_data.append("type", "videoPart");
   form_data.append("form", "false");
@@ -413,15 +426,18 @@ $(".js_tag-list").on("click", ".js_tag-item", function () {
 });
 
 $(".js_title-div").on("input", function () {
-  $(".js_title-input").val($(this).text().trim());
+  var data = sanitizeString($(this).text().trim());
+  $(".js_title-input").val(data);
 });
 
 $(".js_intro-div").on("input", function () {
-  $(".js_intro-input").val($(this).text().trim());
+  var data = sanitizeString($(this).text().trim());
+  $(".js_intro-input").val(data);
 });
 
 $(".js_parts-block").on("input", ".js_img_caption", function () {
-  $(this).parent().find(".js_img_caption_input").val($(this).text().trim());
+  var data = sanitizeString($(this).text().trim());
+  $(this).parent().find(".js_img_caption_input").val(data);
 });
 
 $(".js_intro-div").on("focus", function () {
