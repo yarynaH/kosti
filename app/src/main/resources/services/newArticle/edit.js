@@ -53,7 +53,13 @@ function handleGet(req) {
   }
 
   function getSimilairArticles(article) {
+    if (!article.data.similarArticles) {
+      return [];
+    }
     var result = [];
+    article.data.similarArticles = norseUtils.forceArray(
+      article.data.similarArticles
+    );
     for (var i = 0; i < article.data.similarArticles.length; i++) {
       result.push(
         articlesLib.renderSimilarArticle(article.data.similarArticles[i])
@@ -63,6 +69,10 @@ function handleGet(req) {
   }
 
   function getHashtags(article) {
+    if (!article.data.hashtags) {
+      return [];
+    }
+    article.data.hashtags = norseUtils.forceArray(article.data.hashtags);
     var result = [];
     for (var i = 0; i < article.data.hashtags.length; i++) {
       var hashtag = contentLib.get({ key: article.data.hashtags[i] });
@@ -72,7 +82,6 @@ function handleGet(req) {
   }
 
   function prepareComponentsForEdit(article) {
-    norseUtils.log(article);
     var result = [];
     for (var i = 0; i < article.page.regions.main.components.length; i++) {
       var component = article.page.regions.main.components[i];

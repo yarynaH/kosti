@@ -70,7 +70,12 @@ function handlePost(req) {
   var me = this;
 
   function renderView() {
-    var article = articlesLib.createArticle(JSON.parse(req.params.data));
+    var data = JSON.parse(req.params.data);
+    if (data.action && data.action === "update") {
+      var article = articlesLib.editArticle(data);
+    } else {
+      var article = articlesLib.createArticle(data);
+    }
     var result;
     if (article.error) {
       result = {

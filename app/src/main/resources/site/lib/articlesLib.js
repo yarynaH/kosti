@@ -23,6 +23,18 @@ exports.renderSimilarArticle = renderSimilarArticle;
 exports.getYoutubeVideoId = getYoutubeVideoId;
 exports.getQuoteComponent = getQuoteComponent;
 exports.getImageComponent = getImageComponent;
+exports.editArticle = editArticle;
+
+function editArticle(data) {
+  var user = userLib.getCurrentUser();
+  return contextLib.runInDraft(function () {
+    var article = editArticleObject(data, user);
+    if (!article.error) {
+      article = insertComponents(article._id, data.components);
+    }
+    return article;
+  });
+}
 
 function createArticle(data) {
   var user = userLib.getCurrentUser();
@@ -33,6 +45,29 @@ function createArticle(data) {
     }
     return article;
   });
+}
+
+function editArticleObject(data, user) {
+  var articleData = data.params;
+  if (data.updateMainImage == "true") {
+    var stream = portal.getMultipartStream("image");
+    var image = createImageObj(stream, user);
+  }
+  var result = contentLib.modify({
+    key: data.id,
+    editor: function (c) {
+      c.displayName = articleData.title;
+      c.data = {
+        author: c.data.author,
+        image: image ? image._id : c.data.image,
+        intro: articleData.intro,
+        hashtags: articleData.hashtags,
+        similarArticles: articleData.similarArticles
+      };
+      return c;
+    }
+  });
+  return result;
 }
 
 function createArticleObject(data, user) {
