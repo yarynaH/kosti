@@ -12,6 +12,7 @@ var kostiUtils = require(libLocation + "kostiUtils");
 var spellLib = require(libLocation + "spellsLib");
 var articlesLib = require(libLocation + "articlesLib");
 var blogLib = require(libLocation + "blogLib");
+var contextLib = require(libLocation + "contextLib");
 var statusPage = require("status");
 
 exports.get = handleGet;
@@ -52,21 +53,17 @@ function handleGet(req) {
 
   function createModel() {
     var user = userLib.getCurrentUser();
-    var articleStatus = articlesLib.checkArticleStatus(req.params.id);
-    var up = req.params;
-    if (!up) {
-      up = {};
-    }
+    var articleStatus = blogLib.getArticleStatus(req.params.id);
+    var article = contextLib.runInDraft(function () {
+      return contentLib.get({ key: req.params.id });
+    });
 
     return {
-      access: articleStatus.exists && (articleStatus.author || user.moderator),
-      published: articleStatus.exists && articleStatus.published,
-      article: articleStatus.article,
-      mainImage: norseUtils.getImage(articleStatus.article.data.image),
-      components: prepareComponentsForEdit(articleStatus.article),
-      similarArticles: getSimilairArticles(articleStatus.article),
-      hashtags: getHashtags(articleStatus.article),
-      data: up,
+      article: article,
+      mainImage: norseUtils.getImage(article.data.image),
+      components: prepareComponentsForEdit(article),
+      similarArticles: getSimilairArticles(article),
+      hashtags: getHashtags(article),
       pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };
   }

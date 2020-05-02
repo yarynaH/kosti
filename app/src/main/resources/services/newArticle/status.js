@@ -32,18 +32,11 @@ function handleGet(req) {
 
   function createModel() {
     var user = userLib.getCurrentUser();
-    var articleStatus = articlesLib.checkArticleStatus(req.params.id);
-    var up = req.params;
-    if (!up) {
-      up = {};
-    }
+    var articleStatus = blogLib.getArticleStatus(req.params.id);
 
     return {
-      access: articleStatus.exists && (articleStatus.author || user.moderator),
-      published: articleStatus.exists && articleStatus.published,
-      article: articleStatus.article,
-      futurePublish: articleStatus.futurePublish,
-      data: up,
+      articleStatus: articleStatus,
+      id: req.params.id,
       pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };
   }

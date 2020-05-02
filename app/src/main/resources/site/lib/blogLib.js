@@ -26,6 +26,7 @@ exports.getSearchArticles = getSearchArticles;
 exports.getArticleFooter = getArticleFooter;
 exports.countUserRating = countUserRating;
 exports.updateSchedule = updateSchedule;
+exports.getArticleStatus = getArticleStatus;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
