@@ -13,6 +13,7 @@ var spellLib = require(libLocation + "spellsLib");
 var articlesLib = require(libLocation + "articlesLib");
 var blogLib = require(libLocation + "blogLib");
 var contextLib = require(libLocation + "contextLib");
+var sharedLib = require(libLocation + "sharedLib");
 var statusPage = require("status");
 
 exports.get = handleGet;
@@ -58,11 +59,13 @@ function handleGet(req) {
     var article = contextLib.runInDraft(function () {
       return contentLib.get({ key: req.params.id });
     });
+    var repo = sharedLib.connectRepo("com.enonic.cms.default", "draft");
+    var articleRaw = repo.get(article._id);
 
     return {
       article: article,
       mainImage: norseUtils.getImage(article.data.image),
-      components: prepareComponentsForEdit(article),
+      components: prepareComponentsForEdit(articleRaw),
       similarArticles: getSimilairArticles(article),
       hashtags: getHashtags(article),
       site: site,
@@ -112,24 +115,24 @@ function handleGet(req) {
 
   function prepareComponentsForEdit(article) {
     var result = [];
-    for (var i = 0; i < article.page.regions.main.components.length; i++) {
-      var component = article.page.regions.main.components[i];
+    for (var i = 1; i < article.components.length; i++) {
+      var component = article.components[i];
       var id = component.path.split("/");
       id = id[id.length - 1];
       if (component.type === "image") {
         result.push(
           articlesLib.getImageComponent({
-            image: norseUtils.getImage(component.image),
+            image: norseUtils.getImage(component.image.id),
             id: id,
-            caption: component.caption
+            caption: component.image.caption
           })
         );
       } else if (component.type === "text") {
         result.push(
-          articlesLib.getTextComponent({ id: id, text: component.text })
+          articlesLib.getTextComponent({ id: id, text: component.text.value })
         );
       } else if (component.type === "part") {
-        result.push(processPartComponent(component, id));
+        result.push(processPartComponent(component.part, id));
       }
     }
     return result;
@@ -138,14 +141,14 @@ function handleGet(req) {
   function processPartComponent(component, id) {
     if (component.descriptor === app.name + ":video") {
       return articlesLib.getVideoComponent({
-        url: component.config.VIDEO_URL,
+        url: component.config["com-myurchenko-kostirpg"].video.VIDEO_URL,
         addWrapper: true,
         id: id
       });
     } else if (component.descriptor === app.name + ":quote") {
       return articlesLib.getQuoteComponent({
         id: id,
-        text: component.config.text
+        text: component.config["com-myurchenko-kostirpg"].quote.text
       });
     }
   }

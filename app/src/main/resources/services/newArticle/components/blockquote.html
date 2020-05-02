@@ -3,7 +3,7 @@
     <blockquote class="js_editable-div" contenteditable="true" data-placeholder="Введите цитату"
         data-th-utext="${text != '' ? text : 'Введите цитату'}" data-th-id="${'quote-input-' + id}">
     </blockquote>
-    <input type="hidden" class="js_editable-div-value" />
+    <input type="hidden" class="js_editable-div-value" data-th-value="${text != '' ? text : ''}" />
     <div class="create_article-editor_actions">
         <div class="create_article-editor_actions-remove js_remove-part"></div>
         <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
