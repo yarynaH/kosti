@@ -54,6 +54,7 @@ function handleGet(req) {
   function createModel() {
     var user = userLib.getCurrentUser();
     var articleStatus = blogLib.getArticleStatus(req.params.id);
+    var site = portal.getSiteConfig();
     var article = contextLib.runInDraft(function () {
       return contentLib.get({ key: req.params.id });
     });
@@ -64,7 +65,19 @@ function handleGet(req) {
       components: prepareComponentsForEdit(article),
       similarArticles: getSimilairArticles(article),
       hashtags: getHashtags(article),
-      pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
+      site: site,
+      agreementPage: portal.pageUrl({
+        id: portal.getSiteConfig().agreementPage
+      }),
+      sidebar: blogLib.getSidebar({ hideNewArticleButton: true }),
+      social: site.social,
+      date: kostiUtils.getTimePassedSincePostCreation(new Date()),
+      pageComponents: helpers.getPageComponents(
+        req,
+        null,
+        null,
+        article.displayName
+      )
     };
   }
 
