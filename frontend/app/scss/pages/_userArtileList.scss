@@ -20,18 +20,13 @@
 
         &.draft {
             background: $color-primary18;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         &.approved {
             background: $color-primary40;
-        }
-
-        &.edit-article {
-            background: $color-primary28;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
     }
 
