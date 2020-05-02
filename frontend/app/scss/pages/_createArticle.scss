@@ -5,6 +5,14 @@
 
     &-post_text_wrap {
         margin-bottom: 25px;
+
+        .post-text {
+            border-bottom: 1px solid $color-primary16;
+
+            &:focus {
+                outline: none;
+            }
+        }
     }
 
     &-add_main_img {

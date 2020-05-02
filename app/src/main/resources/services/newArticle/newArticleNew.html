@@ -40,11 +40,10 @@
                     <div class="article-content">
                         <div class="form-group create_article-post_text_wrap">
                             <div contenteditable="true" id="article-intro-input" class="post-text js_intro-div"
-                                data-th-text="${article ? article.data.intro : 'Введите здесь краткий текст, который опишет о чем именно будет
-                            статья. Появляется при просмотре списка статей. Не появляется
-                            на странице самой статьи.'}"
-                                data-placeholder="Введите здесь краткий текст, который опишет о чем именно будет статья. Появляется при просмотре списка статей. Не появляется на странице самой статьи.">
-                                Введите здесь краткий текст, который опишет о чем именно будет
+                                data-th-text="${article ? article.data.intro : 'Введите здесь интро'}"
+                                data-placeholder="Введите здесь интро">
+                            </div>
+                            <div class="form-caption">Введите здесь краткий текст, который опишет о чем именно будет
                                 статья. Появляется при просмотре списка статей. Не появляется
                                 на странице самой статьи.
                             </div>
@@ -88,7 +87,7 @@
                                     </div>
                                     <div
                                         class="create_article-add_content-action icon-quote  js_add-blockquote js_new-part">
-                                        Цитата
+                                        Цитату
                                     </div>
                                 </div>
                             </div>
@@ -143,14 +142,16 @@
                         <label for="agreement" class="label-checkbox">Я прочитал и принимаю
                             <a data-th-href="${agreementPage}" target="_blank">условия публикации статей</a></label>
                     </div>
+                </div>
+                <div class="form-group-column">
+                    <div data-th-text="${errorMessage}" class="error-msg"></div>
                     <div class="form-group">
-                        <div data-th-text="${errorMessage}" class="error-msg"></div>
-                        <input type="submit" class="button button-light"
-                            data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}" />
+                        <input type="submit" class="button button-dark js_save-as-draft"
+                            data-th-value="${portal.localize({'_key=user.newArticle.article.saveAsDraft', '_locale=ru'})}" />
                     </div>
                     <div class="form-group">
-                        <div data-th-text="${errorMessage}" class="error-msg"></div>
-                        <input type="submit" class="button button-light js_save-as-draft" value="draft" />
+                        <input type="submit" class="button button-light"
+                            data-th-value="${portal.localize({'_key=user.newArticle.article.send', '_locale=ru'})}" />
                     </div>
                 </div>
             </div>

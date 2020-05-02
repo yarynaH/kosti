@@ -12,6 +12,9 @@
         padding: 10px;
         font-weight: 600;
         color: $color-primary1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
 
         &.moderate {
@@ -20,9 +23,6 @@
 
         &.draft {
             background: $color-primary18;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         &.approved {
