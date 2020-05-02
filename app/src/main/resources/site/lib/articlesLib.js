@@ -9,6 +9,7 @@ var contextLib = require("contextLib");
 var hashLib = require("hashLib");
 var sharedLib = require("sharedLib");
 var blogLib = require("blogLib");
+var blogLibsec = require("blogLib");
 
 exports.createArticle = createArticle;
 exports.createImage = createImage;
