@@ -1,0 +1,45 @@
+<div class="my_games-schedule-list">
+    <div class="my_games-schedule-item js-my_games-step1-parent"
+        data-th-classappend="${day.expanded ? 'game_added' : ''}" data-th-each="day : ${days}"
+        data-th-attr="data-id=${day._id}">
+        <div class="my_games-schedule-item-header  js-my_games-step1">
+            <h4 class="my_games-day_slot-title">
+                <span data-th-text="${day.displayName}"></span>
+                <span data-th-text="${day.dayName + ', '}"></span>
+                <span data-th-text="${day.date}"></span>
+                <span data-th-text="${day.monthName}"></span>
+                <span class="icon-arrow"></span>
+            </h4>
+            <div class="my_games-table_slot js-my_games-table_slot">
+                <span data-th-text="${portal.localize({'_key=myGames.free.slots', '_locale=ru'})}"></span>
+                <span data-th-text="${day.space.reserved}"></span>
+                <span>/</span>
+                <span data-th-text="${day.space.total}"></span>
+            </div>
+        </div>
+
+        <div class="my_games-schedule-item-body">
+            <div class="my_games-available-wrapper js-my_games-available-wrapper" data-th-if="${day.available}"
+                data-th-utext="${day.available}">
+            </div>
+
+            <div class="my_games-action-block my_games-action-block-add_game js-my_games-add_game_btn-wrap">
+                <button class="my_games-action-primary button js-my_games-add_game_btn"
+                    data-th-text="${portal.localize({'_key=myGames.addGame', '_locale=ru'})}"></button>
+            </div>
+
+            <h4 class="my_games-day_slot-title js-my_games-day_slot-title"
+                data-th-text="${portal.localize({'_key=myGames.newGame', '_locale=ru'})}"></h4>
+
+            <div class="js-my_games-step2-data my_games-step2-data">
+                <div class="js-my_games-location-wrapper">
+                    <div data-th-if="${locations}" data-th-utext="${locations}" data-th-remove="tag"></div>
+                </div>
+
+                <div class="js-my_games-game_block-wrapper">
+                    <div data-th-if="${gameBlocks}" data-th-utext="${gameBlocks}" data-th-remove="tag"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,176 @@
+<div class="my_games-step3">
+    <h1 class="my_games-title">
+        <span data-th-text="${day.displayName}"></span>
+        <span data-th-text="${day.dayName + ', '}"></span>
+        <span data-th-text="${day.date}"></span>
+        <span data-th-text="${day.monthName}"></span>
+        <span class="icon-arrow"></span>
+    </h1>
+    <p class="my_games-caption">
+        <span data-th-text="${block.time.start + ' - ' + block.time.end + ', '}"></span>
+        <span data-th-text="${block.displayName + ', '}"></span>
+        <span data-th-text="${location.displayName + '.'}"></span>
+        <button class="my_games-link button js-my_games-step3-discard"
+            data-th-text="${portal.localize({'_key=myGames.back', '_locale=ru'})}"></button>
+    </p>
+    <form action="" class="my_games-form js-my_games-form">
+        <h3 class="my_games-subtitle"
+            data-th-text="${portal.localize({'_key=myGames.form.gameDetails', '_locale=ru'})}"></h3>
+        <div class="form-group">
+            <label for="my_games_name"
+                data-th-text="${portal.localize({'_key=myGames.form.name', '_locale=ru'})}"></label>
+            <input data-th-value="${ game ? game.data.masterName : '' }"
+                data-th-placeholder="${portal.localize({'_key=myGames.form.name.placeholder', '_locale=ru'})}"
+                type="text" name="masterName" required id="my_games_name" />
+            <div class="form-caption"
+                data-th-text="${portal.localize({'_key=myGames.form.name.caption', '_locale=ru'})}"></div>
+        </div>
+        <div class="form-group">
+            <label for="my_games_system"
+                data-th-text="${portal.localize({'_key=myGames.form.gameSystem', '_locale=ru'})}"></label>
+            <div class="select-field">
+                <select required name="gameSystem" id="my_games_system" class="select js-my_games-system">
+                    <option data-th-text="${portal.localize({'_key=myGames.form.gameSystem.choose', '_locale=ru'})}"
+                        disabled="disabled" selected>
+                    </option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'dnd'}" value="dnd">DnD
+                    </option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'gurps'}" value="gurps">
+                        GURPS
+                    </option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'dcc'}" value="dcc">DCC
+                    </option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'vtm'}" value="vtm">V:tM
+                    </option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'skeletons'}"
+                        value="skeletons">
+                        Skeletons</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'runequest'}"
+                        value="runequest">
+                        Runequest</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'pathfinder'}"
+                        value="pathfinder">
+                        Pathfinder</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'wfrp'}" value="wfrp">WFRP
+                    </option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'cyberpunk2020'}"
+                        value="cyberpunk2020">Cyberpunk 2020</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'cyberpunkRed'}"
+                        value="cyberpunkRed">Cyberpunk RED</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'trailOfChtulhu'}"
+                        value="trailOfChtulhu">Trail Of Chtulhu</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'callOfChtulhu'}"
+                        value="callOfChtulhu">Call Of Chtulhu</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'deltaGreen'}"
+                        value="deltaGreen">
+                        Delta Green</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'mothership'}"
+                        value="mothership">
+                        Mothership</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'koriolis'}"
+                        value="koriolis">
+                        Koriolis</option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'mutants'}"
+                        value="mutants">Mutants
+                    </option>
+                    <option data-th-selected="${game && game.data.gameSystem.select.system == 'other'}" value="other">
+                        Other
+                    </option>
+                </select>
+            </div>
+            <input data-th-value="${game && game.data.gameSystem.text && game.data.gameSystem.text.system == 'other'}"
+                data-th-placeholder="${portal.localize({'_key=myGames.form.gameSystem.placeholder', '_locale=ru'})}"
+                type="text" name="systemInput" id="my_games_system-input"
+                class="js-my_games-system-input my_games-system-input" />
+        </div>
+        <div class="form-group">
+            <label for="my_games_adventure_name"
+                data-th-text="${portal.localize({'_key=myGames.form.adventureName', '_locale=ru'})}"></label>
+            <input data-th-value="${ game ? game.displayName : '' }"
+                data-th-placeholder="${portal.localize({'_key=myGames.form.adventureName.placeholder', '_locale=ru'})}"
+                type="text" name="displayName" required id="my_games_adventure_name" />
+            <div class="form-caption"
+                data-th-text="${portal.localize({'_key=myGames.form.adventureName.caption', '_locale=ru'})}"></div>
+        </div>
+        <div class="form-group">
+            <label for="my_games_adventure_description"
+                data-th-text="${portal.localize({'_key=myGames.form.adventureDescription', '_locale=ru'})}"></label>
+            <textarea required
+                data-th-placeholder="${portal.localize({'_key=myGames.form.adventureDescription.placeholder', '_locale=ru'})}"
+                type="text" name="description" id="my_games_adventure_description"
+                data-th-text="${ game ? game.data.description : '' }"></textarea>
+            <div class="form-caption"
+                data-th-text="${portal.localize({'_key=myGames.form.adventureDescription.caption', '_locale=ru'})}">
+            </div>
+        </div>
+        <div class="my_games-playears_qty-list form-group">
+            <h5 class="form-group-title"
+                data-th-text="${portal.localize({'_key=myGames.form.qtyOfPlayers', '_locale=ru'})}"></h5>
+            <input data-th-attr="checked=${game && game.data.maxPlayers == 4}" required type="radio" name="maxPlayers"
+                id="playears_qty_4" value="4" hidden>
+            <label for="playears_qty_4" class="my_games-playears_qty-item active label-radio">
+                <span>4</span>
+            </label>
+
+            <input data-th-attr="checked=${game && game.data.maxPlayers == 5}" required type="radio" name="maxPlayers"
+                id="playears_qty_5" value="5" hidden>
+            <label for="playears_qty_5" class="my_games-playears_qty-item label-radio">
+                <span>5</span>
+            </label>
+
+            <input data-th-attr="checked=${game && game.data.maxPlayers == 6}" required type="radio" name="maxPlayers"
+                id="playears_qty_6" value="6" hidden>
+            <label for="playears_qty_6" class="my_games-playears_qty-item label-radio">
+                <span>6</span>
+            </label>
+        </div>
+        <div class="my_games-adventure_lang-list form-group">
+            <h5 class="form-group-title"
+                data-th-text="${portal.localize({'_key=myGames.form.adventureLang', '_locale=ru'})}"></h5>
+
+            <input data-th-attr="checked=${game && game.data.language == 'ua'}" required type="radio" name="language"
+                id="ukrainian" value="ua" hidden>
+            <label for="ukrainian" class="my_games-adventure_lang-item active label-radio"
+                data-th-text="${portal.localize({'_key=myGames.form.adventureLang.ua', '_locale=ru'})}">
+            </label>
+
+            <input data-th-attr="checked=${game && game.data.language == 'ru'}" required type="radio" name="language"
+                id="russian" value="ru" hidden>
+            <label for="russian" class="my_games-adventure_lang-item label-radio"
+                data-th-text="${portal.localize({'_key=myGames.form.adventureLang.ru', '_locale=ru'})}">
+            </label>
+
+            <input data-th-attr="checked=${game && game.data.language == 'en'}" required type="radio" name="language"
+                id="english" value="en" hidden>
+            <label for="english" class="my_games-adventure_lang-item label-radio"
+                data-th-text="${portal.localize({'_key=myGames.form.adventureLang.en', '_locale=ru'})}">
+            </label>
+        </div>
+        <div class="my_games-additional form-group">
+            <h5 class="form-group-title"
+                data-th-text="${portal.localize({'_key=myGames.form.additional', '_locale=ru'})}"></h5>
+
+            <input data-th-attr="checked=${game && game.data.explicit}" type="checkbox" name="explicit" id="explicit"
+                hidden />
+            <label for="explicit" class="label-checkbox"
+                data-th-text="${portal.localize({'_key=myGames.form.additional.explicit', '_locale=ru'})}">
+            </label>
+
+            <input data-th-attr="checked=${game && game.data.kidsGame}" type="checkbox" name="kidsGame" id="kidsGame"
+                hidden />
+            <label for="kidsGame" class="label-checkbox"
+                data-th-text="${portal.localize({'_key=myGames.form.additional.forChildren', '_locale=ru'})}">
+            </label>
+        </div>
+        <div class="my_games-action-block">
+            <button class="my_games-action-primary button js-my_games-step3-save"
+                data-th-text="${portal.localize({'_key=myGames.save', '_locale=ru'})}"></button>
+            <button class="my_games-action-secondary button js-my_games-step3-discard"
+                data-th-text="${portal.localize({'_key=myGames.discard', '_locale=ru'})}"></button>
+        </div>
+        <input type="hidden" data-th-value="${location._id}" name="location" />
+        <input type="hidden" data-th-value="${block._id}" name="blockId" />
+        <input type="hidden" data-th-value="${action}" name="action" />
+        <input data-th-if="${game && game._id}" type="hidden" data-th-value="${game._id}" name="_id" />
+    </form>
+</div>

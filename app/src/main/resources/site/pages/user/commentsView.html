@@ -1,41 +1,29 @@
-<div data-th-each="comment : ${comments}" class="comments-item">
-  <div class="comments-header">
-    <div class="post-info">
-      <a data-th-if="${comment.author}" data-th-href="${comment.author.url}">
-        <span class="post-user_avatar">
-          <img data-th-src="${comment.author.image.url}" alt="" />
-        </span>
-        <span
-          class="post-user_name"
-          data-th-text="${comment.author.displayName}"
-        ></span>
-      </a>
-      <span class="post-date" data-th-text="${comment.date}"></span>
-      <a
-        class="post-date hidden"
-        data-th-if="${comment.url}"
-        data-th-href="${comment.url}"
-        data-th-text="ссылка"
-      ></a>
+<div class="user_page-comments">
+    <div data-th-each="comment : ${comments}" class="comments-item">
+        <div class="comments-header">
+            <div class="post-info">
+                <a data-th-if="${comment.author}" data-th-href="${comment.author.url}">
+                    <span class="post-user_avatar">
+                        <img data-th-src="${comment.author.image.url}" alt="" />
+                    </span>
+                    <span class="post-user_name" data-th-text="${comment.author.displayName}"></span>
+                </a>
+                <span class="post-date" data-th-text="${comment.date}"></span>
+            </div>
+            <div class="comments-url">
+                <a class="comments-link" data-th-if="${comment.url}" data-th-href="${comment.url}"
+                    data-th-text="${comment.articleTitle}"></a>
+            </div>
+            <div data-th-if="${!comment.deleted}" class="comments-actions">
+                <span data-th-attr="data-id=${comment._id}" class="like-btn icon-rock js_comment-like"
+                    data-th-classappend="${comment.voted} ? 'active' : ''">
+                    <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
+                </span>
+                <span data-th-if="${moderator}" data-th-attr="data-id=${comment._id}"
+                    class="comments-remove_btn remove-btn js_comment-remove_btn"></span>
+            </div>
+        </div>
+        <div class="comments-body" data-th-classappend="${comment.deleted? 'deleted' : ''}"
+            data-th-utext="${comment.deleted? 'Комментарий удален. Причина: ' + comment.reason : comment.body}"></div>
     </div>
-    <div data-th-if="${!comment.deleted}" class="comments-actions">
-      <span
-        data-th-attr="data-id=${comment._id}"
-        class="like-btn icon-rock js_comment-like"
-        data-th-classappend="${comment.voted} ? 'active' : ''"
-      >
-        <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
-      </span>
-      <span
-        data-th-if="${moderator}"
-        data-th-attr="data-id=${comment._id}"
-        class="comments-remove_btn remove-btn js_comment-remove_btn"
-      ></span>
-    </div>
-  </div>
-  <div
-    class="comments-body"
-    data-th-classappend="${comment.deleted? 'deleted' : ''}"
-    data-th-utext="${comment.deleted? 'Комментарий удален. Причина: ' + comment.reason : comment.body}"
-  ></div>
 </div>

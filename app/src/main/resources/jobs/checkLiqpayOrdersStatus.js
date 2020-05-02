@@ -1,6 +1,6 @@
 var norseUtils = require("../site/lib/norseUtils");
-var storeLib = require("../site/lib/blogLib");
+var storeLib = require("../site/lib/storeLib");
 
-exports.run = function() {
+exports.run = function () {
   storeLib.checkLiqpayOrderStatus();
 };

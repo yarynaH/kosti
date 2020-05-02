@@ -7,7 +7,7 @@ var helpers = require(libLocation + "helpers");
 var blogLib = require(libLocation + "blogLib");
 var hashtagLib = require(libLocation + "hashtagLib");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var params = req.params;
   //params.q - search by article/hashtag name
   //params.hid - search by hashtag id
@@ -33,7 +33,9 @@ exports.get = function(req) {
       ),
       sidebar: blogLib.getSidebar(),
       query: query,
-      loadMoreComponent: helpers.getLoadMore(searchRes.total, null, null),
+      loadMoreComponent: helpers.getLoadMore({
+        articlesCount: searchRes.total
+      }),
       loadMoreText: helpers.getRandomString(),
       searchRes: searchRes
     }),

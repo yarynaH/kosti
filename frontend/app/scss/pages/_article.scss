@@ -63,6 +63,7 @@
     h1 {
       font-size: rem(48);
     }
+
     h2 {
       font-size: rem(32);
     }
@@ -161,7 +162,9 @@
         text-transform: none;
       }
     }
-  }//end article-content
+  }
+
+  //end article-content
 
   &-img_wrap {
     @include position(absolute, top 0 right 0);
@@ -277,7 +280,7 @@
   }
 
   &-answer_comment {
-    padding-top: 25px;
+    margin-top: 25px;
   }
 
   &-write_comment {
@@ -326,7 +329,7 @@
     padding: 5px 0;
     margin: -5px 0px;
 
-    & + & {
+    &+& {
       margin-top: 20px;
     }
 

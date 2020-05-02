@@ -1,17 +1,20 @@
-<div data-th-each="game : ${games}" class="comments-item">
-  <div class="comments-header">
-    <div class="post-info">
-      <div>
-        <span class="post-user_name" data-th-text="${game.title}"></span>
-      </div>
+<div class="my_games js-my_games hidden">
+    <div class="my_games-event_name-list">
+        <div class="my_games-event_name-item active"
+            data-th-text="${portal.localize({'_key=myGames.kosticon2020', '_locale=ru'})}"></div>
     </div>
-  </div>
-  <div data-th-each="singleGame : ${game.games}">
-    <span class="comments-body" data-th-utext="${singleGame.title}"></span>
-    <span
-      data-th-if="${singleGame.time}"
-      class="comments-body"
-      data-th-utext="${singleGame.time}"
-    ></span>
-  </div>
+    <div class="js-my_games-wrapper">
+        <div data-th-utext="${gameMasterForm}" data-th-if="${currUserFlag && currUser.roles.gameMaster}"
+            data-th-remove="tag"></div>
+
+        <div class="my_games-player-wrapper" data-th-if="${currUserFlag && currUser.roles.gameMaster}"
+            data-th-utext="${playerForm}"></div>
+        <!--
+
+        <div
+        class="my_games-addGame-wrapper"
+        data-th-utext="${pageComponents.addGameForm}"
+        ></div>
+        -->
+    </div>
 </div>

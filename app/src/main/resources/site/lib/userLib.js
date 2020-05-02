@@ -28,6 +28,11 @@ exports.login = login;
 exports.discordRegister = discordRegister;
 exports.fbRegister = fbRegister;
 exports.vkRegister = vkRegister;
+exports.addRole = addRole;
+
+function addRole(roleId, userKey) {
+  authLib.addMembers("role:" + roleId, [userKey]);
+}
 
 function getCurrentUser() {
   var user = authLib.getUser();
@@ -40,8 +45,13 @@ function getCurrentUser() {
     if (userObj.hits && userObj.hits[0]) {
       userObj = userObj.hits[0];
     } else {
-      userObj = contextLib.runAsAdmin(function() {
-        return createUserContentType(user.displayName, user.email, user.key);
+      userObj = contextLib.runAsAdminAsUser(user, function () {
+        return createUserContentType(
+          user.displayName,
+          null,
+          user.email,
+          user.key
+        );
       });
     }
     return beautifyUser(userObj, user);
@@ -59,7 +69,10 @@ function beautifyUser(userObj, user) {
   );
   userObj.key = user.key;
   userObj.login = user.login;
-  userObj.moderator = checkRole(["role:moderator", "role:system.admin"]);
+  userObj.roles = {
+    moderator: checkRole(["role:moderator", "role:system.admin"]),
+    gameMaster: checkRole(["role:gameMaster", "role:system.admin"])
+  };
   userObj.notificationsCounter = notificationLib.getNotificationsForUser(
     userObj._id,
     null,
@@ -71,20 +84,24 @@ function beautifyUser(userObj, user) {
 }
 
 function editUser(data) {
-  var user = getCurrentUser();
-  if (user._id != data.id) {
+  var currUser = getCurrentUser();
+  if (currUser._id != data.id) {
     return false;
   }
-  user = contentLib.modify({
-    key: user._id,
+  var user = contentLib.modify({
+    key: currUser._id,
     editor: userEditor
   });
-  var publishResult = contentLib.publish({
-    keys: [user._id],
-    sourceBranch: "master",
-    targetBranch: "draft"
+  var publishResult = contextLib.runAsAdminAsUser(currUser, function () {
+    return contentLib.publish({
+      keys: [user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   function userEditor(node) {
+    node.displayName = data.displayName ? data.displayName : node.displayName;
     node.data.firstName = data.firstName ? data.firstName : node.data.firstName;
     node.data.lastName = data.lastName ? data.lastName : node.data.lastName;
     node.data.city = data.city ? data.city : node.data.city;
@@ -104,7 +121,7 @@ function checkRole(roles) {
 }
 
 function getSystemUser(name, keyOnly) {
-  var user = contextLib.runAsAdmin(function() {
+  var user = contextLib.runAsAdmin(function () {
     return findUser(name);
   });
   if (!user) {
@@ -294,11 +311,15 @@ function fbRegister(token, userId) {
 
 function register(name, mail, pass, tokenRegister, image) {
   var site = portal.getSite();
-  var exist = contextLib.runAsAdmin(function() {
+  var displayName = name;
+  var exist = contextLib.runAsAdmin(function () {
     return checkUserExists(name, mail);
   });
-  if (exist.exist && tokenRegister) {
+  if (exist.exist && exist.type === "mail" && tokenRegister) {
     return login(mail, pass, tokenRegister);
+  } else if (exist.exist && exist.type === "name" && tokenRegister) {
+    var date = new Date();
+    name = name + "-" + date.getTime();
   } else if (exist.exist) {
     exist.message = i18nLib.localize({
       key: "global.user." + exist.type + "Exists",
@@ -306,7 +327,7 @@ function register(name, mail, pass, tokenRegister, image) {
     });
     return exist;
   }
-  var user = contextLib.runAsAdmin(function() {
+  var user = contextLib.runAsAdmin(function () {
     return authLib.createUser({
       idProvider: "system",
       name: common.sanitize(name),
@@ -314,8 +335,8 @@ function register(name, mail, pass, tokenRegister, image) {
       email: mail
     });
   });
-  var userObj = contextLib.runAsAdmin(function() {
-    return createUserContentType(name, mail, user.key);
+  var userObj = contextLib.runAsAdminAsUser(user, function () {
+    return createUserContentType(name, displayName, mail, user.key);
   });
   if (image) {
     var response = httpClientLib.request({
@@ -323,12 +344,12 @@ function register(name, mail, pass, tokenRegister, image) {
       method: "GET"
     });
     var responseStream = response.bodyStream;
-    var userImg = contextLib.runAsAdmin(function() {
+    var userImg = contextLib.runAsAdmin(function () {
       createUserImageObj(responseStream, userObj);
     });
   }
   if (!tokenRegister) {
-    var activationHash = contextLib.runAsAdmin(function() {
+    var activationHash = contextLib.runAsAdmin(function () {
       authLib.changePassword({
         userKey: user.key,
         password: pass
@@ -348,15 +369,18 @@ function register(name, mail, pass, tokenRegister, image) {
   }
 }
 
-function createUserContentType(name, mail, userkey) {
+function createUserContentType(name, displayName, mail, userkey) {
+  if (!displayName) {
+    displayName = name;
+  }
   var site = portal.getSiteConfig();
   var usersLocation = contentLib.get({ key: site.userLocation });
   var user = {};
-  contextLib.runInDraft(function() {
+  contextLib.runInDraft(function () {
     user = contentLib.create({
       parentPath: usersLocation._path,
       name: common.sanitize(name),
-      displayName: name,
+      displayName: displayName,
       contentType: app.name + ":user",
       language: "ru",
       data: {
@@ -401,7 +425,7 @@ function login(name, pass, token) {
   if (!token) {
     var token = false;
   }
-  var user = contextLib.runAsAdmin(function() {
+  var user = contextLib.runAsAdmin(function () {
     return findUser(name);
   });
   if (!user) {
@@ -442,16 +466,18 @@ function login(name, pass, token) {
 }
 
 function addBookmark(contentId) {
-  var user = getCurrentUser();
-  user = contentLib.modify({
-    key: user._id,
+  var currUser = getCurrentUser();
+  var user = contentLib.modify({
+    key: currUser._id,
     editor: userEditor
   });
-  var publishResult = contentLib.publish({
-    keys: [user._id],
-    sourceBranch: "master",
-    targetBranch: "draft",
-    includeDependencies: false
+  var publishResult = contextLib.runAsAdminAsUser(currUser, function () {
+    return contentLib.publish({
+      keys: [user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   function userEditor(user) {
     var temp = norseUtils.forceArray(user.data.bookmarks);
@@ -494,12 +520,12 @@ function findUser(name) {
   return false;
 }
 
-exports.logout = function() {
+exports.logout = function () {
   return authLib.logout();
 };
 
 function forgotPass(email, hash) {
-  var user = contextLib.runAsAdmin(function() {
+  var user = contextLib.runAsAdmin(function () {
     return hashLib.getUserByHash(email, hash, "resetPassHash");
   });
   if (user && user !== true) {
@@ -509,7 +535,7 @@ function forgotPass(email, hash) {
 }
 
 function setNewPass(password, email, hash) {
-  return contextLib.runAsAdmin(function() {
+  return contextLib.runAsAdmin(function () {
     var user = forgotPass(email, hash);
     if (user) {
       authLib.changePassword({
@@ -532,7 +558,7 @@ function resetPass(email) {
       message: "Пользователь не найден."
     };
   }
-  var userExist = contextLib.runAsAdmin(function() {
+  var userExist = contextLib.runAsAdmin(function () {
     return checkUserExists(false, email).exist;
   });
   if (!userExist) {
@@ -541,7 +567,7 @@ function resetPass(email) {
       message: "Пользователь не найден."
     };
   }
-  var hash = contextLib.runAsAdmin(function() {
+  var hash = contextLib.runAsAdmin(function () {
     return hashLib.saveHashForUser(email, "resetPassHash");
   });
   mailsLib.sendMail("forgotPass", email, { forgotPassHash: hash });
@@ -554,12 +580,12 @@ function resetPass(email) {
 exports.resetPass = resetPass;
 
 function activateUser(mail, hash) {
-  return contextLib.runAsAdmin(function() {
+  return contextLib.runAsAdmin(function () {
     return hashLib.activateUserHash(mail, hash, "registerHash");
   });
 }
 
-exports.uploadUserImage = function() {
+exports.uploadUserImage = function () {
   var stream = portal.getMultipartStream("userImage");
   var user = this.getCurrentUser();
   var image = createUserImageObj(stream, user);
@@ -568,19 +594,6 @@ exports.uploadUserImage = function() {
 
 function checkUserExists(name, mail) {
   var user = false;
-  if (name) {
-    user = authLib.findUsers({
-      start: 0,
-      count: 1,
-      query: 'login="' + name + '"'
-    });
-    if (user.total > 0) {
-      return {
-        exist: true,
-        type: "name"
-      };
-    }
-  }
   if (mail) {
     user = authLib.findUsers({
       start: 0,
@@ -594,6 +607,30 @@ function checkUserExists(name, mail) {
       };
     }
   }
+  if (name) {
+    user = authLib.findUsers({
+      start: 0,
+      count: 1,
+      query: 'login="' + name + '"'
+    });
+    if (user.total > 0) {
+      return {
+        exist: true,
+        type: "login"
+      };
+    }
+    user = authLib.findUsers({
+      start: 0,
+      count: 1,
+      query: '_name="' + common.sanitize(name) + '"'
+    });
+    if (user.total > 0) {
+      return {
+        exist: true,
+        type: "name"
+      };
+    }
+  }
   return {
     exist: false
   };
@@ -604,22 +641,22 @@ function sendConfirmationMail(mail) {
 }
 
 function createUserImageObj(stream, user) {
-  var image = {};
-  contextLib.runInDraft(function() {
-    image = contentLib.createMedia({
-      name: hashLib.generateHash(user.displayName),
-      parentPath: user._path,
-      data: stream
-    });
-    user = contentLib.modify({
-      key: user._path,
-      editor: userImageEditor
-    });
+  var image = contentLib.createMedia({
+    name: hashLib.generateHash(user.displayName),
+    parentPath: user._path,
+    data: stream
   });
-  var publishResult = contentLib.publish({
-    keys: [image._id, user._id],
-    sourceBranch: "draft",
-    targetBranch: "master"
+  user = contentLib.modify({
+    key: user._path,
+    editor: userImageEditor
+  });
+  contextLib.runAsAdminAsUser(user, function () {
+    contentLib.publish({
+      keys: [image._id, user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   return image;
   function userImageEditor(user) {

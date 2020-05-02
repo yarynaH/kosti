@@ -8,7 +8,6 @@ var ioLib = require("/lib/xp/io");
 var qrLib = require("qrLib");
 var nodeLib = require("/lib/xp/node");
 var contextLib = require("contextLib");
-var newsletter = require("../pages/newsletter/newsletter");
 var sharedLib = require("sharedLib");
 var pdfLib = require("pdfLib");
 
@@ -22,6 +21,31 @@ var mailsTemplates = {
   regularTicket: "../pages/pdfs/regularTicket.html",
   legendaryTicket: "../pages/pdfs/legendaryTicket.html"
 };
+
+var components = {
+  head: "../pages/mails/components/head.html",
+  header: "../pages/mails/components/header.html",
+  footer: "../pages/mails/components/footer.html"
+};
+
+exports.sendMail = sendMail;
+exports.unsubscribe = unsubscribe;
+exports.getMailComponents = getMailComponents;
+
+function getMailComponents(params) {
+  if (!params) {
+    params = {};
+  }
+  if (!params.title) {
+    params.title = "";
+  }
+  var site = sharedLib.getSite();
+  return {
+    head: thymeleaf.render(resolve(components.head), { title: params.title }),
+    header: thymeleaf.render(resolve(components.header), { site: site }),
+    footer: thymeleaf.render(resolve(components.footer), {})
+  };
+}
 
 function sendMail(type, email, params) {
   var mail = null;
@@ -39,8 +63,8 @@ function sendMail(type, email, params) {
       mail = getForgotPassMail(email, params);
       break;
     case "newsletter":
-      mail = sendNewsletter();
-      return;
+      mail = getNewsletter(params);
+      email = mail.to;
       break;
     case "pendingItem":
       mail = getPendingItemMail(params);
@@ -48,54 +72,81 @@ function sendMail(type, email, params) {
     default:
       break;
   }
-  var sent = mailLib.send({
-    from: mail.from,
-    to: email,
-    subject: mail.subject,
-    body: mail.body,
-    contentType: 'text/html; charset="UTF-8"',
-    attachments: mail.attachments
-  });
-}
-
-function prepareNewsletter() {
-  var newsletterRepo = nodeLib.connect({
-    repoId: "newsletter",
-    branch: "master"
-  });
-  var nodes = newsletterRepo.query({
-    start: 0,
-    count: -1,
-    query: "email != ''"
-  });
-  if (nodes.total < 1) {
-    return false;
-  }
-  nodes = norseUtils.forceArray(nodes.hits);
-  var emails = [];
-  for (var i = 0; i < nodes.length; i++) {
-    var tempEmail = newsletterRepo.get(nodes[i].id);
-    emails.push({
-      email: tempEmail.email,
-      hash: tempEmail.subscriptionHash
+  email = norseUtils.forceArray(email);
+  for (var i = 0; i < email.length; i++) {
+    mailLib.send({
+      from: mail.from ? mail.from : "Vecherniye Kosti <noreply@kostirpg.com>",
+      to: [email[i]],
+      subject: mail.subject,
+      body: mail.body,
+      replyTo: "Vecherniye Kosti <info@kostirpg.com>",
+      contentType: 'text/html; charset="UTF-8"',
+      attachments: mail.attachments,
+      headers: {
+        "MIME-Version": "1.0"
+      }
     });
   }
-  return emails;
 }
 
-function sendNewsletter(email) {
-  var newsletterView = newsletter.renderView();
-  var sent = mailLib.send({
-    from: "noreply@kostirpg.com",
-    to: ["maxskywalker94@gmail.com"],
-    subject: newsletterView.displayName,
-    body: newsletterView.body,
-    contentType: 'text/html; charset="UTF-8"'
+function getSubscribersMailingList() {
+  var repo = sharedLib.connectRepo("newsletter");
+  var result = [];
+  var emails = repo.query({
+    query: "subscribed = 'true'",
+    count: -1
   });
+  return validateEmailList(repo, emails);
+}
+
+function getCustomersMailingList() {
+  var repo = sharedLib.connectRepo("cart");
+  var result = [];
+  var emails = repo.query({
+    count: -1,
+    filters: {
+      boolean: {
+        must: [
+          {
+            exists: {
+              field: "email"
+            }
+          }
+        ]
+      }
+    }
+  });
+  return validateEmailList(repo, emails);
+}
+
+function validateEmailList(repo, emails) {
+  var result = [];
+  for (var i = 0; i < emails.hits.length; i++) {
+    var email = repo.get(emails.hits[i].id);
+    if (norseUtils.validateEmail(email.email)) {
+      result.push(email.email);
+    }
+  }
+  return norseUtils.uniqueArray(result);
+}
+
+function getNewsletter(params) {
+  var customers = params.mailLists.customers ? getCustomersMailingList() : [];
+  var subscribers = params.mailLists.subscribers
+    ? getSubscribersMailingList()
+    : [];
+  var mails = norseUtils.uniqueArray(customers.concat(subscribers));
+  return {
+    to: ["maxskywalker94@gmail.com"],
+    subject: params.displayName,
+    body: params.body,
+    contentType: 'text/html; charset="UTF-8"',
+    attachments: null
+  };
 }
 
 function unsubscribe(hash) {
-  var result = contextLib.runAsAdmin(function() {
+  var result = contextLib.runAsAdmin(function () {
     var newsletterRepo = nodeLib.connect({
       repoId: "newsletter",
       branch: "master"
@@ -132,13 +183,15 @@ function getorderCreatedMail(params) {
       site: sharedLib.getSite(),
       dateString: dateString,
       cart: params.cart,
+      mailComponents: getMailComponents({
+        title: "Ваш заказ получен"
+      }),
       specialText:
         params.cart.country === "ru" && params.cart.shipping === "digital"
           ? true
           : false
     }),
     subject: "Ваш заказ получен",
-    from: "noreply@kostirpg.com",
     attachments: getTickets(params)
   };
 
@@ -186,10 +239,12 @@ function getorderShippedMail(params) {
     body: thymeleaf.render(resolve(mailsTemplates.orderShipped), {
       site: sharedLib.getSite(),
       dateString: dateString,
+      mailComponents: getMailComponents({
+        title: "Ваш заказ отправлен"
+      }),
       cart: params.cart
     }),
-    subject: "Ваш заказ отправлен",
-    from: "noreply@kostirpg.com"
+    subject: "Ваш заказ отправлен"
   };
 }
 
@@ -206,10 +261,12 @@ function getActivationMail(mail, params) {
   return {
     body: thymeleaf.render(resolve(mailsTemplates.userActivation), {
       activationUrl: activationUrl,
+      mailComponents: getMailComponents({
+        title: "Активация аккаунта"
+      }),
       site: sharedLib.getSite()
     }),
-    subject: "Активация аккаунта",
-    from: "noreply@kostirpg.com"
+    subject: "Активация аккаунта"
   };
 }
 
@@ -226,10 +283,10 @@ function getForgotPassMail(mail, params) {
   return {
     body: thymeleaf.render(resolve(mailsTemplates.forgotPass), {
       resetUrl: resetUrl,
-      site: sharedLib.getSite()
+      site: sharedLib.getSite(),
+      mailComponents: getMailComponents({ title: "Смена пароля" })
     }),
-    subject: "Смена пароля",
-    from: "noreply@kostirpg.com"
+    subject: "Смена пароля"
   };
 }
 
@@ -244,13 +301,11 @@ function getPendingItemMail(params) {
           id: params.id
         }
       }),
+      mailComponents: getMailComponents({
+        title: "Заказ в статусе ожидания"
+      }),
       site: sharedLib.getSite()
     }),
-    subject: "Новый заказ ожидание",
-    from: "noreply@kostirpg.com"
+    subject: "Новый заказ ожидание"
   };
 }
-
-exports.sendMail = sendMail;
-exports.unsubscribe = unsubscribe;
-exports.prepareNewsletter = prepareNewsletter;

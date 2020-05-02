@@ -25,6 +25,7 @@ exports.countShares = countShares;
 exports.fixVotesTimestamps = fixVotesTimestamps;
 exports.setVoteDate = setVoteDate;
 exports.removeUnusedVotes = removeUnusedVotes;
+exports.removeVoteByItemId = removeVoteByItemId;
 
 function removeUnusedVotes() {
   var votesRepo = getVotesRepo();
@@ -60,7 +61,7 @@ function vote(content) {
   if (!user || !user.key) {
     return false;
   }
-  var result = contextLib.runAsAdmin(function() {
+  var result = contextLib.runAsAdmin(function () {
     return doVote(user.key, content);
   });
 
@@ -68,7 +69,7 @@ function vote(content) {
 }
 
 function addView(content, id) {
-  var result = contextLib.runAsAdmin(function() {
+  var result = contextLib.runAsAdmin(function () {
     return doAddView(content, id);
   });
 
@@ -148,6 +149,9 @@ function checkIfVoteExist(user, node) {
 }
 
 function createBlankVote(node, type) {
+  if (!node) {
+    return null;
+  }
   if (!type) {
     var type = "article";
   }
@@ -220,8 +224,15 @@ function getNode(id) {
   return false;
 }
 
+function removeVoteByItemId(id) {
+  var itemId = getNode(id);
+  if (itemId) {
+    deleteVotes(itemId._id);
+  }
+}
+
 function getHotArticleIds(start, date) {
-  var pageSize = 10;
+  var pageSize = 5;
   var votesRepo = getVotesRepo();
   var result = { hits: [], total: 0, count: 0 };
   var usePaging = true;
@@ -266,6 +277,7 @@ function getHotArticleIds(start, date) {
   result.nextStart = nextStart;
   result.date = returnDate.toISOString();
   result.newPage = !usePaging;
+  result.pageSize = pageSize;
   return result;
 }
 
@@ -295,12 +307,12 @@ function getVotesRepo() {
 function getWeekArticleId() {
   var votesRepo = getVotesRepo();
   var date = new Date();
-  date = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
+  date.setDate(date.getDate() - 7);
   date = date.toISOString();
   var result = votesRepo.query({
     start: 0,
     count: 1,
-    query: "type = 'article' AND _ts > dateTime('" + date + "')",
+    query: "type = 'article' AND date > dateTime('" + date + "')",
     sort: "rate DESC"
   });
   if (result && result.hits && result.hits.length > 0) {
@@ -315,30 +327,35 @@ function getWeekArticleId() {
   return site.weeksPost;
 }
 
-function addShare(id, user, type) {
-  var node = getNode(id);
-  if (node === false) {
-    node = createBlankVote(id);
-  }
-  var votesRepo = getVotesRepo();
-  return votesRepo.modify({
-    key: node._id,
-    editor: editor
+function addShare(id, user, type, itemType) {
+  var result = contextLib.runAsAdmin(function () {
+    var node = getNode(id);
+    if (!itemType) {
+      itemType = "article";
+    }
+    if (node === false) {
+      node = createBlankVote(id, itemType);
+    }
+    var votesRepo = getVotesRepo();
+    return votesRepo.modify({
+      key: node._id,
+      editor: editor
+    });
+    function editor(node) {
+      if (!node.shares) {
+        node.shares = {};
+      }
+      if (!node.shares[type]) {
+        node.shares[type] = [];
+      }
+      var temp = norseUtils.forceArray(node.shares[type]);
+      if (temp.indexOf(user) === -1) {
+        temp.push(user);
+      }
+      node.shares[type] = temp;
+      return node;
+    }
   });
-  function editor(node) {
-    if (!node.shares) {
-      node.shares = {};
-    }
-    if (!node.shares[type]) {
-      node.shares[type] = [];
-    }
-    var temp = norseUtils.forceArray(node.shares[type]);
-    if (temp.indexOf(user) === -1) {
-      temp.push(user);
-    }
-    node.shares[type] = temp;
-    return node;
-  }
 }
 
 function countShares(id) {

@@ -37,14 +37,14 @@ function addComment(parent, body, articleId) {
       {
         principal: "role:system.authenticated",
         allow: ["READ", "MODIFY", "READ_PERMISSIONS", "WRITE_PERMISSIONS"],
-        deny: []
+        deny: [],
       },
       {
         principal: "role:system.everyone",
         allow: ["READ"],
-        deny: []
-      }
-    ]
+        deny: [],
+      },
+    ],
   });
   return beautifyComment(comment, false);
 }
@@ -61,7 +61,7 @@ function getCommentsByUser(id, page, pageSize, counterOnly) {
     start: page * pageSize,
     count: pageSize,
     query: "user = '" + id + "'",
-    sort: "deleted ASC, rate ASC, _ts DESC"
+    sort: "deleted ASC, rate ASC, _ts DESC",
   });
   if (counterOnly) {
     return temp.total;
@@ -75,25 +75,25 @@ function getCommentsByUser(id, page, pageSize, counterOnly) {
   return {
     hits: result,
     total: temp.total,
-    count: temp.count
+    count: temp.count,
   };
 }
 
 function getCommentsView(comments) {
   return thymeleaf.render(resolve("../pages/user/commentsView.html"), {
-    comments: comments
+    comments: comments,
   });
 }
 
 function removeComment(id, reason) {
   var user = userLib.getCurrentUser();
-  if (!user.moderator) {
+  if (!user.roles.moderator) {
     return false;
   }
   var commentsRepo = connectCommentsRepo();
   return commentsRepo.modify({
     key: id,
-    editor: editor
+    editor: editor,
   });
   function editor(node) {
     node.deleted = 1;
@@ -108,7 +108,7 @@ function reportComment(id, reason) {
   var commentsRepo = connectCommentsRepo();
   return commentsRepo.modify({
     key: id,
-    editor: editor
+    editor: editor,
   });
   function editor(node) {
     if (!node.report) node.report = [];
@@ -139,7 +139,7 @@ function voteForComment(id) {
   }
   return {
     rate: comment.rate,
-    voted: comment.votes && comment.votes.indexOf(user.key) !== -1
+    voted: comment.votes && comment.votes.indexOf(user.key) !== -1,
   };
 }
 
@@ -147,7 +147,7 @@ function upvote(user, node) {
   var commentsRepo = connectCommentsRepo();
   return commentsRepo.modify({
     key: node,
-    editor: editor
+    editor: editor,
   });
   function editor(node) {
     if (!node.votes) {
@@ -168,7 +168,7 @@ function downvote(user, node) {
   var commentsRepo = connectCommentsRepo();
   return commentsRepo.modify({
     key: node,
-    editor: editor
+    editor: editor,
   });
   function editor(node) {
     if (!node.createdDate) {
@@ -197,7 +197,7 @@ function getCommentsByParent(id, counter, level) {
     start: 0,
     count: -1,
     query: "parent = '" + id + "'",
-    sort: "rate ASC, _ts ASC"
+    sort: "rate ASC, _ts ASC",
   }).hits;
   var result = [];
   for (var i = 0; i < temp.length; i++) {
@@ -235,6 +235,9 @@ function beautifyComment(comment, counter, level) {
     if (comment.articleId) {
       comment.url =
         portalLib.pageUrl({ id: comment.articleId }) + "#" + comment._id;
+      comment.articleTitle = contentLib.get({
+        key: comment.articleId
+      }).displayName;
     }
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
@@ -244,7 +247,7 @@ function beautifyComment(comment, counter, level) {
 function connectCommentsRepo() {
   return nodeLib.connect({
     repoId: "comments",
-    branch: "master"
+    branch: "master",
   });
 }
 
@@ -264,7 +267,7 @@ function createTextLinks(text) {
   //text = processComment(text, /``[\s\S]+``/gim, "<code>", "</code>");
   return (text || "").replace(
     /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
-    function(match, space, url) {
+    function (match, space, url) {
       return space + '<a href="' + url + '">' + url + "</a>";
     }
   );
@@ -273,7 +276,7 @@ function createTextLinks(text) {
 function processComment(text, regexp, tagOpen, tagClose) {
   //TODO:
   //investigate this function and add bold and other stuff to comments.
-  return text.replace(regexp, function(match, space, content) {
+  return text.replace(regexp, function (match, space, content) {
     return space + tagOpen + content + tagClose;
   });
 }

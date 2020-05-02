@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Спасибо за ваш заказ</title>
-  </head>
 
-  <body>
-    Ваш заказ принят. Скоро мы свяжемся с вами для уточнения всех нюансов.
-  </body>
+<div data-th-utext="${mailComponents.head}" data-th-remove="tag"></div>
+
+<body style="margin: 0px; padding: 0px">
+    <table border="0" cellpadding="0" cellspacing="0" align="center" width="570"
+        style="max-width: 570px; background: white;">
+        <div data-th-utext="${mailComponents.header}" data-th-remove="tag"></div>
+        <tr>
+            <td style="background: white;">
+                <div data-th-utext=" ${content.data.body}" data-th-remove="tag">
+                </div>
+            </td>
+        </tr>
+        <div data-th-utext="${mailComponents.footer}" data-th-remove="tag"></div>
+    </table>
+    <div data-th-if="${showSendButton}" style="text-align: center; margin: 20px 0">
+        <a data-th-href="${portal.pageUrl({'_path=' + content._path, 'action=sendMail'})}" data-th-text="'send mail'"
+            class="button-light"></a>
+    </div>
+</body>
+
 </html>

@@ -163,13 +163,19 @@
     <mapping controller="/services/newArticle/newArticle.js" order="10">
       <pattern>/create</pattern>
     </mapping>
+    <mapping controller="/services/newArticle/status.js" order="10">
+      <pattern>/article/status</pattern>
+    </mapping>
     <mapping controller="/services/newArticle/edit.js" order="10">
       <pattern>/article/edit</pattern>
     </mapping>
     <mapping controller="/services/checkout/controllers/liqpay.js" order="10">
       <pattern>/payment-processing</pattern>
     </mapping>
-    <mapping controller="/services/monsterApi/monsterApi.js" order="10">
+    <mapping controller="/services/user/becomeGm.js">
+      <pattern>/become-gm</pattern>
+    </mapping>
+    <mapping controller="/services/monsterApi/monsterApi.js">
       <pattern>/api/monster</pattern>
     </mapping>
   </mappings>

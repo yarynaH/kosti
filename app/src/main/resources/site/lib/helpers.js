@@ -204,24 +204,31 @@ function checkUser() {
   return result;
 }
 
-function getLoadMore(articlesCount, noMoreTitle, loadMoreText, hideIfNone) {
-  if (hideIfNone !== true) {
-    var hideIfNone = false;
+function getLoadMore(params) {
+  if (!params) {
+    params = {};
   }
-  if (articlesCount === null || articlesCount === undefined) {
-    var articlesCount = 11;
+  if (params.hideIfNone !== true) {
+    params.hideIfNone = false;
   }
-  if (!loadMoreText) {
-    var loadMoreText = getRandomString();
+  if (params.articlesCount === null || params.articlesCount === undefined) {
+    params.articlesCount = 11;
   }
-  if (!noMoreTitle) {
-    var noMoreTitle = "articles";
+  if (!params.loadMoreText) {
+    params.loadMoreText = getRandomString();
+  }
+  if (!params.noMoreTitle) {
+    params.noMoreTitle = "articles";
+  }
+  if (!params.pageSize) {
+    params.pageSize = 10;
   }
   return thymeleaf.render(resolve("../pages/components/blog/loadMore.html"), {
-    articlesCount: articlesCount,
-    noMoreTitle: noMoreTitle,
-    loadMoreText: loadMoreText,
-    hideIfNone: hideIfNone
+    articlesCount: params.articlesCount,
+    noMoreTitle: params.noMoreTitle,
+    loadMoreText: params.loadMoreText,
+    hideIfNone: params.hideIfNone,
+    pageSize: params.pageSize
   });
 }
 

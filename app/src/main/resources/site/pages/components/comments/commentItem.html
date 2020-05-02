@@ -1,57 +1,33 @@
-<li
-  class="comments-item comments-new js_comment js_comment_scroll"
-  data-th-attr="data-id=${comment._id}"
->
-  <div class="comments-header">
-    <div class="post-info">
-      <a data-th-if="${comment.author}" data-th-href="${comment.author.url}">
-        <span class="post-user_avatar">
-          <img data-th-src="${comment.author.image.url}" alt="" />
-        </span>
-        <span
-          class="post-user_name"
-          data-th-text="${comment.author.displayName}"
-        ></span>
-      </a>
-      <span class="post-date" data-th-text="${comment.date}"></span>
+<li class="comments-item comments-new js_comment js_comment_scroll" data-th-attr="data-id=${comment._id}">
+    <div class="comments-header">
+        <div class="post-info">
+            <a data-th-if="${comment.author}" data-th-href="${comment.author.url}">
+                <span class="post-user_avatar">
+                    <img data-th-src="${comment.author.image.url}" alt="" />
+                </span>
+                <span class="post-user_name" data-th-text="${comment.author.displayName}"></span>
+            </a>
+            <span class="post-date" data-th-text="${comment.date}"></span>
+        </div>
+        <div class="comments-actions">
+            <span data-th-attr="data-id=${comment._id}" class="like-btn icon-rock js_comment-like"
+                data-th-classappend="${comment.voted} ? 'active' : ''">
+                <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
+            </span>
+            <span data-th-if="${moderator}" data-th-attr="data-id=${comment._id}"
+                class="comments-remove_btn remove-btn js_comment-remove_btn"></span>
+        </div>
     </div>
-    <div class="comments-actions">
-      <span
-        data-th-attr="data-id=${comment._id}"
-        class="like-btn icon-rock js_comment-like"
-        data-th-classappend="${comment.voted} ? 'active' : ''"
-      >
-        <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
-      </span>
-      <span
-        data-th-if="${moderator}"
-        data-th-attr="data-id=${comment._id}"
-        class="comments-remove_btn remove-btn js_comment-remove_btn"
-      ></span>
+    <div class="comments-body" data-th-utext="${comment.body}"></div>
+    <div class="comments-footer">
+        <a class="comments-link js_answer-comment" data-th-attr="data-id=${comment._id}">Ответить</a>
+        <a class="comments-link js_report-comment">Пожаловаться</a>
     </div>
-  </div>
-  <div class="comments-body" data-th-utext="${comment.body}"></div>
-  <div class="comments-footer">
-    <a
-      class="comments-link js_answer-comment"
-      data-th-attr="data-id=${comment._id}"
-      >Ответить</a
-    >
-    <a class="comments-link js_report-comment">Пожаловаться</a>
-  </div>
-  <form
-    class="comments-answer_comment comments-write_comment-wrap js_comment-form hidden"
-    data-th-attr="data-parentid=${comment._id}"
-  >
-    <textarea
-      name="body"
-      class="comments-write_comment-input"
-      placeholder="Ответить на комментарий…"
-      id=""
-      cols="30"
-      rows="1"
-    ></textarea>
-    <button class="comments-write_comment-button">Отправить</button>
-    <input value="addComment" type="hidden" name="action" />
-  </form>
+    <form class="comments-answer_comment comments-write_comment-wrap js_comment-form hidden"
+        data-th-attr="data-parentid=${comment._id}">
+        <textarea name="body" class="comments-write_comment-input" placeholder="Ответить на комментарий…" id=""
+            cols="30" rows="1"></textarea>
+        <button class="comments-write_comment-button">Отправить</button>
+        <input value="addComment" type="hidden" name="action" />
+    </form>
 </li>

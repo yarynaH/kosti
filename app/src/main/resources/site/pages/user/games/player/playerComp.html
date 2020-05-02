@@ -1,0 +1,58 @@
+<div class="my_games-player-block">
+    <div class="my_games-players-step1 hidden">
+        <h2 class="my_games-title" data-th-text="${portal.localize({'_key=myGames.forPlayer', '_locale=ru'})}"></h2>
+        <p class="my_games-caption" data-th-text="${portal.localize({'_key=myGames.forPlayer.caption', '_locale=ru'})}">
+        </p>
+        <div class="my_games-activate_ticket">
+            <div class="form-group">
+                <label for="ticketHash"
+                    data-th-text="${portal.localize({'_key=myGames.ticketHash', '_locale=ru'})}"></label>
+                <input data-th-placeholder="${portal.localize({'_key=myGames.ticketHash.placeholder', '_locale=ru'})}"
+                    type="text" name="ticketHash" id="ticketHash" />
+            </div>
+            <button class="my_games-btn button button-light"
+                data-th-text="${portal.localize({'_key=myGames.activateBtn', '_locale=ru'})}"></button>
+        </div>
+        <div class="js-my_games-find_hash my_games-find_hash">
+            <a href="#" class="my_games-find_hash-link"
+                data-th-text="${portal.localize({'_key=myGames.findHash', '_locale=ru'})}"></a>
+            <div class="js-my_games-find_hash-answer my_games-find_hash-answer"
+                data-th-text="${portal.localize({'_key=myGames.findHash.answer', '_locale=ru'})}">
+            </div>
+        </div>
+    </div>
+
+    <div class="my_games-players-step2 hidden">
+        <!-- hashActivated.html -->
+        <h2 class="my_games-title" data-th-text="${portal.localize({'_key=myGames.forPlayer', '_locale=ru'})}"></h2>
+        <p class="my_games-caption"
+            data-th-text="${portal.localize({'_key=myGames.forPlayer.caption.step2', '_locale=ru'})}"></p>
+        <form action="" class="my_games-players-form">
+            <div class="form-group">
+                <label for="playerName"
+                    data-th-text="${portal.localize({'_key=myGames.forPlayer.name', '_locale=ru'})}"></label>
+                <input
+                    data-th-placeholder="${portal.localize({'_key=myGames.forPlayer.name.placeholder', '_locale=ru'})}"
+                    type="text" name="playerName" id="playerName" />
+            </div>
+            <div class="form-group h-mb-25">
+                <label for="playerName"
+                    data-th-text="${portal.localize({'_key=myGames.forPlayer.nickname', '_locale=ru'})}"></label>
+                <input
+                    data-th-placeholder="${portal.localize({'_key=myGames.forPlayer.nickname.placeholder', '_locale=ru'})}"
+                    type="text" name="playerName" id="playerName" />
+            </div>
+            <button class="my_games-btn button button-light"
+                data-th-text="${portal.localize({'_key=myGames.done', '_locale=ru'})}"></button>
+        </form>
+    </div>
+
+    <div class="my_games-players-step3">
+        <h2 class="my_games-title" data-th-text="${portal.localize({'_key=myGames.forPlayer', '_locale=ru'})}"></h2>
+        <p class="my_games-caption"
+            data-th-text="${portal.localize({'_key=myGames.forPlayer.caption.step3.legendary', '_locale=ru'})}"></p>
+        <p class="my_games-caption"
+            data-th-utext="${portal.localize({'_key=myGames.forPlayer.caption.step3.legendary.festival.day', '_locale=ru'})}">
+        </p>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Newsletter</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="body" type="HtmlArea">
+      <label>Body</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <item-set name="mailLists"> 
+      <label>Inlude lists</label> 
+      <occurrences minimum="1" maximum="1"/> 
+      <items>
+        <input name="customers" type="CheckBox">
+          <label>Customers</label>
+          <occurrences minimum="0" maximum="1"/> 
+        </input>
+        <input name="subscribers" type="CheckBox">
+          <label>Subscribers</label>
+          <occurrences minimum="0" maximum="1"/> 
+        </input>
+      </items>
+    </item-set>
+  </form>
+</content-type>
