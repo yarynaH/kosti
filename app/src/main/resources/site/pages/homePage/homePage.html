@@ -52,6 +52,9 @@
                         class="bookmarks-btn js_bookmarks-btn js_login-required"
                         data-th-classappend="${active.bookmarks}"
                         data-th-text="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"></a>
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}"
+                        class="podcasts-btn icon-microphone"
+                        data-th-text="${portal.localize({'_key=homepage.title.podcasts', '_locale=ru'})}"></a>
                 </div>
                 <div class="blog-list-wrap">
                     <div class="blog-list" data-th-utext="${articles}" data-page="1"
