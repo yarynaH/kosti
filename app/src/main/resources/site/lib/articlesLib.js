@@ -261,7 +261,7 @@ function getVideoComponent(data) {
         url: url,
         form: data.form,
         videoId: videoId,
-        addWrapper: data.addWrapper
+        addWrapper: data.addWrapper ? true : false
       }
     )
   };
