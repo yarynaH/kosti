@@ -79,19 +79,6 @@
             color: $color-primary1;
             font-size: rem(12);
             text-transform: uppercase;
-            cursor: pointer;
-            transition: transition(color);
-
-            &:hover {
-                @include tablet-all {
-                    color: $color-primary6;
-
-                    .create_article-add_content-icon:before,
-                    .create_article-add_content-icon:after {
-                        border-color: $color-primary6;
-                    }
-                }
-            }
         }
 
         &-icon {
@@ -99,11 +86,6 @@
 
             position: relative;
             padding-left: 34px;
-
-            &:before,
-            &:after {
-                transition: transition(border-color);
-            }
         }
 
         &-inner {
