@@ -1,0 +1,51 @@
+.posted_article_status {
+    &-wrapper {
+        position: relative;
+    }
+
+    &-inner {
+        position: absolute;
+        width: 100%;
+    }
+
+    &-item {
+        padding: 10px;
+        font-weight: 600;
+        color: $color-primary1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+
+        &.moderate {
+            background: $color-primary19;
+        }
+
+        &.draft {
+            background: $color-primary18;
+        }
+
+        &.approved {
+            background: $color-primary40;
+        }
+    }
+
+    &-btn {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        background: $color-primary1;
+        transition: transition(all);
+        color: $color-primary28;
+
+        &:hover {
+            @include tablet-all {
+                background: $color-primary28;
+                color: $color-primary1;
+            }
+        }
+    }
+}

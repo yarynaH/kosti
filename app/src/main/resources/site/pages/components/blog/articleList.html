@@ -1,4 +1,16 @@
 <div data-th-each="article: ${articles}" class="blog-item">
+    <div data-th-unless="${article.status.published}" class="posted_article_status-wrapper">
+        <div class="posted_article_status-inner">
+            <div data-th-if="${!article.status.draft}" class="posted_article_status-item moderate">
+                <span data-th-text="${portal.localize({'_key=user.article.status.moderate', '_locale=ru'})}"></span>
+                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"></a>
+            </div>
+            <div data-th-if="${article.status.draft}" class="posted_article_status-item draft">
+                <span data-th-text="${portal.localize({'_key=user.article.status.draft', '_locale=ru'})}"></span>
+                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"></a>
+            </div>
+        </div>
+    </div>
     <a data-th-href="${article.url}" class="post-image_wrap" target="_blank">
         <img data-th-src="${article.image.url}" alt="" />
     </a>

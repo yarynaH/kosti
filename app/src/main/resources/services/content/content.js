@@ -59,7 +59,10 @@ exports.get = function (req) {
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "userArticles":
-      var articlesObj = blogLib.getArticlesByUser(params.userId, page);
+      var articlesObj = blogLib.getArticlesByUser({
+        id: params.userId,
+        page: page
+      });
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "comments":

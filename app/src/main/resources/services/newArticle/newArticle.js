@@ -33,6 +33,9 @@ function handlePut(req) {
       case "videoPart":
         result = articlesLib.getVideoComponent(data);
         break;
+      case "blockquotePart":
+        result = articlesLib.getQuoteComponent(data);
+        break;
       case "hashtagList":
         result = articlesLib.renderHashtagSuggestion(
           hashtagLib.getHashtagList(data.q, data.ids)
@@ -67,7 +70,12 @@ function handlePost(req) {
   var me = this;
 
   function renderView() {
-    var article = articlesLib.createArticle(JSON.parse(req.params.data));
+    var data = JSON.parse(req.params.data);
+    if (data.action && data.action === "update") {
+      var article = articlesLib.editArticle(data);
+    } else {
+      var article = articlesLib.createArticle(data);
+    }
     var result;
     if (article.error) {
       result = {
@@ -128,7 +136,7 @@ function handleGet(req) {
         id: portal.getSiteConfig().agreementPage
       }),
       data: up,
-      sidebar: blogLib.getSidebar(),
+      sidebar: blogLib.getSidebar({ hideNewArticleButton: true }),
       social: site.social,
       author: userLib.getCurrentUser(),
       date: kostiUtils.getTimePassedSincePostCreation(new Date()),
