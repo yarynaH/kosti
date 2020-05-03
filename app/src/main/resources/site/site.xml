@@ -139,37 +139,40 @@
   <x-data name="relatedLocale"/>
 
   <mappings>
-    <mapping controller="/services/cart/cart.js" order="10">
+    <mapping controller="/services/cart/cart.js">
       <pattern>/cart</pattern>
     </mapping>
-    <mapping controller="/services/checkout/checkout.js" order="10">
+    <mapping controller="/services/checkout/checkout.js">
       <pattern>/checkout</pattern>
     </mapping>
-    <mapping controller="/services/form/form.js" order="10">
+    <mapping controller="/services/form/form.js">
       <pattern>/form</pattern>
     </mapping>
-    <mapping controller="/services/promos/promos.js" order="10">
+    <mapping controller="/services/promos/promos.js">
       <pattern>/promos</pattern>
     </mapping>
-    <mapping controller="/services/promosAdmin/promosAdmin.js" order="10">
+    <mapping controller="/services/promosAdmin/promosAdmin.js">
       <pattern>/promosadmin</pattern>
     </mapping>
-    <mapping controller="/services/orders/orders.js" order="10">
+    <mapping controller="/services/orders/orders.js">
       <pattern>/orders</pattern>
     </mapping>
-    <mapping controller="/services/search/search.js" order="10">
+    <mapping controller="/services/search/search.js">
       <pattern>/search</pattern>
     </mapping>
-    <mapping controller="/services/newArticle/newArticle.js" order="10">
+    <mapping controller="/services/newArticle/newArticle.js">
       <pattern>/create</pattern>
     </mapping>
-    <mapping controller="/services/newArticle/status.js" order="10">
+    <mapping controller="/services/newArticle/status.js">
       <pattern>/article/status</pattern>
     </mapping>
-    <mapping controller="/services/newArticle/edit.js" order="10">
+    <mapping controller="/services/newArticle/edit.js">
       <pattern>/article/edit</pattern>
     </mapping>
-    <mapping controller="/services/checkout/controllers/liqpay.js" order="10">
+    <mapping controller="/services/newMonster/newMonster.js">
+      <pattern>/monster/create</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/liqpay.js">
       <pattern>/payment-processing</pattern>
     </mapping>
     <mapping controller="/services/user/becomeGm.js">
@@ -177,6 +180,9 @@
     </mapping>
     <mapping controller="/services/monsterApi/monsterApi.js">
       <pattern>/api/monster</pattern>
+    </mapping>
+    <mapping controller="/services/monsterApi/monsterCreateApi.js">
+      <pattern>/api/monster/create</pattern>
     </mapping>
   </mappings>
 </site>

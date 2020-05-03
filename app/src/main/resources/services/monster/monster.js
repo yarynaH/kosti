@@ -54,6 +54,7 @@ exports.post = function (req) {
 };
 
 exports.get = function (req) {
+  norseUtils.log(req.params);
   //doImport();
   //doFix();
 

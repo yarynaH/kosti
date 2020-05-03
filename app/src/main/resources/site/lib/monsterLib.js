@@ -12,6 +12,7 @@ var blogLib = require("blogLib");
 var helpers = require("helpers");
 
 exports.getInputs = getInputs;
+exports.getActionComponent = getActionComponent;
 
 function getInputs(params) {
   if (!params) {
@@ -115,4 +116,8 @@ function prepareActions(actions) {
     );
   }
   return result;
+}
+
+function getActionComponent() {
+  return thymeleaf.render(resolve("../pages/components/form/action.html"), {});
 }
