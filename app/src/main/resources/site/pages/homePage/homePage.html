@@ -1,104 +1,70 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="homepage transparent-header">
-    <div
-      data-th-remove="tag"
-      data-th-utext="${pageComponents.loginRegisterModal}"
-    ></div>
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="homepage transparent-header">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
 
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div data-th-utext="${slider}" data-th-remove="tag"></div>
-      <div class="latest_news">
-        <div class="blog_width">
-          <div class="freshest">
-            <h4
-              class="latest_news-title"
-              data-th-text="${portal.localize({'_key=homepage.title.freshest', '_locale=ru'})}"
-            ></h4>
-            <div class="latest_news-iframe_wrap">
-              <iframe data-th-src="${video}"> </iframe>
-            </div>
-          </div>
-          <div class="schedule">
-            <h4
-              class="latest_news-title"
-              data-th-text="${portal.localize({'_key=homepage.title.schedule', '_locale=ru'})}"
-            ></h4>
-            <div
-              data-th-each="scheduleItem: ${schedule}"
-              class="schedule-item"
-              data-th-style="${'background-image:url(\'' + scheduleItem.image.url} + '\')'"
-            >
-              <div class="schedule-content">
-                <div class="schedule-date">
-                  <span class="date" data-th-text="${scheduleItem.day}"></span>
-                  <span
-                    class="month"
-                    data-th-text="${scheduleItem.month}"
-                  ></span>
+        <div data-th-utext="${slider}" data-th-remove="tag"></div>
+        <div class="latest_news">
+            <div class="blog_width">
+                <div class="freshest">
+                    <h4 class="latest_news-title"
+                        data-th-text="${portal.localize({'_key=homepage.title.freshest', '_locale=ru'})}"></h4>
+                    <div class="latest_news-iframe_wrap">
+                        <iframe data-th-src="${video}"> </iframe>
+                    </div>
                 </div>
-                <h3
-                  class="schedule-title"
-                  data-th-text="${scheduleItem.displayName}"
-                ></h3>
-                <div class="tag-list tag-list__small tag-list__white">
-                  <a
-                    data-th-each="hashtag : ${scheduleItem.hashtags}"
-                    data-th-href="${hashtag.url}"
-                    data-th-if="${hashtag}"
-                    class="tag-item"
-                    data-th-text="${hashtag.displayName}"
-                  ></a>
+                <div class="schedule">
+                    <h4 class="latest_news-title"
+                        data-th-text="${portal.localize({'_key=homepage.title.schedule', '_locale=ru'})}"></h4>
+                    <div data-th-each="scheduleItem: ${schedule}" class="schedule-item"
+                        data-th-style="${'background-image:url(\'' + scheduleItem.image.url} + '\')'">
+                        <div class="schedule-content">
+                            <div class="schedule-date">
+                                <span class="date" data-th-text="${scheduleItem.day}"></span>
+                                <span class="month" data-th-text="${scheduleItem.month}"></span>
+                            </div>
+                            <h3 class="schedule-title" data-th-text="${scheduleItem.displayName}"></h3>
+                            <div class="tag-list tag-list__small tag-list__white">
+                                <a data-th-each="hashtag : ${scheduleItem.hashtags}" data-th-href="${hashtag.url}"
+                                    data-th-if="${hashtag}" class="tag-item" data-th-text="${hashtag.displayName}"></a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="main_blog">
-        <div class="blog blog_width clearfix">
-          <div class="blog-navigation js_blog-navigation">
-            <a
-              data-th-href="${portal.pageUrl({'_path='+content._path})}"
-              class="hotter-btn"
-              data-type="hot"
-              data-th-classappend="${active.hot}"
-              data-th-text="${portal.localize({'_key=homepage.title.hot', '_locale=ru'})}"
-            ></a>
-            <a
-              data-th-href="${portal.pageUrl({'_path='+content._path,'feed=new'})}"
-              data-type="new"
-              class="fresher-btn"
-              data-th-classappend="${active.new}"
-              data-th-text="${portal.localize({'_key=homepage.title.fresh', '_locale=ru'})}"
-            ></a>
-            <a
-              data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}"
-              data-type="bookmarks"
-              class="bookmarks-btn js_bookmarks-btn js_login-required"
-              data-th-classappend="${active.bookmarks}"
-              data-th-text="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"
-            ></a>
-          </div>
-          <div class="blog-list-wrap">
-            <div
-              class="blog-list"
-              data-th-utext="${articles}"
-              data-page="1"
-              data-th-attr="data-date=${hotDate}"
-            ></div>
-            <div
-              data-th-utext="${loadMoreComponent}"
-              data-th-remove="tag"
-            ></div>
-          </div>
-          <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
+        <div class="main_blog">
+            <div class="blog blog_width clearfix">
+                <div class="blog-navigation js_blog-navigation">
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="hotter-btn" data-type="hot"
+                        data-th-classappend="${active.hot}"
+                        data-th-text="${portal.localize({'_key=homepage.title.hot', '_locale=ru'})}"></a>
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=new'})}" data-type="new"
+                        class="fresher-btn" data-th-classappend="${active.new}"
+                        data-th-text="${portal.localize({'_key=homepage.title.fresh', '_locale=ru'})}"></a>
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}" data-type="bookmarks"
+                        class="bookmarks-btn js_bookmarks-btn js_login-required"
+                        data-th-classappend="${active.bookmarks}"
+                        data-th-text="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"></a>
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=podcasts'})}" data-type="podcasts"
+                        class="podcasts-btn js_podcasts-btn" data-th-classappend="${active.podcasts}"
+                        data-th-text="${portal.localize({'_key=homepage.title.podcasts', '_locale=ru'})}"></a>
+                </div>
+                <div class="blog-list-wrap">
+                    <div class="blog-list" data-th-utext="${articles}" data-page="1"
+                        data-th-attr="data-date=${hotDate}"></div>
+                    <div data-th-utext="${loadMoreComponent}" data-th-remove="tag"></div>
+                </div>
+                <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
+            </div>
         </div>
-      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-  </body>
+</body>
+
 </html>

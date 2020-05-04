@@ -9,7 +9,7 @@ var notificationLib = require(libLocation + "notificationLib");
 var commentsLib = require(libLocation + "commentsLib");
 var thymeleaf = require("/lib/thymeleaf");
 
-exports.post = function(req) {
+exports.post = function (req) {
   var params = req.params;
   var result = {};
   switch (params.action) {
@@ -30,7 +30,7 @@ exports.post = function(req) {
   };
 };
 
-exports.get = function(req) {
+exports.get = function (req) {
   var params = req.params;
   if (params.page) {
     var page = parseInt(params.page);
@@ -40,6 +40,10 @@ exports.get = function(req) {
   switch (params.feedType) {
     case "new":
       var articlesObj = blogLib.getNewArticles(page);
+      var articlesView = blogLib.getArticlesView(articlesObj.hits);
+      break;
+    case "podcasts":
+      var articlesObj = blogLib.getNewArticles(page, true);
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "bookmarks":

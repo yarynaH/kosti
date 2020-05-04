@@ -50,7 +50,7 @@ function handleReq(req) {
         var articles = articlesQuery.hits;
         break;
       case "podcasts":
-        active.new = "podcasts";
+        active.podcasts = "active";
         var articlesQuery = blogLib.getNewArticles(null, true);
         var articles = articlesQuery.hits;
         break;
