@@ -28,7 +28,7 @@ function addComment(parent, body, articleId) {
     return false;
   }
   var comment = commentsRepo.create({
-    body: createTextLinks(body),
+    body: processBody(body),
     parent: parent,
     user: user,
     articleId: articleId,
@@ -240,7 +240,6 @@ function beautifyComment(comment, counter, level) {
       }).displayName;
     }
   }
-  comment.body = processBody(comment.body);
   comment.children = getCommentsByParent(comment._id, counter, level);
   return comment;
 }
@@ -252,6 +251,8 @@ function processBody(body) {
   body = body.replace(/~~([^*]+)~~/g, "<s>$1</s>");
   body = body.replace(/```([^*]+)```/g, "<q>$1</q>");
   body = body.replace(/\|\|([^*]+)\|\|/g, "<spoiler>$1</spoiler>");
+  body = body.replace(/\r\n/g, "<br />");
+  body = createTextLinks(body);
   return body;
 }
 
@@ -271,23 +272,10 @@ function countComments(id) {
 }
 
 function createTextLinks(text) {
-  //text = processComment(text, /\*\*[\s\S]+\*\*/gim, "<strong>", "</strong>");
-  //text = processComment(text, /<<[\s\S]+>>/gim, "<em>", "</em>");
-  //text = processComment(text, /__[\s\S]+__/gim, "<u>", "</u>");
-  //text = processComment(text, /~~[\s\S]+~~/gim, "<s>", "</s>");
-  //text = processComment(text, /``[\s\S]+``/gim, "<code>", "</code>");
   return (text || "").replace(
     /([^\S]|^)(((https?\:\/\/)|(www\.))(\S+))/gi,
     function (match, space, url) {
       return space + '<a href="' + url + '">' + url + "</a>";
     }
   );
-}
-
-function processComment(text, regexp, tagOpen, tagClose) {
-  //TODO:
-  //investigate this function and add bold and other stuff to comments.
-  return text.replace(regexp, function (match, space, content) {
-    return space + tagOpen + content + tagClose;
-  });
 }
