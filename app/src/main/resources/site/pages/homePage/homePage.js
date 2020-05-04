@@ -49,6 +49,11 @@ function handleReq(req) {
         var articlesQuery = blogLib.getNewArticles();
         var articles = articlesQuery.hits;
         break;
+      case "podcasts":
+        active.new = "podcasts";
+        var articlesQuery = blogLib.getNewArticles(null, true);
+        var articles = articlesQuery.hits;
+        break;
       case "bookmarks":
         active.bookmarks = "active";
         if (user) {
@@ -124,7 +129,7 @@ function handleReq(req) {
     }
 
     function getVideoFromCache(key) {
-      return youtubeCache.get("video", function() {
+      return youtubeCache.get("video", function () {
         return getVideoViaApi(key);
       });
     }

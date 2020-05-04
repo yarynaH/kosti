@@ -30,7 +30,7 @@ function vote(content) {
   if (!user || !user.key) {
     return false;
   }
-  var result = contextLib.runAsAdmin(function() {
+  var result = contextLib.runAsAdmin(function () {
     return doVote(user.key, content);
   });
 
@@ -38,7 +38,7 @@ function vote(content) {
 }
 
 function addView(content, id) {
-  var result = contextLib.runAsAdmin(function() {
+  var result = contextLib.runAsAdmin(function () {
     return doAddView(content, id);
   });
 
@@ -119,7 +119,7 @@ function checkIfVoteExist(user, node) {
 
 function createBlankVote(node, type) {
   if (!type) {
-    var type = "article";
+    var type = getVoteType(node);
   }
   var votesRepo = getVotesRepo();
   return votesRepo.create({
@@ -134,7 +134,7 @@ function createBlankVote(node, type) {
 
 function createVote(user, content, type) {
   if (!type) {
-    var type = "article";
+    var type = getVoteType(content);
   }
   var votesRepo = getVotesRepo();
   return votesRepo.create({
@@ -143,6 +143,27 @@ function createVote(user, content, type) {
     type: type,
     date: new Date()
   });
+}
+
+function getVoteType(id) {
+  if (!id) {
+    return "article";
+  }
+  var content = contentLib.get({ key: id });
+  if (!content) {
+    return "article";
+  }
+  switch (content.type) {
+    case app.name + ":podcast":
+      return "podcast";
+      break;
+    case app.name + ":product":
+      return "product";
+      break;
+    default:
+      return "article";
+      break;
+  }
 }
 
 function upvote(user, node) {
@@ -237,7 +258,7 @@ function getHotArticlesQuery(start, count, date, oldDate) {
     start: start,
     count: count,
     query:
-      "(type = 'article' or type = 'podcast') AND date > dateTime('" +
+      "type = 'article' AND date > dateTime('" +
       date.toISOString() +
       "') AND date < dateTime('" +
       oldDate.toISOString() +
