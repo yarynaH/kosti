@@ -348,7 +348,7 @@ function countUserRating(id) {
 
 function updateSchedule() {
   norseUtils.log("Started updating schedule.");
-  contextLib.runInDraftAsAdmin(function () {
+  contextLib.runAsAdmin(function () {
     var currDate = new Date();
     var schedules = contentLib.query({
       start: 0,
@@ -374,12 +374,12 @@ function updateSchedule() {
       });
       contentLib.publish({
         keys: [schedules.hits[i]._id],
-        sourceBranch: "draft",
-        targetBranch: "master",
+        sourceBranch: "master",
+        targetBranch: "draft",
         includeDependencies: false
       });
       function editor(c) {
-        var tempDate = new Date(c.data.date);
+        var tempDate = moment(c.data.date).toDate();
         tempDate.setDate(tempDate.getDate() + 7 * parseInt(c.data.repeat));
         tempDate = tempDate.toISOString();
         c.data.date = tempDate;
