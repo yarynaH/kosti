@@ -27,6 +27,7 @@ exports.getArticleFooter = getArticleFooter;
 exports.countUserRating = countUserRating;
 exports.updateSchedule = updateSchedule;
 exports.getArticleStatus = getArticleStatus;
+exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -393,4 +394,13 @@ function updateSchedule() {
     }
   });
   norseUtils.log("Finished updating schedule.");
+}
+
+function generateDiscordNotificationMessage(content) {
+  return (
+    "На KostiRPG появилась новая статья **" +
+    content.displayName +
+    "**! Проходи по ссылке и зацени. " +
+    content.url
+  );
 }
