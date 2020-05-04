@@ -26,6 +26,7 @@ exports.fixVotesTimestamps = fixVotesTimestamps;
 exports.setVoteDate = setVoteDate;
 exports.removeUnusedVotes = removeUnusedVotes;
 exports.removeVoteByItemId = removeVoteByItemId;
+exports.markVoteAsNotified = markVoteAsNotified;
 
 function removeUnusedVotes() {
   var votesRepo = getVotesRepo();
@@ -160,10 +161,30 @@ function createBlankVote(node, type) {
     id: node,
     votes: [],
     rate: 0,
+    notified: false,
     shares: { vk: [], facebook: [], twitter: [] },
     type: type,
     date: new Date()
   });
+}
+
+function markVoteAsNotified(contentId) {
+  if (!contentId) {
+    return null;
+  }
+  var vote = getNode(contentId);
+  if (!vote) {
+    return null;
+  }
+  var votesRepo = getVotesRepo();
+  return votesRepo.modify({
+    key: vote._id,
+    editor: editor
+  });
+  function editor(node) {
+    node.notified = true;
+    return node;
+  }
 }
 
 function createVote(user, content, type) {
@@ -175,6 +196,7 @@ function createVote(user, content, type) {
     id: content,
     votes: [user],
     type: type,
+    notified: false,
     date: new Date()
   });
 }

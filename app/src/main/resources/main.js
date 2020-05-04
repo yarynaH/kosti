@@ -57,14 +57,17 @@ event.listener({
         if (node && node.type && node.type == app.name + ":article") {
           var vote = votesLib.getNode(node._id);
           if (!vote) {
-            votesLib.createBlankVote(node._id, "article");
+            vote = votesLib.createBlankVote(node._id, "article");
           }
           votesLib.setVoteDate(vote._id, node.publish.from);
-          node.url = pageUrl(node);
-          discordLib.sendMessage({
-            webhookUrl: app.config.discordKotirpgChannel,
-            body: blogLib.generateDiscordNotificationMessage(node)
-          });
+          if (!vote.notified) {
+            node.url = pageUrl(node);
+            discordLib.sendMessage({
+              webhookUrl: app.config.discordKotirpgChannel,
+              body: blogLib.generateDiscordNotificationMessage(node)
+            });
+            votesLib.markVoteAsNotified(node._id);
+          }
         }
       }
     }
