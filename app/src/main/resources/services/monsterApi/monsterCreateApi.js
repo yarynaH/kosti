@@ -6,10 +6,12 @@ var httpClientLib = require("/lib/http-client");
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
+var monsterLib = require(libLocation + "monsterLib");
 
 exports.get = function (req) {
   var result = {};
   var params = req.params;
+  result.html = monsterLib.getActionComponent(params.id);
   norseUtils.log(req.params);
 
   return {

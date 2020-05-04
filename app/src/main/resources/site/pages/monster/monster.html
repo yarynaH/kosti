@@ -102,29 +102,40 @@
                 <input name="id" type="text" class="input-text" id="monster_gen-id-input" data-th-if="${content}"
                     data-th-value="${content._id}" hidden />
 
-                <h5 class="title-5 h-mb-15 h-mt-30">Actions</h5>
-                <div data-th-if="${inputs.actions}" class="form-group" data-th-each="action: ${inputs.actions}"
-                    data-th-utext="${action}">
+                <div class="js_monster-actions">
+                    <h5 class="title-5 h-mb-15 h-mt-30">Actions</h5>
+                    <div data-th-if="${inputs.actions}" class="form-group" data-th-each="action: ${inputs.actions}"
+                        data-th-utext="${action}">
+                    </div>
+                    <button data-type="action" class="js_add-action-button-general js_add-action">add action</button>
                 </div>
-                <button class="js_add-action-button-general js_add-action">add action</button>
 
-                <h5 class="title-5 h-mb-15 h-mt-30">Legendary Actions</h5>
-                <div data-th-if="${inputs.legendaryActions}" class="form-group"
-                    data-th-each="action: ${inputs.legendaryActions}" data-th-utext="${action}">
+                <div class="js_monster-legendary-actions">
+                    <h5 class="title-5 h-mb-15 h-mt-30">Legendary Actions</h5>
+                    <div data-th-if="${inputs.legendaryActions}" class="form-group"
+                        data-th-each="action: ${inputs.legendaryActions}" data-th-utext="${action}">
+                    </div>
+                    <button data-type="legendary-action"
+                        class="js_add-action-button-general js_add-legendary-action">add action</button>
                 </div>
-                <button class="js_add-action-button-general js_add-legendary-action">add action</button>
 
-                <h5 class="title-5 h-mb-15 h-mt-30">Reactions</h5>
-                <div data-th-if="${inputs.reactions}" class="form-group" data-th-each="action: ${inputs.reactions}"
-                    data-th-utext="${action}">
+                <div class="js_monster-reactions">
+                    <h5 class="title-5 h-mb-15 h-mt-30">Reactions</h5>
+                    <div data-th-if="${inputs.reactions}" class="form-group" data-th-each="action: ${inputs.reactions}"
+                        data-th-utext="${action}">
+                    </div>
+                    <button data-type="reaction" class="js_add-action-button-general js_add-reaction">add
+                        action</button>
                 </div>
-                <button class="js_add-action-button-general js_add-reaction">add action</button>
 
-                <h5 class="title-5 h-mb-15 h-mt-30">Special Abilities</h5>
-                <div data-th-if="${inputs.specialAbilities}" class="form-group"
-                    data-th-each="action: ${inputs.specialAbilities}" data-th-utext="${action}">
+                <div class="js_monster-special-abilities">
+                    <h5 class="title-5 h-mb-15 h-mt-30">Special Abilities</h5>
+                    <div data-th-if="${inputs.specialAbilities}" class="form-group"
+                        data-th-each="action: ${inputs.specialAbilities}" data-th-utext="${action}">
+                    </div>
+                    <button data-type="special-abilitiy"
+                        class="js_add-action-button-general js_add-special-abilitiy">add action</button>
                 </div>
-                <button class="js_add-action-button-general js_add-special-abilitiy">add action</button>
 
                 <div class="monster_gen-actions">
                     <button type="submit" class="button button-light h-mt-25">

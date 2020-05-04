@@ -5,6 +5,7 @@ function getActionComponent(id) {
     data: { id: id },
     type: "GET",
     success: function (data) {
+      $(".js_monster-actions").append(data.html);
       hideLoader();
     }
   });
@@ -12,5 +13,18 @@ function getActionComponent(id) {
 
 $(".js_add-action-button-general ").on("click", function (e) {
   e.preventDefault();
-  getActionComponent("1");
+  var id = getId($(this).parent());
+  getActionComponent(id);
 });
+
+function getId(el) {
+  var actions = el.find(".js_action-block");
+  var id = 0;
+  if (actions.length === 0) {
+    return 0;
+  }
+  actions.each(function () {
+    id = Math.max(parseInt($(this).data().id), id);
+  });
+  return id + 1;
+}

@@ -118,6 +118,8 @@ function prepareActions(actions) {
   return result;
 }
 
-function getActionComponent() {
-  return thymeleaf.render(resolve("../pages/components/form/action.html"), {});
+function getActionComponent(id) {
+  return thymeleaf.render(resolve("../pages/components/form/action.html"), {
+    id: id
+  });
 }
