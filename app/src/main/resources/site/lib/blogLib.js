@@ -211,17 +211,22 @@ function getArticlesByIds(ids, page) {
   }
 }
 
-function getNewArticles(page) {
+function getNewArticles(page, podcast) {
   var pageSize = 10;
   if (!page) {
     page = 0;
+  }
+  if (!podcast) {
+    var contentTypes = [app.name + ":article"];
+  } else {
+    var contentTypes = [app.name + ":podcast"];
   }
   var result = contentLib.query({
     query: "",
     start: page * pageSize,
     count: pageSize,
     sort: "publish.from DESC",
-    contentTypes: [app.name + ":article", app.name + ":podcast"]
+    contentTypes: contentTypes
   });
   result.hits = beautifyArticleArray(result.hits);
   return result;
