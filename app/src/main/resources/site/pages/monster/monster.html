@@ -22,16 +22,14 @@
                 <div class="form-group-column">
                     <div class="form-group" data-th-each="stat, i : ${inputs.stats}">
                         <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
-                        <input
-                            data-th-value="${content and content.data and content.data[stat.name] ? content.data[stat.name] : ''}"
+                        <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
                             data-th-name="${stat.name}" data-th-id="${stat.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div class="form-group" data-th-each="stat, i : ${inputs.savethrow}">
                         <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
-                        <input
-                            data-th-value="${content and content.data and content.data[stat.name] ? content.data[stat.name] : ''}"
+                        <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
                             data-th-name="${stat.name}" data-th-id="${stat.name}" />
                     </div>
                 </div>
@@ -56,48 +54,42 @@
                     </div>
                     <div data-th-each="m, i : ${inputs.type}" class="form-group">
                         <label data-th-for="${m.name}" data-th-text="${m.label}" class="label"></label>
-                        <input
-                            data-th-value="${content and content.data and content.data[m.name] != '' ? content.data[m.name] : ''}"
+                        <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div class="form-group" data-th-each="stat, i : ${inputs.skills}">
                         <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
-                        <input
-                            data-th-value="${content and content.data and content.data[stat.name] ? content.data[stat.name] : ''}"
+                        <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
                             data-th-name="${stat.name}" data-group="skills" data-th-id="${stat.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div class="form-group" data-th-each="stat, i : ${inputs.speed}">
                         <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
-                        <input
-                            data-th-value="${content and content.data and content.data[stat.name] ? content.data[stat.name] : ''}"
+                        <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
                             data-th-name="${stat.name}" data-group="speed" data-th-id="${stat.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div data-th-each="m, i : ${inputs.misc}" class="form-group">
                         <label data-th-for="${m.name}" data-th-text="${m.label}" class="label"></label>
-                        <input
-                            data-th-value="${content and content.data and content.data[m.name] != '' ? content.data[m.name] : ''}"
+                        <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div data-th-each="m, i : ${inputs.hp}" class="form-group">
                         <label data-th-for="${m.name}" data-th-text="${m.label}" class="label"></label>
-                        <input
-                            data-th-value="${content and content.data and content.data[m.name] != '' ? content.data[m.name] : ''}"
+                        <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div data-th-each="m, i : ${inputs.damageImmune}" class="form-group">
                         <label data-th-for="${m.name}" data-th-text="${m.label}" class="label"></label>
-                        <input
-                            data-th-value="${content and content.data and content.data[m.name] != '' ? content.data[m.name] : ''}"
+                        <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>

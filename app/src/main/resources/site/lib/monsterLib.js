@@ -123,6 +123,7 @@ function prepareActions(actions) {
 function createMonster(data) {
   var displayName = data.name;
   delete data.name;
+  data.translated = true;
   var site = portal.getSiteConfig();
   var blog = contentLib.get({ key: site.monstersLocation });
   var result = contentLib.create({

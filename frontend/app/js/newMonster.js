@@ -51,6 +51,18 @@ $(".js_save-button").on("click", function (e) {
   });
 });
 
+$(".js_monster-form").on("click", ".js_remove-part", function () {
+  var btn = $(this);
+  var parent = btn.parent().parent();
+  parent.remove();
+});
+
+$(".js_monster-form").on("click", ".js_move-part", function () {
+  var btn = $(this);
+  var parent = btn.parent().parent();
+  moveElement(parent, btn.data().type);
+});
+
 function getMonsterData() {
   var data = { actions: [] };
   $(".js_monster-form input:not(.js_monster-action)").each(function () {
@@ -77,4 +89,19 @@ function getMonsterData() {
     });
   });
   return data;
+}
+
+function moveElement(el, direction) {
+  var el2 = null;
+  if (direction === "top") {
+    el2 = el.prev();
+    if (el2.length) {
+      el2.insertAfter(el);
+    }
+  } else if (direction === "bot") {
+    el2 = el.next();
+    if (el2.length) {
+      el2.insertBefore(el);
+    }
+  }
 }
