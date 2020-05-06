@@ -39,14 +39,18 @@ function handleReq(req) {
     var content = contextLib.runInDraftAsAdmin(function () {
       return portal.getContent();
     });
-    content.data.actions = norseUtils.forceArray(content.data.actions);
-    content.data.reactions = norseUtils.forceArray(content.data.reactions);
-    content.data.legendaryActions = norseUtils.forceArray(
-      content.data.legendaryActions
-    );
-    content.data.specialAbilities = norseUtils.forceArray(
-      content.data.specialAbilities
-    );
+    content.data.actions = content.data.actions
+      ? norseUtils.forceArray(content.data.actions)
+      : null;
+    content.data.reactions = content.data.reactions
+      ? norseUtils.forceArray(content.data.reactions)
+      : null;
+    content.data.legendaryActions = content.data.legendaryActions
+      ? norseUtils.forceArray(content.data.legendaryActions)
+      : null;
+    content.data.specialAbilities = content.data.specialAbilities
+      ? norseUtils.forceArray(content.data.specialAbilities)
+      : null;
     var inputs = monsterLib.getInputs({
       action: content.data.translated ? "edit" : "translate",
       content: content

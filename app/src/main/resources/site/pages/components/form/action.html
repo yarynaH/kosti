@@ -1,10 +1,12 @@
-<div class="form-group js_action-block" data-th-attr="data-id=${id}">
+<div class="form-group js_action-block" data-th-attr="data-id=${id}, data-group=${type}">
     <div class="h-mb-15">
-        <label data-th-for="${nameId}" class="label">Name</label>
-        <input type="text" class="input-text" data-th-id="${id}" data-th-value="${name}" />
+        <label data-th-for="${type + '-title-' + id}" class="label">Name</label>
+        <input type="text" class="input-text js_monster-action" data-th-id="${type + '-title-' + id}"
+            data-th-value="${name}" />
     </div>
     <div>
-        <label data-th-for="${descriptionId}" class="label">Description</label>
-        <textarea class="input-text" data-th-id="${descriptionId}" data-th-text="${description}" rows="5"></textarea>
+        <label data-th-for="${type + '-description-' + id}" class="label">Description</label>
+        <textarea class="input-text js_monster-action" data-th-id="${type + '-description-' + id}"
+            data-th-text="${description}" rows="5"></textarea>
     </div>
 </div>

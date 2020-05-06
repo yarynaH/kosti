@@ -13,6 +13,8 @@ var helpers = require("helpers");
 
 exports.getInputs = getInputs;
 exports.getActionComponent = getActionComponent;
+exports.createMonster = createMonster;
+exports.updateMonster = updateMonster;
 
 function getInputs(params) {
   if (!params) {
@@ -118,8 +120,63 @@ function prepareActions(actions) {
   return result;
 }
 
-function getActionComponent(id) {
+function createMonster(data) {
+  var displayName = data.name;
+  delete data.name;
+  var site = portal.getSiteConfig();
+  var blog = contentLib.get({ key: site.monstersLocation });
+  var result = contentLib.create({
+    name: common.sanitize(displayName),
+    parentPath: blog._path,
+    displayName: displayName,
+    contentType: app.name + ":monster",
+    data: data
+  });
+  var publishResult = contentLib.publish({
+    keys: [result._id],
+    sourceBranch: "master",
+    targetBranch: "draft"
+  });
+  return result;
+}
+
+function getActionComponent(params) {
+  if (!params) {
+    params = {};
+  }
   return thymeleaf.render(resolve("../pages/components/form/action.html"), {
-    id: id
+    id: params.id,
+    type: params.type
+  });
+}
+
+function updateMonster(data) {
+  var displayName = data.name;
+  var id = data.id;
+  delete data.name;
+  delete data.id;
+  var result = contentLib.modify({
+    key: id,
+    editor: function (c) {
+      c.displayName = displayName;
+      c.data = data;
+      return c;
+    }
+  });
+  var publishResult = contentLib.publish({
+    keys: [result._id],
+    sourceBranch: "master",
+    targetBranch: "draft"
+  });
+  return result;
+}
+
+function getActionComponent(params) {
+  if (!params) {
+    params = {};
+  }
+  return thymeleaf.render(resolve("../pages/components/form/action.html"), {
+    id: params.id,
+    type: params.type
   });
 }

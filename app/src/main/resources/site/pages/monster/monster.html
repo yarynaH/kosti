@@ -9,6 +9,8 @@
     <main class="main">
         <div class="blog_width  h-mt-70">
             <form method="POST" class="monster_gen js_monster-form">
+                <input name="id" class="js_monster-id" type="hidden" data-th-if="${content}"
+                    data-th-value="${content._id}" />
                 <h2 class="title-2 h-mb-20">Monster Generator</h2>
                 <div class="form-group-column">
                     <div class="form-group">
@@ -64,7 +66,7 @@
                         <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
                         <input
                             data-th-value="${content and content.data and content.data[stat.name] ? content.data[stat.name] : ''}"
-                            data-th-name="${stat.name}" data-th-id="${stat.name}" />
+                            data-th-name="${stat.name}" data-group="skills" data-th-id="${stat.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
@@ -72,7 +74,7 @@
                         <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
                         <input
                             data-th-value="${content and content.data and content.data[stat.name] ? content.data[stat.name] : ''}"
-                            data-th-name="${stat.name}" data-th-id="${stat.name}" />
+                            data-th-name="${stat.name}" data-group="speed" data-th-id="${stat.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
@@ -107,7 +109,7 @@
                     <div data-th-if="${inputs.actions}" class="form-group" data-th-each="action: ${inputs.actions}"
                         data-th-utext="${action}">
                     </div>
-                    <button data-type="action" class="js_add-action-button-general js_add-action">add action</button>
+                    <button data-type="actions" class="js_add-action-button-general js_add-action">add action</button>
                 </div>
 
                 <div class="js_monster-legendary-actions">
@@ -115,7 +117,7 @@
                     <div data-th-if="${inputs.legendaryActions}" class="form-group"
                         data-th-each="action: ${inputs.legendaryActions}" data-th-utext="${action}">
                     </div>
-                    <button data-type="legendary-action"
+                    <button data-type="legendaryActions"
                         class="js_add-action-button-general js_add-legendary-action">add action</button>
                 </div>
 
@@ -124,7 +126,7 @@
                     <div data-th-if="${inputs.reactions}" class="form-group" data-th-each="action: ${inputs.reactions}"
                         data-th-utext="${action}">
                     </div>
-                    <button data-type="reaction" class="js_add-action-button-general js_add-reaction">add
+                    <button data-type="reactions" class="js_add-action-button-general js_add-reaction">add
                         action</button>
                 </div>
 
@@ -133,12 +135,12 @@
                     <div data-th-if="${inputs.specialAbilities}" class="form-group"
                         data-th-each="action: ${inputs.specialAbilities}" data-th-utext="${action}">
                     </div>
-                    <button data-type="special-abilitiy"
+                    <button data-type="specialAbilities"
                         class="js_add-action-button-general js_add-special-abilitiy">add action</button>
                 </div>
 
                 <div class="monster_gen-actions">
-                    <button type="submit" class="button button-light h-mt-25">
+                    <button type="submit" class="button button-light h-mt-25 js_save-button">
                         Save
                     </button>
                 </div>

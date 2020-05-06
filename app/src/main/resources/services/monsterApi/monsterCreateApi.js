@@ -11,8 +11,29 @@ var monsterLib = require(libLocation + "monsterLib");
 exports.get = function (req) {
   var result = {};
   var params = req.params;
-  result.html = monsterLib.getActionComponent(params.id);
-  norseUtils.log(req.params);
+  result.html = monsterLib.getActionComponent(params);
+
+  return {
+    body: result,
+    contentType: "application/json"
+  };
+};
+
+exports.put = function (req) {
+  var result = {};
+  var params = req.params;
+  result.html = monsterLib.createMonster(params);
+
+  return {
+    body: result,
+    contentType: "application/json"
+  };
+};
+
+exports.post = function (req) {
+  var result = {};
+  var params = req.params;
+  result.html = monsterLib.updateMonster(params);
 
   return {
     body: result,
