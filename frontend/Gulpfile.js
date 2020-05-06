@@ -3,7 +3,7 @@ const sass = require("gulp-sass");
 //var fontAwesome = require('node-font-awesome');
 const iconfont = require("gulp-iconfont");
 const iconfontCss = require("gulp-iconfont-css");
-const gulpSequence = require("gulp-sequence");
+const runSequence = require("gulp4-run-sequence");
 const cleanCSS = require("gulp-clean-css");
 const uglify = require("gulp-uglify");
 const pump = require("pump");
@@ -12,10 +12,11 @@ const argv = require("yargs").argv;
 var fontName = "iconfont";
 
 gulp.task("build", function (callback) {
-  gulpSequence(
+  runSequence(
     ["sass", "images", "fonts", "js", "css", "lib"],
-    "copy"
-  )(callback);
+    "copy",
+    callback
+  );
 });
 
 gulp.task("sass", function () {
@@ -85,6 +86,6 @@ gulp.task("iconfont", function () {
 });
 
 gulp.task("watch", function () {
-  gulp.start("build");
-  gulp.watch("app/**/*", ["build"]);
+  gulp.series("build")();
+  gulp.watch("app/**/*", gulp.series("build"));
 });
