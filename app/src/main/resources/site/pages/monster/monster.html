@@ -11,84 +11,104 @@
             <form method="POST" class="monster_gen js_monster-form">
                 <input name="id" class="js_monster-id" type="hidden" data-th-if="${content}"
                     data-th-value="${content._id}" />
-                <h2 class="title-2 h-mb-20">Monster Generator</h2>
+                <h2 class="title-2 h-mb-20">Генератор существа</h2>
                 <div class="form-group-column">
                     <div class="form-group">
-                        <label for="monster_gen-name-input" class="label">name</label>
+                        <label for="monster_gen-name-input" class="label">Навание монстра</label>
                         <input name="name" type="text" class="input-text" id="monster_gen-name-input"
                             data-th-value="${content and content.displayName != '' ? content.displayName : ''}" />
                     </div>
                 </div>
+                <h3 class="title-2 h-mb-20">Характеристики</h3>
                 <div class="form-group-column">
                     <div class="form-group" data-th-each="stat, i : ${inputs.stats}">
-                        <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
+                        <label data-th-for="${stat.name}"
+                            data-th-text="${portal.localize({'_key=character.stats.'+stat.name, '_locale=ru'})}"
+                            class="label"></label>
                         <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
                             data-th-name="${stat.name}" data-th-id="${stat.name}" />
                     </div>
                 </div>
+                <h3 class="title-2 h-mb-20">Испытания</h3>
                 <div class="form-group-column">
                     <div class="form-group" data-th-each="stat, i : ${inputs.savethrow}">
-                        <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
+                        <label data-th-for="${stat.name}"
+                            data-th-text="${portal.localize({'_key=character.stats.'+stat.name, '_locale=ru'})}"
+                            class="label"></label>
                         <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
                             data-th-name="${stat.name}" data-th-id="${stat.name}" />
+                    </div>
+                </div>
+                <h3 class="title-2 h-mb-20">Навыки</h3>
+                <div class="form-group-column">
+                    <div class="form-group" data-th-each="stat, i : ${inputs.skills}">
+                        <label data-th-for="${stat.name}"
+                            data-th-text="${portal.localize({'_key=character.skills.'+stat.name, '_locale=ru'})}"
+                            class="label"></label>
+                        <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
+                            data-th-name="${stat.name}" data-group="skills" data-th-id="${stat.name}" />
                     </div>
                 </div>
 
                 <div class="form-group-column">
                     <div class="form-group">
-                        <label for="monster_gen-type-input" class="label">size</label>
+                        <label for="monster_gen-type-input" class="label">Размер</label>
                         <div class="select-field" data-th-utext="${inputs.sizeSelect}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="monster_gen-type-input" class="label">alignment</label>
+                        <label for="monster_gen-type-input" class="label">Мировозрение</label>
                         <div class="select-field" data-th-utext="${inputs.alignmentSelect}">
                         </div>
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div class="form-group">
-                        <label for="monster_gen-type-input" class="label">type</label>
+                        <label for="monster_gen-type-input" class="label">Тип</label>
                         <div class="select-field" data-th-utext="${inputs.typeSelect}">
                         </div>
                     </div>
                     <div data-th-each="m, i : ${inputs.type}" class="form-group">
-                        <label data-th-for="${m.name}" data-th-text="${m.label}" class="label"></label>
+                        <label data-th-for="${m.name}"
+                            data-th-text="${portal.localize({'_key=character.type.'+m.name, '_locale=ru'})}"
+                            class="label"></label>
                         <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>
-                <div class="form-group-column">
-                    <div class="form-group" data-th-each="stat, i : ${inputs.skills}">
-                        <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
-                        <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
-                            data-th-name="${stat.name}" data-group="skills" data-th-id="${stat.name}" />
-                    </div>
-                </div>
+                <h3 class="title-2 h-mb-20">Скорость</h3>
                 <div class="form-group-column">
                     <div class="form-group" data-th-each="stat, i : ${inputs.speed}">
-                        <label data-th-for="${stat.name}" data-th-text="${stat.label}" class="label"></label>
+                        <label data-th-for="${stat.name}"
+                            data-th-text="${portal.localize({'_key=character.speed.'+stat.name, '_locale=ru'})}"
+                            class="label"></label>
                         <input data-th-value="${content and content.data ? content.data[stat.name] : ''}"
                             data-th-name="${stat.name}" data-group="speed" data-th-id="${stat.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div data-th-each="m, i : ${inputs.misc}" class="form-group">
-                        <label data-th-for="${m.name}" data-th-text="${m.label}" class="label"></label>
+                        <label data-th-for="${m.name}"
+                            data-th-text="${portal.localize({'_key=character.misc.'+m.name, '_locale=ru'})}"
+                            class="label"></label>
                         <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div data-th-each="m, i : ${inputs.hp}" class="form-group">
-                        <label data-th-for="${m.name}" data-th-text="${m.label}" class="label"></label>
+                        <label data-th-for="${m.name}"
+                            data-th-text="${portal.localize({'_key=character.hp.'+m.name, '_locale=ru'})}"
+                            class="label"></label>
                         <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>
                 <div class="form-group-column">
                     <div data-th-each="m, i : ${inputs.damageImmune}" class="form-group">
-                        <label data-th-for="${m.name}" data-th-text="${m.label}" class="label"></label>
+                        <label data-th-for="${m.name}"
+                            data-th-text="${portal.localize({'_key=character.damageImmune.'+m.name, '_locale=ru'})}"
+                            class="label"></label>
                         <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
@@ -97,7 +117,7 @@
                     data-th-value="${content._id}" hidden />
 
                 <div class="js_monster-actions">
-                    <h5 class="title-5 h-mb-15 h-mt-30">Actions</h5>
+                    <h5 class="title-5 h-mb-15 h-mt-30">Действия</h5>
                     <div data-th-if="${inputs.actions}" class="form-group" data-th-each="action: ${inputs.actions}"
                         data-th-utext="${action}">
                     </div>
@@ -105,7 +125,7 @@
                 </div>
 
                 <div class="js_monster-legendary-actions">
-                    <h5 class="title-5 h-mb-15 h-mt-30">Legendary Actions</h5>
+                    <h5 class="title-5 h-mb-15 h-mt-30">Легендарный действия</h5>
                     <div data-th-if="${inputs.legendaryActions}" class="form-group"
                         data-th-each="action: ${inputs.legendaryActions}" data-th-utext="${action}">
                     </div>
@@ -114,7 +134,7 @@
                 </div>
 
                 <div class="js_monster-reactions">
-                    <h5 class="title-5 h-mb-15 h-mt-30">Reactions</h5>
+                    <h5 class="title-5 h-mb-15 h-mt-30">Реакции</h5>
                     <div data-th-if="${inputs.reactions}" class="form-group" data-th-each="action: ${inputs.reactions}"
                         data-th-utext="${action}">
                     </div>
@@ -123,7 +143,7 @@
                 </div>
 
                 <div class="js_monster-special-abilities">
-                    <h5 class="title-5 h-mb-15 h-mt-30">Special Abilities</h5>
+                    <h5 class="title-5 h-mb-15 h-mt-30">Специальные возможности</h5>
                     <div data-th-if="${inputs.specialAbilities}" class="form-group"
                         data-th-each="action: ${inputs.specialAbilities}" data-th-utext="${action}">
                     </div>
@@ -133,7 +153,7 @@
 
                 <div class="monster_gen-actions">
                     <button type="submit" class="button button-light h-mt-25 js_save-button">
-                        Save
+                        Сохранить существо
                     </button>
                 </div>
             </form>

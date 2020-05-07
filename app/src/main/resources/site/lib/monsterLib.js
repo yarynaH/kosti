@@ -51,7 +51,7 @@ function getInputs(params) {
       inputs.alignmentSelect = helpers.getSelectComponent({
         name: "alignment",
         id: "alignment-select",
-        defaultText: "Select alignment",
+        defaultText: "Выберите мировозрение",
         selected: params.content ? params.content.data.alignment : null,
         options: item.config.option
       });
@@ -60,7 +60,7 @@ function getInputs(params) {
         name: "type",
         id: "type-select",
         selected: params.content ? params.content.data.type : null,
-        defaultText: "Select type",
+        defaultText: "Выберите тип",
         options: item.config.option
       });
     } else if (item.name === "size") {
@@ -68,7 +68,7 @@ function getInputs(params) {
         name: "size",
         id: "size-select",
         selected: params.content ? params.content.data.size : null,
-        defaultText: "Select size",
+        defaultText: "Выберите размер",
         options: item.config.option
       });
     } else if (item.name === "skills" || item.name === "speed") {
@@ -141,14 +141,8 @@ function createMonster(data) {
   return result;
 }
 
-function getActionComponent(params) {
-  if (!params) {
-    params = {};
-  }
-  return thymeleaf.render(resolve("../pages/components/form/action.html"), {
-    id: params.id,
-    type: params.type
-  });
+function deleteMonster(data) {
+  return {};
 }
 
 function updateMonster(data) {

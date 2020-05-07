@@ -2,5 +2,6 @@
     <option disabled="disabled" data-th-selected="${!selected}" data-th-text="${defaultText}">
     </option>
     <option data-th-each="option: ${options}" data-th-value="${option['@value']}"
-        data-th-selected="${selected == option['@value']}" data-th-text="${option.value}"></option>
+        data-th-selected="${selected == option['@value']}"
+        data-th-text="${portal.localize({'_key=options.' + name + '.'+option['@value'], '_locale=ru'})}"></option>
 </select>

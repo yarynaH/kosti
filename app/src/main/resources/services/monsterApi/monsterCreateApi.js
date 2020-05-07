@@ -40,3 +40,14 @@ exports.post = function (req) {
     contentType: "application/json"
   };
 };
+
+exports.delete = function (req) {
+  var result = {};
+  var params = req.params;
+  result.html = monsterLib.deleteMonster(params);
+
+  return {
+    body: result,
+    contentType: "application/json"
+  };
+};
