@@ -79,7 +79,8 @@
                         <label data-th-for="${m.name}"
                             data-th-text="${portal.localize({'_key=character.type.'+m.name, '_locale=ru'})}"
                             class="label"></label>
-                        <input data-th-value="${content and content.data ? content.data[m.name] : ''}"
+                        <input data-th-disabled="${m.disabled}"
+                            data-th-value="${content and content.data ? content.data[m.name] : ''}"
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>

@@ -134,6 +134,20 @@
         <display translate="true" edit="true" create="true" group="type"/>
       </config>
     </input>
+    <input name="alignmentOld" type="TextLine">
+      <label>alignment Old</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display translate="true" edit="false" create="false" group="type" readOnly="true"/>
+      </config>
+    </input>
+    <input name="typeOld" type="TextLine">
+      <label>type old</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <display translate="true" edit="false" create="false" group="type" readOnly="true"/>
+      </config>
+    </input>
     <input name="challengeRating" type="TextLine">
       <label>Challenge rating</label>
       <occurrences minimum="0" maximum="1"/>
@@ -310,14 +324,6 @@
         <option value="titan">titan</option>
         <option value="construct">construct</option>
       </config>
-    </input>
-    <input name="alignmentOld" type="TextLine">
-      <label>alignment Old</label>
-      <occurrences minimum="0" maximum="1"/>
-    </input>
-    <input name="typeOld" type="TextLine">
-      <label>type old</label>
-      <occurrences minimum="0" maximum="1"/>
     </input>
     <item-set name="actions">
       <label>Actions</label>

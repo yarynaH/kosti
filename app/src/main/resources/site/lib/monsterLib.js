@@ -98,6 +98,7 @@ function getInputs(params) {
         : null;
     } else if (itemDisplay && itemDisplay["@group"]) {
       if (itemDisplay["@" + params.action] == "true") {
+        item.disabled = itemDisplay["@readOnly"] == "true";
         inputs[itemDisplay["@group"]].push(sharedLib.prepareInput(item));
       }
     }
