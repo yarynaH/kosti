@@ -6,7 +6,7 @@ exports.getRelatedLocales = getRelatedLocales;
 
 //Takes post creation date in '2014-10-10' string format as an argument
 //and return string with how much time past since creation date
-exports.getTimePassedSincePostCreation = function(postCreationDate) {
+exports.getTimePassedSincePostCreation = function (postCreationDate) {
   if (!postCreationDate || postCreationDate == "") {
     return null;
   }

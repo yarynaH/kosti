@@ -49,7 +49,7 @@ function getNotificationsForUser(
     start: page * pageSize,
     count: pageSize,
     query: query,
-    sort: "seen ASC, _ts DESC"
+    sort: "seen ASC, createdDate DESC"
   });
   if (counterOnly) {
     return temp.total;
@@ -93,7 +93,7 @@ function beautifyNotification(notification) {
   var userLib = require("userLib");
   notification.user = userLib.getUserDataById(notification.fromUser);
   notification.date = kostiUtils.getTimePassedSincePostCreation(
-    notification._ts.replace("Z", "")
+    notification.createdDate ? notification.createdDate : notification._ts
   );
   return notification;
 }
@@ -115,7 +115,7 @@ function getNotificationBody(notification) {
       article: article,
       subType: subType,
       date: kostiUtils.getTimePassedSincePostCreation(
-        notification._ts.replace("Z", "")
+        notification.createdDate ? notification.createdDate : notification._ts
       )
     }
   );
@@ -195,6 +195,7 @@ function createNotification(forUser, fromUser, subjectId, type) {
     fromUser: fromUser,
     subjectId: subjectId,
     type: type,
+    createdDate: new Date(),
     seen: 0,
     _permissions: [
       {

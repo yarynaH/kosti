@@ -61,7 +61,7 @@ function getCommentsByUser(id, page, pageSize, counterOnly) {
     start: page * pageSize,
     count: pageSize,
     query: "user = '" + id + "'",
-    sort: "deleted ASC, rate ASC, _ts DESC"
+    sort: "deleted ASC, rate ASC, createdDate DESC"
   });
   if (counterOnly) {
     return temp.total;
@@ -197,7 +197,7 @@ function getCommentsByParent(id, counter, level) {
     start: 0,
     count: -1,
     query: "parent = '" + id + "'",
-    sort: "rate ASC, _ts ASC"
+    sort: "rate ASC, createdDate ASC"
   }).hits;
   var result = [];
   for (var i = 0; i < temp.length; i++) {
