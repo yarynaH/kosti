@@ -49,6 +49,11 @@ function handleReq(req) {
         var articlesQuery = blogLib.getNewArticles();
         var articles = articlesQuery.hits;
         break;
+      case "podcasts":
+        active.podcasts = "active";
+        var articlesQuery = blogLib.getNewArticles(null, true);
+        var articles = articlesQuery.hits;
+        break;
       case "bookmarks":
         active.bookmarks = "active";
         if (user) {

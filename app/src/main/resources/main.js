@@ -2,11 +2,14 @@ var event = require("/lib/xp/event");
 var content = require("/lib/xp/content");
 var slackLib = require("/lib/slackLib");
 var telegramLib = require("/lib/telegramLib");
+var discordLib = require("/lib/discordLib");
+var contentLib = require("/lib/xp/content");
 
 var libLocation = "site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var votesLib = require(libLocation + "votesLib");
 var contextLib = require(libLocation + "contextLib");
+var blogLib = require(libLocation + "blogLib");
 
 // catch events
 event.listener({
@@ -54,9 +57,17 @@ event.listener({
         if (node && node.type && node.type == app.name + ":article") {
           var vote = votesLib.getNode(node._id);
           if (!vote) {
-            votesLib.createBlankVote(node._id, "article");
+            vote = votesLib.createBlankVote(node._id, "article");
           }
           votesLib.setVoteDate(vote._id, node.publish.from);
+          if (!vote.notified) {
+            node.url = pageUrl(node);
+            discordLib.sendMessage({
+              webhookUrl: app.config.discordKotirpgChannel,
+              body: blogLib.generateDiscordNotificationMessage(node)
+            });
+            votesLib.markVoteAsNotified(node._id);
+          }
         }
       }
     }
@@ -98,4 +109,13 @@ function parseNodes(nodes) {
   }
 
   return nodesArray;
+}
+
+function pageUrl(object) {
+  var baseUrl = app.config["base.url"];
+  var site = contentLib.getSite({ key: object._id });
+  if (site) {
+    return baseUrl + object._path.substring(site._path.length);
+  }
+  return null;
 }

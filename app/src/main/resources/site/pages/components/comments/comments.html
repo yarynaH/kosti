@@ -1,8 +1,8 @@
 <div class="comments js_article-comments" id="articleComments">
     <h4 class="comments-title">Комментарии</h4>
     <form class="comments-write_comment-wrap js_comment-form" data-th-attr="data-parentid=${articleId}">
-        <textarea class="comments-write_comment-input" name="body" placeholder="Написать комментарий…" cols="30"
-            rows="1" required></textarea>
+        <textarea class="js_autoresizable-textarea comments-write_comment-input js_autoresizable-textarea" name="body"
+            placeholder="Написать комментарий…" cols="30" rows="1" required></textarea>
         <button class="comments-write_comment-button" type="submit">
             Отправить
         </button>
@@ -41,8 +41,8 @@
             </div>
             <form class="comments-answer_comment comments-write_comment-wrap js_comment-form hidden"
                 data-th-attr="data-parentid=${comment._id}">
-                <textarea name="body" class="comments-write_comment-input" placeholder="Ответить на комментарий…"
-                    cols="30" rows="1" required></textarea>
+                <textarea name="body" class="js_autoresizable-textarea comments-write_comment-input"
+                    placeholder="Ответить на комментарий…" cols="30" rows="1" required></textarea>
                 <button class="comments-write_comment-button">Отправить</button>
                 <input value="addComment" type="hidden" name="action" />
             </form>

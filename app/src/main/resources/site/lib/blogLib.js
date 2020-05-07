@@ -27,6 +27,7 @@ exports.getArticleFooter = getArticleFooter;
 exports.countUserRating = countUserRating;
 exports.updateSchedule = updateSchedule;
 exports.getArticleStatus = getArticleStatus;
+exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -211,17 +212,22 @@ function getArticlesByIds(ids, page) {
   }
 }
 
-function getNewArticles(page) {
+function getNewArticles(page, podcast) {
   var pageSize = 10;
   if (!page) {
     page = 0;
+  }
+  if (!podcast) {
+    var contentTypes = [app.name + ":article"];
+  } else {
+    var contentTypes = [app.name + ":podcast"];
   }
   var result = contentLib.query({
     query: "",
     start: page * pageSize,
     count: pageSize,
     sort: "publish.from DESC",
-    contentTypes: [app.name + ":article", app.name + ":podcast"]
+    contentTypes: contentTypes
   });
   result.hits = beautifyArticleArray(result.hits);
   return result;
@@ -348,7 +354,7 @@ function countUserRating(id) {
 
 function updateSchedule() {
   norseUtils.log("Started updating schedule.");
-  contextLib.runInDraftAsAdmin(function () {
+  contextLib.runAsAdmin(function () {
     var currDate = new Date();
     var schedules = contentLib.query({
       start: 0,
@@ -374,12 +380,12 @@ function updateSchedule() {
       });
       contentLib.publish({
         keys: [schedules.hits[i]._id],
-        sourceBranch: "draft",
-        targetBranch: "master",
+        sourceBranch: "master",
+        targetBranch: "draft",
         includeDependencies: false
       });
       function editor(c) {
-        var tempDate = new Date(c.data.date);
+        var tempDate = moment(c.data.date).toDate();
         tempDate.setDate(tempDate.getDate() + 7 * parseInt(c.data.repeat));
         tempDate = tempDate.toISOString();
         c.data.date = tempDate;
@@ -388,4 +394,13 @@ function updateSchedule() {
     }
   });
   norseUtils.log("Finished updating schedule.");
+}
+
+function generateDiscordNotificationMessage(content) {
+  return (
+    "На KostiRPG появилась новая статья **" +
+    content.displayName +
+    "**! Проходи по ссылке и зацени. " +
+    content.url
+  );
 }

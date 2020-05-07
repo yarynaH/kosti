@@ -210,14 +210,23 @@
 
     .fresher-btn,
     .hotter-btn,
-    .bookmarks-btn {
+    .bookmarks-btn,
+    .podcasts-btn {
         font-size: rem(14);
         font-weight: bold;
         color: $color-primary12;
         text-transform: capitalize;
 
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         &:before {
-            padding-right: 15px;
+            @include tablet-all {
+                padding-right: 15px;
+            }
         }
 
         &:hover {
@@ -225,8 +234,11 @@
         }
 
         &.active {
-            font-size: rem(24);
             color: $color-primary11;
+
+            @include tablet-all {
+                font-size: rem(24);
+            }
         }
     }
 

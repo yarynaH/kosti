@@ -4,9 +4,10 @@ var helpers = require(libLocation + "helpers");
 var votesLib = require(libLocation + "votesLib");
 var cartLib = require(libLocation + "cartLib");
 var storeLib = require(libLocation + "storeLib");
+var blogLib = require(libLocation + "blogLib");
 var newsletterLib = require(libLocation + "newsletterLib");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var params = req.params;
   switch (params.action) {
     case "fixPermissions":
@@ -33,6 +34,9 @@ exports.get = function(req) {
       break;
     case "fixPendingOrders":
       storeLib.checkLiqpayOrderStatus();
+      break;
+    case "updateSchedule":
+      blogLib.updateSchedule();
       break;
   }
   return {
