@@ -71,7 +71,10 @@ function getInputs(params) {
         defaultText: "Выберите размер",
         options: item.config.option
       });
-    } else if (item.name === "skills" || item.name === "speed") {
+    } else if (
+      (item.name === "skills" || item.name === "speed") &&
+      params.action !== "translate"
+    ) {
       for (var j = 0; j < item.items.length; j++) {
         var tempItem = item.items[j];
         tempItem.display =
