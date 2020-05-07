@@ -4,6 +4,7 @@ exports.runAsAdmin = runAsAdmin;
 exports.runInDraft = runInDraft;
 exports.runInDraftAsAdmin = runInDraftAsAdmin;
 exports.runAsAdminAsUser = runAsAdminAsUser;
+exports.runInDraftAsAdminAsUser = runInDraftAsAdminAsUser;
 
 function runAsAdmin(callback) {
   return contextLib.run(
@@ -47,6 +48,21 @@ function runInDraftAsAdmin(callback) {
       branch: "draft",
       user: {
         login: "mvy",
+        userStore: "system"
+      },
+      principals: ["role:system.admin"]
+    },
+    callback
+  );
+}
+
+function runInDraftAsAdminAsUser(user, callback) {
+  return contextLib.run(
+    {
+      repository: "com.enonic.cms.default",
+      branch: "draft",
+      user: {
+        login: user.login,
         userStore: "system"
       },
       principals: ["role:system.admin"]

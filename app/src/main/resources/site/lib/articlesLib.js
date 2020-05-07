@@ -38,7 +38,7 @@ function editArticle(data) {
 
 function createArticle(data) {
   var user = userLib.getCurrentUser();
-  return contextLib.runInDraftAsAdmin(function () {
+  return contextLib.runInDraftAsAdminAsUser(user, function () {
     var article = createArticleObject(data.params, user, data.saveAsDraft);
     if (!article.error) {
       article = insertComponents(article._id, data.components);
@@ -151,9 +151,9 @@ function checkIfArticleExist(title) {
 }
 
 function createImage(data) {
-  return contextLib.runInDraftAsAdmin(function () {
+  var user = userLib.getCurrentUser();
+  return contextLib.runInDraftAsAdminAsUser(user, function () {
     var stream = portal.getMultipartStream("file");
-    var user = userLib.getCurrentUser();
     var image = createImageObj(stream, user);
     image = norseUtils.getImage(image._id);
     if (data.json) return image;

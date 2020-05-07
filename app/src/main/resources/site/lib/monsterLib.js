@@ -130,17 +130,21 @@ function createMonster(data) {
   data.translated = true;
   var site = portal.getSiteConfig();
   var blog = contentLib.get({ key: site.monstersLocation });
-  var result = contentLib.create({
-    name: common.sanitize(displayName),
-    parentPath: blog._path,
-    displayName: displayName,
-    contentType: app.name + ":monster",
-    data: data
-  });
-  var publishResult = contentLib.publish({
-    keys: [result._id],
-    sourceBranch: "master",
-    targetBranch: "draft"
+  var user = userLib.getCurrentUser();
+  return contextLib.runInDraftAsAdminAsUser(user, function () {
+    var result = contentLib.create({
+      name: common.sanitize(displayName),
+      parentPath: blog._path,
+      displayName: displayName,
+      contentType: app.name + ":monster",
+      data: data
+    });
+    contentLib.publish({
+      keys: [result._id],
+      sourceBranch: "draft",
+      targetBranch: "master"
+    });
+    return result;
   });
   return result;
 }
