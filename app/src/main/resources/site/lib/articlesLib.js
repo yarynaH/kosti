@@ -9,7 +9,7 @@ var contextLib = require("contextLib");
 var hashLib = require("hashLib");
 var sharedLib = require("sharedLib");
 var blogLib = require("blogLib");
-var blogLibsec = require("blogLib");
+var permissions = require("permissions");
 
 exports.createArticle = createArticle;
 exports.createImage = createImage;
@@ -111,25 +111,7 @@ function createArticleObject(data, user, saveAsDraft) {
     key: result._id,
     inheritPermissions: false,
     overwriteChildPermissions: true,
-    permissions: [
-      {
-        principal: user.key,
-        allow: [
-          "READ",
-          "CREATE",
-          "MODIFY",
-          "PUBLISH",
-          "READ_PERMISSIONS",
-          "WRITE_PERMISSIONS"
-        ],
-        deny: ["DELETE"]
-      },
-      {
-        principal: "role:system.everyone",
-        allow: ["READ"],
-        deny: []
-      }
-    ]
+    permissions: permissions.default(user.key)
   });
   return result;
 }

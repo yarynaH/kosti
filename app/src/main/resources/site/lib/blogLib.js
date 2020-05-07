@@ -124,7 +124,7 @@ function beautifyArticle(article) {
     article.publish.from = date.toISOString();
   }
   article.date = kostiUtils.getTimePassedSincePostCreation(
-    new Date(moment(article.publish.from.replace("Z", "")))
+    new Date(moment(article.publish.from))
   );
   article.votes = votesLib.countUpvotes(article._id);
   article.voted = false;

@@ -6,6 +6,7 @@ var contextLib = require("contextLib");
 var userLib = require("userLib");
 var thymeleaf = require("/lib/thymeleaf");
 var kostiUtils = require("kostiUtils");
+var permissions = require("permissions");
 
 exports.addComment = addComment;
 exports.getCommentsByParent = getCommentsByParent;
@@ -33,18 +34,7 @@ function addComment(parent, body, articleId) {
     user: user,
     articleId: articleId,
     createdDate: new Date(),
-    _permissions: [
-      {
-        principal: "role:system.authenticated",
-        allow: ["READ", "MODIFY", "READ_PERMISSIONS", "WRITE_PERMISSIONS"],
-        deny: []
-      },
-      {
-        principal: "role:system.everyone",
-        allow: ["READ"],
-        deny: []
-      }
-    ]
+    _permissions: permissions.comment()
   });
   return beautifyComment(comment, false);
 }
@@ -227,9 +217,7 @@ function beautifyComment(comment, counter, level) {
     } else {
       var date = comment._ts;
     }
-    comment.date = kostiUtils.getTimePassedSincePostCreation(
-      date.replace("Z", "")
-    );
+    comment.date = kostiUtils.getTimePassedSincePostCreation(date);
     comment.author = userLib.getUserDataById(comment.user);
     comment.voted = comment.votes && comment.votes.indexOf(user.key) !== -1;
     if (comment.articleId) {

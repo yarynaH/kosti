@@ -8,6 +8,7 @@ var kostiUtils = require("kostiUtils");
 var sharedLib = require("sharedLib");
 var blogLib = require("blogLib");
 var commentsLib = require("commentsLib");
+var permissions = require("permissions");
 
 exports.addNotification = addNotification;
 exports.markNotificationAsSeen = markNotificationAsSeen;
@@ -197,19 +198,7 @@ function createNotification(forUser, fromUser, subjectId, type) {
     type: type,
     createdDate: new Date(),
     seen: 0,
-    _permissions: [
-      {
-        principal: "role:system.authenticated",
-        allow: [
-          "READ",
-          "MODIFY",
-          "READ_PERMISSIONS",
-          "READ",
-          "WRITE_PERMISSIONS"
-        ],
-        deny: []
-      }
-    ]
+    _permissions: permissions.notification()
   });
   return true;
 }
