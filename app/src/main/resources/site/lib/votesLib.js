@@ -376,7 +376,7 @@ function addShare(id, user, type, itemType) {
     if (!itemType) {
       itemType = "article";
     }
-    if (node === false) {
+    if (!node) {
       node = createBlankVote(id, itemType);
     }
     var votesRepo = getVotesRepo();

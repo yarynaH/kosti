@@ -370,7 +370,7 @@ function register(name, mail, pass, tokenRegister, image) {
   }
 }
 
-function createUserContentType(name, displayName, mail, userkey) {
+function createUserContentType(name, displayName, mail, userKey) {
   if (!displayName) {
     displayName = name;
   }
