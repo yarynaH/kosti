@@ -142,10 +142,23 @@ function beautifyArticle(article) {
 }
 
 function getArticleIntro(article) {
+  if (!article) {
+    return "";
+  }
   if (article.data.body) {
     article.data.intro = article.data.body;
-  } else {
-    var components = article.page.regions.main.components;
+  } else if (article.data.intro) {
+    article.data.intro = article.data.intro;
+  } else if (
+    article.page &&
+    article.page.regions &&
+    article.page.regions &&
+    article.page.regions.main &&
+    article.page.regions.main.components
+  ) {
+    var components = norseUtils.forceArray(
+      article.page.regions.main.components
+    );
     for (var i = 0; components.length; i++) {
       if (components[i].type === "text") {
         article.data.intro = components[i].text;
