@@ -137,7 +137,26 @@ function beautifyArticle(article) {
   }
   article.hashtags = hashtagLib.getHashtags(article.data.hashtags);
   article.status = getArticleStatus(article._id);
+  article.data.intro = getArticleIntro(article);
   return article;
+}
+
+function getArticleIntro(article) {
+  norseUtils.log(article);
+  if (article.data.body) {
+    article.data.intro = article.data.body;
+  } else {
+    var components = article.page.regions.main.components;
+    for (var i = 0; components.length; i++) {
+      if (components[i].type === "text") {
+        article.data.intro = components[i].text;
+        break;
+      }
+    }
+  }
+  return (
+    article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
+  );
 }
 
 function getArticleStatus(id) {

@@ -60,7 +60,6 @@ function editArticleObject(data, user) {
       c.data = {
         author: c.data.author,
         image: image ? image._id : c.data.image,
-        intro: articleData.intro,
         hashtags: articleData.hashtags,
         similarArticles: articleData.similarArticles
       };
@@ -101,7 +100,6 @@ function createArticleObject(data, user, saveAsDraft) {
     data: {
       author: user._id,
       image: image._id,
-      intro: data.intro,
       hashtags: data.hashtags,
       similarArticles: data.similarArticles
     },

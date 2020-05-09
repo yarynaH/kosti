@@ -75,7 +75,6 @@ $("#newArticleForm").on("submit", function (e) {
     params: {
       similarArticles: getSimilarArticlesIds(),
       hashtags: getHashtagsIds(),
-      intro: $(".js_intro-input").val().trim(),
       title: $(".js_title-input").val().trim()
     },
     saveAsDraft: $("input[type=submit][clicked=true]").hasClass(
@@ -253,10 +252,10 @@ function initEditor(id) {
     plugins: [
       "advlist autolink lists link charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
-      "insertdatetime table paste help autoresize"
+      "insertdatetime table paste help autoresize link"
     ],
     toolbar:
-      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist"
+      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link"
   });
 }
 
@@ -430,26 +429,13 @@ $(".js_title-div").on("input", function () {
   $(".js_title-input").val(data);
 });
 
-$(".js_intro-div").on("input", function () {
-  var data = sanitizeString($(this).text().trim());
-  $(".js_intro-input").val(data);
-});
-
 $(".js_parts-block").on("input", ".js_img_caption", function () {
   var data = sanitizeString($(this).text().trim());
   $(this).parent().find(".js_img_caption_input").val(data);
 });
 
-$(".js_intro-div").on("focus", function () {
-  $(this).text($(".js_intro-input").val());
-});
-
 $(".js_title-div").on("focus", function () {
   $(this).text($(".js_title-input").val());
-});
-
-$(".js_intro-div, .js_title-div").on("focusout", function () {
-  checkPlaceholder(this);
 });
 
 $(".js_parts-block").on("focus", ".js_editable-div", function () {
