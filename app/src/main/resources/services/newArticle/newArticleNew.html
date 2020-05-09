@@ -54,6 +54,15 @@
                             </div>
                         </div>
                         <div class="js_parts-block">
+                            <div class="create_article-tinymce_editor tinymce-editor js_tinymce-editor js_single-part js_single-part-1"
+                                data-tinymce="1" data-id="1">
+                                <textarea id="js_single-part-1"></textarea>
+                                <div class="create_article-editor_actions">
+                                    <div class="create_article-editor_actions-remove js_remove-part"></div>
+                                    <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
+                                    <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
+                                </div>
+                            </div>
                             <div data-th-each="component : ${components}" data-th-utext="${component.html}"
                                 data-th-remove="tag">
                             </div>
