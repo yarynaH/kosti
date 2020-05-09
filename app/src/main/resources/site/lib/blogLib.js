@@ -142,7 +142,6 @@ function beautifyArticle(article) {
 }
 
 function getArticleIntro(article) {
-  norseUtils.log(article);
   if (article.data.body) {
     article.data.intro = article.data.body;
   } else {
