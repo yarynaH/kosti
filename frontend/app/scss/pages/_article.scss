@@ -98,7 +98,7 @@
     }
 
     a {
-      transition: (text-decoration);
+      transition: transition(text-decoration);
 
       &:hover {
         text-decoration: underline;
@@ -293,6 +293,15 @@
         flex-direction: column;
         align-items: baseline;
       }
+
+      .form-caption {
+        font-size: rem(13);
+        width: 100%;
+
+        @include tablet-all {
+          text-align: right;
+        }
+      }
     }
 
     &-input {
@@ -300,7 +309,10 @@
       min-height: 60px;
       border-radius: 4px;
       resize: vertical;
-      padding-right: 110px;
+
+      @include tablet-all {
+        padding-right: 110px;
+      }
     }
 
     &-button {
@@ -436,6 +448,30 @@
 
     &:hover {
       color: $color-primary22;
+    }
+  }
+
+  i {
+    font-style: italic;
+  }
+
+  pre {
+    display: inline-block;
+    font-family: monospace;
+    background: $color-primary31;
+    padding: 0 2px;
+    border-radius: 0 2px;
+  }
+
+  spoiler {
+    color: $color-primary14;
+    background: $color-primary14;
+    padding: 0 2px;
+    border-radius: 2px;
+    transition: transition(color);
+
+    &:hover {
+      color: $color-primary21;
     }
   }
 }

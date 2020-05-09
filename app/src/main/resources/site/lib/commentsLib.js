@@ -233,12 +233,12 @@ function beautifyComment(comment, counter, level) {
 }
 
 function processBody(body) {
-  body = body.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>");
-  body = body.replace(/__([^*]+)__/g, "<u>$1</u>");
-  body = body.replace(/\/\/([^*]+)\/\//g, "<i>$1</i>");
-  body = body.replace(/~~([^*]+)~~/g, "<s>$1</s>");
-  body = body.replace(/```([^*]+)```/g, "<q>$1</q>");
-  body = body.replace(/\|\|([^*]+)\|\|/g, "<spoiler>$1</spoiler>");
+  body = body.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>"); // **bold**
+  body = body.replace(/__([^*]+)__/g, "<u>$1</u>"); // __underline__
+  body = body.replace(/\/\/([^*]+)\/\//g, "<i>$1</i>"); //italic//
+  body = body.replace(/~~([^*]+)~~/g, "<s>$1</s>"); //~~strikethrough~~
+  body = body.replace(/```([^*]+)```/g, "<pre>$1</pre>"); //```quote```
+  body = body.replace(/\|\|([^*]+)\|\|/g, "<spoiler>$1</spoiler>"); //||spoiler||
   body = body.replace(/\r\n/g, "<br />");
   body = createTextLinks(body);
   return body;
