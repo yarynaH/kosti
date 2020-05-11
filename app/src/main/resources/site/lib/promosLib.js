@@ -82,14 +82,14 @@ function reduceUse(code) {
         var codes = norseUtils.forceArray(promoData.unique.unique);
         for (var i = 0; i < codes.length; i++) {
           if (codes[i].code === code && codes[i].used !== true) {
-            node.data.codeType.unique.unique[i].code = true;
+            node.data.codeType.unique.unique[i].used = true;
             break;
           }
         }
       }
     } else if (promoData._selected === "same") {
       if (promoData.same.amount > 0) {
-        node.data.codeType.same.amount = ode.data.codeType.same.amount - 1;
+        node.data.codeType.same.amount = node.data.codeType.same.amount - 1;
       }
     }
     return node;
