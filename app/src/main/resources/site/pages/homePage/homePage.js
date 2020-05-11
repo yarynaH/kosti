@@ -18,11 +18,6 @@ var cache = cacheLib.newCache({
   expire: 60 * 60 * 24
 });
 
-var sliderCache = cacheLib.newCache({
-  size: 1000,
-  expire: 60 * 60 * 2
-});
-
 exports.get = handleReq;
 
 function handleReq(req) {
@@ -153,15 +148,13 @@ function handleReq(req) {
     }
 
     function getSlider(articles) {
-      return cache.get("sliderCache", function () {
-        var result = [];
-        articles = norseUtils.forceArray(articles);
-        for (var i = 0; i < articles.length; i++) {
-          var temp = contentLib.get({ key: articles[i] });
-          result[i] = blogLib.beautifyArticle(temp);
-        }
-        return getSliderView(result);
-      });
+      var result = [];
+      articles = norseUtils.forceArray(articles);
+      for (var i = 0; i < articles.length; i++) {
+        var temp = contentLib.get({ key: articles[i] });
+        result[i] = blogLib.beautifyArticle(temp);
+      }
+      return getSliderView(result);
     }
 
     function getVideo(key) {
