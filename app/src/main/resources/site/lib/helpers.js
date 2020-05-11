@@ -61,7 +61,7 @@ function getPageComponents(req, footerType, activeEl, title) {
       type: "absolute"
     });
   }
-  if (content.type === app.name + ":article") {
+  if (content && content.type === app.name + ":article") {
     var ogDescription = blogLib.getArticleIntro(content);
   } else if (content && content.data && content.data.intro) {
     var ogDescription = content.data.intro.replace(
