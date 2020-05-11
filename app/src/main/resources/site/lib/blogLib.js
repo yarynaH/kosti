@@ -28,6 +28,7 @@ exports.countUserRating = countUserRating;
 exports.updateSchedule = updateSchedule;
 exports.getArticleStatus = getArticleStatus;
 exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
+exports.getArticleIntro = getArticleIntro;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
