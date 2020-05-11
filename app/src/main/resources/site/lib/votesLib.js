@@ -26,6 +26,7 @@ exports.fixVotesTimestamps = fixVotesTimestamps;
 exports.setVoteDate = setVoteDate;
 exports.removeUnusedVotes = removeUnusedVotes;
 exports.removeVoteByItemId = removeVoteByItemId;
+exports.markVoteAsNotified = markVoteAsNotified;
 
 function removeUnusedVotes() {
   var votesRepo = getVotesRepo();
@@ -153,30 +154,72 @@ function createBlankVote(node, type) {
     return null;
   }
   if (!type) {
-    var type = "article";
+    var type = getVoteType(node);
   }
   var votesRepo = getVotesRepo();
   return votesRepo.create({
     id: node,
     votes: [],
     rate: 0,
+    notified: false,
     shares: { vk: [], facebook: [], twitter: [] },
     type: type,
     date: new Date()
   });
 }
 
+function markVoteAsNotified(contentId) {
+  if (!contentId) {
+    return null;
+  }
+  var vote = getNode(contentId);
+  if (!vote) {
+    return null;
+  }
+  var votesRepo = getVotesRepo();
+  return votesRepo.modify({
+    key: vote._id,
+    editor: editor
+  });
+  function editor(node) {
+    node.notified = true;
+    return node;
+  }
+}
+
 function createVote(user, content, type) {
   if (!type) {
-    var type = "article";
+    var type = getVoteType(content);
   }
   var votesRepo = getVotesRepo();
   return votesRepo.create({
     id: content,
     votes: [user],
     type: type,
+    notified: false,
     date: new Date()
   });
+}
+
+function getVoteType(id) {
+  if (!id) {
+    return "article";
+  }
+  var content = contentLib.get({ key: id });
+  if (!content) {
+    return "article";
+  }
+  switch (content.type) {
+    case app.name + ":podcast":
+      return "podcast";
+      break;
+    case app.name + ":product":
+      return "product";
+      break;
+    default:
+      return "article";
+      break;
+  }
 }
 
 function upvote(user, node) {
@@ -287,7 +330,7 @@ function getHotArticlesQuery(start, count, date, oldDate) {
     start: start,
     count: count,
     query:
-      "(type = 'article' or type = 'podcast') AND date > dateTime('" +
+      "type = 'article' AND date > dateTime('" +
       date.toISOString() +
       "') AND date < dateTime('" +
       oldDate.toISOString() +
@@ -307,12 +350,12 @@ function getVotesRepo() {
 function getWeekArticleId() {
   var votesRepo = getVotesRepo();
   var date = new Date();
-  date = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
+  date.setDate(date.getDate() - 7);
   date = date.toISOString();
   var result = votesRepo.query({
     start: 0,
     count: 1,
-    query: "type = 'article' AND _ts > dateTime('" + date + "')",
+    query: "type = 'article' AND date > dateTime('" + date + "')",
     sort: "rate DESC"
   });
   if (result && result.hits && result.hits.length > 0) {
@@ -328,32 +371,34 @@ function getWeekArticleId() {
 }
 
 function addShare(id, user, type, itemType) {
-  var node = getNode(id);
-  if (!itemType) {
-    itemType = "article";
-  }
-  if (node === false) {
-    node = createBlankVote(id, itemType);
-  }
-  var votesRepo = getVotesRepo();
-  return votesRepo.modify({
-    key: node._id,
-    editor: editor
+  var result = contextLib.runAsAdmin(function () {
+    var node = getNode(id);
+    if (!itemType) {
+      itemType = "article";
+    }
+    if (!node) {
+      node = createBlankVote(id, itemType);
+    }
+    var votesRepo = getVotesRepo();
+    return votesRepo.modify({
+      key: node._id,
+      editor: editor
+    });
+    function editor(node) {
+      if (!node.shares) {
+        node.shares = {};
+      }
+      if (!node.shares[type]) {
+        node.shares[type] = [];
+      }
+      var temp = norseUtils.forceArray(node.shares[type]);
+      if (temp.indexOf(user) === -1) {
+        temp.push(user);
+      }
+      node.shares[type] = temp;
+      return node;
+    }
   });
-  function editor(node) {
-    if (!node.shares) {
-      node.shares = {};
-    }
-    if (!node.shares[type]) {
-      node.shares[type] = [];
-    }
-    var temp = norseUtils.forceArray(node.shares[type]);
-    if (temp.indexOf(user) === -1) {
-      temp.push(user);
-    }
-    node.shares[type] = temp;
-    return node;
-  }
 }
 
 function countShares(id) {

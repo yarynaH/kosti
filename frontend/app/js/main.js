@@ -212,6 +212,15 @@ function initSharedEvents() {
     $(".js_back_to_top").addClass("hidden");
     return false;
   });
+
+  $(".js_autoresizable-textarea").on(
+    "change keyup keydown paste cut",
+    function () {
+      $(this)
+        .height(0)
+        .height(this.scrollHeight - 42);
+    }
+  );
 }
 
 function addBookmark(btn) {

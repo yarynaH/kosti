@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <div data-th-remove="tag" data-th-if="${currUser}" data-th-utext="${editUserModal}"></div>
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main">
+        <div class="confirmation-wrap">
+            <div class="site_width"
+                data-th-if="${articleStatus.access && !articleStatus.published and !articleStatus.draft}">
+                <h2 class="checkout-title">Спасибо!</h2>
+                <div class="confirmation-msg">
+                    Ваша статья сейчас модерируется. В ближашее время она появится на
+                    сайте.
+                </div>
+                <div class="confirmation-msg">
+                    Если вы желаете что-то подредактировать,
+                    или изменить статью до её публикации,
+                    вы можете сделать это по этой
+                    <a data-th-href="${'/article/edit?id=' + id}">ссылке</a>.
+                </div>
+            </div>
+            <div class="site_width"
+                data-th-if="${articleStatus.access && !articleStatus.published and articleStatus.draft}">
+                <h2 class="checkout-title">Спасибо!</h2>
+                <div class="confirmation-msg">
+                    Ваша статья сохранена как черновик. Мы не опубликуем её пока вы не отправите её на модерацию.
+                </div>
+                <div class="confirmation-msg">
+                    Если вы желаете что-то подредактировать, отправить на мордерацию,
+                    или изменить статью,
+                    вы можете сделать это по этой
+                    <a data-th-href="${'/article/edit?id=' + id}">ссылке</a>.
+                </div>
+            </div>
+            <div class="site_width" data-th-if="${!articleStatus.access}">
+                <h2 class="checkout-title">Статья не найдена.</h2>
+                <div class="confirmation-msg">
+                    Такой статьи не существует.
+                </div>
+            </div>
+            <div class="site_width" data-th-if="${articleStatus.published}">
+                <h2 class="checkout-title">Статья опубликована.</h2>
+                <div class="confirmation-msg">
+                    Ура! Статья опубликована и появилась на сайте.
+                </div>
+                <div class="confirmation-msg">
+                    Почитать её можно <a data-th-href="${portal.pageUrl({'_id='+id})}">здесь</a>.
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

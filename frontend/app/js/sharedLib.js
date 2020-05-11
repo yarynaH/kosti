@@ -52,7 +52,7 @@ function checkUserLoggedIn() {
 
 function getFormData(el) {
   var formData = {};
-  $.each($(el).serializeArray(), function() {
+  $.each($(el).serializeArray(), function () {
     if (formData[this.name] === null || formData[this.name] === undefined) {
       formData[this.name] = this.value;
     } else {
@@ -83,18 +83,12 @@ function doUpvote(el) {
   };
   var btn = el;
   var call = makeAjaxCall(contentServiceUrl, "POST", data, true);
-  call.done(function(data) {
+  call.done(function (data) {
     var result = "0";
     if (data.votes) {
       result = Array.isArray(data.votes) ? data.votes.length : "1";
     }
-    if (
-      parseInt(
-        $(btn)
-          .text()
-          .trim()
-      ) < result
-    ) {
+    if (parseInt($(btn).text().trim()) < result) {
       $(btn).addClass("active");
     } else {
       $(btn).removeClass("active");
@@ -108,4 +102,13 @@ function forceArray(data) {
     data = [data];
   }
   return data;
+}
+
+function sanitizeString(s) {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }

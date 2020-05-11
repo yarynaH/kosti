@@ -10,6 +10,7 @@ var i18nLib = require("/lib/xp/i18n");
 var thymeleaf = require("/lib/thymeleaf");
 var textEncoding = require("/lib/text-encoding");
 var httpClientLib = require("/lib/http-client");
+var permissions = require("permissions");
 
 exports.findUser = findUser;
 exports.activateUser = activateUser;
@@ -84,19 +85,21 @@ function beautifyUser(userObj, user) {
 }
 
 function editUser(data) {
-  var user = getCurrentUser();
-  if (user._id != data.id) {
+  var currUser = getCurrentUser();
+  if (currUser._id != data.id) {
     return false;
   }
-  user = contentLib.modify({
-    key: user._id,
+  var user = contentLib.modify({
+    key: currUser._id,
     editor: userEditor
   });
-  var publishResult = contentLib.publish({
-    keys: [user._id],
-    sourceBranch: "master",
-    targetBranch: "draft",
-    includeDependencies: false
+  var publishResult = contextLib.runAsAdminAsUser(currUser, function () {
+    return contentLib.publish({
+      keys: [user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   function userEditor(node) {
     node.displayName = data.displayName ? data.displayName : node.displayName;
@@ -367,7 +370,7 @@ function register(name, mail, pass, tokenRegister, image) {
   }
 }
 
-function createUserContentType(name, displayName, mail, userkey) {
+function createUserContentType(name, displayName, mail, userKey) {
   if (!displayName) {
     displayName = name;
   }
@@ -389,25 +392,7 @@ function createUserContentType(name, displayName, mail, userkey) {
       key: user._id,
       inheritPermissions: false,
       overwriteChildPermissions: true,
-      permissions: [
-        {
-          principal: userkey,
-          allow: [
-            "READ",
-            "CREATE",
-            "MODIFY",
-            "PUBLISH",
-            "READ_PERMISSIONS",
-            "WRITE_PERMISSIONS"
-          ],
-          deny: ["DELETE"]
-        },
-        {
-          principal: "role:system.everyone",
-          allow: ["READ"],
-          deny: []
-        }
-      ]
+      permissions: permissions.default(userKey)
     });
   });
 
@@ -464,16 +449,18 @@ function login(name, pass, token) {
 }
 
 function addBookmark(contentId) {
-  var user = getCurrentUser();
-  user = contentLib.modify({
-    key: user._id,
+  var currUser = getCurrentUser();
+  var user = contentLib.modify({
+    key: currUser._id,
     editor: userEditor
   });
-  var publishResult = contentLib.publish({
-    keys: [user._id],
-    sourceBranch: "master",
-    targetBranch: "draft",
-    includeDependencies: false
+  var publishResult = contextLib.runAsAdminAsUser(currUser, function () {
+    return contentLib.publish({
+      keys: [user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   function userEditor(user) {
     var temp = norseUtils.forceArray(user.data.bookmarks);
@@ -637,22 +624,22 @@ function sendConfirmationMail(mail) {
 }
 
 function createUserImageObj(stream, user) {
-  var image = {};
-  contextLib.runInDraft(function () {
-    image = contentLib.createMedia({
-      name: hashLib.generateHash(user.displayName),
-      parentPath: user._path,
-      data: stream
-    });
-    user = contentLib.modify({
-      key: user._path,
-      editor: userImageEditor
-    });
+  var image = contentLib.createMedia({
+    name: hashLib.generateHash(user.displayName),
+    parentPath: user._path,
+    data: stream
   });
-  var publishResult = contentLib.publish({
-    keys: [image._id, user._id],
-    sourceBranch: "draft",
-    targetBranch: "master"
+  user = contentLib.modify({
+    key: user._path,
+    editor: userImageEditor
+  });
+  contextLib.runAsAdminAsUser(user, function () {
+    contentLib.publish({
+      keys: [image._id, user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
   return image;
   function userImageEditor(user) {

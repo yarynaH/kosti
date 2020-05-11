@@ -26,6 +26,8 @@ exports.getSearchArticles = getSearchArticles;
 exports.getArticleFooter = getArticleFooter;
 exports.countUserRating = countUserRating;
 exports.updateSchedule = updateSchedule;
+exports.getArticleStatus = getArticleStatus;
+exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -68,7 +70,10 @@ function getHotTags() {
   });
 }
 
-function getSidebar() {
+function getSidebar(params) {
+  if (!params) {
+    params = {};
+  }
   return thymeleaf.render(
     resolve("../pages/components/blog/blogSidebar.html"),
     {
@@ -76,6 +81,7 @@ function getSidebar() {
       socialLinks: getSolialLinks(),
       libraryHot: getLibraryHot(),
       hotTags: getHotTags(),
+      hideNewArticleButton: params.hideNewArticleButton,
       createArticleUrl: sharedLib.generateNiceServiceUrl("create")
     }
   );
@@ -88,6 +94,10 @@ function beautifyArticle(article) {
     "block(767, 350)"
   );
   article.imageDesktop = norseUtils.getImage(
+    article.data.image,
+    "block(1905, 560)"
+  );
+  article.imageSlider = norseUtils.getImage(
     article.data.image,
     "block(1920, 1080)"
   );
@@ -114,7 +124,7 @@ function beautifyArticle(article) {
     article.publish.from = date.toISOString();
   }
   article.date = kostiUtils.getTimePassedSincePostCreation(
-    new Date(moment(article.publish.from.replace("Z", "")))
+    new Date(moment(article.publish.from))
   );
   article.votes = votesLib.countUpvotes(article._id);
   article.voted = false;
@@ -126,7 +136,65 @@ function beautifyArticle(article) {
     article.voted = votesLib.checkIfVoted(article._id);
   }
   article.hashtags = hashtagLib.getHashtags(article.data.hashtags);
+  article.status = getArticleStatus(article._id);
+  article.data.intro = getArticleIntro(article);
   return article;
+}
+
+function getArticleIntro(article) {
+  if (!article) {
+    return "";
+  }
+  if (article.data.body) {
+    article.data.intro = article.data.body;
+  } else if (article.data.intro) {
+    article.data.intro = article.data.intro;
+  } else if (
+    article.page &&
+    article.page.regions &&
+    article.page.regions &&
+    article.page.regions.main &&
+    article.page.regions.main.components
+  ) {
+    var components = norseUtils.forceArray(
+      article.page.regions.main.components
+    );
+    for (var i = 0; components.length; i++) {
+      if (components[i].type === "text") {
+        article.data.intro = components[i].text;
+        break;
+      }
+    }
+  }
+  return (
+    article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
+  );
+}
+
+function getArticleStatus(id) {
+  var user = userLib.getCurrentUser();
+  var article = contextLib.runInDraft(function () {
+    return contentLib.get({ key: id });
+  });
+  if (!article) {
+    return {
+      exists: false
+    };
+  }
+  return {
+    author: article.data.author === user._id,
+    published:
+      article.workflow.state === "READY" &&
+      article.publish &&
+      article.publish.from &&
+      contentLib.get({ key: id })
+        ? true
+        : false,
+    draft:
+      article.workflow.state === "IN_PROGRESS" && !contentLib.get({ key: id }),
+    access: article && (article.data.author === user._id || user.moderator),
+    exists: article ? true : false
+  };
 }
 
 function getArticlesView(articles) {
@@ -175,17 +243,22 @@ function getArticlesByIds(ids, page) {
   }
 }
 
-function getNewArticles(page) {
+function getNewArticles(page, podcast) {
   var pageSize = 10;
   if (!page) {
     page = 0;
+  }
+  if (!podcast) {
+    var contentTypes = [app.name + ":article"];
+  } else {
+    var contentTypes = [app.name + ":podcast"];
   }
   var result = contentLib.query({
     query: "",
     start: page * pageSize,
     count: pageSize,
     sort: "publish.from DESC",
-    contentTypes: [app.name + ":article", app.name + ":podcast"]
+    contentTypes: contentTypes
   });
   result.hits = beautifyArticleArray(result.hits);
   return result;
@@ -254,16 +327,28 @@ function getHotArticles(start, date) {
   return hotIds;
 }
 
-function getArticlesByUser(id, page, count, pageSize) {
-  if (!pageSize) pageSize = 10;
-  if (!page) page = 0;
-  var articles = contentLib.query({
-    start: page * pageSize,
-    count: pageSize,
-    query: "data.author = '" + id + "'",
-    contentTypes: [app.name + ":article", app.name + ":podcast"]
-  });
-  if (count) {
+//function getArticlesByUser(id, page, count, pageSize) {
+function getArticlesByUser(params) {
+  if (!params.pageSize) params.pageSize = 10;
+  if (!params.page) params.page = 0;
+  if (params.runInDraft) {
+    var articles = contextLib.runInDraft(function () {
+      return contentLib.query({
+        start: params.page * params.pageSize,
+        count: params.pageSize,
+        query: "data.author = '" + params.id + "'",
+        contentTypes: [app.name + ":article", app.name + ":podcast"]
+      });
+    });
+  } else {
+    var articles = contentLib.query({
+      start: params.page * params.pageSize,
+      count: params.pageSize,
+      query: "data.author = '" + params.id + "'",
+      contentTypes: [app.name + ":article", app.name + ":podcast"]
+    });
+  }
+  if (params.count) {
     return articles.total;
   }
   articles.hits = beautifyArticleArray(articles.hits);
@@ -278,7 +363,12 @@ function getArticleFooter(article) {
 }
 
 function countUserRating(id) {
-  var articles = getArticlesByUser(id, 0, false, -1).hits;
+  var articles = getArticlesByUser({
+    id: id,
+    page: 0,
+    count: false,
+    pageSize: -1
+  }).hits;
   var articleVotes = 0;
   for (var i = 0; i < articles.length; i++) {
     var votes = votesLib.countUpvotes(articles[i]._id);
@@ -295,7 +385,7 @@ function countUserRating(id) {
 
 function updateSchedule() {
   norseUtils.log("Started updating schedule.");
-  contextLib.runInDraftAsAdmin(function () {
+  contextLib.runAsAdmin(function () {
     var currDate = new Date();
     var schedules = contentLib.query({
       start: 0,
@@ -321,15 +411,13 @@ function updateSchedule() {
       });
       contentLib.publish({
         keys: [schedules.hits[i]._id],
-        sourceBranch: "draft",
-        targetBranch: "master",
+        sourceBranch: "master",
+        targetBranch: "draft",
         includeDependencies: false
       });
       function editor(c) {
-        var tempDate = new Date(c.data.date);
-        tempDate.setDate(
-          tempDate.getDate() + 7 * parseInt(resCopy[i].data.repeat)
-        );
+        var tempDate = moment(c.data.date).toDate();
+        tempDate.setDate(tempDate.getDate() + 7 * parseInt(c.data.repeat));
         tempDate = tempDate.toISOString();
         c.data.date = tempDate;
         return c;
@@ -337,4 +425,13 @@ function updateSchedule() {
     }
   });
   norseUtils.log("Finished updating schedule.");
+}
+
+function generateDiscordNotificationMessage(content) {
+  return (
+    "На KostiRPG появилась новая статья **" +
+    content.displayName +
+    "**! Проходи по ссылке и зацени. " +
+    content.url
+  );
 }

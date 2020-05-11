@@ -1,114 +1,78 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
-  <body class="page-wrapper article-page transparent-header">
-    <div
-      data-th-remove="tag"
-      data-th-utext="${pageComponents.loginRegisterModal}"
-    ></div>
-    <div
-      data-th-if="${removeCommentModal}"
-      data-th-utext="${removeCommentModal}"
-      data-th-remove="tag"
-    ></div>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper article-page transparent-header">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+    <div data-th-if="${removeCommentModal}" data-th-utext="${removeCommentModal}" data-th-remove="tag"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main
-      class="main js_article-id"
-      data-th-attr="data-articleid=${content._id}"
-    >
-      <div class="article-img_wrap">
-        <picture>
-          <source
-            data-th-srcset="${content.imageDesktop.url}"
-            media="(min-width: 767px)"
-          />
-          <img data-th-src="${content.imageMobile.url}" />
-        </picture>
-      </div>
-      <div class="blog blog_width clearfix">
-        <div class="article-header">
-          <div class="post-info">
-            <a data-th-href="${content.author.url}">
-              <span class="post-user_avatar">
-                <img data-th-src="${content.author.image.url}" alt="" />
-              </span>
-              <span
-                class="post-user_name"
-                data-th-text="${content.author.displayName}"
-              ></span>
-            </a>
-            <span class="post-date" data-th-text="${content.date}"></span>
-          </div>
-          <h1 class="post-title" data-th-text="${content.displayName}"></h1>
+    <main class="main js_article-id" data-th-attr="data-articleid=${content._id}">
+        <div class="article-img_wrap">
+            <picture>
+                <source data-th-srcset="${content.imageDesktop.url}" media="(min-width: 767px)" />
+                <img data-th-src="${content.imageMobile.url}" />
+            </picture>
         </div>
-        <div class="blog-content">
-          <div class="article-body">
-            <div class="article-content" data-portal-region="main">
-              <section data-th-if="${audio}">
-                <div data-th-utext="${audio}"></div>
-                <p data-th-text="${content.data.intro}"></p>
-              </section>
-              <div
-                data-th-if="${content.data.body}"
-                data-th-utext="${content.data.body}"
-                data-th-remove="tag"
-              ></div>
-              <div data-th-if="${mainRegion}" data-th-remove="tag">
-                <div
-                  data-th-each="component : ${mainRegion.components}"
-                  data-th-remove="tag"
-                >
-                  <div
-                    data-portal-component="${component.path}"
-                    data-th-remove="tag"
-                  ></div>
+        <div class="blog blog_width clearfix">
+            <div class="article-header">
+                <div class="post-info">
+                    <a data-th-href="${content.author.url}">
+                        <span class="post-user_avatar">
+                            <img data-th-src="${content.author.image.url}" alt="" />
+                        </span>
+                        <span class="post-user_name" data-th-text="${content.author.displayName}"></span>
+                    </a>
+                    <span class="post-date" data-th-text="${content.date}"></span>
                 </div>
-              </div>
+                <h1 class="post-title" data-th-text="${content.displayName}"></h1>
             </div>
-            <div>
-              <div class="post" data-th-if="${content.hashtags}">
-                <div class="tag-list ">
-                  <a
-                    data-th-each="hashtag : ${content.hashtags}"
-                    data-th-href="${hashtag.url}"
-                    class="tag-item"
-                    data-th-text="${hashtag.displayName}"
-                  ></a>
+            <div class="blog-content">
+                <div class="article-body">
+                    <div class="article-content" data-portal-region="main">
+                        <section data-th-if="${audio}">
+                            <div data-th-utext="${audio}"></div>
+                            <p data-th-text="${content.data.intro}"></p>
+                        </section>
+                        <div data-th-if="${content.data.body}" data-th-utext="${content.data.body}"
+                            data-th-remove="tag"></div>
+                        <div data-th-if="${mainRegion}" data-th-remove="tag">
+                            <div data-th-each="component : ${mainRegion.components}" data-th-remove="tag">
+                                <div data-portal-component="${component.path}" data-th-remove="tag"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="post" data-th-if="${content.hashtags}">
+                            <div class="tag-list ">
+                                <a data-th-each="hashtag : ${content.hashtags}" data-th-href="${hashtag.url}"
+                                    class="tag-item" data-th-text="${hashtag.displayName}"></a>
+                            </div>
+                        </div>
+                        <div data-th-remove="tag" data-th-utext="${articleFooter}"></div>
+                    </div>
                 </div>
-              </div>
-              <div data-th-remove="tag" data-th-utext="${articleFooter}"></div>
+                <div data-th-if="${similarArticles}" class="similar_posts">
+                    <h4 class="similar_posts-title"
+                        data-th-text="${portal.localize({'_key=blog.title.similarArticles', '_locale=ru'})}"></h4>
+                    <ul class="similar_posts-list">
+                        <li class="similar_posts-item" data-th-each="article : ${similarArticles}">
+                            <a data-th-href="${article.url}" class="similar_posts-link"
+                                data-th-text="${article.displayName}"></a>
+                            <span data-th-attr="data-contentId=${article._id}"
+                                class="like-btn icon-rock js_like-article"
+                                data-th-classappend="${article.voted} ? 'active' : ''">
+                                <span data-th-text="${article.votes}"></span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div data-th-utext="${comments}" data-th-remove="tag"></div>
             </div>
-          </div>
-          <div data-th-if="${similarArticles}" class="similar_posts">
-            <h4
-              class="similar_posts-title"
-              data-th-text="${portal.localize({'_key=blog.title.similarArticles', '_locale=ru'})}"
-            ></h4>
-            <ul class="similar_posts-list">
-              <li
-                class="similar_posts-item"
-                data-th-each="article : ${similarArticles}"
-              >
-                <a
-                  data-th-href="${article.url}"
-                  class="similar_posts-link"
-                  data-th-text="${article.displayName}"
-                ></a>
-                <span
-                  data-th-attr="data-contentId=${article._id}"
-                  class="like-btn icon-rock js_like-article"
-                  data-th-classappend="${article.voted} ? 'active' : ''"
-                >
-                  <span data-th-text="${article.votes}"></span>
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div data-th-utext="${comments}" data-th-remove="tag"></div>
+            <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
         </div>
-        <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
-      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-  </body>
+</body>
+
 </html>

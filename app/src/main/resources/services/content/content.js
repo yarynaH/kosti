@@ -53,13 +53,20 @@ exports.get = function (req) {
       var articlesObj = blogLib.getNewArticles(page);
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
+    case "podcasts":
+      var articlesObj = blogLib.getNewArticles(page, true);
+      var articlesView = blogLib.getArticlesView(articlesObj.hits);
+      break;
     case "bookmarks":
       var user = userLib.getCurrentUser();
       var articlesObj = blogLib.getArticlesByIds(user.data.bookmarks, page);
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "userArticles":
-      var articlesObj = blogLib.getArticlesByUser(params.userId, page);
+      var articlesObj = blogLib.getArticlesByUser({
+        id: params.userId,
+        page: page
+      });
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "comments":
