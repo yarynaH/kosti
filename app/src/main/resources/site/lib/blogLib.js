@@ -167,9 +167,13 @@ function getArticleIntro(article) {
       }
     }
   }
-  return (
-    article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
-  );
+  if (article.data.intro) {
+    return (
+      article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
+    );
+  } else {
+    return "";
+  }
 }
 
 function getArticleStatus(id) {
