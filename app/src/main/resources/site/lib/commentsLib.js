@@ -233,6 +233,7 @@ function beautifyComment(comment, counter, level) {
 }
 
 function processBody(body) {
+  body = createTextLinks(body);
   body = body.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>"); // **bold**
   body = body.replace(/__([^*]+)__/g, "<u>$1</u>"); // __underline__
   body = body.replace(/\/\/([^*]+)\/\//g, "<i>$1</i>"); //italic//
@@ -240,7 +241,6 @@ function processBody(body) {
   body = body.replace(/```([^*]+)```/g, "<pre>$1</pre>"); //```quote```
   body = body.replace(/\|\|([^*]+)\|\|/g, "<spoiler>$1</spoiler>"); //||spoiler||
   body = body.replace(/\r\n/g, "<br />");
-  body = createTextLinks(body);
   return body;
 }
 
