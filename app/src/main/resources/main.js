@@ -51,8 +51,8 @@ event.listener({
           }
           votesLib.setVoteDate(vote._id, node.publish.from);
           if (!vote.notified) {
-            var message = blogLib.generateDiscordNotificationMessage(node);
             node.url = pageUrl(node);
+            var message = blogLib.generateDiscordNotificationMessage(node);
             discordLib.sendMessage({
               webhookUrl: app.config.discordKotirpgChannel,
               body: message
