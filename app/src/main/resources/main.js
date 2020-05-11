@@ -51,10 +51,16 @@ event.listener({
           }
           votesLib.setVoteDate(vote._id, node.publish.from);
           if (!vote.notified) {
+            var message = blogLib.generateDiscordNotificationMessage(node);
             node.url = pageUrl(node);
             discordLib.sendMessage({
               webhookUrl: app.config.discordKotirpgChannel,
-              body: blogLib.generateDiscordNotificationMessage(node)
+              body: message
+            });
+            telegramLib.sendMessage({
+              body: message,
+              chatId: app.config.telegramNotificationChat,
+              botId: app.config.telegramBotToken
             });
             votesLib.markVoteAsNotified(node._id);
           }
