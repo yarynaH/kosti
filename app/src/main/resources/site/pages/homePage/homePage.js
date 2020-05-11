@@ -2,7 +2,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var httpClientLib = require("/lib/http-client");
-var cache = require("/lib/cache");
+var cacheLib = require("/lib/cache");
 
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -13,9 +13,14 @@ var sharedLib = require(libLocation + "sharedLib");
 var storeLib = require(libLocation + "storeLib");
 var hashtagLib = require(libLocation + "hashtagLib");
 
-var youtubeCache = cache.newCache({
+var cache = cacheLib.newCache({
   size: 1000,
   expire: 60 * 60 * 24
+});
+
+var sliderCache = cacheLib.newCache({
+  size: 1000,
+  expire: 60 * 60 * 2
 });
 
 exports.get = handleReq;
@@ -40,8 +45,8 @@ function handleReq(req) {
   function createModel() {
     var content = portal.getContent();
     var site = portal.getSiteConfig();
-    var schedule = getSchedule(site.slider);
-    var video = getVideoFromCache(app.config.gApiKey);
+    var schedule = getSchedule();
+    var video = getVideo(app.config.gApiKey);
     var active = {};
     switch (req.params.feed) {
       case "new":
@@ -92,52 +97,53 @@ function handleReq(req) {
     return model;
 
     function getSchedule() {
-      var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
-      var now = new Date();
-      var repeatedItems = false;
-      now.setDate(now.getDate() - 1);
-      now = now.toISOString();
-      var result = contentLib.query({
-        query: "data.date > dateTime('" + now + "')",
-        start: 0,
-        count: 3,
-        sort: "data.date ASC",
-        contentTypes: [app.name + ":schedule"]
-      }).hits;
-      for (var i = 0; i < result.length; i++) {
-        result[i].image = norseUtils.getImage(
-          result[i].data.image,
-          "block(301, 109)"
-        );
-        var itemDate = new Date(result[i].data.date);
-        result[i].month = norseUtils.getMonthName(itemDate);
-        result[i].day = itemDate.getDate().toFixed();
-        result[i].hashtags = hashtagLib.getHashtags(result[i].data.hashtags);
-        result[i].time = norseUtils.getTime(itemDate);
-        if (result[i].repeat) {
-          repeatedItems = true;
+      return cache.get("schedule", function () {
+        var scheduleLocation = contentLib.get({ key: site.scheduleLocation });
+        var now = new Date();
+        now.setDate(now.getDate() - 1);
+        now = now.toISOString();
+        var result = contentLib.query({
+          query: "data.date > dateTime('" + now + "')",
+          start: 0,
+          count: 3,
+          sort: "data.date ASC",
+          contentTypes: [app.name + ":schedule"]
+        }).hits;
+        for (var i = 0; i < result.length; i++) {
+          result[i] = beautifySchedule(result[i]);
         }
-      }
-      var resCopy = JSON.parse(JSON.stringify(result));
-      while (result.length < 3) {
-        for (var i = 0; i < resCopy.length; i++) {
-          if (result.length >= 3) {
-            break;
-          }
-          if (resCopy[i].data.repeat) {
-            var itemDate = new Date(resCopy[i].data.date);
-            itemDate.setDate(
-              itemDate.getDate() + 7 * parseInt(resCopy[i].data.repeat)
-            );
-            resCopy[i].month = norseUtils.getMonthName(itemDate);
-            resCopy[i].day = itemDate.getDate().toFixed();
-            resCopy[i].time = norseUtils.getTime(itemDate);
-            resCopy[i].data.date = itemDate;
-            result.push(JSON.parse(JSON.stringify(resCopy[i])));
+        var resCopy = JSON.parse(JSON.stringify(result));
+        while (result.length < 3) {
+          for (var i = 0; i < resCopy.length; i++) {
+            if (result.length >= 3) {
+              break;
+            }
+            if (resCopy[i].data.repeat) {
+              var temp = JSON.parse(JSON.stringify(resCopy[i]));
+              var itemDate = new Date(temp.data.date);
+              itemDate.setDate(
+                itemDate.getDate() + 7 * parseInt(temp.data.repeat)
+              );
+              temp.data.date = itemDate;
+              result.push(beautifySchedule(temp));
+            }
           }
         }
+        return result;
+      });
+    }
+
+    function beautifySchedule(item) {
+      item.image = norseUtils.getImage(item.data.image, "block(301, 109)");
+      var itemDate = new Date(item.data.date);
+      item.month = norseUtils.getMonthName(itemDate);
+      item.day = itemDate.getDate().toFixed();
+      item.hashtags = hashtagLib.getHashtags(item.data.hashtags);
+      item.time = norseUtils.getTime(itemDate);
+      if (item.repeat) {
+        repeatedItems = true;
       }
-      return result;
+      return item;
     }
 
     function getSliderView(slider) {
@@ -147,43 +153,41 @@ function handleReq(req) {
     }
 
     function getSlider(articles) {
-      var result = [];
-      articles = norseUtils.forceArray(articles);
-      for (var i = 0; i < articles.length; i++) {
-        var temp = contentLib.get({ key: articles[i] });
-        result[i] = blogLib.beautifyArticle(temp);
-      }
-      return getSliderView(result);
-    }
-
-    function getVideoFromCache(key) {
-      return youtubeCache.get("video", function () {
-        return getVideoViaApi(key);
+      return cache.get("sliderCache", function () {
+        var result = [];
+        articles = norseUtils.forceArray(articles);
+        for (var i = 0; i < articles.length; i++) {
+          var temp = contentLib.get({ key: articles[i] });
+          result[i] = blogLib.beautifyArticle(temp);
+        }
+        return getSliderView(result);
       });
     }
 
-    function getVideoViaApi(key) {
-      var response = JSON.parse(
-        httpClientLib.request({
-          url:
-            "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCETKVT-Uj-gAqdSTd2YNaMg&maxResults=1&order=date&type=video&key=" +
-            key,
-          method: "GET",
-          headers: {
-            "X-Custom-Header": "header-value"
-          },
-          contentType: "application/json"
-        }).body
-      );
-      if (
-        response.items &&
-        response.items[0] &&
-        response.items[0].id &&
-        response.items[0].id.videoId
-      ) {
-        return response.items[0].id.videoId;
-      }
-      return false;
+    function getVideo(key) {
+      return cache.get("video", function () {
+        var response = JSON.parse(
+          httpClientLib.request({
+            url:
+              "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCETKVT-Uj-gAqdSTd2YNaMg&maxResults=1&order=date&type=video&key=" +
+              key,
+            method: "GET",
+            headers: {
+              "X-Custom-Header": "header-value"
+            },
+            contentType: "application/json"
+          }).body
+        );
+        if (
+          response.items &&
+          response.items[0] &&
+          response.items[0].id &&
+          response.items[0].id.videoId
+        ) {
+          return response.items[0].id.videoId;
+        }
+        return false;
+      });
     }
 
     function getVideoUrl(url) {
