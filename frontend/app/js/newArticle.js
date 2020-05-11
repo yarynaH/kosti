@@ -255,7 +255,8 @@ function initEditor(id) {
       "insertdatetime table paste help autoresize link"
     ],
     toolbar:
-      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link"
+      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+    content_style: "pre{ white-space: normal; }"
   });
 }
 
