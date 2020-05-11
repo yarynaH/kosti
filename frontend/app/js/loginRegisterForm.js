@@ -1,47 +1,55 @@
 function initLoginRegisterForm() {
-  $(".js_header-user .guest-btn").on("click", function(e) {
+  $(".article-content img").on("click", function () {
+    $.ajax({
+      url: "/api/image",
+      data: { id: $(this).attr("alt") },
+      type: "GET",
+      success: function (data) {
+        $("body").append(data);
+      }
+    });
+  });
+  $(".js_header-user .guest-btn").on("click", function (e) {
     showLogin(e);
   });
-  $(document).on("click", function(event) {
+  $(document).on("click", function (event) {
     hideLoginRegisterModal();
   });
-  $(document).keyup(function(e) {
+  $(document).keyup(function (e) {
     if (e.key === "Escape") {
       hideLoginRegisterModal();
     }
   });
-  $(".modal-action-register").on("click", function(e) {
+  $(".modal-action-register").on("click", function (e) {
     e.preventDefault();
     hideLoginRegisterModal();
     $(".modal-registration").addClass("show");
   });
-  $(".modal-action-login").on("click", function(e) {
+  $(".modal-action-login").on("click", function (e) {
     e.preventDefault();
     hideLoginRegisterModal();
     $(".modal-login").addClass("show");
   });
-  $(".modal-action-forgotpass").on("click", function(e) {
+  $(".modal-action-forgotpass").on("click", function (e) {
     e.preventDefault();
     hideLoginRegisterModal();
     $(".modal-forgot-password").addClass("show");
   });
-  $(".reset-form").on("submit", function(e) {
+  $(".reset-form").on("submit", function (e) {
     e.preventDefault();
     if (!$(".reset-form").valid()) {
       return false;
     }
     showLoader();
     var data = {
-      email: $(".modal-forgot-password")
-        .find("input[name=email]")
-        .val(),
+      email: $(".modal-forgot-password").find("input[name=email]").val(),
       action: "forgotpass"
     };
     var request = $.ajax({
       url: userServiceUrl,
       method: "POST",
       data: data
-    }).done(function(data) {
+    }).done(function (data) {
       hideLoader();
       if (data && !data.error) {
         showSnackBar(data.message, "success");
@@ -50,26 +58,22 @@ function initLoginRegisterForm() {
       }
     });
   });
-  $(".login-form").on("submit", function(e) {
+  $(".login-form").on("submit", function (e) {
     e.preventDefault();
     if (!$(".login-form").valid()) {
       return false;
     }
     showLoader();
     var data = {
-      username: $(".modal-login")
-        .find("input[name=username]")
-        .val(),
-      password: $(".modal-login")
-        .find("input[name=password]")
-        .val(),
+      username: $(".modal-login").find("input[name=username]").val(),
+      password: $(".modal-login").find("input[name=password]").val(),
       action: "login"
     };
     var request = $.ajax({
       url: userServiceUrl,
       method: "POST",
       data: data
-    }).done(function(data) {
+    }).done(function (data) {
       if (!data.exist && !data.html) {
         hideLoader();
         $(".modal-login .form-group-error").text(data.message);
@@ -81,24 +85,18 @@ function initLoginRegisterForm() {
       }
     });
   });
-  $(".modal-content, .js_header-notification").on("click", function(e) {
+  $(".modal-content, .js_header-notification").on("click", function (e) {
     e.stopPropagation();
   });
-  $(".register-form").on("submit", function(e) {
+  $(".register-form").on("submit", function (e) {
     e.preventDefault();
     if (!$(".register-form").valid()) {
       return false;
     }
     var data = {
-      username: $(".modal-registration")
-        .find("input[name=username]")
-        .val(),
-      password: $(".modal-registration")
-        .find("input[name=password]")
-        .val(),
-      email: $(".modal-registration")
-        .find("input[name=email]")
-        .val(),
+      username: $(".modal-registration").find("input[name=username]").val(),
+      password: $(".modal-registration").find("input[name=password]").val(),
+      email: $(".modal-registration").find("input[name=email]").val(),
       action: "register"
     };
     if (!validateEmail(data.email)) {
@@ -113,7 +111,7 @@ function initLoginRegisterForm() {
       url: userServiceUrl,
       method: "POST",
       data: data
-    }).done(function(data) {
+    }).done(function (data) {
       if (data.authenticated) {
         $(".modal-registration .form-group-error").addClass("hidden");
         $(".js_header-user-wrap").html(data.html);
@@ -126,18 +124,18 @@ function initLoginRegisterForm() {
     });
   });
   $(".login-form").validate({
-    highlight: function(element, errorClass, validClass) {},
-    unhighlight: function(element, errorClass, validClass) {}
+    highlight: function (element, errorClass, validClass) {},
+    unhighlight: function (element, errorClass, validClass) {}
   });
   $(".register-form").validate({
-    highlight: function(element, errorClass, validClass) {},
-    unhighlight: function(element, errorClass, validClass) {}
+    highlight: function (element, errorClass, validClass) {},
+    unhighlight: function (element, errorClass, validClass) {}
   });
   $(".reset-form").validate({
-    highlight: function(element, errorClass, validClass) {},
-    unhighlight: function(element, errorClass, validClass) {}
+    highlight: function (element, errorClass, validClass) {},
+    unhighlight: function (element, errorClass, validClass) {}
   });
-  $(".js_modal-close").on("click", function() {
+  $(".js_modal-close").on("click", function () {
     hideLoginRegisterModal();
   });
   initFBLogin();
@@ -145,16 +143,16 @@ function initLoginRegisterForm() {
 }
 
 function initVKLogin() {
-  $(".social_login-vk").on("click", function() {
+  $(".social_login-vk").on("click", function () {
     showLoader();
   });
 }
 
 function initFBLogin() {
-  $(".social_login-fb").on("click", function() {
+  $(".social_login-fb").on("click", function () {
     showLoader();
     FB.login(
-      function(response) {
+      function (response) {
         var call = makeAjaxCall(
           userServiceUrl,
           "POST",
@@ -165,7 +163,7 @@ function initFBLogin() {
           },
           true
         );
-        call.done(function(data) {
+        call.done(function (data) {
           if (data.authenticated && data.exist) {
             $(".js_header-user-wrap").html(data.html);
             $(".modal-login .form-group-error").addClass("hidden");
@@ -183,7 +181,7 @@ function initFBLogin() {
 }
 
 function initGoogleLogin() {
-  gapi.load("auth2", function() {
+  gapi.load("auth2", function () {
     auth2 = gapi.auth2.init({
       client_id:
         "677318802177-6qjftg5h6fdtcvjs9d500blu50jmu8cj.apps.googleusercontent.com",
@@ -198,7 +196,7 @@ function attachSignin(element) {
   auth2.attachClickHandler(
     element,
     {},
-    function(googleUser) {
+    function (googleUser) {
       showLoader();
       var profile = googleUser.getBasicProfile();
       var call = makeAjaxCall(
@@ -210,7 +208,7 @@ function attachSignin(element) {
         },
         true
       );
-      call.done(function(data) {
+      call.done(function (data) {
         if (data.authenticated && data.exist) {
           $(".js_header-user-wrap").html(data.html);
           $(".modal-login .form-group-error").addClass("hidden");
@@ -222,14 +220,17 @@ function attachSignin(element) {
         }
       });
     },
-    function(error) {}
+    function (error) {}
   );
 }
 
 function hideLoginRegisterModal() {
-  $("body div.modal").each(function() {
+  $("body div.modal").each(function () {
     $(this).removeClass("show");
   });
+  if ($(".js_image-modal").length > 0) {
+    $(".js_image-modal").remove();
+  }
   $(".js_header-notification").removeClass("show_notification");
 }
 

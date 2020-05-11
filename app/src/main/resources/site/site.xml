@@ -178,5 +178,8 @@
     <mapping controller="/services/monsterApi/monsterApi.js">
       <pattern>/api/monster</pattern>
     </mapping>
+    <mapping controller="/services/image/image.js">
+      <pattern>/api/image</pattern>
+    </mapping>
   </mappings>
 </site>
