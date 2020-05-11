@@ -24,16 +24,6 @@ event.listener({
           contextLib.runAsAdmin(function () {
             votesLib.createBlankVote(node._id, "article");
           });
-          slackLib.sendMessage({
-            channel: app.config.slackChannelSystem,
-            title: "New article created."
-          });
-          telegramLib.sendMessage({
-            title: "Привет!",
-            body: "На kostirpg.com написали новую статью.",
-            chatId: app.config.telegramAdminChat,
-            botId: app.config.telegramBotToken
-          });
         } else if (node && node.type && node.type == app.name + ":hashtag") {
           contextLib.runAsAdmin(function () {
             votesLib.createBlankVote(node._id, "hashtag");
