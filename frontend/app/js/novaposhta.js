@@ -1,7 +1,7 @@
 function initNovaPoshta() {
   var apiUrl = "https://api.novaposhta.ua/v2.0/json/";
-  var apiKey = "8913262e83513c669457b8c48224f3ab";
-  $(".delivery_np-input-city").on("input", function() {
+  var apiKey = "ecc4e836cab6d9c8356bd4ee46ff14a7";
+  $(".delivery_np-input-city").on("input", function () {
     if ($(this).val().length > 1) {
       var dataCity = {
         apiKey: apiKey,
@@ -19,7 +19,7 @@ function initNovaPoshta() {
         contentType: "application/json",
         dataType: "json",
         data: JSON.stringify(dataCity),
-        success: function(response) {
+        success: function (response) {
           $("#suggestion-list").html("");
           var dataIncome = response.data[0].Addresses;
           for (var i = 0; i < dataIncome.length; i++) {
@@ -35,7 +35,7 @@ function initNovaPoshta() {
       });
     }
   });
-  $("#suggestion-list").on("click", "li", function() {
+  $("#suggestion-list").on("click", "li", function () {
     $(".delivery_np-input-city").val($(this).text());
     $(".delivery_np-input-city").data("ref", $(this).data("ref"));
     $("#suggestion-list").html("");
@@ -56,7 +56,7 @@ function initNovaPoshta() {
       contentType: "application/json",
       dataType: "json",
       data: JSON.stringify(dataCity),
-      success: function(response) {
+      success: function (response) {
         $("#delivery_np-warehouses").html(
           '<option disabled="disabled" selected="selected">Выберите отделение</option>'
         );
@@ -72,7 +72,7 @@ function initNovaPoshta() {
       }
     });
   });
-  $("#suggestion-list").on("click", "li", function() {
+  $("#suggestion-list").on("click", "li", function () {
     var dataCity = {
       apiKey: apiKey,
       modelName: "InternetDocument",
@@ -94,18 +94,18 @@ function initNovaPoshta() {
       contentType: "application/json",
       dataType: "json",
       data: JSON.stringify(dataCity),
-      success: function(response) {
+      success: function (response) {
         $(".js_shippingPricenovaposhta").text("UAH " + response.data[0].Cost);
         $("input[name=shippingPrice]").val(response.data[0].Cost);
         $("input#novaposhta").attr("data-price", response.data[0].Cost);
       }
     });
   });
-  $("input[name=shipping]").on("click", function() {
+  $("input[name=shipping]").on("click", function () {
     $("input[name=shippingPrice]").val($(this).data("price"));
   });
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   initNovaPoshta();
 });
