@@ -1,0 +1,27 @@
+<widget>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Attachments Cleanup</title>
+    <form data-th-if="${showGenerateButton}">
+        <input class="js_codes-amount" />
+        <div data-th-onclick="|generatePromos('${id}')|">button
+        </div>
+    </form>
+    <script data-th-widget-id="${widgetId}" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script data-th-widget-id="${widgetId}" data-th-inline="javascript">
+        function generatePromos(cid) {
+            var data = {
+                cid: cid,
+                amount: $('.js_codes-amount').val()
+            };
+            $.ajax({
+                url: "/api/promo/generate",
+                type: "POST",
+                data: data,
+                success: function (data) {
+                    console.log("success");
+                }
+            });
+        }
+    </script>
+</widget>

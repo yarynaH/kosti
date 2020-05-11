@@ -11,6 +11,7 @@ exports.getPromosArray = getPromosArray;
 exports.getPromoByCode = getPromoByCode;
 exports.activatePromo = activatePromo;
 exports.reduceUsePromos = reduceUsePromos;
+exports.setCodeAsUsed - setCodeAsUsed;
 
 function checkPromo(code) {
   var promo = getPromoByCode(code);
@@ -71,3 +72,5 @@ function reduceUse(code) {
     return node;
   }
 }
+
+function setCodeAsUsed(code) {}
