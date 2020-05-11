@@ -10,7 +10,7 @@ $(".js_tinymce-editor").each(function () {
 checkSimilarArticlesAmount();
 checkHashtagsAmount();
 
-$("[contenteditable='true']").bind("paste", function (e) {
+$("#newArticleForm").on("paste", "[contenteditable='true']", function (e) {
   e.preventDefault();
   var data = e.originalEvent.clipboardData.getData("text");
   data = sanitizeString(data);
