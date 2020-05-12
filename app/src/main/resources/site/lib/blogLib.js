@@ -28,6 +28,7 @@ exports.countUserRating = countUserRating;
 exports.updateSchedule = updateSchedule;
 exports.getArticleStatus = getArticleStatus;
 exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
+exports.getArticleIntro = getArticleIntro;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -166,9 +167,13 @@ function getArticleIntro(article) {
       }
     }
   }
-  return (
-    article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
-  );
+  if (article.data.intro) {
+    return (
+      article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
+    );
+  } else {
+    return "";
+  }
 }
 
 function getArticleStatus(id) {

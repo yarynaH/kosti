@@ -1,96 +1,27 @@
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId: "2182806205310445",
-      autoLogAppEvents: true,
-      xfbml: true,
-      version: "v3.2"
-    });
-    FB.AppEvents.logPageView();
-  };
-
-  (function(d, s, id) {
-    var js,
-      fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {
-      return;
-    }
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-  })(document, "script", "facebook-jssdk");
-</script>
-
-<script data-th-src="${portal.assetUrl({'_path=js/vkshare.js'})}"></script>
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=UA-124808103-1"
-></script>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script data-th-src="${portal.assetUrl({'_path=js/jquery-2.2.0.min.js'})}"></script>
 <!--//TODO: refactor script injecions-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.9.2/jplayer/jquery.jplayer.min.js"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/slick.min.js'})}"></script>
-<script
-  data-th-src="${portal.assetUrl({'_path=js/jquery.validate.js'})}"
-></script>
-<script
-  data-th-src="${portal.assetUrl({'_path=js/localization/messages_ru.js'})}"
-></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    dataLayer.push(arguments);
-  }
-  gtag("js", new Date());
-  gtag("config", "UA-124808103-1");
+<script data-th-src="${portal.assetUrl({'_path=js/jquery.validate.js'})}"></script>
+<script data-th-src="${portal.assetUrl({'_path=js/localization/messages_ru.js'})}"></script>
+<script data-th-src="${portal.assetUrl({'_path=js/jquery.zoom.min.js'})}"></script>
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${userServiceUrl}">
+    var userServiceUrl = [[${userServiceUrl}]];
 </script>
-<script
-  data-th-src="${portal.assetUrl({'_path=js/jquery.zoom.min.js'})}"
-></script>
-<script
-  type="text/javascript"
-  data-th-inline="javascript"
-  data-th-if="${userServiceUrl}"
->
-  var userServiceUrl = [[${userServiceUrl}]];
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${contentServiceUrl}">
+    var contentServiceUrl = [[${contentServiceUrl}]];
 </script>
-<script
-  type="text/javascript"
-  data-th-inline="javascript"
-  data-th-if="${contentServiceUrl}"
->
-  var contentServiceUrl = [[${contentServiceUrl}]];
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${cartServiceUrl}">
+    var cartServiceUrl = [[${cartServiceUrl}]];
 </script>
-<script
-  type="text/javascript"
-  data-th-inline="javascript"
-  data-th-if="${cartServiceUrl}"
->
-  var cartServiceUrl = [[${cartServiceUrl}]];
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${commentsServiceUrl}">
+    var commentsServiceUrl = [[${commentsServiceUrl}]];
 </script>
-<script
-  type="text/javascript"
-  data-th-inline="javascript"
-  data-th-if="${commentsServiceUrl}"
->
-  var commentsServiceUrl = [[${commentsServiceUrl}]];
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${monsterServiceUrl}">
+    var monsterServiceUrl = [[${monsterServiceUrl}]];
 </script>
-<script
-  type="text/javascript"
-  data-th-inline="javascript"
-  data-th-if="${monsterServiceUrl}"
->
-  var monsterServiceUrl = [[${monsterServiceUrl}]];
-</script>
-<script
-  type="text/javascript"
-  data-th-inline="javascript"
-  data-th-if="${cartId}"
->
-  var cartId = [[${cartId}]];
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${cartId}">
+    var cartId = [[${cartId}]];
 </script>
 <script data-th-src="${portal.assetUrl({'_path=js/main.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/store.js'})}"></script>
@@ -98,12 +29,39 @@
 <script data-th-src="${portal.assetUrl({'_path=js/header.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/novaposhta.js'})}"></script>
 <script data-th-src="${portal.assetUrl({'_path=js/promos.js'})}"></script>
-<script
-  data-th-src="${portal.assetUrl({'_path=js/loginRegisterForm.js'})}"
-></script>
-<script
-  src="https://apis.google.com/js/platform.js"
-  async
-  defer
-  onload="initGoogleLogin()"
-></script>
+<script data-th-src="${portal.assetUrl({'_path=js/loginRegisterForm.js'})}"></script>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: "2182806205310445",
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: "v3.2"
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js,
+            fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
+</script>
+<script data-th-src="${portal.assetUrl({'_path=js/vkshare.js'})}"></script>
+<script src="https://apis.google.com/js/platform.js" async defer onload="initGoogleLogin()"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-124808103-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+    gtag("config", "UA-124808103-1");
+</script>

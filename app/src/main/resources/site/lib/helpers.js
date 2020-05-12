@@ -7,6 +7,7 @@ var authLib = require("/lib/xp/auth");
 var cartLib = require("cartLib");
 var nodeLib = require("/lib/xp/node");
 var sharedLib = require("sharedLib");
+var blogLib = require("blogLib");
 var i18nLib = require("/lib/xp/i18n");
 
 exports.fixPermissions = fixPermissions;
@@ -60,7 +61,9 @@ function getPageComponents(req, footerType, activeEl, title) {
       type: "absolute"
     });
   }
-  if (content && content.data && content.data.intro) {
+  if (content && content.type === app.name + ":article") {
+    var ogDescription = blogLib.getArticleIntro(content);
+  } else if (content && content.data && content.data.intro) {
     var ogDescription = content.data.intro.replace(
       /(&nbsp;|(<([^>]+)>))/gi,
       ""

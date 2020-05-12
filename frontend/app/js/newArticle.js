@@ -10,7 +10,7 @@ $(".js_tinymce-editor").each(function () {
 checkSimilarArticlesAmount();
 checkHashtagsAmount();
 
-$("[contenteditable='true']").bind("paste", function (e) {
+$("#newArticleForm").on("paste", "[contenteditable='true']", function (e) {
   e.preventDefault();
   var data = e.originalEvent.clipboardData.getData("text");
   data = sanitizeString(data);
@@ -255,7 +255,8 @@ function initEditor(id) {
       "insertdatetime table paste help autoresize link"
     ],
     toolbar:
-      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link"
+      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+    content_style: "pre{ white-space: normal; }"
   });
 }
 
