@@ -8,6 +8,7 @@ const cleanCSS = require("gulp-clean-css");
 const uglify = require("gulp-uglify");
 const pump = require("pump");
 const argv = require("yargs").argv;
+const imagemin = require("gulp-imagemin");
 
 var fontName = "iconfont";
 
@@ -28,7 +29,14 @@ gulp.task("sass", function () {
 });
 
 gulp.task("images", function () {
-  return gulp.src("app/images/**/*").pipe(gulp.dest("build/images"));
+  if (argv.dev) {
+    return gulp.src("app/images/**/*").pipe(gulp.dest("build/images"));
+  } else {
+    return gulp
+      .src("app/images/**/*")
+      .pipe(imagemin({ progressive: true }))
+      .pipe(gulp.dest("build/images"));
+  }
 });
 
 gulp.task("lib", function () {
