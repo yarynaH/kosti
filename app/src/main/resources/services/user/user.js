@@ -18,7 +18,7 @@ var templates = {
   notifications: "../../site/pages/components/header/notifications.html"
 };
 
-exports.get = function(req) {
+exports.get = function (req) {
   var params = req.params;
   var model = {};
   var view = false;
@@ -43,32 +43,10 @@ exports.get = function(req) {
       mailsLib.unsubscribe(params.hash);
       view = resolve(templates.unsubscribe);
       break;
-    case "notifications":
-      view = resolve(templates.notifications);
-      model.user = userLib.getCurrentUser();
-      model.notifications = notificationLib.getNotificationsForUser(
-        model.user._id,
-        0,
-        3,
-        null,
-        null,
-        true
-      );
-      break;
     default:
       break;
   }
   model.pageComponents = helpers.getPageComponents(req);
-  if (params.code) {
-    userLib.discordRegister(params.code);
-    userLib.vkRegister(params.code);
-    return {
-      status: 301,
-      headers: {
-        Location: portal.pageUrl({ path: portal.getSite()._path })
-      }
-    };
-  }
   if (!view) {
     return logout();
   }
@@ -78,26 +56,12 @@ exports.get = function(req) {
   };
 };
 
-exports.post = function(req) {
+exports.post = function (req) {
   var result = false;
   var params = req.params;
-  if (params.action == "register") {
-    result = userLib.register(params.username, params.email, params.password);
-  } else if (params.action == "login") {
-    result = userLib.login(params.username, params.password);
-  } else if (params.action == "image") {
-    result = userLib.uploadUserImage();
-  } else if (params.action == "edit") {
-    result = userLib.editUser(params);
-  } else if (params.action == "forgotpass") {
-    result = userLib.resetPass(params.email);
-  } else if (params.action == "addBookmark") {
+  if (params.action == "addBookmark") {
     notificationLib.addNotification(params.id, "bookmark");
     result = userLib.addBookmark(params.id);
-  } else if (params.action == "googleRegister") {
-    result = userLib.jwtRegister(params.token);
-  } else if (params.action == "fbRegister") {
-    result = userLib.fbRegister(params.token, params.userId);
   } else if (params.action == "resetpass") {
     if (userLib.setNewPass(params.password, params.email, params.hash)) {
       return logout();

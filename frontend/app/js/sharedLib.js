@@ -23,7 +23,11 @@ function deleteCookie(name) {
 
 function showLogin(e) {
   e.stopPropagation();
-  $("body div.modal-login").addClass("show");
+  var call = makeAjaxCall("/api/user/forms", "GET", { type: "loginForm" });
+  call.done(function (data) {
+    $("body").append(data.html);
+  });
+  //$("body div.modal-login").addClass("show");
 }
 
 function getCookieValue(a) {

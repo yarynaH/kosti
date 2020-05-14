@@ -36,62 +36,62 @@ function getMonthName(date) {
   switch (month) {
     case 0:
       monthName = i18n.localize({
-        key: "months.jan.date",
+        key: "months.jan.date"
       });
       break;
     case 1:
       monthName = i18n.localize({
-        key: "months.feb.date",
+        key: "months.feb.date"
       });
       break;
     case 2:
       monthName = i18n.localize({
-        key: "months.mar.date",
+        key: "months.mar.date"
       });
       break;
     case 3:
       monthName = i18n.localize({
-        key: "months.apr.date",
+        key: "months.apr.date"
       });
       break;
     case 4:
       monthName = i18n.localize({
-        key: "months.may.date",
+        key: "months.may.date"
       });
       break;
     case 5:
       monthName = i18n.localize({
-        key: "months.jun.date",
+        key: "months.jun.date"
       });
       break;
     case 6:
       monthName = i18n.localize({
-        key: "months.jul.date",
+        key: "months.jul.date"
       });
       break;
     case 7:
       monthName = i18n.localize({
-        key: "months.aug.date",
+        key: "months.aug.date"
       });
       break;
     case 8:
       monthName = i18n.localize({
-        key: "months.sep.date",
+        key: "months.sep.date"
       });
       break;
     case 9:
       monthName = i18n.localize({
-        key: "months.oct.date",
+        key: "months.oct.date"
       });
       break;
     case 10:
       monthName = i18n.localize({
-        key: "months.nov.date",
+        key: "months.nov.date"
       });
       break;
     case 11:
       monthName = i18n.localize({
-        key: "months.dec.date",
+        key: "months.dec.date"
       });
       break;
   }
@@ -102,7 +102,7 @@ function getMonthName(date) {
 function getDayName(date) {
   var day = date.getDay();
   return i18n.localize({
-    key: "days.name." + day,
+    key: "days.name." + day
   });
 }
 
@@ -370,7 +370,7 @@ exports.getContent = function (key) {
     content = portal.getContent();
   } else {
     content = contentLib.get({
-      key: key,
+      key: key
     });
   }
   return content;
@@ -420,7 +420,7 @@ exports.getTranslation = function () {
       start: 0,
       count: 1,
       query: query,
-      contentTypes: [app.name + ":translation"],
+      contentTypes: [app.name + ":translation"]
     });
 
     if (translations && translations.count == 1) {
@@ -448,7 +448,7 @@ exports.getTranslation = function () {
       arguments: [],
       defaultText: "",
       key: "",
-      context: false,
+      context: false
     };
     for (var i = 0; i < params.length; i++) {
       switch (i) {
@@ -504,19 +504,19 @@ function getImage(id, size, placeholderType, urlType) {
         var url = portal.attachmentUrl({
           path: image._path,
           name: image._name,
-          type: urlType,
+          type: urlType
         });
         var urlAbsolute = portal.attachmentUrl({
           path: image._path,
           name: image._name,
-          type: "absolute",
+          type: "absolute"
         });
       } else {
         var url = portal.imageUrl({ id: id, scale: size, type: urlType });
         var urlAbsolute = portal.imageUrl({
           id: id,
           scale: size,
-          type: "absolute",
+          type: "absolute"
         });
       }
       result = {
@@ -525,7 +525,7 @@ function getImage(id, size, placeholderType, urlType) {
         alt: image.data.caption ? image.data.caption : image.displayName,
         caption: image.data.caption ? image.data.caption : "",
         artist: image.data.artist,
-        _id: image._id,
+        _id: image._id
       };
     } else {
       result = this.getPlaceholder(placeholderType, size);
@@ -542,33 +542,33 @@ function getPlaceholder(placeholderType, size) {
     case 1: {
       result = {
         url: portal.assetUrl({
-          path: "images/default_avatar.png",
+          path: "images/default_avatar.png"
         }),
         alt: "City image",
         caption: "",
-        placeholder: true,
+        placeholder: true
       };
       break;
     }
     case 2: {
       result = {
         url: portal.assetUrl({
-          path: "images/townPlaceholder.jpg",
+          path: "images/townPlaceholder.jpg"
         }),
         alt: "City icon",
         caption: "",
-        placeholder: true,
+        placeholder: true
       };
       break;
     }
     default: {
       result = {
         url: portal.assetUrl({
-          path: "images/townPlaceholder.jpg",
+          path: "images/townPlaceholder.jpg"
         }),
         alt: "placeholder",
         caption: "",
-        placeholder: true,
+        placeholder: true
       };
       break;
     }

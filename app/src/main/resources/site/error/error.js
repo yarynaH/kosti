@@ -10,8 +10,8 @@ var slackLib = require("/lib/slackLib");
 var viewGeneric = resolve("error.html");
 var view404 = resolve("404.html");
 var view401 = resolve("401.html");
-
-exports.handleError = function(err) {
+/*
+exports.handleError = function (err) {
   var siteConfig = portal.getSiteConfig();
   slackLib.sendMessage({
     channel: app.config.slackChannelSystem,
@@ -33,7 +33,7 @@ exports.handleError = function(err) {
   };
 };
 
-exports.handle404 = function(err) {
+exports.handle404 = function (err) {
   var body = thymeleaf.render(view404, {
     pageComponents: helpers.getPageComponents(err),
     homeUrl: sharedLib.generateNiceServiceUrl("")
@@ -44,7 +44,7 @@ exports.handle404 = function(err) {
   };
 };
 
-exports.handle403 = function(err) {
+exports.handle403 = function (err) {
   var body = thymeleaf.render(view401, {
     pageComponents: helpers.getPageComponents(err),
     homeUrl: sharedLib.generateNiceServiceUrl("")
@@ -54,3 +54,4 @@ exports.handle403 = function(err) {
     body: body
   };
 };
+*/

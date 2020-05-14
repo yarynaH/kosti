@@ -1,3 +1,5 @@
+var notificationApiUrl = "/api/notification";
+
 function initHeaderFunctions() {
   var activeEl =
     $(".header .active").length > 0
@@ -7,39 +9,32 @@ function initHeaderFunctions() {
     "left",
     activeEl.offset().left - 3 + activeEl.width() / 2
   );
-  $(".nav-list .nav-item a").on("mouseenter", function() {
+  $(".nav-list .nav-item a").on("mouseenter", function () {
     $(".active_element").css(
       "left",
       $(this).offset().left - 3 + $(this).width() / 2
     );
   });
-  $(".nav-list .nav-item a").on("mouseleave", function() {
+  $(".nav-list .nav-item a").on("mouseleave", function () {
     $(".active_element").css(
       "left",
       activeEl.offset().left - 3 + activeEl.width() / 2
     );
   });
-  $(".js_search-icon").on("click", function() {
+  $(".js_search-icon").on("click", function () {
     $(".js_header-search").addClass("show");
     $(".js_search-input").focus();
   });
-  $(".js_header-search").on("focusout", function(e) {
+  $(".js_header-search").on("focusout", function (e) {
     if ($(this).has(e.relatedTarget).length === 0) {
       $(".js_header-search").removeClass("show");
     }
   });
-  $(".js_notification-icon").on("click", function(e) {
+  $(".js_notification-icon").on("click", function (e) {
     e.preventDefault();
-    var call = makeAjaxCall(
-      userServiceUrl,
-      "GET",
-      {
-        action: "notifications"
-      },
-      true
-    );
-    call.done(function(data) {
-      $(".js_notification-block").html(data);
+    var call = makeAjaxCall(notificationApiUrl, "GET");
+    call.done(function (data) {
+      $(".js_notification-block").html(data.html);
       $(".js_header-notification").toggleClass("show_notification");
       var currQty = parseInt(
         $(".js_header-notification .notification-qty").text()
@@ -54,12 +49,12 @@ function initHeaderFunctions() {
   $(".js_notification-block").on(
     "mouseover",
     ".js_notification-item",
-    function() {
+    function () {
       $(this).removeClass("new");
     }
   );
   if (!$("body").hasClass("landing-page")) {
-    $(document).on("scroll", function() {
+    $(document).on("scroll", function () {
       if ($(document).scrollTop() > 85) {
         if (
           $("body").hasClass("homepage") ||
@@ -69,7 +64,7 @@ function initHeaderFunctions() {
         }
         if (!$(".header").hasClass("change-logo")) {
           $(".header").addClass("change-logo");
-          setTimeout(function() {
+          setTimeout(function () {
             $(".active_element").css(
               "left",
               activeEl.offset().left - 3 + activeEl.width() / 2
@@ -79,7 +74,7 @@ function initHeaderFunctions() {
       } else {
         if ($(".header").hasClass("change-logo")) {
           $(".header").removeClass("header-scroll change-logo");
-          setTimeout(function() {
+          setTimeout(function () {
             $(".active_element").css(
               "left",
               activeEl.offset().left - 3 + activeEl.width() / 2
@@ -89,7 +84,7 @@ function initHeaderFunctions() {
       }
     });
   } else {
-    $(document).on("scroll", function() {
+    $(document).on("scroll", function () {
       if ($(document).scrollTop()) {
         $(".header").addClass("header-scroll");
       } else {
