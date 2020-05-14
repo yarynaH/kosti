@@ -512,7 +512,12 @@ function getImage(id, size, placeholderType, urlType) {
           type: "absolute"
         });
       } else {
-        var url = portal.imageUrl({ id: id, scale: size, type: urlType });
+        var url = portal.imageUrl({
+          id: id,
+          scale: size,
+          type: urlType,
+          quality: "50"
+        });
         var urlAbsolute = portal.imageUrl({
           id: id,
           scale: size,
