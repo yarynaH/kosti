@@ -1,5 +1,4 @@
 .social_login {
-  padding: 40px 40px;
   border-top: 1px solid $color-primary25;
   position: relative;
 
@@ -22,19 +21,23 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    margin: 0 -4px;
+    margin: -4px;
   }
 
   .button {
     width: 45%;
-    margin: 0 4px 8px;
+    margin: 4px;
     flex: 1 1 auto;
-    transition: transition(box-shadow, ease-in-out);
+    transition: transition(box-shadow, 0.5s, ease-in-out);
     padding: 10px;
-    min-height: 60px;
+    min-height: 48px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+
+    @include mobile-all() {
+      min-height: 60px;
+    }
 
     &:hover {
       box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
