@@ -208,5 +208,5 @@ function removeScroll() {
 }
 
 function addScroll() {
-  $("body").reomveClass("modal-open");
+  $("body").removeClass("modal-open");
 }
