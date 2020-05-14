@@ -175,7 +175,7 @@ function hideAllModals(e) {
     if (modal.length > 0) {
       if ($(e.target).is($("div.modal.show"))) {
         modal.parent().removeClass("show");
-        $("body").removeClass("modal-open");
+        addScroll();
       }
     }
     if (notification.length > 0) {
@@ -200,8 +200,13 @@ function showLoader() {
 
 function hideLoader() {
   $(".js_loader").removeClass("show");
+  addScroll();
 }
 
 function removeScroll() {
   $("body").addClass("modal-open");
+}
+
+function addScroll() {
+  $("body").reomveClass("modal-open");
 }
