@@ -150,6 +150,15 @@ function handleGet(req) {
         id: id,
         text: component.config["com-myurchenko-kostirpg"].quote.text
       });
+    } else if (component.descriptor === app.name + ":image") {
+      return articlesLib.getImageComponent({
+        id: id,
+        image: norseUtils.getImage(
+          component.config["com-myurchenko-kostirpg"].image.image,
+          "width(768)"
+        ),
+        caption: component.config["com-myurchenko-kostirpg"].image.caption
+      });
     }
   }
 

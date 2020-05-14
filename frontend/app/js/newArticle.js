@@ -40,9 +40,12 @@ $("#newArticleForm").on("submit", function (e) {
       components.push({ type: "text", value: value });
     } else if (part.hasClass("js_image-editor")) {
       components.push({
-        type: "image",
-        value: part.data().imageid,
-        caption: part.find("input").val()
+        type: "part",
+        descriptor: "image",
+        config: {
+          image: part.data().imageid,
+          caption: part.find("input").val()
+        }
       });
     } else if (part.hasClass("js_video-editor")) {
       if (
