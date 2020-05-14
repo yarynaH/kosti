@@ -35,9 +35,11 @@ function initUserPageFunctions() {
     e.preventDefault();
     e.stopPropagation();
     $(".modal-edit_user").addClass("show");
+    removeScroll();
   });
   $(".js_edit_user-form").on("submit", function (e) {
     e.preventDefault();
+    showLoader();
     var formData = getFormData(this);
     editUserData(formData);
   });
@@ -59,5 +61,6 @@ function editUserData(formData) {
   var call = makeAjaxCall(userApi, "POST", formData, true);
   call.done(function (data) {
     $(".modal-edit_user").removeClass("show");
+    hideLoader();
   });
 }
