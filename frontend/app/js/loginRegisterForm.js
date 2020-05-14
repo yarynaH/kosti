@@ -8,6 +8,7 @@ function initLoginRegisterForm() {
     e.preventDefault();
     hideAllModals();
     $("." + $(this).data().logintype).addClass("show");
+    removeScroll();
   });
   $("html").on("click", function (e) {
     hideAllModals(e);
@@ -174,6 +175,7 @@ function hideAllModals(e) {
     if (modal.length > 0) {
       if ($(e.target).is($("div.modal.show"))) {
         modal.parent().removeClass("show");
+        $("body").removeClass("modal-open");
       }
     }
     if (notification.length > 0) {
@@ -193,8 +195,13 @@ function hideAllModals(e) {
 
 function showLoader() {
   $(".js_loader").addClass("show");
+  removeScroll();
 }
 
 function hideLoader() {
   $(".js_loader").removeClass("show");
+}
+
+function removeScroll() {
+  $("body").addClass("modal-open");
 }
