@@ -1,46 +1,32 @@
 {
   "editor.tabSize": 2,
-  "workbench.colorTheme": "Monokai",
   "workbench.iconTheme": "vscode-icons",
   "editor.renderWhitespace": "all",
   "window.title": "${dirty}${activeEditorLong}${separator}${rootName}${separator}${appName}",
-  "editor.minimap.enabled": false,
-  "sync.quietSync": false,
   "extensions.autoUpdate": true,
   "projectManager.showProjectNameInStatusBar": true,
   "files.autoSave": "off",
-  "files.associations": {
-      "*.vs": "velocity"
-  },
   "editor.multiCursorModifier": "ctrlCmd",
-  "sync.askGistName": false,
   "editor.minimap.showSlider": "always",
-  "editor.autoIndent": true,
-  "emmet.triggerExpansionOnTab": true,
-  "editor.smoothScrolling": true,
-  "sublimeTextKeymap.promptV3Features": true,
-  "css.validate": false,
-  "scss.validate": false,
   "editor.renderControlCharacters": true,
   "files.trimTrailingWhitespace": false,
   "workbench.sideBar.location": "left",
-  "vsicons.dontShowNewVersionMessage": true,
   "gitlens.keymap": "alternate",
   "gitlens.advanced.messages": {
-      "suppressGitVersionWarning": true,
-      "suppressShowKeyBindingsNotice": true
+    "suppressGitVersionWarning": true,
+    "suppressShowKeyBindingsNotice": true
   },
   "[html]": {
-      "editor.tabSize": 4,
-      "editor.defaultFormatter": "HookyQR.beautify"
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "HookyQR.beautify"
   },
   "[scss]": {
-      "editor.tabSize": 4,
-      "editor.defaultFormatter": "HookyQR.beautify"
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "HookyQR.beautify"
   },
   "[css]": {
-      "editor.tabSize": 4,
-      "editor.defaultFormatter": "HookyQR.beautify"
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "HookyQR.beautify"
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
