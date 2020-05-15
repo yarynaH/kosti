@@ -5,7 +5,7 @@ var libLocation = "../lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
 var sharedLib = require(libLocation + "sharedLib");
-var slackLib = require("/lib/slackLib");
+var socNotLib = require(libLocation + "socialNotificationLib");
 
 var viewGeneric = resolve("error.html");
 var view404 = resolve("404.html");
@@ -13,8 +13,8 @@ var view401 = resolve("401.html");
 
 exports.handleError = function (err) {
   var siteConfig = portal.getSiteConfig();
-  slackLib.sendMessage({
-    channel: app.config.slackChannelSystem,
+  socNotLib.sendMessage({
+    channel: app.config.sendSlackMessage,
     title: "Error " + err.status,
     body: err.message
   });

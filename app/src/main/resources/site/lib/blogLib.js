@@ -29,6 +29,7 @@ exports.updateSchedule = updateSchedule;
 exports.getArticleStatus = getArticleStatus;
 exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 exports.getArticleIntro = getArticleIntro;
+exports.generateTelegramNotificationMessage = generateTelegramNotificationMessage;
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -475,5 +476,17 @@ function generateDiscordNotificationMessage(content) {
     content.displayName +
     "**! Проходи по ссылке и зацени. " +
     content.url
+  );
+}
+
+function generateTelegramNotificationMessage(content) {
+  return (
+    "\uD83D\uDD25" +
+    content.displayName +
+    "\n\r" +
+    getArticleIntro(content) +
+    "\n\r" +
+    "\uD83E\uDD18" +
+    content.urlAbsolute
   );
 }

@@ -2,7 +2,6 @@ var contentLib = require("/lib/xp/content");
 var portal = require("/lib/xp/portal");
 var thymeleaf = require("/lib/thymeleaf");
 var common = require("/lib/xp/common");
-var slackLib = require("/lib/slackLib");
 var telegramLib = require("/lib/telegramLib");
 
 var norseUtils = require("norseUtils");
@@ -12,6 +11,7 @@ var hashLib = require("hashLib");
 var sharedLib = require("sharedLib");
 var blogLib = require("blogLib");
 var permissions = require("permissions");
+var socNotLib = require("socialNotificationLib");
 
 exports.createArticle = createArticle;
 exports.createImage = createImage;
@@ -342,11 +342,11 @@ function getYoutubeVideoId(url) {
 }
 
 function notify(displayName) {
-  slackLib.sendMessage({
+  socNotLib.sendSlackMessage({
     channel: app.config.slackChannelSystem,
     title: "На kostirpg.com отправили статью на модерацию! " + displayName
   });
-  telegramLib.sendMessage({
+  socNotLib.sendTelegramMessage({
     body: "На kostirpg.com отправили статью на модерацию! " + displayName,
     chatId: app.config.telegramAdminChat,
     botId: app.config.telegramBotToken

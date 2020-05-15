@@ -13,6 +13,7 @@ var userLib = require(libLocation + "userLib");
 var blogLib = require(libLocation + "blogLib");
 var commentsLib = require(libLocation + "commentsLib");
 var contextLib = require(libLocation + "contextLib");
+var soNoLib = require(libLocation + "socialNotificationLib");
 
 exports.get = handleReq;
 
