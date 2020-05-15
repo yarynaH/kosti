@@ -4,6 +4,7 @@ exports.runAsAdmin = runAsAdmin;
 exports.runInDraft = runInDraft;
 exports.runInDraftAsAdmin = runInDraftAsAdmin;
 exports.runAsAdminAsUser = runAsAdminAsUser;
+exports.getBranch = getBranch;
 
 function runAsAdmin(callback) {
   return contextLib.run(
@@ -63,4 +64,8 @@ function runInDefault(callback) {
     },
     callback
   );
+}
+
+function getBranch() {
+  return contextLib.get().branch;
 }

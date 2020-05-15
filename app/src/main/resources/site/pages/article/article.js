@@ -12,13 +12,17 @@ var votesLib = require(libLocation + "votesLib");
 var userLib = require(libLocation + "userLib");
 var blogLib = require(libLocation + "blogLib");
 var commentsLib = require(libLocation + "commentsLib");
+var contextLib = require(libLocation + "contextLib");
 
 exports.get = handleReq;
 
-var cache = cacheLib.newCache({
-  size: 1000,
-  expire: 60 * 60 * 24
-});
+var cache =
+  contextLib.getBranch() === "draft"
+    ? null
+    : cacheLib.newCache({
+        size: 1000,
+        expire: 60 * 60 * 24
+      });
 
 function handleReq(req) {
   var user = userLib.getCurrentUser();

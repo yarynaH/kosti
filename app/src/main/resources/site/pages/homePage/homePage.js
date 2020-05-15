@@ -12,8 +12,16 @@ const blogLib = require(libLocation + "blogLib");
 const sharedLib = require(libLocation + "sharedLib");
 const storeLib = require(libLocation + "storeLib");
 const hashtagLib = require(libLocation + "hashtagLib");
+const contextLib = require(libLocation + "contextLib");
 
-const cache = cacheLib.newCache({
+const cache =
+  contextLib.getBranch() === "draft"
+    ? null
+    : cacheLib.newCache({
+        size: 1000,
+        expire: 60 * 60 * 24
+      });
+const videoCache = cacheLib.newCache({
   size: 1000,
   expire: 60 * 60 * 24
 });
@@ -40,8 +48,8 @@ function handleReq(req) {
   function createModel() {
     let content = portal.getContent();
     let site = portal.getSiteConfig();
-    let schedule = getSchedule();
-    let video = getVideo(app.config.gApiKey);
+    let schedule = getScheduleFromCache();
+    let video = getVideoFromCache(app.config.gApiKey);
     let active = {};
     switch (req.params.feed) {
       case "new":
@@ -74,41 +82,49 @@ function handleReq(req) {
 
     return model;
 
+    function getScheduleFromCache() {
+      if (cache) {
+        return cache.get("schedule", function () {
+          return getSchedule();
+        });
+      } else {
+        return getSchedule();
+      }
+    }
+
     function getSchedule() {
-      return cache.get("schedule", function () {
-        let scheduleLocation = contentLib.get({ key: site.scheduleLocation });
-        let now = new Date();
-        now.setDate(now.getDate() - 1);
-        now = now.toISOString();
-        let result = contentLib.query({
-          query: "data.date > dateTime('" + now + "')",
-          start: 0,
-          count: 3,
-          sort: "data.date ASC",
-          contentTypes: [app.name + ":schedule"]
-        }).hits;
-        for (let i = 0; i < result.length; i++) {
-          result[i] = beautifySchedule(result[i]);
-        }
-        let resCopy = JSON.parse(JSON.stringify(result));
-        while (result.length < 3) {
-          for (let i = 0; i < resCopy.length; i++) {
-            if (result.length >= 3) {
-              break;
-            }
-            if (resCopy[i].data.repeat) {
-              let temp = JSON.parse(JSON.stringify(resCopy[i]));
-              let itemDate = new Date(temp.data.date);
-              itemDate.setDate(
-                itemDate.getDate() + 7 * parseInt(temp.data.repeat)
-              );
-              temp.data.date = itemDate;
-              result.push(beautifySchedule(temp));
-            }
+      let scheduleLocation = contentLib.get({ key: site.scheduleLocation });
+      let now = new Date();
+      now.setDate(now.getDate() - 1);
+      now = now.toISOString();
+      let result = contentLib.query({
+        query: "data.date > dateTime('" + now + "')",
+        start: 0,
+        count: 3,
+        sort: "data.date ASC",
+        contentTypes: [app.name + ":schedule"]
+      }).hits;
+      for (let i = 0; i < result.length; i++) {
+        result[i] = beautifySchedule(result[i]);
+      }
+      let resCopy = JSON.parse(JSON.stringify(result));
+      while (result.length < 3) {
+        for (let i = 0; i < resCopy.length; i++) {
+          if (result.length >= 3) {
+            break;
+          }
+          if (resCopy[i].data.repeat) {
+            let temp = JSON.parse(JSON.stringify(resCopy[i]));
+            let itemDate = new Date(temp.data.date);
+            itemDate.setDate(
+              itemDate.getDate() + 7 * parseInt(temp.data.repeat)
+            );
+            temp.data.date = itemDate;
+            result.push(beautifySchedule(temp));
           }
         }
-        return result;
-      });
+      }
+      return result;
     }
 
     function beautifySchedule(item) {
@@ -140,30 +156,38 @@ function handleReq(req) {
       return getSliderView(result);
     }
 
+    function getVideoFromCache(key) {
+      if (videoCache) {
+        return videoCache.get("video", function () {
+          return getVideo(key);
+        });
+      } else {
+        return getVideo(key);
+      }
+    }
+
     function getVideo(key) {
-      return cache.get("video", function () {
-        let response = JSON.parse(
-          httpClientLib.request({
-            url:
-              "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCETKVT-Uj-gAqdSTd2YNaMg&maxResults=1&order=date&type=video&key=" +
-              key,
-            method: "GET",
-            headers: {
-              "X-Custom-Header": "header-value"
-            },
-            contentType: "application/json"
-          }).body
-        );
-        if (
-          response.items &&
-          response.items[0] &&
-          response.items[0].id &&
-          response.items[0].id.videoId
-        ) {
-          return response.items[0].id.videoId;
-        }
-        return false;
-      });
+      let response = JSON.parse(
+        httpClientLib.request({
+          url:
+            "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCETKVT-Uj-gAqdSTd2YNaMg&maxResults=1&order=date&type=video&key=" +
+            key,
+          method: "GET",
+          headers: {
+            "X-Custom-Header": "header-value"
+          },
+          contentType: "application/json"
+        }).body
+      );
+      if (
+        response.items &&
+        response.items[0] &&
+        response.items[0].id &&
+        response.items[0].id.videoId
+      ) {
+        return response.items[0].id.videoId;
+      }
+      return false;
     }
 
     function getVideoUrl(url) {
