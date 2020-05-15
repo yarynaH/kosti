@@ -197,7 +197,7 @@ function getArticleIntro(article) {
     var components = norseUtils.forceArray(
       article.page.regions.main.components
     );
-    for (var i = 0; components.length; i++) {
+    for (var i = 0; i < components.length; i++) {
       if (components[i].type === "text") {
         article.data.intro = components[i].text;
         break;
