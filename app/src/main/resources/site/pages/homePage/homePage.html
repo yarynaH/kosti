@@ -29,7 +29,8 @@
                                 <span class="month" data-th-text="${scheduleItem.month}"></span>
                                 <span class="date" data-th-text="${scheduleItem.time}"></span>
                             </div>
-                            <h3 class="schedule-title" data-th-text="${scheduleItem.displayName}"></h3>
+                            <a data-th-href="${scheduleItem.url}" class="schedule-title"
+                                data-th-text="${scheduleItem.displayName}"></a>
                             <div class="tag-list tag-list__small tag-list__white">
                                 <a data-th-each="hashtag : ${scheduleItem.hashtags}" data-th-href="${hashtag.url}"
                                     data-th-if="${hashtag}" class="tag-item" data-th-text="${hashtag.displayName}"></a>

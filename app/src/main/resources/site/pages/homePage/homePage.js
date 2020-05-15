@@ -134,6 +134,7 @@ function handleReq(req) {
       item.day = itemDate.getDate().toFixed();
       item.hashtags = hashtagLib.getHashtags(item.data.hashtags);
       item.time = norseUtils.getTime(itemDate);
+      item.url = portal.pageUrl({ path: item._path });
       if (item.repeat) {
         repeatedItems = true;
       }

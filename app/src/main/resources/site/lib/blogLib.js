@@ -120,9 +120,19 @@ function beautifyArticle(article, cache) {
   } else {
     article = beautifyGeneralFields(article);
   }
-  article.date = kostiUtils.getTimePassedSincePostCreation(
-    new Date(moment(article.publish.from))
-  );
+  if (article.data.date) {
+    var itemDate = new Date(article.data.date);
+    article.date =
+      itemDate.getDate().toFixed() +
+      " " +
+      norseUtils.getMonthName(itemDate) +
+      " " +
+      norseUtils.getTime(itemDate);
+  } else {
+    article.date = kostiUtils.getTimePassedSincePostCreation(
+      new Date(moment(article.publish.from))
+    );
+  }
   article.votes = votesLib.countUpvotes(article._id);
   article.voted = false;
   article.views = votesLib.countViews(article._id);

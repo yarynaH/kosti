@@ -24,6 +24,13 @@
         <allowContentType>hashtag</allowContentType>
       </config>
     </input>
+    <input name="author" type="ContentSelector">
+      <label>Author</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <allowContentType>com.myurchenko.kostirpg:user</allowContentType>
+      </config>
+    </input>
     <input name="repeat" type="ComboBox">
       <label>Repeat</label>
       <occurrences minimum="0" maximum="1"/>
