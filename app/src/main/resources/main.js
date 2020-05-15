@@ -20,15 +20,9 @@ event.listener({
       var nodes = parseNodes(e.data.nodes);
       for (var i = 0; i < nodes.length; i++) {
         var node = content.get({ key: nodes[0].id });
-        if (node && node.type && node.type == app.name + ":article") {
-          contextLib.runAsAdmin(function () {
-            votesLib.createBlankVote(node._id, "article");
-          });
-        } else if (node && node.type && node.type == app.name + ":hashtag") {
-          contextLib.runAsAdmin(function () {
-            votesLib.createBlankVote(node._id, "hashtag");
-          });
-        }
+        contextLib.runAsAdmin(function () {
+          votesLib.createBlankVote(node._id);
+        });
       }
     }
     return true;
@@ -44,12 +38,12 @@ event.listener({
       var nodes = parseNodes(e.data.nodes);
       for (var i = 0; i < nodes.length; i++) {
         var node = content.get({ key: nodes[0].id });
+        var vote = votesLib.getNode(node._id);
+        if (!vote) {
+          vote = votesLib.createBlankVote(node._id, "article");
+        }
+        votesLib.setVoteDate(vote._id, node.publish.from);
         if (node && node.type && node.type == app.name + ":article") {
-          var vote = votesLib.getNode(node._id);
-          if (!vote) {
-            vote = votesLib.createBlankVote(node._id, "article");
-          }
-          votesLib.setVoteDate(vote._id, node.publish.from);
           if (!vote.notified) {
             node.url = pageUrl(node);
             var message = blogLib.generateDiscordNotificationMessage(node);
