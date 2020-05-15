@@ -57,8 +57,9 @@
                         data-th-text="${portal.localize({'_key=homepage.title.podcasts', '_locale=ru'})}"></a>
                 </div>
                 <div class="blog-list-wrap">
-                    <div class="blog-list" data-th-utext="${articles}" data-page="1"
-                        data-th-attr="data-date=${hotDate},data-start=${articlesQuery.nextStart}"></div>
+                    <div class="blog-list" data-th-utext="${articles}" data-page="0" data-th-attr="data-date=${hotDate}"
+                        data-load-more="true">
+                    </div>
                     <div data-th-utext="${loadMoreComponent}" data-th-remove="tag"></div>
                 </div>
                 <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
