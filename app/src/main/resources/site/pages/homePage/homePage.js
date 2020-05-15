@@ -75,7 +75,7 @@ function handleReq(req) {
       video: video
         ? "https://www.youtube.com/embed/" + video
         : getVideoUrl(site.video),
-      sidebar: blogLib.getSidebar(),
+      sidebar: blogLib.getSidebar({ cache: cache }),
       schedule: schedule,
       active: active,
       articlesQuery: articlesQuery,
@@ -152,7 +152,7 @@ function handleReq(req) {
       articles = norseUtils.forceArray(articles);
       for (var i = 0; i < articles.length; i++) {
         var temp = contentLib.get({ key: articles[i] });
-        result[i] = blogLib.beautifyArticle(temp);
+        result[i] = blogLib.beautifyArticle(temp, cache);
       }
       return getSliderView(result);
     }

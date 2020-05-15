@@ -46,8 +46,15 @@ function getSolialLinks() {
   );
 }
 
-function getWeekArticle() {
-  var weekArticleId = votesLib.getWeekArticleId();
+function getWeekArticle(params) {
+  if (!params) {
+    var params = {};
+  }
+  var weekArticleId = params.cache
+    ? params.cache.get("weekid", function () {
+        return votesLib.getWeekArticleId();
+      })
+    : votesLib.getWeekArticleId();
   var article = contentLib.get({ key: weekArticleId });
   if (!article) {
     return "";
@@ -77,18 +84,61 @@ function getSidebar(params) {
   }
   return thymeleaf.render(
     resolve("../pages/components/blog/blogSidebar.html"),
-    {
-      weeksPost: getWeekArticle(),
-      socialLinks: getSolialLinks(),
-      libraryHot: getLibraryHot(),
-      hotTags: getHotTags(),
-      hideNewArticleButton: params.hideNewArticleButton,
-      createArticleUrl: sharedLib.generateNiceServiceUrl("create")
-    }
+    getSidebarModel({ cache: params.cache })
   );
 }
 
-function beautifyArticle(article) {
+function getSidebarModel(params) {
+  if (!params) {
+    params = {};
+  }
+  var socialLinks = params.cache
+    ? params.cache.get("sociallinks", function () {
+        return getSolialLinks();
+      })
+    : getSolialLinks();
+  var hotTags = params.cache
+    ? params.cache.get("hottags", function () {
+        return getHotTags();
+      })
+    : getHotTags();
+  return {
+    weeksPost: getWeekArticle({ cache: params.cache }),
+    socialLinks: socialLinks,
+    //libraryHot: getLibraryHot(),
+    hotTags: hotTags,
+    hideNewArticleButton: params.hideNewArticleButton,
+    createArticleUrl: sharedLib.generateNiceServiceUrl("create")
+  };
+}
+
+function beautifyArticle(article, cache) {
+  if (cache) {
+    article = cache.get(article._id, function () {
+      return beautifyGeneralFields(article);
+    });
+  } else {
+    article = beautifyGeneralFields(article);
+  }
+  article.date = kostiUtils.getTimePassedSincePostCreation(
+    new Date(moment(article.publish.from))
+  );
+  article.votes = votesLib.countUpvotes(article._id);
+  article.voted = false;
+  article.views = votesLib.countViews(article._id);
+  article.bookmarked = userLib.checkIfBookmarked(article._id);
+  article.commentsCounter = commentsLib
+    .getCommentsByArticle({ id: article._id, count: true })
+    .toFixed();
+  article.shares = votesLib.countShares(article._id);
+  if (parseInt(article.votes) > 0) {
+    article.voted = votesLib.checkIfVoted(article._id);
+  }
+  article.status = getArticleStatus(article._id);
+  return article;
+}
+
+function beautifyGeneralFields(article) {
   article.image = norseUtils.getImage(article.data.image, "block(767, 350)");
   article.imageMobile = norseUtils.getImage(
     article.data.image,
@@ -115,6 +165,8 @@ function beautifyArticle(article) {
   } else {
     article.author = userLib.getUserDataById(null);
   }
+  article.hashtags = hashtagLib.getHashtags(article.data.hashtags);
+  article.data.intro = getArticleIntro(article);
   article.url = portal.pageUrl({ id: article._id });
   article.urlAbsolute = portal.pageUrl({ id: article._id, type: "absolute" });
   if (!article.publish) {
@@ -124,21 +176,6 @@ function beautifyArticle(article) {
     var date = new Date();
     article.publish.from = date.toISOString();
   }
-  article.date = kostiUtils.getTimePassedSincePostCreation(
-    new Date(moment(article.publish.from))
-  );
-  article.votes = votesLib.countUpvotes(article._id);
-  article.voted = false;
-  article.views = votesLib.countViews(article._id);
-  article.bookmarked = userLib.checkIfBookmarked(article._id);
-  article.commentsCounter = commentsLib.countComments(article._id).toFixed();
-  article.shares = votesLib.countShares(article._id);
-  if (parseInt(article.votes) > 0) {
-    article.voted = votesLib.checkIfVoted(article._id);
-  }
-  article.hashtags = hashtagLib.getHashtags(article.data.hashtags);
-  article.status = getArticleStatus(article._id);
-  article.data.intro = getArticleIntro(article);
   return article;
 }
 

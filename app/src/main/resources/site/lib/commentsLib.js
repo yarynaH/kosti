@@ -19,6 +19,7 @@ exports.getComment = getComment;
 exports.beautifyComment = beautifyComment;
 exports.getCommentParentArticle = getCommentParentArticle;
 exports.getCommentsView = getCommentsView;
+exports.getCommentsByArticle = getCommentsByArticle;
 
 function addComment(parent, body, articleId) {
   var commentsRepo = connectCommentsRepo();
@@ -253,11 +254,34 @@ function connectCommentsRepo() {
   });
 }
 
+function getCommentsByArticle(params) {
+  if (!params) {
+    return {};
+  }
+  var commentsRepo = connectCommentsRepo();
+  var temp = commentsRepo.query({
+    start: 0,
+    count: -1,
+    query: "articleId = '" + params.id + "'"
+  });
+  if (params.count) {
+    return temp.total;
+  }
+  var result = [];
+  for (var i = 0; i < temp.hits.length; i++) {
+    var comment = commentsRepo.get(temp.hits[i].id);
+    comment = beautifyComment(comment, counter, level);
+    result.push(comment);
+  }
+  return result;
+}
+
 function countComments(id) {
   var comments = getCommentsByParent(id, true);
   var commentsCounter = comments.length;
-  for (var i = 0; i < comments.length; i++)
+  for (var i = 0; i < comments.length; i++) {
     commentsCounter += countComments(comments[i]._id);
+  }
   return commentsCounter;
 }
 
