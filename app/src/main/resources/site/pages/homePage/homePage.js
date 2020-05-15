@@ -24,10 +24,8 @@ function handleReq(req) {
   let user = userLib.getCurrentUser();
 
   function renderView() {
-    norseUtils.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     let view = resolve("homePage.html");
     let model = createModel();
-    norseUtils.log("5");
     let body = thymeleaf.render(view, model);
     let fileName = portal.assetUrl({ path: "js/homepage.js" });
     return {
@@ -59,7 +57,6 @@ function handleReq(req) {
         active.hot = "active";
         break;
     }
-    norseUtils.log("4");
 
     let model = {
       content: content,
