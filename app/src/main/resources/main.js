@@ -40,7 +40,7 @@ event.listener({
         var node = content.get({ key: nodes[0].id });
         var vote = votesLib.getNode(node._id);
         if (!vote) {
-          vote = votesLib.createBlankVote(node._id, "article");
+          vote = votesLib.createBlankVote(node._id);
         }
         votesLib.setVoteDate(vote._id, node.publish.from);
         if (node && node.type && node.type == app.name + ":article") {
