@@ -2,6 +2,8 @@ var contentLib = require("/lib/xp/content");
 var portal = require("/lib/xp/portal");
 var thymeleaf = require("/lib/thymeleaf");
 var common = require("/lib/xp/common");
+var slackLib = require("/lib/slackLib");
+var telegramLib = require("/lib/telegramLib");
 
 var norseUtils = require("norseUtils");
 var userLib = require("userLib");
@@ -31,6 +33,9 @@ function editArticle(data) {
     var article = editArticleObject(data, user);
     if (!article.error) {
       article = insertComponents(article._id, data.components);
+    }
+    if (!data.saveAsDraft && article) {
+      notify(article.displayName);
     }
     return article;
   });
@@ -111,6 +116,9 @@ function createArticleObject(data, user, saveAsDraft) {
     overwriteChildPermissions: true,
     permissions: permissions.default(user.key)
   });
+  if (!saveAsDraft && result) {
+    notify(result.displayName);
+  }
   return result;
 }
 
@@ -331,4 +339,16 @@ function getYoutubeVideoId(url) {
     }
   }
   return null;
+}
+
+function notify(displayName) {
+  slackLib.sendMessage({
+    channel: app.config.slackChannelSystem,
+    title: "На kostirpg.com отправили статью на модерацию! " + displayName
+  });
+  telegramLib.sendMessage({
+    body: "На kostirpg.com отправили статью на модерацию! " + displayName,
+    chatId: app.config.telegramAdminChat,
+    botId: app.config.telegramBotToken
+  });
 }

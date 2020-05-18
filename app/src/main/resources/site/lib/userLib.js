@@ -164,6 +164,7 @@ function getUserDataById(id) {
 }
 
 function vkRegister(code) {
+  var site = portal.getSite();
   var url =
     "https://oauth.vk.com/access_token?" +
     "client_id=7018935&client_secret=5qh6sNny1XFW73sPEQXw&" +
@@ -171,7 +172,8 @@ function vkRegister(code) {
     code +
     "&" +
     "redirect_uri=" +
-    portal.serviceUrl({ service: "vklogin", type: "absolute" });
+    portal.pageUrl({ _path: site._path, type: "absolute" }) +
+    "user/auth/vk";
   var emailRequest = JSON.parse(
     httpClientLib.request({
       url: url,
@@ -211,8 +213,11 @@ function vkRegister(code) {
 }
 
 function discordRegister(code) {
+  var site = portal.getSite();
   var data =
-    "redirect_uri=" + portal.serviceUrl({ service: "user", type: "absolute" });
+    "redirect_uri=" +
+    portal.pageUrl({ _path: site._path, type: "absolute" }) +
+    "user/auth/discord";
   data += "&grant_type=authorization_code";
   data += "&scope=identify%20email";
   data += "&code=" + code;

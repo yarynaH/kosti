@@ -50,9 +50,12 @@ $color-twitch: #673ab7;
 $color-google: #afafaf;
 $color-discord: #8c9eff;
 
-$font-main-regular: "Roboto", Arial;
-$font-main-ticket: "Bahnschrift", Arial;
-$font-additional-regular: "Bahnschrift", Arial;
+$font-main-regular: "Roboto",
+Arial;
+$font-main-ticket: "Bahnschrift",
+Arial;
+$font-additional-regular: "Bahnschrift",
+Arial;
 
 $body-font-size: 14;
 $body-font-weight: 300;
@@ -71,17 +74,19 @@ $space-xxl: 50px;
 ///
 
 $breakpoint-mobile-small-max: 320px;
-$breakpoint-mobile-min: $breakpoint-mobile-small-max + 1;
+$breakpoint-mobile-min: $breakpoint-mobile-small-max+1;
+$breakpoint-mobile-medium-max: 374px;
+$breakpoint-mobile-medium-min: $breakpoint-mobile-medium-max+1;
 $breakpoint-mobile-max: 767px;
-$breakpoint-tablet-min: $breakpoint-mobile-max + 1;
+$breakpoint-tablet-min: $breakpoint-mobile-max+1;
 $breakpoint-tablet-max: 1024px;
-$breakpoint-desktop-min: $breakpoint-tablet-max + 1;
+$breakpoint-desktop-min: $breakpoint-tablet-max+1;
 $breakpoint-desktop-max: 1200px;
-$breakpoint-desktop-large-min: $breakpoint-desktop-max + 1;
+$breakpoint-desktop-large-min: $breakpoint-desktop-max+1;
 $breakpoint-desktop-large-max: 1800px;
 
 $breakpoint-portrait-max: 960px;
-$breakpoint-tablet-landscape-min: $breakpoint-portrait-max + 1;
+$breakpoint-tablet-landscape-min: $breakpoint-portrait-max+1;
 
 $desktop1: "only screen and (min-width : #{$breakpoint-desktop-min})";
 $desktop-main1: "only screen and (max-width : #{$breakpoint-desktop-max})";
@@ -93,6 +98,8 @@ $tablet-portrait1: "only screen and (min-width : #{$breakpoint-tablet-min}) and 
 $tablet-landscape-all: "only screen and (min-width : #{$breakpoint-tablet-landscape-min})";
 $tablet-landscape1: "only screen and (min-width : #{$breakpoint-tablet-landscape-min}) and (max-width : #{$breakpoint-tablet-max})";
 $tablet-mobile1: "only screen and (max-width : #{$breakpoint-tablet-max})";
+$mobile-xs: "only screen and (max-width : #{$breakpoint-mobile-medium-max})";
+$mobile-all: "only screen and (min-width : #{$breakpoint-tablet-min})";
 $mobile1: "only screen and (max-width : #{$breakpoint-mobile-max})";
 $mobile1-landscape: "only screen and (min-width : #{$breakpoint-mobile-min})";
 $mobile-portrait: "only screen and (max-width : #{$breakpoint-mobile-small-max})";

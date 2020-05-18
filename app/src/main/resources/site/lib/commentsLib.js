@@ -19,6 +19,7 @@ exports.getComment = getComment;
 exports.beautifyComment = beautifyComment;
 exports.getCommentParentArticle = getCommentParentArticle;
 exports.getCommentsView = getCommentsView;
+exports.getCommentsByArticle = getCommentsByArticle;
 
 function addComment(parent, body, articleId) {
   var commentsRepo = connectCommentsRepo();
@@ -233,14 +234,16 @@ function beautifyComment(comment, counter, level) {
 }
 
 function processBody(body) {
+  body = createTextLinks(body);
   body = body.replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>"); // **bold**
   body = body.replace(/__([^*]+)__/g, "<u>$1</u>"); // __underline__
-  body = body.replace(/\/\/([^*]+)\/\//g, "<i>$1</i>"); //italic//
+  body = body.replace(/([^:])\/\/([^*]+)([^:])\/\//g, function (a, b, c, d, e) {
+    return "<i>" + b + c + d + "</i>";
+  }); //italic//
   body = body.replace(/~~([^*]+)~~/g, "<s>$1</s>"); //~~strikethrough~~
   body = body.replace(/```([^*]+)```/g, "<pre>$1</pre>"); //```quote```
   body = body.replace(/\|\|([^*]+)\|\|/g, "<spoiler>$1</spoiler>"); //||spoiler||
   body = body.replace(/\r\n/g, "<br />");
-  body = createTextLinks(body);
   return body;
 }
 
@@ -251,11 +254,34 @@ function connectCommentsRepo() {
   });
 }
 
+function getCommentsByArticle(params) {
+  if (!params) {
+    return {};
+  }
+  var commentsRepo = connectCommentsRepo();
+  var temp = commentsRepo.query({
+    start: 0,
+    count: -1,
+    query: "articleId = '" + params.id + "'"
+  });
+  if (params.count) {
+    return temp.total;
+  }
+  var result = [];
+  for (var i = 0; i < temp.hits.length; i++) {
+    var comment = commentsRepo.get(temp.hits[i].id);
+    comment = beautifyComment(comment, counter, level);
+    result.push(comment);
+  }
+  return result;
+}
+
 function countComments(id) {
   var comments = getCommentsByParent(id, true);
   var commentsCounter = comments.length;
-  for (var i = 0; i < comments.length; i++)
+  for (var i = 0; i < comments.length; i++) {
     commentsCounter += countComments(comments[i]._id);
+  }
   return commentsCounter;
 }
 

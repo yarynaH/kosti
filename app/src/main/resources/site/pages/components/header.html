@@ -1,76 +1,48 @@
 <div class="site_width">
-  <div class="header-logo">
-    <a data-th-href="${portal.pageUrl({'_path=' + site._path})}">
-      <img
-        data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}"
-        alt="Vechernie kosti logo"
-        class="header-logo-default"
-      />
-      <img
-        data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}"
-        alt="Vechernie kosti logo"
-        class="header-logo-scroll"
-      />
-    </a>
-  </div>
-  <div class="mobile_menu">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-  <div class="header-utility">
-    <ul class="nav-list">
-      <li data-th-each="menuItem: ${menuItems}" class="nav-item">
-        <a
-          data-th-href="${menuItem.url}"
-          class="nav-link"
-          data-th-attr="title=${menuItem.title}"
-          data-th-text="${menuItem.title}"
-          data-th-classappend="${menuItem.active ? 'active' : ''}"
-          >Блог</a
-        >
-      </li>
-    </ul>
-    <div data-th-utext="${search}"></div>
-    <div
-      class="header-notification js_header-notification"
-      data-th-if="${user}"
-      data-th-classappend="${user.notificationsCounter > 0 ? 'have_qty' : ''}"
-    >
-      <a
-        data-th-href="${user.url + '?action=notifications'}"
-        class="nav-link notification-utility"
-      >
-        <span class="notification-icon js_notification-icon">
-          <span
-            class="notification-qty"
-            data-th-if="${user.notificationsCounter}"
-            data-th-text="${user.notificationsCounter}"
-          ></span>
-        </span>
-        <span class="header-link_text">Уведомления</span>
-      </a>
-      <div class="notification-block">
-        <div class="notification-header">
-          <h5 class="notification-title">Уведомления</h5>
-          <a
-            data-th-href="${user.url + '?action=notifications'}"
-            class="notification-link"
-            >Показать все</a
-          >
-        </div>
-        <div class="notification-body">
-          <ul class="notification-list js_notification-block"></ul>
-        </div>
-      </div>
+    <div class="header-logo">
+        <a data-th-href="${portal.pageUrl({'_path=' + site._path})}">
+            <img data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}" alt="Vechernie kosti logo"
+                class="header-logo-default" />
+            <img data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Vechernie kosti logo"
+                class="header-logo-scroll" />
+        </a>
     </div>
-    <div
-      data-th-utext="${headerUser}"
-      class="header-user js_header-user-wrap"
-    ></div>
-  </div>
-  <div class="active_element"></div>
+    <div class="mobile_menu">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="header-utility">
+        <ul class="nav-list">
+            <li data-th-each="menuItem: ${menuItems}" class="nav-item">
+                <a data-th-href="${menuItem.url}" class="nav-link" data-th-attr="title=${menuItem.title}"
+                    data-th-text="${menuItem.title}" data-th-classappend="${menuItem.active ? 'active' : ''}">Блог</a>
+            </li>
+        </ul>
+        <div data-th-utext="${search}"></div>
+        <div class="header-notification js_header-notification" data-th-if="${user}"
+            data-th-classappend="${user.notificationsCounter > 0 ? 'have_qty' : ''}">
+            <a data-th-href="${user.url + '?action=notifications'}" class="nav-link notification-utility">
+                <span class="notification-icon js_notification-icon">
+                    <span class="notification-qty" data-th-if="${user.notificationsCounter}"
+                        data-th-text="${user.notificationsCounter}"></span>
+                </span>
+                <span class="header-link_text">Уведомления</span>
+            </a>
+            <div class="notification-block">
+                <div class="notification-header">
+                    <h5 class="notification-title">Уведомления</h5>
+                    <a data-th-href="${user.url + '?action=notifications'}" class="notification-link">Показать все</a>
+                </div>
+                <div class="notification-body">
+                    <ul class="notification-list js_notification-block"></ul>
+                </div>
+            </div>
+        </div>
+        <div data-th-utext="${headerUser}" class="header-user js_header-user-wrap"></div>
+    </div>
+    <div class="active_element"></div>
 </div>

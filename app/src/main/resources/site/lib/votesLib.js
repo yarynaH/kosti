@@ -216,6 +216,9 @@ function getVoteType(id) {
     case app.name + ":product":
       return "product";
       break;
+    case app.name + ":schedule":
+      return "schedule";
+      break;
     default:
       return "article";
       break;

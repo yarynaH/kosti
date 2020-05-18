@@ -103,6 +103,11 @@
             &:hover {
                 text-decoration: underline;
             }
+
+            &.attachment {
+                display: block;
+                margin-bottom: 25px;
+            }
         }
 
         ol {

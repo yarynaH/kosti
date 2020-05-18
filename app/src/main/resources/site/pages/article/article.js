@@ -2,6 +2,7 @@ var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
 var thymeleaf = require("/lib/thymeleaf");
 var util = require("/lib/util");
+var cacheLib = require("/lib/cache");
 
 var libLocation = "../../lib/";
 var norseUtils = require(libLocation + "norseUtils");
@@ -11,8 +12,17 @@ var votesLib = require(libLocation + "votesLib");
 var userLib = require(libLocation + "userLib");
 var blogLib = require(libLocation + "blogLib");
 var commentsLib = require(libLocation + "commentsLib");
+var contextLib = require(libLocation + "contextLib");
 
 exports.get = handleReq;
+
+var cache =
+  contextLib.getBranch() === "draft"
+    ? null
+    : cacheLib.newCache({
+        size: 1000,
+        expire: 60 * 60 * 24
+      });
 
 function handleReq(req) {
   var user = userLib.getCurrentUser();
@@ -60,7 +70,7 @@ function handleReq(req) {
         {}
       );
     }
-    content = blogLib.beautifyArticle(content);
+    content = blogLib.beautifyArticle(content, cache);
     let audio = null;
     let podcastUrl = null;
     if (content.type === app.name + ":podcast" && content.data.audioFile) {
@@ -84,7 +94,7 @@ function handleReq(req) {
       content: content,
       audio: audio,
       podcastUrl: podcastUrl,
-      sidebar: blogLib.getSidebar(),
+      sidebar: blogLib.getSidebar({ cache: cache }),
       mainRegion: mainRegion,
       removeCommentModal: removeCommentModal,
       pageComponents: helpers.getPageComponents(req, "footerBlog"),

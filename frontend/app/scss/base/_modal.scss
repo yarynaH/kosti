@@ -1,19 +1,16 @@
 .modal {
   @include position(fixed, top 0 right 0 bottom 0 left 0);
 
+  display: none;
   background-color: rgba($color-primary21, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
   overflow: hidden;
   transition: transition(opacity);
   z-index: 12;
-  pointer-events: none;
 
   &.show {
-    opacity: 1 !important;
-    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   &-dialog {
@@ -65,20 +62,43 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 25px;
-    padding: 40px 40px 0;
+    padding: 20px 20px 0;
+
+    @include tablet-all() {
+      padding: 40px 40px 0;
+    }
   }
 
   &-body {
-    padding: 0 40px;
+    padding: 0 20px;
+
+    @include tablet-all() {
+      padding: 0 40px;
+    }
   }
 
   &-footer {
-    padding: 0 40px 40px;
+    padding: 20px 20px;
+
+    @include tablet-all() {
+      padding: 40px 40px;
+    }
   }
 
   &-btn {
     @include button-style(global light);
 
-    margin: 15px 0 40px;
+    margin: 15px 0 25px;
+
+    @include mobile-all() {
+      margin-bottom: 40px;
+    }
+  }
+
+  &-open {
+    height: 100vh;
+    overflow-y: hidden;
+    position: fixed;
+    width: 100%;
   }
 }

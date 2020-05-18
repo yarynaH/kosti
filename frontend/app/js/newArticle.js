@@ -10,7 +10,7 @@ $(".js_tinymce-editor").each(function () {
 checkSimilarArticlesAmount();
 checkHashtagsAmount();
 
-$("[contenteditable='true']").bind("paste", function (e) {
+$("#newArticleForm").on("paste", "[contenteditable='true']", function (e) {
   e.preventDefault();
   var data = e.originalEvent.clipboardData.getData("text");
   data = sanitizeString(data);
@@ -40,9 +40,12 @@ $("#newArticleForm").on("submit", function (e) {
       components.push({ type: "text", value: value });
     } else if (part.hasClass("js_image-editor")) {
       components.push({
-        type: "image",
-        value: part.data().imageid,
-        caption: part.find("input").val()
+        type: "part",
+        descriptor: "image",
+        config: {
+          image: part.data().imageid,
+          caption: part.find("input").val()
+        }
       });
     } else if (part.hasClass("js_video-editor")) {
       if (
@@ -255,7 +258,8 @@ function initEditor(id) {
       "insertdatetime table paste help autoresize link"
     ],
     toolbar:
-      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link"
+      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+    content_style: "pre{ white-space: normal; }"
   });
 }
 

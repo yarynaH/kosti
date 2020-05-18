@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="page-wrapper">
-    <div
-      data-th-remove="tag"
-      data-th-utext="${pageComponents.loginRegisterModal}"
-    ></div>
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main" id="payment-success">
-      <div class="confirmation-wrap">
-        <div class="site_width">
-          <h2
-            class="checkout-title"
-            data-th-text="${portal.localize({'_key=global.error.login.required.heading', '_locale=ru'})}"
-          ></h2>
-          <div
-            class="confirmation-msg"
-            data-th-text="${portal.localize({'_key=global.error.login.required.description', '_locale=ru'})}"
-          ></div>
+        <div class="confirmation-wrap">
+            <div class="site_width">
+                <h2 class="checkout-title"
+                    data-th-text="${portal.localize({'_key=global.error.login.required.heading', '_locale=ru'})}"></h2>
+                <div class="confirmation-msg"
+                    data-th-text="${portal.localize({'_key=global.error.login.required.description', '_locale=ru'})}">
+                </div>
+            </div>
         </div>
-      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-  </body>
+</body>
+
 </html>

@@ -7,6 +7,7 @@ var authLib = require("/lib/xp/auth");
 var cartLib = require("cartLib");
 var nodeLib = require("/lib/xp/node");
 var sharedLib = require("sharedLib");
+var blogLib = require("blogLib");
 var i18nLib = require("/lib/xp/i18n");
 
 exports.fixPermissions = fixPermissions;
@@ -60,7 +61,9 @@ function getPageComponents(req, footerType, activeEl, title) {
       type: "absolute"
     });
   }
-  if (content && content.data && content.data.intro) {
+  if (content && content.type === app.name + ":article") {
+    var ogDescription = blogLib.getArticleIntro(content);
+  } else if (content && content.data && content.data.intro) {
     var ogDescription = content.data.intro.replace(
       /(&nbsp;|(<([^>]+)>))/gi,
       ""
@@ -98,14 +101,17 @@ function getPageComponents(req, footerType, activeEl, title) {
   var discordUrl = "https://discordapp.com/api/oauth2/authorize?";
   discordUrl += "client_id=605493268326776853";
   discordUrl +=
-    "&redirect_uri=" + portal.serviceUrl({ service: "user", type: "absolute" });
+    "&redirect_uri=" +
+    portal.pageUrl({ _path: site._path, type: "absolute" }) +
+    "user/auth/discord";
   discordUrl += "&response_type=code";
   discordUrl += "&scope=email%20identify";
   var vkUrl =
     "https://oauth.vk.com/authorize?" +
     "client_id=7018935&scope=4194304&" +
     "redirect_uri=" +
-    portal.serviceUrl({ service: "vklogin", type: "absolute" }) +
+    portal.pageUrl({ _path: site._path, type: "absolute" }) +
+    "user/auth/vk" +
     "&v=5.102";
   pageComponents["loginRegisterModal"] = thymeleaf.render(
     resolve("../pages/components/loginRegisterModal.html"),

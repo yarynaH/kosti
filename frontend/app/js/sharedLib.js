@@ -23,7 +23,9 @@ function deleteCookie(name) {
 
 function showLogin(e) {
   e.stopPropagation();
-  $("body div.modal-login").addClass("show");
+  hideAllModals();
+  removeScroll();
+  $(".js_login-form").addClass("show");
 }
 
 function getCookieValue(a) {

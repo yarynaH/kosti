@@ -1,2 +1,34 @@
 {
+  "editor.tabSize": 2,
+  "workbench.iconTheme": "vscode-icons",
+  "editor.renderWhitespace": "all",
+  "window.title": "${dirty}${activeEditorLong}${separator}${rootName}${separator}${appName}",
+  "extensions.autoUpdate": true,
+  "projectManager.showProjectNameInStatusBar": true,
+  "files.autoSave": "off",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.minimap.showSlider": "always",
+  "editor.renderControlCharacters": true,
+  "files.trimTrailingWhitespace": false,
+  "workbench.sideBar.location": "left",
+  "gitlens.keymap": "alternate",
+  "gitlens.advanced.messages": {
+    "suppressGitVersionWarning": true,
+    "suppressShowKeyBindingsNotice": true
+  },
+  "[html]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "[scss]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "[css]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "HookyQR.beautify"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "brace_style": "expand"
 }

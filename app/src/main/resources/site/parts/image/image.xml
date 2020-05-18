@@ -1,12 +1,12 @@
 <part>
-  <display-name>OUTDATED Gif</display-name>
+  <display-name>Image</display-name>
   <form>
-    <input type="AttachmentUploader" name="image">
+    <input type="ImageSelector" name="image">
       <label>Image</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
-    <input type="TextLine" name="title">
-      <label>Title</label>
+    <input type="TextLine" name="caption">
+      <label>Caption</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
   </form>

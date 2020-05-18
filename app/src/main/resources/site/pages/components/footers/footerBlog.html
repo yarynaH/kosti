@@ -1,20 +1,12 @@
 <div class="back_to_top js_back_to_top hidden"></div>
 <div id="fb-root"></div>
 <div class="blog_width clearfix">
-  <div class="blog-list-wrap">
-    <ul class="footer-nav">
-      <li
-        class="footer-item"
-        data-th-if="${footerLinks}"
-        data-th-each="link: ${footerLinks}"
-      >
-        <a
-          class="footer-link"
-          data-th-href="${link.url}"
-          data-th-text="${link.displayName}"
-          data-th-title="${link.displayName}"
-        ></a>
-      </li>
-    </ul>
-  </div>
+    <div class="blog-list-wrap">
+        <ul class="footer-nav">
+            <li class="footer-item" data-th-if="${footerLinks}" data-th-each="link: ${footerLinks}">
+                <a class="footer-link" data-th-href="${link.url}" data-th-text="${link.displayName}"
+                    data-th-title="${link.displayName}"></a>
+            </li>
+        </ul>
+    </div>
 </div>

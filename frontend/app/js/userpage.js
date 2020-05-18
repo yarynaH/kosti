@@ -1,3 +1,6 @@
+var imageApi = "/api/user/image";
+var userApi = "/api/user";
+
 function initUserPageFunctions() {
   $("#userImageUpload").on("submit", function (e) {
     e.preventDefault();
@@ -10,7 +13,7 @@ function initUserPageFunctions() {
       showLoader();
       $.ajax({
         type: "POST",
-        url: userServiceUrl,
+        url: imageApi,
         data: formData,
         cache: false,
         contentType: false,
@@ -21,10 +24,8 @@ function initUserPageFunctions() {
           hideLoader();
         },
         error: function (data) {
-          console.log("error");
-          console.log(data);
           hideLoader();
-        },
+        }
       });
     } else {
       showSnackBar("Не подходящий файл для аватара.", "error");
@@ -34,9 +35,11 @@ function initUserPageFunctions() {
     e.preventDefault();
     e.stopPropagation();
     $(".modal-edit_user").addClass("show");
+    removeScroll();
   });
   $(".js_edit_user-form").on("submit", function (e) {
     e.preventDefault();
+    showLoader();
     var formData = getFormData(this);
     editUserData(formData);
   });
@@ -55,8 +58,9 @@ $(document).ready(function () {
 });
 
 function editUserData(formData) {
-  var call = makeAjaxCall(userServiceUrl, "POST", formData, true);
+  var call = makeAjaxCall(userApi, "POST", formData, true);
   call.done(function (data) {
     $(".modal-edit_user").removeClass("show");
+    hideLoader();
   });
 }
