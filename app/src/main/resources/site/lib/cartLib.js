@@ -181,7 +181,7 @@ function getCreatedCarts(params) {
 }
 
 function modifyCartWithParams(id, params) {
-  return contextLib.runAsAdmin(function() {
+  return contextLib.runAsAdmin(function () {
     return setUserDetails(id, params);
   });
 }
@@ -197,7 +197,7 @@ function savePrices(cartId) {
     if (node.items) {
       node.items = norseUtils.forceArray(node.items);
       for (var i = 0; i < node.items.length; i++) {
-        var item = contextLib.runInDefault(function() {
+        var item = contextLib.runInDefault(function () {
           return contentLib.get({ key: node.items[i].id });
         });
         if (item && item.data && item.data.price) {
@@ -273,7 +273,7 @@ function modifyInventory(items) {
     var result = contentLib.modify({
       key: items[i]._id,
       requireValid: false,
-      editor: function(node) {
+      editor: function (node) {
         return editor(node, items[i]);
       }
     });
@@ -388,7 +388,7 @@ function generateItemsIds(cartId) {
       node.items = norseUtils.forceArray(node.items);
       for (var i = 0; i < node.items.length; i++) {
         node.items[i].itemsIds = [];
-        var item = contextLib.runInDefault(function() {
+        var item = contextLib.runInDefault(function () {
           return contentLib.get({ key: node.items[i].id });
         });
         if (item.data.type !== "ticket") {
@@ -444,7 +444,7 @@ function connectCartRepo() {
 
 function createCart() {
   var cart = null;
-  contextLib.runAsAdmin(function() {
+  contextLib.runAsAdmin(function () {
     var cartRepo = connectCartRepo();
     cart = cartRepo.create({});
   });
@@ -494,7 +494,7 @@ function calculateCart(cart) {
     items: result.toFixed(),
     shipping: shipping.toFixed(),
     discount: discount,
-    totalDiscount: (result + shipping - discount.discount).toFixed(),
+    totalDiscount: Math.max(result + shipping - discount.discount, 0).toFixed(),
     total: (result + shipping).toFixed()
   };
 }
