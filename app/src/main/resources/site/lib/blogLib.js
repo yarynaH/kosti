@@ -483,9 +483,9 @@ function generateTelegramNotificationMessage(content) {
   return (
     "\uD83D\uDD25" +
     content.displayName +
-    "\n\r" +
+    "\n\r\n\r" +
     getArticleIntro(content) +
-    "\n\r" +
+    "\n\r\n\r" +
     "\uD83E\uDD18" +
     content.url
   );
