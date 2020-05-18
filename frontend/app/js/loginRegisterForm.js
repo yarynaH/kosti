@@ -179,7 +179,10 @@ function hideAllModals(e) {
       }
     }
     if (notification.length > 0) {
-      if (!$(e.target).is($(".js_no tification-block"))) {
+      if (
+        !$(e.target).is($(".js_notification-block")) &&
+        !$(e.target).is($(".js_notification-icon"))
+      ) {
         notification.removeClass("show_notification");
       }
     }
