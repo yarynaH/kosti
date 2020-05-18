@@ -206,7 +206,7 @@
     <mapping controller="/api/notification/notification.js">
       <pattern>/api/notification</pattern>
     </mapping>
-    <mapping controller="/services/promosAdmin/promosAdmin.js">
+    <mapping controller="/services/promos/promosAdmin.js">
       <pattern>/api/promo/generate</pattern>
     </mapping>
   </mappings>
