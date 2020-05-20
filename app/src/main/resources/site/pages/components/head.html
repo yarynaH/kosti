@@ -4,17 +4,9 @@
 <link rel="stylesheet" type="text/css" data-th-href="${portal.assetUrl({'_path=/css/slick.css'})}" />
 <link rel="icon" type="image/png" data-th-href="${portal.assetUrl({'_path=/images/fav_icon.PNG'})}" sizes="16x16" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="description" data-th-attr="content=${ogDescription}" />
-<title data-th-text="${title}"></title>
 <meta name="google-site-verification" content="00oMgggwfcIq0njpoESio4sOR5mfiLRPvULXpj27oEk" />
 <!-- Open Graph data -->
-<meta property="og:title" data-th-attr="content=${title}" />
-<meta property="og:type" content="article" />
-<meta property="og:url"
-    data-th-attr="content=${portal.pageUrl({'_path=' + content && content._path ? content._path : site._path, '_type=absolute'})}" />
-<meta property="og:image" data-th-attr="content=${ogImage}" />
-<meta property="og:description" data-th-attr="content=${ogDescription}" />
-<meta property="og:site_name" data-th-attr="content=${site.displayName}" />
 <meta property="fb:app_id" content="2182806205310445" />
+<meta property="og:image" data-th-attr="content=${ogImage}" />
 <meta property="og:image:width" content="600" />
 <meta property="og:image:height" content="600" />
