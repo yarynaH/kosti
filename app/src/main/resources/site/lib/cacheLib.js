@@ -10,7 +10,7 @@ function getCache(params) {
   if (params.clearCache && authLib.hasRole("system.admin")) {
     params.cache.remove(params.key);
   }
-  if (params.cache && params.key && !contextLib.getBranch() === "draft") {
+  if (params.cache && params.key && contextLib.getBranch() !== "draft") {
     return params.cache.get(params.key, function () {
       return params.callback(params.data);
     });

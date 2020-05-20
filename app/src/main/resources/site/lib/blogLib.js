@@ -122,13 +122,12 @@ function getSidebarModel(params) {
 }
 
 function beautifyArticle(article, cache) {
-  if (cache) {
-    article = cache.get(article._id, function () {
-      return beautifyGeneralFields(article);
-    });
-  } else {
-    article = beautifyGeneralFields(article);
-  }
+  article = cacheUtils.getCache({
+    cache: cache,
+    key: article._id,
+    callback: beautifyGeneralFields,
+    data: article
+  });
   article.date = kostiUtils.getTimePassedSincePostCreation(
     new Date(moment(article.publish.from))
   );
