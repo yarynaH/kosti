@@ -14,8 +14,7 @@
                 <div class="freshest">
                     <h4 class="latest_news-title"
                         data-th-text="${portal.localize({'_key=homepage.title.freshest', '_locale=ru'})}"></h4>
-                    <div class="latest_news-iframe_wrap">
-                        <iframe data-th-src="${video}"> </iframe>
+                    <div class="latest_news-iframe_wrap" data-th-utext="${video}">
                     </div>
                 </div>
                 <div class="schedule">

@@ -1,0 +1,10 @@
+<widget>
+  <display-name>Cache</display-name>
+  <interfaces>
+    <interface>contentstudio.contextpanel</interface>
+  </interfaces>
+  <allow>
+    <principal>role:system.admin</principal>
+  </allow>
+  <description>Clear cache for current page</description>
+</widget>

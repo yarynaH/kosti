@@ -2,7 +2,6 @@ const thymeleaf = require("/lib/thymeleaf");
 const portal = require("/lib/xp/portal");
 const contentLib = require("/lib/xp/content");
 const httpClientLib = require("/lib/http-client");
-const cacheLib = require("/lib/cache");
 
 const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
@@ -13,15 +12,13 @@ const sharedLib = require(libLocation + "sharedLib");
 const storeLib = require(libLocation + "storeLib");
 const hashtagLib = require(libLocation + "hashtagLib");
 const contextLib = require(libLocation + "contextLib");
+const cacheUtils = require(libLocation + "cacheLib");
 
-const cache =
-  contextLib.getBranch() === "draft"
-    ? null
-    : cacheLib.newCache({
-        size: 1000,
-        expire: 60 * 60 * 24
-      });
-const videoCache = cacheLib.newCache({
+const cache = cacheUtils.newCache({
+  size: 1000,
+  expire: 60 * 60 * 24
+});
+const videoCache = cacheUtils.newCache({
   size: 1000,
   expire: 60 * 60 * 24
 });
@@ -68,9 +65,7 @@ function handleReq(req) {
 
     let model = {
       content: content,
-      video: video
-        ? "https://www.youtube.com/embed/" + video
-        : getVideoUrl(site.video),
+      video: video ? video : getVideoUrl(site.video),
       sidebar: blogLib.getSidebar({ cache: cache }),
       schedule: schedule,
       active: active,
@@ -83,13 +78,12 @@ function handleReq(req) {
     return model;
 
     function getScheduleFromCache() {
-      if (cache) {
-        return cache.get("schedule", function () {
-          return getSchedule();
-        });
-      } else {
-        return getSchedule();
-      }
+      return cacheUtils.getCache({
+        cache: cache,
+        key: "schedule",
+        callback: getSchedule,
+        clearCache: req.params.cache === "clear"
+      });
     }
 
     function getSchedule() {
@@ -157,13 +151,13 @@ function handleReq(req) {
     }
 
     function getVideoFromCache(key) {
-      if (videoCache) {
-        return videoCache.get("video", function () {
-          return getVideo(key);
-        });
-      } else {
-        return getVideo(key);
-      }
+      return cacheUtils.getCache({
+        cache: videoCache,
+        key: "video",
+        callback: getVideo,
+        clearCache: req.params.cache === "clear",
+        data: key
+      });
     }
 
     function getVideo(key) {
@@ -185,7 +179,10 @@ function handleReq(req) {
         response.items[0].id &&
         response.items[0].id.videoId
       ) {
-        return response.items[0].id.videoId;
+        return thymeleaf.render(resolve("video.html"), {
+          id: response.items[0].id.videoId,
+          url: "https://www.youtube.com/embed/" + response.items[0].id.videoId
+        });
       }
       return false;
     }
@@ -195,9 +192,15 @@ function handleReq(req) {
       url = url[url.length - 1];
 
       if (url.split("?v=")[1]) {
-        return "https://www.youtube.com/embed/" + url.split("?v=")[1];
+        return thymeleaf.render(resolve("video.html"), {
+          id: url.split("?v=")[1],
+          url: "https://www.youtube.com/embed/" + url.split("?v=")[1]
+        });
       } else {
-        return "https://www.youtube.com/embed/" + url;
+        return thymeleaf.render(resolve("video.html"), {
+          id: url.split("?v=")[1],
+          url: "https://www.youtube.com/embed/" + url
+        });
       }
     }
   }

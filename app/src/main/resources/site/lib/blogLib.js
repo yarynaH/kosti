@@ -12,6 +12,7 @@ var commentsLib = require("commentsLib");
 var hashtagLib = require("hashtagLib");
 var sharedLib = require("sharedLib");
 var contextLib = require("contextLib");
+const cacheUtils = require("cacheLib");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -51,12 +52,14 @@ function getWeekArticle(params) {
   if (!params) {
     var params = {};
   }
-  var weekArticleId = params.cache
-    ? params.cache.get("weekid", function () {
-        return votesLib.getWeekArticleId();
-      })
-    : votesLib.getWeekArticleId();
-  var article = contentLib.get({ key: weekArticleId });
+  if (!params.weekArticleId) {
+    params.weekArticleId = params.cache
+      ? params.cache.get("weekid", function () {
+          return votesLib.getWeekArticleId();
+        })
+      : votesLib.getWeekArticleId();
+  }
+  var article = contentLib.get({ key: params.weekArticleId });
   if (!article) {
     return "";
   }
@@ -93,18 +96,23 @@ function getSidebarModel(params) {
   if (!params) {
     params = {};
   }
-  var socialLinks = params.cache
-    ? params.cache.get("sociallinks", function () {
-        return getSolialLinks();
-      })
-    : getSolialLinks();
-  var hotTags = params.cache
-    ? params.cache.get("hottags", function () {
-        return getHotTags();
-      })
-    : getHotTags();
+  var weekArticleId = cacheUtils.getCache({
+    cache: params.cache,
+    key: "weekId",
+    callback: votesLib.getWeekArticleId
+  });
+  var hotTags = cacheUtils.getCache({
+    cache: params.cache,
+    key: "hottags",
+    callback: getHotTags
+  });
+  var socialLinks = cacheUtils.getCache({
+    cache: params.cache,
+    key: "sociallinks",
+    callback: getSolialLinks
+  });
   return {
-    weeksPost: getWeekArticle({ cache: params.cache }),
+    weeksPost: getWeekArticle({ weekArticleId: weekArticleId }),
     socialLinks: socialLinks,
     //libraryHot: getLibraryHot(),
     hotTags: hotTags,
