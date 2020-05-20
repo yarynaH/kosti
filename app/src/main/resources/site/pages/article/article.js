@@ -17,13 +17,10 @@ var soNoLib = require(libLocation + "socialNotificationLib");
 
 exports.get = handleReq;
 
-var cache =
-  contextLib.getBranch() === "draft"
-    ? null
-    : cacheLib.newCache({
-        size: 1000,
-        expire: 60 * 60 * 24
-      });
+var cache = cacheLib.newCache({
+  size: 1000,
+  expire: 60 * 60 * 24
+});
 
 function handleReq(req) {
   var user = userLib.getCurrentUser();
