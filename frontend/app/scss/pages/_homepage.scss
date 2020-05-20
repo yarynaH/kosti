@@ -118,6 +118,11 @@
 
         font-size: rem(18);
         font-weight: bold;
+        color: $color-primary1;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
