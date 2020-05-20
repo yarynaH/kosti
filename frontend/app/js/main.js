@@ -274,7 +274,7 @@ function loadMoreArticles() {
       start: wrapper.data("start"),
       userId: $(".js_user-page-id").data("userid")
     },
-    false
+    true
   );
   call.done(function (data) {
     data = JSON.parse(data);
