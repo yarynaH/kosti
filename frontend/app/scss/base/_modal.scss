@@ -1,104 +1,103 @@
 .modal {
-  @include position(fixed, top 0 right 0 bottom 0 left 0);
+    @include position(fixed, top 0 right 0 bottom 0 left 0);
 
-  display: none;
-  background-color: rgba($color-primary21, 0.3);
-  overflow: hidden;
-  transition: transition(opacity);
-  z-index: 12;
+    display: none;
+    background-color: rgba($color-primary21, 0.3);
+    overflow: hidden;
+    transition: transition(opacity);
+    z-index: 12;
 
-  &.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &-dialog {
-    max-width: 380px;
-    width: calc(100% - 20px);
-    max-height: 100%;
-    overflow: auto;
-    background-color: $color-primary1;
-    transform: scale(0.8);
-    transition: transition(transform);
-    will-change: transform;
-
-    .show & {
-      transform: scale(1);
-    }
-  }
-
-  &-title {
-    font-size: rem(24);
-    font-weight: bold;
-    color: $color-primary17;
-  }
-
-  &-close {
-    @include position(absolute, top 0 right 0);
-
-    cursor: pointer;
-    background: $color-primary33;
-    color: $color-primary9;
-    transition: transition(background);
-
-    &:hover {
-      background: rgba($color-primary33, 0.8);
+    &.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    &:before {
-      font-size: rem(25);
+    &-dialog {
+        max-width: 380px;
+        width: calc(100% - 20px);
+        max-height: 100%;
+        overflow: auto;
+        background-color: $color-primary1;
+        transform: scale(0.8);
+        transition: transition(transform);
+        will-change: transform;
+
+        .show & {
+            transform: scale(1);
+        }
     }
-  }
 
-  &-action {
-    font-size: rem(14);
-    font-weight: bold;
-    color: $color-primary22;
-  }
-
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    padding: 20px 20px 0;
-
-    @include tablet-all() {
-      padding: 40px 40px 0;
+    &-title {
+        font-size: rem(24);
+        font-weight: bold;
+        color: $color-primary17;
     }
-  }
 
-  &-body {
-    padding: 0 20px;
+    &-close {
+        @include position(absolute, top 0 right 0);
 
-    @include tablet-all() {
-      padding: 0 40px;
+        cursor: pointer;
+        color: $color-primary33;
+        transition: transition(background);
+
+        &:hover {
+            background: rgba($color-primary33, 0.8);
+        }
+
+        &:before {
+            font-size: rem(25);
+        }
     }
-  }
 
-  &-footer {
-    padding: 20px 20px;
-
-    @include tablet-all() {
-      padding: 40px 40px;
+    &-action {
+        font-size: rem(14);
+        font-weight: bold;
+        color: $color-primary22;
     }
-  }
 
-  &-btn {
-    @include button-style(global light);
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        padding: 20px 20px 0;
 
-    margin: 15px 0 25px;
-
-    @include mobile-all() {
-      margin-bottom: 40px;
+        @include tablet-all() {
+            padding: 40px 40px 0;
+        }
     }
-  }
 
-  &-open {
-    height: 100vh;
-    overflow-y: hidden;
-    position: fixed;
-    width: 100%;
-  }
+    &-body {
+        padding: 0 20px;
+
+        @include tablet-all() {
+            padding: 0 40px;
+        }
+    }
+
+    &-footer {
+        padding: 20px 20px;
+
+        @include tablet-all() {
+            padding: 40px 40px;
+        }
+    }
+
+    &-btn {
+        @include button-style(global light);
+
+        margin: 15px 0 25px;
+
+        @include mobile-all() {
+            margin-bottom: 40px;
+        }
+    }
+
+    &-open {
+        height: 100vh;
+        overflow-y: hidden;
+        position: fixed;
+        width: 100%;
+    }
 }
