@@ -1,157 +1,98 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="page-wrapper">
-    <div
-      data-th-remove="tag"
-      data-th-utext="${pageComponents.loginRegisterModal}"
-    ></div>
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="checkout-wrap">
-        <div class="site_width">
-          <div class="checkout-info">
-            <div class="step-list step-list-three">
-              <div
-                class="step-item step-item-info"
-                data-th-classappend="${info}"
-              >
-                01 ИНФОРМАЦИЯ
-              </div>
-              <div
-                class="step-item step-item-shipping"
-                data-th-classappend="${shipping}"
-              >
-                02 ДОСТАВКА
-              </div>
-              <div
-                class="step-item step-item-payment"
-                data-th-classappend="${payment}"
-              >
-                03 ОПЛАТА
-              </div>
-            </div>
+        <div class="checkout-wrap">
+            <div class="site_width">
+                <div class="checkout-info">
+                    <div class="step-list step-list-three">
+                        <div class="step-item step-item-info" data-th-classappend="${info}">
+                            01 ИНФОРМАЦИЯ
+                        </div>
+                        <div class="step-item step-item-shipping" data-th-classappend="${shipping}">
+                            02 ДОСТАВКА
+                        </div>
+                        <div class="step-item step-item-payment" data-th-classappend="${payment}">
+                            03 ОПЛАТА
+                        </div>
+                    </div>
 
-            <div class="checkout-step" data-th-utext="${stepView}"></div>
-          </div>
-          <div class="checkout-summary">
-            <div class="summary-header">
-              <h2 class="checkout-title">Корзина</h2>
-              <div
-                class="summary-cart_counter"
-                data-th-text="${cart.itemsNum}"
-              ></div>
-            </div>
-            <div class="summary-product-list">
-              <div
-                data-th-each="product: ${cart.items}"
-                class="summary-product-item"
-              >
-                <a
-                  data-th-href="${portal.pageUrl({'_id='+product._id})}"
-                  class="summary-product-img_wrap"
-                  data-th-attr="title=${product.displayName}"
-                >
-                  <img
-                    data-th-src="${product.imageSummary.url}"
-                    alt="Картинка продукта"
-                  />
-                </a>
-                <div class="summary-product-info">
-                  <h5
-                    class="summary-product-name"
-                    data-th-text="${product.displayName}"
-                  ></h5>
-                  <div
-                    class="summary-product-size"
-                    data-th-if="${product.itemSize}"
-                  >
-                    <span class="label">Размер:</span>
-                    <span
-                      class="value"
-                      data-th-text="${product.itemSize}"
-                    ></span>
-                  </div>
-                  <div class="summary-product-qty">
-                    <span class="label">Количество:</span>
-                    <span class="value" data-th-text="${product.amount}"></span>
-                  </div>
-                  <div
-                    class="summary-product-price"
-                    data-th-utext="${product.priceBlock}"
-                    data-th-classappend="${product.stock and product.itemSizeStock ? '' : 'hidden'}"
-                  ></div>
-                  <div
-                    data-th-unless="${product.stock and product.itemSizeStock}"
-                    class="out-of-stock-msg"
-                  >
-                    Нет в наличии
-                  </div>
+                    <div class="checkout-step" data-th-utext="${stepView}"></div>
                 </div>
-              </div>
-            </div>
-            <form
-              class="promo_code js_promo-form"
-              data-th-action="${promosUrl}"
-            >
-              <h5 class="promo_code-title js_promo_code-title">
-                Есть промо-код?
-              </h5>
-              <div class="promo_code-container">
-                <div class="promo_code-field">
-                  <input
-                    name="promoCode"
-                    type="text"
-                    class="input-text"
-                    id="promo_code-input"
-                  />
-                  <button type="submit" class="promo_code-btn">ok</button>
+                <div class="checkout-summary">
+                    <div class="summary-header">
+                        <h2 class="checkout-title">Корзина</h2>
+                        <div class="summary-cart_counter" data-th-text="${cart.itemsNum}"></div>
+                    </div>
+                    <div class="summary-product-list">
+                        <div data-th-each="product: ${cart.items}" class="summary-product-item">
+                            <a data-th-href="${portal.pageUrl({'_id='+product._id})}" class="summary-product-img_wrap"
+                                data-th-attr="title=${product.displayName}">
+                                <img data-th-src="${product.imageSummary.url}" alt="Картинка продукта" />
+                            </a>
+                            <div class="summary-product-info">
+                                <h5 class="summary-product-name" data-th-text="${product.displayName}"></h5>
+                                <div class="summary-product-size" data-th-if="${product.itemSize}">
+                                    <span class="label">Размер:</span>
+                                    <span class="value" data-th-text="${product.itemSize}"></span>
+                                </div>
+                                <div class="summary-product-qty">
+                                    <span class="label">Количество:</span>
+                                    <span class="value" data-th-text="${product.amount}"></span>
+                                </div>
+                                <div class="summary-product-price" data-th-utext="${product.priceBlock}"
+                                    data-th-classappend="${product.stock and product.itemSizeStock ? '' : 'hidden'}">
+                                </div>
+                                <div data-th-unless="${product.stock and product.itemSizeStock}"
+                                    class="out-of-stock-msg">
+                                    Нет в наличии
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="promo_code js_promo-form" data-th-action="${promosUrl}">
+                        <h5 class="promo_code-title js_promo_code-title">
+                            Есть промо-код?
+                        </h5>
+                        <div class="promo_code-container">
+                            <div class="promo_code-field">
+                                <input name="promoCode" type="text" class="input-text" id="promo_code-input" />
+                                <button type="submit" class="promo_code-btn">ok</button>
+                            </div>
+                            <ul class="promo_code-used_list js_promo_code-used_list" data-th-utext="${promos}"></ul>
+                        </div>
+                        <input type="hidden" name="action" value="activatePromo" />
+                    </form>
+                    <div class="summary-purchase">
+                        <div class="summary-subtotal">
+                            <span class="label">Товар</span>
+                            <span class="value">UAH <span data-th-text="${cart.price.items}"></span></span>
+                        </div>
+                        <div class="summary-shipping">
+                            <span class="label">Доставка</span>
+                            <span class="value"
+                                data-th-text="${cart.price.shipping == 0 ? '--' : 'UAH ' + cart.price.shipping}"></span>
+                        </div>
+                        <div class="summary-discount js_summary-discount">
+                            <span class="label">Скидка</span>
+                            <span class="value">UAH
+                                <span data-th-text="${cart.price.discount.discount}"></span></span>
+                        </div>
+                        <div class="summary-total js_summary-total">
+                            <span class="label">Всего</span>
+                            <span class="value">UAH <span data-th-text="${cart.price.totalDiscount}"></span></span>
+                        </div>
+                    </div>
                 </div>
-                <ul
-                  class="promo_code-used_list js_promo_code-used_list"
-                  data-th-utext="${promos}"
-                ></ul>
-              </div>
-              <input type="hidden" name="action" value="activatePromo" />
-            </form>
-            <div class="summary-purchase">
-              <div class="summary-subtotal">
-                <span class="label">Товар</span>
-                <span class="value"
-                  >UAH <span data-th-text="${cart.price.items}"></span
-                ></span>
-              </div>
-              <div class="summary-shipping">
-                <span class="label">Доставка</span>
-                <span
-                  class="value"
-                  data-th-text="${cart.price.shipping == 0 ? '--' : 'UAH ' + cart.price.shipping}"
-                ></span>
-              </div>
-              <div class="summary-discount js_summary-discount">
-                <span class="label">Скидка</span>
-                <span class="value"
-                  >UAH
-                  <span data-th-text="${cart.price.discount.discount}"></span
-                ></span>
-              </div>
-              <div class="summary-total js_summary-total">
-                <span class="label">Всего</span>
-                <span class="value"
-                  >UAH <span data-th-text="${cart.price.totalDiscount}"></span
-                ></span>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </main>
-    <div
-      data-th-if="${checkoutForm}"
-      data-th-utext="${checkoutForm}"
-      data-th-remove="tag"
-    ></div>
+    <div data-th-if="${checkoutForm}" data-th-utext="${checkoutForm}" data-th-remove="tag"></div>
     <!--
     <form
       data-th-if="${pay}"
@@ -165,9 +106,7 @@
       <input type="hidden" name="signature" data-th-value="${signature}" />
       <input type="submit" value="Pay" />
     </form>-->
-    <footer
-      class="footer footer-checkout"
-      data-th-utext="${pageComponents.footer}"
-    ></footer>
-  </body>
+    <footer class="footer footer-checkout" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
 </html>

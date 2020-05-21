@@ -11,6 +11,7 @@ exports.getPromosArray = getPromosArray;
 exports.getPromoByCode = getPromoByCode;
 exports.activatePromo = activatePromo;
 exports.reduceUsePromos = reduceUsePromos;
+exports.setCodeAsUsed - setCodeAsUsed;
 
 function checkPromo(code) {
   var promo = getPromoByCode(code);
@@ -27,13 +28,21 @@ function getPromosArray(codes) {
 }
 
 function getPromoByCode(code, force) {
-  var query = "data.code = '" + code + "' and data.amount > 0";
+  var query = "(data.code = '" + code + "' AND data.amount > 0)";
+  query +=
+    " OR (data.codeType._selected = 'same' AND data.codeType.same.code = '" +
+    code +
+    "')";
+  query +=
+    " OR (data.codeType._selected = 'unique' AND data.codeType.unique.unique.code = '" +
+    code +
+    "')";
   var result = contentLib.query({
     start: 0,
     count: 1,
     query: query
   });
-  if (result.hits[0]) {
+  if (result.hits[0] && isPromoValid(result.hits[0], code)) {
     return result.hits[0];
   }
   return false;
@@ -67,7 +76,53 @@ function reduceUse(code) {
     targetBranch: "draft"
   });
   function editor(node) {
-    node.data.amount = node.data.amount - 1;
+    var promoData = node.data.codeType;
+    if (promoData._selected === "unique") {
+      if (promoData.unique.unique) {
+        var codes = norseUtils.forceArray(promoData.unique.unique);
+        for (var i = 0; i < codes.length; i++) {
+          if (codes[i].code === code && codes[i].used !== true) {
+            node.data.codeType.unique.unique[i].used = true;
+            break;
+          }
+        }
+      }
+    } else if (promoData._selected === "same") {
+      if (promoData.same.amount > 0) {
+        node.data.codeType.same.amount = node.data.codeType.same.amount - 1;
+      }
+    }
     return node;
   }
 }
+
+function isPromoValid(promo, code) {
+  if (
+    !(
+      promo &&
+      promo.data &&
+      promo.data.codeType &&
+      promo.data.codeType._selected
+    )
+  ) {
+    return false;
+  }
+  var promoData = promo.data.codeType;
+  if (promoData._selected === "unique") {
+    if (promoData.unique.unique) {
+      var codes = norseUtils.forceArray(promoData.unique.unique);
+      for (var i = 0; i < codes.length; i++) {
+        if (codes[i].code === code && codes[i].used !== true) {
+          return true;
+        }
+      }
+    }
+  } else if (promoData._selected === "same") {
+    if (promoData.same.amount > 0) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function setCodeAsUsed(code) {}

@@ -1,103 +1,60 @@
 <h2 class="checkout-title">Адрес доставки</h2>
 <div class="delivery-address">
-  <div class="delivery-shipto">
-    <div class="shipto-info">
-      <p data-th-text="${params.name + ' ' + params.surname}"></p>
-      <p data-th-text="${params.address}"></p>
-      <p data-th-text="${params.city}"></p>
-      <p data-th-text="${params.email}"></p>
-      <p data-th-text="${'Tel: ' + params.phone}"></p>
+    <div class="delivery-shipto">
+        <div class="shipto-info">
+            <p data-th-text="${params.name + ' ' + params.surname}"></p>
+            <p data-th-text="${params.address}"></p>
+            <p data-th-text="${params.city}"></p>
+            <p data-th-text="${params.email}"></p>
+            <p data-th-text="${'Tel: ' + params.phone}"></p>
+        </div>
+        <div class="shipto-actions">
+            <a data-th-href="${portal.serviceUrl({'_service=checkout'})}" class="shipto-link"
+                title="Изменить">Изменить</a>
+            <a href="#" class="shipto-link hidden" title="Добавить">Добавить</a>
+        </div>
     </div>
-    <div class="shipto-actions">
-      <a
-        data-th-href="${portal.serviceUrl({'_service=checkout'})}"
-        class="shipto-link"
-        title="Изменить"
-        >Изменить</a
-      >
-      <a href="#" class="shipto-link hidden" title="Добавить">Добавить</a>
-    </div>
-  </div>
-  <!--<div class="delivery-map">
-        <iframe
-          width="380"
-          height="100%"
-          frameborder="0" style="border:0"
-          data-th-attr="src = ${'https://www.google.com/maps/embed/v1/place?key=AIzaSyCG80HuL0pNQZv9FvxQYQk4gJNBxt-cjOQ&q=' + address}"
-          allowfullscreen>
-        </iframe>
-    </div>-->
 </div>
 <h2 class="checkout-title">Метод доставки</h2>
-<form
-  class="checkout-form js_shipping-form"
-  method="POST"
-  data-th-action="${checkoutUrl}"
->
-  <div class="delivery_m">
-    <div class="form-group" data-th-each="ship: ${shipping}">
-      <input
-        name="shipping"
-        type="radio"
-        class="input-radio"
-        data-th-attr="id=${ship.id}, value=${ship.id}, data-price=${ship.price}"
-        hidden
-        required
-      />
-      <label data-th-attr="for=${ship.id}" class="label-radio">
-        <div class="radio_align-type">
-          <div class="radio_align-top">
-            <span class="radio_align-title" data-th-text="${ship.title}"></span>
-            <span
-              class="delivery_m-subtitle"
-              data-th-classappend="${'js_shippingPrice' + ship.id}"
-              data-th-text="'UAH '+${ship.price}"
-            ></span>
-          </div>
-          <div class="radio_align-description">
-            <span data-th-text="${ship.terms}"></span>
-          </div>
+<form class="checkout-form js_shipping-form" method="POST" data-th-action="${checkoutUrl}">
+    <div class="delivery_m">
+        <div class="form-group" data-th-each="ship: ${shipping}">
+            <input name="shipping" type="radio" class="input-radio"
+                data-th-attr="id=${ship.id}, value=${ship.id}, data-price=${ship.price}" hidden required />
+            <label data-th-attr="for=${ship.id}" class="label-radio">
+                <div class="radio_align-type">
+                    <div class="radio_align-top">
+                        <span class="radio_align-title" data-th-text="${ship.title}"></span>
+                        <span class="delivery_m-subtitle" data-th-classappend="${'js_shippingPrice' + ship.id}"
+                            data-th-text="'UAH '+${ship.price}"></span>
+                    </div>
+                    <div class="radio_align-description">
+                        <span data-th-text="${ship.terms}"></span>
+                    </div>
+                </div>
+            </label>
         </div>
-      </label>
     </div>
-  </div>
-  <div data-th-if="${cart.country == 'ua'}" class="delivery_details hidden">
-    <div class="form-group suggestion-wrap">
-      <label for="delivery_np-input-city" class="label">Введите город</label>
-      <input
-        name="novaPoshtaСity"
-        autocomplete="off"
-        type="text"
-        class="input-text delivery_np-input-city"
-        id="delivery_np-input-city"
-      />
-      <ul id="suggestion-list" class="suggestion-list"></ul>
+    <div data-th-if="${cart.country == 'ua'}" class="delivery_details hidden">
+        <div class="form-group suggestion-wrap">
+            <label for="delivery_np-input-city" class="label">Введите город</label>
+            <input name="novaPoshtaСity" autocomplete="off" type="text" class="input-text delivery_np-input-city"
+                id="delivery_np-input-city" />
+            <ul id="suggestion-list" class="suggestion-list"></ul>
+        </div>
+        <div class="select-field">
+            <select name="novaPoshtaWarehouse" id="delivery_np-warehouses">
+                <option disabled="disabled" selected="selected">Выберите отделение</option>
+            </select>
+        </div>
     </div>
-    <div class="select-field">
-      <select name="novaPoshtaWarehouse" id="delivery_np-warehouses">
-        <option disabled="disabled" selected="selected"
-          >Выберите отделение</option
-        >
-      </select>
+    <div class="checkout-action">
+        <a data-th-href="${cartUrl}" class="checkout-back" title="К покупкам">К покупкам</a>
+        <button class="checkout-continue" title="Продолжить" data-th-disabled="${!cart.stock or cart.itemsNum < 1}">
+            ПРОДОЛЖИТЬ
+        </button>
     </div>
-  </div>
-  <div class="checkout-action">
-    <a data-th-href="${cartUrl}" class="checkout-back" title="К покупкам"
-      >К покупкам</a
-    >
-    <button
-      class="checkout-continue"
-      title="Продолжить"
-      data-th-disabled="${!cart.stock or cart.itemsNum < 1}"
-    >
-      ПРОДОЛЖИТЬ
-    </button>
-  </div>
-  <input name="step" type="hidden" value="3" />
-  <input
-    name="shippingPrice"
-    type="hidden"
-    data-th-value="${shipping[0].price}"
-  />
-  <input type="hidden" id="cartWeight" data-th-value="${cart.itemsWeight}" />
+    <input name="step" type="hidden" value="3" />
+    <input name="shippingPrice" type="hidden" data-th-value="${shipping[0].price}" />
+    <input type="hidden" id="cartWeight" data-th-value="${cart.itemsWeight}" />
 </form>
