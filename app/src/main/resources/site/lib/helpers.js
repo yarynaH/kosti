@@ -99,6 +99,7 @@ function getPageComponents(req, footerType, activeEl, title) {
       ogImage: ogImage,
       site: site,
       title: title,
+      keywords: keywords,
       ogDescription: ogDescription
     }
   );
@@ -308,5 +309,9 @@ function getKeywords(content) {
       }
     }
   }
-  return keywords;
+  if (keywords === "") {
+    return content.displayName;
+  } else {
+    return keywords;
+  }
 }
