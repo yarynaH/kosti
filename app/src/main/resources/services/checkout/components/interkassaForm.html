@@ -1,18 +1,8 @@
-<form
-  class="hidden"
-  name="payment"
-  method="post"
-  action="https://sci.interkassa.com/"
-  accept-charset="UTF-8"
->
-  <input type="hidden" name="ik_co_id" data-th-value="${ik_id}" />
-  <input type="hidden" name="ik_pm_no" data-th-value="'ID_' + ${cart.userId}" />
-  <input
-    type="hidden"
-    name="ik_am"
-    data-th-value="${cart.price.totalDiscount}"
-  />
-  <input type="hidden" name="ik_cur" value="uah" />
-  <input type="hidden" name="ik_desc" value="Товары вечерних костей" />
-  <input type="submit" value="Pay" />
+<form class="hidden" name="payment" method="post" action="https://sci.interkassa.com/" accept-charset="UTF-8">
+    <input type="hidden" name="ik_co_id" data-th-value="${ik_id}" />
+    <input type="hidden" name="ik_pm_no" data-th-value="'ID_' + ${cart.userId}" />
+    <input type="hidden" name="ik_am" data-th-value="${cart.price.totalDiscount}" />
+    <input type="hidden" name="ik_cur" value="uah" />
+    <input type="hidden" name="ik_desc" value="Товары вечерних костей" />
+    <input type="submit" value="Pay" />
 </form>

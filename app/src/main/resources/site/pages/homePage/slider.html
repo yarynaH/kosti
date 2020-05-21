@@ -4,14 +4,15 @@
             <div class="slick-img_wrap">
                 <picture>
                     <source data-th-srcset="${slide.imageSlider.url}" media="(min-width: 600px)" />
-                    <img data-th-src="${slide.image.url}" class="slick-img" />
+                    <img data-th-src="${slide.image.url}" class="slick-img" data-th-attr="alt=${slide.image.alt}" />
                 </picture>
             </div>
             <div class="slick-content blog_width">
                 <div class="post-info">
                     <a data-th-href="${slide.author.url}">
                         <span class="post-user_avatar">
-                            <img data-th-src="${slide.author.image.url}" alt="" />
+                            <img data-th-src="${slide.author.image.url}"
+                                data-th-alt="${'Аватар ' + slide.author.displayName}" />
                         </span>
                         <span class="post-user_name" data-th-text="${slide.author.displayName}"></span>
                     </a>

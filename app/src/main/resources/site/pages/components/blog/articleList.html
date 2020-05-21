@@ -12,13 +12,14 @@
         </div>
     </div>
     <a data-th-href="${article.url}" class="post-image_wrap" target="_blank">
-        <img data-th-src="${article.image.url}" alt="" />
+        <img data-th-src="${article.image.url}" data-th-alt="${article.image.alt}" />
     </a>
     <div class="post">
         <div class="post-info">
             <a data-th-href="${article.author.url}">
                 <span class="post-user_avatar">
-                    <img data-th-src="${article.author.image.url}" alt="" />
+                    <img data-th-src="${article.author.image.url}"
+                        data-th-alt="${'Аватар ' + article.author.displayName}" />
                 </span>
                 <span class="post-user_name" data-th-text="${article.author.displayName}"></span>
             </a>

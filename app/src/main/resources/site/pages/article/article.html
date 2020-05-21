@@ -10,8 +10,9 @@
     <main class="main js_article-id" data-th-attr="data-articleid=${content._id}">
         <div class="article-img_wrap">
             <picture>
-                <source data-th-srcset="${content.imageDesktop.url}" media="(min-width: 767px)" />
-                <img data-th-src="${content.imageMobile.url}" />
+                <source data-th-srcset="${content.imageDesktop.url}" media="(min-width: 767px)"
+                    data-th-alt="${content.imageDesktop.alt}" />
+                <img data-th-src="${content.imageMobile.url}" data-th-alt="${content.imageMobile.alt}" />
             </picture>
         </div>
         <div class="blog blog_width clearfix">
@@ -19,7 +20,8 @@
                 <div class="post-info">
                     <a data-th-href="${content.author.url}">
                         <span class="post-user_avatar">
-                            <img data-th-src="${content.author.image.url}" alt="" />
+                            <img data-th-src="${content.author.image.url}"
+                                data-th-alt="${'Аватар ' + content.author.displayName}" />
                         </span>
                         <span class="post-user_name" data-th-text="${content.author.displayName}"></span>
                     </a>

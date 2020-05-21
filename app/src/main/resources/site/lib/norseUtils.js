@@ -527,7 +527,7 @@ function getImage(id, size, placeholderType, urlType) {
       result = {
         url: url,
         urlAbsolute: urlAbsolute,
-        alt: image.data.caption ? image.data.caption : image.displayName,
+        alt: image.data.altText ? image.data.altText : "",
         caption: image.data.caption ? image.data.caption : "",
         artist: image.data.artist,
         _id: image._id

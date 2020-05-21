@@ -27,7 +27,7 @@
                     <div data-th-each="product: ${products}" class="plp-item" title="Посмотреть">
                         <div class="plp-prod_img">
                             <a data-th-href="${product.url}">
-                                <img data-th-src="${product.image.url}" />
+                                <img data-th-src="${product.image.url}" data-th-alt="${product.image.alt}" />
                                 <div class="product_bage hidden">
                                     <span class="product_bage-icon"></span>
                                     <span class="product_bage-text">Новинка</span>

@@ -20,7 +20,7 @@
                             <input type="hidden" name="action" value="image" />
                         </form>
                         <div class="profile-avatar" data-th-classappend="${currUserFlag} ? 'profile-upload-image' : ''">
-                            <img data-th-src="${content.image.url}" alt="" />
+                            <img data-th-src="${content.image.url}" data-th-alt="${'Аватар ' + content.displayName}" />
                         </div>
                         <div class="profile-user">
                             <span class="profile-name" data-th-text="${content.displayName}"></span>

@@ -178,7 +178,8 @@ function handleReq(req) {
       ) {
         return thymeleaf.render(resolve("video.html"), {
           id: response.items[0].id.videoId,
-          url: "https://www.youtube.com/embed/" + response.items[0].id.videoId
+          url: "https://www.youtube.com/embed/" + response.items[0].id.videoId,
+          alt: "Самое свежее видео на канале Вечерние Кости"
         });
       }
       return false;
@@ -191,12 +192,14 @@ function handleReq(req) {
       if (url.split("?v=")[1]) {
         return thymeleaf.render(resolve("video.html"), {
           id: url.split("?v=")[1],
-          url: "https://www.youtube.com/embed/" + url.split("?v=")[1]
+          url: "https://www.youtube.com/embed/" + url.split("?v=")[1],
+          alt: "Самое свежее видео на канале Вечерние Кости"
         });
       } else {
         return thymeleaf.render(resolve("video.html"), {
           id: url.split("?v=")[1],
-          url: "https://www.youtube.com/embed/" + url
+          url: "https://www.youtube.com/embed/" + url,
+          alt: "Самое свежее видео на канале Вечерние Кости"
         });
       }
     }

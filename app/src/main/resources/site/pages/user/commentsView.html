@@ -4,7 +4,8 @@
             <div class="post-info">
                 <a data-th-if="${comment.author}" data-th-href="${comment.author.url}">
                     <span class="post-user_avatar">
-                        <img data-th-src="${comment.author.image.url}" alt="" />
+                        <img data-th-src="${comment.author.image.url}"
+                            data-th-alt="${'Аватар ' + comment.author.displayName}" />
                     </span>
                     <span class="post-user_name" data-th-text="${comment.author.displayName}"></span>
                 </a>

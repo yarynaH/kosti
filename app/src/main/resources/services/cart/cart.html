@@ -1,131 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="page-wrapper">
-    <div
-      data-th-remove="tag"
-      data-th-utext="${pageComponents.loginRegisterModal}"
-    ></div>
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="cart-wrap">
-        <div class="blog_width">
-          <h2
-            class="checkout-title"
-            data-th-text="${portal.localize({'_key=shop.title.yourCart', '_locale=ru'})}"
-          ></h2>
-          <div class="cart-list">
-            <div data-th-each="item: ${cart.items}" class="cart-item">
-              <a
-                data-th-href="${portal.pageUrl({'_id='+item._id})}"
-                data-th-attr="title=${item.displayName}"
-              >
-                <div class="cart-product_img">
-                  <img
-                    data-th-src="${item.imageCart.url}"
-                    alt="product image"
-                  />
+        <div class="cart-wrap">
+            <div class="blog_width">
+                <h2 class="checkout-title"
+                    data-th-text="${portal.localize({'_key=shop.title.yourCart', '_locale=ru'})}"></h2>
+                <div class="cart-list">
+                    <div data-th-each="item: ${cart.items}" class="cart-item">
+                        <a data-th-href="${portal.pageUrl({'_id='+item._id})}" data-th-attr="title=${item.displayName}">
+                            <div class="cart-product_img">
+                                <img data-th-src="${item.imageCart.url}"
+                                    data-th-alt="${'Изображение ' + item.displayName}" />
+                            </div>
+                        </a>
+                        <div class="cart-product_description">
+                            <div data-th-text="${item.displayName}" class="cart-product_title"></div>
+                            <div data-th-if="${item.itemSize}" class="cart-product_size">
+                                <span class="label"
+                                    data-th-text="${portal.localize({'_key=shop.title.size', '_locale=ru'})}">
+                                </span>
+                                <span class="value" data-th-text="${item.itemSize}"></span>
+                            </div>
+                            <div data-th-text="${item._id}" hidden></div>
+                        </div>
+                        <div class="cart-product_qty">
+                            <div class="qty-field">
+                                <span data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"
+                                    class="qty-decrement"
+                                    data-th-title="${portal.localize({'_key=shop.title.decrease', '_locale=ru'})}">-</span>
+                                <input name="quantity" type="text" class="qty-input" placeholder="1"
+                                    data-th-attr="value=${item.amount}, data-id=${item._id}, data-size=${item.itemSize}" />
+                                <span data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"
+                                    class="qty-increment"
+                                    data-th-title="${portal.localize({'_key=shop.title.increase', '_locale=ru'})}">+</span>
+                            </div>
+                        </div>
+                        <div class="cart-product_price-wrap"
+                            data-th-attr="data-id=${item._id}, data-size=${item.itemSize}">
+                            <div data-th-classappend="${item.stock and item.itemSizeStock ? '' : 'hidden'}"
+                                class="cart-product_price">
+                                <div data-th-utext="${item.priceBlock}" data-th-remove="tag"></div>
+                            </div>
+                            <div data-th-classappend="${item.stock and item.itemSizeStock ? 'hidden' : ''}"
+                                class="out-of-stock-msg productOutOfStock"
+                                data-th-text="${portal.localize({'_key=shop.title.outOfStock', '_locale=ru'})}"></div>
+                        </div>
+                        <span class="cart-remove_btn remove-btn js_cart-remove_btn"
+                            data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"></span>
+                    </div>
                 </div>
-              </a>
-              <div class="cart-product_description">
-                <div
-                  data-th-text="${item.displayName}"
-                  class="cart-product_title"
-                ></div>
-                <div data-th-if="${item.itemSize}" class="cart-product_size">
-                  <span
-                    class="label"
-                    data-th-text="${portal.localize({'_key=shop.title.size', '_locale=ru'})}"
-                  >
-                  </span>
-                  <span class="value" data-th-text="${item.itemSize}"></span>
+                <div class="cart-total">
+                    <span class="label"
+                        data-th-text="${portal.localize({'_key=shop.title.total', '_locale=ru'})}"></span>
+                    <span class="value">
+                        <span class="price-curency"
+                            data-th-text="${portal.localize({'_key=shop.title.currency.uan', '_locale=ru'})}"></span>
+                        <span class="cart-items-price" data-th-text="${cart.price.items}"></span>
+                    </span>
                 </div>
-                <div data-th-text="${item._id}" hidden></div>
-              </div>
-              <div class="cart-product_qty">
-                <div class="qty-field">
-                  <span
-                    data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"
-                    class="qty-decrement"
-                    data-th-title="${portal.localize({'_key=shop.title.decrease', '_locale=ru'})}"
-                    >-</span
-                  >
-                  <input
-                    name="quantity"
-                    type="text"
-                    class="qty-input"
-                    placeholder="1"
-                    data-th-attr="value=${item.amount}, data-id=${item._id}, data-size=${item.itemSize}"
-                  />
-                  <span
-                    data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"
-                    class="qty-increment"
-                    data-th-title="${portal.localize({'_key=shop.title.increase', '_locale=ru'})}"
-                    >+</span
-                  >
+                <div class="checkout-action">
+                    <a data-th-href="${shopUrl}" class="checkout-back"
+                        data-th-text="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"
+                        data-th-title="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"></a>
+                    <a class="checkout-continue"
+                        data-th-classappend="${cart.stock and cart.itemsNum > 0 ? '' : 'not-active'}"
+                        data-th-href="${checkoutUrl}"
+                        data-th-text="${portal.localize({'_key=shop.title.continue', '_locale=ru'})}"
+                        data-th-title="${portal.localize({'_key=shop.title.continue', '_locale=ru'})}">
+                    </a>
                 </div>
-              </div>
-              <div
-                class="cart-product_price-wrap"
-                data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"
-              >
-                <div
-                  data-th-classappend="${item.stock and item.itemSizeStock ? '' : 'hidden'}"
-                  class="cart-product_price"
-                >
-                  <div
-                    data-th-utext="${item.priceBlock}"
-                    data-th-remove="tag"
-                  ></div>
-                </div>
-                <div
-                  data-th-classappend="${item.stock and item.itemSizeStock ? 'hidden' : ''}"
-                  class="out-of-stock-msg productOutOfStock"
-                  data-th-text="${portal.localize({'_key=shop.title.outOfStock', '_locale=ru'})}"
-                ></div>
-              </div>
-              <span
-                class="cart-remove_btn remove-btn js_cart-remove_btn"
-                data-th-attr="data-id=${item._id}, data-size=${item.itemSize}"
-              ></span>
             </div>
-          </div>
-          <div class="cart-total">
-            <span
-              class="label"
-              data-th-text="${portal.localize({'_key=shop.title.total', '_locale=ru'})}"
-            ></span>
-            <span class="value">
-              <span
-                class="price-curency"
-                data-th-text="${portal.localize({'_key=shop.title.currency.uan', '_locale=ru'})}"
-              ></span>
-              <span
-                class="cart-items-price"
-                data-th-text="${cart.price.items}"
-              ></span>
-            </span>
-          </div>
-          <div class="checkout-action">
-            <a
-              data-th-href="${shopUrl}"
-              class="checkout-back"
-              data-th-text="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"
-              data-th-title="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"
-            ></a>
-            <a
-              class="checkout-continue"
-              data-th-classappend="${cart.stock and cart.itemsNum > 0 ? '' : 'not-active'}"
-              data-th-href="${checkoutUrl}"
-              data-th-text="${portal.localize({'_key=shop.title.continue', '_locale=ru'})}"
-              data-th-title="${portal.localize({'_key=shop.title.continue', '_locale=ru'})}"
-            >
-            </a>
-          </div>
         </div>
-      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-  </body>
+</body>
+
 </html>
