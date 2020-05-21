@@ -2,6 +2,10 @@
 <content-type>
   <display-name>Hashtag</display-name>
   <super-type>base:structured</super-type>
-  <form>    
+  <form>
+    <input name="keywords" type="textLine">
+      <label>Keywords</label>
+      <occurrences minimum="0" maximum="0"/>
+    </input>
   </form>
 </content-type>

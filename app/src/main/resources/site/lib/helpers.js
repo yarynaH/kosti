@@ -77,6 +77,10 @@ function getPageComponents(req, footerType, activeEl, title) {
     var ogDescription = site.data.description;
   }
 
+  var keywords = "";
+  if (content) {
+    keywords = getKeywords(content);
+  }
   if (title) {
     title = title + " | " + site.displayName;
   } else {
@@ -282,4 +286,27 @@ function getLoginRequest() {
     ),
     contentType: "text/html"
   };
+}
+
+function getKeywords(content) {
+  var keywords = "";
+  if (content.data && content.data.hashtags) {
+    var hashtags = norseUtils.forceArray(content.data.hashtags);
+    for (var i = 0; i < hashtags.length; i++) {
+      var hashtag = contentLib.get({ key: hashtags[i] });
+      if (hashtag) {
+        if (keywords !== "") {
+          keywords += ", ";
+        }
+        if (hashtag.data.keywords) {
+          hashtag.data.keywords = norseUtils.forceArray(hashtag.data.keywords);
+          keywords +=
+            hashtag.displayName + ", " + hashtag.data.keywords.join(", ");
+        } else {
+          keywords += hashtag.displayName;
+        }
+      }
+    }
+  }
+  return keywords;
 }
