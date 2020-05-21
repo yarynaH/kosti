@@ -7,31 +7,36 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <div data-th-if="${removeCommentModal}" data-th-utext="${removeCommentModal}" data-th-remove="tag"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main js_article-id" data-th-attr="data-articleid=${content._id}">
+    <main itemscope itemtype="https://schema.org/Article" class="main js_article-id"
+        data-th-attr="data-articleid=${content._id}">
         <div class="article-img_wrap">
             <picture>
                 <source data-th-srcset="${content.imageDesktop.url}" media="(min-width: 767px)"
                     data-th-alt="${content.imageDesktop.alt}" />
-                <img data-th-src="${content.imageMobile.url}" data-th-alt="${content.imageMobile.alt}" />
+                <img itemprop="image" data-th-src="${content.imageMobile.url}"
+                    data-th-alt="${content.imageMobile.alt}" />
             </picture>
         </div>
         <div class="blog blog_width clearfix">
             <div class="article-header">
                 <div class="post-info">
-                    <a data-th-href="${content.author.url}">
+                    <a data-th-href="${content.author.url}" itemprop="author" itemscope
+                        itemtype="http://schema.org/Person">
                         <span class="post-user_avatar">
                             <img data-th-src="${content.author.image.url}"
                                 data-th-alt="${'Аватар ' + content.author.displayName}" />
                         </span>
-                        <span class="post-user_name" data-th-text="${content.author.displayName}"></span>
+                        <span itemprop="name" class="post-user_name"
+                            data-th-text="${content.author.displayName}"></span>
                     </a>
                     <span class="post-date" data-th-text="${content.date}"></span>
+                    <span class="post-date hidden" itemprop="datePublished" data-th-text="${content.isoDate}"></span>
                 </div>
-                <h1 class="post-title" data-th-text="${content.displayName}"></h1>
+                <h1 class="post-title" data-th-text="${content.displayName}" itemprop="name"></h1>
             </div>
             <div class="blog-content">
                 <div class="article-body">
-                    <div class="article-content" data-portal-region="main">
+                    <div class="article-content" data-portal-region="main" itemprop="articleBody">
                         <section data-th-if="${audio}">
                             <div data-th-utext="${audio}"></div>
                             <p data-th-text="${content.data.intro}"></p>
@@ -73,6 +78,9 @@
             </div>
             <div class="blog-sidebar" data-th-utext="${sidebar}"></div>
         </div>
+        <a data-th-href="${content.urlAbsolute}" class="hidden" itemprop="url"
+            data-th-text="${content.displayName}"></a>
+        <meta itemprop="articleSection" content="Hobby">
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
