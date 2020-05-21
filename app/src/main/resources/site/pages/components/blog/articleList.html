@@ -27,7 +27,7 @@
             <span class="post-date hidden" itemprop="datePublished" data-th-text="${article.isoDate}"></span>
         </div>
         <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}" target="_blank"
-            itemprop="name"></a>
+            itemprop="name headline"></a>
         <div class="post-text" data-th-utext="${article.data.intro}" itemprop="backstory"></div>
         <div class="tag-list" data-th-if="${article.hashtags}">
             <a data-th-each="hashtag : ${article.hashtags}" data-th-href="${hashtag.url}" class="tag-item"

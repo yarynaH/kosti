@@ -20,7 +20,7 @@
         <div class="blog blog_width clearfix">
             <div class="article-header">
                 <div class="post-info">
-                    <a data-th-href="${content.author.url}" itemprop="author" itemscope
+                    <a data-th-href="${content.author.url}" itemprop="author publisher" itemscope
                         itemtype="http://schema.org/Person">
                         <span class="post-user_avatar">
                             <img data-th-src="${content.author.image.url}"
@@ -32,7 +32,7 @@
                     <span class="post-date" data-th-text="${content.date}"></span>
                     <span class="post-date hidden" itemprop="datePublished" data-th-text="${content.isoDate}"></span>
                 </div>
-                <h1 class="post-title" data-th-text="${content.displayName}" itemprop="name"></h1>
+                <h1 class="post-title" data-th-text="${content.displayName}" itemprop="name headline"></h1>
             </div>
             <div class="blog-content">
                 <div class="article-body">

@@ -52,7 +52,7 @@
             data-th-classappend="${bookmarked} ? 'active' : ''"></span>
         <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article"
             data-th-classappend="${article.voted} ? 'active' : ''">
-            <span data-th-text="${article.votes}" itemprop="ratingValue"></span>
+            <span data-th-text="${article.votes}" itemprop="ratingValue ratingCount"></span>
         </span>
     </div>
 </div>

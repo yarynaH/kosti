@@ -21,8 +21,8 @@
                     <span class="post-date" data-th-text="${slide.date}"></span>
                     <span class="post-date hidden" itemprop="datePublished" data-th-text="${slide.isoDate}"></span>
                 </div>
-                <a data-th-href="${slide.url}" class="slick-title" data-th-text="${slide.displayName}" itemprop="name"
-                    target="_blank"></a>
+                <a data-th-href="${slide.url}" class="slick-title" data-th-text="${slide.displayName}"
+                    itemprop="name headline" target="_blank"></a>
                 <div class="slick-caption" data-th-utext="${slide.data.intro}" itemprop="backstory"></div>
                 <div class="slick-action">
                     <a data-th-href="${slide.url}" class="slick-read_btn"
