@@ -12,7 +12,7 @@ var commentsLib = require("commentsLib");
 var hashtagLib = require("hashtagLib");
 var sharedLib = require("sharedLib");
 var contextLib = require("contextLib");
-const cacheUtils = require("cacheLib");
+const cacheLib = require("cacheLib");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -31,6 +31,12 @@ exports.getArticleStatus = getArticleStatus;
 exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 exports.getArticleIntro = getArticleIntro;
 exports.generateTelegramNotificationMessage = generateTelegramNotificationMessage;
+
+const cache = cacheLib.api.createGlobalCache({
+  name: "blog",
+  size: 1000,
+  expire: 60 * 60 * 24
+});
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -52,14 +58,12 @@ function getWeekArticle(params) {
   if (!params) {
     var params = {};
   }
-  if (!params.weekArticleId) {
-    params.weekArticleId = params.cache
-      ? params.cache.get("weekid", function () {
-          return votesLib.getWeekArticleId();
-        })
-      : votesLib.getWeekArticleId();
+  var weekid = cache.api.getOnly("weekid");
+  if (!weekid) {
+    weekid = votesLib.getWeekArticleId();
+    cache.api.put("weekid", weekid);
   }
-  var article = contentLib.get({ key: params.weekArticleId });
+  var article = contentLib.get({ key: weekid });
   if (!article) {
     return "";
   }
@@ -96,23 +100,18 @@ function getSidebarModel(params) {
   if (!params) {
     params = {};
   }
-  var weekArticleId = cacheUtils.getCache({
-    cache: params.cache,
-    key: "weekId",
-    callback: votesLib.getWeekArticleId
-  });
-  var hotTags = cacheUtils.getCache({
-    cache: params.cache,
-    key: "hottags",
-    callback: getHotTags
-  });
-  var socialLinks = cacheUtils.getCache({
-    cache: params.cache,
-    key: "sociallinks",
-    callback: getSolialLinks
-  });
+  var hotTags = cache.api.getOnly("hottags");
+  if (!hotTags) {
+    hotTags = getHotTags();
+    cache.api.put("hottags", hotTags);
+  }
+  var socialLinks = cache.api.getOnly("sociallinks");
+  if (!socialLinks) {
+    socialLinks = getSolialLinks();
+    cache.api.put("sociallinks", socialLinks);
+  }
   return {
-    weeksPost: getWeekArticle({ weekArticleId: weekArticleId }),
+    weeksPost: getWeekArticle(),
     socialLinks: socialLinks,
     //libraryHot: getLibraryHot(),
     hotTags: hotTags,
@@ -121,25 +120,13 @@ function getSidebarModel(params) {
   };
 }
 
-function beautifyArticle(article, cache) {
-  article = cacheUtils.getCache({
-    cache: cache,
-    key: article._id,
-    callback: beautifyGeneralFields,
-    data: article
-  });
-  if (article.data.date) {
-    var itemDate = new Date(article.data.date);
-    article.date =
-      itemDate.getDate().toFixed() +
-      " " +
-      norseUtils.getMonthName(itemDate) +
-      " " +
-      norseUtils.getTime(itemDate);
+function beautifyArticle(article) {
+  let tempArticle = cache.api.getOnly(article._id);
+  if (!tempArticle) {
+    article = beautifyGeneralFields(article);
+    cache.api.put(article._id, article);
   } else {
-    article.date = kostiUtils.getTimePassedSincePostCreation(
-      new Date(moment(article.publish.from))
-    );
+    article = tempArticle;
   }
   article.votes = votesLib.countUpvotes(article._id);
   article.voted = false;
@@ -193,6 +180,19 @@ function beautifyGeneralFields(article) {
   if (!article.publish.from) {
     var date = new Date();
     article.publish.from = date.toISOString();
+  }
+  if (article.data.date) {
+    var itemDate = new Date(article.data.date);
+    article.date =
+      itemDate.getDate().toFixed() +
+      " " +
+      norseUtils.getMonthName(itemDate) +
+      " " +
+      norseUtils.getTime(itemDate);
+  } else {
+    article.date = kostiUtils.getTimePassedSincePostCreation(
+      new Date(moment(article.publish.from))
+    );
   }
   return article;
 }

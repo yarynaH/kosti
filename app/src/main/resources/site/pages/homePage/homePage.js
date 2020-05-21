@@ -12,13 +12,10 @@ const sharedLib = require(libLocation + "sharedLib");
 const storeLib = require(libLocation + "storeLib");
 const hashtagLib = require(libLocation + "hashtagLib");
 const contextLib = require(libLocation + "contextLib");
-const cacheUtils = require(libLocation + "cacheLib");
+const cacheLib = require(libLocation + "cacheLib");
 
-const cache = cacheUtils.newCache({
-  size: 1000,
-  expire: 60 * 60 * 24
-});
-const videoCache = cacheUtils.newCache({
+const cache = cacheLib.api.createGlobalCache({
+  name: "blog",
   size: 1000,
   expire: 60 * 60 * 24
 });
@@ -66,7 +63,7 @@ function handleReq(req) {
     let model = {
       content: content,
       video: video ? video : getVideoUrl(site.video),
-      sidebar: blogLib.getSidebar({ cache: cache }),
+      sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
       hotDate: new Date().toISOString(),
@@ -78,12 +75,12 @@ function handleReq(req) {
     return model;
 
     function getScheduleFromCache() {
-      return cacheUtils.getCache({
-        cache: cache,
-        key: "schedule",
-        callback: getSchedule,
-        clearCache: req.params.cache === "clear"
-      });
+      var schedule = cache.api.getOnly("schedule");
+      if (!schedule) {
+        schedule = getSchedule();
+        cache.api.put("schedule", schedule);
+      }
+      return schedule;
     }
 
     function getSchedule() {
@@ -146,19 +143,18 @@ function handleReq(req) {
       articles = norseUtils.forceArray(articles);
       for (let i = 0; i < articles.length; i++) {
         let temp = contentLib.get({ key: articles[i] });
-        result.push(blogLib.beautifyArticle(temp, cache));
+        result.push(blogLib.beautifyArticle(temp));
       }
       return getSliderView(result);
     }
 
     function getVideoFromCache(key) {
-      return cacheUtils.getCache({
-        cache: videoCache,
-        key: "video",
-        callback: getVideo,
-        clearCache: req.params.cache === "clear",
-        data: key
-      });
+      var video = cache.api.getOnly("video");
+      if (!video) {
+        video = getVideo(key);
+        cache.api.put("video", video);
+      }
+      return video;
     }
 
     function getVideo(key) {
