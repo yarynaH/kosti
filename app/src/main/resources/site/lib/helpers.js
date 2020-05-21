@@ -43,52 +43,9 @@ function getPageComponents(req, footerType, activeEl, title) {
     service: "monster"
   });
 
-  if (content && content.data && content.data.mainImage) {
-    var ogImage = portal.imageUrl({
-      id: content.data.mainImage,
-      scale: "(1,1)",
-      type: "absolute"
-    });
-  } else if (content && content.data && content.data.image) {
-    var ogImage = portal.imageUrl({
-      id: content.data.image,
-      scale: "(1,1)",
-      type: "absolute"
-    });
-  } else {
-    var ogImage = portal.assetUrl({
-      path: "images/extended-logo-min.png",
-      type: "absolute"
-    });
-  }
-  if (content && content.type === app.name + ":article") {
-    var ogDescription = blogLib.getArticleIntro(content);
-  } else if (content && content.data && content.data.intro) {
-    var ogDescription = content.data.intro.replace(
-      /(&nbsp;|(<([^>]+)>))/gi,
-      ""
-    );
-  } else if (content && content.data && content.data.description) {
-    var ogDescription = content.data.description.replace(
-      /(&nbsp;|(<([^>]+)>))/gi,
-      ""
-    );
-  } else {
-    var ogDescription = site.data.description;
-  }
-
   var keywords = "";
   if (content) {
     keywords = getKeywords(content);
-  }
-  if (title) {
-    title = title + " | " + site.displayName;
-  } else {
-    if (content && content.displayName !== site.displayName) {
-      var title = content.displayName + " | " + site.displayName;
-    } else {
-      var title = site.displayName;
-    }
   }
 
   pageComponents["pagehead"] = thymeleaf.render(
@@ -96,11 +53,8 @@ function getPageComponents(req, footerType, activeEl, title) {
     {
       siteConfig: siteConfig,
       content: content,
-      ogImage: ogImage,
       site: site,
-      title: title,
-      keywords: keywords,
-      ogDescription: ogDescription
+      keywords: keywords
     }
   );
   var discordUrl = "https://discordapp.com/api/oauth2/authorize?";
