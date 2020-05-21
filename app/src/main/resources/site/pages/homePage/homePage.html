@@ -42,18 +42,19 @@
         <div class="main_blog">
             <div class="blog blog_width clearfix">
                 <div class="blog-navigation js_blog-navigation">
-                    <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="hotter-btn" data-type="hot"
-                        data-th-classappend="${active.hot}"
+                    <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="hotter-btn js_feed-button"
+                        data-type="hot" data-th-classappend="${active.hot}"
                         data-th-text="${portal.localize({'_key=homepage.title.hot', '_locale=ru'})}"></a>
                     <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=new'})}" data-type="new"
-                        class="fresher-btn" data-th-classappend="${active.new}"
+                        class="fresher-btn js_feed-button" data-th-classappend="${active.new}"
                         data-th-text="${portal.localize({'_key=homepage.title.fresh', '_locale=ru'})}"></a>
                     <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}" data-type="bookmarks"
-                        class="bookmarks-btn js_bookmarks-btn js_login-required"
+                        class="bookmarks-btn js_bookmarks-btn js_login-required js_feed-button"
                         data-th-classappend="${active.bookmarks}"
                         data-th-text="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"></a>
                     <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=podcasts'})}" data-type="podcasts"
-                        class="podcasts-btn js_podcasts-btn icon-podcast" data-th-classappend="${active.podcasts}"
+                        class="podcasts-btn js_podcasts-btn icon-podcast js_feed-button"
+                        data-th-classappend="${active.podcasts}"
                         data-th-text="${portal.localize({'_key=homepage.title.podcasts', '_locale=ru'})}"></a>
                 </div>
                 <div class="blog-list-wrap">
