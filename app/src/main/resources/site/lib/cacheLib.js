@@ -1,5 +1,6 @@
 var cacheLib = require("/lib/cache");
 var contentLib = require("/lib/xp/content");
+var contextLib = require("/lib/xp/context");
 var defaultBranch = "master";
 
 // Using global cache
@@ -295,6 +296,10 @@ function put(cacheName, key, contentOrGetter) {
         : contentOrGetter;
     return content;
   };
+  var context = contextLib.get();
+  if (context && context.branch === "draft") {
+    return retrieve;
+  }
   try {
     validateRequired(cacheName, "put", "key", key);
     validateRequired(cacheName, "put", "contentOrGetter", contentOrGetter);
