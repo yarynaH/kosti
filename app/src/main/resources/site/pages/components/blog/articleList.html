@@ -1,5 +1,5 @@
 <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/Article" data-th-each="article: ${articles}"
-    class="blog-item">
+    class="blog-item" data-th-attr="data-articleid=${article._id}">
     <div data-th-unless="${article.status.published}" class="posted_article_status-wrapper">
         <div class="posted_article_status-inner">
             <div data-th-if="${!article.status.draft}" class="posted_article_status-item moderate">

@@ -221,6 +221,29 @@ function initSharedEvents() {
         .height(this.scrollHeight - 42);
     }
   );
+  $(".js_icon-delete").on("click", function (e) {
+    e.preventDefault();
+    showLoader();
+    var id = $(this).data().id;
+    $.ajax({
+      type: "GET",
+      url: "/article/delete",
+      data: { id: id },
+      success: function (data) {
+        hideLoader();
+        if (data.success) {
+          $("div[data-articleid=" + id + "]").remove();
+          showSnackBar("Статья удалена.", "success");
+        } else {
+          showSnackBar("Поизошла ошибка.", "success");
+        }
+      },
+      error: function (data) {
+        hideLoader();
+        showSnackBar("Поизошла ошибка.", "success");
+      }
+    });
+  });
 }
 
 function addBookmark(btn) {

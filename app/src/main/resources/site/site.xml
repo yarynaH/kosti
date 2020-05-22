@@ -173,6 +173,9 @@
     <mapping controller="/services/newArticle/edit.js" order="10">
       <pattern>/article/edit</pattern>
     </mapping>
+    <mapping controller="/services/newArticle/delete.js" order="10">
+      <pattern>/article/delete</pattern>
+    </mapping>
     <mapping controller="/services/checkout/controllers/liqpay.js" order="10">
       <pattern>/payment-processing</pattern>
     </mapping>
