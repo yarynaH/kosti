@@ -173,6 +173,9 @@ function downvote(user, node) {
 }
 
 function getCommentParentArticle(id) {
+  if (!id) {
+    return false;
+  }
   var comment = getComment(id);
   var article = contentLib.get({ key: comment.parent });
   if (article) {
