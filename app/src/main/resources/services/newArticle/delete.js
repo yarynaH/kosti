@@ -16,9 +16,9 @@ var contextLib = require(libLocation + "contextLib");
 var sharedLib = require(libLocation + "sharedLib");
 var statusPage = require("status");
 
-exports.get = handleGet;
+exports.post = handlePost;
 
-function handleGet(req) {
+function handlePost(req) {
   var me = this;
   var user = userLib.getCurrentUser();
   var result = false;

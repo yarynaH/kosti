@@ -226,7 +226,7 @@ function initSharedEvents() {
     showLoader();
     var id = $(this).data().id;
     $.ajax({
-      type: "GET",
+      type: "POST",
       url: "/article/delete",
       data: { id: id },
       success: function (data) {
