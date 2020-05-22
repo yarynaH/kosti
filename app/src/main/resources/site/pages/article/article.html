@@ -7,7 +7,7 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <div data-th-if="${removeCommentModal}" data-th-utext="${removeCommentModal}" data-th-remove="tag"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main itemscope itemtype="https://schema.org/Article" class="main js_article-id"
+    <main itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/Article" class="main js_article-id"
         data-th-attr="data-articleid=${content._id}">
         <div class="article-img_wrap">
             <picture>
