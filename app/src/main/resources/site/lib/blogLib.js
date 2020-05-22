@@ -92,7 +92,7 @@ function getSidebar(params) {
   }
   return thymeleaf.render(
     resolve("../pages/components/blog/blogSidebar.html"),
-    getSidebarModel({ cache: params.cache })
+    getSidebarModel(params)
   );
 }
 
