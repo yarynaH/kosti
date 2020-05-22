@@ -34,6 +34,7 @@ function handleReq(req) {
   function createModel() {
     var up = req.params;
     var content = portal.getContent();
+    content = beautifyProduct(content);
     var response = [];
     var site = portal.getSiteConfig();
 
@@ -45,7 +46,6 @@ function handleReq(req) {
       mainImage: getMainImage(content.data),
       images: getImages(content.data),
       social: site.social,
-      urlAbsolute: portal.pageUrl({ id: content._id, type: "absolute" }),
       shopUrl: portal.pageUrl({ id: site.shopLocation }),
       sizes: getSizes(content.data.sizes),
       variations: getVariations(content),
@@ -53,6 +53,18 @@ function handleReq(req) {
       pageComponents: helpers.getPageComponents(req)
     };
     return model;
+  }
+
+  function beautifyProduct(product) {
+    product.urlAbsolute = portal.pageUrl({ id: product._id, type: "absolute" });
+    product.brand = {
+      name: "Вечерние Кости",
+      logo: portal.assetUrl({
+        path: "images/extended-logo@3x.png",
+        type: "absolute"
+      })
+    };
+    return product;
   }
 
   function getImages(data) {

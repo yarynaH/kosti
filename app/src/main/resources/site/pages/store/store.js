@@ -50,6 +50,21 @@ function handleReq(req) {
     return image;
   }
 
+  function beautifyProduct(product) {
+    product.urlAbsolute = portal.pageUrl({ id: product._id, type: "absolute" });
+    product.brand = {
+      name: "Вечерние Кости",
+      logo: portal.assetUrl({
+        path: "images/extended-logo@3x.png",
+        type: "absolute"
+      })
+    };
+    product.image = getMainImage(product.data);
+    product.url = portal.pageUrl({ id: product._id });
+    product.priceBlock = storeLib.getPriceBlock(product._id);
+    return product;
+  }
+
   function getProducts(params) {
     var query = "";
     if (params.type) {
@@ -78,9 +93,7 @@ function handleReq(req) {
       products = products.hits;
     }
     for (var i = 0; i < products.length; i++) {
-      products[i].image = getMainImage(products[i].data);
-      products[i].url = portal.pageUrl({ id: products[i]._id });
-      products[i].priceBlock = storeLib.getPriceBlock(products[i]._id);
+      products[i] = beautifyProduct(products[i]);
     }
     return products;
   }

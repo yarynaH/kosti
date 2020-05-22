@@ -6,7 +6,12 @@
 <body class="page-wrapper">
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main">
+    <main class="main" itemscope itemtype="http://schema.org/Product">
+        <meta itemprop="url" data-th-attr="content=${content.urlAbsolute}">
+        <span class="hidden" itemprop="brand" itemscope itemtype="http://schema.org/Brand">
+            <meta itemprop="name" data-th-attr="content=${content.brand.name}">
+            <meta itemprop="logo" data-th-attr="content=${content.brand.logo}">
+        </span>
         <div class="store">
             <div class="blog_width">
                 <div class="store-top">
@@ -33,7 +38,7 @@
                             <span class="product_bage-text"
                                 data-th-text="${portal.localize({'_key=shop.title.new', '_locale=ru'})}"></span>
                         </div>
-                        <div class="pdp-main_image">
+                        <div itemprop="image" class="pdp-main_image">
                             <img data-th-src="${mainImage.url}" data-th-alt="${mainImage.alt}" />
                         </div>
                         <div class="pdp-image-list">
@@ -49,7 +54,7 @@
                         <form data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}" class="pdp-form"
                             method="POST">
                             <div class="pdp-info_header">
-                                <h2 class="pdp-title" data-th-text="${content.displayName}"></h2>
+                                <h2 itemprop="name" class="pdp-title" data-th-text="${content.displayName}"></h2>
                                 <div data-th-utext="${priceBlock}" class="pdp-price">
                                 </div>
                             </div>
@@ -97,7 +102,7 @@
                             <input name="price" type="hidden" data-th-attr="value=${content.data.price}" />
                             <input name="productId" type="hidden" data-th-attr="value=${content._id}" />
                         </form>
-                        <div class="pdp-description" data-th-utext="${content.data.description}"></div>
+                        <div class="pdp-description" data-th-utext="${content.data.description}" itemprop="description"></div>
                         <div class="pdp-social social">
                             <h3 class="social-title"
                                 data-th-text="${portal.localize({'_key=shop.title.share', '_locale=ru'})}"></h3>
@@ -105,7 +110,7 @@
                                 <li class="social-item">
                                     <a class="social-link facebook" data-th-attr="
                                         data-title=${content.displayName}, 
-                                        data-url=${urlAbsolute}, 
+                                        data-url=${content.urlAbsolute}, 
                                         data-description=${content.data.description},
                                         data-image=${mainImage.urlAbsolute},
                                         data-articleid=${content._id},
@@ -119,7 +124,7 @@
                                         data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}"
                                         data-th-attr="
                                             data-title=${content.displayName}, 
-                                            data-url=${urlAbsolute}, 
+                                            data-url=${content.urlAbsolute}, 
                                             data-description=${content.data.description},
                                             data-image=${mainImage.urlAbsolute},
                                             data-articleid=${content._id},
@@ -128,11 +133,11 @@
                                 </li>
                                 <li class="social-item">
                                     <a class="social-link vk"
-                                        data-th-href="${'http://vk.com/share.php?url=' + urlAbsolute}" target="_blank"
+                                        data-th-href="${'http://vk.com/share.php?url=' + content.urlAbsolute}" target="_blank"
                                         data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
                                         data-th-attr="
                                             data-title=${content.displayName}, 
-                                            data-url=${urlAbsolute}, 
+                                            data-url=${content.urlAbsolute}, 
                                             data-description=${content.data.description},
                                             data-image=${mainImage.urlAbsolute},
                                             data-articleid=${content._id},

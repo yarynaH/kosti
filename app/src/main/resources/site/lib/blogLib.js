@@ -144,6 +144,13 @@ function beautifyArticle(article) {
 }
 
 function beautifyGeneralFields(article) {
+  article.publisher = {
+    name: "Вечерние Кости",
+    logo: portal.assetUrl({
+      path: "images/extended-logo@3x.png",
+      type: "absolute"
+    })
+  };
   article.image = norseUtils.getImage(article.data.image, "block(767, 350)");
   article.imageMobile = norseUtils.getImage(
     article.data.image,
