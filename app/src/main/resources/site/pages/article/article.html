@@ -30,7 +30,10 @@
                             data-th-text="${content.author.displayName}"></span>
                     </a>
                     <span class="post-date" data-th-text="${content.date}"></span>
-                    <span class="post-date hidden" itemprop="datePublished" data-th-text="${content.isoDate}"></span>
+                    <span class="post-date hidden" itemprop="datePublished"
+                        data-th-text="${content.publishDate}"></span>
+                    <span class="post-date hidden" itemprop="dateModified"
+                        data-th-text="${content.modifiedTime}"></span>
                 </div>
                 <h1 class="post-title" data-th-text="${content.displayName}" itemprop="name headline"></h1>
             </div>
@@ -81,6 +84,13 @@
         <a data-th-href="${content.urlAbsolute}" class="hidden" itemprop="url"
             data-th-text="${content.displayName}"></a>
         <meta itemprop="articleSection" content="Hobby">
+        <div class="hidden" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                <meta itemprop="url"
+                    content="https://www.kostirpg.com/_/asset/com.myurchenko.kostirpg:1590089042/images/logo-vechernie-kosti.png">
+            </div>
+            <span itemprop="name">Вечерние Кости</span>
+        </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>

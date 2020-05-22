@@ -19,7 +19,8 @@
                         <span class="post-user_name" data-th-text="${slide.author.displayName}" itemprop="name"></span>
                     </a>
                     <span class="post-date" data-th-text="${slide.date}"></span>
-                    <span class="post-date hidden" itemprop="datePublished" data-th-text="${slide.isoDate}"></span>
+                    <span class="post-date hidden" itemprop="datePublished" data-th-text="${slide.publishDate}"></span>
+                    <span class="post-date hidden" itemprop="dateModified" data-th-text="${slide.modifiedTime}"></span>
                 </div>
                 <a data-th-href="${slide.url}" class="slick-title" data-th-text="${slide.displayName}"
                     itemprop="name headline" target="_blank"></a>
@@ -43,5 +44,12 @@
         </div>
         <a data-th-href="${slide.urlAbsolute}" class="hidden" itemprop="url" data-th-text="${slide.displayName}"></a>
         <meta itemprop="articleSection" content="Hobby">
+        <div class="hidden" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                <meta itemprop="url"
+                    content="https://www.kostirpg.com/_/asset/com.myurchenko.kostirpg:1590089042/images/logo-vechernie-kosti.png">
+            </div>
+            <span itemprop="name">Вечерние Кости</span>
+        </div>
     </div>
 </div>

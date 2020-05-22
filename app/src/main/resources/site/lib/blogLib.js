@@ -189,10 +189,10 @@ function beautifyGeneralFields(article) {
       norseUtils.getMonthName(itemDate) +
       " " +
       norseUtils.getTime(itemDate);
-    article.isoDate = itemDate.toISOString();
+    article.publishDate = itemDate.toISOString();
   } else {
     var itemDate = new Date(moment(article.publish.from));
-    article.isoDate = itemDate.toISOString();
+    article.publishDate = itemDate.toISOString();
     article.date = kostiUtils.getTimePassedSincePostCreation(itemDate);
   }
   return article;
