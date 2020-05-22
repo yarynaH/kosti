@@ -3,19 +3,19 @@
     <div data-th-if="${sale}" data-th-remove="tag">
         <link itemprop="availability" href="http://schema.org/InStock" />
         <span data-th-if="${sale}" class="price old">
-            <span itemprop="priceCurrency">UAH</span>
-            <span itemprop="priceCurrency" n data-th-text="${product.data.finalPrice}"></span>
+            <span itemprop="priceCurrency" class="p-currency">UAH</span>
+            <span itemprop="priceCurrency" class="p-price" data-th-text="${product.data.finalPrice}"></span>
         </span>
         <span class="price sale" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <span itemprop="priceCurrency">UAH</span>
-            <span itemprop="price" data-th-text="${product.data.price}"></span>
+            <span itemprop="priceCurrency" class="p-currency">UAH</span>
+            <span itemprop="price" data-th-text="${product.data.price}" class="p-price"></span>
         </span>
     </div>
     <!--DEFAULT PRICE BLOCK-->
     <div class="price" data-th-unless="${sale}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <link itemprop="availability" href="http://schema.org/InStock" />
-        <span itemprop="priceCurrency">UAH</span>
-        <span itemprop="price" data-th-text="${product.data.price}"></span>
+        <span itemprop="priceCurrency" class="p-currency">UAH</span>
+        <span itemprop="price" data-th-text="${product.data.price}" class="p-price"></span>
     </div>
     <div data-th-if="${product.data.preorder}" class="preorder-msg">
         <link itemprop="availability" href="http://schema.org/PreOrder" />
@@ -28,7 +28,7 @@
     <link itemprop="availability" href="http://schema.org/OutOfStock" />
     Нет в наличии
     <span class="hidden">
-        <span itemprop="priceCurrency">UAH</span>
-        <span itemprop="price" data-th-text="${product.data.price}"></span>
+        <span itemprop="priceCurrency" class="p-currency">UAH</span>
+        <span itemprop="price" class="p-price" data-th-text="${product.data.price}"></span>
     </span>
 </div>

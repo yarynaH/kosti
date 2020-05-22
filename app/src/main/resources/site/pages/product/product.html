@@ -6,8 +6,8 @@
 <body class="page-wrapper">
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main" itemscope itemtype="http://schema.org/Product">
-        <meta itemprop="url" data-th-attr="content=${content.urlAbsolute}">
+    <main class="main h-product" itemscope itemtype="http://schema.org/Product">
+        <a itemprop="url" class="u-url hidden" data-th-href="${content.urlAbsolute}"></a>
         <span class="hidden" itemprop="brand" itemscope itemtype="http://schema.org/Brand">
             <meta itemprop="name" data-th-attr="content=${content.brand.name}">
             <meta itemprop="logo" data-th-attr="content=${content.brand.logo}">
@@ -39,7 +39,8 @@
                                 data-th-text="${portal.localize({'_key=shop.title.new', '_locale=ru'})}"></span>
                         </div>
                         <div class="pdp-main_image">
-                            <img itemprop="image" data-th-src="${mainImage.url}" data-th-alt="${mainImage.alt}" />
+                            <img itemprop="image" class="u-photo" data-th-src="${mainImage.url}"
+                                data-th-alt="${mainImage.alt}" />
                         </div>
                         <div class="pdp-image-list">
                             <div class="pdp-image-item">
@@ -54,7 +55,7 @@
                         <form data-th-attr="action=${portal.serviceUrl({'_service=checkout'})}" class="pdp-form"
                             method="POST">
                             <div class="pdp-info_header">
-                                <h2 itemprop="name" class="pdp-title" data-th-text="${content.displayName}"></h2>
+                                <h2 itemprop="name" class="pdp-title p-name" data-th-text="${content.displayName}"></h2>
                                 <div data-th-utext="${priceBlock}" class="pdp-price">
                                 </div>
                             </div>
@@ -99,7 +100,9 @@
                             <input name="price" type="hidden" data-th-attr="value=${content.data.price}" />
                             <input name="productId" type="hidden" data-th-attr="value=${content._id}" />
                         </form>
-                        <div class="pdp-description" data-th-utext="${content.data.description}" itemprop="description"></div>
+                        <div class="pdp-description e-description" data-th-utext="${content.data.description}"
+                            itemprop="description">
+                        </div>
                         <div class="pdp-social social">
                             <h3 class="social-title"
                                 data-th-text="${portal.localize({'_key=shop.title.share', '_locale=ru'})}"></h3>
@@ -130,7 +133,8 @@
                                 </li>
                                 <li class="social-item">
                                     <a class="social-link vk"
-                                        data-th-href="${'http://vk.com/share.php?url=' + content.urlAbsolute}" target="_blank"
+                                        data-th-href="${'http://vk.com/share.php?url=' + content.urlAbsolute}"
+                                        target="_blank"
                                         data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
                                         data-th-attr="
                                             data-title=${content.displayName}, 
