@@ -45,10 +45,9 @@
                             </a>
                         </div>
                         <h2 class="plp-prod_name" data-th-text="${product.displayName}" itemprop="name"></h2>
+                        <div class="pdp-description hidden" data-th-utext="${content.data.description}"
+                            itemprop="description"></div>
                         <div data-th-utext="${product.priceBlock}" class="plp-prod_price"></div>
-                        <div data-th-if="${product.data.inventory == 0}" class="out-of-stock-msg">
-                            Нет в наличии
-                        </div>
                     </div>
                 </div>
             </div>

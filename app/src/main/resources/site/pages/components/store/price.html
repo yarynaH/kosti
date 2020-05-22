@@ -1,6 +1,7 @@
 <div data-th-unless="${product.data.inventory == 0}" data-th-remove="tag">
     <!--SALE BLOCK-->
     <div data-th-if="${sale}" data-th-remove="tag">
+        <link itemprop="availability" href="http://schema.org/InStock" />
         <span data-th-if="${sale}" class="price old">
             <span itemprop="priceCurrency">UAH</span>
             <span itemprop="priceCurrency" n data-th-text="${product.data.finalPrice}"></span>
@@ -12,10 +13,18 @@
     </div>
     <!--DEFAULT PRICE BLOCK-->
     <div class="price" data-th-unless="${sale}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <link itemprop="availability" href="http://schema.org/InStock" />
         <span itemprop="priceCurrency">UAH</span>
         <span itemprop="price" data-th-text="${product.data.price}"></span>
     </div>
     <div data-th-if="${product.data.preorder}" class="preorder-msg">
+        <link itemprop="availability" href="http://schema.org/PreOrder" />
         Предзаказ
     </div>
+</div>
+
+<div data-th-if="${product.data.inventory == 0}" class="out-of-stock-msg" itemprop="offers" itemscope
+    itemtype="http://schema.org/Offer">
+    <link itemprop="availability" href="http://schema.org/OutOfStock" />
+    Нет в наличии
 </div>

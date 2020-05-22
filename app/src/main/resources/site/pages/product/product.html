@@ -38,8 +38,8 @@
                             <span class="product_bage-text"
                                 data-th-text="${portal.localize({'_key=shop.title.new', '_locale=ru'})}"></span>
                         </div>
-                        <div itemprop="image" class="pdp-main_image">
-                            <img data-th-src="${mainImage.url}" data-th-alt="${mainImage.alt}" />
+                        <div class="pdp-main_image">
+                            <img itemprop="image" data-th-src="${mainImage.url}" data-th-alt="${mainImage.alt}" />
                         </div>
                         <div class="pdp-image-list">
                             <div class="pdp-image-item">
@@ -57,9 +57,6 @@
                                 <h2 itemprop="name" class="pdp-title" data-th-text="${content.displayName}"></h2>
                                 <div data-th-utext="${priceBlock}" class="pdp-price">
                                 </div>
-                            </div>
-                            <div class="out-of-stock-msg" data-th-if="${content.data.inventory == 0}">
-                                Нет в наличии
                             </div>
                             <div class="pdp-composition" data-th-text="${content.data.composition}"></div>
                             <div class="pdp-swatches">
