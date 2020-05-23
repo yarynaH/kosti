@@ -193,6 +193,7 @@ function hideAllModals(e) {
     $(".js_header-notification.show_notification").removeClass(
       "show_notification"
     );
+    addScroll();
   }
 }
 

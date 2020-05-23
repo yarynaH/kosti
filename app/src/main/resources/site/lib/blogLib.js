@@ -139,6 +139,24 @@ function beautifyArticle(article) {
   if (parseInt(article.votes) > 0) {
     article.voted = votesLib.checkIfVoted(article._id);
   }
+  if (!article.publish.from) {
+    var date = new Date();
+    article.publish.from = date.toISOString();
+  }
+  if (article.data.date) {
+    var itemDate = new Date(article.data.date);
+    article.date =
+      itemDate.getDate().toFixed() +
+      " " +
+      norseUtils.getMonthName(itemDate) +
+      " " +
+      norseUtils.getTime(itemDate);
+    article.publishDate = itemDate.toISOString();
+  } else {
+    var itemDate = new Date(moment(article.publish.from));
+    article.publishDate = itemDate.toISOString();
+    article.date = kostiUtils.getTimePassedSincePostCreation(itemDate);
+  }
   article.status = getArticleStatus(article._id);
   return article;
 }
@@ -183,24 +201,6 @@ function beautifyGeneralFields(article) {
   article.urlAbsolute = portal.pageUrl({ id: article._id, type: "absolute" });
   if (!article.publish) {
     article.publish = {};
-  }
-  if (!article.publish.from) {
-    var date = new Date();
-    article.publish.from = date.toISOString();
-  }
-  if (article.data.date) {
-    var itemDate = new Date(article.data.date);
-    article.date =
-      itemDate.getDate().toFixed() +
-      " " +
-      norseUtils.getMonthName(itemDate) +
-      " " +
-      norseUtils.getTime(itemDate);
-    article.publishDate = itemDate.toISOString();
-  } else {
-    var itemDate = new Date(moment(article.publish.from));
-    article.publishDate = itemDate.toISOString();
-    article.date = kostiUtils.getTimePassedSincePostCreation(itemDate);
   }
   return article;
 }

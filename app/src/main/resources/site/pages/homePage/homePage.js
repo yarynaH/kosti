@@ -24,6 +24,15 @@ exports.get = handleReq;
 
 function handleReq(req) {
   let user = userLib.getCurrentUser();
+  if (
+    user &&
+    user.roles &&
+    user.roles.moderator &&
+    req.params.cache === "clear"
+  ) {
+    norseUtils.log("clearing cache");
+    cache.api.clear();
+  }
 
   function renderView() {
     let view = resolve("homePage.html");
