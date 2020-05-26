@@ -1,21 +1,21 @@
-$(document).ready(function() {
+$(document).ready(function () {
   $(".js_checkout-form").validate({
     ignore: "",
-    highlight: function(element, errorClass, validClass) {},
-    unhighlight: function(element, errorClass, validClass) {}
+    highlight: function (element, errorClass, validClass) {},
+    unhighlight: function (element, errorClass, validClass) {}
   });
   $(".js_shipping-form").validate({
     ignore: "",
-    highlight: function(element, errorClass, validClass) {},
-    unhighlight: function(element, errorClass, validClass) {},
+    highlight: function (element, errorClass, validClass) {},
+    unhighlight: function (element, errorClass, validClass) {},
     rules: {
       novaPoshtaСity: {
-        required: function(element) {
+        required: function (element) {
           return checkNovaPoshtaValidation();
         }
       },
       novaPoshtaWarehouse: {
-        required: function(element) {
+        required: function (element) {
           return checkNovaPoshtaValidation();
         }
       }
@@ -28,7 +28,7 @@ $(document).ready(function() {
       return false;
     }
   }
-  $("input[name=shipping]").on("click", function() {
+  $("input[name=shipping]").on("click", function () {
     if ($(this).attr("value") === "novaposhta") {
       $(".delivery_details").removeClass("hidden");
     } else {
@@ -50,7 +50,7 @@ function addToCart(data) {
   }
   $(".minicart .minicart-qty").removeClass("animate");
   var call = makeAjaxCall(cartServiceUrl, "POST", data, true);
-  call.done(function(data) {
+  call.done(function (data) {
     setCookie(data._id);
     $(".minicart .minicart-total").html("UAH " + data.price.items);
     $(".minicart .minicart-qty").text(
@@ -63,6 +63,13 @@ function addToCart(data) {
     } else {
       $(".checkout-action .checkout-continue").addClass("not-active");
     }
+    if (
+      data.items &&
+      data.items.length < 1 &&
+      $(".checkout-action .checkout-continue").length > 0
+    ) {
+      $(".checkout-action .checkout-continue").addClass("not-active");
+    }
     for (var i = 0; i < data.items.length; i++) {
       var selector =
         ".cart-product_price-wrap[data-id=" + data.items[i]._id + "]";
@@ -70,34 +77,22 @@ function addToCart(data) {
         ? (selector += "[data-size=" + data.items[i].itemSize + "]")
         : false;
       if (data.items[i].stock && data.items[i].itemSizeStock) {
-        $(selector)
-          .find(".productPrice")
-          .removeClass("hidden");
-        $(selector)
-          .find(".productOutOfStock")
-          .addClass("hidden");
+        $(selector).find(".productPrice").removeClass("hidden");
+        $(selector).find(".productOutOfStock").addClass("hidden");
       } else {
-        $(selector)
-          .find(".productPrice")
-          .addClass("hidden");
-        $(selector)
-          .find(".productOutOfStock")
-          .removeClass("hidden");
+        $(selector).find(".productPrice").addClass("hidden");
+        $(selector).find(".productOutOfStock").removeClass("hidden");
       }
     }
     showSnackBar("Добавлено в корзину.", "success");
   });
 }
 
-$(".pdp-image-item img").on("click", function(e) {
+$(".pdp-image-item img").on("click", function (e) {
   console.log("123");
   e.preventDefault();
-  var prevImg = $(".pdp-main_image")
-    .find("img")
-    .attr("src");
-  $(".pdp-main_image")
-    .find("img")
-    .attr("src", $(this).attr("src"));
+  var prevImg = $(".pdp-main_image").find("img").attr("src");
+  $(".pdp-main_image").find("img").attr("src", $(this).attr("src"));
   if (window.outerWidth >= 768) {
     $(".pdp-main_image").zoom({ url: $(this).attr("src") });
   }
