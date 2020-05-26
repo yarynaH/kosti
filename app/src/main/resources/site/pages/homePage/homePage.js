@@ -108,7 +108,7 @@ function handleReq(req) {
         result[i] = beautifySchedule(result[i]);
       }
       let resCopy = JSON.parse(JSON.stringify(result));
-      while (result.length < 3) {
+      while (result.length < 3 && result.length > 0) {
         for (let i = 0; i < resCopy.length; i++) {
           if (result.length >= 3) {
             break;
