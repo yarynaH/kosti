@@ -419,7 +419,9 @@ function getArticlesByUser(params) {
   if (params.count) {
     return articles.total;
   }
-  articles.hits = beautifyArticleArray(articles.hits);
+  articles.hits = contextLib.runInDraft(function () {
+    return beautifyArticleArray(articles.hits);
+  });
   return articles;
 }
 
