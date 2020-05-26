@@ -6,8 +6,15 @@ var httpClientLib = require("/lib/http-client");
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
+const cacheLib = require(libLocation + "cacheLib");
 
-exports.get = function(req) {
+const cache = cacheLib.api.createGlobalCache({
+  name: "monsters",
+  size: 1000,
+  expire: 60 * 60 * 24
+});
+
+exports.get = function (req) {
   var result = null;
   var params = req.params;
   switch (params.action) {
@@ -15,7 +22,7 @@ exports.get = function(req) {
       result = getSingleMonster(params.id);
       break;
     default:
-      result = getMonstersList();
+      result = getMonstersFromCache();
       break;
   }
 
@@ -58,5 +65,14 @@ exports.get = function(req) {
       });
     }
     return result;
+  }
+
+  function getMonstersFromCache() {
+    var monsters = cache.api.getOnly("list");
+    if (!monsters) {
+      monsters = getMonstersList();
+      cache.api.put("list", monsters);
+    }
+    return monsters;
   }
 };
