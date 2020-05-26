@@ -9,7 +9,7 @@
 <form class="checkout-form" method="POST" data-th-action="${checkoutUrl}">
     <div class="payment_m">
         <div class="form-group">
-            <input name="step" type="radio" class="input-radio" id="liqpay-payment" value="liqpay" hidden />
+            <input name="step" type="radio" class="input-radio" id="liqpay-payment" value="liqpay" hidden required />
             <label for="liqpay-payment" class="label-radio">
                 <div class="radio_align-type">
                     <div class="radio_align-top">
@@ -27,7 +27,8 @@
             </label>
         </div>
         <div class="form-group">
-            <input name="step" type="radio" class="input-radio" id="intecasa-payment" value="interkassa" hidden />
+            <input name="step" type="radio" class="input-radio" id="intecasa-payment" value="interkassa" hidden
+                required />
             <label for="intecasa-payment" class="label-radio">
                 <div class="radio_align-type">
                     <div class="radio_align-top">
