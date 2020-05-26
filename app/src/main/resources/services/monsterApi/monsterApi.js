@@ -19,7 +19,7 @@ exports.get = function (req) {
   var params = req.params;
   switch (params.action) {
     case "single":
-      result = getSingleMonster(params.id);
+      result = getSingleMonsterFromCache(params.id);
       break;
     default:
       result = getMonstersFromCache();
@@ -30,6 +30,15 @@ exports.get = function (req) {
     body: result,
     contentType: "application/json"
   };
+
+  function getSingleMonsterFromCache(id) {
+    var monster = cache.api.getOnly(id);
+    if (!monster) {
+      monster = getSingleMonster(id);
+      cache.api.put(id, monster);
+    }
+    return monster;
+  }
 
   function getSingleMonster(id) {
     var monster = contentLib.get({ key: id });
