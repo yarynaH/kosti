@@ -2,7 +2,6 @@ const thymeleaf = require("/lib/thymeleaf");
 const portal = require("/lib/xp/portal");
 const contentLib = require("/lib/xp/content");
 const httpClientLib = require("/lib/http-client");
-const cacheLib = require("/lib/cache");
 
 const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
@@ -13,15 +12,10 @@ const sharedLib = require(libLocation + "sharedLib");
 const storeLib = require(libLocation + "storeLib");
 const hashtagLib = require(libLocation + "hashtagLib");
 const contextLib = require(libLocation + "contextLib");
+const cacheLib = require(libLocation + "cacheLib");
 
-const cache =
-  contextLib.getBranch() === "draft"
-    ? null
-    : cacheLib.newCache({
-        size: 1000,
-        expire: 60 * 60 * 24
-      });
-const videoCache = cacheLib.newCache({
+const cache = cacheLib.api.createGlobalCache({
+  name: "blog",
   size: 1000,
   expire: 60 * 60 * 24
 });
@@ -30,6 +24,15 @@ exports.get = handleReq;
 
 function handleReq(req) {
   let user = userLib.getCurrentUser();
+  if (
+    user &&
+    user.roles &&
+    user.roles.moderator &&
+    req.params.cache === "clear"
+  ) {
+    norseUtils.log("clearing cache");
+    cache.api.clear();
+  }
 
   function renderView() {
     let view = resolve("homePage.html");
@@ -68,10 +71,8 @@ function handleReq(req) {
 
     let model = {
       content: content,
-      video: video
-        ? "https://www.youtube.com/embed/" + video
-        : getVideoUrl(site.video),
-      sidebar: blogLib.getSidebar({ cache: cache }),
+      video: video ? video : getVideoUrl(site.video),
+      sidebar: blogLib.getSidebar(),
       schedule: schedule,
       active: active,
       hotDate: new Date().toISOString(),
@@ -83,13 +84,12 @@ function handleReq(req) {
     return model;
 
     function getScheduleFromCache() {
-      if (cache) {
-        return cache.get("schedule", function () {
-          return getSchedule();
-        });
-      } else {
-        return getSchedule();
+      var schedule = cache.api.getOnly("schedule");
+      if (!schedule) {
+        schedule = getSchedule();
+        cache.api.put("schedule", schedule);
       }
+      return schedule;
     }
 
     function getSchedule() {
@@ -108,7 +108,7 @@ function handleReq(req) {
         result[i] = beautifySchedule(result[i]);
       }
       let resCopy = JSON.parse(JSON.stringify(result));
-      while (result.length < 3) {
+      while (result.length < 3 && result.length > 0) {
         for (let i = 0; i < resCopy.length; i++) {
           if (result.length >= 3) {
             break;
@@ -152,19 +152,18 @@ function handleReq(req) {
       articles = norseUtils.forceArray(articles);
       for (let i = 0; i < articles.length; i++) {
         let temp = contentLib.get({ key: articles[i] });
-        result.push(blogLib.beautifyArticle(temp, cache));
+        result.push(blogLib.beautifyArticle(temp));
       }
       return getSliderView(result);
     }
 
     function getVideoFromCache(key) {
-      if (videoCache) {
-        return videoCache.get("video", function () {
-          return getVideo(key);
-        });
-      } else {
-        return getVideo(key);
+      var video = cache.api.getOnly("video");
+      if (!video) {
+        video = getVideo(key);
+        cache.api.put("video", video);
       }
+      return video;
     }
 
     function getVideo(key) {
@@ -186,7 +185,11 @@ function handleReq(req) {
         response.items[0].id &&
         response.items[0].id.videoId
       ) {
-        return response.items[0].id.videoId;
+        return thymeleaf.render(resolve("video.html"), {
+          id: response.items[0].id.videoId,
+          url: "https://www.youtube.com/embed/" + response.items[0].id.videoId,
+          alt: "Самое свежее видео на канале Вечерние Кости"
+        });
       }
       return false;
     }
@@ -196,9 +199,17 @@ function handleReq(req) {
       url = url[url.length - 1];
 
       if (url.split("?v=")[1]) {
-        return "https://www.youtube.com/embed/" + url.split("?v=")[1];
+        return thymeleaf.render(resolve("video.html"), {
+          id: url.split("?v=")[1],
+          url: "https://www.youtube.com/embed/" + url.split("?v=")[1],
+          alt: "Самое свежее видео на канале Вечерние Кости"
+        });
       } else {
-        return "https://www.youtube.com/embed/" + url;
+        return thymeleaf.render(resolve("video.html"), {
+          id: url.split("?v=")[1],
+          url: "https://www.youtube.com/embed/" + url,
+          alt: "Самое свежее видео на канале Вечерние Кости"
+        });
       }
     }
   }

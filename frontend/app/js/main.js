@@ -250,6 +250,22 @@ function addBookmark(btn) {
   });
 }
 
+$(".js_feed-button").on("click", function (e) {
+  e.preventDefault();
+  var wrapper = $(".blog-list");
+  var date = new Date();
+  wrapper.data("page", 0);
+  wrapper.data("feedtype", $(this).data().type);
+  wrapper.data("date", date.toISOString());
+  wrapper.data("start", 0);
+  wrapper.data("query", "");
+  $(".js_blog-list-empty").addClass("hidden");
+  $(".js_feed-button.active").removeClass("active");
+  $(this).addClass("active");
+  wrapper.html("");
+  loadMoreArticles();
+});
+
 function loadMoreArticles() {
   $(".js_lazyload-icon").removeClass("hidden");
   $(".js_blog-load_more").addClass("hidden");
@@ -274,7 +290,7 @@ function loadMoreArticles() {
       start: wrapper.data("start"),
       userId: $(".js_user-page-id").data("userid")
     },
-    false
+    true
   );
   call.done(function (data) {
     data = JSON.parse(data);

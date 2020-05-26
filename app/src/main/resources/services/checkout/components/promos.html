@@ -1,11 +1,6 @@
 <li data-th-each="promo: ${promos}" class="promo_code-used_item">
-  <span class="promo_code-used_name" data-th-text="${promo.displayName}"></span>
-  <span
-    class="promo_code-used_discount"
-    data-th-text="${(promo.type == 'percent' ? '% ' : 'UAH ') + promo.discount}"
-  ></span>
-  <span
-    class="remove-btn js_promo-remove"
-    data-th-attr="data-code=${promo.code}"
-  ></span>
+    <span class="promo_code-used_name" data-th-text="${promo.displayName}"></span>
+    <span class="promo_code-used_discount"
+        data-th-text="${(promo.type == 'percent' ? '% ' : 'UAH ') + promo.discount}"></span>
+    <span class="remove-btn js_promo-remove" data-th-attr="data-code=${promo.code}"></span>
 </li>

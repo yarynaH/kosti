@@ -1,87 +1,58 @@
 <div class="post-footer">
-  <div class="post-counters">
-    <div class="share-block social">
-      <span
-        class="post-counter icon-share"
-        data-th-text="${article.shares}"
-      ></span>
-      <ul class="social-list">
-        <li class="social-item">
-          <a
-            class="social-link facebook"
-            data-th-attr="
+    <div class="post-counters">
+        <div class="share-block social">
+            <span class="post-counter icon-share" data-th-text="${article.shares}"></span>
+            <ul class="social-list">
+                <li class="social-item">
+                    <a class="social-link facebook" data-th-attr="
               data-title=${article.displayName}, 
               data-url=${article.urlAbsolute}, 
               data-description=${article.data.intro},
               data-image=${article.image.urlAbsolute},
               data-articleid=${article._id}
-            "
-            data-th-title="${portal.localize({'_key=social.title.facebook', '_locale=ru'})}"
-          ></a>
-        </li>
-        <li class="social-item">
-          <a
-            target="_blank"
-            data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+article._path, '_type=absolute'})}"
-            class="social-link twitter"
-            data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}"
-            data-th-attr="
+            " data-th-title="${portal.localize({'_key=social.title.facebook', '_locale=ru'})}"></a>
+                </li>
+                <li class="social-item">
+                    <a target="_blank"
+                        data-th-href="${'https://twitter.com/intent/tweet?text=' + portal.pageUrl({'_path='+article._path, '_type=absolute'})}"
+                        class="social-link twitter"
+                        data-th-title="${portal.localize({'_key=social.title.twitter', '_locale=ru'})}" data-th-attr="
               data-title=${article.displayName}, 
               data-url=${article.urlAbsolute}, 
               data-description=${article.data.intro},
               data-image=${article.image.urlAbsolute},
               data-articleid=${article._id}
-            "
-          ></a>
-        </li>
-        <li class="social-item">
-          <a
-            class="social-link vk"
-            data-th-href="${'http://vk.com/share.php?url=' + article.urlAbsolute}"
-            target="_blank"
-            data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
-            data-th-attr="
+            "></a>
+                </li>
+                <li class="social-item">
+                    <a class="social-link vk" data-th-href="${'http://vk.com/share.php?url=' + article.urlAbsolute}"
+                        target="_blank" data-th-title="${portal.localize({'_key=social.title.vk', '_locale=ru'})}"
+                        data-th-attr="
               data-title=${article.displayName}, 
               data-url=${article.urlAbsolute}, 
               data-description=${article.data.intro},
               data-image=${article.image.urlAbsolute},
               data-articleid=${article._id}
-            "
-          ></a>
-        </li>
-        <li class="social-item">
-          <a
-            class="social-link copy_url js_copy_url"
-            data-th-title="${portal.localize({'_key=social.title.copyUrl', '_locale=ru'})}"
-            data-th-attr="
+            "></a>
+                </li>
+                <li class="social-item">
+                    <a class="social-link copy_url js_copy_url"
+                        data-th-title="${portal.localize({'_key=social.title.copyUrl', '_locale=ru'})}" data-th-attr="
               data-url=${article.urlAbsolute}
-            "
-          ></a>
-        </li>
-      </ul>
+            "></a>
+                </li>
+            </ul>
+        </div>
+        <span class="post-counter icon-views" data-th-text="${article.views}"></span>
+        <a data-th-href="${article.url + '#articleComments'}" class="post-counter icon-comment"
+            data-th-text="${article.commentsCounter}"></a>
     </div>
-    <span
-      class="post-counter icon-views"
-      data-th-text="${article.views}"
-    ></span>
-    <a
-      data-th-href="${article.url + '#articleComments'}"
-      class="post-counter icon-comment"
-      data-th-text="${article.commentsCounter}"
-    ></a>
-  </div>
-  <div class="post-actions">
-    <span
-      class="add_to_bookmarks-btn icon-bookmark js_bookmarks"
-      data-th-attr="data-contentId=${article._id}"
-      data-th-classappend="${bookmarked} ? 'active' : ''"
-    ></span>
-    <span
-      data-th-attr="data-contentId=${article._id}"
-      class="like-btn icon-rock js_like-article"
-      data-th-classappend="${article.voted} ? 'active' : ''"
-    >
-      <span data-th-text="${article.votes}"></span>
-    </span>
-  </div>
+    <div class="post-actions">
+        <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${article._id}"
+            data-th-classappend="${bookmarked} ? 'active' : ''"></span>
+        <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article"
+            data-th-classappend="${article.voted} ? 'active' : ''">
+            <span data-th-text="${article.votes}"></span>
+        </span>
+    </div>
 </div>

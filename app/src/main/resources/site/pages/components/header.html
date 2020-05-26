@@ -1,9 +1,9 @@
 <div class="site_width">
     <div class="header-logo">
         <a data-th-href="${portal.pageUrl({'_path=' + site._path})}">
-            <img data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}" alt="Vechernie kosti logo"
-                class="header-logo-default" />
-            <img data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Vechernie kosti logo"
+            <img data-th-src="${portal.assetUrl({'_path=images/logo-vechernie-kosti.png'})}"
+                alt="Логотип Вечерние Кости" class="header-logo-default" />
+            <img data-th-src="${portal.assetUrl({'_path=images/smal-logo.png'})}" alt="Логотип Вечерние Кости"
                 class="header-logo-scroll" />
         </a>
     </div>
@@ -39,6 +39,12 @@
                 </div>
                 <div class="notification-body">
                     <ul class="notification-list js_notification-block"></ul>
+                    <div class="lds-ring js_notification-loader hidden">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                 </div>
             </div>
         </div>

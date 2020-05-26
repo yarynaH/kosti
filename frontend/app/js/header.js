@@ -32,10 +32,13 @@ function initHeaderFunctions() {
   });
   $(".js_notification-icon").on("click", function (e) {
     e.preventDefault();
+    $(".js_notification-block").html("");
+    $(".js_notification-loader").removeClass("hidden");
+    $(".js_header-notification").addClass("show_notification");
     var call = makeAjaxCall(notificationApiUrl, "GET");
     call.done(function (data) {
+      $(".js_notification-loader").addClass("hidden");
       $(".js_notification-block").html(data.html);
-      $(".js_header-notification").toggleClass("show_notification");
       var currQty = parseInt(
         $(".js_header-notification .notification-qty").text()
       );

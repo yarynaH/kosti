@@ -3,7 +3,8 @@
         <div class="post-info">
             <a data-th-if="${comment.author}" data-th-href="${comment.author.url}">
                 <span class="post-user_avatar">
-                    <img data-th-src="${comment.author.image.url}" alt="" />
+                    <img data-th-src="${comment.author.image.url}"
+                        data-th-alt="${'Аватар ' + comment.author.displayName}" />
                 </span>
                 <span class="post-user_name" data-th-text="${comment.author.displayName}"></span>
             </a>
@@ -27,7 +28,8 @@
         data-th-attr="data-parentid=${comment._id}">
         <textarea name="body" class="comments-write_comment-input js_autoresizable-textarea"
             placeholder="Ответить на комментарий…" id="" cols="30" rows="1"></textarea>
-        <div class="form-caption" data-th-utext="${portal.localize({'_key=user.title.comments.formating', '_locale=ru'})}"></div>
+        <div class="form-caption"
+            data-th-utext="${portal.localize({'_key=user.title.comments.formating', '_locale=ru'})}"></div>
         <button class="comments-write_comment-button">Отправить</button>
         <input value="addComment" type="hidden" name="action" />
     </form>

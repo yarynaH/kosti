@@ -12,6 +12,7 @@ var commentsLib = require("commentsLib");
 var hashtagLib = require("hashtagLib");
 var sharedLib = require("sharedLib");
 var contextLib = require("contextLib");
+const cacheLib = require("cacheLib");
 
 exports.beautifyArticle = beautifyArticle;
 exports.beautifyArticleArray = beautifyArticleArray;
@@ -29,6 +30,13 @@ exports.updateSchedule = updateSchedule;
 exports.getArticleStatus = getArticleStatus;
 exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 exports.getArticleIntro = getArticleIntro;
+exports.generateTelegramNotificationMessage = generateTelegramNotificationMessage;
+
+const cache = cacheLib.api.createGlobalCache({
+  name: "blog",
+  size: 1000,
+  expire: 60 * 60 * 24
+});
 
 function beautifyArticleArray(articles) {
   articles = norseUtils.forceArray(articles);
@@ -50,12 +58,12 @@ function getWeekArticle(params) {
   if (!params) {
     var params = {};
   }
-  var weekArticleId = params.cache
-    ? params.cache.get("weekid", function () {
-        return votesLib.getWeekArticleId();
-      })
-    : votesLib.getWeekArticleId();
-  var article = contentLib.get({ key: weekArticleId });
+  var weekid = cache.api.getOnly("weekid");
+  if (!weekid) {
+    weekid = votesLib.getWeekArticleId();
+    cache.api.put("weekid", weekid);
+  }
+  var article = contentLib.get({ key: weekid });
   if (!article) {
     return "";
   }
@@ -92,18 +100,18 @@ function getSidebarModel(params) {
   if (!params) {
     params = {};
   }
-  var socialLinks = params.cache
-    ? params.cache.get("sociallinks", function () {
-        return getSolialLinks();
-      })
-    : getSolialLinks();
-  var hotTags = params.cache
-    ? params.cache.get("hottags", function () {
-        return getHotTags();
-      })
-    : getHotTags();
+  var hotTags = cache.api.getOnly("hottags");
+  if (!hotTags) {
+    hotTags = getHotTags();
+    cache.api.put("hottags", hotTags);
+  }
+  var socialLinks = cache.api.getOnly("sociallinks");
+  if (!socialLinks) {
+    socialLinks = getSolialLinks();
+    cache.api.put("sociallinks", socialLinks);
+  }
   return {
-    weeksPost: getWeekArticle({ cache: params.cache }),
+    weeksPost: getWeekArticle(),
     socialLinks: socialLinks,
     //libraryHot: getLibraryHot(),
     hotTags: hotTags,
@@ -112,26 +120,13 @@ function getSidebarModel(params) {
   };
 }
 
-function beautifyArticle(article, cache) {
-  if (cache) {
-    article = cache.get(article._id, function () {
-      return beautifyGeneralFields(article);
-    });
-  } else {
+function beautifyArticle(article) {
+  let tempArticle = cache.api.getOnly(article._id);
+  if (!tempArticle) {
     article = beautifyGeneralFields(article);
-  }
-  if (article.data.date) {
-    var itemDate = new Date(article.data.date);
-    article.date =
-      itemDate.getDate().toFixed() +
-      " " +
-      norseUtils.getMonthName(itemDate) +
-      " " +
-      norseUtils.getTime(itemDate);
+    cache.api.put(article._id, article);
   } else {
-    article.date = kostiUtils.getTimePassedSincePostCreation(
-      new Date(moment(article.publish.from))
-    );
+    article = tempArticle;
   }
   article.votes = votesLib.countUpvotes(article._id);
   article.voted = false;
@@ -144,11 +139,36 @@ function beautifyArticle(article, cache) {
   if (parseInt(article.votes) > 0) {
     article.voted = votesLib.checkIfVoted(article._id);
   }
+  if (!article.publish.from) {
+    var date = new Date();
+    article.publish.from = date.toISOString();
+  }
+  if (article.data.date) {
+    var itemDate = new Date(article.data.date);
+    article.date =
+      itemDate.getDate().toFixed() +
+      " " +
+      norseUtils.getMonthName(itemDate) +
+      " " +
+      norseUtils.getTime(itemDate);
+    article.publishDate = itemDate.toISOString();
+  } else {
+    var itemDate = new Date(moment(article.publish.from));
+    article.publishDate = itemDate.toISOString();
+    article.date = kostiUtils.getTimePassedSincePostCreation(itemDate);
+  }
   article.status = getArticleStatus(article._id);
   return article;
 }
 
 function beautifyGeneralFields(article) {
+  article.publisher = {
+    name: "Вечерние Кости",
+    logo: portal.assetUrl({
+      path: "images/extended-logo@3x.png",
+      type: "absolute"
+    })
+  };
   article.image = norseUtils.getImage(article.data.image, "block(767, 350)");
   article.imageMobile = norseUtils.getImage(
     article.data.image,
@@ -181,10 +201,6 @@ function beautifyGeneralFields(article) {
   article.urlAbsolute = portal.pageUrl({ id: article._id, type: "absolute" });
   if (!article.publish) {
     article.publish = {};
-  }
-  if (!article.publish.from) {
-    var date = new Date();
-    article.publish.from = date.toISOString();
   }
   return article;
 }
@@ -484,6 +500,18 @@ function generateDiscordNotificationMessage(content) {
     "На KostiRPG появилась новая статья **" +
     content.displayName +
     "**! Проходи по ссылке и зацени. " +
+    content.url
+  );
+}
+
+function generateTelegramNotificationMessage(content) {
+  return (
+    "\uD83D\uDD25" +
+    content.displayName +
+    "\n\r\n\r" +
+    getArticleIntro(content) +
+    "\n\r\n\r" +
+    "\uD83E\uDD18" +
     content.url
   );
 }

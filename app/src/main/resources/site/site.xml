@@ -135,6 +135,13 @@
       </items>
       <occurrences minimum="0" maximum="1"/>
     </item-set>
+    <input name="hashtags" type="ContentSelector">
+      <label>Hashtags</label>
+      <occurrences minimum="0" maximum="5"/>
+      <config>
+        <allowContentType>hashtag</allowContentType>
+      </config>
+    </input>
   </form>
   <x-data name="relatedLocale"/>
 
@@ -154,7 +161,7 @@
     <mapping controller="/services/promos/promos.js">
       <pattern>/promos</pattern>
     </mapping>
-    <mapping controller="/services/orders/orders.js">
+    <mapping controller="/services/orders/orders.js" order="10">
       <pattern>/orders</pattern>
     </mapping>
     <mapping controller="/services/search/search.js">

@@ -1,39 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="page-wrapper">
-    <div
-      data-th-remove="tag"
-      data-th-utext="${pageComponents.loginRegisterModal}"
-    ></div>
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main js_payment-success" id="payment-success">
-      <div class="confirmation-wrap">
-        <div class="site_width">
-          <h2 class="checkout-title">Спасибо за ваш заказ!</h2>
-          <div class="confirmation-msg" data-th-if="${pendingPage}">
-            Ваш заказ получен под номером
-            <span data-th-text="${cart.userId}"></span>. В ближайшее время мы
-            свяжемся с вами для уточнения заказа.
-          </div>
-          <div class="confirmation-msg" data-th-unless="${pendingPage}">
-            Все прошло как по маслу! Ваш заказ получен под номером
-            <span data-th-text="${cart.userId}"></span> и успешно оплачен. В
-            ближайшее время мы свяжемся с вами для уточнения заказа.
-          </div>
-          <a
-            data-th-href="${shopUrl}"
-            class="checkout-back"
-            data-th-text="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"
-            data-th-title="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"
-          ></a>
+        <div class="confirmation-wrap">
+            <div class="site_width">
+                <h2 class="checkout-title">Спасибо за ваш заказ!</h2>
+                <div class="confirmation-msg" data-th-if="${pendingPage}">
+                    Ваш заказ получен под номером
+                    <span data-th-text="${cart.userId}"></span>. В ближайшее время мы
+                    свяжемся с вами для уточнения заказа.
+                </div>
+                <div class="confirmation-msg" data-th-unless="${pendingPage}">
+                    Все прошло как по маслу! Ваш заказ получен под номером
+                    <span data-th-text="${cart.userId}"></span> и успешно оплачен. В
+                    ближайшее время мы свяжемся с вами для уточнения заказа.
+                </div>
+                <a data-th-href="${shopUrl}" class="checkout-back"
+                    data-th-text="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"
+                    data-th-title="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"></a>
+            </div>
         </div>
-      </div>
     </main>
-    <footer
-      class="footer blog_width"
-      data-th-utext="${pageComponents.footer}"
-    ></footer>
-  </body>
+    <footer class="footer blog_width" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
 </html>

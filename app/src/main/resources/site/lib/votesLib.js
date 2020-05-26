@@ -35,7 +35,6 @@ function removeUnusedVotes() {
     count: -1,
     start: 0
   });
-  var items = [];
   var j = 0;
   for (var i = 0; i < result.hits.length; i++) {
     var item = votesRepo.get(result.hits[i].id);
@@ -44,10 +43,21 @@ function removeUnusedVotes() {
       deleteVotes(item._id);
       continue;
     }
-    if (!contentLib.get({ key: item.id })) {
+    /*if (!contentLib.get({ key: item.id })) {
       j++;
       deleteVotes(item._id);
       continue;
+    }*/
+    var type = getVoteType(item.id);
+    if (item.type !== type) {
+      votesRepo.modify({
+        key: item._id,
+        editor: editor
+      });
+      function editor(node) {
+        node.type = type;
+        return node;
+      }
     }
   }
 }
@@ -207,11 +217,14 @@ function getVoteType(id) {
   }
   var content = contentLib.get({ key: id });
   if (!content) {
-    return "article";
+    return "";
   }
   switch (content.type) {
     case app.name + ":podcast":
       return "podcast";
+      break;
+    case app.name + ":hashtag":
+      return "hashtag";
       break;
     case app.name + ":product":
       return "product";
@@ -219,8 +232,11 @@ function getVoteType(id) {
     case app.name + ":schedule":
       return "schedule";
       break;
-    default:
+    case app.name + ":article":
       return "article";
+      break;
+    default:
+      return "";
       break;
   }
 }

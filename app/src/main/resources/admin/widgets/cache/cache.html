@@ -1,0 +1,24 @@
+<widget>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Attachments Cleanup</title>
+    <style>
+        .cache-clearl-button {
+            background-color: #657984;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: "Source Sans Pro", sans-serif;
+            font-size: 13px;
+            padding: 6px 12px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cache-clearl-button-wrapper {
+            padding: 10px;
+        }
+    </style>
+    <div class="cache-clearl-button-wrapper">
+        <a class="cache-clearl-button" data-th-if="${url}" data-th-href="${url}" target="_blank">Clear cache</a>
+    </div>
+</widget>

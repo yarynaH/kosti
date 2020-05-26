@@ -1,25 +1,30 @@
 <div class="homepage_slider js_homepage_slider">
-    <div data-th-each="slide: ${slider}">
+    <div data-th-each="slide: ${slider}" itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/Article">
         <div class="slick-body">
             <div class="slick-img_wrap">
                 <picture>
                     <source data-th-srcset="${slide.imageSlider.url}" media="(min-width: 600px)" />
-                    <img data-th-src="${slide.image.url}" class="slick-img" />
+                    <img itemprop="image" data-th-src="${slide.image.url}" class="slick-img"
+                        data-th-attr="alt=${slide.image.alt}" />
                 </picture>
             </div>
             <div class="slick-content blog_width">
                 <div class="post-info">
-                    <a data-th-href="${slide.author.url}">
+                    <a data-th-href="${slide.author.url}" itemprop="author" itemscope
+                        itemtype="http://schema.org/Person">
                         <span class="post-user_avatar">
-                            <img data-th-src="${slide.author.image.url}" alt="" />
+                            <img data-th-src="${slide.author.image.url}"
+                                data-th-alt="${'Аватар ' + slide.author.displayName}" />
                         </span>
-                        <span class="post-user_name" data-th-text="${slide.author.displayName}"></span>
+                        <span class="post-user_name" data-th-text="${slide.author.displayName}" itemprop="name"></span>
                     </a>
                     <span class="post-date" data-th-text="${slide.date}"></span>
+                    <span class="post-date hidden" itemprop="datePublished" data-th-text="${slide.publishDate}"></span>
+                    <span class="post-date hidden" itemprop="dateModified" data-th-text="${slide.modifiedTime}"></span>
                 </div>
                 <a data-th-href="${slide.url}" class="slick-title" data-th-text="${slide.displayName}"
-                    target="_blank"></a>
-                <div class="slick-caption" data-th-utext="${slide.data.intro}"></div>
+                    itemprop="name headline" target="_blank"></a>
+                <div class="slick-caption" data-th-utext="${slide.data.intro}" itemprop="backstory"></div>
                 <div class="slick-action">
                     <a data-th-href="${slide.url}" class="slick-read_btn"
                         data-th-text="${portal.localize({'_key=homepage.title.read', '_locale=ru'})}"
@@ -36,6 +41,14 @@
                     </span>
                 </div>
             </div>
+        </div>
+        <a data-th-href="${slide.urlAbsolute}" class="hidden" itemprop="url" data-th-text="${slide.displayName}"></a>
+        <meta itemprop="articleSection" content="Hobby">
+        <div class="hidden" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                <meta itemprop="url" data-th-attr="content=${slide.publisher.logo}">
+            </div>
+            <span itemprop="name" data-th-attr="content=${slide.publisher.name}"></span>
         </div>
     </div>
 </div>

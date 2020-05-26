@@ -1,18 +1,34 @@
 <div data-th-unless="${product.data.inventory == 0}" data-th-remove="tag">
-  <!--SALE BLOCK-->
-  <div data-th-if="${sale}" data-th-remove="tag">
-    <span
-      data-th-if="${sale}"
-      class="price old"
-      data-th-text="${'UAH ' + product.data.finalPrice}"
-    ></span>
-    <span class="price sale" data-th-text="${'UAH ' + product.data.price}"></span>
-  </div>
-  <!--DEFAULT PRICE BLOCK-->
-  <div data-th-unless="${sale}" data-th-remove="tag">
-    <span class="price " data-th-text="${'UAH ' + product.data.price}"></span>
-  </div>
-  <div data-th-if="${product.data.preorder}" class="preorder-msg">
-    Предзаказ
-  </div>
+    <!--SALE BLOCK-->
+    <div data-th-if="${sale}" data-th-remove="tag">
+        <link itemprop="availability" href="http://schema.org/InStock" />
+        <span data-th-if="${sale}" class="price old">
+            <span itemprop="priceCurrency" class="p-currency">UAH</span>
+            <span itemprop="priceCurrency" class="p-price" data-th-text="${product.data.finalPrice}"></span>
+        </span>
+        <span class="price sale" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <span itemprop="priceCurrency" class="p-currency">UAH</span>
+            <span itemprop="price" data-th-text="${product.data.price}" class="p-price"></span>
+        </span>
+    </div>
+    <!--DEFAULT PRICE BLOCK-->
+    <div class="price" data-th-unless="${sale}" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+        <link itemprop="availability" href="http://schema.org/InStock" />
+        <span itemprop="priceCurrency" class="p-currency">UAH</span>
+        <span itemprop="price" data-th-text="${product.data.price}" class="p-price"></span>
+    </div>
+    <div data-th-if="${product.data.preorder}" class="preorder-msg">
+        <link itemprop="availability" href="http://schema.org/PreOrder" />
+        Предзаказ
+    </div>
+</div>
+
+<div data-th-if="${product.data.inventory == 0}" class="out-of-stock-msg" itemprop="offers" itemscope
+    itemtype="http://schema.org/Offer">
+    <link itemprop="availability" href="http://schema.org/OutOfStock" />
+    Нет в наличии
+    <span class="hidden">
+        <span itemprop="priceCurrency" class="p-currency">UAH</span>
+        <span itemprop="price" class="p-price" data-th-text="${product.data.price}"></span>
+    </span>
 </div>
