@@ -5,10 +5,14 @@
             <div data-th-if="${!article.status.draft}" class="posted_article_status-item moderate">
                 <span data-th-text="${portal.localize({'_key=user.article.status.moderate', '_locale=ru'})}"></span>
                 <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"></a>
+                <a class="posted_article_status-btn icon-delete js_icon-delete"
+                    data-th-attr="data-id=${article._id}"></a>
             </div>
             <div data-th-if="${article.status.draft}" class="posted_article_status-item draft">
                 <span data-th-text="${portal.localize({'_key=user.article.status.draft', '_locale=ru'})}"></span>
                 <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"></a>
+                <a class="posted_article_status-btn icon-delete js_icon-delete"
+                    data-th-attr="data-id=${article._id}"></a>
             </div>
         </div>
     </div>
