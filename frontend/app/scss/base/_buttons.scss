@@ -28,6 +28,12 @@
             }
         }
 
+        @if $style==reset {
+            background: none;
+            border: 0;
+            padding: 0;
+        }
+
         @if $style==transparent {
             text-transform: capitalize;
 
@@ -113,10 +119,9 @@
         }
 
         @if $style==link {
-            background: none;
-            border: 0;
+            text-transform: uppercase;
+            transition: transition(color);
             font-weight: bold;
-            padding: 0;
             color: $color-primary22;
 
             &:hover {

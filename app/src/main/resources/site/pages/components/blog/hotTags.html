@@ -1,7 +1,7 @@
 <div class="hot_tags">
-    <h3 class="hot_tags-title">Горячие теги</h3>
+    <h4 class="hot_tags-title">Горячие теги</h4>
     <div class="tag-list tag-list__hot">
-        <a data-th-each="tag : ${tags}" data-th-href="${tag.url}" class="tag-item"
-            data-th-text="${tag.displayName}"></a>
+        <a data-th-each="tag : ${tags}" data-th-href="${tag.url}" class="tag-item" data-th-text="${tag.displayName}"
+            data-th-title="${tag.displayName}"></a>
     </div>
 </div>

@@ -249,14 +249,16 @@
     }
 
     .add_to_bookmarks-btn {
+        @include button-style(reset);
+
         display: inline-flex;
         align-items: center;
         margin-right: 25px;
-        cursor: pointer;
         transition: transition(color);
+        color: inherit;
 
         &.active,
-        &:hover {
+        &:not([disabled]):hover {
             color: $color-primary18;
         }
     }
@@ -337,7 +339,7 @@
         }
 
         &.icon-comment {
-            &:hover {
+            &:not([disabled]):hover {
                 color: $color-primary15;
             }
         }

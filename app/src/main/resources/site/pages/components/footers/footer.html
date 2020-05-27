@@ -3,7 +3,8 @@
 <div class="blog_width">
     <ul class="footer-nav">
         <li class="footer-item" data-th-if="${footerLinks}" data-th-each="link: ${footerLinks}">
-            <a class="footer-link" data-th-href="${link.url}" data-th-text="${link.displayName}"></a>
+            <a class="footer-link" data-th-href="${link.url}" data-th-text="${link.displayName}"
+                data-th-title="${link.displayName}"></a>
         </li>
     </ul>
 </div>

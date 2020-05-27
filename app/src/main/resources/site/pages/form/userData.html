@@ -1,49 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="page-wrapper">
-    <div
-      data-th-remove="tag"
-      data-th-utext="${pageComponents.loginRegisterModal}"
-    ></div>
-    <div class="modal js_form-info">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2 class="modal-title"></h2>
-            <span class="icon-delete modal-close js_modal-close"></span>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer"></div>
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+  <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
+  <div class="modal js_form-info">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"></h4>
+          <span class="icon-delete modal-close js_modal-close"></span>
         </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer"></div>
       </div>
     </div>
-    <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main blog_width form game_reg-wrap">
-      <h1
-        class="game_reg-title title-1 h-mt-35 h-mb-20"
-        data-th-text="${content.displayName}"
-      ></h1>
-      <div class="game_reg-game1">
-        <div data-th-each="block, blockIndex: ${blocks}" data-th-remove="tag">
-          <div class="game_reg-checkbox_list">
-            <div
-              class="form-group form-group-tooltip game_reg-checkbox h-mb-35"
-              data-th-each="event, eventIndex: ${block.events}"
-              data-th-attr="data-description=${event.description}"
-            >
-              <div>
-                <div data-th-each="user: ${event.users}">
-                  <span data-th-text="${user.name}"></span>
-                  <span data-th-text="${user.phone}"></span>
-                </div>
+  </div>
+  <header class="header" data-th-utext="${pageComponents.header}"></header>
+  <main class="main blog_width form game_reg-wrap">
+    <h1 class="game_reg-title title-1 h-mt-35 h-mb-20" data-th-text="${content.displayName}"></h1>
+    <div class="game_reg-game1">
+      <div data-th-each="block, blockIndex: ${blocks}" data-th-remove="tag">
+        <div class="game_reg-checkbox_list">
+          <div class="form-group form-group-tooltip game_reg-checkbox h-mb-35"
+            data-th-each="event, eventIndex: ${block.events}" data-th-attr="data-description=${event.description}">
+            <div>
+              <div data-th-each="user: ${event.users}">
+                <span data-th-text="${user.name}"></span>
+                <span data-th-text="${user.phone}"></span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </main>
-    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-  </body>
+    </div>
+  </main>
+  <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
 </html>

@@ -32,7 +32,8 @@
                                 data-th-text="${scheduleItem.displayName}"></a>
                             <div class="tag-list tag-list__small tag-list__white">
                                 <a data-th-each="hashtag : ${scheduleItem.hashtags}" data-th-href="${hashtag.url}"
-                                    data-th-if="${hashtag}" class="tag-item" data-th-text="${hashtag.displayName}"></a>
+                                    data-th-if="${hashtag}" class="tag-item" data-th-text="${hashtag.displayName}"
+                                    data-th-title="${hashtag.displayName}"></a>
                             </div>
                         </div>
                     </div>
@@ -42,20 +43,26 @@
         <div class="main_blog">
             <div class="blog blog_width clearfix">
                 <div class="blog-navigation js_blog-navigation">
-                    <a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="hotter-btn js_feed-button"
-                        data-type="hot" data-th-classappend="${active.hot}"
-                        data-th-text="${portal.localize({'_key=homepage.title.hot', '_locale=ru'})}"></a>
-                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=new'})}" data-type="new"
-                        class="fresher-btn js_feed-button" data-th-classappend="${active.new}"
-                        data-th-text="${portal.localize({'_key=homepage.title.fresh', '_locale=ru'})}"></a>
-                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}" data-type="bookmarks"
-                        class="bookmarks-btn js_bookmarks-btn js_login-required js_feed-button"
-                        data-th-classappend="${active.bookmarks}"
-                        data-th-text="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"></a>
-                    <a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=podcasts'})}" data-type="podcasts"
-                        class="podcasts-btn js_podcasts-btn icon-podcast js_feed-button"
-                        data-th-classappend="${active.podcasts}"
-                        data-th-text="${portal.localize({'_key=homepage.title.podcasts', '_locale=ru'})}"></a>
+                    <h3><a data-th-href="${portal.pageUrl({'_path='+content._path})}" class="hotter-btn js_feed-button"
+                            data-type="hot" data-th-classappend="${active.hot}"
+                            data-th-text="${portal.localize({'_key=homepage.title.hot', '_locale=ru'})}"
+                            data-th-title="${portal.localize({'_key=homepage.title.hot', '_locale=ru'})}"></a></h3>
+                    <h3><a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=new'})}" data-type="new"
+                            class="fresher-btn js_feed-button" data-th-classappend="${active.new}"
+                            data-th-text="${portal.localize({'_key=homepage.title.fresh', '_locale=ru'})}"
+                            data-th-title="${portal.localize({'_key=homepage.title.fresh', '_locale=ru'})}"></a></h3>
+                    <h3><a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=bookmarks'})}"
+                            data-type="bookmarks"
+                            class="bookmarks-btn js_bookmarks-btn js_login-required js_feed-button"
+                            data-th-classappend="${active.bookmarks}"
+                            data-th-text="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"
+                            data-th-title="${portal.localize({'_key=homepage.title.bookmarks', '_locale=ru'})}"></a>
+                    </h3>
+                    <h3><a data-th-href="${portal.pageUrl({'_path='+content._path,'feed=podcasts'})}"
+                            data-type="podcasts" class="podcasts-btn js_podcasts-btn icon-podcast js_feed-button"
+                            data-th-classappend="${active.podcasts}"
+                            data-th-text="${portal.localize({'_key=homepage.title.podcasts', '_locale=ru'})}"
+                            data-th-title="${portal.localize({'_key=homepage.title.podcasts', '_locale=ru'})}"></a></h3>
                 </div>
                 <div class="blog-list-wrap">
                     <div class="blog-list" data-th-utext="${articles}" data-page="0" data-th-attr="data-date=${hotDate}"
