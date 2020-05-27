@@ -37,6 +37,14 @@
             margin: 0 15px 10px;
         }
     }
+
+    &-create_article {
+        @include button-style(global transparent white);
+
+        &-wrap {
+            margin-bottom: 30px;
+        }
+    }
 }
 
 .profile {

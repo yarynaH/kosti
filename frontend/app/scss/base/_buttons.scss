@@ -56,6 +56,18 @@
             }
         }
 
+        @if $style==white {
+            box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+            background-color: $color-primary1;
+            font-size: rem(16);
+            color: $color-primary6;
+
+            &:hover {
+                color: $color-primary36;
+                box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.1);
+            }
+        }
+
         @if $style==fb {
             @include icon(fb);
 

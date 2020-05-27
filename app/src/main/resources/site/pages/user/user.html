@@ -118,8 +118,8 @@
                             <span data-th-remove="tag"
                                 data-th-text="${portal.localize({'_key=user.title.plural.' + currTitle + '.' + pluralArticlesString, '_locale='+content.language})}"></span>
                         </h3>
-                        <div data-th-if="${currUserFlag and active.articles}">
-                            <a data-th-href="${createArticleUrl}"
+                        <div class="user_page-create_article-wrap" data-th-if="${currUserFlag and active.articles}">
+                            <a class="user_page-create_article" data-th-href="${createArticleUrl}"
                                 data-th-title="${portal.localize({'_key=user.title.createArticle', '_locale=ru'})}"
                                 data-th-text="${portal.localize({'_key=user.title.createArticle', '_locale=ru'})}">
                             </a>
