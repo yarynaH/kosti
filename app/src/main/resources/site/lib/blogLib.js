@@ -533,7 +533,7 @@ function getArticleLikesView(article, type) {
   if (type && type === "comment") {
     comment = true;
   }
-  if (article.votes < 1) {
+  if (!article.votes || article.votes < 1) {
     article.votes = 0;
   }
   return thymeleaf.render(resolve("../pages/article/components/like.html"), {
