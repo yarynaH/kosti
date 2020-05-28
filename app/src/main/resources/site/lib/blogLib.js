@@ -235,7 +235,10 @@ function getArticleIntro(article) {
   }
   if (article.data.intro) {
     return (
-      article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
+      article.data.intro
+        .replace(/(<([^>]+)>)/gi, "")
+        .replace("&nbsp;", " ")
+        .substring(0, 250) + "..."
     );
   } else {
     return "";
