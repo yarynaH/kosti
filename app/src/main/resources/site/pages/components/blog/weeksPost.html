@@ -12,8 +12,9 @@
     <a data-th-href="${article.url}" class="post_top-title" data-th-text="${article.displayName}"></a>
     <div class="post_top-text"></div>
     <div class="post_top-footer">
-        <div class="tag-list" hidden>
-            <a href="#" class="tag-item">Мерч</a>
+        <div class="tag-list">
+            <a data-th-each="tag : ${article.hashtags}" data-th-href="${tag.url}" class="tag-item"
+                data-th-text="${tag.displayName}"></a>
         </div>
         <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article"
             data-th-classappend="${article.voted} ? 'active' : ''">
