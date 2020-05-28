@@ -1,115 +1,121 @@
-<div class="modal modal-login js_login-form">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    Вход
-                </h4>
-                <a href="" class="modal-action modal-action-register js_call-login"
-                    data-logintype="js_register-form">Зарегистрироваться</a>
-                <span class="icon-delete modal-close js_modal-close"></span>
-            </div>
-            <div class="modal-body">
-                <form class="login-form js_validate">
-                    <div class="form-group">
-                        <label for="email-login-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                        <input name="username" class="input-text" id="email-login-input" required />
-                    </div>
+<div data-th-remove="tag" data-th-if="${showForm}">
 
-                    <div class="form-group form-group__action">
-                        <label for="password-login-input" class="label label-password">ПАРОЛЬ</label>
-                        <input name="password" type="password" class="input-text" id="password-login-input" required />
-                        <a href="" class="modal-action modal-action-forgotpass js_call-login"
-                            data-logintype="js_forgot-pass-form">Забыли пароль?</a>
-                    </div>
-                    <div class="form-group form-group-error is-invalid hidden"></div>
+    <div class="modal modal-login js_login-form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Вход
+                    </h4>
+                    <a href="" class="modal-action modal-action-register js_call-login"
+                        data-logintype="js_register-form">Зарегистрироваться</a>
+                    <span class="icon-delete modal-close js_modal-close"></span>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form js_validate">
+                        <div class="form-group">
+                            <label for="email-login-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+                            <input name="username" class="input-text" id="email-login-input" required />
+                        </div>
 
-                    <button class="modal-btn modal-btn-login">ВОЙТИ</button>
-                </form>
-            </div>
-            <div class="modal-footer social_login">
-                <h5 class="social_login-title">
-                    <span>ВХОД ЧЕРЕЗ СОЦИАЛЬНЫЕ СЕТИ</span>
-                </h5>
-                <div class="social_login-action">
-                    <button class="button social_login-fb">Facebook</button>
-                    <button class="button social_login-twitter hidden">Twitter</button>
-                    <a data-th-href="${vkUrl}" class="button social_login-vk">Вконтакте</a>
-                    <a data-th-href="${discordUrl}" class="button social_login-discord">Discord</a>
-                    <button class="button social_login-google js_social_login-google" id="google-login">
-                        Google
-                    </button>
+                        <div class="form-group form-group__action">
+                            <label for="password-login-input" class="label label-password">ПАРОЛЬ</label>
+                            <input name="password" type="password" class="input-text" id="password-login-input"
+                                required />
+                            <a href="" class="modal-action modal-action-forgotpass js_call-login"
+                                data-logintype="js_forgot-pass-form">Забыли пароль?</a>
+                        </div>
+                        <div class="form-group form-group-error is-invalid hidden"></div>
+
+                        <button class="modal-btn modal-btn-login">ВОЙТИ</button>
+                    </form>
+                </div>
+                <div class="modal-footer social_login">
+                    <h5 class="social_login-title">
+                        <span>ВХОД ЧЕРЕЗ СОЦИАЛЬНЫЕ СЕТИ</span>
+                    </h5>
+                    <div class="social_login-action">
+                        <button class="button social_login-fb">Facebook</button>
+                        <button class="button social_login-twitter hidden">Twitter</button>
+                        <a data-th-href="${vkUrl}" class="button social_login-vk">Вконтакте</a>
+                        <a data-th-href="${discordUrl}" class="button social_login-discord">Discord</a>
+                        <button class="button social_login-google js_social_login-google" id="google-login">
+                            Google
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal modal-registration js_register-form">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    Регистрация
-                </h4>
-                <a href="" class="modal-action modal-action-login js_call-login"
-                    data-logintype="js_login-form">Войти</a>
-                <span class="icon-delete modal-close js_modal-close"></span>
-            </div>
-            <div class="modal-body">
-                <form action="#" class="register-form js_validate">
-                    <div class="form-group">
-                        <label for="name-registration-input" class="label">ИМЯ</label>
-                        <input name="username" type="text" class="input-text" id="name-registration-input" required />
-                    </div>
+    <div class="modal modal-registration js_register-form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Регистрация
+                    </h4>
+                    <a href="" class="modal-action modal-action-login js_call-login"
+                        data-logintype="js_login-form">Войти</a>
+                    <span class="icon-delete modal-close js_modal-close"></span>
+                </div>
+                <div class="modal-body">
+                    <form action="#" class="register-form js_validate">
+                        <div class="form-group">
+                            <label for="name-registration-input" class="label">ИМЯ</label>
+                            <input name="username" type="text" class="input-text" id="name-registration-input"
+                                required />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email-registration-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                        <input name="email" type="email" class="input-text" id="emailRegistrationInput" required />
-                    </div>
+                        <div class="form-group">
+                            <label for="email-registration-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+                            <input name="email" type="email" class="input-text" id="emailRegistrationInput" required />
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password-registration-input" class="label">ПАРОЛЬ</label>
-                        <input name="password" type="password" class="input-text" id="password-registration-input"
-                            required />
-                    </div>
-                    <div class="form-group form-group-error is-invalid hidden">
-                        <span></span>
-                    </div>
+                        <div class="form-group">
+                            <label for="password-registration-input" class="label">ПАРОЛЬ</label>
+                            <input name="password" type="password" class="input-text" id="password-registration-input"
+                                required />
+                        </div>
+                        <div class="form-group form-group-error is-invalid hidden">
+                            <span></span>
+                        </div>
 
-                    <button class="modal-btn modal-btn-register">РЕГИСТРАЦИЯ</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal modal-forgot-password js_forgot-pass-form">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    Забыли пароль?
-                </h4>
-                <a href="" class="modal-action modal-action-login js_call-login"
-                    data-logintype="js_login-form">Войти</a>
-                <span class="icon-delete modal-close js_modal-close"></span>
-            </div>
-            <div class="modal-body">
-                <form action="#" class="reset-form js_validate">
-                    <div class="form-group">
-                        <label for="email-forgot-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                        <input name="email" type="email" class="input-text" id="email-forgot-input" required />
-                    </div>
-                    <div class="form-group form-group-error is-invalid hidden">
-                        <span></span>
-                    </div>
-
-                    <button class="modal-btn modal-btn-reset">ОТПРАВИТЬ</button>
-                </form>
+                        <button class="modal-btn modal-btn-register">РЕГИСТРАЦИЯ</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="modal modal-forgot-password js_forgot-pass-form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Забыли пароль?
+                    </h4>
+                    <a href="" class="modal-action modal-action-login js_call-login"
+                        data-logintype="js_login-form">Войти</a>
+                    <span class="icon-delete modal-close js_modal-close"></span>
+                </div>
+                <div class="modal-body">
+                    <form action="#" class="reset-form js_validate">
+                        <div class="form-group">
+                            <label for="email-forgot-input" class="label">ЭЛЕКТРОННАЯ ПОЧТА</label>
+                            <input name="email" type="email" class="input-text" id="email-forgot-input" required />
+                        </div>
+                        <div class="form-group form-group-error is-invalid hidden">
+                            <span></span>
+                        </div>
+
+                        <button class="modal-btn modal-btn-reset">ОТПРАВИТЬ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="snackbar js_snackbar">
