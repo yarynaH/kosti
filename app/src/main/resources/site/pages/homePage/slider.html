@@ -35,10 +35,7 @@
                         data-th-attr="data-contentId=${slide._id}"
                         data-th-text="${slide.bookmarked} ? 'В ЗАКЛАДКАХ' : 'В ЗАКЛАДКИ'"
                         data-th-title="${slide.bookmarked} ? 'В ЗАКЛАДКАХ' : 'В ЗАКЛАДКИ'"></span>
-                    <span data-th-attr="data-contentId=${slide._id}" class="like-btn icon-rock js_like-article"
-                        data-th-classappend="${slide.voted} ? 'active' : ''">
-                        <span data-th-text="${slide.votes}"></span>
-                    </span>
+                    <div data-th-remove="tag" data-th-utext="${slide.likesView}"></div>
                 </div>
             </div>
         </div>

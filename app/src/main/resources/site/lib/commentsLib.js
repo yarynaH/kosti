@@ -234,6 +234,15 @@ function beautifyComment(comment, counter, level) {
         comment.articleTitle = article.displayName;
       }
     }
+    var blogLib = require("blogLib");
+    comment.likesView = blogLib.getArticleLikesView(
+      {
+        _id: comment._id,
+        votes: comment.rate,
+        voted: comment.voted
+      },
+      "comment"
+    );
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
   return comment;

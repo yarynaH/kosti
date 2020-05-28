@@ -105,13 +105,9 @@ function handleReq(req) {
       for (var i = 0; i < ids.length; i++) {
         var article = contentLib.get({ key: ids[i] });
         if (article) {
-          result.push({
-            _id: article._id,
-            url: portal.pageUrl({ path: article._path }),
-            displayName: article.displayName,
-            votes: votesLib.countUpvotes(article._id),
-            voted: votesLib.checkIfVoted(article._id)
-          });
+          article = blogLib.beautifyArticle(article);
+          article.likes = blogLib.getArticleLikesView(article);
+          result.push(article);
         }
       }
       return result;
