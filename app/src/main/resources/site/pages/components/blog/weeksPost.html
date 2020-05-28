@@ -14,12 +14,10 @@
     </h2>
     <div class="post_top-text"></div>
     <div class="post_top-footer">
-        <div class="tag-list" hidden>
-            <a href="#" class="tag-item">Мерч</a>
+        <div class="tag-list">
+            <a data-th-each="tag : ${article.hashtags}" data-th-href="${tag.url}" class="tag-item"
+                data-th-text="${tag.displayName}"></a>
         </div>
-        <button data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article"
-            data-th-classappend="${article.voted} ? 'active' : ''" data-th-title="${'Лайкнуть'}">
-            <span data-th-text="${article.votes}"></span>
-        </button>
+        <div data-th-remove="tag" data-th-utext="${article.likesView}"></div>
     </div>
 </div>

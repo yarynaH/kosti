@@ -31,6 +31,7 @@ exports.getArticleStatus = getArticleStatus;
 exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 exports.getArticleIntro = getArticleIntro;
 exports.generateTelegramNotificationMessage = generateTelegramNotificationMessage;
+exports.getArticleLikesView = getArticleLikesView;
 
 const cache = cacheLib.api.createGlobalCache({
   name: "blog",
@@ -69,7 +70,8 @@ function getWeekArticle(params) {
   }
   article = beautifyArticle(article);
   return thymeleaf.render(resolve("../pages/components/blog/weeksPost.html"), {
-    article: article
+    article: article,
+    likes: getArticleLikesView(article)
   });
 }
 
@@ -92,7 +94,7 @@ function getSidebar(params) {
   }
   return thymeleaf.render(
     resolve("../pages/components/blog/blogSidebar.html"),
-    getSidebarModel({ cache: params.cache })
+    getSidebarModel(params)
   );
 }
 
@@ -158,6 +160,7 @@ function beautifyArticle(article) {
     article.date = kostiUtils.getTimePassedSincePostCreation(itemDate);
   }
   article.status = getArticleStatus(article._id);
+  article.likesView = getArticleLikesView(article);
   return article;
 }
 
@@ -419,15 +422,21 @@ function getArticlesByUser(params) {
   if (params.count) {
     return articles.total;
   }
-  articles.hits = beautifyArticleArray(articles.hits);
+  articles.hits = contextLib.runInDraft(function () {
+    return beautifyArticleArray(articles.hits);
+  });
   return articles;
 }
 
 function getArticleFooter(article) {
-  return thymeleaf.render(resolve("../pages/article/articleFooter.html"), {
-    article: article,
-    bookmarked: userLib.checkIfBookmarked(article._id)
-  });
+  return thymeleaf.render(
+    resolve("../pages/article/components/articleFooter.html"),
+    {
+      article: article,
+      bookmarked: userLib.checkIfBookmarked(article._id),
+      likes: getArticleLikesView(article)
+    }
+  );
 }
 
 function countUserRating(id) {
@@ -514,4 +523,23 @@ function generateTelegramNotificationMessage(content) {
     "\uD83E\uDD18" +
     content.url
   );
+}
+
+function getArticleLikesView(article, type) {
+  if (!article) {
+    article = { _id: null, votes: 0, voted: false };
+  }
+  var comment = false;
+  if (type && type === "comment") {
+    comment = true;
+  }
+  if (article.votes < 1) {
+    article.votes = 0;
+  }
+  return thymeleaf.render(resolve("../pages/article/components/like.html"), {
+    id: article._id,
+    votes: article.votes,
+    voted: article.voted,
+    comment: comment
+  });
 }

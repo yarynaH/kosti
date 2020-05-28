@@ -11,10 +11,7 @@
             <span class="post-date" data-th-text="${comment.date}"></span>
         </div>
         <div class="comments-actions">
-            <button data-th-attr="data-id=${comment._id}" class="like-btn icon-rock js_comment-like"
-                data-th-classappend="${comment.voted} ? 'active' : ''" data-th-title="${'Лайкнуть'}">
-                <span data-th-text="${comment.rate ? comment.rate : '0'}"></span>
-            </button>
+            <div data-th-remove="tag" data-th-utext="${comment.likesView}"></div>
             <span data-th-if="${moderator}" data-th-attr="data-id=${comment._id}"
                 class="comments-remove_btn remove-btn js_comment-remove_btn"></span>
         </div>

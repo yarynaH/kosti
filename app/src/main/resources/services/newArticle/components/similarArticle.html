@@ -1,7 +1,4 @@
 <li class="similar_posts-item js_similar_posts-item" data-th-attr="data-id=${article._id}">
     <a class="similar_posts-link" data-th-text="${article.displayName}"></a>
-    <button class="like-btn icon-rock js_like-article" data-th-classappend="${article.voted} ? 'active' : ''"
-        data-th-title="${'Лайкнуть'}">
-        <span data-th-text="${article.votes}"></span>
-    </button>
+    <div data-th-remove="tag" data-th-utext="${article.likesView}"></div>
 </li>

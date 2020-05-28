@@ -116,9 +116,7 @@
                         <div class="post-actions">
                             <button disabled class="add_to_bookmarks-btn icon-bookmark js_bookmarks"
                                 data-th-title="${'В закладки'}"></button>
-                            <button disabled class="like-btn icon-rock js_like-article" data-th-title="${'Лайкнуть'}">
-                                <span>0</span>
-                            </button>
+                            <div data-th-remove="tag" data-th-utext="${likes}"></div>
                         </div>
                     </div>
                 </div>

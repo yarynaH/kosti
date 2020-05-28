@@ -1,14 +1,20 @@
 <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/Article" data-th-each="article: ${articles}"
-    class="blog-item">
+    class="blog-item" data-th-attr="data-articleid=${article._id}">
     <div data-th-unless="${article.status.published}" class="posted_article_status-wrapper">
         <div class="posted_article_status-inner">
             <div data-th-if="${!article.status.draft}" class="posted_article_status-item moderate">
                 <span data-th-text="${portal.localize({'_key=user.article.status.moderate', '_locale=ru'})}"></span>
-                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"></a>
+                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"
+                    data-th-title="${portal.localize({'_key=user.newArticle.edit', '_locale=ru'})}"></a>
+                <a class="posted_article_status-btn icon-delete js_icon-delete" data-th-attr="data-id=${article._id}"
+                    data-th-title="${portal.localize({'_key=user.newArticle.delete', '_locale=ru'})}"></a>
             </div>
             <div data-th-if="${article.status.draft}" class="posted_article_status-item draft">
                 <span data-th-text="${portal.localize({'_key=user.article.status.draft', '_locale=ru'})}"></span>
-                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"></a>
+                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"
+                    data-th-title="${portal.localize({'_key=user.newArticle.edit', '_locale=ru'})}"></a>
+                <a class="posted_article_status-btn icon-delete js_icon-delete" data-th-attr="data-id=${article._id}"
+                    data-th-title="${portal.localize({'_key=user.newArticle.delete', '_locale=ru'})}"></a>
             </div>
         </div>
     </div>

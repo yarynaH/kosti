@@ -196,21 +196,12 @@
     }
 
     &-upload_more {
-        @include button-style(global transparent);
+        @include button-style(global transparent white);
 
         margin-top: 30px;
-        box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
-        background-color: $color-primary1;
-        font-size: rem(16);
-        color: $color-primary6;
 
         @include mobile {
             margin-bottom: 30px;
-        }
-
-        &:hover {
-            color: $color-primary36;
-            box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.1);
         }
     }
 

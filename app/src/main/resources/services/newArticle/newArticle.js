@@ -140,6 +140,7 @@ function handleGet(req) {
       social: site.social,
       author: userLib.getCurrentUser(),
       date: kostiUtils.getTimePassedSincePostCreation(new Date()),
+      likes: blogLib.getArticleLikesView(null),
       pageComponents: helpers.getPageComponents(req, null, null, "Новая статья")
     };
 

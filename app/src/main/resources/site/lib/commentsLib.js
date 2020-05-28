@@ -227,10 +227,22 @@ function beautifyComment(comment, counter, level) {
     if (comment.articleId) {
       comment.url =
         portalLib.pageUrl({ id: comment.articleId }) + "#" + comment._id;
-      comment.articleTitle = contentLib.get({
+      var article = contentLib.get({
         key: comment.articleId
-      }).displayName;
+      });
+      if (article) {
+        comment.articleTitle = article.displayName;
+      }
     }
+    var blogLib = require("blogLib");
+    comment.likesView = blogLib.getArticleLikesView(
+      {
+        _id: comment._id,
+        votes: comment.rate,
+        voted: comment.voted
+      },
+      "comment"
+    );
   }
   comment.children = getCommentsByParent(comment._id, counter, level);
   return comment;
