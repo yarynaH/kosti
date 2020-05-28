@@ -36,7 +36,8 @@
             <div class="notification-block">
                 <div class="notification-header">
                     <h5 class="notification-title">Уведомления</h5>
-                    <a data-th-href="${user.url + '?action=notifications'}" class="notification-link">Показать все</a>
+                    <a data-th-href="${user.url + '?action=notifications'}" class="notification-link"
+                        data-th-title="${'Показать все'}">Показать все</a>
                 </div>
                 <div class="notification-body">
                     <ul class="notification-list js_notification-block"></ul>

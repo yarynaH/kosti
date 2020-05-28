@@ -14,7 +14,7 @@
     </h2>
     <div class="post_top-text"></div>
     <div class="post_top-footer">
-        <div class="tag-list">
+        <div class="tag-list" data-th-if="${article.hashtags}">
             <a data-th-each="tag : ${article.hashtags}" data-th-href="${tag.url}" class="tag-item"
                 data-th-text="${tag.displayName}"></a>
         </div>
