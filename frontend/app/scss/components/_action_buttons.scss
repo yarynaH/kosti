@@ -1,4 +1,6 @@
 .like-btn {
+  @include button-style(reset);
+
   display: inline-flex;
   align-items: center;
   font-size: rem(14);
@@ -16,7 +18,7 @@
   }
 
   &.active,
-  &:hover {
+  &:not([disabled]):hover {
     span {
       text-shadow: 0 0 0.01px $color-primary17;
       color: $color-primary17;

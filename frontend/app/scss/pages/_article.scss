@@ -322,7 +322,7 @@
         }
 
         &-button {
-            @include button-style(global auto link);
+            @include button-style(auto reset link);
             transition-property: color;
 
             @include tablet-all {

@@ -23,7 +23,8 @@
     </a>
     <div class="post">
         <div class="post-info">
-            <a data-th-href="${article.author.url}" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <a data-th-href="${article.author.url}" itemprop="author" itemscope itemtype="http://schema.org/Person"
+                data-th-title="${'Пользователь ' + article.author.displayName}">
                 <span class="post-user_avatar">
                     <img data-th-src="${article.author.image.url}"
                         data-th-alt="${'Аватар ' + article.author.displayName}" />
@@ -34,12 +35,14 @@
             <span class="post-date hidden" itemprop="datePublished" data-th-text="${article.publishDate}"></span>
             <span class="post-date hidden" itemprop="dateModified" data-th-text="${article.modifiedTime}"></span>
         </div>
-        <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}" target="_blank"
-            itemprop="name headline"></a>
+        <h2>
+            <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}" target="_blank"
+                itemprop="name headline"></a>
+        </h2>
         <div class="post-text" data-th-utext="${article.data.intro}" itemprop="backstory"></div>
         <div class="tag-list" data-th-if="${article.hashtags}">
             <a data-th-each="hashtag : ${article.hashtags}" data-th-href="${hashtag.url}" class="tag-item"
-                data-th-text="${hashtag.displayName}"></a>
+                data-th-text="${hashtag.displayName}" data-th-titles="${hashtag.displayName}"></a>
         </div>
     </div>
     <div data-th-remove="tag" data-th-utext="${article.footer}"></div>

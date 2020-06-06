@@ -92,6 +92,9 @@
     }
 
     &-avatar {
+        @include button-style(reset);
+
+        display: block;
         position: relative;
         height: 140px;
         width: 140px;

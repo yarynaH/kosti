@@ -17,6 +17,8 @@
         }
 
         .like-btn {
+            @include button-style(reset);
+
             font-size: rem(24);
             font-weight: bold;
             color: $color-primary13;
@@ -152,7 +154,9 @@
         }
 
         &.active {
-            color: $color-primary18;
+            &:before {
+                color: $color-primary18;
+            }
         }
     }
 

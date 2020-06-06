@@ -1,7 +1,7 @@
 <div data-th-if="${user}" class="js_header-user" data-th-classappend="${active}"
     data-th-attr="data-userid=${user.key}, data-usercontentid=${user._id}">
     <div class="user-avatar-img_wrap">
-        <a data-th-href="${portal.pageUrl({'_path=' + user._path})}">
+        <a data-th-href="${portal.pageUrl({'_path=' + user._path})}" data-th-title="${'Личный кабинет'}">
             <img src="#" data-th-src="${user.image.url}" data-th-alt="${'Аватар ' + user.displayName}" />
         </a>
     </div>
