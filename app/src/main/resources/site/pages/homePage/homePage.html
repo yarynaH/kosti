@@ -22,19 +22,20 @@
                         data-th-text="${portal.localize({'_key=homepage.title.schedule', '_locale=ru'})}"></h4>
                     <div data-th-each="scheduleItem: ${schedule}" class="schedule-item"
                         data-th-style="${'background-image:url(\'' + scheduleItem.image.url} + '\')'">
-                        <div class="schedule-content">
+                        <div class="schedule-content" data-th-href="${scheduleItem.url}">
                             <div class="schedule-date">
                                 <span class="date" data-th-text="${scheduleItem.day}"></span>
                                 <span class="month" data-th-text="${scheduleItem.month}"></span>
                                 <span class="date" data-th-text="${scheduleItem.time}"></span>
                             </div>
-                            <a data-th-href="${scheduleItem.url}" class="schedule-title"
-                                data-th-text="${scheduleItem.displayName}"></a>
+                            <h4 data-th-href="${scheduleItem.url}" class="schedule-title"
+                                data-th-text="${scheduleItem.displayName}"></h4>
                             <div class="tag-list tag-list__small tag-list__white">
                                 <a data-th-each="hashtag : ${scheduleItem.hashtags}" data-th-href="${hashtag.url}"
                                     data-th-if="${hashtag}" class="tag-item" data-th-text="${hashtag.displayName}"
                                     data-th-title="${hashtag.displayName}"></a>
                             </div>
+                            <a class="schedule-item_link" data-th-href="${scheduleItem.url}"></a>
                         </div>
                     </div>
                 </div>
