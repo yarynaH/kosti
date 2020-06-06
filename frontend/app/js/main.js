@@ -202,14 +202,14 @@ function initSharedEvents() {
 
   $(document).on("scroll", function () {
     if ($(document).scrollTop() > 1200) {
-      $(".js_back_to_top").removeClass("hidden");
+      $(".js_back_to_top").removeClass("hide");
     } else {
-      $(".js_back_to_top").addClass("hidden");
+      $(".js_back_to_top").addClass("hide");
     }
   });
   $(".js_back_to_top").on("click", function () {
     $("html,body").animate({ scrollTop: 0 }, "slow");
-    $(".js_back_to_top").addClass("hidden");
+    $(".js_back_to_top").addClass("hide");
     return false;
   });
 
