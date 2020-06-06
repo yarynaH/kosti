@@ -18,13 +18,12 @@
             </div>
         </div>
     </div>
-    <a data-th-href="${article.url}" class="post-image_wrap" target="_blank">
+    <a data-th-href="${article.url}" class="post-image_wrap">
         <img itemprop="image" data-th-src="${article.image.url}" data-th-alt="${article.image.alt}" />
     </a>
     <div class="post">
         <div class="post-info">
-            <a data-th-href="${article.author.url}" itemprop="author" itemscope itemtype="http://schema.org/Person"
-                data-th-title="${'Пользователь ' + article.author.displayName}">
+            <a data-th-href="${article.author.url}" itemprop="author" itemscope itemtype="http://schema.org/Person">
                 <span class="post-user_avatar">
                     <img data-th-src="${article.author.image.url}"
                         data-th-alt="${'Аватар ' + article.author.displayName}" />
@@ -36,7 +35,7 @@
             <span class="post-date hidden" itemprop="dateModified" data-th-text="${article.modifiedTime}"></span>
         </div>
         <h2>
-            <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}" target="_blank"
+            <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}"
                 itemprop="name headline"></a>
         </h2>
         <div class="post-text" data-th-utext="${article.data.intro}" itemprop="backstory"></div>

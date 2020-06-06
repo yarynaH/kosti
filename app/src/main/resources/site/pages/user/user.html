@@ -41,8 +41,7 @@
                             <li class="profile-action-item">
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path})}"
                                     class="profile-action-link" data-type="userArticles"
-                                    data-th-classappend="${active.articles}"
-                                    data-th-title="${portal.localize({'_key=user.title.articles', '_locale=ru'})}">
+                                    data-th-classappend="${active.articles}">
                                     <span data-th-text="${portal.localize({'_key=user.title.articles', '_locale=ru'})}"
                                         data-th-remove="tag"></span>
                                     <span class="value"
@@ -52,8 +51,7 @@
                             <li class="profile-action-item">
                                 <a class="profile-action-link"
                                     data-th-href="${portal.pageUrl({'_path='+content._path,'action=comments'})}"
-                                    data-th-classappend="${active.comments}" data-type="comments"
-                                    data-th-title="${portal.localize({'_key=user.title.comments', '_locale=ru'})}">
+                                    data-th-classappend="${active.comments}" data-type="comments">
                                     <span data-th-text="${portal.localize({'_key=user.title.comments', '_locale=ru'})}"
                                         data-th-remove="tag"></span>
                                     <span data-th-text="${totalArticles.comments ? totalArticles.comments : '0'}"
@@ -63,8 +61,7 @@
                             <li class="profile-action-item" data-th-if="${currUserFlag}">
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=bookmarks'})}"
                                     class="profile-action-link" data-th-classappend="${active.bookmarks}"
-                                    data-type="bookmarks"
-                                    data-th-title="${portal.localize({'_key=user.title.bookmarks', '_locale=ru'})}">
+                                    data-type="bookmarks">
                                     <span data-th-text="${portal.localize({'_key=user.title.bookmarks', '_locale=ru'})}"
                                         data-th-remove="tag"></span>
                                     <span data-th-text="${content.data.bookmarks ? content.data.bookmarks.size : '0'}"
@@ -74,8 +71,7 @@
                             <li class="profile-action-item" data-th-if="${currUserFlag}">
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=notifications'})}"
                                     class="profile-action-link" data-th-classappend="${active.notifications}"
-                                    data-type="notifications"
-                                    data-th-title="${portal.localize({'_key=user.title.notifications', '_locale=ru'})}">
+                                    data-type="notifications">
                                     <span
                                         data-th-text="${portal.localize({'_key=user.title.notifications', '_locale=ru'})}"
                                         data-th-remove="tag"></span>
@@ -85,8 +81,7 @@
                             </li>
                             <li class="profile-action-item" data-th-if="${currUserFlag}">
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=games'})}"
-                                    class="profile-action-link" data-th-classappend="${active.games}" data-type="games"
-                                    data-th-title="${portal.localize({'_key=user.title.games', '_locale=ru'})}">
+                                    class="profile-action-link" data-th-classappend="${active.games}" data-type="games">
                                     <span data-th-text="${portal.localize({'_key=user.title.games', '_locale=ru'})}"
                                         data-th-remove="tag"></span>
                                     <span class="value"
@@ -96,8 +91,7 @@
                             <li class="profile-action-item" data-th-if="${currUserFlag}">
                                 <a data-th-href="${portal.pageUrl({'_path='+content._path,'action=orders'})}"
                                     class="profile-action-link" data-th-classappend="${active.orders}"
-                                    data-type="orders"
-                                    data-th-title="${portal.localize({'_key=user.title.orders', '_locale=ru'})}">
+                                    data-type="orders">
                                     <span data-th-text="${portal.localize({'_key=user.title.orders', '_locale=ru'})}"
                                         data-th-remove="tag"></span>
                                     <span class="value"
@@ -121,7 +115,6 @@
                         </h3>
                         <div class="user_page-create_article-wrap" data-th-if="${currUserFlag and active.articles}">
                             <a class="user_page-create_article" data-th-href="${createArticleUrl}"
-                                data-th-title="${portal.localize({'_key=user.title.createArticle', '_locale=ru'})}"
                                 data-th-text="${portal.localize({'_key=user.title.createArticle', '_locale=ru'})}">
                             </a>
                         </div>

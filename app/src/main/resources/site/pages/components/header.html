@@ -18,7 +18,7 @@
     <div class="header-utility">
         <ul class="nav-list">
             <li data-th-each="menuItem: ${menuItems}" class="nav-item">
-                <a data-th-href="${menuItem.url}" class="nav-link" data-th-attr="title=${menuItem.title}"
+                <a data-th-href="${menuItem.url}" class="nav-link"
                     data-th-text="${menuItem.title}" data-th-classappend="${menuItem.active ? 'active' : ''}">Блог</a>
             </li>
         </ul>
@@ -36,8 +36,7 @@
             <div class="notification-block">
                 <div class="notification-header">
                     <h5 class="notification-title">Уведомления</h5>
-                    <a data-th-href="${user.url + '?action=notifications'}" class="notification-link"
-                        data-th-title="${'Показать все'}">Показать все</a>
+                    <a data-th-href="${user.url + '?action=notifications'}" class="notification-link">Показать все</a>
                 </div>
                 <div class="notification-body">
                     <ul class="notification-list js_notification-block"></ul>
