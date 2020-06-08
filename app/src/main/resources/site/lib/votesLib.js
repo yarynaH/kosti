@@ -294,7 +294,7 @@ function removeVoteByItemId(id) {
 }
 
 function getHotArticleIds(start, date) {
-  var pageSize = 5;
+  var pageSize = 10;
   var votesRepo = getVotesRepo();
   var result = { hits: [], total: 0, count: 0 };
   var usePaging = true;
