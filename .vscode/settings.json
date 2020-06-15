@@ -28,7 +28,7 @@
     "editor.tabSize": 4,
     "editor.defaultFormatter": "HookyQR.beautify"
   },
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "brace_style": "expand"
 }

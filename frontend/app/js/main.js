@@ -80,14 +80,14 @@ function initSharedEvents() {
       showLogin(e);
     }
   });
-  $(".js_copy_url").on("click", function (e) {
+  $("body").on("click", ".js_copy_url", function (e) {
     e.preventDefault();
     var data = $(this).data();
     copyStringToClipboard(data.url);
     showSnackBar("Ссылка скопирована.", "success");
   });
 
-  $("a.social-link.facebook").on("click", function (e) {
+  $("body").on("click", "a.social-link.facebook", function (e) {
     var data = $(this).data();
     if (!data.description) {
       data.description = "";
