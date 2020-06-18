@@ -198,6 +198,9 @@ function beautifyGeneralFields(article) {
   } else {
     article.author = userLib.getUserDataById(null);
   }
+  if (article.type === app.name + ":podcast") {
+    article.data.podcastIntro = article.data.intro;
+  }
   article.hashtags = hashtagLib.getHashtags(article.data.hashtags);
   article.data.intro = getArticleIntro(article);
   article.url = portal.pageUrl({ id: article._id });
