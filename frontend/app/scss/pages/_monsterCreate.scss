@@ -1,0 +1,74 @@
+.monster_create {
+    &-name,
+    &-size,
+    &-stats,
+    &-save_throw,
+    &-skills,
+    &-speed,
+    &-other,
+    &-damage_immune,
+    &-type {
+        justify-content: flex-start;
+        margin: 0 -10px;
+        overflow: hidden;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+
+        @include tablet-all {
+            display: flex;
+        }
+    }
+
+    &-name {
+        .form-group {
+            flex: 0 1 32%;
+            flex: 0 1 calc(100% / 2 - 20px);
+            margin: 0 10px 15px 10px;
+        }
+    }
+
+    &-size,
+    &-type {
+        .form-group {
+            flex: 0 1 32%;
+            flex: 0 1 calc(100% / 3 - 20px);
+            margin: 0 10px 15px 10px;
+        }
+    }
+    
+    &-stats,
+    &-save_throw,
+    &-skills,
+    &-speed,
+    &-other {
+        .form-group {
+            flex: 0 1 calc(100% / 6 - 20px);
+            margin: 0 10px 15px 10px;
+        }
+    }
+
+    &-other {
+        margin-bottom: 0;
+
+        .form-group-languages {
+            flex-basis: 100%;
+            order: 2;
+        }
+
+        .form-group-armorDesc {
+            order: 1;
+            flex-basis: 100%;
+        }
+
+        .form-group-armorClass {
+            order: 1;
+        }
+    }
+    
+    &-damage_immune {
+        .form-group {
+            flex: 0 1 calc(100% / 2 - 20px);
+            margin: 0 10px 15px 10px;
+        }
+    }
+}
