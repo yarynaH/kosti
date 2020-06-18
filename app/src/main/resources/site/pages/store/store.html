@@ -44,7 +44,11 @@
                                 </div>
                             </a>
                         </div>
-                        <h2 class="plp-prod_name p-name" data-th-text="${product.displayName}" itemprop="name"></h2>
+                        <h2 class="p-name" itemprop="name">
+                            <a class="plp-prod_name" data-th-href="${product.url}"
+                                data-th-text="${product.displayName}">
+                            </a>
+                        </h2>
                         <div class="pdp-description e-description hidden" data-th-utext="${content.data.description}"
                             itemprop="description"></div>
                         <div data-th-utext="${product.priceBlock}" class="plp-prod_price"></div>

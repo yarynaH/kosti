@@ -67,6 +67,10 @@
         color: $color-primary17;
         margin-bottom: 10px;
         min-height: 64px;
+
+        &:hover {
+            opacity: .8;
+        }
     }
 
     &-prod_link {
