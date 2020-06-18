@@ -13,8 +13,8 @@ var view401 = resolve("401.html");
 
 exports.handleError = function (err) {
   var siteConfig = portal.getSiteConfig();
-  socNotLib.sendMessage({
-    channel: app.config.sendSlackMessage,
+  socNotLib.sendSlackMessage({
+    channel: app.config.slackChannelSystem,
     title: "Error " + err.status,
     body: err.message
   });
