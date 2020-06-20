@@ -12,7 +12,7 @@
                 <input name="id" class="js_monster-id" type="hidden" data-th-if="${content}"
                     data-th-value="${content._id}" />
                 <h2 class="title-2 h-mb-20">Генератор существа</h2>
-                <div class="monster_create-name">
+                <div class="create_monster-name">
                     <div class="form-group">
                         <label for="monster_gen-name-input" class="label">Навание монстра</label>
                         <input name="name" type="text" class="input-text" id="monster_gen-name-input"
@@ -21,7 +21,7 @@
                 </div>
                 <div data-th-if="${inputs.stats.size > 0}">
                     <h3 class="title-2 h-mb-20">Характеристики</h3>
-                    <div class="monster_create-stats">
+                    <div class="create_monster-stats">
                         <div class="form-group" data-th-each="stat, i : ${inputs.stats}">
                             <label data-th-for="${stat.name}"
                                 data-th-text="${portal.localize({'_key=character.stats.'+stat.name, '_locale=ru'})}"
@@ -33,7 +33,7 @@
                 </div>
                 <div data-th-if="${inputs.savethrow.size > 0}">
                     <h3 class="title-2 h-mb-20">Испытания</h3>
-                    <div class="monster_create-save_throw">
+                    <div class="create_monster-save_throw">
                         <div class="form-group" data-th-each="stat, i : ${inputs.savethrow}">
                             <label data-th-for="${stat.name}"
                                 data-th-text="${portal.localize({'_key=character.stats.'+stat.name, '_locale=ru'})}"
@@ -45,7 +45,7 @@
                 </div>
                 <div data-th-if="${inputs.skills.size > 0}">
                     <h3 class="title-2 h-mb-20">Навыки</h3>
-                    <div class="monster_create-skills">
+                    <div class="create_monster-skills">
                         <div class="form-group" data-th-each="stat, i : ${inputs.skills}">
                             <label data-th-for="${stat.name}"
                                 data-th-text="${portal.localize({'_key=character.skills.'+stat.name, '_locale=ru'})}"
@@ -57,7 +57,7 @@
                 </div>
 
                 <h3 class="title-2 h-mb-20">Тип</h3>
-                <div class="monster_create-size">
+                <div class="create_monster-size">
                     <div class="form-group">
                         <label for="monster_gen-type-input" class="label">Размер</label>
                         <div class="select-field" data-th-utext="${inputs.sizeSelect}">
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="monster_create-type">
+                <div class="create_monster-type">
                     <div class="form-group">
                         <label for="monster_gen-type-input" class="label">Тип</label>
                         <div class="select-field" data-th-utext="${inputs.typeSelect}">
@@ -86,7 +86,7 @@
                 </div>
                 <div data-th-if="${inputs.speed.size > 0}">
                     <h3 class="title-2 h-mb-20">Скорость</h3>
-                    <div class="monster_create-speed">
+                    <div class="create_monster-speed">
                         <div class="form-group" data-th-each="stat, i : ${inputs.speed}">
                             <label data-th-for="${stat.name}"
                                 data-th-text="${portal.localize({'_key=character.speed.'+stat.name, '_locale=ru'})}"
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <h3 class="title-2 h-mb-20">Разное</h3>
-                <div class="monster_create-other">
+                <div class="create_monster-other">
                     <div data-th-each="m, i : ${inputs.misc}" data-th-class="'form-group form-group-' + ${m.name}">
                         <label data-th-for="${m.name}"
                             data-th-text="${portal.localize({'_key=character.misc.'+m.name, '_locale=ru'})}"
@@ -113,7 +113,7 @@
                             data-th-name="${m.name}" data-th-id="${m.name}" />
                     </div>
                 </div>
-                <div class="monster_create-damage_immune">
+                <div class="create_monster-damage_immune">
                     <div data-th-each="m, i : ${inputs.damageImmune}" class="form-group">
                         <label data-th-for="${m.name}"
                             data-th-text="${portal.localize({'_key=character.damageImmune.'+m.name, '_locale=ru'})}"
@@ -131,7 +131,9 @@
                     <div data-th-if="${inputs.actions}" class="form-group" data-th-each="action: ${inputs.actions}"
                         data-th-utext="${action}">
                     </div>
-                    <button data-type="actions" class="js_add-action-button-general js_add-action">add action</button>
+                    <button data-type="actions"
+                        class="js_add-action-button-general js_add-action create_monster-add_action">Добавить
+                        действие</button>
                 </div>
 
                 <div class="js_monster-legendary-actions">
@@ -140,7 +142,8 @@
                         data-th-each="action: ${inputs.legendaryActions}" data-th-utext="${action}">
                     </div>
                     <button data-type="legendaryActions"
-                        class="js_add-action-button-general js_add-legendary-action">add action</button>
+                        class="js_add-action-button-general js_add-legendary-action create_monster-add_action">Добавить
+                        действие</button>
                 </div>
 
                 <div class="js_monster-reactions">
@@ -148,8 +151,9 @@
                     <div data-th-if="${inputs.reactions}" class="form-group" data-th-each="action: ${inputs.reactions}"
                         data-th-utext="${action}">
                     </div>
-                    <button data-type="reactions" class="js_add-action-button-general js_add-reaction">add
-                        action</button>
+                    <button data-type="reactions"
+                        class="js_add-action-button-general js_add-reaction create_monster-add_action">Добавить
+                        действие</button>
                 </div>
 
                 <div class="js_monster-special-abilities">
@@ -158,10 +162,11 @@
                         data-th-each="action: ${inputs.specialAbilities}" data-th-utext="${action}">
                     </div>
                     <button data-type="specialAbilities"
-                        class="js_add-action-button-general js_add-special-abilitiy">add action</button>
+                        class="js_add-action-button-general js_add-special-abilitiy create_monster-add_action">Добавить
+                        действие</button>
                 </div>
 
-                <div class="monster_gen-actions">
+                <div class="create_monster-actions">
                     <button type="submit" class="button button-light h-mt-25 js_save-button">
                         Сохранить существо
                     </button>
@@ -172,13 +177,5 @@
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
     <script data-th-src="${portal.assetUrl({'_path=js/newMonster.js'})}"></script>
 </body>
-<style>
-    .monster_gen-actions {
-        position: fixed;
-        bottom: 30px;
-        right: 0;
-        max-width: 190px;
-    }
-</style>
 
 </html>

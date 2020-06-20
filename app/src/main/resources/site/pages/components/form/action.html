@@ -9,9 +9,5 @@
         <textarea class="input-text js_monster-action" data-th-id="${type + '-description-' + id}"
             data-th-text="${description}" rows="5"></textarea>
     </div>
-    <div class="create_article-editor_actions">
-        <div class="create_article-editor_actions-remove js_remove-part"></div>
-        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
-        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
-    </div>
+    <div data-th-remove="tag" data-th-utext="${controls}"></div>
 </div>

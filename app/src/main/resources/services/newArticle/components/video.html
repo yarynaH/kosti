@@ -4,18 +4,10 @@
         <input type="text" class="create_article-video_editor-input" />
         <button type="text" class="create_article-video_editor-btn button button-dark">загрузить видео</button>
     </div>
-    <div class="create_article-editor_actions">
-        <div class="create_article-editor_actions-remove js_remove-part"></div>
-        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
-        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
-    </div>
+    <div data-th-remove="tag" data-th-utext="${controls}"></div>
 </div>
 <div data-th-if="${videoId}" data-th-remove="${addWrapper ? 'none' : 'tag'}" data-th-attr="data-id=${id}"
     data-th-class="${'create_article-video_editor js_video-editor js_single-part js_single-part-' + id}">
     <img data-th-src="${'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg'}" data-th-attr="data-url=${url}">
-    <div class="create_article-editor_actions">
-        <div class="create_article-editor_actions-remove js_remove-part"></div>
-        <div class="create_article-editor_actions-top js_move-part" data-type="top"></div>
-        <div class="create_article-editor_actions-bot js_move-part" data-type="bot"></div>
-    </div>
+    <div data-th-remove="tag" data-th-utext="${controls}"></div>
 </div>

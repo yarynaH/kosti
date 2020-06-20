@@ -1,0 +1,56 @@
+.form_controls {
+    &-actions {
+        @include position(absolute, top 0 left -15px);
+
+        width: 30px;
+
+        @include tablet-all {
+            left: -30px;
+        }
+
+        &-remove {
+            @include icon(delete);
+
+            &:before {
+                font-size: 20px;
+            }
+        }
+
+        &-top {
+            @include icon(new_arrow);
+
+            &:before {
+                font-size: 20px;
+            }
+        }
+
+        &-bot {
+            @include icon(new_arrow);
+
+            &:before {
+                font-size: 20px;
+                transform: rotate(180deg);
+            }
+        }
+
+        &-remove,
+        &-top,
+        &-bot {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: $color-primary1;
+            transition: transition(all);
+
+            &:hover {
+                @include tablet-all {
+                    background: $color-primary28;
+                    color: $color-primary1;
+                }
+            }
+        }
+    }
+}

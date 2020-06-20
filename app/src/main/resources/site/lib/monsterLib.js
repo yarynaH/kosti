@@ -180,6 +180,7 @@ function getActionComponent(params) {
   }
   return thymeleaf.render(resolve("../pages/components/form/action.html"), {
     id: params.id,
-    type: params.type
+    type: params.type,
+    controls: thymeleaf.render(resolve("../pages/components/form/controls.html"),{})
   });
 }

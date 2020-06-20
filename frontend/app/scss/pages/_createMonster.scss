@@ -1,4 +1,5 @@
-.monster_create {
+.create_monster {
+
     &-name,
     &-size,
     &-stats,
@@ -35,7 +36,7 @@
             margin: 0 10px 15px 10px;
         }
     }
-    
+
     &-stats,
     &-save_throw,
     &-skills,
@@ -64,11 +65,41 @@
             order: 1;
         }
     }
-    
+
     &-damage_immune {
         .form-group {
             flex: 0 1 calc(100% / 2 - 20px);
             margin: 0 10px 15px 10px;
         }
+    }
+
+    &-add_action {
+        @include button-style(global dark auto);
+        @include plus-minus(24px, 2px, left 10px);
+
+        position: relative;
+        padding: 10px 10px 10px 44px;
+    }
+
+    &-action_editor {
+        margin-top: 15px;
+
+        @include mobile {
+            margin-left: 30px;
+        }
+
+        .form_controls-actions {
+            @include mobile {
+                left: -30px;
+            }
+        }
+    }
+
+
+    &-actions {
+        position: fixed;
+        bottom: 30px;
+        right: 0;
+        max-width: 190px;
     }
 }

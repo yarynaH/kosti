@@ -175,7 +175,8 @@ function getImageComponent(data) {
       {
         id: data.id,
         image: data.image,
-        caption: data.caption ? data.caption : ""
+        caption: data.caption ? data.caption : "",
+        controls: thymeleaf.render(resolve("../pages/components/form/controls.html"),{})
       }
     )
   };
@@ -232,7 +233,8 @@ function getTextComponent(data) {
       resolve("../../services/newArticle/components/text.html"),
       {
         id: data.id,
-        text: data.text
+        text: data.text,
+        controls: thymeleaf.render(resolve("../pages/components/form/controls.html"),{})
       }
     )
   };
@@ -244,7 +246,8 @@ function getQuoteComponent(data) {
       resolve("../../services/newArticle/components/blockquote.html"),
       {
         id: data.id,
-        text: data.text ? data.text : ""
+        text: data.text ? data.text : "",
+        controls: thymeleaf.render(resolve("../pages/components/form/controls.html"),{})
       }
     )
   };
@@ -261,7 +264,8 @@ function getVideoComponent(data) {
         url: url,
         form: data.form,
         videoId: videoId,
-        addWrapper: data.addWrapper ? true : false
+        addWrapper: data.addWrapper ? true : false,
+        controls: thymeleaf.render(resolve("../pages/components/form/controls.html"),{})
       }
     )
   };
