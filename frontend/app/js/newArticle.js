@@ -29,90 +29,10 @@ $("#newArticleForm").on("submit", function (e) {
     scrollToItem($(".error-msg").parent());
     return false;
   }
-  var partsLength = parseInt($(".js_single-part").length);
-  var components = [];
-  $(".js_single-part").each(function () {
-    var part = $(this);
-    if (part.hasClass("js_tinymce-editor")) {
-      var value = tinymce
-        .get("js_single-part-" + part.data().tinymce)
-        .getContent();
-      components.push({ type: "text", value: value });
-    } else if (part.hasClass("js_image-editor")) {
-      components.push({
-        type: "part",
-        descriptor: "image",
-        config: {
-          image: part.data().imageid,
-          caption: part.find("input").val()
-        }
-      });
-    } else if (part.hasClass("js_video-editor")) {
-      if (
-        part.find("img").length &&
-        part.find("img").data().url &&
-        part.find("img").data().url.trim() != ""
-      ) {
-        components.push({
-          type: "part",
-          descriptor: "video",
-          config: { VIDEO_URL: part.find("img").data().url }
-        });
-      }
-    } else if (part.hasClass("js_quote-editor")) {
-      if (
-        part.find("input").length &&
-        part.find("input").val() &&
-        part.find("input").val().trim() != ""
-      ) {
-        components.push({
-          type: "part",
-          descriptor: "quote",
-          config: { text: part.find("input").val() }
-        });
-      }
-    }
-  });
-  var data = {
-    components: components,
-    params: {
-      similarArticles: getSimilarArticlesIds(),
-      hashtags: getHashtagsIds(),
-      title: $(".js_title-input").val().trim()
-    },
-    saveAsDraft: $("input[type=submit][clicked=true]").hasClass(
-      "js_save-as-draft"
-    )
-  };
-  var form_data = new FormData();
-  if ($("#article-image-input").data().update == "true") {
-    var file_data = $("#article-image-input").prop("files")[0];
-    form_data.append("image", file_data);
-    data.updateMainImage = "true";
-  }
-  if ($(".js_article-id-input").length > 0) {
-    data.action = "update";
-    data.id = $(".js_article-id-input").val();
-  } else {
-    data.action = "create";
-  }
-  form_data.append("data", JSON.stringify(data));
+
+  var data = getFormData();
   showLoader();
-  $.ajax({
-    url: "/create",
-    data: form_data,
-    processData: false,
-    contentType: false,
-    type: "POST",
-    success: function (data) {
-      hideLoader();
-      if (!data.error && data.article && data.article._id) {
-        window.location = "/article/status?id=" + data.article._id;
-      } else {
-        showSnackBar(data.message, "error");
-      }
-    }
-  });
+  saveFormData(data);
 });
 
 $(".js_add-text").on("click", function () {
@@ -185,7 +105,7 @@ $("#article-image-input").on("change", function (e) {
       $("#article-image-input").data("update", "true");
       $(".js_main-image").html("<img src='" + data.url + "'/>");
       hideLoader();
-    }
+    },
   });
 });
 
@@ -203,6 +123,107 @@ $(".js_parts-block").on("click", ".js_move-part", function () {
   var parent = btn.parent().parent();
   moveElement(parent.data().id, btn.data().type);
 });
+
+function getFormData(autosave) {
+  var components = [];
+  $(".js_single-part").each(function () {
+    var part = $(this);
+    if (part.hasClass("js_tinymce-editor")) {
+      var value = tinymce
+        .get("js_single-part-" + part.data().tinymce)
+        .getContent();
+      components.push({ type: "text", value: value });
+    } else if (part.hasClass("js_image-editor")) {
+      components.push({
+        type: "part",
+        descriptor: "image",
+        config: {
+          image: part.data().imageid,
+          caption: part.find("input").val(),
+        },
+      });
+    } else if (part.hasClass("js_video-editor")) {
+      if (
+        part.find("img").length &&
+        part.find("img").data().url &&
+        part.find("img").data().url.trim() != ""
+      ) {
+        components.push({
+          type: "part",
+          descriptor: "video",
+          config: { VIDEO_URL: part.find("img").data().url },
+        });
+      }
+    } else if (part.hasClass("js_quote-editor")) {
+      if (
+        part.find("input").length &&
+        part.find("input").val() &&
+        part.find("input").val().trim() != ""
+      ) {
+        components.push({
+          type: "part",
+          descriptor: "quote",
+          config: { text: part.find("input").val() },
+        });
+      }
+    }
+  });
+  var saveAsDraft =
+    $("input[type=submit][clicked=true]").hasClass("js_save-as-draft") ||
+    autosave;
+  var data = {
+    components: components,
+    params: {
+      similarArticles: getSimilarArticlesIds(),
+      hashtags: getHashtagsIds(),
+      title: $(".js_title-input").val().trim(),
+    },
+    saveAsDraft: saveAsDraft,
+  };
+  var form_data = new FormData();
+  if ($("#article-image-input").data().update == "true") {
+    var file_data = $("#article-image-input").prop("files")[0];
+    form_data.append("image", file_data);
+    data.updateMainImage = "true";
+  }
+  if ($(".js_article-id-input").length > 0) {
+    data.action = "update";
+    data.id = $(".js_article-id-input").val();
+  } else {
+    data.action = "create";
+  }
+  form_data.append("data", JSON.stringify(data));
+  return form_data;
+}
+
+function saveFormData(data, autosave) {
+  $.ajax({
+    url: "/create",
+    data: data,
+    processData: false,
+    contentType: false,
+    type: "POST",
+    success: function (data) {
+      console.log(data);
+      hideLoader();
+      if (!data.error && data.article && data.article._id) {
+        if (!autosave) {
+          window.location = "/article/status?id=" + data.article._id;
+        } else {
+          if ($(".js_article-id-input").length === 0) {
+            $("form#newArticleForm").append(
+              '<input class="js_article-id-input hidden" value="' +
+                data.article._id +
+                '" disabled />'
+            );
+          }
+        }
+      } else {
+        showSnackBar(data.message, "error");
+      }
+    },
+  });
+}
 
 function getNextId() {
   if ($(".js_single-part").length === 0) {
@@ -242,7 +263,7 @@ function addPart(form_data, callback, appendTo, replace) {
         callback(id);
       }
       hideLoader();
-    }
+    },
   });
 }
 
@@ -255,11 +276,11 @@ function initEditor(id) {
     plugins: [
       "advlist autolink lists link charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
-      "insertdatetime table paste help autoresize link"
+      "insertdatetime table paste help autoresize link",
     ],
     toolbar:
       "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link",
-    content_style: "pre{ white-space: normal; }"
+    content_style: "pre{ white-space: normal; }",
   });
 }
 
@@ -342,7 +363,7 @@ function getHashTagList(el) {
     type: "PUT",
     success: function (data) {
       $(".js_hashtag-suggestion-wrapper").html(data.html);
-    }
+    },
   });
 }
 
@@ -360,7 +381,7 @@ function getArticlesList(el) {
     type: "PUT",
     success: function (data) {
       $(".js_article-suggestion-wrapper").html(data.html);
-    }
+    },
   });
 }
 $(".js_similar_posts").on("click", ".js_article-suggest-item", function () {
@@ -377,7 +398,7 @@ $(".js_similar_posts").on("click", ".js_article-suggest-item", function () {
     success: function (data) {
       $(".js_similar_posts-list").append(data.html);
       checkSimilarArticlesAmount();
-    }
+    },
   });
   $(".js_article-suggestion-list").remove();
   $(".js_add-article-input").val("");
@@ -417,7 +438,7 @@ $(".js_tag-list").on("click", ".js_hashtag-suggest-item", function () {
     success: function (data) {
       $(data.html).insertBefore($(".js_add-hashtag-input-wrapper"));
       checkHashtagsAmount();
-    }
+    },
   });
   $(".js_hashtag-suggestion-list").remove();
   $(".js_add-hashtag-input").val("");
@@ -489,3 +510,12 @@ function validateImage(img) {
   var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
   return img && acceptedImageTypes.includes(img["type"]);
 }
+
+setInterval(function () {
+  if (!$("#newArticleForm").valid()) {
+    return false;
+  }
+
+  var data = getFormData(true);
+  saveFormData(data, true);
+}, 60000);
