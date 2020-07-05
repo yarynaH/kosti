@@ -252,13 +252,16 @@ function initEditor(id) {
     menubar: false,
     branding: false,
     statusbar: false,
+    content_css: customEditorStyles,
+    block_formats:
+      "Параграф=p;Оглавление 2=h2;Оглавление 3=h3;Оглавление 4=h4;Оглавление 5=h5;Преформатированный=pre",
     plugins: [
       "advlist autolink lists link charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
       "insertdatetime table paste help autoresize link"
     ],
     toolbar:
-      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+      "formatselect | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | subscript superscript | link",
     content_style: "pre{ white-space: normal; }"
   });
 }

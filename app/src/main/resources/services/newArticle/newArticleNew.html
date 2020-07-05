@@ -158,6 +158,9 @@
         </form>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+    <script type="text/javascript" data-th-inline="javascript">
+        var customEditorStyles = [[${portal.assetUrl({'_path=/css/tinymce.css'})}]];
+    </script>
     <script data-th-src="${portal.assetUrl({'_path=js/newArticle.js'})}"></script>
 </body>
 
