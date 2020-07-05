@@ -1,3 +1,5 @@
+window.saved = false;
+
 $("#newArticleForm").validate({
   ignore: [],
   highlight: function (element, errorClass, validClass) {},
@@ -107,6 +109,7 @@ $("#newArticleForm").on("submit", function (e) {
     success: function (data) {
       hideLoader();
       if (!data.error && data.article && data.article._id) {
+        window.saved = true;
         window.location = "/article/status?id=" + data.article._id;
       } else {
         showSnackBar(data.message, "error");
@@ -494,5 +497,7 @@ function validateImage(img) {
 }
 
 $(window).bind("beforeunload", function () {
-  return "Не сохраненные изменения будут утеряны.";
+  if (!window.saved) {
+    return "Не сохраненные изменения будут утеряны.";
+  }
 });
