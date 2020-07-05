@@ -31,7 +31,7 @@ exports.post = function (req) {
   }
   return {
     body: result,
-    contentType: "application/json"
+    contentType: "application/json",
   };
 };
 
@@ -65,7 +65,7 @@ exports.get = function (req) {
     case "userArticles":
       var articlesObj = blogLib.getArticlesByUser({
         id: params.userId,
-        page: page
+        page: page,
       });
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
@@ -101,11 +101,10 @@ exports.get = function (req) {
     body: {
       articles: articlesView,
       hideButton: articlesObj.count < pageSize,
-      buttonText: helpers.getRandomString(),
       nextStart: articlesObj.nextStart,
       date: articlesObj.date ? articlesObj.date : null,
-      newPage: articlesObj.newPage ? articlesObj.newPage : null
+      newPage: articlesObj.newPage ? articlesObj.newPage : null,
     },
-    contentType: "text/html"
+    contentType: "text/html",
   };
 };

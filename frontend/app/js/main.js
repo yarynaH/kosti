@@ -139,9 +139,9 @@ function initSharedEvents() {
             "og:url": overrideLink,
             "og:title": overrideTitle,
             "og:description": overrideDescription,
-            "og:image": overrideImage
-          }
-        })
+            "og:image": overrideImage,
+          },
+        }),
       },
       function (response) {
         incrementShare(
@@ -163,7 +163,7 @@ function initSharedEvents() {
         type: type,
         action: "addShare",
         user: userId,
-        itemType: itemType
+        itemType: itemType,
       },
       false
     );
@@ -241,7 +241,7 @@ function initSharedEvents() {
       error: function (data) {
         hideLoader();
         showSnackBar("Поизошла ошибка.", "success");
-      }
+      },
     });
   });
 }
@@ -252,7 +252,7 @@ function addBookmark(btn) {
     "POST",
     {
       id: btn.data().contentid,
-      action: "addBookmark"
+      action: "addBookmark",
     },
     false
   );
@@ -311,15 +311,13 @@ function loadMoreArticles() {
       date: date ? date : null,
       query: query ? query : null,
       start: wrapper.data("start"),
-      userId: $(".js_user-page-id").data("userid")
+      userId: $(".js_user-page-id").data("userid"),
     },
     true
   );
   call.done(function (data) {
     data = JSON.parse(data);
     if (data && data.articles && data.articles.trim() !== "") {
-      $(".js_blog-load_more").text(data.buttonText);
-      $(".js_blog-load_more").prop("title", data.buttonText);
       $(".js_blog-load_more").removeClass("hidden");
       wrapper.append(data.articles);
     }
@@ -353,7 +351,7 @@ function initCartFunctions() {
         ? $("#ordersAdminCartID").val()
         : getCookieValue("cartId"),
       action: "modify",
-      force: true
+      force: true,
     };
     var data = addToCart(data);
     removeItemFromDOM(this);
@@ -392,7 +390,7 @@ function scrollToHash() {
   if (window.location.hash) {
     $("html, body").animate(
       {
-        scrollTop: $(window.location.hash).offset().top - 85
+        scrollTop: $(window.location.hash).offset().top - 85,
       },
       "slow"
     );
@@ -402,7 +400,7 @@ function scrollToHash() {
 function scrollToItem(item) {
   $("html, body").animate(
     {
-      scrollTop: item.offset().top - 85
+      scrollTop: item.offset().top - 85,
     },
     "slow"
   );
