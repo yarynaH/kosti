@@ -1,5 +1,5 @@
 <button data-th-if="${articlesCount >= pageSize}" class="blog-upload_more js_blog-load_more"
-    data-th-text="ddddddd"></button>
+    data-th-text="${portal.localize({'_key=blog.loadMoreText', '_locale=ru'})}"></button>
 <div class="blog-list-empty js_blog-list-empty"
     data-th-text="${portal.localize({'_key=user.title.' + noMoreTitle + '.noMore', '_locale=ru'})}"
     data-th-classappend="${articlesCount >= pageSize or hideIfNone ? 'hidden' : ''}"></div>
