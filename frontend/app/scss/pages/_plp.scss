@@ -9,11 +9,6 @@
         }
     }
 
-    &-filters {
-        float: left;
-        width: 18.7%;
-    }
-
     &-width {
         max-width: 1220px;
     }
@@ -99,5 +94,33 @@
                 margin-right: 10px;
             }
         }
+    }
+}
+
+.filter {
+    @include mobile {
+        margin-bottom: 25px;
+    }
+
+    @include tablet-all {
+        float: left;
+        width: 18.7%;
+    }
+
+    &-title {
+        color: $color-primary17;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    &-item+&-item {
+        margin-top: 20px;
+    }
+
+    .active {
+        text-decoration: none;
+        box-shadow: 0 4px 16px 0 rgba($color-primary11, 0.4);
+        color: $color-primary1;
+        background-color: $color-primary15;
     }
 }
