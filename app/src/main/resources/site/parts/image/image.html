@@ -1,4 +1,6 @@
 <figure data-portal-component-type="image">
-    <img data-th-src="${url}" data-th-alt="${url}" />
+    <a data-th-href="${fullUrl}" target="_blank">
+        <img data-th-src="${url}" data-th-alt="${url}" />
+    </a>
     <figcaption data-th-if="${caption}" data-th-text="${caption}"></figcaption>
 </figure>

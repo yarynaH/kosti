@@ -479,13 +479,16 @@ exports.getTranslation = function () {
   }
 };
 
-function getImage(id, size, placeholderType, urlType) {
+function getImage(id, size, placeholderType, urlType, quality) {
   var result = false;
   if (!size || size == "") {
     size = "max(1366)";
   }
   if (typeof urlType == "undefined") {
     urlType = "server";
+  }
+  if (typeof quality == "undefined") {
+    quality = "75";
   }
   if (id && id !== "") {
     var image = contentLib.get({ key: id });
@@ -516,7 +519,7 @@ function getImage(id, size, placeholderType, urlType) {
           id: id,
           scale: size,
           type: urlType,
-          quality: "50"
+          quality: quality
         });
         var urlAbsolute = portal.imageUrl({
           id: id,

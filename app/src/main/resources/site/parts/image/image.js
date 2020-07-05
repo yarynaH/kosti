@@ -9,6 +9,7 @@ exports.get = function (req) {
   var config = component.config || [];
   var model = {
     url: norseUtils.getImage(config.image, "width(768)").url,
+    fullUrl: norseUtils.getImage(config.image, "(1, 1)", null, null, "100").url,
     caption: config.caption
   };
   var view = resolve("image.html");
