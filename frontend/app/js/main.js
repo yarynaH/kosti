@@ -214,7 +214,7 @@ function initSharedEvents() {
           $(window).height() +
           $("footer.footer").height() +
           100) <
-      0;
+        0 && window.innerWidth >= 768;
     if (load) {
       loadMoreArticles();
     }
