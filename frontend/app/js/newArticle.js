@@ -489,3 +489,7 @@ function validateImage(img) {
   var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
   return img && acceptedImageTypes.includes(img["type"]);
 }
+
+$(window).bind("beforeunload", function () {
+  return "Не сохраненные изменения будут утеряны.";
+});
