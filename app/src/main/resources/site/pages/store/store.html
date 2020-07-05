@@ -7,7 +7,7 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div class="blog_width">
+        <div class="blog_width plp-width">
             <div class="store">
                 <div class="store-top">
                     <div class="breadcrumbs">
@@ -22,6 +22,19 @@
                         <span class="minicart-total">UAH
                             <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
                     </a>
+                </div>
+                <div class="plp-filters">
+                    <div class="hot_tags">
+                        <h4 class="hot_tags-title">Горячие теги</h4>
+                        <div class="tag-list tag-list__hot">
+                            <a href="/search?hid=1aa42a58-fc58-4d36-bceb-e4bcc8fccdbf" class="tag-item">ЭНОА</a><a
+                                href="/search?hid=60cf5fbd-b98d-4155-b306-e204141062f6" class="tag-item">d&amp;d</a><a
+                                href="/search?hid=e0bc3b00-b4fe-4662-aeb4-6b4e7cefaab1" class="tag-item">Подкаст</a><a
+                                href="/search?hid=3c6cc157-6a09-41fc-a70e-8bd4c59515f6" class="tag-item">kosticon</a><a
+                                href="/search?hid=e5d597ba-d7fa-4c4c-b2ad-5ea8ea254dbd" class="tag-item">Вестники
+                                Бури</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="plp-list">
                     <div data-th-each="product: ${products}" class="plp-item h-product" title="Посмотреть" itemscope

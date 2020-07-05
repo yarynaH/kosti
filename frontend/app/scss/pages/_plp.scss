@@ -4,7 +4,18 @@
             display: flex;
             flex-wrap: wrap;
             margin: -15px -10px;
+
+            width: 81.3%;
         }
+    }
+
+    &-filters {
+        float: left;
+        width: 18.7%;
+    }
+
+    &-width {
+        max-width: 1220px;
     }
 
     &-item {
