@@ -13,7 +13,6 @@ var i18nLib = require("/lib/xp/i18n");
 exports.fixPermissions = fixPermissions;
 exports.getPageComponents = getPageComponents;
 exports.getLoadMore = getLoadMore;
-exports.getRandomString = getRandomString;
 exports.getLoginRequest = getLoginRequest;
 
 function getPageComponents(req, footerType, activeEl, title) {
@@ -29,19 +28,19 @@ function getPageComponents(req, footerType, activeEl, title) {
   var user = userLib.getCurrentUser();
 
   var userServiceUrl = portal.serviceUrl({
-    service: "user"
+    service: "user",
   });
   var contentServiceUrl = portal.serviceUrl({
-    service: "content"
+    service: "content",
   });
   var cartServiceUrl = portal.serviceUrl({
-    service: "cart"
+    service: "cart",
   });
   var commentsServiceUrl = portal.serviceUrl({
-    service: "comments"
+    service: "comments",
   });
   var monsterServiceUrl = portal.serviceUrl({
-    service: "monster"
+    service: "monster",
   });
 
   var keywords = "";
@@ -55,7 +54,7 @@ function getPageComponents(req, footerType, activeEl, title) {
       siteConfig: siteConfig,
       content: content,
       site: site,
-      keywords: keywords
+      keywords: keywords,
     }
   );
   var discordUrl = "https://discordapp.com/api/oauth2/authorize?";
@@ -88,7 +87,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         resolve("../pages/components/header/search.html"),
         {
           searchUrl: sharedLib.generateNiceServiceUrl("search"),
-          active: activeEl === "search" ? "active" : ""
+          active: activeEl === "search" ? "active" : "",
         }
       ),
       headerUser: thymeleaf.render(
@@ -96,9 +95,9 @@ function getPageComponents(req, footerType, activeEl, title) {
         {
           user: user,
           active:
-            content && content._path.indexOf("/users/") === -1 ? "" : "active"
+            content && content._path.indexOf("/users/") === -1 ? "" : "active",
         }
-      )
+      ),
     }
   );
 
@@ -107,7 +106,7 @@ function getPageComponents(req, footerType, activeEl, title) {
     thymeleaf.render(
       resolve("../pages/components/footers/" + footerType + ".html"),
       {
-        footerLinks: getFooterLinks()
+        footerLinks: getFooterLinks(),
       }
     ) +
     thymeleaf.render(
@@ -119,7 +118,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         commentsServiceUrl: commentsServiceUrl,
         monsterServiceUrl: monsterServiceUrl,
         cartId: cartLib.getCart(req && req.cookies ? req.cookies.cartId : null)
-          ._id
+          ._id,
       }
     );
 
@@ -134,7 +133,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         var agreement = contentLib.get({ key: siteConfig.agreements[i] });
         result.push({
           url: portal.pageUrl({ id: siteConfig.agreements[i] }),
-          displayName: agreement.displayName
+          displayName: agreement.displayName,
         });
       }
     }
@@ -150,7 +149,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         result.push({
           url: portal.pageUrl({ path: tempContent._path }),
           title: tempContent.displayName,
-          active: content && content._path.indexOf(tempContent._path) !== -1
+          active: content && content._path.indexOf(tempContent._path) !== -1,
         });
       }
     }
@@ -170,9 +169,6 @@ function getLoadMore(params) {
   if (params.articlesCount === null || params.articlesCount === undefined) {
     params.articlesCount = 11;
   }
-  if (!params.loadMoreText) {
-    params.loadMoreText = getRandomString();
-  }
   if (!params.noMoreTitle) {
     params.noMoreTitle = "articles";
   }
@@ -182,9 +178,8 @@ function getLoadMore(params) {
   return thymeleaf.render(resolve("../pages/components/blog/loadMore.html"), {
     articlesCount: params.articlesCount,
     noMoreTitle: params.noMoreTitle,
-    loadMoreText: params.loadMoreText,
     hideIfNone: params.hideIfNone,
-    pageSize: params.pageSize
+    pageSize: params.pageSize,
   });
 }
 
@@ -204,22 +199,12 @@ function fixPermissions(repo, role) {
           "DELETE",
           "PUBLISH",
           "READ_PERMISSIONS",
-          "WRITE_PERMISSIONS"
+          "WRITE_PERMISSIONS",
         ],
-        deny: []
-      }
+        deny: [],
+      },
     ],
-    _inheritsPermissions: true
-  });
-}
-
-function getRandomString() {
-  var min = 1;
-  var max = 11;
-  //maximum not including
-  var randomNumber = Math.floor(Math.random() * (max - min)) + min;
-  return i18nLib.localize({
-    key: "blog.loadMoreText." + randomNumber
+    _inheritsPermissions: true,
   });
 }
 
@@ -228,10 +213,10 @@ function getLoginRequest() {
     body: thymeleaf.render(
       resolve("../pages/components/user/loginError.html"),
       {
-        pageComponents: getPageComponents()
+        pageComponents: getPageComponents(),
       }
     ),
-    contentType: "text/html"
+    contentType: "text/html",
   };
 }
 

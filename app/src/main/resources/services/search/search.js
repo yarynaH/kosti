@@ -34,11 +34,10 @@ exports.get = function (req) {
       sidebar: blogLib.getSidebar(),
       query: query,
       loadMoreComponent: helpers.getLoadMore({
-        articlesCount: searchRes.total
+        articlesCount: searchRes.total,
       }),
-      loadMoreText: helpers.getRandomString(),
-      searchRes: searchRes
+      searchRes: searchRes,
     }),
-    contentType: "text/html"
+    contentType: "text/html",
   };
 };
