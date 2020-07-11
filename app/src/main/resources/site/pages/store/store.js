@@ -66,9 +66,19 @@ function handleReq(req) {
   }
 
   function getProducts(params) {
-    var query = "";
+    var content = portal.getContent();
+    if (params.category) {
+      var category = findCategory(params.category);
+      if (category) {
+        var query = "_parentPath LIKE '/content" + category._path + "*'";
+      } else {
+        var query = "_parentPath LIKE '/content" + content._path + "*'";
+      }
+    } else {
+      var query = "_parentPath LIKE '/content" + content._path + "*'";
+    }
     if (params.type) {
-      query += "data.type = '" + params.type + "'";
+      query += " and data.type = '" + params.type + "'";
     }
     var products = contentLib.query({
       start: 0,
@@ -96,6 +106,25 @@ function handleReq(req) {
       products[i] = beautifyProduct(products[i]);
     }
     return products;
+
+    function findCategory(name) {
+      var site = portal.getSiteConfig();
+      var store = contentLib.get({ key: site.shopLocation });
+      var category = contentLib.query({
+        query:
+          "_name = '" +
+          name +
+          "' and _parentPath = '/content" +
+          store._path +
+          "'",
+        start: 0,
+        count: 1
+      });
+      if (category.hits.length === 1) {
+        return category.hits[0];
+      }
+      return null;
+    }
   }
 
   return renderView();
