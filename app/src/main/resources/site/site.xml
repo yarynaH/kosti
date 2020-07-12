@@ -222,5 +222,8 @@
     <mapping controller="/services/promos/promosAdmin.js">
       <pattern>/api/promo/generate</pattern>
     </mapping>
+    <mapping controller="/api/store/product.js">
+      <pattern>/api/store/product</pattern>
+    </mapping>
   </mappings>
 </site>
