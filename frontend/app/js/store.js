@@ -124,6 +124,12 @@ function filterProducts() {
     );
     for (var key in filterList) {
       filterList[key] = filterList[key].split(",");
+
+      for (var i = 0; i < filterList[key].length; i++) {
+        $(".js-filter-btn[data-value='" + filterList[key][i] + "']").addClass(
+          "active"
+        );
+      }
     }
   } else {
     var filterList = {};
@@ -162,6 +168,12 @@ function filterProducts() {
         urlParameters;
       window.history.pushState({ path: newurl }, "", newurl);
     }
+
+    var call = makeAjaxCall("/api/store/product" + "?" + urlParameters, "GET");
+    call.done(function (data) {
+      console.log(data);
+      $(".js_plp-list").html(data.html);
+    });
   });
 }
 
