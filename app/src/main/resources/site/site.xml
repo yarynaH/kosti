@@ -67,6 +67,12 @@
       <config>
       </config>
     </input>
+    <input name="filtersLocation" type="ContentSelector">
+      <label>Filters location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
     <input name="monstersLocation" type="ContentSelector">
       <label>Monsters location</label>
       <occurrences minimum="0" maximum="1"/>

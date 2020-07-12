@@ -2,6 +2,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var authLib = require("/lib/xp/auth");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
+var util = require("/lib/util");
 
 var libLocation = "../../lib/";
 var cartLib = require(libLocation + "cartLib");
@@ -35,6 +36,7 @@ function handleReq(req) {
       content: content,
       cart: cartLib.getCart(req.cookies.cartId),
       social: site.social,
+      filters: getFiltersObject(),
       products: getProducts(up),
       cartUrl: sharedLib.generateNiceServiceUrl("cart"),
       pageComponents: helpers.getPageComponents(req)
@@ -65,6 +67,60 @@ function handleReq(req) {
     return product;
   }
 
+  function getFiltersObject() {
+    var filters = getFilters();
+    filters.push({
+      items: getCategories(),
+      title: "Категории",
+      name: "category"
+    });
+    return filters;
+  }
+
+  function getFilters() {
+    var result = [];
+    var site = portal.getSiteConfig();
+    var filtersCategories = util.content.getChildren({
+      key: site.filtersLocation
+    }).hits;
+    for (var i = 0; i < filtersCategories.length; i++) {
+      var filters = util.content.getChildren({
+        key: filtersCategories[i]._id
+      }).hits;
+      var temp = {
+        title: filtersCategories[i].displayName,
+        items: [],
+        name: filtersCategories[i]._name
+      };
+      for (var j = 0; j < filters.length; j++) {
+        temp.items.push({
+          value: filters[j]._name,
+          title: filters[j].displayName
+        });
+      }
+      result.push(temp);
+    }
+    return result;
+  }
+
+  function getCategories() {
+    var site = portal.getSiteConfig();
+    var categories = util.content.getChildren({
+      key: site.shopLocation
+    }).hits;
+    var result = [];
+    for (var i = 0; i < categories.length; i++) {
+      if (site.filtersLocation === categories[i]._id) {
+        continue;
+      }
+      result.push({
+        value: categories[i]._name,
+        title: categories[i].displayName
+      });
+    }
+    return result;
+  }
+
   function getProducts(params) {
     var content = portal.getContent();
     if (params.category) {
@@ -77,8 +133,9 @@ function handleReq(req) {
     } else {
       var query = "_parentPath LIKE '/content" + content._path + "*'";
     }
-    if (params.type) {
-      query += " and data.type = '" + params.type + "'";
+    if (params.theme) {
+      var themes = findFilterForRelation(params.theme);
+      query += " and data.theme in ('" + themes.join("','") + "')";
     }
     var products = contentLib.query({
       start: 0,
@@ -106,6 +163,28 @@ function handleReq(req) {
       products[i] = beautifyProduct(products[i]);
     }
     return products;
+
+    function findFilterForRelation(name) {
+      name = norseUtils.forceArray(name.split(","));
+      var site = portal.getSiteConfig();
+      var store = contentLib.get({ key: site.shopLocation });
+      var filters = contentLib.query({
+        query:
+          "_name IN ('" +
+          name.join("','") +
+          "') and _parentPath LIKE '/content" +
+          store._path +
+          "*'",
+        start: 0,
+        count: -1,
+        contentTypes: [app.name + ":filter"]
+      });
+      var result = [];
+      for (var i = 0; i < filters.hits.length; i++) {
+        result.push(filters.hits[i]._id);
+      }
+      return result;
+    }
 
     function findCategory(name) {
       var site = portal.getSiteConfig();

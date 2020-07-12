@@ -24,21 +24,13 @@
                     </a>
                 </div>
                 <div class="filter">
-                    <div class="filter-item">
-                        <h4 class="filter-title">Категории</h4>
+                    <div class="filter-item" data-th-each="filter: ${filters}">
+                        <h4 class="filter-title" data-th-text="${filter.title}">
+                        </h4>
                         <div class="tag-list tag-list__hot">
-                            <button href="/search?hid=1aa42a58-fc58-4d36-bceb-e4bcc8fccdbf"
-                                class="tag-item js-filter-btn" data-type="category"
-                                data-value="futblka">Футболка</button>
-                            <button href="/search?hid=1aa42a58-fc58-4d36-bceb-e4bcc8fccdbf"
-                                class="tag-item js-filter-btn" data-type="category" data-value="pin">пин</button>
-                        </div>
-                    </div>
-                    <div class="filter-item">
-                        <h4 class="filter-title">Тематика</h4>
-                        <div class="tag-list tag-list__hot">
-                            <button href="/search?hid=1aa42a58-fc58-4d36-bceb-e4bcc8fccdbf"
-                                class="tag-item js-filter-btn" data-type="theme" data-value="enoa">ЭНОА</button>
+                            <button data-th-each="item: ${filter.items}" class="tag-item js-filter-btn"
+                                data-th-attr="data-type=${filter.name}, data-value=${item.value}"
+                                data-th-text="${item.title}"></button>
                         </div>
                     </div>
                 </div>
