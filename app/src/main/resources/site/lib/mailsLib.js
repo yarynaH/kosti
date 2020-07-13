@@ -137,7 +137,7 @@ function getNewsletter(params) {
     : [];
   var mails = norseUtils.uniqueArray(customers.concat(subscribers));
   return {
-    to: ["maxskywalker94@gmail.com"],
+    to: mails,
     subject: params.displayName,
     body: params.body,
     contentType: 'text/html; charset="UTF-8"',
