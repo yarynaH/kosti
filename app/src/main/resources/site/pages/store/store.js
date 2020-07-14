@@ -77,6 +77,9 @@ function handleReq(req) {
       key: site.filtersLocation
     }).hits;
     for (var i = 0; i < filtersCategories.length; i++) {
+      if (filtersCategories.type === app.name + "product") {
+        continue;
+      }
       var filters = util.content.getChildren({
         key: filtersCategories[i]._id
       }).hits;
