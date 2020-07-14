@@ -22,7 +22,7 @@ function handleReq(req) {
     var body = thymeleaf.render(view, model);
     return {
       body: body,
-      contentType: "text/html",
+      contentType: "text/html"
     };
   }
 
@@ -31,19 +31,33 @@ function handleReq(req) {
     var content = portal.getContent();
     var response = [];
     var site = portal.getSiteConfig();
+    var slider = getSlider(content.data.slider);
 
     var model = {
       content: content,
       cart: cartLib.getCart(req.cookies.cartId),
       social: site.social,
+      slider: slider,
       filters: getFiltersObject(),
       products: thymeleaf.render(resolve("productsBlock.html"), {
-        products: storeLib.getProducts(up),
+        products: storeLib.getProducts(up)
       }),
       cartUrl: sharedLib.generateNiceServiceUrl("cart"),
-      pageComponents: helpers.getPageComponents(req),
+      pageComponents: helpers.getPageComponents(req)
     };
     return model;
+  }
+
+  function getSlider(config) {
+    if (!config) {
+      return null;
+    }
+    config = norseUtils.forceArray(config);
+    config.forEach((c) => {
+      c.image = norseUtils.getImage(c.image, "block(1905, 378)");
+      c.url = portal.pageUrl({ id: c.product });
+    });
+    return config;
   }
 
   function getFiltersObject() {
@@ -51,7 +65,7 @@ function handleReq(req) {
     filters.push({
       items: getCategories(),
       title: "Категории",
-      name: "category",
+      name: "category"
     });
     return filters;
   }
@@ -60,21 +74,21 @@ function handleReq(req) {
     var result = [];
     var site = portal.getSiteConfig();
     var filtersCategories = util.content.getChildren({
-      key: site.filtersLocation,
+      key: site.filtersLocation
     }).hits;
     for (var i = 0; i < filtersCategories.length; i++) {
       var filters = util.content.getChildren({
-        key: filtersCategories[i]._id,
+        key: filtersCategories[i]._id
       }).hits;
       var temp = {
         title: filtersCategories[i].displayName,
         items: [],
-        name: filtersCategories[i]._name,
+        name: filtersCategories[i]._name
       };
       for (var j = 0; j < filters.length; j++) {
         temp.items.push({
           value: filters[j]._name,
-          title: filters[j].displayName,
+          title: filters[j].displayName
         });
       }
       result.push(temp);
@@ -85,7 +99,7 @@ function handleReq(req) {
   function getCategories() {
     var site = portal.getSiteConfig();
     var categories = util.content.getChildren({
-      key: site.shopLocation,
+      key: site.shopLocation
     }).hits;
     var result = [];
     for (var i = 0; i < categories.length; i++) {
@@ -97,7 +111,7 @@ function handleReq(req) {
       }
       result.push({
         value: categories[i]._name,
-        title: categories[i].displayName,
+        title: categories[i].displayName
       });
     }
     return result;
