@@ -107,7 +107,8 @@ function handleReq(req) {
     for (var i = 0; i < categories.length; i++) {
       if (
         store.data.filtersLocation === categories[i]._id ||
-        categories[i].type !== "base:folder"
+        categories[i].type !== "base:folder" ||
+        !checkCategoryHasChildren(categories[i])
       ) {
         continue;
       }
@@ -117,6 +118,31 @@ function handleReq(req) {
       });
     }
     return result;
+
+    function checkCategoryHasChildren(category) {
+      var products = contentLib.query({
+        start: 0,
+        count: 1,
+        query: "_parentPath LIKE '/content" + category._path + "*'",
+        contentTypes: [app.name + ":product"],
+        filters: {
+          boolean: {
+            mustNot: {
+              hasValue: [
+                {
+                  field: "data.discontinued",
+                  values: "true"
+                }
+              ]
+            }
+          }
+        }
+      });
+      if (products.total > 0) {
+        return true;
+      }
+      return false;
+    }
   }
 
   return renderView();
