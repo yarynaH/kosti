@@ -118,15 +118,19 @@ function beautifyProduct(product) {
 
 function getProducts(params) {
   var content = portal.getContent();
-  if (params.category) {
-    var category = findCategory(params.category);
-    if (category) {
-      var query = "_parentPath LIKE '/content" + category._path + "*'";
-    } else {
-      var query = "_parentPath LIKE '/content" + content._path + "*'";
+  var category = findCategory(params.category);
+  var query = "type = '" + app.name + ":product'";
+  if (category && category.length > 0) {
+    query += " and (";
+    for (var i = 0; i < category.length; i++) {
+      if (i !== 0) {
+        query += " or ";
+      }
+      query += "_parentPath LIKE '/content" + category[i]._path + "*'";
     }
+    query += ")";
   } else {
-    var query = "_parentPath LIKE '/content" + content._path + "*'";
+    query += " and _parentPath LIKE '/content" + content._path + "*'";
   }
   if (params.theme) {
     var themes = findFilterForRelation(params.theme);
@@ -182,21 +186,29 @@ function getProducts(params) {
   }
 
   function findCategory(name) {
+    if (!name) {
+      return null;
+    }
+    name = name.split(",");
+    var result = [];
     var site = portal.getSiteConfig();
     var store = contentLib.get({ key: site.shopLocation });
-    var category = contentLib.query({
-      query:
-        "_name = '" +
-        name +
-        "' and _parentPath = '/content" +
-        store._path +
-        "'",
-      start: 0,
-      count: 1
-    });
-    if (category.hits.length === 1) {
-      return category.hits[0];
+    for (var i = 0; i < name.length; i++) {
+      var category = contentLib.query({
+        query:
+          "_name = '" +
+          name[i] +
+          "' and _parentPath = '/content" +
+          store._path +
+          "'",
+        start: 0,
+        count: 1
+      });
+
+      if (category.hits.length === 1) {
+        result.push(category.hits[0]);
+      }
     }
-    return null;
+    return result;
   }
 }
