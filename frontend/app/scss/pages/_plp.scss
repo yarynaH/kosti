@@ -7,6 +7,20 @@
 
             width: 81.3%;
         }
+
+        .plp-item {
+            @include desktop {
+                width: calc((100% / 3) - 20px);
+            }
+
+            @include tablet {
+                width: calc((100% / 2) - 20px);
+            }
+
+            @include tablet-all {
+                margin: 15px 10px;
+            }
+        }
     }
 
     &-width {
@@ -19,22 +33,6 @@
         text-align: center;
         padding: 25px 15px;
         margin: 15px 0;
-
-        // &:last-child {
-        //     margin-bottom: 0;
-        // }
-
-        @include desktop {
-            width: calc((100% / 3) - 20px);
-        }
-
-        @include tablet {
-            width: calc((100% / 2) - 20px);
-        }
-
-        @include tablet-all {
-            margin: 15px 10px;
-        }
     }
 
     &-prod_img {
