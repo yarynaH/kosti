@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Store</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <item-set name="slider"> 
+      <label>Slider</label> 
+      <occurrences minimum="0" maximum="5"/> 
+      <items>
+        <input name="title" type="TextLine">
+          <label>Title</label>
+          <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="description" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="image" type="ImageSelector">
+          <label>Image</label>
+          <occurrences minimum="1" maximum="1"/>
+          <config>
+            <allowPath>./*</allowPath>
+          </config>
+        </input>
+        <input name="product" type="ContentSelector">
+          <label>Product</label>
+          <occurrences minimum="1" maximum="1"/>
+          <config>
+            <allowContentType>product</allowContentType>
+          </config>
+        </input>
+      </items>
+    </item-set>
+  </form>
+</content-type>
