@@ -1,17 +1,17 @@
-var contentLib = require("/lib/xp/content");
-var portal = require("/lib/xp/portal");
-var thymeleaf = require("/lib/thymeleaf");
-var i18nLib = require("/lib/xp/i18n");
+const contentLib = require("/lib/xp/content");
+const portal = require("/lib/xp/portal");
+const thymeleaf = require("/lib/thymeleaf");
+const i18nLib = require("/lib/xp/i18n");
 
-var norseUtils = require("norseUtils");
-var kostiUtils = require("kostiUtils");
-var votesLib = require("votesLib");
-var userLib = require("userLib");
-var moment = require("moment");
-var commentsLib = require("commentsLib");
-var hashtagLib = require("hashtagLib");
-var sharedLib = require("sharedLib");
-var contextLib = require("contextLib");
+const norseUtils = require("norseUtils");
+const kostiUtils = require("kostiUtils");
+const votesLib = require("votesLib");
+const userLib = require("userLib");
+const moment = require("moment");
+const commentsLib = require("commentsLib");
+const hashtagLib = require("hashtagLib");
+const sharedLib = require("sharedLib");
+const contextLib = require("contextLib");
 const cacheLib = require("cacheLib");
 
 exports.beautifyArticle = beautifyArticle;
@@ -53,6 +53,20 @@ function getSolialLinks() {
     resolve("../pages/components/blog/socialLinks.html"),
     { social: site.social }
   );
+}
+
+function getFeaturedProduct() {
+  var site = portal.getSiteConfig();
+  var storeLib = require("storeLib");
+  if (site.featuredProduct) {
+    var product = contentLib.get({ key: site.featuredProduct });
+    if (product) {
+      return thymeleaf.render(resolve("../pages/store/productsBlock.html"), {
+        products: [storeLib.beautifyProduct(product)]
+      });
+    }
+  }
+  return null;
 }
 
 function getWeekArticle(params) {
@@ -112,11 +126,17 @@ function getSidebarModel(params) {
     socialLinks = getSolialLinks();
     cache.api.put("sociallinks", socialLinks);
   }
+  var product = cache.api.getOnly("featuredProduct");
+  if (!product) {
+    product = getFeaturedProduct();
+    cache.api.put("featuredProduct", product);
+  }
   return {
     weeksPost: getWeekArticle(),
     socialLinks: socialLinks,
     //libraryHot: getLibraryHot(),
     hotTags: hotTags,
+    product: product,
     hideNewArticleButton: params.hideNewArticleButton,
     createArticleUrl: sharedLib.generateNiceServiceUrl("create")
   };

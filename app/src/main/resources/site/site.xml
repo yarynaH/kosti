@@ -53,6 +53,7 @@
       <label>Slider</label>
       <occurrences minimum="1" maximum="3"/>
       <config>
+        <allowContentType>article</allowContentType>
       </config>
     </input>
     <input name="shipping" type="ContentSelector">
@@ -146,6 +147,13 @@
       <occurrences minimum="0" maximum="5"/>
       <config>
         <allowContentType>hashtag</allowContentType>
+      </config>
+    </input>
+    <input name="featuredProduct" type="ContentSelector">
+      <label>Featured product</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <allowContentType>product</allowContentType>
       </config>
     </input>
   </form>
