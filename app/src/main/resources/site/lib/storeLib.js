@@ -136,6 +136,9 @@ function getProducts(params) {
     var themes = findFilterForRelation(params.theme);
     query += " and data.theme in ('" + themes.join("','") + "')";
   }
+  if (params.stock && params.stock === "1") {
+    query += " and data.inventory != 0";
+  }
   var sort = "_manualOrderValue DESC";
   if (params.sortType && params.sortOrder) {
     sort = params.sortType + " " + params.sortOrder;
