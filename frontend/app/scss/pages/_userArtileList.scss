@@ -40,11 +40,23 @@
         background: $color-primary1;
         transition: transition(all);
         color: $color-primary28;
+        margin-left: auto;
 
         &:hover {
             @include tablet-all {
                 background: $color-primary28;
                 color: $color-primary1;
+            }
+        }
+
+        &+& {
+            margin-left: 20px;
+        }
+
+        &.icon-delete {
+            &:before {
+                font-size: rem(22);
+                font-weight: bold;
             }
         }
     }

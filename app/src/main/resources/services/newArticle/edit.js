@@ -115,6 +115,11 @@ function handleGet(req) {
 
   function prepareComponentsForEdit(article) {
     var result = [];
+    if (article && article.components) {
+      article.components = norseUtils.forceArray(article.components);
+    } else {
+      article.components = [];
+    }
     for (var i = 1; i < article.components.length; i++) {
       var component = article.components[i];
       var id = component.path.split("/");

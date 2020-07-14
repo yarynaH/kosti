@@ -1,17 +1,17 @@
-var contentLib = require("/lib/xp/content");
-var portal = require("/lib/xp/portal");
-var thymeleaf = require("/lib/thymeleaf");
-var i18nLib = require("/lib/xp/i18n");
+const contentLib = require("/lib/xp/content");
+const portal = require("/lib/xp/portal");
+const thymeleaf = require("/lib/thymeleaf");
+const i18nLib = require("/lib/xp/i18n");
 
-var norseUtils = require("norseUtils");
-var kostiUtils = require("kostiUtils");
-var votesLib = require("votesLib");
-var userLib = require("userLib");
-var moment = require("moment");
-var commentsLib = require("commentsLib");
-var hashtagLib = require("hashtagLib");
-var sharedLib = require("sharedLib");
-var contextLib = require("contextLib");
+const norseUtils = require("norseUtils");
+const kostiUtils = require("kostiUtils");
+const votesLib = require("votesLib");
+const userLib = require("userLib");
+const moment = require("moment");
+const commentsLib = require("commentsLib");
+const hashtagLib = require("hashtagLib");
+const sharedLib = require("sharedLib");
+const contextLib = require("contextLib");
 const cacheLib = require("cacheLib");
 
 exports.beautifyArticle = beautifyArticle;
@@ -31,6 +31,7 @@ exports.getArticleStatus = getArticleStatus;
 exports.generateDiscordNotificationMessage = generateDiscordNotificationMessage;
 exports.getArticleIntro = getArticleIntro;
 exports.generateTelegramNotificationMessage = generateTelegramNotificationMessage;
+exports.getArticleLikesView = getArticleLikesView;
 
 const cache = cacheLib.api.createGlobalCache({
   name: "blog",
@@ -54,6 +55,24 @@ function getSolialLinks() {
   );
 }
 
+function getFeaturedProduct() {
+  var site = portal.getSiteConfig();
+  var store = contentLib.get({ key: site.shopLocation });
+  if (!store) {
+    return null;
+  }
+  var storeLib = require("storeLib");
+  if (store.data.featuredProduct) {
+    var product = contentLib.get({ key: store.data.featuredProduct });
+    if (product) {
+      return thymeleaf.render(resolve("../pages/store/productsBlock.html"), {
+        products: [storeLib.beautifyProduct(product)]
+      });
+    }
+  }
+  return null;
+}
+
 function getWeekArticle(params) {
   if (!params) {
     var params = {};
@@ -69,7 +88,8 @@ function getWeekArticle(params) {
   }
   article = beautifyArticle(article);
   return thymeleaf.render(resolve("../pages/components/blog/weeksPost.html"), {
-    article: article
+    article: article,
+    likes: getArticleLikesView(article)
   });
 }
 
@@ -92,7 +112,7 @@ function getSidebar(params) {
   }
   return thymeleaf.render(
     resolve("../pages/components/blog/blogSidebar.html"),
-    getSidebarModel({ cache: params.cache })
+    getSidebarModel(params)
   );
 }
 
@@ -110,11 +130,17 @@ function getSidebarModel(params) {
     socialLinks = getSolialLinks();
     cache.api.put("sociallinks", socialLinks);
   }
+  var product = cache.api.getOnly("featuredProduct");
+  if (!product) {
+    product = getFeaturedProduct();
+    cache.api.put("featuredProduct", product);
+  }
   return {
     weeksPost: getWeekArticle(),
     socialLinks: socialLinks,
     //libraryHot: getLibraryHot(),
     hotTags: hotTags,
+    product: product,
     hideNewArticleButton: params.hideNewArticleButton,
     createArticleUrl: sharedLib.generateNiceServiceUrl("create")
   };
@@ -158,6 +184,7 @@ function beautifyArticle(article) {
     article.date = kostiUtils.getTimePassedSincePostCreation(itemDate);
   }
   article.status = getArticleStatus(article._id);
+  article.likesView = getArticleLikesView(article);
   return article;
 }
 
@@ -194,6 +221,9 @@ function beautifyGeneralFields(article) {
     article.author.url = portal.pageUrl({ id: article.author._id });
   } else {
     article.author = userLib.getUserDataById(null);
+  }
+  if (article.type === app.name + ":podcast") {
+    article.data.podcastIntro = article.data.intro;
   }
   article.hashtags = hashtagLib.getHashtags(article.data.hashtags);
   article.data.intro = getArticleIntro(article);
@@ -232,7 +262,10 @@ function getArticleIntro(article) {
   }
   if (article.data.intro) {
     return (
-      article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
+      article.data.intro
+        .replace(/(<([^>]+)>)/gi, "")
+        .replace("&nbsp;", " ")
+        .substring(0, 250) + "..."
     );
   } else {
     return "";
@@ -419,15 +452,21 @@ function getArticlesByUser(params) {
   if (params.count) {
     return articles.total;
   }
-  articles.hits = beautifyArticleArray(articles.hits);
+  articles.hits = contextLib.runInDraft(function () {
+    return beautifyArticleArray(articles.hits);
+  });
   return articles;
 }
 
 function getArticleFooter(article) {
-  return thymeleaf.render(resolve("../pages/article/articleFooter.html"), {
-    article: article,
-    bookmarked: userLib.checkIfBookmarked(article._id)
-  });
+  return thymeleaf.render(
+    resolve("../pages/article/components/articleFooter.html"),
+    {
+      article: article,
+      bookmarked: userLib.checkIfBookmarked(article._id),
+      likes: getArticleLikesView(article)
+    }
+  );
 }
 
 function countUserRating(id) {
@@ -514,4 +553,23 @@ function generateTelegramNotificationMessage(content) {
     "\uD83E\uDD18" +
     content.url
   );
+}
+
+function getArticleLikesView(article, type) {
+  if (!article) {
+    article = { _id: null, votes: 0, voted: false };
+  }
+  var comment = false;
+  if (type && type === "comment") {
+    comment = true;
+  }
+  if (!article.votes || article.votes < 1) {
+    article.votes = 0;
+  }
+  return thymeleaf.render(resolve("../pages/article/components/like.html"), {
+    id: article._id,
+    votes: article.votes,
+    voted: article.voted,
+    comment: comment
+  });
 }

@@ -9,13 +9,17 @@ function initHeaderFunctions() {
     "left",
     activeEl.offset().left - 3 + activeEl.width() / 2
   );
-  $(".nav-list .nav-item a").on("mouseenter", function () {
+  $(
+    ".nav-list .nav-item a, .js_search-icon, .js_header-user, .js_notification-icon"
+  ).on("mouseenter", function () {
     $(".active_element").css(
       "left",
       $(this).offset().left - 3 + $(this).width() / 2
     );
   });
-  $(".nav-list .nav-item a").on("mouseleave", function () {
+  $(
+    ".nav-list .nav-item a, .js_search-icon, .js_header-user, .js_notification-icon"
+  ).on("mouseleave", function () {
     $(".active_element").css(
       "left",
       activeEl.offset().left - 3 + activeEl.width() / 2

@@ -1,0 +1,28 @@
+<div data-th-each="product: ${products}" class="plp-item h-product" title="Посмотреть" itemscope
+    itemtype="http://schema.org/Product">
+    <a itemprop="url" class="u-url hidden" data-th-href="${product.urlAbsolute}"></a>
+    <span class="hidden" itemprop="brand" itemscope itemtype="http://schema.org/Brand">
+        <meta itemprop="name" data-th-attr="content=${product.brand.name}">
+        <meta itemprop="logo" data-th-attr="content=${product.brand.logo}">
+    </span>
+    <div class="plp-prod_img">
+        <a data-th-href="${product.url}">
+            <img itemprop="image" data-th-src="${product.image.url}" data-th-alt="${product.image.alt}"
+                class="u-photo" />
+            <div class="product_bage hidden">
+                <span class="product_bage-icon"></span>
+                <span class="product_bage-text">Новинка</span>
+            </div>
+            <div class="plp-img_hover">
+                <span class="plp-prod_link">Посмотреть</span>
+            </div>
+        </a>
+    </div>
+    <h2 class="p-name" itemprop="name">
+        <a class="plp-prod_name" data-th-href="${product.url}" data-th-text="${product.displayName}">
+        </a>
+    </h2>
+    <div class="pdp-description e-description hidden" data-th-utext="${product.data.description}"
+        itemprop="description"></div>
+    <div data-th-utext="${product.priceBlock}" class="plp-prod_price"></div>
+</div>

@@ -1,18 +1,24 @@
 <div itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/Article" data-th-each="article: ${articles}"
-    class="blog-item">
+    class="blog-item" data-th-attr="data-articleid=${article._id}">
     <div data-th-unless="${article.status.published}" class="posted_article_status-wrapper">
         <div class="posted_article_status-inner">
             <div data-th-if="${!article.status.draft}" class="posted_article_status-item moderate">
                 <span data-th-text="${portal.localize({'_key=user.article.status.moderate', '_locale=ru'})}"></span>
-                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"></a>
+                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"
+                    data-th-title="${portal.localize({'_key=user.newArticle.edit', '_locale=ru'})}"></a>
+                <a class="posted_article_status-btn icon-delete js_icon-delete" data-th-attr="data-id=${article._id}"
+                    data-th-title="${portal.localize({'_key=user.newArticle.delete', '_locale=ru'})}"></a>
             </div>
             <div data-th-if="${article.status.draft}" class="posted_article_status-item draft">
                 <span data-th-text="${portal.localize({'_key=user.article.status.draft', '_locale=ru'})}"></span>
-                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"></a>
+                <a class="posted_article_status-btn icon-edit" data-th-href="${'/article/edit?id=' + article._id}"
+                    data-th-title="${portal.localize({'_key=user.newArticle.edit', '_locale=ru'})}"></a>
+                <a class="posted_article_status-btn icon-delete js_icon-delete" data-th-attr="data-id=${article._id}"
+                    data-th-title="${portal.localize({'_key=user.newArticle.delete', '_locale=ru'})}"></a>
             </div>
         </div>
     </div>
-    <a data-th-href="${article.url}" class="post-image_wrap" target="_blank">
+    <a data-th-href="${article.url}" class="post-image_wrap">
         <img itemprop="image" data-th-src="${article.image.url}" data-th-alt="${article.image.alt}" />
     </a>
     <div class="post">
@@ -28,12 +34,14 @@
             <span class="post-date hidden" itemprop="datePublished" data-th-text="${article.publishDate}"></span>
             <span class="post-date hidden" itemprop="dateModified" data-th-text="${article.modifiedTime}"></span>
         </div>
-        <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}" target="_blank"
-            itemprop="name headline"></a>
+        <h2>
+            <a data-th-href="${article.url}" class="post-title" data-th-text="${article.displayName}"
+                itemprop="name headline"></a>
+        </h2>
         <div class="post-text" data-th-utext="${article.data.intro}" itemprop="backstory"></div>
         <div class="tag-list" data-th-if="${article.hashtags}">
             <a data-th-each="hashtag : ${article.hashtags}" data-th-href="${hashtag.url}" class="tag-item"
-                data-th-text="${hashtag.displayName}"></a>
+                data-th-text="${hashtag.displayName}" data-th-titles="${hashtag.displayName}"></a>
         </div>
     </div>
     <div data-th-remove="tag" data-th-utext="${article.footer}"></div>

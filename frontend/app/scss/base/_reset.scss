@@ -170,7 +170,8 @@ input[type="submit"] {
     cursor: pointer;
 }
 button[disabled],
-html input[disabled] {
+html input[disabled],
+a[disabled] {
     cursor: default;
 }
 input[type="checkbox"],

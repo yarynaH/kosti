@@ -13,6 +13,8 @@ var mailsLib = require("mailsLib");
 exports.getSoldTicketsAmount = getSoldTicketsAmount;
 exports.getPriceBlock = getPriceBlock;
 exports.checkLiqpayOrderStatus = checkLiqpayOrderStatus;
+exports.beautifyProduct = beautifyProduct;
+exports.getProducts = getProducts;
 
 function checkLiqpayOrderStatus() {
   var carts = cartLib.getPendingLiqpayCarts();
@@ -36,7 +38,7 @@ function checkLiqpayOrderStatus() {
     if (result && result.status && result.status === "success") {
       norseUtils.log("cart is paid");
       checkoutLib.checkoutCart(carts[i], "paid");
-      carts[i] = contextLib.runAsAdmin(function() {
+      carts[i] = contextLib.runAsAdmin(function () {
         return (carts[i] = cartLib.generateItemsIds(carts[i]._id));
       });
       norseUtils.log("sending mail");
@@ -89,4 +91,124 @@ function countTickets(orderId, itemIds) {
     }
   }
   return result;
+}
+
+function beautifyProduct(product) {
+  product.urlAbsolute = portal.pageUrl({ id: product._id, type: "absolute" });
+  product.brand = {
+    name: "Вечерние Кости",
+    logo: portal.assetUrl({
+      path: "images/extended-logo@3x.png",
+      type: "absolute"
+    })
+  };
+  product.image = getMainImage(product.data);
+  product.url = portal.pageUrl({ id: product._id });
+  product.priceBlock = getPriceBlock(product._id);
+  return product;
+
+  function getMainImage(data) {
+    var image = null;
+    if (data.mainImage) {
+      image = norseUtils.getImage(data.mainImage, "block(264, 268)");
+    }
+    return image;
+  }
+}
+
+function getProducts(params) {
+  var content = portal.getContent();
+  var category = findCategory(params.category);
+  var query = "type = '" + app.name + ":product'";
+  if (category && category.length > 0) {
+    query += " and (";
+    for (var i = 0; i < category.length; i++) {
+      if (i !== 0) {
+        query += " or ";
+      }
+      query += "_parentPath LIKE '/content" + category[i]._path + "*'";
+    }
+    query += ")";
+  } else {
+    query += " and _parentPath LIKE '/content" + content._path + "*'";
+  }
+  if (params.theme) {
+    var themes = findFilterForRelation(params.theme);
+    query += " and data.theme in ('" + themes.join("','") + "')";
+  }
+  var products = contentLib.query({
+    start: 0,
+    count: -1,
+    query: query,
+    contentTypes: [app.name + ":product"],
+    sort: "_manualOrderValue DESC",
+    filters: {
+      boolean: {
+        mustNot: {
+          hasValue: [
+            {
+              field: "data.discontinued",
+              values: "true"
+            }
+          ]
+        }
+      }
+    }
+  });
+  if (products && products.hits) {
+    products = products.hits;
+  }
+  for (var i = 0; i < products.length; i++) {
+    products[i] = beautifyProduct(products[i]);
+  }
+  return products;
+
+  function findFilterForRelation(name) {
+    name = norseUtils.forceArray(name.split(","));
+    var site = portal.getSiteConfig();
+    var store = contentLib.get({ key: site.shopLocation });
+    var filters = contentLib.query({
+      query:
+        "_name IN ('" +
+        name.join("','") +
+        "') and _parentPath LIKE '/content" +
+        store._path +
+        "*'",
+      start: 0,
+      count: -1,
+      contentTypes: [app.name + ":filter"]
+    });
+    var result = [];
+    for (var i = 0; i < filters.hits.length; i++) {
+      result.push(filters.hits[i]._id);
+    }
+    return result;
+  }
+
+  function findCategory(name) {
+    if (!name) {
+      return null;
+    }
+    name = name.split(",");
+    var result = [];
+    var site = portal.getSiteConfig();
+    var store = contentLib.get({ key: site.shopLocation });
+    for (var i = 0; i < name.length; i++) {
+      var category = contentLib.query({
+        query:
+          "_name = '" +
+          name[i] +
+          "' and _parentPath = '/content" +
+          store._path +
+          "'",
+        start: 0,
+        count: 1
+      });
+
+      if (category.hits.length === 1) {
+        result.push(category.hits[0]);
+      }
+    }
+    return result;
+  }
 }

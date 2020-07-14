@@ -26,6 +26,7 @@ function getPageComponents(req, footerType, activeEl, title) {
   var site = sharedLib.getSite();
   var siteConfig = sharedLib.getSiteConfig();
   var content = portal.getContent();
+  var user = userLib.getCurrentUser();
 
   var userServiceUrl = portal.serviceUrl({
     service: "user"
@@ -74,7 +75,7 @@ function getPageComponents(req, footerType, activeEl, title) {
     "&v=5.102";
   pageComponents["loginRegisterModal"] = thymeleaf.render(
     resolve("../pages/components/loginRegisterModal.html"),
-    { discordUrl: discordUrl, vkUrl: vkUrl }
+    { discordUrl: discordUrl, vkUrl: vkUrl, showForm: user ? false : true }
   );
 
   pageComponents["header"] = thymeleaf.render(
@@ -82,7 +83,7 @@ function getPageComponents(req, footerType, activeEl, title) {
     {
       menuItems: getMenuItems(),
       site: site,
-      user: userLib.getCurrentUser(),
+      user: user,
       search: thymeleaf.render(
         resolve("../pages/components/header/search.html"),
         {
@@ -93,7 +94,7 @@ function getPageComponents(req, footerType, activeEl, title) {
       headerUser: thymeleaf.render(
         resolve("../pages/components/header/headerUser.html"),
         {
-          user: userLib.getCurrentUser(),
+          user: user,
           active:
             content && content._path.indexOf("/users/") === -1 ? "" : "active"
         }
@@ -157,15 +158,6 @@ function getPageComponents(req, footerType, activeEl, title) {
   }
 
   return pageComponents;
-}
-
-function checkUser() {
-  var user = userLib.getCurrUser();
-  var result = {};
-  if (user) {
-    result.user = user;
-  }
-  return result;
 }
 
 function getLoadMore(params) {

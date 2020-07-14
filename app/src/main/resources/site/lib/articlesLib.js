@@ -26,6 +26,15 @@ exports.getYoutubeVideoId = getYoutubeVideoId;
 exports.getQuoteComponent = getQuoteComponent;
 exports.getImageComponent = getImageComponent;
 exports.editArticle = editArticle;
+exports.deleteArticle = deleteArticle;
+
+function deleteArticle(id) {
+  return contextLib.runInDraftAsAdmin(function () {
+    return contentLib.delete({
+      key: id
+    });
+  });
+}
 
 function editArticle(data) {
   var user = userLib.getCurrentUser();

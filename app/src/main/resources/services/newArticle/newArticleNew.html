@@ -108,16 +108,15 @@
                     <div class="post-footer">
                         <div class="post-counters">
                             <div class="share-block social">
-                                <span class="post-counter icon-share">0</span>
+                                <span class="post-counter icon-share" data-th-title="${'Поделиться'}">0</span>
                             </div>
-                            <span class="post-counter icon-views">0</span>
-                            <a class="post-counter icon-comment"></a>
+                            <span class="post-counter icon-views" data-th-title="${'Просмотров'}">0</span>
+                            <a disabled class="post-counter icon-comment" data-th-title="${'Комментарии'}"></a>
                         </div>
                         <div class="post-actions">
-                            <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks"></span>
-                            <span class="like-btn icon-rock js_like-article">
-                                <span>0</span>
-                            </span>
+                            <button disabled class="add_to_bookmarks-btn icon-bookmark js_bookmarks"
+                                data-th-title="${'В закладки'}"></button>
+                            <div data-th-remove="tag" data-th-utext="${likes}"></div>
                         </div>
                     </div>
                 </div>

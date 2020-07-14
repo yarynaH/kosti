@@ -17,8 +17,7 @@
                 <div class="store-top">
                     <div class="breadcrumbs">
                         <a class="breadcrumbs-element breadcrumbs-link" data-th-href="${shopUrl}"
-                            data-th-text="${portal.localize({'_key=shop.title.store', '_locale=ru'})}"
-                            data-th-title="${portal.localize({'_key=shop.title.store', '_locale=ru'})}"></a>
+                            data-th-text="${portal.localize({'_key=shop.title.store', '_locale=ru'})}"></a>
                         <span class="breadcrumbs-element breadcrumbs-divider">/</span>
                         <span class="breadcrumbs-element active" data-th-text="${content.displayName}"></span>
                     </div>
@@ -95,8 +94,7 @@
                                 </div>
                             </div>
                             <button data-th-disabled="${content.data.inventory == 0}" class="add_to_cart-btn"
-                                data-th-text="${portal.localize({'_key=shop.title.addToCart', '_locale=ru'})}"
-                                data-th-title="${portal.localize({'_key=shop.title.addToCart', '_locale=ru'})}"></button>
+                                data-th-text="${portal.localize({'_key=shop.title.addToCart', '_locale=ru'})}"></button>
                             <input name="price" type="hidden" data-th-attr="value=${content.data.price}" />
                             <input name="productId" type="hidden" data-th-attr="value=${content._id}" />
                         </form>

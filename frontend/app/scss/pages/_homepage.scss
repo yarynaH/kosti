@@ -70,6 +70,7 @@
         background-position: center;
         border-radius: 4px;
         position: relative;
+        overflow: hidden;
 
         @include tablet-all {
             flex: 1 1 100%;
@@ -91,17 +92,28 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
+            transition: transition(background);
+        }
+
+        &:hover:before {
+            background-color: rgba(0, 0, 0, 0.7);
         }
     }
 
     &-content {
         height: 100%;
         position: relative;
-        padding: 30px 30px 15px;
+        display: block;
+        padding: 25px 25px 15px;
     }
 
     &-date {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 10px;
         font-size: rem(12);
+        color: $color-primary1;
+        z-index: 1;
 
         .month {
             color: $color-primary11;
@@ -119,10 +131,11 @@
         font-size: rem(18);
         font-weight: bold;
         color: $color-primary1;
+        cursor: pointer;
+    }
 
-        &:hover {
-            text-decoration: underline;
-        }
+    &-item_link {
+        @include absolute(top 0  right 0 bottom 0 left 0);
     }
 }
 
@@ -196,21 +209,12 @@
     }
 
     &-upload_more {
-        @include button-style(global transparent);
+        @include button-style(global transparent white);
 
         margin-top: 30px;
-        box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
-        background-color: $color-primary1;
-        font-size: rem(16);
-        color: $color-primary6;
 
         @include mobile {
             margin-bottom: 30px;
-        }
-
-        &:hover {
-            color: $color-primary36;
-            box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.1);
         }
     }
 
@@ -249,14 +253,16 @@
     }
 
     .add_to_bookmarks-btn {
+        @include button-style(reset);
+
         display: inline-flex;
         align-items: center;
         margin-right: 25px;
-        cursor: pointer;
         transition: transition(color);
+        color: inherit;
 
         &.active,
-        &:hover {
+        &:not([disabled]):hover {
             color: $color-primary18;
         }
     }
@@ -337,7 +343,7 @@
         }
 
         &.icon-comment {
-            &:hover {
+            &:not([disabled]):hover {
                 color: $color-primary15;
             }
         }

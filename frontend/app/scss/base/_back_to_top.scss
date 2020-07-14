@@ -4,24 +4,29 @@
 
     height: 100%;
     width: 40px;
-    background: rgba($color-primary10, 0.6);
+    background: rgba($color-primary12, 0.5);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: $color-primary1;
+    color: $color-primary16;
     cursor: pointer;
-    transition: transition(background);
+    transition: transition();
 
     @include mobile {
         display: none;
     }
 
     &:hover {
-        background: rgba($color-primary10, 1);
+        background: rgba($color-primary12, .7);
     }
 
     &:before {
         font-size: rem(22);
         transform: rotate(-90deg);
+    }
+
+    &.hide {
+        visibility: hidden;
+        opacity: 0;
     }
 }

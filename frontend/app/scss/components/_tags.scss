@@ -5,7 +5,11 @@
     color: $color-primary15;
     font-size: rem(14);
     transition: transition(text-decoration);
-    margin: 8px 5px 0 0;
+    margin: 15px 15px 0 0;
+
+    @include desktop {
+      margin: 10px 10px 0 0;
+    }
 
     &:last-child {
       margin-right: 0;
@@ -14,12 +18,17 @@
     &:hover {
       text-decoration: underline;
     }
+
+    .schedule & {
+      position: relative;
+      z-index: 1;
+    }
   }
 }
 
 .tag-list__small {
   .tag-item {
-    font-size: rem(10);
+    font-size: rem(11);
   }
 }
 
@@ -32,7 +41,7 @@
 
 .tag-list__hot {
   .tag-item {
-    padding: 8px;
+    padding: 10px;
     border-radius: 2px;
     background-color: $color-primary1;
     transition: transition(all);

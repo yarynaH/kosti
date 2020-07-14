@@ -42,7 +42,7 @@
                     <div class="article-content" data-portal-region="main" itemprop="articleBody">
                         <section data-th-if="${audio}">
                             <div data-th-utext="${audio}"></div>
-                            <p data-th-text="${content.data.intro}"></p>
+                            <p data-th-text="${content.data.podcastIntro}"></p>
                         </section>
                         <div data-th-if="${content.data.body}" data-th-utext="${content.data.body}"
                             data-th-remove="tag"></div>
@@ -56,7 +56,8 @@
                         <div class="post" data-th-if="${content.hashtags}">
                             <div class="tag-list ">
                                 <a data-th-each="hashtag : ${content.hashtags}" data-th-href="${hashtag.url}"
-                                    class="tag-item" data-th-text="${hashtag.displayName}"></a>
+                                    class="tag-item" data-th-text="${hashtag.displayName}"
+                                    data-th-title="${hashtag.displayName}"></a>
                             </div>
                         </div>
                         <div data-th-remove="tag" data-th-utext="${articleFooter}"></div>
@@ -69,11 +70,7 @@
                         <li class="similar_posts-item" data-th-each="article : ${similarArticles}">
                             <a data-th-href="${article.url}" class="similar_posts-link"
                                 data-th-text="${article.displayName}"></a>
-                            <span data-th-attr="data-contentId=${article._id}"
-                                class="like-btn icon-rock js_like-article"
-                                data-th-classappend="${article.voted} ? 'active' : ''">
-                                <span data-th-text="${article.votes}"></span>
-                            </span>
+                            <div data-th-remove="tag" data-th-utext="${article.likesView}"></div>
                         </li>
                     </ul>
                 </div>

@@ -53,6 +53,7 @@
       <label>Slider</label>
       <occurrences minimum="1" maximum="3"/>
       <config>
+        <allowContentType>article</allowContentType>
       </config>
     </input>
     <input name="shipping" type="ContentSelector">
@@ -63,6 +64,12 @@
     </input>
     <input name="shopLocation" type="ContentSelector">
       <label>Shop location</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
+    <input name="filtersLocation" type="ContentSelector">
+      <label>Filters location</label>
       <occurrences minimum="0" maximum="1"/>
       <config>
       </config>
@@ -176,7 +183,10 @@
     <mapping controller="/services/newArticle/edit.js" order="10">
       <pattern>/article/edit</pattern>
     </mapping>
-    <mapping controller="/services/checkout/controllers/liqpay.js">
+    <mapping controller="/services/newArticle/delete.js" order="10">
+      <pattern>/article/delete</pattern>
+    </mapping>
+    <mapping controller="/services/checkout/controllers/liqpay.js" order="10">
       <pattern>/payment-processing</pattern>
     </mapping>
     <mapping controller="/services/user/becomeGm.js">
@@ -215,6 +225,9 @@
     </mapping>
     <mapping controller="/services/promos/promosAdmin.js">
       <pattern>/api/promo/generate</pattern>
+    </mapping>
+    <mapping controller="/api/store/product.js">
+      <pattern>/api/store/product</pattern>
     </mapping>
   </mappings>
 </site>

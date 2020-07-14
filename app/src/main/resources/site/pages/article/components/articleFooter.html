@@ -1,7 +1,8 @@
 <div class="post-footer">
     <div class="post-counters">
         <div class="share-block social">
-            <span class="post-counter icon-share" data-th-text="${article.shares}"></span>
+            <span class="post-counter icon-share" data-th-text="${article.shares}"
+                data-th-title="${'Поделиться'}"></span>
             <ul class="social-list">
                 <li class="social-item">
                     <a class="social-link facebook" data-th-attr="
@@ -43,16 +44,14 @@
                 </li>
             </ul>
         </div>
-        <span class="post-counter icon-views" data-th-text="${article.views}"></span>
+        <span class="post-counter icon-views" data-th-text="${article.views}" data-th-title="${'Просмотров'}"></span>
         <a data-th-href="${article.url + '#articleComments'}" class="post-counter icon-comment"
-            data-th-text="${article.commentsCounter}"></a>
+            data-th-text="${article.commentsCounter}" data-th-title="${'Комментарии'}"></a>
     </div>
     <div class="post-actions">
-        <span class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${article._id}"
-            data-th-classappend="${bookmarked} ? 'active' : ''"></span>
-        <span data-th-attr="data-contentId=${article._id}" class="like-btn icon-rock js_like-article"
-            data-th-classappend="${article.voted} ? 'active' : ''">
-            <span data-th-text="${article.votes}"></span>
-        </span>
+        <button class="add_to_bookmarks-btn icon-bookmark js_bookmarks" data-th-attr="data-contentId=${article._id}"
+            data-th-classappend="${bookmarked} ? 'active' : ''"
+            data-th-title="${bookmarked} ? 'В закладках' : 'В закладки'"></button>
+        <div data-th-remove="tag" data-th-utext="${article.likesView}"></div>
     </div>
 </div>

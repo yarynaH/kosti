@@ -99,6 +99,10 @@ function initFBLogin() {
     showLoader();
     FB.login(
       function (response) {
+        if (!response || !response.authResponse) {
+          hideLoader();
+          return false;
+        }
         var call = makeAjaxCall(
           fbLoginApi,
           "POST",

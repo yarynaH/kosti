@@ -6,16 +6,23 @@ var httpClientLib = require("/lib/http-client");
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
 var helpers = require(libLocation + "helpers");
+const cacheLib = require(libLocation + "cacheLib");
 
-exports.get = function(req) {
+const cache = cacheLib.api.createGlobalCache({
+  name: "monsters",
+  size: 1000,
+  expire: 60 * 60 * 24
+});
+
+exports.get = function (req) {
   var result = null;
   var params = req.params;
   switch (params.action) {
     case "single":
-      result = getSingleMonster(params.id);
+      result = getSingleMonsterFromCache(params.id);
       break;
     default:
-      result = getMonstersList();
+      result = getMonstersFromCache();
       break;
   }
 
@@ -23,6 +30,15 @@ exports.get = function(req) {
     body: result,
     contentType: "application/json"
   };
+
+  function getSingleMonsterFromCache(id) {
+    var monster = cache.api.getOnly(id);
+    if (!monster) {
+      monster = getSingleMonster(id);
+      cache.api.put(id, monster);
+    }
+    return monster;
+  }
 
   function getSingleMonster(id) {
     var monster = contentLib.get({ key: id });
@@ -58,5 +74,14 @@ exports.get = function(req) {
       });
     }
     return result;
+  }
+
+  function getMonstersFromCache() {
+    var monsters = cache.api.getOnly("list");
+    if (!monsters) {
+      monsters = getMonstersList();
+      cache.api.put("list", monsters);
+    }
+    return monsters;
   }
 };

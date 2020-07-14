@@ -1,0 +1,5 @@
+<button data-th-attr="data-contentId=${id}" class="like-btn icon-rock "
+    data-th-classappend="${(voted ? 'active' : '') + (comment ? ' js_comment-like' : ' js_like-article')}"
+    data-th-title="${'Лайкнуть'}">
+    <span data-th-text="${votes}"></span>
+</button>

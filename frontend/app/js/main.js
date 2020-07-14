@@ -80,14 +80,14 @@ function initSharedEvents() {
       showLogin(e);
     }
   });
-  $(".js_copy_url").on("click", function (e) {
+  $("body").on("click", ".js_copy_url", function (e) {
     e.preventDefault();
     var data = $(this).data();
     copyStringToClipboard(data.url);
     showSnackBar("Ссылка скопирована.", "success");
   });
 
-  $("a.social-link.facebook").on("click", function (e) {
+  $("body").on("click", "a.social-link.facebook", function (e) {
     var data = $(this).data();
     if (!data.description) {
       data.description = "";
@@ -202,14 +202,14 @@ function initSharedEvents() {
 
   $(document).on("scroll", function () {
     if ($(document).scrollTop() > 1200) {
-      $(".js_back_to_top").removeClass("hidden");
+      $(".js_back_to_top").removeClass("hide");
     } else {
-      $(".js_back_to_top").addClass("hidden");
+      $(".js_back_to_top").addClass("hide");
     }
   });
   $(".js_back_to_top").on("click", function () {
     $("html,body").animate({ scrollTop: 0 }, "slow");
-    $(".js_back_to_top").addClass("hidden");
+    $(".js_back_to_top").addClass("hide");
     return false;
   });
 
@@ -221,6 +221,29 @@ function initSharedEvents() {
         .height(this.scrollHeight - 42);
     }
   );
+  $(".js_icon-delete").on("click", function (e) {
+    e.preventDefault();
+    showLoader();
+    var id = $(this).data().id;
+    $.ajax({
+      type: "POST",
+      url: "/article/delete",
+      data: { id: id },
+      success: function (data) {
+        hideLoader();
+        if (data.success) {
+          $("div[data-articleid=" + id + "]").remove();
+          showSnackBar("Статья удалена.", "success");
+        } else {
+          showSnackBar("Поизошла ошибка.", "success");
+        }
+      },
+      error: function (data) {
+        hideLoader();
+        showSnackBar("Поизошла ошибка.", "success");
+      }
+    });
+  });
 }
 
 function addBookmark(btn) {

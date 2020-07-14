@@ -7,7 +7,23 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div class="blog_width">
+        <div class="store-slider js_store-slider">
+            <div data-th-each="slide: ${slider}">
+                <a data-th-href="${slide.url}" class="slick-body">
+                    <div class="slick-img_wrap">
+                        <picture>
+                            <source media="(min-width: 600px)" />
+                            <img data-th-src="${slide.image.url}" class="slick-img" data-th-alt="${slide.image.alt}" />
+                        </picture>
+                    </div>
+                    <div class="slick-content blog_width">
+                        <h2 class="slick-title" data-th-text="${slide.title}"></h2>
+                        <div class="slick-caption" data-th-text="${slide.description}"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="blog_width plp-width">
             <div class="store">
                 <div class="store-top">
                     <div class="breadcrumbs">
@@ -23,33 +39,18 @@
                             <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
                     </a>
                 </div>
-                <div class="plp-list">
-                    <div data-th-each="product: ${products}" class="plp-item h-product" title="Посмотреть" itemscope
-                        itemtype="http://schema.org/Product">
-                        <a itemprop="url" class="u-url hidden" data-th-href="${content.urlAbsolute}"></a>
-                        <span class="hidden" itemprop="brand" itemscope itemtype="http://schema.org/Brand">
-                            <meta itemprop="name" data-th-attr="content=${product.brand.name}">
-                            <meta itemprop="logo" data-th-attr="content=${product.brand.logo}">
-                        </span>
-                        <div class="plp-prod_img">
-                            <a data-th-href="${product.url}">
-                                <img itemprop="image" data-th-src="${product.image.url}"
-                                    data-th-alt="${product.image.alt}" class="u-photo" />
-                                <div class="product_bage hidden">
-                                    <span class="product_bage-icon"></span>
-                                    <span class="product_bage-text">Новинка</span>
-                                </div>
-                                <div class="plp-img_hover">
-                                    <span class="plp-prod_link">Посмотреть</span>
-                                </div>
-                            </a>
+                <div class="filter">
+                    <div class="filter-item" data-th-each="filter: ${filters}">
+                        <h4 class="filter-title" data-th-text="${filter.title}">
+                        </h4>
+                        <div class="tag-list tag-list__hot">
+                            <button data-th-each="item: ${filter.items}" class="tag-item js-filter-btn"
+                                data-th-attr="data-type=${filter.name}, data-value=${item.value}"
+                                data-th-text="${item.title}"></button>
                         </div>
-                        <h2 class="plp-prod_name p-name" data-th-text="${product.displayName}" itemprop="name"></h2>
-                        <div class="pdp-description e-description hidden" data-th-utext="${content.data.description}"
-                            itemprop="description"></div>
-                        <div data-th-utext="${product.priceBlock}" class="plp-prod_price"></div>
                     </div>
                 </div>
+                <div data-th-utext="${products}" class="plp-list js_plp-list"></div>
             </div>
         </div>
     </main>

@@ -4,7 +4,13 @@
             display: flex;
             flex-wrap: wrap;
             margin: -15px -10px;
+
+            width: 81.3%;
         }
+    }
+
+    &-width {
+        max-width: 1220px;
     }
 
     &-item {
@@ -67,6 +73,10 @@
         color: $color-primary17;
         margin-bottom: 10px;
         min-height: 64px;
+
+        &:hover {
+            opacity: .8;
+        }
     }
 
     &-prod_link {
@@ -84,5 +94,37 @@
                 margin-right: 10px;
             }
         }
+    }
+}
+
+.filter {
+    @include mobile {
+        margin-bottom: 25px;
+    }
+
+    @include tablet-all {
+        float: left;
+        width: 18.7%;
+    }
+
+    &-title {
+        color: $color-primary17;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    &-item+&-item {
+        margin-top: 20px;
+    }
+
+    .tag-item {
+        border: 0;
+    }
+
+    .active {
+        text-decoration: none;
+        box-shadow: 0 4px 16px 0 rgba($color-primary11, 0.4);
+        color: $color-primary1;
+        background-color: $color-primary23;
     }
 }

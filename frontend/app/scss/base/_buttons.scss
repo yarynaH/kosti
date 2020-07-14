@@ -28,6 +28,12 @@
             }
         }
 
+        @if $style==reset {
+            background: none;
+            border: 0;
+            padding: 0;
+        }
+
         @if $style==transparent {
             text-transform: capitalize;
 
@@ -53,6 +59,18 @@
 
             &:hover {
                 background: lighten($color-primary17, 5%);
+            }
+        }
+
+        @if $style==white {
+            box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+            background-color: $color-primary1;
+            font-size: rem(16);
+            color: $color-primary6;
+
+            &:hover {
+                color: $color-primary36;
+                box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.1);
             }
         }
 
@@ -113,10 +131,9 @@
         }
 
         @if $style==link {
-            background: none;
-            border: 0;
+            text-transform: uppercase;
+            transition: transition(color);
             font-weight: bold;
-            padding: 0;
             color: $color-primary22;
 
             &:hover {
