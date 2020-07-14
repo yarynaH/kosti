@@ -5,7 +5,14 @@
             flex-wrap: wrap;
             margin: -15px -10px;
             float: right;
+        }
+
+        @include tablet-landscape-all {
             width: 81.3%;
+        }
+
+        @include tablet-portrait {
+            width: 76%;
         }
 
         .plp-item {
@@ -92,42 +99,5 @@
                 margin-right: 10px;
             }
         }
-    }
-}
-
-.filter {
-    @include mobile {
-        margin-bottom: 25px;
-    }
-
-    @include tablet-all {
-        float: left;
-        width: 18.7%;
-    }
-
-    &-title {
-        color: $color-primary17;
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    &-item+&-item {
-        margin-top: 20px;
-    }
-
-    .tag-item {
-        border: 0;
-    }
-
-    .active {
-        text-decoration: none;
-        box-shadow: 0 4px 16px 0 rgba($color-primary11, 0.4);
-        color: $color-primary1;
-        background-color: $color-primary23;
-    }
-
-    &-clear_all {
-        padding: 15px;
-        margin-top: 20px;
     }
 }
