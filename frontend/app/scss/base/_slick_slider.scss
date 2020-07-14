@@ -35,6 +35,10 @@
         min-height: 100vh;
         display: flex;
         align-items: center;
+
+        .store-slider & {
+            min-height: 50vh;
+        }
     }
 
     &-img_wrap {
