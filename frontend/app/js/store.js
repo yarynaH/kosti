@@ -154,7 +154,8 @@ function filterProducts() {
     $(".js_store-sorting").val("");
   });
 
-  $(".js-filter-btn").on("click", function () {
+  $(".js-filter-btn").on("click", function (e) {
+    e.preventDefault();
     showLoader();
     $(this).toggleClass("active");
     var type = $(this).data("type");
@@ -205,6 +206,10 @@ function filterProducts() {
     });
   }
 }
+
+$(".js-filter-show").on("click", function () {
+  $(".js-filter-block").slideToggle("slow");
+});
 
 $(document).ready(function () {
   filterProducts();

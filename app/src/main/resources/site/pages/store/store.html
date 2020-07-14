@@ -30,7 +30,7 @@
                         <span class="breadcrumbs-element active"
                             data-th-text="${portal.localize({'_key=shop.title.store', '_locale=ru'})}"></span>
                     </div>
-                    <div class="sort select-field">
+                    <div class="sort_by select-field">
                         <select class="js_store-sorting">
                             <option value="">По умолчанию
                             </option>
@@ -49,7 +49,8 @@
                             <span data-th-remove="tag" data-th-text="${cart.price.items}"></span></span>
                     </a>
                 </div>
-                <div class="filter">
+                <button class="button button-dark filter-toggle_slide js-filter-show">Показать фильтры</button>
+                <div class="filter js-filter-block">
                     <div class="filter-item" data-th-each="filter: ${filters}">
                         <h4 class="filter-title" data-th-text="${filter.title}">
                         </h4>
