@@ -73,13 +73,11 @@ function handleReq(req) {
   function getFilters() {
     var result = [];
     var site = portal.getSiteConfig();
+    var store = contentLib.get({ key: site.shopLocation });
     var filtersCategories = util.content.getChildren({
-      key: site.filtersLocation
+      key: store.data.filtersLocation
     }).hits;
     for (var i = 0; i < filtersCategories.length; i++) {
-      if (filtersCategories.type === app.name + "product") {
-        continue;
-      }
       var filters = util.content.getChildren({
         key: filtersCategories[i]._id
       }).hits;
@@ -101,13 +99,14 @@ function handleReq(req) {
 
   function getCategories() {
     var site = portal.getSiteConfig();
+    var store = contentLib.get({ key: site.shopLocation });
     var categories = util.content.getChildren({
       key: site.shopLocation
     }).hits;
     var result = [];
     for (var i = 0; i < categories.length; i++) {
       if (
-        site.filtersLocation === categories[i]._id ||
+        store.data.filtersLocation === categories[i]._id ||
         categories[i].type !== "base:folder"
       ) {
         continue;

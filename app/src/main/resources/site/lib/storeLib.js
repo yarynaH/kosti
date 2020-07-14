@@ -136,12 +136,16 @@ function getProducts(params) {
     var themes = findFilterForRelation(params.theme);
     query += " and data.theme in ('" + themes.join("','") + "')";
   }
+  var sort = "_manualOrderValue DESC";
+  if (params.sortType && params.sortOrder) {
+    sort = params.sortType + " " + params.sortOrder;
+  }
   var products = contentLib.query({
     start: 0,
     count: -1,
     query: query,
     contentTypes: [app.name + ":product"],
-    sort: "_manualOrderValue DESC",
+    sort: sort,
     filters: {
       boolean: {
         mustNot: {
