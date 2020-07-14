@@ -1,6 +1,5 @@
 <div data-th-utext="${weeksPost}" data-th-remove="tag"></div>
 <div data-th-utext="${libraryHot}" data-th-remove="tag"></div>
-<div data-th-utext="${product}" data-th-remove="tag"></div>
 <div class="blog-sidebar-sticky">
     <div data-th-remove="tag" data-th-utext="${hotTags}"></div>
     <a data-th-unless="${hideNewArticleButton}" data-th-href="${createArticleUrl}"
@@ -8,4 +7,8 @@
         написать статью
     </a>
     <div data-th-remove="tag" data-th-utext="${socialLinks}"></div>
+</div>
+<div class="feature_product">
+    <h4 class="feature_product-title">Популярный товар</h4>
+    <div data-th-utext="${product}" data-th-remove="tag"></div>
 </div>

@@ -135,7 +135,7 @@
     }
 
     &-item_link {
-        @include absolute(top 0  right 0 bottom 0 left 0);
+        @include absolute(top 0 right 0 bottom 0 left 0);
     }
 }
 
@@ -502,5 +502,26 @@
 
     @include tablet-all {
         padding: 25px 0 0;
+    }
+}
+
+.feature_product {
+    padding: 25px 10px;
+
+    @include tablet-all {
+        padding: 25px 0;
+    }
+
+    &-title {
+        @include icon(cart);
+
+        color: $color-primary17;
+        font-weight: bold;
+        margin-bottom: 8px;
+
+        &:before {
+            margin-right: 8px;
+            font-size: (25);
+        }
     }
 }
