@@ -30,6 +30,16 @@
                         <span class="breadcrumbs-element active"
                             data-th-text="${portal.localize({'_key=shop.title.store', '_locale=ru'})}"></span>
                     </div>
+                    <div class="sort select-field">
+                        <select class="js_store-sorting">
+                            <option value="">По умолчанию
+                            </option>
+                            <option value="price,asc" data-th-selected="${presetFilters.sort == 'price,asc'}">Цена по
+                                возрастанию</option>
+                            <option value="price,desc" data-th-selected="${presetFilters.sort == 'price,desc'}">
+                                Цена по убыванию</option>
+                        </select>
+                    </div>
                     <a class="minicart" data-th-href="${cartUrl}" title="К покупкам">
                         <span class="minicart-icon">
                             <span class="minicart-qty"
@@ -49,6 +59,14 @@
                                 data-th-text="${item.title}"></button>
                         </div>
                     </div>
+                    <div class="filter-item">
+                        <h4 class="filter-title">Наличие
+                        </h4>
+                        <div class="tag-list tag-list__hot">
+                            <button class="tag-item js-filter-btn" data-type="stock" data-value="1">В наличии</button>
+                        </div>
+                    </div>
+                    <button class="button button-light filter-clear_all js-filter-clear_all">Сбросить фильтры</button>
                 </div>
                 <div data-th-utext="${products}" class="plp-list js_plp-list"></div>
             </div>

@@ -4,7 +4,7 @@
             display: flex;
             flex-wrap: wrap;
             margin: -15px -10px;
-
+            float: right;
             width: 81.3%;
         }
 
@@ -124,5 +124,10 @@
         box-shadow: 0 4px 16px 0 rgba($color-primary11, 0.4);
         color: $color-primary1;
         background-color: $color-primary23;
+    }
+
+    &-clear_all {
+        padding: 15px;
+        margin-top: 20px;
     }
 }

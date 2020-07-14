@@ -2,7 +2,7 @@ $(document).ready(function () {
   $(".js_checkout-form").validate({
     ignore: "",
     highlight: function (element, errorClass, validClass) {},
-    unhighlight: function (element, errorClass, validClass) {}
+    unhighlight: function (element, errorClass, validClass) {},
   });
   $(".js_shipping-form").validate({
     ignore: "",
@@ -12,20 +12,20 @@ $(document).ready(function () {
       novaPoshtaСity: {
         required: function (element) {
           return checkNovaPoshtaValidation();
-        }
+        },
       },
       novaPoshtaWarehouse: {
         required: function (element) {
           return checkNovaPoshtaValidation();
-        }
-      }
-    }
+        },
+      },
+    },
   });
   $(".js_store-slider").slick({
     dots: true,
     arrows: false,
     autoplaySpeed: 3000,
-    autoplay: true
+    autoplay: true,
   });
   function checkNovaPoshtaValidation() {
     if ($("input[value=novaposhta]").is(":checked")) {
@@ -51,7 +51,7 @@ function addToCart(data) {
       cartId: getCookieValue("cartId"),
       itemId: $("input[name=productId]").val(),
       amount: $("input[name=quantity]").val(),
-      size: $("select[name=itemSize]").val()
+      size: $("select[name=itemSize]").val(),
     };
   }
   $(".minicart .minicart-qty").removeClass("animate");
@@ -112,7 +112,7 @@ function addToCartOnclick(input) {
     amount: input.val(),
     cartId: getCookieValue("cartId"),
     action: "modify",
-    force: true
+    force: true,
   };
   addToCart(data);
 }
@@ -128,6 +128,7 @@ function filterProducts() {
           .replace(/=/g, '":"') +
         '"}'
     );
+
     for (var key in filterList) {
       filterList[key] = filterList[key].split(",");
 
@@ -137,12 +138,24 @@ function filterProducts() {
         );
       }
     }
+    filterList.sort = filterList.sort.join(",");
+    $(".js_store-sorting").val(filterList.sort);
   } else {
     var filterList = {};
   }
-  console.log(filterList);
+
+  $(".js-filter-clear_all").on("click", function () {
+    showLoader();
+    filterList = {};
+    refreshProducts();
+    $(".js-filter-btn").each(function () {
+      $(this).removeClass("active");
+    });
+    $(".js_store-sorting").val("");
+  });
 
   $(".js-filter-btn").on("click", function () {
+    showLoader();
     $(this).toggleClass("active");
     var type = $(this).data("type");
     if (!filterList.hasOwnProperty(type)) {
@@ -158,11 +171,19 @@ function filterProducts() {
       }
     }
 
+    refreshProducts();
+  });
+
+  $(".js_store-sorting").on("change", function () {
+    showLoader();
+    filterList.sort = $(this).val();
+    refreshProducts();
+  });
+
+  function refreshProducts() {
     let urlParameters = Object.entries(filterList)
       .map((e) => e.join("="))
       .join("&");
-
-    // console.log(urlParameters);
 
     if (history.pushState) {
       var newurl =
@@ -179,8 +200,10 @@ function filterProducts() {
     call.done(function (data) {
       console.log(data);
       $(".js_plp-list").html(data.html);
+
+      hideLoader();
     });
-  });
+  }
 }
 
 $(document).ready(function () {
