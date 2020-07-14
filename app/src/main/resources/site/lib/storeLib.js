@@ -119,7 +119,7 @@ function beautifyProduct(product) {
 function getProducts(params) {
   var content = portal.getContent();
   var category = findCategory(params.category);
-  var query = "type = '" + app.name + ":product'";
+  var query = "";
   if (category && category.length > 0) {
     query += " and (";
     for (var i = 0; i < category.length; i++) {
@@ -146,7 +146,26 @@ function getProducts(params) {
   var products = contentLib.query({
     start: 0,
     count: -1,
-    query: query,
+    query: "data.inventory != '0'" + query,
+    contentTypes: [app.name + ":product"],
+    sort: sort,
+    filters: {
+      boolean: {
+        mustNot: {
+          hasValue: [
+            {
+              field: "data.discontinued",
+              values: "true"
+            }
+          ]
+        }
+      }
+    }
+  });
+  var outOfStockProducts = contentLib.query({
+    start: 0,
+    count: -1,
+    query: "data.inventory = '0'" + query,
     contentTypes: [app.name + ":product"],
     sort: sort,
     filters: {
@@ -163,7 +182,7 @@ function getProducts(params) {
     }
   });
   if (products && products.hits) {
-    products = products.hits;
+    products = products.hits.concat(outOfStockProducts.hits);
   }
   for (var i = 0; i < products.length; i++) {
     products[i] = beautifyProduct(products[i]);
