@@ -140,7 +140,7 @@ function getProducts(params) {
     query += " and data.inventory != 0";
   }
   var sort = "_manualOrderValue DESC";
-  if (params.sort && sort !== "") {
+  if (params.sort && params.sort !== "") {
     sort = "data." + params.sort.replace(",", " ");
   }
   var products = contentLib.query({
