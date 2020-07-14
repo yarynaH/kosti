@@ -57,9 +57,13 @@ function getSolialLinks() {
 
 function getFeaturedProduct() {
   var site = portal.getSiteConfig();
+  var store = contentLib.get({ key: site.shopLocation });
+  if (!store) {
+    return null;
+  }
   var storeLib = require("storeLib");
-  if (site.featuredProduct) {
-    var product = contentLib.get({ key: site.featuredProduct });
+  if (store.data.featuredProduct) {
+    var product = contentLib.get({ key: store.data.featuredProduct });
     if (product) {
       return thymeleaf.render(resolve("../pages/store/productsBlock.html"), {
         products: [storeLib.beautifyProduct(product)]
