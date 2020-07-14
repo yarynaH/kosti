@@ -38,6 +38,7 @@
 
         .store-slider & {
             min-height: 50vh;
+            padding: 50px 0;
         }
     }
 
@@ -83,6 +84,10 @@
 
         @include mobile() {
             padding: 0 25px;
+        }
+
+        .store-slider & {
+            max-width: 1220px;
         }
     }
 
