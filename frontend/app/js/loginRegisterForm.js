@@ -212,9 +212,9 @@ function hideLoader() {
 }
 
 function removeScroll() {
-  $("body").addClass("modal-open");
+  //$("body").addClass("modal-open");
 }
 
 function addScroll() {
-  $("body").removeClass("modal-open");
+  //$("body").removeClass("modal-open");
 }
