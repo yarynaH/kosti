@@ -34,6 +34,7 @@ function handleReq(req) {
     var slider = getSlider(content.data.slider);
 
     var model = {
+      presetFilters: up,
       content: content,
       cart: cartLib.getCart(req.cookies.cartId),
       social: site.social,
