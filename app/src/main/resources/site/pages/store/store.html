@@ -32,9 +32,12 @@
                     </div>
                     <div class="sort_by select-field">
                         <select class="js_store-sorting">
-                            <option value="">По умолчанию</option>
-                            <option value="price,asc">Цена по возрастанию</option>
-                            <option value="price,desc">Цена по убыванию</option>
+                            <option value="">По умолчанию
+                            </option>
+                            <option value="price,asc" data-th-selected="${presetFilters.sort == 'price,asc'}">Цена по
+                                возрастанию</option>
+                            <option value="price,desc" data-th-selected="${presetFilters.sort == 'price,desc'}">
+                                Цена по убыванию</option>
                         </select>
                     </div>
                     <a class="minicart" data-th-href="${cartUrl}" title="К покупкам">
