@@ -47,20 +47,18 @@
             </div>
             <h1 class="landing-kosticon_img">
               <picture>
-                <source data-th-srcset="${portal.assetUrl({'_path=images/kosticon2020/kosticon-logo.png'})}"
-                  media="(min-width: 767px)" />
-                <img data-th-src="${portal.assetUrl({'_path=images/kosticon2020/kosticon-logo-mobile.png'})}"
+                <img data-th-src="${portal.assetUrl({'_path=images/kosticon2020/kosticon-logo.png'})}"
                   alt="kosticon2020 logo" />
               </picture>
             </h1>
-            <p class="landing-attention"
+            <!-- <p class="landing-attention"
               data-th-utext="${portal.localize({'_key=kosticon2020.landing.attention.msg1', '_locale='+content.language})}">
             </p>
             <p class="landing-attention">
               <span
                 data-th-utext="${portal.localize({'_key=kosticon2020.landing.attention.msg2', '_locale='+content.language})}"></span>
               <a href="mailto:info@kostirpg.com">info@kostirpg.com</a>
-            </p>
+            </p> -->
             <!-- <div class="landing-counter">
                 <span class="landing-counter-item">
                   <span class="landing-counter-value">
@@ -105,7 +103,7 @@
           </div>
         </div>
         <div class="landing-middle">
-          <div class="landing-middle-item landing-middle-buy_ticket">
+          <!-- <div class="landing-middle-item landing-middle-buy_ticket">
             <a data-th-href="${ticketsUrl}" class="button landing-buy_ticket"
               data-th-utext="${portal.localize({'_key=kosticon2020.landing.buy.ticket.btn', '_locale='+content.language})}">
               КУПИТЬ БИЛЕТ
@@ -114,7 +112,7 @@
               <div class="landing-buy_ticket-current" data-th-style="'width: ' + ${progress} + '%'"></div>
               <div class="landing-buy_ticket-caption" data-th-utext="${content.data.milestoneTitle}"></div>
             </div>
-          </div>
+          </div> -->
           <div class="landing-middle-item landing-middle-registration">
             <h3 class="landing-title"
               data-th-utext="${portal.localize({'_key=kosticon2020.landing.registration.title', '_locale='+content.language})}">
@@ -156,15 +154,11 @@
             </ul>
           </div>
         </div>
-        <!-- <div class="landing-main-video-wrap">
-            <div class="landing-main-video">
-              <iframe
-                src="https://www.youtube.com/embed/MdAPzl6S6hc"
-                frameborder="0"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </div> -->
+        <div class="landing-main-video-wrap">
+          <div class="landing-main-video">
+            <iframe src="https://www.youtube.com/embed/gMaSPNhenl8" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
         <div class="landing-bottom">
           <div class="landing-middle-item landing-middle-faq">
             <h3 class="landing-title"
