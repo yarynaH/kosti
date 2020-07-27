@@ -1,13 +1,18 @@
 # Kosti RPG app
+
 Application for the [kosti website](http://www.kostirpg.com/).
 
 ## Installation
-This app uses Enonic XP. To install it, you need to have Java 8. Note, it will not work with Java 9.
 
-You can download Enonic XP [here](https://enonic.com/downloads). After you did this, unzip it and go to `XP_FOLDER/bin` and start the file `server.sh` if you run Linux, or `server.bat` if you run Windows.
+### Backend
 
-The Enonic server is starting. The detailed log you may find in `XP_FOLDER/home/logs`.
+This app uses Enonic XP. To install it, you need to have Java 11. Note, it will not work with any other Java version.
 
-To install this app, you need to go to `KOSTIRPG_FOLDER/app` and execute `bash gradlew build` for Linux users, or execute `gradlew.bat` for Windows users. The application will be built and you may find it at `KOSTIRPG_FOLDER/app/build/libs`. To install it on the server, you need to copy the `jar` file to `XP_FOLDER/home/deploy`.
+Development environment is set via Enonic CLI. You can download it [here](https://developer.enonic.com/start). After it is installed, create a new sandbox with `enonic sandbox create`. To start a sandbox in dev, run `enonic sandbox start --dev`.
 
-Now you have the basic kostirpg server and app installed.
+To install the app, open app folder and run `enonic project deploy --dev`. This will run the app in dev mode. Note, sandbox should be running.
+
+### Frontend
+
+To make the app work properly, you need to have [node.js 14.2.\*](https://nodejs.org/en/), [gulp](https://gulpjs.com/) and [yarn](https://yarnpkg.com/) installed.
+To install all the required packages run `yarn install`. When the installation is done, run `gulp watch --dev`.
