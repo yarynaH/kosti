@@ -1,5 +1,5 @@
 <jobs>
-  <!--<job name="updateSchedule" cron="* * * * *"/>-->
   <job name="updateSchedule" cron="0 3 * * *"/>
+  <job name="regenerateCache" cron="0 1 * * *"/>
   <job name="checkLiqpayOrdersStatus" cron="0 0 * * *"/>
 </jobs>

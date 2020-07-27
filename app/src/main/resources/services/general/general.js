@@ -1,11 +1,12 @@
-var libLocation = "../../site/lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var helpers = require(libLocation + "helpers");
-var votesLib = require(libLocation + "votesLib");
-var cartLib = require(libLocation + "cartLib");
-var storeLib = require(libLocation + "storeLib");
-var blogLib = require(libLocation + "blogLib");
-var newsletterLib = require(libLocation + "newsletterLib");
+const libLocation = "../../site/lib/";
+const norseUtils = require(libLocation + "norseUtils");
+const helpers = require(libLocation + "helpers");
+const votesLib = require(libLocation + "votesLib");
+const cartLib = require(libLocation + "cartLib");
+const storeLib = require(libLocation + "storeLib");
+const blogLib = require(libLocation + "blogLib");
+const homepageLib = require(libLocation + "homepageLib");
+const newsletterLib = require(libLocation + "newsletterLib");
 
 exports.get = function (req) {
   var params = req.params;
@@ -37,6 +38,9 @@ exports.get = function (req) {
       break;
     case "updateSchedule":
       blogLib.updateSchedule();
+      break;
+    case "updateCache":
+      homepageLib.updateCache();
       break;
   }
   return {
