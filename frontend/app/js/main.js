@@ -294,6 +294,7 @@ $(".js_feed-button").on("click", function (e) {
   wrapper.data("date", date.toISOString());
   wrapper.data("start", 0);
   wrapper.data("query", "");
+  wrapper.data("nomorearticles", false);
   $(".js_blog-list-empty").addClass("hidden");
   $(".js_feed-button.active").removeClass("active");
   $(this).addClass("active");
