@@ -17,7 +17,7 @@ var hashLib = require(libLocation + "hashLib");
 var mailsLib = require(libLocation + "mailsLib");
 var sharedLib = require(libLocation + "sharedLib");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var toolUrl = adminLib.getToolUrl(app.name, "orders");
   var params = req.params;
   var view = resolve("orders.html");
@@ -92,7 +92,7 @@ exports.get = function(req) {
     contentType: "text/html"
   };
 };
-exports.post = function(req) {
+exports.post = function (req) {
   var toolUrl = adminLib.getToolUrl(app.name, "orders");
   var params = req.params;
   var view = resolve("orders.html");
@@ -110,14 +110,17 @@ exports.post = function(req) {
       );
       break;
     case "regenerateIds":
+      params.id = norseUtils.forceArray(params.id)[0];
       cartLib.generateItemsIds(params.id);
       break;
     case "setStatus":
+      params.id = norseUtils.forceArray(params.id)[0];
       cartLib.setUserDetails(params.id, { status: params.status });
       break;
     case "details":
       break;
     case "sendShippedMail":
+      params.id = norseUtils.forceArray(params.id)[0];
       if (params.trackNum) {
         cartLib.setUserDetails(params.id, { trackNum: params.trackNum });
       }
@@ -146,6 +149,7 @@ exports.post = function(req) {
       };
       break;
     case "resendConfirmationMail":
+      params.id = norseUtils.forceArray(params.id)[0];
       var cart = cartLib.getCart(params.id);
       mailsLib.sendMail("orderCreated", cart.email, {
         cart: cart
