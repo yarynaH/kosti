@@ -1,217 +1,140 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
-  <body>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-      <div class="site_width">
-        <div class="orders">
-          <div class="orders-search">
-            <form method="GET">
-              <div class="form-group">
-                <label class="order-label">Search</label>
-                <input
-                  data-th-value="${params.search}"
-                  name="search"
-                  type="text"
-                  class="input-text"
-                />
-                <input name="action" type="hidden" value="search" />
-              </div>
-              <div class="form-group-column">
-                <div class="form-group">
-                  <label for="country-checkout-select" class="label"
-                    >СТРАНА</label
-                  >
-                  <div class="select-field">
-                    <select name="country" id="country-checkout-select">
-                      <option
-                        data-th-selected="${params.country == ''}"
-                        value=""
-                        >All</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'ua'}"
-                        value="ua"
-                        >Украина</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'by'}"
-                        value="by"
-                        >Беларусь</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'ru'}"
-                        value="ru"
-                        >Россия</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'est'}"
-                        value="est"
-                        >Эстония</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'lat'}"
-                        value="lat"
-                        >Латвия</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'lit'}"
-                        value="lit"
-                        >Литва</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'ger'}"
-                        value="ger"
-                        >Германия</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'hun'}"
-                        value="hun"
-                        >Венгрия</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'che'}"
-                        value="che"
-                        >Чехия</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'slo'}"
-                        value="slo"
-                        >Словакия</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'pol'}"
-                        value="pol"
-                        >Польша</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'isr'}"
-                        value="isr"
-                        >Израиль</option
-                      >
-                      <option
-                        data-th-selected="${params.country == 'other'}"
-                        value="other"
-                        >Другие</option
-                      >
-                    </select>
-                  </div>
+        <div class="site_width">
+            <div class="orders">
+                <div class="orders-search">
+                    <form method="GET">
+                        <div class="form-group">
+                            <label class="order-label">Search</label>
+                            <input data-th-value="${params.search}" name="search" type="text" class="input-text" />
+                            <input name="action" type="hidden" value="search" />
+                        </div>
+                        <div class="form-group-column">
+                            <div class="form-group">
+                                <label for="country-checkout-select" class="label">СТРАНА</label>
+                                <div class="select-field">
+                                    <select name="country" id="country-checkout-select">
+                                        <option data-th-selected="${params.country == ''}" value="">All</option>
+                                        <option data-th-selected="${params.country == 'ua'}" value="ua">Украина</option>
+                                        <option data-th-selected="${params.country == 'by'}" value="by">Беларусь
+                                        </option>
+                                        <option data-th-selected="${params.country == 'ru'}" value="ru">Россия</option>
+                                        <option data-th-selected="${params.country == 'est'}" value="est">Эстония
+                                        </option>
+                                        <option data-th-selected="${params.country == 'lat'}" value="lat">Латвия
+                                        </option>
+                                        <option data-th-selected="${params.country == 'lit'}" value="lit">Литва</option>
+                                        <option data-th-selected="${params.country == 'ger'}" value="ger">Германия
+                                        </option>
+                                        <option data-th-selected="${params.country == 'hun'}" value="hun">Венгрия
+                                        </option>
+                                        <option data-th-selected="${params.country == 'che'}" value="che">Чехия</option>
+                                        <option data-th-selected="${params.country == 'slo'}" value="slo">Словакия
+                                        </option>
+                                        <option data-th-selected="${params.country == 'pol'}" value="pol">Польша
+                                        </option>
+                                        <option data-th-selected="${params.country == 'isr'}" value="isr">Израиль
+                                        </option>
+                                        <option data-th-selected="${params.country == 'other'}" value="other">Другие
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="country-checkout-select" class="label">STATUS</label>
+                                <div class="select-field">
+                                    <select name="status">
+                                        <option value="" data-th-selected="${params.status == ''}">All</option>
+                                        <option value="paid" data-th-selected="${params.status == 'paid'}">Paid</option>
+                                        <option value="created" data-th-selected="${params.status == 'created'}">Created
+                                        </option>
+                                        <option value="pending" data-th-selected="${params.status == 'pending'}">Pending
+                                        </option>
+                                        <option value="failed" data-th-selected="${params.status == 'failed'}">Failed
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="checkout-continue">
+                                Apply filters
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                  <label for="country-checkout-select" class="label"
-                    >STATUS</label
-                  >
-                  <div class="select-field">
-                    <select name="status">
-                      <option value="" data-th-selected="${params.status == ''}"
-                        >All</option
-                      >
-                      <option
-                        value="paid"
-                        data-th-selected="${params.status == 'paid'}"
-                        >Paid</option
-                      >
-                      <option
-                        value="created"
-                        data-th-selected="${params.status == 'created'}"
-                        >Created</option
-                      >
-                      <option
-                        value="pending"
-                        data-th-selected="${params.status == 'pending'}"
-                        >Pending</option
-                      >
-                      <option
-                        value="failed"
-                        data-th-selected="${params.status == 'failed'}"
-                        >Failed</option
-                      >
-                    </select>
-                  </div>
+                <div class="table-wrap">
+                    <div class="table-header_row">
+                        <div class="table-header_cell">
+                            <span class="label">Номер заказа</span>
+                        </div>
+
+                        <div class="table-header_cell">
+                            <span class="label">Дата заказа</span>
+                        </div>
+
+                        <div class="table-header_cell">
+                            <span class="label">Товары</span>
+                        </div>
+
+                        <div class="table-header_cell">
+                            <span class="label">Статус</span>
+                        </div>
+
+                        <div class="table-header_cell table-action_cell">
+                            <span class="label">Действия</span>
+                        </div>
+                    </div>
+
+                    <div class="table-body_row" data-th-each="item: ${carts}">
+                        <div class="table-body_cell table-side_aligns">
+                            <span class="label">
+                                Номер заказа
+                            </span>
+                            <span class="value" data-th-text="${item.userId}">
+                                123456789
+                            </span>
+                        </div>
+
+                        <div class="table-body_cell table-side_aligns salesreps-list-email_cell">
+                            <span class="label">Дата заказа</span>
+                            <span class="value" data-th-text="${item.dates.createdTime}">
+                                19.05.2018
+                            </span>
+                        </div>
+
+                        <div class="table-body_cell table-side_aligns">
+                            <div class="value" data-th-each="product: ${item.items}"
+                                data-th-text="${product.displayName}"></div>
+                        </div>
+
+                        <div class="table-body_cell table-side_aligns">
+                            <span class="value" data-th-text="${item.status}"> </span>
+                        </div>
+
+                        <div class="table-body_cell table-side_aligns">
+                            <a data-th-href="${'?id=' + item._id + '&action=details'}" class="button">Детали</a>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="checkout-continue">
-                  Apply filters
-                </button>
-              </div>
-            </form>
-          </div>
-          <div class="table-wrap">
-            <div class="table-header_row">
-              <div class="table-header_cell">
-                <span class="label">Номер заказа</span>
-              </div>
+                <div>
+                    <div data-th-utext="${pagination}"></div>
+                </div>
 
-              <div class="table-header_cell">
-                <span class="label">Дата заказа</span>
-              </div>
-
-              <div class="table-header_cell">
-                <span class="label">Товары</span>
-              </div>
-
-              <div class="table-header_cell">
-                <span class="label">Статус</span>
-              </div>
-
-              <div class="table-header_cell table-action_cell">
-                <span class="label">Действия</span>
-              </div>
+                <div class="read-qr-block">
+                    <a data-th-href="${portal.serviceUrl({'_service=orders', 'action=readQr'})}"
+                        class="button button-light">Считать QR код</a>
+                </div>
             </div>
-
-            <div class="table-body_row" data-th-each="item: ${carts}">
-              <div class="table-body_cell table-side_aligns">
-                <span class="label">
-                  Номер заказа
-                </span>
-                <span class="value" data-th-text="${item.userId}">
-                  123456789
-                </span>
-              </div>
-
-              <div
-                class="table-body_cell table-side_aligns salesreps-list-email_cell"
-              >
-                <span class="label">Дата заказа</span>
-                <span class="value" data-th-text="${item.dates.createdTime}">
-                  19.05.2018
-                </span>
-              </div>
-
-              <div class="table-body_cell table-side_aligns">
-                <div
-                  class="value"
-                  data-th-each="product: ${item.items}"
-                  data-th-text="${product.displayName}"
-                ></div>
-              </div>
-
-              <div class="table-body_cell table-side_aligns">
-                <span class="value" data-th-text="${item.status}"> </span>
-              </div>
-
-              <div class="table-body_cell table-side_aligns">
-                <a
-                  data-th-href="${'?id=' + item._id + '&action=details'}"
-                  class="button"
-                  >Детали</a
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="read-qr-block">
-            <a
-              data-th-href="${portal.serviceUrl({'_service=orders', 'action=readQr'})}"
-              class="button button-light"
-              >Считать QR код</a
-            >
-          </div>
         </div>
-      </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-  </body>
+</body>
+
 </html>

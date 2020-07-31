@@ -54,9 +54,9 @@ exports.get = function (req) {
     case "emails":
       var carts = cartLib.getCreatedCarts();
       var result = [];
-      for (var i = 0; i < carts.length; i++) {
-        if (carts[i].status == "paid") {
-          result.push(carts[i]);
+      for (var i = 0; i < carts.hits.length; i++) {
+        if (carts.hits[i].status == "paid") {
+          result.push(carts.hits[i]);
         }
       }
       return {
@@ -70,7 +70,14 @@ exports.get = function (req) {
       return {
         body: thymeleaf.render(view, {
           pageComponents: helpers.getPageComponents(req),
-          carts: carts,
+          pagination: helpers.getPagination(
+            null,
+            carts.total,
+            10,
+            params.page ? parseInt(params.page) : 0,
+            req.params
+          ),
+          carts: carts.hits,
           params: req.params
         }),
         contentType: "text/html"
@@ -161,7 +168,7 @@ exports.post = function (req) {
       return {
         body: thymeleaf.render(view, {
           pageComponents: helpers.getPageComponents(req),
-          carts: carts,
+          carts: carts.hits,
           params: req.params
         }),
         contentType: "text/html"

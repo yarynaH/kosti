@@ -1,0 +1,27 @@
+<nav class="nav-pagination">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="#" data-th-if="${links.prev}" data-th-href="${links.prev.link}"><i class="arrow-left"></i></a>
+                <a href="#" data-th-if="${links.first}" data-th-href="${links.first.link}"
+                    data-th-text="${links.first.value}">1</a>
+                <a href="#" data-th-if="${links.second}" data-th-href="${links.second.link}"
+                    data-th-text="${links.second.value}">2</a>
+                <span class="dots" data-th-if="${currentPage > 4}"><sup>…</sup></span>
+                <a href="#" data-th-if="${links.prev}" data-th-href="${links.prev.link}"
+                    data-th-text="${links.prev.value}">prev</a>
+                <a href="#" class="current" data-th-text="${currentPage}">current</a>
+            </div>
+            <div class="col-sm-6">
+                <a href="#" data-th-if="${links.next}" data-th-href="${links.next.link}"
+                    data-th-text="${links.next.value}">next</a>
+                <a href="#" data-th-if="${links.next2}" data-th-href="${links.next2.link}"
+                    data-th-text="${links.next2.value}">next2</a>
+                <span class="dots" href="#" data-th-if="${(pagesCount-currentPage)>=4}"><sup>…</sup></span>
+                <a href="#" data-th-if="${links.last}" data-th-href="${links.last.link}"
+                    data-th-text="${links.last.value}">last</a>
+                <a href="#" data-th-if="${links.next}" data-th-href="${links.next.link}"><i class="arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</nav>

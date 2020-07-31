@@ -28,19 +28,19 @@ function getPageComponents(req, footerType, activeEl, title) {
   var user = userLib.getCurrentUser();
 
   var userServiceUrl = portal.serviceUrl({
-    service: "user",
+    service: "user"
   });
   var contentServiceUrl = portal.serviceUrl({
-    service: "content",
+    service: "content"
   });
   var cartServiceUrl = portal.serviceUrl({
-    service: "cart",
+    service: "cart"
   });
   var commentsServiceUrl = portal.serviceUrl({
-    service: "comments",
+    service: "comments"
   });
   var monsterServiceUrl = portal.serviceUrl({
-    service: "monster",
+    service: "monster"
   });
 
   var keywords = "";
@@ -54,7 +54,7 @@ function getPageComponents(req, footerType, activeEl, title) {
       siteConfig: siteConfig,
       content: content,
       site: site,
-      keywords: keywords,
+      keywords: keywords
     }
   );
   var discordUrl = "https://discordapp.com/api/oauth2/authorize?";
@@ -87,7 +87,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         resolve("../pages/components/header/search.html"),
         {
           searchUrl: sharedLib.generateNiceServiceUrl("search"),
-          active: activeEl === "search" ? "active" : "",
+          active: activeEl === "search" ? "active" : ""
         }
       ),
       headerUser: thymeleaf.render(
@@ -95,9 +95,9 @@ function getPageComponents(req, footerType, activeEl, title) {
         {
           user: user,
           active:
-            content && content._path.indexOf("/users/") === -1 ? "" : "active",
+            content && content._path.indexOf("/users/") === -1 ? "" : "active"
         }
-      ),
+      )
     }
   );
 
@@ -106,7 +106,7 @@ function getPageComponents(req, footerType, activeEl, title) {
     thymeleaf.render(
       resolve("../pages/components/footers/" + footerType + ".html"),
       {
-        footerLinks: getFooterLinks(),
+        footerLinks: getFooterLinks()
       }
     ) +
     thymeleaf.render(
@@ -118,7 +118,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         commentsServiceUrl: commentsServiceUrl,
         monsterServiceUrl: monsterServiceUrl,
         cartId: cartLib.getCart(req && req.cookies ? req.cookies.cartId : null)
-          ._id,
+          ._id
       }
     );
 
@@ -133,7 +133,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         var agreement = contentLib.get({ key: siteConfig.agreements[i] });
         result.push({
           url: portal.pageUrl({ id: siteConfig.agreements[i] }),
-          displayName: agreement.displayName,
+          displayName: agreement.displayName
         });
       }
     }
@@ -149,7 +149,7 @@ function getPageComponents(req, footerType, activeEl, title) {
         result.push({
           url: portal.pageUrl({ path: tempContent._path }),
           title: tempContent.displayName,
-          active: content && content._path.indexOf(tempContent._path) !== -1,
+          active: content && content._path.indexOf(tempContent._path) !== -1
         });
       }
     }
@@ -179,7 +179,7 @@ function getLoadMore(params) {
     articlesCount: params.articlesCount,
     noMoreTitle: params.noMoreTitle,
     hideIfNone: params.hideIfNone,
-    pageSize: params.pageSize,
+    pageSize: params.pageSize
   });
 }
 
@@ -199,12 +199,12 @@ function fixPermissions(repo, role) {
           "DELETE",
           "PUBLISH",
           "READ_PERMISSIONS",
-          "WRITE_PERMISSIONS",
+          "WRITE_PERMISSIONS"
         ],
-        deny: [],
-      },
+        deny: []
+      }
     ],
-    _inheritsPermissions: true,
+    _inheritsPermissions: true
   });
 }
 
@@ -213,10 +213,10 @@ function getLoginRequest() {
     body: thymeleaf.render(
       resolve("../pages/components/user/loginError.html"),
       {
-        pageComponents: getPageComponents(),
+        pageComponents: getPageComponents()
       }
     ),
-    contentType: "text/html",
+    contentType: "text/html"
   };
 }
 
@@ -251,3 +251,99 @@ function getKeywords(content) {
     return keywords;
   }
 }
+
+exports.getPagination = function (
+  currentContent,
+  elementsCount,
+  pageSize,
+  currentPage,
+  pageParams
+) {
+  var pagesCount = Math.ceil(elementsCount / pageSize);
+  var pagination = null;
+  var breakPointLimit = 3;
+  if (!currentPage) {
+    var currentPage = 1;
+  }
+  currentPage = parseInt(currentPage);
+
+  if (typeof pageParams == "undefined") {
+    var pageParams = {};
+  }
+
+  if (pagesCount > 1) {
+    var model = {
+      pagesCount: pagesCount,
+      content: currentContent,
+      breakPointLimit: breakPointLimit,
+      links: {}
+    };
+    if (currentPage != 1 && currentPage >= breakPointLimit) {
+      model["links"]["first"] = {};
+      model["links"]["first"]["link"] = getPageParams(pageParams, 1);
+      model["links"]["first"]["value"] = 1;
+    }
+    if (currentPage == 4) {
+      model["links"]["second"] = {};
+      model["links"]["second"]["link"] = getPageParams(pageParams, 2);
+      model["links"]["second"]["value"] = 2;
+    }
+    if (currentPage > 1) {
+      var prevPage = (currentPage - 1).toFixed();
+      model["links"]["prev"] = {};
+      model["links"]["prev"]["link"] = getPageParams(pageParams, prevPage);
+      model["links"]["prev"]["value"] = prevPage;
+    }
+    if (pagesCount - currentPage > 0) {
+      var nextPage = (currentPage + 1).toFixed();
+      model["links"]["next"] = {};
+      model["links"]["next"]["link"] = getPageParams(pageParams, nextPage);
+      model["links"]["next"]["value"] = nextPage;
+    }
+    if (pagesCount - currentPage > 1) {
+      var next2Page = (currentPage + 2).toFixed();
+      model["links"]["next2"] = {};
+      model["links"]["next2"]["link"] = getPageParams(pageParams, next2Page);
+      model["links"]["next2"]["value"] = next2Page;
+    }
+    if (
+      currentPage < pagesCount &&
+      pagesCount - currentPage >= breakPointLimit
+    ) {
+      var lastPage = pagesCount.toFixed();
+      model["links"]["last"] = {};
+      model["links"]["last"]["link"] = getPageParams(pageParams, lastPage);
+      model["links"]["last"]["value"] = lastPage;
+    }
+
+    model["currentPage"] = currentPage.toFixed();
+
+    pagination = thymeleaf.render(
+      resolve("../pages/components/pagination.html"),
+      model
+    );
+  }
+
+  return pagination;
+
+  function mergeObjects(obj1, obj2) {
+    var obj3 = {};
+    for (var attrname in obj1) {
+      obj3[attrname] = obj1[attrname];
+    }
+    for (var attrname in obj2) {
+      obj3[attrname] = obj2[attrname];
+    }
+    return obj3;
+  }
+
+  function getPageParams(origParam, pageNum) {
+    var params = origParam;
+    if (pageNum == 1 && params["page"]) {
+      delete params["page"];
+    } else {
+      params = mergeObjects(params, { page: pageNum });
+    }
+    return portal.pageUrl({ id: currentContent, params: params });
+  }
+};

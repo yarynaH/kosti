@@ -168,16 +168,17 @@ function getCreatedCarts(params) {
       params.search +
       "\"', 'OR')";
   }
+  params.page = params.page ? parseInt(params.page) : 1;
   var carts = cartRepo.query({
-    start: 0,
-    count: -1,
+    start: (params.page - 1) * 10,
+    count: 10,
     query: query,
     sort: "_ts desc"
   });
   for (var i = 0; i < carts.hits.length; i++) {
     result.push(getCart(carts.hits[i].id));
   }
-  return result;
+  return { hits: result, total: carts.total };
 }
 
 function modifyCartWithParams(id, params) {
