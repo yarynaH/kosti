@@ -304,6 +304,12 @@
             font-weight: 700;
         }
     }
+
+    &-img_wrap {
+        img {
+            margin: 0 auto;
+        }
+    }
 }
 
 @keyframes sonar {
