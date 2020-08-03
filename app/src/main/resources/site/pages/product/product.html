@@ -113,18 +113,21 @@
                                 <table class="size_chart-table">
                                     <thead>
                                         <th></th>
-                                        <th data-th-each="size: ${content.data.sizes}" data-th-text="${size.title}">
+                                        <th data-th-if="${size.asize and size.bsize}"
+                                            data-th-each="size: ${content.data.sizes}" data-th-text="${size.title}">
                                         </th>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>A</td>
-                                            <td data-th-each="size: ${content.data.sizes}" data-th-text="${size.asize}">
+                                            <td data-th-if="${size.asize and size.bsize}"
+                                                data-th-each="size: ${content.data.sizes}" data-th-text="${size.asize}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>B</td>
-                                            <td data-th-each="size: ${content.data.sizes}" data-th-text="${size.bsize}">
+                                            <td data-th-if="${size.asize and size.bsize}"
+                                                data-th-each="size: ${content.data.sizes}" data-th-text="${size.bsize}">
                                             </td>
                                         </tr>
                                     </tbody>
