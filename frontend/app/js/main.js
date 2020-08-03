@@ -304,6 +304,9 @@ $(".js_feed-button").on("click", function (e) {
 
 function loadMoreArticles() {
   var wrapper = $(".blog-list");
+  if (wrapper.length < 1) {
+    return false;
+  }
   var page = wrapper.data().page;
   var feedType = wrapper.data().feedtype;
   var date = wrapper.data().date;
