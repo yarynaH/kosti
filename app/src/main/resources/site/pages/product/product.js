@@ -70,6 +70,7 @@ function handleReq(req) {
   function getImages(data) {
     var images = [];
     if (data.images) {
+      data.images = norseUtils.forceArray(data.images);
       for (var i = 0; i < data.images.length; i++) {
         images.push(norseUtils.getImage(data.images[i], "(1, 1)"));
       }
