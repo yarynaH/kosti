@@ -1,0 +1,27 @@
+.store {
+    background-color: $color-primary26;
+    padding-top: 40px;
+
+    &-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        @include tablet-all {
+            margin-bottom: 40px;
+        }
+    }
+
+    .breadcrumbs {
+        @include mobile {
+            padding-bottom: 40px;
+        }
+    }
+
+    .minicart {
+        @include mobile {
+            margin-bottom: 40px;
+        }
+    }
+}

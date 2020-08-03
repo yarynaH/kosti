@@ -35,6 +35,11 @@
         min-height: 100vh;
         display: flex;
         align-items: center;
+
+        .store-slider & {
+            min-height: 50vh;
+            padding: 50px 0;
+        }
     }
 
     &-img_wrap {
@@ -79,6 +84,10 @@
 
         @include mobile() {
             padding: 0 25px;
+        }
+
+        .store-slider & {
+            max-width: 1220px;
         }
     }
 

@@ -4,7 +4,34 @@
             display: flex;
             flex-wrap: wrap;
             margin: -15px -10px;
+            float: right;
         }
+
+        @include tablet-landscape-all {
+            width: 81.3%;
+        }
+
+        @include tablet-portrait {
+            width: 76%;
+        }
+
+        .plp-item {
+            @include desktop {
+                width: calc((100% / 3) - 20px);
+            }
+
+            @include tablet {
+                width: calc((100% / 2) - 20px);
+            }
+
+            @include tablet-all {
+                margin: 15px 10px;
+            }
+        }
+    }
+
+    &-width {
+        max-width: 1220px;
     }
 
     &-item {
@@ -13,22 +40,6 @@
         text-align: center;
         padding: 25px 15px;
         margin: 15px 0;
-
-        // &:last-child {
-        //     margin-bottom: 0;
-        // }
-
-        @include desktop {
-            width: calc((100% / 3) - 20px);
-        }
-
-        @include tablet {
-            width: calc((100% / 2) - 20px);
-        }
-
-        @include tablet-all {
-            margin: 15px 10px;
-        }
     }
 
     &-prod_img {

@@ -2,6 +2,7 @@ var thymeleaf = require("/lib/thymeleaf");
 var authLib = require("/lib/xp/auth");
 var portal = require("/lib/xp/portal");
 var contentLib = require("/lib/xp/content");
+var util = require("/lib/util");
 
 var libLocation = "../../lib/";
 var cartLib = require(libLocation + "cartLib");
@@ -30,72 +31,119 @@ function handleReq(req) {
     var content = portal.getContent();
     var response = [];
     var site = portal.getSiteConfig();
+    var slider = getSlider(content.data.slider);
 
     var model = {
+      presetFilters: up,
       content: content,
       cart: cartLib.getCart(req.cookies.cartId),
       social: site.social,
-      products: getProducts(up),
+      slider: slider,
+      filters: getFiltersObject(),
+      products: thymeleaf.render(resolve("productsBlock.html"), {
+        products: storeLib.getProducts(up)
+      }),
       cartUrl: sharedLib.generateNiceServiceUrl("cart"),
       pageComponents: helpers.getPageComponents(req)
     };
     return model;
   }
 
-  function getMainImage(data) {
-    var image = null;
-    if (data.mainImage) {
-      image = norseUtils.getImage(data.mainImage, "block(264, 268)");
+  function getSlider(config) {
+    if (!config) {
+      return null;
     }
-    return image;
+    config = norseUtils.forceArray(config);
+    config.forEach((c) => {
+      c.image = norseUtils.getImage(c.image, "block(1905, 378)");
+      c.url = portal.pageUrl({ id: c.product });
+    });
+    return config;
   }
 
-  function beautifyProduct(product) {
-    product.urlAbsolute = portal.pageUrl({ id: product._id, type: "absolute" });
-    product.brand = {
-      name: "Вечерние Кости",
-      logo: portal.assetUrl({
-        path: "images/extended-logo@3x.png",
-        type: "absolute"
-      })
-    };
-    product.image = getMainImage(product.data);
-    product.url = portal.pageUrl({ id: product._id });
-    product.priceBlock = storeLib.getPriceBlock(product._id);
-    return product;
+  function getFiltersObject() {
+    var filters = getFilters();
+    filters.push({
+      items: getCategories(),
+      title: "Категории",
+      name: "category"
+    });
+    return filters;
   }
 
-  function getProducts(params) {
-    var query = "";
-    if (params.type) {
-      query += "data.type = '" + params.type + "'";
+  function getFilters() {
+    var result = [];
+    var site = portal.getSiteConfig();
+    var store = contentLib.get({ key: site.shopLocation });
+    var filtersCategories = util.content.getChildren({
+      key: store.data.filtersLocation
+    }).hits;
+    for (var i = 0; i < filtersCategories.length; i++) {
+      var filters = util.content.getChildren({
+        key: filtersCategories[i]._id
+      }).hits;
+      var temp = {
+        title: filtersCategories[i].displayName,
+        items: [],
+        name: filtersCategories[i]._name
+      };
+      for (var j = 0; j < filters.length; j++) {
+        temp.items.push({
+          value: filters[j]._name,
+          title: filters[j].displayName
+        });
+      }
+      result.push(temp);
     }
-    var products = contentLib.query({
-      start: 0,
-      count: -1,
-      query: query,
-      contentTypes: [app.name + ":product"],
-      sort: "_manualOrderValue DESC",
-      filters: {
-        boolean: {
-          mustNot: {
-            hasValue: [
-              {
-                field: "data.discontinued",
-                values: "true"
-              }
-            ]
+    return result;
+  }
+
+  function getCategories() {
+    var site = portal.getSiteConfig();
+    var store = contentLib.get({ key: site.shopLocation });
+    var categories = util.content.getChildren({
+      key: site.shopLocation
+    }).hits;
+    var result = [];
+    for (var i = 0; i < categories.length; i++) {
+      if (
+        store.data.filtersLocation === categories[i]._id ||
+        categories[i].type !== "base:folder" ||
+        !checkCategoryHasChildren(categories[i])
+      ) {
+        continue;
+      }
+      result.push({
+        value: categories[i]._name,
+        title: categories[i].displayName
+      });
+    }
+    return result;
+
+    function checkCategoryHasChildren(category) {
+      var products = contentLib.query({
+        start: 0,
+        count: 1,
+        query: "_parentPath LIKE '/content" + category._path + "*'",
+        contentTypes: [app.name + ":product"],
+        filters: {
+          boolean: {
+            mustNot: {
+              hasValue: [
+                {
+                  field: "data.discontinued",
+                  values: "true"
+                }
+              ]
+            }
           }
         }
+      });
+      if (products.total > 0) {
+        return true;
       }
-    });
-    if (products && products.hits) {
-      products = products.hits;
+      return false;
     }
-    for (var i = 0; i < products.length; i++) {
-      products[i] = beautifyProduct(products[i]);
-    }
-    return products;
   }
 
   return renderView();

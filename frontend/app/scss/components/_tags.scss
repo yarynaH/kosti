@@ -5,7 +5,11 @@
     color: $color-primary15;
     font-size: rem(14);
     transition: transition(text-decoration);
-    margin: 10px 10px 0 0;
+    margin: 15px 15px 0 0;
+
+    @include desktop {
+      margin: 10px 10px 0 0;
+    }
 
     &:last-child {
       margin-right: 0;
