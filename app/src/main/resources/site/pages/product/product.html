@@ -102,10 +102,10 @@
                             itemprop="description">
                         </div>
                         <div class="size_chart">
-                            <a class="size_chart-link">
+                            <a class="size_chart-link js_store-size_chart-link">
                                 Размерная сетка
                             </a>
-                            <div class="size_chart-content">
+                            <div class="size_chart-content js_store-size_chart-content">
                                 <div class="size_chart-img_wrap">
                                     <img src="#" data-th-src="${portal.assetUrl({'_path=images/T_Shirt_Sizes.jpg'})}"
                                         alt="Размерная сетка" />
@@ -193,11 +193,7 @@
 </body>
 
 <script type="text/javascript" data-th-inline="javascript">
-    var pdpImageUrl = [
-        [$ {
-            mainImage.url
-        }]
-    ];
+    var pdpImageUrl = [[${mainImage.url}]];
 </script>
 
 </html>

@@ -214,3 +214,7 @@ $(".js-filter-show").on("click", function () {
 $(document).ready(function () {
   filterProducts();
 });
+
+$(".js_store-size_chart-link").on("click", function () {
+  $(".js_store-size_chart-content").slideToggle("slow");
+});
