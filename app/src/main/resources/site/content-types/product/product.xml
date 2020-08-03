@@ -65,6 +65,14 @@
           <label>Amount</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
+        <input name="asize" type="Double">
+          <label>A size</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="bsize" type="Double">
+          <label>B size</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
       </items>
       <occurrences minimum="0" maximum="0"/>
     </item-set>
