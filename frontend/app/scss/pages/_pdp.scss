@@ -273,11 +273,11 @@
 
 .size_chart {
     &-link {
-        color: #000;
+        color: $color-primary21;
         text-decoration: underline;
 
         &:hover {
-            color: #0095f8;
+            color: $color-primary36;
             text-decoration: none;
         }
     }
@@ -289,22 +289,17 @@
 
     &-table {
         width: 100%;
-        border: 1px solid #ccc;
+        border: 1px solid $color-primary25;
         text-align: center;
-        background: white;
         margin-top: 20px;
 
         td,
         th {
-            border: 1px solid #ccc;
+            border: 1px solid $color-primary25;
             padding: 10px;
         }
 
-        th {
-            border: 1px solid #ccc;
-            font-weight: 700;
-        }
-
+        th,
         td:first-child {
             font-weight: 700;
         }

@@ -101,7 +101,7 @@
                         <div class="pdp-description e-description" data-th-utext="${content.data.description}"
                             itemprop="description">
                         </div>
-                        <div class="size_chart">
+                        <div class="size_chart" data-th-if="${content.data.showSizeGrid}">
                             <a class="size_chart-link js_store-size_chart-link">
                                 Размерная сетка
                             </a>
@@ -113,28 +113,19 @@
                                 <table class="size_chart-table">
                                     <thead>
                                         <th></th>
-                                        <th>S</th>
-                                        <th>M</th>
-                                        <th>L</th>
-                                        <th>XL</th>
-                                        <th>XXL</th>
+                                        <th data-th-each="size: ${content.data.sizes}" data-th-text="${size.title}">
+                                        </th>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>A</td>
-                                            <td>22</td>
-                                            <td>22</td>
-                                            <td>22</td>
-                                            <td>22</td>
-                                            <td>22</td>
+                                            <td data-th-each="size: ${content.data.sizes}" data-th-text="${size.asize}">
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>B</td>
-                                            <td>22</td>
-                                            <td>22</td>
-                                            <td>22</td>
-                                            <td>22</td>
-                                            <td>22</td>
+                                            <td data-th-each="size: ${content.data.sizes}" data-th-text="${size.bsize}">
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
