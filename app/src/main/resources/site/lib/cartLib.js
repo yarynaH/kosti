@@ -447,7 +447,7 @@ function createCart() {
   var cart = null;
   contextLib.runAsAdmin(function () {
     var cartRepo = connectCartRepo();
-    cart = cartRepo.create({});
+    cart = cartRepo.create({ userId: getNextId() });
   });
   return cart;
 }

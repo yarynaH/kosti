@@ -24,7 +24,7 @@ function checkoutCart(cart, status) {
     transactionDate: new Date(),
     price: cart.price
   });
-  contextLib.runAsAdmin(function() {
+  contextLib.runAsAdmin(function () {
     cartLib.savePrices(cart._id);
     cartLib.modifyInventory(cart.items);
     if (cart.promos) {
@@ -126,7 +126,7 @@ function getShippingById(shipping, id) {
 
 function renderSuccessPage(req, cart, pendingPage) {
   if (!pendingPage) {
-    cart = contextLib.runAsAdmin(function() {
+    cart = contextLib.runAsAdmin(function () {
       return (cart = cartLib.generateItemsIds(cart._id));
     });
     mailsLib.sendMail("orderCreated", cart.email, {
@@ -163,7 +163,7 @@ function checkIKResponse(params, model) {
       transactionDate: new Date(),
       price: model.cart.price
     });
-    contextLib.runAsAdmin(function() {
+    contextLib.runAsAdmin(function () {
       cartLib.savePrices(model.cart._id);
       cartLib.modifyInventory(model.cart.items);
       if (model.cart.promos) {
@@ -176,7 +176,7 @@ function checkIKResponse(params, model) {
     cartLib.modifyCartWithParams(model.cart._id, { status: "failed" });
   } else if (params.ik_inv_st == "waitAccept") {
     params.step = "pending";
-    contextLib.runAsAdmin(function() {
+    contextLib.runAsAdmin(function () {
       cartLib.modifyInventory(model.cart.items);
       cartLib.savePrices(model.cart._id);
       cartLib.modifyCartWithParams(model.cart._id, {

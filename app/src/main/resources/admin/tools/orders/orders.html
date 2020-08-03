@@ -71,7 +71,8 @@
                         </div>
                         <div class="order-row">
                             <h3 class="order-label">Name:</h3>
-                            <div class="order-value" data-th-text="${cart.name + ' ' + cart.surname}"></div>
+                            <div class="order-value" data-th-if="${cart and cart.name and cart.surname}"
+                                data-th-text="${cart.name + ' ' + cart.surname}"></div>
                         </div>
                         <div class="order-row">
                             <h3 class="order-label">Email:</h3>

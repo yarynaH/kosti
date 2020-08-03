@@ -181,8 +181,10 @@ function filterProducts() {
   });
 
   function refreshProducts() {
-    let urlParameters = Object.entries(filterList)
-      .map((e) => e.join("="))
+    var urlParameters = Object.entries(filterList)
+      .map(function (e) {
+        return e.join("=");
+      })
       .join("&");
 
     if (history.pushState) {

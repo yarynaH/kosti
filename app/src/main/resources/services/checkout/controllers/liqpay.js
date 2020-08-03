@@ -11,7 +11,7 @@ var cartLib = require(libLocation + "cartLib");
 var sharedLib = require(libLocation + "sharedLib");
 var checkoutLib = require(libLocation + "checkoutLib");
 
-exports.post = function(req) {
+exports.post = function (req) {
   return generateCheckoutPage(req);
 };
 

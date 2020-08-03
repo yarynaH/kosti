@@ -8,7 +8,10 @@ const cleanCSS = require("gulp-clean-css");
 const uglify = require("gulp-uglify");
 const pump = require("pump");
 const argv = require("yargs").argv;
+const minify = require("gulp-babel-minify");
 const imagemin = require("gulp-imagemin");
+const babel = require("gulp-babel");
+const concat = require("gulp-concat");
 
 var fontName = "iconfont";
 
@@ -44,10 +47,14 @@ gulp.task("lib", function () {
 });
 
 gulp.task("js", function (cb) {
+  //TODO: add concat and babel
   if (argv.dev) {
     pump([gulp.src("app/js/**/*"), gulp.dest("build/js")], cb);
   } else {
-    pump([gulp.src("app/js/**/*"), uglify(), gulp.dest("build/js")], cb);
+    pump(
+      [gulp.src("app/js/**/*"), uglify(), gulp.dest("build/js")],
+      cb
+    );
   }
 });
 
