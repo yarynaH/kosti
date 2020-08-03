@@ -65,11 +65,11 @@
           <label>Amount</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
-        <input name="asize" type="Double">
+        <input name="asize" type="TextLine">
           <label>A size</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
-        <input name="bsize" type="Double">
+        <input name="bsize" type="TextLine">
           <label>B size</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
@@ -90,6 +90,10 @@
     </input>
     <input name="discontinued" type="CheckBox">
       <label>Discontinued</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="showSizeGrid" type="CheckBox">
+      <label>Show size grid</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="theme" type="ContentSelector">

@@ -101,6 +101,36 @@
                         <div class="pdp-description e-description" data-th-utext="${content.data.description}"
                             itemprop="description">
                         </div>
+                        <div class="size_chart" data-th-if="${content.data.showSizeGrid}">
+                            <a class="size_chart-link">
+                                Размерная сетка
+                            </a>
+                            <div class="size_chart-content">
+                                <div class="size_chart-img_wrap">
+                                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/T_Shirt_Sizes.jpg'})}"
+                                        alt="Размерная сетка" />
+                                </div>
+                                <table class="size_chart-table">
+                                    <thead>
+                                        <th></th>
+                                        <th data-th-each="size: ${content.data.sizes}" data-th-text="${size.title}">
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>A</td>
+                                            <td data-th-each="size: ${content.data.sizes}" data-th-text="${size.asize}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>B</td>
+                                            <td data-th-each="size: ${content.data.sizes}" data-th-text="${size.bsize}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <div class="pdp-social social">
                             <h3 class="social-title"
                                 data-th-text="${portal.localize({'_key=shop.title.share', '_locale=ru'})}"></h3>
