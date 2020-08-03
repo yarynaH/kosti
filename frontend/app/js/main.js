@@ -304,26 +304,23 @@ $(".js_feed-button").on("click", function (e) {
 
 function loadMoreArticles() {
   var wrapper = $(".blog-list");
-  if (wrapper.length !== 1) {
-    return false;
-  }
   var page = wrapper.data().page;
   var feedType = wrapper.data().feedtype;
   var date = wrapper.data().date;
   var query = wrapper.data().query;
+  if (!page) {
+    page = 0;
+  }
 
   if (
     (loadMoreRequest && loadMoreRequest.state() !== "resolved") ||
-    wrapper.data().nomorearticles === true
+    wrapper.data().nomorearticles === true ||
+    wrapper.length !== 1
   ) {
     return false;
   }
 
   $(".js_blog-list-lazyload-icon").removeClass("hidden");
-  $(".js_blog-load_more").addClass("hidden");
-  if (!page) {
-    page = 0;
-  }
   loadMoreRequest = makeAjaxCall(
     contentServiceUrl,
     "GET",
@@ -338,8 +335,7 @@ function loadMoreArticles() {
       userId: $(".js_user-page-id").data("userid")
     },
     false
-  );
-  loadMoreRequest.done(function (data) {
+  ).done(function (data) {
     data = JSON.parse(data);
     if (data && data.articles && data.articles.trim() !== "") {
       wrapper.append(data.articles);

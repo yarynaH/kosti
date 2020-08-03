@@ -14,7 +14,9 @@ function validatePhone(phone) {
 
 function setCookie(cartId) {
   document.cookie =
-    "cartId=" + cartId + "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+    "cartId=" +
+    cartId +
+    "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None";
 }
 
 function deleteCookie(name) {
