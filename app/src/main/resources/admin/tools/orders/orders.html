@@ -38,14 +38,6 @@
                             </form>
                         </div>
                         <div class="order-row">
-                            <h3 class="order-label">Order Date:</h3>
-                            <div class="order-value" data-th-text="${cart.dates.createdTime}"></div>
-                        </div>
-                        <div data-th-if="${cart.dates.transactionTime}" class="order-row">
-                            <h3 class="order-label">Payment Date:</h3>
-                            <div class="order-value" data-th-text="${cart.dates.transactionTime}"></div>
-                        </div>
-                        <div class="order-row">
                             <h3 class="order-label">Address:</h3>
                             <div class="order-value">
                                 <p
@@ -70,6 +62,10 @@
                             </div>
                         </div>
                         <div class="order-row">
+                            <h3 class="order-label">Payment:</h3>
+                            <div class="order-value" data-th-text="${cart.paymentMethod}"></div>
+                        </div>
+                        <div class="order-row">
                             <h3 class="order-label">Name:</h3>
                             <div class="order-value" data-th-if="${cart and cart.name and cart.surname}"
                                 data-th-text="${cart.name + ' ' + cart.surname}"></div>
@@ -83,8 +79,12 @@
                             <div class="order-value" data-th-text="${cart.phone}"></div>
                         </div>
                         <div class="order-row">
-                            <h3 class="order-label">Payment:</h3>
-                            <div class="order-value" data-th-text="${cart.paymentMethod}"></div>
+                            <h3 class="order-label">Order Date:</h3>
+                            <div class="order-value" data-th-text="${cart.dates.createdTime}"></div>
+                        </div>
+                        <div data-th-if="${cart.dates.transactionTime}" class="order-row">
+                            <h3 class="order-label">Payment Date:</h3>
+                            <div class="order-value" data-th-text="${cart.dates.transactionTime}"></div>
                         </div>
                     </div>
                     <div class="order-info-item">
