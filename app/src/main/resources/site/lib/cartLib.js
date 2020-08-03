@@ -430,10 +430,12 @@ function getNextId() {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
-    count: 10,
+    count: 1,
     query: ""
   });
-  return (result.total + 1).toFixed();
+  return parseInt(
+    result.total + 1 + "" + new Date().getUTCMilliseconds()
+  ).toFixed();
 }
 
 function connectCartRepo() {
