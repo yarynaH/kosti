@@ -171,7 +171,7 @@ function getCreatedCarts(params) {
   params.page = params.page ? parseInt(params.page) : 1;
   var carts = cartRepo.query({
     start: (params.page - 1) * 10,
-    count: 10,
+    count: 30,
     query: query,
     sort: "_ts desc"
   });

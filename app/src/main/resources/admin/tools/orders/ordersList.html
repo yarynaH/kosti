@@ -110,8 +110,11 @@
                         </div>
 
                         <div class="table-body_cell table-side_aligns">
-                            <div class="value" data-th-each="product: ${item.items}"
-                                data-th-text="${product.displayName}"></div>
+                            <div class="value" data-th-each="product: ${item.items}">
+                                <span data-th-text="${product.amount + 'X '}"></span>
+                                <span data-th-text="${product.displayName}"></span>
+                                <span data-th-text="${product.itemSize != null ? ' ' + product.itemSize : ''}"></span>
+                            </div>
                         </div>
 
                         <div class="table-body_cell table-side_aligns">

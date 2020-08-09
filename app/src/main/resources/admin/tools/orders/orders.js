@@ -73,7 +73,7 @@ exports.get = function (req) {
           pagination: helpers.getPagination(
             null,
             carts.total,
-            10,
+            30,
             params.page ? parseInt(params.page) : 0,
             req.params
           ),
