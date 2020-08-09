@@ -137,7 +137,8 @@ function renderSuccessPage(req, cart, pendingPage) {
       "pendingItem",
       ["maxskywalker94@gmail.com", "demura.vi@gmail.com"],
       {
-        id: cart._id
+        id: cart._id,
+        userId: cart.userId
       }
     );
   }

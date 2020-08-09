@@ -293,19 +293,13 @@ function getForgotPassMail(mail, params) {
 function getPendingItemMail(params) {
   return {
     body: thymeleaf.render(resolve(mailsTemplates.pendingItem), {
-      orderUrl: portal.serviceUrl({
-        service: "orders",
-        type: "absolute",
-        params: {
-          action: "details",
-          id: params.id
-        }
-      }),
+      id: params.id,
+      userId: params.userId,
       mailComponents: getMailComponents({
-        title: "Заказ в статусе ожидания"
+        title: "Новый заказ №" + params.userId + " в статусе ожидания"
       }),
       site: sharedLib.getSite()
     }),
-    subject: "Новый заказ ожидание"
+    subject: "Новый заказ №" + params.userId + " в статусе ожидания"
   };
 }
