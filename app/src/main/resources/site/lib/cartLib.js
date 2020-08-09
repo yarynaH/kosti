@@ -155,7 +155,8 @@ function getCreatedCarts(params) {
   if (params.status) {
     query += " and status = '" + params.status + "'";
   } else {
-    query += " and status in ('failed', 'paid', 'pending', 'created')";
+    query +=
+      " and status in ('failed', 'paid', 'pending', 'created', 'shipped')";
   }
   if (params.country) {
     query += " and country = '" + params.country + "'";
