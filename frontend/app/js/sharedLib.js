@@ -30,9 +30,15 @@ function showLogin(e) {
   $(".js_login-form").addClass("show");
 }
 
-function getCookieValue(a) {
+function getCookieValueOld(a) {
   var b = document.cookie.match("(^|;)\\s*" + a + "\\s*=\\s*([^;]+)");
   return b ? b.pop() : "";
+}
+
+function getCookieValue(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
 function makeAjaxCall(url, method, data, async) {
