@@ -16,7 +16,7 @@ function setCookie(cartId) {
   document.cookie =
     "cartId=" +
     cartId +
-    "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None";
+    "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict";
 }
 
 function deleteCookie(name) {
@@ -36,8 +36,8 @@ function getCookieValueOld(a) {
 }
 
 function getCookieValue(name) {
-  var value = `; ${document.cookie}`;
-  var parts = value.split(`; ${name}=`);
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
