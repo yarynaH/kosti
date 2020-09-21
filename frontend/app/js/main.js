@@ -89,22 +89,28 @@ function initSharedEvents() {
     showSnackBar("Ссылка скопирована.", "success");
   });
 
-  $("body").on("click", "a.social-link.facebook", function (e) {
-    var data = $(this).data();
-    if (!data.description) {
-      data.description = "";
+  $(".blog-listm, .article-body").on(
+    "click",
+    "a.social-link.facebook",
+    function (e) {
+      var data = $(this).data();
+      if (!data.description) {
+        data.description = "";
+      }
+      shareOverrideOGMeta(
+        data.url,
+        data.title,
+        data.description.replace(/(&nbsp;|(<([^>]+)>))/gi, ""),
+        data.image,
+        data.articleid,
+        "facebook",
+        data.itemtype
+      );
     }
-    shareOverrideOGMeta(
-      data.url,
-      data.title,
-      data.description.replace(/(&nbsp;|(<([^>]+)>))/gi, ""),
-      data.image,
-      data.articleid,
-      "facebook",
-      data.itemtype
-    );
-  });
-  $("a.social-link.twitter").on("click", function (e) {
+  );
+  $(".blog-list, .article-body").on("click", "a.social-link.twitter", function (
+    e
+  ) {
     var data = $(this).data();
     incrementShare(
       data.articleid,
@@ -113,7 +119,7 @@ function initSharedEvents() {
       data.itemtype
     );
   });
-  $("a.social-link.vk").on("click", function (e) {
+  $(".blog-list, .article-body").on("click", "a.social-link.vk", function (e) {
     var data = $(this).data();
     incrementShare(
       data.articleid,

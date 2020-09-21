@@ -31,7 +31,7 @@ exports.post = function (req) {
   }
   return {
     body: result,
-    contentType: "application/json",
+    contentType: "application/json"
   };
 };
 
@@ -59,13 +59,17 @@ exports.get = function (req) {
       break;
     case "bookmarks":
       var user = userLib.getCurrentUser();
-      var articlesObj = blogLib.getArticlesByIds(user.data.bookmarks, page);
+      if (user) {
+        var articlesObj = blogLib.getArticlesByIds(user.data.bookmarks, page);
+      } else {
+        var articlesObj = { total: 0, hits: [], count: 0 };
+      }
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "userArticles":
       var articlesObj = blogLib.getArticlesByUser({
         id: params.userId,
-        page: page,
+        page: page
       });
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
@@ -103,8 +107,8 @@ exports.get = function (req) {
       hideButton: articlesObj.count < pageSize,
       nextStart: articlesObj.nextStart,
       date: articlesObj.date ? articlesObj.date : null,
-      newPage: articlesObj.newPage ? articlesObj.newPage : null,
+      newPage: articlesObj.newPage ? articlesObj.newPage : null
     },
-    contentType: "text/html",
+    contentType: "text/html"
   };
 };
