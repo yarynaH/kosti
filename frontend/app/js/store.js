@@ -137,8 +137,10 @@ function filterProducts() {
         );
       }
     }
-    filterList.sort = filterList.sort.join(",");
-    $(".js_store-sorting").val(filterList.sort);
+    if (filterList && filterList.sort) {
+      filterList.sort = filterList.sort.join(",");
+      $(".js_store-sorting").val(filterList.sort);
+    }
   } else {
     var filterList = {};
   }
