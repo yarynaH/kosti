@@ -16,7 +16,7 @@ function setCookie(cartId) {
   document.cookie =
     "cartId=" +
     cartId +
-    "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict";
+    "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure;";
 }
 
 function deleteCookie(name) {
