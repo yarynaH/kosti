@@ -220,5 +220,8 @@
     <mapping controller="/api/store/product.js">
       <pattern>/api/store/product</pattern>
     </mapping>
+    <mapping controller="/api/content/randomizer.js">
+      <pattern>/api/randomizer</pattern>
+    </mapping>
   </mappings>
 </site>
