@@ -128,6 +128,10 @@
             }
         }
 
+        table {
+            width: 100%;
+        }
+
         .video-container {
             @include aspect-ratio(16, 9, iframe);
             @include aspect-ratio(16, 9, video);
