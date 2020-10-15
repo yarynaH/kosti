@@ -14,7 +14,7 @@ exports.get = function (req) {
     req.params.data.forEach((d, i) => {
       result +=
         randomizer.data.category[i].item[d] !== ""
-          ? " " + randomizer.data.category[i].item[d]
+          ? " " + randomizer.data.category[i].item[d - 1]
           : "";
     });
   }
