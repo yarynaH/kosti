@@ -223,5 +223,8 @@
     <mapping controller="/api/content/randomizer.js">
       <pattern>/api/randomizer</pattern>
     </mapping>
+    <mapping controller="/api/content/twitch.js">
+      <pattern>/api/charsheet</pattern>
+    </mapping>
   </mappings>
 </site>

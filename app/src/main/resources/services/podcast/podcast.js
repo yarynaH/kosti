@@ -9,7 +9,7 @@ var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 var moment = require(libLocation + "moment");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var podcasts = contentLib.query({
     start: 0,
     limit: -1,

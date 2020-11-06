@@ -10,6 +10,7 @@ exports.get = function (req) {
   req.params.data = norseUtils.forceArray(req.params.data);
   randomizer.data.category = norseUtils.forceArray(randomizer.data.category);
   var result = "";
+  var body = {};
   if (req.params.data.length === randomizer.data.category.length) {
     req.params.data.forEach((d, i) => {
       result +=
@@ -17,9 +18,18 @@ exports.get = function (req) {
           ? " " + randomizer.data.category[i].item[d - 1]
           : "";
     });
+    body = {
+      success: true,
+      result: result
+    };
+  } else {
+    body = {
+      success: false,
+      result: randomizer.data.description
+    };
   }
   return {
-    body: { data: result.trim() },
+    body: body,
     contentType: "application/json"
   };
 };

@@ -3,6 +3,14 @@
   <display-name>Monster</display-name>
   <super-type>base:structured</super-type>
   <form>
+    <input name="charSheet" type="ImageSelector">
+      <label>Char sheet</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="useImage" type="CheckBox">
+      <label>Use image char sheet</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="armorClass" type="Long">
       <label>Armor class</label>
       <occurrences minimum="0" maximum="1"/>
