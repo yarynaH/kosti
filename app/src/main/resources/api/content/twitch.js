@@ -41,6 +41,16 @@ exports.get = function (req) {
       monsterData.legendaryActions
     );
     monster.data = monsterData;
+    monster.data.strMod = getModifier(monster.data.strength);
+    monster.data.dexMod = getModifier(monster.data.dexterity);
+    monster.data.conMod = getModifier(monster.data.constitution);
+    monster.data.wisMod = getModifier(monster.data.wisdom);
+    monster.data.intMod = getModifier(monster.data.intelligence);
+    monster.data.chaMod = getModifier(monster.data.charisma);
     return monster;
+  }
+
+  function getModifier(value) {
+    return Math.floor((parseInt(value) - 10) / 2);
   }
 };
