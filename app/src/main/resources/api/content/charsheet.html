@@ -1,269 +1,208 @@
 <!DOCTYPE html>
 <html>
 
-<head data-th-utext="${pageComponents.pagehead}"></head>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" type="text/css" data-th-href="${portal.assetUrl({'_path=/css/pages/overlay.css'})}" />
+    <meta name="google-site-verification" content="00oMgggwfcIq0njpoESio4sOR5mfiLRPvULXpj27oEk" />
+    <meta name="yandex-verification" content="56f70e9a214ebd3d" />
+    <!-- Open Graph data -->
+    <meta property="fb:app_id" content="2182806205310445" />
+
+    <meta data-th-attr="content=${keywords}" name="keywords">
+</head>
 
 <body class="page-wrapper">
-    <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
-    <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main">
-        <div class="blog_width  h-mt-70">
-            <form method="POST" class="monster_gen js_monster-form">
-                <h2 class="title-2 h-mb-20">Monster Generator</h2>
-                <input name="id" type="text" class="input-text" id="monster_gen-id-input" data-th-value="${content._id}"
-                    hidden />
-                <div class="form-group-column">
-                    <div class="form-group">
-                        <label for="monster_gen-name-input" class="label">name</label>
-                        <input name="name" type="text" class="input-text" id="monster_gen-name-input"
-                            data-th-value="${content.displayName}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-senses-input" class="label">senses</label>
-                        <input name="senses" type="text" class="input-text" id="monster_gen-senses-input"
-                            data-th-value="${content.data.senses}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-languages-input" class="label">languages</label>
-                        <input name="languages" type="text" class="input-text" id="monster_gen-languages-input"
-                            data-th-value="${content.data.languages}" />
-                    </div>
-                </div>
-                <div class="form-group-column">
-                    <div class="form-group">
-                        <label for="monster_gen-alignmentOld-input" class="label">alignment old</label>
-                        <input type="text" class="input-text" id="monster_gen-alignmentOld-input"
-                            data-th-value="${content.data.alignmentOld}" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-alignment-input" class="label">alignment</label>
-                        <div class="select-field">
-                            <select name="alignment" id="monster_gen-alignment-input">
-                                <option value="ChooseAlignment" disabled="disabled"
-                                    data-th-selected="${!content.data.alignment}">Choose alignment</option>
-                                <option data-th-selected="${content.data.alignment == 'lg'}" value="lg">Lawful Good
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'ng'}" value="ng">Neutral Good
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'cg'}" value="cg">Chaotic Good
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'ln'}" value="ln">Lawful Neutral
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'nn'}" value="nn">Neutral
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'cn'}" value="cn">Chaotic Neutral
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'le'}" value="le">Lawful Evil
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'ne'}" value="ne">Neutral Evil
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'ce'}" value="ce">Chaotic Evil
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'unaligned'}" value="unaligned">
-                                    Unaligned</option>
-                                <option data-th-selected="${content.data.alignment == 'any'}" value="any">Any</option>
-                                <option data-th-selected="${content.data.alignment == 'al'}" value="al">Any lawful
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'ae'}" value="ae">Any evil
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'ac'}" value="ac">Any chaotic
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'ag'}" value="ag">Any good
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'nol'}" value="nol">Any non-lawful
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'nog'}" value="nog">Any non-good
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'noe'}" value="noe">Any non-evil
-                                </option>
-                                <option data-th-selected="${content.data.alignment == 'noc'}" value="noe">Any
-                                    non-chaotic</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-armorDesc-input" class="label">armor description</label>
-                        <input name="armorDesc" type="text" class="input-text" id="monster_gen-armorDesc-input"
-                            data-th-value="${content.data.armorDesc}" />
-                    </div>
-                </div>
-
-                <div class="form-group-column">
-                    <div class="form-group">
-                        <label for="monster_gen-typeOld-input" class="label">type Old</label>
-                        <input type="text" class="input-text" id="monster_gen-typeOld-input"
-                            data-th-value="${content.data.typeOld}" disabled />
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-type-input" class="label">type</label>
-                        <div class="select-field">
-                            <select name="type" id="monster_gen-type-input">
-                                <option value="ChooseType" disabled="disabled" data-th-selected="${!content.data.type}">
-                                    Choose type</option>
-                                <option data-th-selected="${content.data.type == 'aberration'}" value="aberration">
-                                    aberration</option>
-                                <option data-th-selected="${content.data.type == 'beast'}" value="beast">beast</option>
-                                <option data-th-selected="${content.data.type == 'celestial'}" value="celestial">
-                                    celestial</option>
-                                <option data-th-selected="${content.data.type == 'dragon'}" value="dragon">dragon
-                                </option>
-                                <option data-th-selected="${content.data.type == 'fey'}" value="fey">fey</option>
-                                <option data-th-selected="${content.data.type == 'fiend'}" value="fiend">fiend</option>
-                                <option data-th-selected="${content.data.type == 'giant'}" value="giant">giant</option>
-                                <option data-th-selected="${content.data.type == 'elemental'}" value="elemental">
-                                    elemental</option>
-                                <option data-th-selected="${content.data.type == 'humanoid'}" value="humanoid">humanoid
-                                </option>
-                                <option data-th-selected="${content.data.type == 'monstrosity'}" value="monstrosity">
-                                    monstrosity</option>
-                                <option data-th-selected="${content.data.type == 'ooze'}" value="ooze">ooze</option>
-                                <option data-th-selected="${content.data.type == 'plant'}" value="plant">plant</option>
-                                <option data-th-selected="${content.data.type == 'undead'}" value="undead">undead
-                                </option>
-                                <option data-th-selected="${content.data.type == 'swarm'}" value="swarm">swarm</option>
-                                <option data-th-selected="${content.data.type == 'titan'}" value="titan">titan</option>
-                                <option data-th-selected="${content.data.type == 'construct'}" value="construct">
-                                    construct</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-subType-input" class="label">sub Type</label>
-                        <input name="subType" type="text" class="input-text" id="monster_gen-subType-input"
-                            data-th-value="${content.data.subType}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-group-input" class="label">group</label>
-                        <input name="group" type="text" class="input-text" id="monster_gen-group-input"
-                            data-th-value="${content.data.group}" />
-                    </div>
-                </div>
-
-                <div class="form-group-column">
-                    <div class="form-group">
-                        <label for="monster_gen-damageResistances-input" class="label">damage Resistances</label>
-                        <input name="damageResistances" type="text" class="input-text"
-                            id="monster_gen-damageResistances-input"
-                            data-th-value="${content.data.damageResistances}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-damageImmunities-input" class="label">damage Immunities</label>
-                        <input name="damageImmunities" type="text" class="input-text"
-                            id="monster_gen-damageImmunities-input" data-th-value="${content.data.damageImmunities}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-conditionImmunities-input" class="label">condition Immunities</label>
-                        <input name="conditionImmunities" type="text" class="input-text"
-                            id="monster_gen-conditionImmunities-input"
-                            data-th-value="${content.data.conditionImmunities}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="monster_gen-damageVulnerabilities-input" class="label">damage
-                            Vulnerabilities</label>
-                        <input name="damageVulnerabilities" type="text" class="input-text"
-                            id="monster_gen-damageVulnerabilities-input"
-                            data-th-value="${content.data.damageVulnerabilities}" />
-                    </div>
-                </div>
-
-                <div data-th-if="${content.data.actions.size}" data-th-remove="tag">
-                    <h5 class="title-5 h-mb-15 h-mt-30">Actions</h5>
-                    <div class="form-group" data-th-each="action, actionIndex: ${content.data.actions}">
-                        <div class="h-mb-15">
-                            <label data-th-for="${'monster_gen-actionsName-input' + actionIndex.index}"
-                                class="label">Name</label>
-                            <input name="actionsName" type="text" class="input-text" id=""
-                                data-th-id="${'monster_gen-actionsName-input' + actionIndex.index}"
-                                data-th-value="${action.name}" />
-                        </div>
-                        <div>
-                            <label data-th-for="${'monster_gen-actionsDesc-input' + actionIndex.index}"
-                                class="label">action description</label>
-                            <textarea name="actionsDesc" class="input-text"
-                                data-th-id="${'monster_gen-actionsDesc-input' + actionIndex.index}"
-                                data-th-text="${action.desc}" rows="5"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div data-th-if="${content.data.legendaryActions.size}" data-th-remove="tag">
-                    <h5 class="title-5 h-mb-15 h-mt-30">Legendary Actions</h5>
-                    <div class="form-group" data-th-each="action, actionIndex: ${content.data.legendaryActions}">
-                        <div class="h-mb-15">
-                            <label data-th-for="${'monster_gen-actionsNameLeg-input' + actionIndex.index}"
-                                class="label">Name</label>
-                            <input name="actionsNameLeg" type="text" class="input-text"
-                                data-th-id="${'monster_gen-actionsNameLeg-input' + actionIndex.index}"
-                                data-th-value="${action.name}" />
-                        </div>
-                        <div>
-                            <label data-th-for="${'monster_gen-actionsDescLeg-input' + actionIndex.index}"
-                                class="label">Legendary action description</label>
-                            <textarea name="actionsDescLeg" class="input-text"
-                                data-th-id="${'monster_gen-actionsDescLeg-input' + actionIndex.index}"
-                                data-th-text="${action.desc}" rows="5"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div data-th-if="${content.data.reactions.size}" data-th-remove="tag">
-                    <h5 class="title-5 h-mb-15 h-mt-30">Reactions</h5>
-                    <div class="form-group" data-th-each="reaction, actionIndex: ${content.data.reactions}">
-                        <div class="h-mb-15">
-                            <label data-th-for="${'monster_gen-reactionName-input' + actionIndex.index}"
-                                class="label">Name</label>
-                            <input name="reactionName" type="text" class="input-text"
-                                data-th-id="${'monster_gen-reactionName-input' + actionIndex.index}"
-                                data-th-value="${reaction.name}" />
-                        </div>
-                        <div>
-                            <label data-th-for="${'monster_gen-reactionDesc-input' + actionIndex.index}"
-                                class="label">reaction description</label>
-                            <textarea name="reactionDesc" class="input-text"
-                                data-th-id="${'monster_gen-reactionDesc-input' + actionIndex.index}"
-                                data-th-text="${reaction.desc}" rows="5"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div data-th-if="${content.data.specialAbilities.size}" data-th-remove="tag">
-                    <h5 class="title-5 h-mb-15 h-mt-30">Special Abilities</h5>
-                    <div class="form-group"
-                        data-th-each="specialAbility, actionIndex: ${content.data.specialAbilities}">
-                        <div class="h-mb-15">
-                            <label data-th-for="${'monster_gen-specialAbilityName-input' + actionIndex.index}"
-                                class="label">Name</label>
-                            <input name="specialAbilityName" type="text" class="input-text"
-                                data-th-id="${'monster_gen-specialAbilityName-input' + actionIndex.index}"
-                                data-th-value="${specialAbility.name}" />
-                        </div>
-                        <div>
-                            <label data-th-for="${'monster_gen-specialAbilityDesc-input' + actionIndex.index}"
-                                class="label">special Ability description</label>
-                            <textarea name="specialAbilityDesc" class="input-text"
-                                data-th-id="${'monster_gen-specialAbilityDesc-input' + actionIndex.index}"
-                                data-th-text="${specialAbility.desc}" rows="5"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="monster_gen-actions">
-                    <button type="submit" class="button button-light h-mt-25">
-                        Save
-                    </button>
-                </div>
-            </form>
+    <div class="overlay-wrapper">
+        <div class="overlay-diagonal overlay-diagonal_1"></div>
+        <div class="overlay-diagonal overlay-diagonal_2"></div>
+        <div class="overlay-diagonal overlay-diagonal_3"></div>
+        <div class="overlay-diagonal overlay-diagonal_4"></div>
+        <div class="overlay-header">
+            <h2 class="overlay-char_name">
+                ПЕПЕЛ, Эрх Худдулин
+            </h2>
+            <h3 class="overlay-char_class">
+                Воин (Мистический Рыцарь), Уровень 6
+            </h3>
         </div>
-    </main>
-    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+
+        <div class="overlay-subheader">
+            <div class="overlay-life">
+                <span class="diamond-top"></span>
+                <div class="overlay-life_diagonal overlay-life_diagonal_1"></div>
+                <div class="overlay-life_diagonal overlay-life_diagonal_2"></div>
+                <div class="overlay-life_diagonal overlay-life_diagonal_3"></div>
+                <div class="overlay-life_diagonal overlay-life_diagonal_4"></div>
+                <span class="overlay-armor">
+                    <span class="value">
+                        18
+                    </span>
+                    <span class="label">
+                        КБ
+                    </span>
+                </span>
+                <span class="overlay-hitpoints">
+                    <span class="value">
+                        58
+                    </span>
+                    <span class="label">
+                        ХП
+                    </span>
+                </span>
+                <span class="diamond-bot"></span>
+            </div>
+            <div class="overlay-stats">
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label">
+                            СИЛ
+                        </span>
+                        <span class="value">
+                            0
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number">
+                        11
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label">
+                            ЛОВ
+                        </span>
+                        <span class="value">
+                            -1
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number">
+                        9
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label">
+                            ТЕЛ
+                        </span>
+                        <span class="value">
+                            +5
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number">
+                        20
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label">
+                            МУД
+                        </span>
+                        <span class="value">
+                            0
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number">
+                        11
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label">
+                            ИНТ
+                        </span>
+                        <span class="value">
+                            0
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number">
+                        11
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label">
+                            ХАР
+                        </span>
+                        <span class="value">
+                            0
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number">
+                        11
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-attacks">
+            <h3 class="overlay-title">ОСНОВНЫЕ АТАКИ</h3>
+            <div class="attacks-table">
+                <div class="attacks-thead">
+                    <div class="attacks-col attacks-col-name">НАЗВАНИЕ</div>
+                    <div class="attacks-col attacks-col-range">ДИСТАНЦИЯ</div>
+                    <div class="attacks-col attacks-col-attack">К АТАКЕ</div>
+                    <div class="attacks-col attacks-col-damage">УРОН</div>
+                    <div class="attacks-col attacks-col-notes">ЗАМЕТКИ</div>
+                </div>
+                <div class="attacks-tbody">
+                    <div class="attacks-row">
+                        <div class="attacks-col attacks-col-name">
+                            <h4 class="attacks-weapon_name">Кровавое копье</h4>
+                            <p class="attacks-weapon_type">Оружие Ближнего Боя</p>
+                        </div>
+                        <div class="attacks-col attacks-col-range">
+                            <h4 class="attacks-weapon_name">5 ФТ.</h4>
+                            <p class="attacks-weapon_type">Охват</p>
+                        </div>
+                        <div class="attacks-col attacks-col-attack">
+                            <span class="attacks-value">+9</span>
+                        </div>
+                        <div class="attacks-col attacks-col-damage">
+                            <span class="attacks-value">1к6+7</span>
+                        </div>
+                        <div class="attacks-col attacks-col-notes">
+                            <span class="attacks-note">Лекое</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-footer">
+            <div class="footer-col_left">
+                <h3 class="overlay-title">НАСТРОЕННЫЕ ПРЕДМЕТЫ</h3>
+                <div class="custom_items">
+                    <div class="overlay-custom_diagonal overlay-custom_diagonal_1"></div>
+                    <div class="overlay-custom_diagonal overlay-custom_diagonal_2"></div>
+                    <div class="overlay-custom_diagonal overlay-custom_diagonal_3"></div>
+                    <div class="overlay-custom_diagonal overlay-custom_diagonal_4"></div>
+                    <h4 class="custom_items-name">Кровавое Копье +1</h4>
+                    <p class="custom_items-type">Легкое Оружие</p>
+                </div>
+            </div>
+            <div class="footer-col_right">
+                <h3 class="overlay-title">ЗНАНИЯ И ЯЗЫКИ</h3>
+                <div class="additional_info">
+                    <span class="label">Языки:</span> <span class="value">Торговое наречие (Общий), Худдулинский,
+                        Удришевский.</span>
+                    <span class="label"> Оружие и Броня:</span> <span class="value">Все. </span>
+                    <span class="label">Инструменты:</span><span class="value">Игровые кости.</span>
+                    <span class="label">Боевой стиль:</span> <span class="value">Защита.</span>
+                    <span class="lael">Фиты:</span> <span class="value">Magic Initiate.</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
-<style>
-    .monster_gen-actions {
-        position: fixed;
-        bottom: 30px;
-        right: 0;
-        max-width: 190px;
-    }
-</style>
 
 </html>
