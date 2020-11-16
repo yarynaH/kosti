@@ -7,6 +7,10 @@
       <label>Char sheet</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="imageArt" type="ImageSelector">
+      <label>image art</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="class" type="TextLine">
       <label>Class</label>
       <occurrences minimum="0" maximum="1"/>
@@ -19,8 +23,12 @@
       <label>Level</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
-    <input name="race" type="Long">
+    <input name="race" type="TextLine">
       <label>Race</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="otherDescription" type="HtmlArea">
+      <label>Other description</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="useImage" type="CheckBox">

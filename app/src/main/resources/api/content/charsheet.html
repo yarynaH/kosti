@@ -20,12 +20,15 @@
         <div class="overlay-diagonal overlay-diagonal_2"></div>
         <div class="overlay-diagonal overlay-diagonal_3"></div>
         <div class="overlay-diagonal overlay-diagonal_4"></div>
-        <div class="overlay-header">
+        <div class="overlay-header" data-th-style="${'background-image:url(\'' + content.data.image} + '\')'">
             <h2 class="overlay-char_name">
-                ПЕПЕЛ, Эрх Худдулин
+                <span data-th-remove="tag" data-th-text="${content.displayName}"> </span>, <span data-th-remove="tag"
+                    data-th-text="${content.data.race}"> </span>
             </h2>
             <h3 class="overlay-char_class">
-                Воин (Мистический Рыцарь), Уровень 6
+                <span data-th-remove="tag" data-th-text="${content.data.class}"> </span> (<span data-th-remove="tag"
+                    data-th-text="${content.data.subClass}"> </span>), Уровень <span data-th-remove="tag"
+                    data-th-text="${content.data.level}"> </span>
             </h3>
         </div>
 
@@ -38,7 +41,7 @@
                 <div class="overlay-life_diagonal overlay-life_diagonal_4"></div>
                 <span class="overlay-armor">
                     <span class="value">
-                        18
+                        <span data-th-remove="tag" data-th-text="${content.data.armorClass}"> </span>
                     </span>
                     <span class="label">
                         КБ
@@ -46,7 +49,7 @@
                 </span>
                 <span class="overlay-hitpoints">
                     <span class="value">
-                        58
+                        <span data-th-remove="tag" data-th-text="${content.data.hitPoints}"> </span>
                     </span>
                     <span class="label">
                         ХП
@@ -61,11 +64,11 @@
                         <span class="label">
                             СИЛ
                         </span>
-                        <span class="value">
+                        <span class="value" data-th-text="${content.data.strength}">
                             0
                         </span>
                     </div>
-                    <div class="overlay-stats-number">
+                    <div class="overlay-stats-number" data-th-text="${content.data.strMod}">
                         11
                     </div>
                 </div>
@@ -75,11 +78,11 @@
                         <span class="label">
                             ЛОВ
                         </span>
-                        <span class="value">
+                        <span class="value" data-th-text="${content.data.dexterity}">
                             -1
                         </span>
                     </div>
-                    <div class="overlay-stats-number">
+                    <div class="overlay-stats-number" data-th-text="${content.data.dexMod}">
                         9
                     </div>
                 </div>
@@ -89,11 +92,11 @@
                         <span class="label">
                             ТЕЛ
                         </span>
-                        <span class="value">
+                        <span class="value" data-th-text="${content.data.constitution}">
                             +5
                         </span>
                     </div>
-                    <div class="overlay-stats-number">
+                    <div class="overlay-stats-number" data-th-text="${content.data.conMod}">
                         20
                     </div>
                 </div>
@@ -103,11 +106,11 @@
                         <span class="label">
                             МУД
                         </span>
-                        <span class="value">
+                        <span class="value" data-th-text="${content.data.wisdom}">
                             0
                         </span>
                     </div>
-                    <div class="overlay-stats-number">
+                    <div class="overlay-stats-number" data-th-text="${content.data.wisMod}">
                         11
                     </div>
                 </div>
@@ -117,11 +120,11 @@
                         <span class="label">
                             ИНТ
                         </span>
-                        <span class="value">
+                        <span class="value" data-th-text="${content.data.intelligence}">
                             0
                         </span>
                     </div>
-                    <div class="overlay-stats-number">
+                    <div class="overlay-stats-number" data-th-text="${content.data.intMod}">
                         11
                     </div>
                 </div>
@@ -131,11 +134,11 @@
                         <span class="label">
                             ХАР
                         </span>
-                        <span class="value">
+                        <span class="value" data-th-text="${content.data.charisma}">
                             0
                         </span>
                     </div>
-                    <div class="overlay-stats-number">
+                    <div class="overlay-stats-number" data-th-text="${content.data.chaMod}">
                         11
                     </div>
                 </div>
@@ -153,23 +156,23 @@
                     <div class="attacks-col attacks-col-notes">ЗАМЕТКИ</div>
                 </div>
                 <div class="attacks-tbody">
-                    <div class="attacks-row">
+                    <div class="attacks-row" data-th-each="action: ${content.data.actions}">
                         <div class="attacks-col attacks-col-name">
-                            <h4 class="attacks-weapon_name">Кровавое копье</h4>
-                            <p class="attacks-weapon_type">Оружие Ближнего Боя</p>
+                            <h4 class="attacks-weapon_name" data-th-text="${action.name}"></h4>
+                            <p class="attacks-weapon_type" data-th-text="${action.subName}">Оружие Ближнего Боя</p>
                         </div>
                         <div class="attacks-col attacks-col-range">
-                            <h4 class="attacks-weapon_name">5 ФТ.</h4>
-                            <p class="attacks-weapon_type">Охват</p>
+                            <h4 class="attacks-weapon_name" data-th-text="${action.distance}">5 ФТ.</h4>
+                            <!--<p class="attacks-weapon_type" data-th-text="${action.distance}">Охват</p>-->
                         </div>
                         <div class="attacks-col attacks-col-attack">
-                            <span class="attacks-value">+9</span>
+                            <span class="attacks-value" data-th-text="${action.bonus}">+9</span>
                         </div>
                         <div class="attacks-col attacks-col-damage">
-                            <span class="attacks-value">1к6+7</span>
+                            <span class="attacks-value" data-th-text="${action.damage}">1к6+7</span>
                         </div>
                         <div class="attacks-col attacks-col-notes">
-                            <span class="attacks-note">Лекое</span>
+                            <span class="attacks-note" data-th-text="${action.note}">Лекое</span>
                         </div>
 
                     </div>
@@ -185,19 +188,16 @@
                     <div class="overlay-custom_diagonal overlay-custom_diagonal_2"></div>
                     <div class="overlay-custom_diagonal overlay-custom_diagonal_3"></div>
                     <div class="overlay-custom_diagonal overlay-custom_diagonal_4"></div>
-                    <h4 class="custom_items-name">Кровавое Копье +1</h4>
-                    <p class="custom_items-type">Легкое Оружие</p>
+                    <div data-th-each="item: ${content.data.attunedItems}">
+                        <h4 class="custom_items-name"><span data-th-remove="tag" data-th-text="${item.name}"> </span>
+                        </h4>
+                        <p class="custom_items-type"><span data-th-remove="tag" data-th-text="${item.desc}"> </span></p>
+                    </div>
                 </div>
             </div>
             <div class="footer-col_right">
                 <h3 class="overlay-title">ЗНАНИЯ И ЯЗЫКИ</h3>
-                <div class="additional_info">
-                    <span class="label">Языки:</span> <span class="value">Торговое наречие (Общий), Худдулинский,
-                        Удришевский.</span>
-                    <span class="label"> Оружие и Броня:</span> <span class="value">Все. </span>
-                    <span class="label">Инструменты:</span><span class="value">Игровые кости.</span>
-                    <span class="label">Боевой стиль:</span> <span class="value">Защита.</span>
-                    <span class="lael">Фиты:</span> <span class="value">Magic Initiate.</span>
+                <div class="additional_info" data-th-utext="${content.data.otherDescription}">
                 </div>
             </div>
         </div>

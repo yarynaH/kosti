@@ -12,14 +12,14 @@ exports.get = function (req) {
       body: thymeleaf.render(resolve("charsheet.html"), {
         content: getSingleMonsterFromCache(req.params.id),
         app: app,
-        pageComponents: helpers.getPageComponents(req)
+        pageComponents: helpers.getPageComponents(req),
       }),
-      contentType: "text/html"
+      contentType: "text/html",
     };
   } else {
     return {
       body: getSingleMonsterFromCache(req.params.id),
-      contentType: "application/json"
+      contentType: "application/json",
     };
   }
 
@@ -47,11 +47,15 @@ exports.get = function (req) {
     monsterData.wisMod = getModifier(monsterData.wisdom);
     monsterData.intMod = getModifier(monsterData.intelligence);
     monsterData.chaMod = getModifier(monsterData.charisma);
+    monsterData.image = portal.imageUrl({
+      id: monsterData.imageArt,
+      scale: "block(880,148)",
+    });
     monster.data = monsterData;
     return monster;
   }
 
   function getModifier(value) {
-    return Math.floor((parseInt(value) - 10) / 2);
+    return Math.floor((parseInt(value) - 10) / 2).toFixed();
   }
 };
