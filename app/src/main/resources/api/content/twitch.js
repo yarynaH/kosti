@@ -40,7 +40,18 @@ exports.get = function (req) {
     monsterData.legendaryActions = norseUtils.forceArray(
       monsterData.legendaryActions
     );
+    monsterData.attunedItems = norseUtils.forceArray(monsterData.attunedItems);
+    monsterData.strMod = getModifier(monsterData.strength);
+    monsterData.dexMod = getModifier(monsterData.dexterity);
+    monsterData.conMod = getModifier(monsterData.constitution);
+    monsterData.wisMod = getModifier(monsterData.wisdom);
+    monsterData.intMod = getModifier(monsterData.intelligence);
+    monsterData.chaMod = getModifier(monsterData.charisma);
     monster.data = monsterData;
     return monster;
+  }
+
+  function getModifier(value) {
+    return Math.floor((parseInt(value) - 10) / 2);
   }
 };
