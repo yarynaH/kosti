@@ -7,6 +7,22 @@
       <label>Char sheet</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="class" type="TextLine">
+      <label>Class</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="subClass" type="TextLine">
+      <label>Subclass</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="level" type="Long">
+      <label>Level</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="race" type="Long">
+      <label>Race</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="useImage" type="CheckBox">
       <label>Use image char sheet</label>
       <occurrences minimum="0" maximum="1"/>
@@ -75,6 +91,26 @@
           <label>Name</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
+        <input name="subName" type="TextLine">
+          <label>Subname</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="distance" type="TextLine">
+          <label>Distance</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="bonus" type="TextLine">
+          <label>Bonus</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="note" type="TextLine">
+          <label>note</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="damage" type="TextLine">
+          <label>Damage</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
         <input name="desc" type="TextArea">
           <label>Description</label>
           <occurrences minimum="0" maximum="1"/>
@@ -111,6 +147,20 @@
     </item-set>
     <item-set name="legendaryActions">
       <label>Legendary actions</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="attunedItems">
+      <label>Attuned items</label>
       <occurrences minimum="0" maximum="0"/>
       <items>
         <input name="name" type="TextLine">
