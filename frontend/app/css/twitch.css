@@ -1,0 +1,500 @@
+.overlay-header {
+    height: 22%;
+    background-color: #2F1116;
+    width: 100%;
+    background-image: url("../../images/overlay/overlay-image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center right;
+    padding: 40px 40px 54px;
+}
+
+.overlay-char_name {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 31px;
+    color: #FFFFFF;
+}
+
+.overlay-char_class {
+    font-size: 18px;
+    line-height: 23px;
+    color: #FFFFFF;
+}
+
+.overlay-subheader {
+    padding: 0 40px;
+    display: flex;
+    align-items: flex-start;
+    margin-top: -33px;
+}
+
+.overlay-subheader .value {
+    font-size: 36px;
+    line-height: 1.2;
+    text-align: center;
+    color: #000000;
+}
+
+.overlay-subheader .label {
+    font-size: 16px;
+    line-height: 21px;
+    text-align: center;
+    color: #000000;
+}
+
+.overlay-life {
+    width: 138px;
+    height: 107px;
+    position: relative;
+    display: flex;
+    background: white;
+    margin-right: 3%;
+}
+
+.overlay-life:before,
+.overlay-life:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    border-bottom: 16px solid #2F1116;
+    border-right: 16px solid transparent;
+
+}
+
+.overlay-life:before {
+    left: 0;
+    transform: rotate(90deg);
+}
+
+.overlay-life:after {
+    right: 0;
+    transform: rotate(180deg);
+}
+
+.diamond-top,
+.diamond-bot {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #A8885E;
+    transform: rotate(-45deg);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.diamond-bot {
+    bottom: -5px;
+}
+
+.diamond-top {
+    top: -5px;
+}
+
+.overlay-life_diagonal::before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 1px;
+    z-index: 2;
+    background: #A8885E;
+}
+
+.overlay-life_diagonal_1::before {
+    top: 8px;
+    left: -19px;
+    transform: rotate(135deg);
+}
+
+.overlay-life_diagonal_2::before {
+    transform: rotate(45deg);
+    bottom: -8px;
+    left: -3px;
+}
+
+.overlay-life_diagonal_3::before {
+    transform: rotate(45deg);
+    left: -18px;
+    top: -8px;
+}
+
+.overlay-life_diagonal_4::before {
+    transform: rotate(135deg);
+    right: -19px;
+    bottom: 8px;
+}
+
+.overlay-life_diagonal_1,
+.overlay-life_diagonal_4 {
+    width: calc(100% - 32px);
+    height: 1px;
+    background: #A8885E;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.overlay-life_diagonal_1 {
+    top: 0;
+}
+
+.overlay-life_diagonal_4 {
+    bottom: 0;
+}
+
+.overlay-life_diagonal_3,
+.overlay-life_diagonal_2 {
+    width: 1px;
+    height: calc(100% - 32px);
+    background: #A8885E;
+    display: block;
+    margin-top: 16px;
+    position: absolute;
+    top: 0;
+}
+
+.overlay-life_diagonal_2 {
+    left: 0;
+}
+
+.overlay-life_diagonal_3 {
+    right: 0;
+}
+
+.overlay-armor,
+.overlay-hitpoints {
+    position: relative;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.overlay-armor:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 12px;
+    width: 1px;
+    height: calc(100% - 27px);
+    background: #A8885E;
+}
+
+.overlay-stats {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.overlay-stats-item {
+    background: #FFFFFF;
+    border: 1px solid #A8885E;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.overlay-stats-mod {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.overlay-stats-number {
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    text-align: center;
+    bottom: -13px;
+    z-index: 23;
+    font-size: 16px;
+}
+
+.overlay-stats-item:after {
+    position: absolute;
+    content: '';
+    border: 1px solid #333333;
+    transform: rotate(-45deg);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -11px;
+    background: white;
+    width: 28px;
+    height: 28px;
+}
+
+.overlay-stats-item:before {
+    content: '';
+    width: calc(100% - 8px);
+    height: calc(55% - 8px);
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border: 1px solid gray;
+    border-top: 0;
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.overlay-attacks {
+    padding: 25px 20px 10px 40px;
+}
+
+.overlay-title {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 26px;
+}
+
+.attacks-table {
+    padding-left: 40px;
+    padding-top: 15px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+.attacks-thead {
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 17px;
+    display: flex;
+    padding-bottom: 12px;
+}
+
+.attacks-col-name {
+    width: 28%;
+}
+
+.attacks-col-range {
+    width: 15.5%;
+}
+
+.attacks-col-attack {
+    width: 14%;
+}
+
+.attacks-col-damage {
+    width: 12%;
+}
+
+.attacks-col-notes {
+    width: 20%;
+}
+
+.attacks-row {
+    display: flex;
+}
+
+.attacks-row+.attacks-row {
+    margin-top: 15px;
+}
+
+.attacks-weapon_name {
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.attacks-weapon_type {
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 17px;
+    color: #474747;
+}
+
+.attacks-value {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 28px;
+}
+
+.attacks-note {
+    font-size: 18px;
+    line-height: 23px;
+}
+
+.overlay-footer {
+    padding: 10px 40px 50px 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.overlay-footer .overlay-title {
+    margin-bottom: 20px;
+}
+
+.footer-col_left {
+    width: 43%;
+}
+
+.footer-col_right {
+    width: 53%;
+}
+
+.footer-cols .overlay-title {
+    margin-bottom: 15px;
+}
+
+.additional_info {
+    font-size: 16px;
+    line-height: 21px;
+}
+
+.additional_info .label {
+    font-weight: 700;
+}
+
+.custom_items-name {
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 21px;
+}
+
+.custom_items-type {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    color: #474747;
+}
+
+.custom_items {
+    position: relative;
+    min-height: 72px;
+    padding: 20px;
+}
+
+.overlay-custom_diagonal::before {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 1px;
+    z-index: 2;
+    background: #A8885E;
+}
+
+.overlay-custom_diagonal_1::before {
+    top: 5px;
+    left: -12px;
+    transform: rotate(135deg);
+}
+
+.overlay-custom_diagonal_2::before {
+    transform: rotate(45deg);
+    bottom: -6px;
+    left: -2px;
+}
+
+.overlay-custom_diagonal_3::before {
+    transform: rotate(45deg);
+    left: -12px;
+    top: -6px;
+}
+
+.overlay-custom_diagonal_4::before {
+    transform: rotate(135deg);
+    right: -13px;
+    bottom: 5px;
+}
+
+.overlay-custom_diagonal_1,
+.overlay-custom_diagonal_4 {
+    width: calc(100% - 22px);
+    height: 1px;
+    background: #A8885E;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.overlay-custom_diagonal_1 {
+    top: 0;
+}
+
+.overlay-custom_diagonal_4 {
+    bottom: 0;
+}
+
+.overlay-custom_diagonal_3,
+.overlay-custom_diagonal_2 {
+    width: 1px;
+    height: calc(100% - 22px);
+    background: #A8885E;
+    display: block;
+    margin-top: 11px;
+    position: absolute;
+    top: 0;
+}
+
+.overlay-custom_diagonal_2 {
+    left: 0;
+}
+
+.overlay-custom_diagonal_3 {
+    right: 0;
+}
+
+.custom_items:after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    left: 2px;
+    top: 2px;
+    border: 1px solid #A8885E;
+}
+
+@media screen and (max-width: 1023px) {
+    .overlay-stats-item {
+        width: 80px;
+        height: 80px;
+    }
+
+    .overlay-subheader .label {
+        font-size: 13px;
+    }
+
+    .overlay-subheader .value {
+        font-size: 28px;
+    }
+
+    .overlay-life {
+        width: 100px;
+        height: 80px;
+    }
+
+    .overlay-stats-number {
+        width: 15px;
+        height: 15px;
+        font-size: 13px;
+        bottom: -4px;
+    }
+
+    .overlay-stats-item:after {
+        width: 15px;
+        height: 15px;
+        bottom: -7px;
+    }
+
+    .attacks-col-name {
+        width: 30%;
+    }
+
+    .attacks-col-range {
+        width: 18.5%;
+    }
+
+    .attacks-col-damage {
+        width: 16%;
+    }
+}

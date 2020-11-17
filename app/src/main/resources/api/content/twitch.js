@@ -12,14 +12,20 @@ exports.get = function (req) {
       body: thymeleaf.render(resolve("charsheet.html"), {
         content: getSingleMonsterFromCache(req.params.id),
         app: app,
-        pageComponents: helpers.getPageComponents(req),
+        pageComponents: helpers.getPageComponents(req)
       }),
-      contentType: "text/html",
+      contentType: "text/html"
     };
   } else {
     return {
-      body: getSingleMonsterFromCache(req.params.id),
-      contentType: "application/json",
+      body: {
+        data: thymeleaf.render(resolve("charsheet.html"), {
+          content: getSingleMonsterFromCache(req.params.id),
+          app: app,
+          pageComponents: helpers.getPageComponents(req)
+        })
+      },
+      contentType: "application/json"
     };
   }
 
@@ -50,6 +56,7 @@ exports.get = function (req) {
     monsterData.image = portal.imageUrl({
       id: monsterData.imageArt,
       scale: "block(880,148)",
+      type: "absolute"
     });
     monster.data = monsterData;
     return monster;
