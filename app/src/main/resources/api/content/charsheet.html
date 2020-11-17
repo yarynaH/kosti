@@ -1,3 +1,9 @@
+<head data-th-if="${nice}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" type="text/css" data-th-href="${portal.assetUrl({'_path=/css/twitch.css'})}" />
+</head>
 <div class="page-wrapper">
     <div class="overlay-wrapper">
         <div class="overlay-diagonal overlay-diagonal_1"></div>
@@ -172,7 +178,8 @@
                     <div class="overlay-custom_diagonal overlay-custom_diagonal_2"></div>
                     <div class="overlay-custom_diagonal overlay-custom_diagonal_3"></div>
                     <div class="overlay-custom_diagonal overlay-custom_diagonal_4"></div>
-                    <div data-th-each="item: ${content.data.attunedItems}">
+                    <div data-th-if="${content.data.attunedItems && content.data.attunedItems.size > 0}"
+                        data-th-each="item: ${content.data.attunedItems}">
                         <h4 class="custom_items-name"><span data-th-remove="tag" data-th-text="${item.name}"> </span>
                         </h4>
                         <p class="custom_items-type"><span data-th-remove="tag" data-th-text="${item.desc}"> </span></p>

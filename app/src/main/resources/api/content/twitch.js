@@ -12,7 +12,8 @@ exports.get = function (req) {
       body: thymeleaf.render(resolve("charsheet.html"), {
         content: getSingleMonsterFromCache(req.params.id),
         app: app,
-        pageComponents: helpers.getPageComponents(req)
+        pageComponents: helpers.getPageComponents(req),
+        nice: true
       }),
       contentType: "text/html"
     };
