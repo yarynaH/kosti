@@ -226,5 +226,8 @@
     <mapping controller="/api/content/twitch.js">
       <pattern>/api/charsheet</pattern>
     </mapping>
+    <mapping controller="/api/content/monster/random.js">
+      <pattern>/api/monster/random</pattern>
+    </mapping>
   </mappings>
 </site>
