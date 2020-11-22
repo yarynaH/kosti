@@ -354,6 +354,10 @@
       <label>Challenge rating</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="cr" type="Double">
+      <label>Challenge rating new</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="alignmentOld" type="TextLine">
       <label>alignment Old</label>
       <occurrences minimum="0" maximum="1"/>
