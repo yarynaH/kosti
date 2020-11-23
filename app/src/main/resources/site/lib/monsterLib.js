@@ -12,8 +12,10 @@ function fixCR() {
   var res = contentLib.query({
     start: 0,
     count: -1,
-    query: "_parentPath = '/content" + getMonsterLocation()._path + "' "
+    query: "_parentPath = '/content" + getMonsterLocation()._path + "' ",
+    contentTypes: [app.name + ":monster"]
   });
+  norseUtils.log("updating cr for " + res.total + " monsters");
   res.hits.forEach((monster) => {
     var cr = monster.data.challengeRating;
     var intCr = parseInt(cr);
@@ -29,6 +31,7 @@ function fixCR() {
       updateMonsterCr(monster, cr);
     });
   });
+  norseUtils.log("done");
 }
 
 function getMonsterLocation() {
@@ -37,6 +40,7 @@ function getMonsterLocation() {
 }
 
 function updateMonsterCr(monster, cr) {
+  norseUtils.log("updating cr for " + monster.displayName);
   contentLib.modify({
     key: monster._id,
     editor: editor
