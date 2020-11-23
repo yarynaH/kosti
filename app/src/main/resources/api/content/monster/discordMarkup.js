@@ -43,14 +43,32 @@ function createMarkup(monster) {
     : "";
   res += getSavingThrows();
   res += getSkills();
-  reply.push(res);
-  reply.push("\n**Действия**\n" + getActions("actions"));
+  var actions = [];
+  actions.push("\n**Действия**\n" + getActions("actions"));
 
   if (monster.data.legendaryActions) {
-    reply.push("\n**Легендарные действия**\n" + getActions("legendaryActions"));
+    actions.push(
+      "\n**Легендарные действия**\n" + getActions("legendaryActions")
+    );
   }
   if (monster.data.specialAbilities) {
-    reply.push("\n**Особые умения**\n" + getActions("specialAbilities"));
+    actions.push("\n**Особые умения**\n" + getActions("specialAbilities"));
+  }
+  var actionsLength = 0;
+  var actionsString = "";
+  actions.forEach((action) => {
+    actionsLength += action.length;
+    actionsString += action;
+  });
+  if (actionsLength + res.length < 1900) {
+    res += actionsString;
+    reply.push(res);
+  } else if (actionsLength < 1900) {
+    reply.push(res);
+    reply.push(actionsString);
+  } else {
+    reply.push(res);
+    Array.prototype.push.apply(reply, actions);
   }
   return reply;
 

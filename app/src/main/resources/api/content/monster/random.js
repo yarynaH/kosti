@@ -84,6 +84,9 @@ exports.get = function (req) {
   }
 
   function generateEncounter(cr) {
+    if (!cr || cr === 0 || isNaN(cr)) {
+      cr = Math.floor(Math.random() * 30);
+    }
     var currCr = 0;
     var result = "";
     do {
