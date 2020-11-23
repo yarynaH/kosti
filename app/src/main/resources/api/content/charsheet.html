@@ -13,7 +13,7 @@
         <div class="overlay-diagonal overlay-diagonal_4"></div>
         <div class="overlay-header" data-th-style="${'background-image:url(\'' + content.data.image} + '\')'">
             <h2 class="overlay-char_name">
-                <span data-th-remove="tag" data-th-text="${content.displayName}"> </span>, <span class="overlay-char_race"
+                <span style="text-transform: uppercase;" data-th-text="${content.displayName}"> </span>, <span class="overlay-char_race"
                     data-th-text="${content.data.race}" style="font-size: 18px; line-height: 1.2;"> </span>
             </h2>
             <h3 class="overlay-char_class">
@@ -52,84 +52,84 @@
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             СИЛ
                         </span>
-                        <span class="value" data-th-text="${content.data.strength}">
+                        <span class="value" data-th-text="${content.data.strMod}">
                             0
                         </span>
                     </div>
-                    <div class="overlay-stats-number" data-th-text="${content.data.strMod}">
+                    <div class="overlay-stats-number" data-th-text="${content.data.strength}">
                         11
                     </div>
                 </div>
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             ЛОВ
                         </span>
-                        <span class="value" data-th-text="${content.data.dexterity}">
+                        <span class="value" data-th-text="${content.data.dexMod}">
                             -1
                         </span>
                     </div>
-                    <div class="overlay-stats-number" data-th-text="${content.data.dexMod}">
+                    <div class="overlay-stats-number" data-th-text="${content.data.dexterity}">
                         9
                     </div>
                 </div>
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             ТЕЛ
                         </span>
-                        <span class="value" data-th-text="${content.data.constitution}">
+                        <span class="value" data-th-text="${content.data.conMod}">
                             +5
                         </span>
                     </div>
-                    <div class="overlay-stats-number" data-th-text="${content.data.conMod}">
+                    <div class="overlay-stats-number" data-th-text="${content.data.constitution}">
                         20
                     </div>
                 </div>
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             МУД
                         </span>
-                        <span class="value" data-th-text="${content.data.wisdom}">
+                        <span class="value" data-th-text="${content.data.wisMod}">
                             0
                         </span>
                     </div>
-                    <div class="overlay-stats-number" data-th-text="${content.data.wisMod}">
+                    <div class="overlay-stats-number" data-th-text="${content.data.wisdom}">
                         11
                     </div>
                 </div>
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             ИНТ
                         </span>
-                        <span class="value" data-th-text="${content.data.intelligence}">
+                        <span class="value" data-th-text="${content.data.intMod}">
                             0
                         </span>
                     </div>
-                    <div class="overlay-stats-number" data-th-text="${content.data.intMod}">
+                    <div class="overlay-stats-number" data-th-text="${content.data.intelligence}">
                         11
                     </div>
                 </div>
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;>
                             ХАР
                         </span>
-                        <span class="value" data-th-text="${content.data.charisma}">
+                        <span class="value" data-th-text="${content.data.chaMod}">
                             0
                         </span>
                     </div>
-                    <div class="overlay-stats-number" data-th-text="${content.data.chaMod}">
+                    <div class="overlay-stats-number" data-th-text="${content.data.charisma}">
                         11
                     </div>
                 </div>
