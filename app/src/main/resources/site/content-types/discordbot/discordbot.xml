@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Discord bot</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="welcomeText" type="TextArea">
+      <label>Welcome text</label>
+      <config>
+        <max-length>1950</max-length> 
+      </config>
+      <occurrences minimum="0" maximum="0"/>
+    </input>
+  </form>
+</content-type>
