@@ -74,6 +74,12 @@
       <config>
       </config>
     </input>
+    <input name="discordBot" type="ContentSelector">
+      <label>Discord bot</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
     <input name="agreements" type="ContentSelector">
       <label>Agreements</label>
       <occurrences minimum="0" maximum="3"/>
@@ -225,6 +231,12 @@
     </mapping>
     <mapping controller="/api/content/twitch.js">
       <pattern>/api/charsheet</pattern>
+    </mapping>
+    <mapping controller="/api/content/monster/random.js">
+      <pattern>/api/monster/random</pattern>
+    </mapping>
+    <mapping controller="/api/content/discordBot.js">
+      <pattern>/api/discordbot</pattern>
     </mapping>
   </mappings>
 </site>

@@ -67,7 +67,6 @@ function getVideo(key) {
 
 function getScheduleFromCache() {
   var schedule = cache.api.getOnly("schedule");
-  schedule = false;
   if (!schedule) {
     schedule = getSchedule();
     cache.api.put("schedule", schedule);

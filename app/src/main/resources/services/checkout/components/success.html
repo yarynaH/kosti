@@ -12,13 +12,11 @@
                 <h2 class="checkout-title">Спасибо за ваш заказ!</h2>
                 <div class="confirmation-msg" data-th-if="${pendingPage}">
                     Ваш заказ получен под номером
-                    <span data-th-text="${cart.userId}"></span>. В ближайшее время мы
-                    свяжемся с вами для уточнения заказа.
+                    <span data-th-text="${cart.userId}"></span> и сейчас обрабатывается.
                 </div>
                 <div class="confirmation-msg" data-th-unless="${pendingPage}">
                     Все прошло как по маслу! Ваш заказ получен под номером
-                    <span data-th-text="${cart.userId}"></span> и успешно оплачен. В
-                    ближайшее время мы свяжемся с вами для уточнения заказа.
+                    <span data-th-text="${cart.userId}"></span> и успешно оплачен.
                 </div>
                 <a data-th-href="${shopUrl}" class="checkout-back"
                     data-th-text="${portal.localize({'_key=shop.title.toStore', '_locale=ru'})}"

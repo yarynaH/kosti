@@ -18,7 +18,7 @@ exports.post = handlePost;
 
 function handlePost(req) {
   if (req && req.params && req.params.email) {
-    var result = contextLib.runInDraftAsAdmin(function() {
+    var result = contextLib.runInDraftAsAdmin(function () {
       return newsletterLib.addEmailToNewsletter(req.params.email);
     });
     if (result) {
@@ -44,12 +44,18 @@ function handleReq(req) {
     var view = resolve("landingpage.html");
     var model = createModel();
     var body = thymeleaf.render(view, model);
+    var jquery = portal.assetUrl({ path: "js/jquery-2.2.0.min.js" });
+    var typeText = portal.assetUrl({ path: "js/jquery.animateTyping.js" });
     var fileName = portal.assetUrl({ path: "js/landing.js" });
     return {
       body: body,
       contentType: "text/html",
       pageContributions: {
-        bodyEnd: ["<script src='" + fileName + "'></script>"]
+        bodyEnd: [
+          "<script src='" + jquery + "'></script>",
+          //"<script src='" + fileName + "'></script>"
+          "<script src='" + typeText + "'></script>"
+        ]
       }
     };
   }

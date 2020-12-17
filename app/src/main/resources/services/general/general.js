@@ -7,6 +7,7 @@ const storeLib = require(libLocation + "storeLib");
 const blogLib = require(libLocation + "blogLib");
 const homepageLib = require(libLocation + "homepageLib");
 const newsletterLib = require(libLocation + "newsletterLib");
+const monsterLib = require(libLocation + "monsterLib");
 
 exports.get = function (req) {
   var params = req.params;
@@ -41,6 +42,9 @@ exports.get = function (req) {
       break;
     case "updateCache":
       homepageLib.updateCache();
+      break;
+    case "fixCR":
+      monsterLib.fixCR();
       break;
   }
   return {

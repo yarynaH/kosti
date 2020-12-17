@@ -64,6 +64,10 @@ exports.get = function (req) {
   }
 
   function getModifier(value) {
-    return Math.floor((parseInt(value) - 10) / 2).toFixed();
+    var value = Math.floor((parseInt(value) - 10) / 2).toFixed();
+    if (value > 0) {
+      return "+" + value;
+    }
+    return value;
   }
 };
