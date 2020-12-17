@@ -13,6 +13,8 @@ const cache = cacheLib.api.createGlobalCache({
   expire: 60 * 60 * 24
 });
 
+const emoji = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"];
+
 exports.get = function (req) {
   var cr = req.params.cr;
   switch (req.params.action) {
@@ -88,15 +90,18 @@ exports.get = function (req) {
       cr = Math.floor(Math.random() * 30);
     }
     var currCr = 0;
-    var result = "";
+    var result = "А вот и драчка:\n";
+    let i = 0;
     do {
       var temp = cr - currCr + 0.5;
       var count = countMonsters(temp);
       var monster = getMonster({ count: count, cr: temp });
       currCr += monster.data.cr;
-      result += monster.displayName + ", ";
+      result += emoji[i] + " " + monster.displayName + "\n";
+      i++;
     } while (currCr <= cr - 0.0001);
-    result += "общая сложность " + currCr;
+    result += "Общая сложность " + currCr + "\n";
+    result += "Нажми на соответсвующуюю кнопку, чтоб получить монстра";
     return result;
   }
 
