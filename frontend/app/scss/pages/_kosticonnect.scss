@@ -106,8 +106,9 @@
     margin: 0 -24px;
   }
 
-  &-img {
-    img {
+  &-video_wrap {
+    video {
+      width: 100%;
       padding-left: 10px;
       padding-bottom: 10px;
 
