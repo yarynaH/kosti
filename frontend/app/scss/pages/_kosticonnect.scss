@@ -12,28 +12,39 @@
     @include tablet-all {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       padding-bottom: 40px;
     }
   }
 
-  &-where {
-      border-bottom: 2px solid #EE1E5D;
-      padding-bottom: 10px;
+  &-short_info {
+    display: flex;
+    align-items: center;
 
-      @include tablet-all {
-        width: 41%;
-      }
+    @include mobile {
+      justify-content: space-between;
+      padding-bottom: 25px;
+    }
+  }
+
+  &-where {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #EE1E5D;
+    padding-bottom: 10px;
+
+    @include tablet-all {
+      width: 41%;
+    }
+
+    div {
+      max-width: 29%;
+    }
   }
 
   &-date {
-    @include mobile {
-      padding-bottom: 25px;
-    }
-
-    @include tablet-all {
-      max-width: 32.5%;
-    }
+    margin-right: 10px;
   }
 
   &-button  {
@@ -267,8 +278,12 @@
     position: relative;
 
     img {
-      min-height: 154px;
       object-fit: cover;
+      width: 100%;
+
+      @include mobile {
+        min-height: 154px;
+      }
     }
   }
   
@@ -284,6 +299,43 @@
     font-size: 16px;
     line-height: 1.5;
   }
+} //end of hightlights
+
+.fest_program {
+  padding: 48px 0;
+
+  @include tablet-all {
+    padding: 48px 16px;
+  }
+
+  &-title {
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 1.3;
+    color: #FFFFFF;
+    position: relative;
+
+    // &:after {
+    //   content: "";
+    //   background: #F9A033;
+    //   height: 2px;
+
+    //   @include mobile {
+    //     display: block;
+    //     width: 100%;
+    //     margin-top: 12px;
+    //   }
+
+    //   @include tablet-all {
+    //     position: absolute;
+    //     width: 27%;
+    //     top: 50%;
+    //     right: 0;
+    //   }
+    // }
+  }
 }
 
 
@@ -294,7 +346,7 @@
   }
 
   @include tablet-all {
-    padding-top: 140px;
+    padding-top: 115px;
   }
 
   &-title {
@@ -322,6 +374,7 @@
     background-size: 76%;
 
     @include mobile {
+      align-items: center;
       padding: 0 24px;
     }
 
@@ -338,7 +391,7 @@
   &-item {
     background: #fff;
     padding: 40px 32px;
-    flex: 0 1 33%;
+    flex: 0 1 32%;
     max-width: 329px;
 
     @include tablet-all {
@@ -496,9 +549,13 @@
   &-title {
     font-family: Raleway;
     font-weight: 900;
-    font-size: 48px;
+    font-size: 40px;
     line-height: 1.2;
     color: #fff;
+
+    @include tablet-all {
+      font-size: 48px;
+    }
   }
 
   &-subtitle {
@@ -610,9 +667,56 @@
     padding-bottom: 64px;
   }
 
-  &-actions {
-    display: flex;
+  &-masters {
+    margin-right: 10px;
+
+    @include tablet-all {
+      margin-right: 18px;
+    }
+  }
+} //end of .attend
+
+.participants,
+.games {
+  &-title {
+    font-family: Raleway;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 1.2;
+    margin-bottom: 35px;
+
+    @include tablet-all {
+      font-size: 48px;
+      margin-bottom: 40px;
+    }
+  }
+
+  &-list {
+    display: grid;
     justify-content: space-between;
+    grid-template-columns: 60px 60px 60px 60px;
+    grid-row-gap: 50px;
+
+    @include tablet-all {
+      grid-template-columns: 67px 67px 67px 67px 67px 67px 67px 67px;
+      grid-row-gap: 67px;
+    }
+  }
+
+  &-item {
+    height: 60px;
+    background: #EE1E5D;
+    border-radius: 8px;
+    overflow: hidden;
+
+    @include tablet-all {
+      height: 67px;
+    }
+
+    & img {
+      height: 100%;
+      object-fit: cover;
+    }
   }
 }
 
@@ -622,48 +726,22 @@
   }
 
   &-title {
-    font-family: Raleway;
-    font-weight: 900;
-    font-size: 48px;
-    line-height: 1.2;
     color: #11090F;
-    margin-bottom: 35px;
-
-    @include tablet-all {
-      margin-bottom: 8px;
-    }
-  }
-
-  &-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -13px;
-
-    @include tablet-all {
-      margin: 0 -34px;
-    }
-  }
-
-  &-item {
-    height: 60px;
-    width: 60px;
-    background: #EE1E5D;
-    border-radius: 8px;
-    margin: 13px;
-    overflow: hidden;
-
-    @include tablet-all {
-      height: 67px;
-      width: 67px;
-      margin: 34px;
-    }
-
-    & img {
-      height: 100%;
-      object-fit: cover;
-    }
   }
 }
+
+.games {
+  padding: 16px 0 0;
+
+  @include mobile {
+    // padding-top: 36px;
+  }
+
+  &-title {
+    color: #fff;
+  }
+}
+
 
 .other_participants {
   &-title {
@@ -684,6 +762,7 @@
   &-list {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 36px;
 
     @include mobile {
       flex-wrap: wrap;
@@ -708,12 +787,13 @@
   &-title {
     font-family: Raleway;
     font-weight: 900;
-    font-size: 48px;
+    font-size: 40px;
     line-height: 48px;
     color: #fff;
     padding-bottom: 55px;
 
     @include tablet-all {
+      font-size: 48px;
       padding-bottom: 40px;
     }
   }
