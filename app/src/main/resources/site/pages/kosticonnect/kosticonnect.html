@@ -18,7 +18,8 @@
             <div class="hero_banner">
                 <div class="hero_banner-video_wrap">
                     <video autoplay muted loop class="hero_banner-video">
-                        <source data-th-src="${portal.assetUrl({'_path=images/kosticonnect/rain.mp4'})}" type="video/mp4">
+                        <source data-th-src="${portal.assetUrl({'_path=images/kosticonnect/rain.mp4'})}"
+                            type="video/mp4">
                     </video>
                 </div>
                 <div class="hero_banner-content">
@@ -171,13 +172,22 @@
                         <div class="shop_block-actions">
                             <div class="shop_block-size_select select-field">
                                 <select name="size" class=" select">
-                                    <option value="created">M
+                                    <option value="S">M
                                     </option>
-                                    <option value="created">S
+                                    <option value="M">S
+                                    </option>
+                                    <option value="L">M
+                                    </option>
+                                    <option value="XL">S
+                                    </option>
+                                    <option value="XXL">M
+                                    </option>
+                                    <option value="XXXL">S
                                     </option>
                                 </select>
                             </div>
-                            <a target="_blank" class="shop_block-buy kosticonnect-button primary">
+                            <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
+                                data-itemid="f525ad6a-cea6-4869-b0c4-5788e5a8fec3">
                                 Купить
                             </a>
                         </div>

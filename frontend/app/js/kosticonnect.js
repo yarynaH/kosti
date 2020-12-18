@@ -10,13 +10,16 @@ function initKosticonnetcScripts() {
 
 function addTocart(e, element) {
   e.preventDefault();
-  console.log();
   let data = {
     action: "modify",
     cartId: getCookieValue("cartId"),
     itemId: $(element).data().itemid,
     amount: 1
   };
+  let sizeSelect = $(element).parent().find("select");
+  if (sizeSelect.length > 0) {
+    data.size = sizeSelect.val();
+  }
   let call = makeAjaxCall(cartServiceUrl, "POST", data, true);
   call.done(function () {
     let win = window.open("/cart", "_blank");
