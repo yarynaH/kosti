@@ -51,10 +51,22 @@
       background: #EE1E5D;
       border: 0;
 
-      &:hover,
+      &:hover {
+        @include tablet-all {
+          background: #C30941;
+        }
+      }
+
       &:focus {
         @include tablet-all {
-          background: darken(#EE1E5D, 20%);
+          background: #C30941;
+          outline: 2px solid #960330;
+        }
+      }
+
+      &:active {
+        @include tablet-all {
+          background: #960330;
         }
       }
     }
@@ -106,8 +118,9 @@
     margin: 0 -24px;
   }
 
-  &-img {
-    img {
+  &-video_wrap {
+    video {
+      width: 100%;
       padding-left: 10px;
       padding-bottom: 10px;
 
@@ -449,6 +462,26 @@
 
   &-ticket_desc {
     margin-bottom: 32px;
+  }
+
+  &-actions {
+    display: flex;
+  }
+
+  &-size_select {
+    min-width: 85px;
+    margin-right: 8px;
+
+    .select {
+      border: 1px solid #11090F;
+      border-radius: 0;
+
+      &:focus {
+        box-shadow: none;
+        border-color: #11090f;
+        outline: 1px solid #11090f;
+      }
+    }
   }
 }
 

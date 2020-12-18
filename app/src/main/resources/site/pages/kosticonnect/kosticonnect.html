@@ -16,9 +16,10 @@
                 </div>
             </div>
             <div class="hero_banner">
-                <div class="hero_banner-img">
-                    <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/stop_kadr.jpg'})}"
-                        alt="kosticonnect">
+                <div class="hero_banner-video_wrap">
+                    <video autoplay muted loop class="hero_banner-video">
+                        <source data-th-src="${portal.assetUrl({'_path=images/kosticonnect/rain.mp4'})}" type="video/mp4">
+                    </video>
                 </div>
                 <div class="hero_banner-content">
                     <h2 class="hero_banner-title">
@@ -137,10 +138,12 @@
                                 Лайв музыкальные выступления
                             </li>
                         </ul>
-                        <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
-                            data-itemid="f525ad6a-cea6-4869-b0c4-5788e5a8fec3">
-                            Купить
-                        </a>
+                        <div class="shop_block-actions">
+                            <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
+                                data-itemid="f525ad6a-cea6-4869-b0c4-5788e5a8fec3">
+                                Купить
+                            </a>
+                        </div>
                     </li>
                     <li class="shop_block-item turbo">
                         <div class="shop_block-img_wrap">
@@ -167,9 +170,19 @@
                                 Участие в афтерпати
                             </li>
                         </ul>
-                        <a target="_blank" class="shop_block-buy kosticonnect-button primary">
-                            Купить
-                        </a>
+                        <div class="shop_block-actions">
+                            <div class="shop_block-size_select select-field">
+                                <select name="size" class=" select">
+                                    <option value="created">M
+                                    </option>
+                                    <option value="created">S
+                                    </option>
+                                </select>
+                            </div>
+                            <a target="_blank" class="shop_block-buy kosticonnect-button primary">
+                                Купить
+                            </a>
+                        </div>
                     </li>
                     <li class="shop_block-item shop_block-support">
                         Финансовая поддержка позволит нанять специалистов синхронного перевода для англоязычных лекторов
@@ -228,6 +241,110 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="kosticonnect-mid2">
+        <div class="site_content">
+            <div class="participants">
+                <h2 class="participants-title">КТО УЖЕ С НАМИ?</h2>
+                <ul class="participants-list">
+                    <li class="participants-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/attend.jpg'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                    <li class="participants-item">
+                    </li>
+                </ul>
+            </div>
+            <ul class="other_participants-list">
+                <li class="other_participants-item">
+                    <h3 class="other_participants-title">Клубы</h3>
+                    <p class="other_participants-text">
+                        Ледокол<br>
+                        Дровосек<br>
+                        Алхимия<br>
+                        Хуимия<br>
+                        Кивробаза<br>
+                        Дом перуна<br>
+                    </p>
+                </li>
+                <li class="other_participants-item">
+                    <h3 class="other_participants-title">Игры</h3>
+                    <p class="other_participants-text">
+                        Хуманити зеро<br>
+                        Интербелум<br>
+                        Нити судьбы<br>
+                        Игры Легаса<br>
+                    </p>
+                </li>
+                <li class="other_participants-item">
+                    <h3 class="other_participants-title">Лекторы</h3>
+                    <p class="other_participants-text">
+                        Тен<br>
+                        Легас<br>
+                        Бреганов<br>
+                        Адракс<br>
+                        Бесценные долбоебы<br>
+                        Рома ливер<br>
+                    </p>
+                </li>
+                <li class="other_participants-item">
+                    <h3 class="other_participants-title">Воркшопы</h3>
+                    <p class="other_participants-text">
+                        Как написать свой сеттинг<br>
+                        Как написать свою игру<br>
+                        Как написать свою Кавалерию<br>
+                        Эноа это ближний восток<br>
+                        Эноа это аладин<br>
+                        Эноа это арабская ночь<br>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="kosticonnect-bot">
+        <div class="site_content hashtags">
+            <h2 class="hashtags-title">
+                ХЕШТЕГИ ФЕСТИВАЛЯ
+            </h2>
+            <ul class="hashtags-list">
+                <li class="hashtags-item hashtags-snakecity">
+                    <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/hashtagsnakecity.svg'})}"
+                        alt="regular ticket">
+                </li>
+                <li class="hashtags-item hashtags-kosticonnect">
+                    <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/hashtagkosticonnect.svg'})}"
+                        alt="regular ticket">
+                </li>
+            </ul>
         </div>
     </div>
     <div data-th-utext="${pageComponents.footer}" data-th-remove="tag"></div>
