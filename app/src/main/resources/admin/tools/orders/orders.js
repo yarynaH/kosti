@@ -87,7 +87,9 @@ exports.get = function (req) {
   return {
     body: thymeleaf.render(view, {
       pageComponents: helpers.getPageComponents(req),
-      cart: cartLib.getCart(params.id),
+      cart: contextLib.runAsAdminInDefault(function () {
+        return cartLib.getCart(params.id);
+      }),
       carts: carts,
       toolUrl: toolUrl,
       products: contentLib.query({

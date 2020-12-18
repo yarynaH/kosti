@@ -26,14 +26,15 @@
                     style="border: 1px solid #dedede; border-bottom: 0;">
                     <tr data-th-each="item: ${cart.items}">
                         <td width="30%" style="padding: 20px 15px 20px 8%; border-bottom: 1px solid #dedede;">
-                            <img data-th-src="${item.imageCart.url}" alt="Product image" width="100px" />
+                            <img data-th-src="${item.imageCart.urlAbsolute}" alt="Product image" width="100px" />
                         </td>
                         <td width="70%"
                             style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
                             <div style="color: #505050;" data-th-text="${item.displayName}"></div>
                             <div>
                                 <span style="color: #707070; font-weight: bold;">Размер:</span>
-                                <span style="color: #505050;" data-th-text="${item.itemSize}">XS</span>
+                                <span style="color: #505050;" data-th-if="${item.itemSize}"
+                                    data-th-text="${item.itemSize}">XS</span>
                             </div>
                             <div>
                                 <span style="color: #707070; font-weight: bold;">Количество:</span>
@@ -41,8 +42,10 @@
                             </div>
                             <div>
                                 <span style="color: #707070; font-weight: bold;">Номера билетов:</span>
-                                <span style="color: #505050;" data-th-each="id: ${item.itemsIds}"
-                                    data-th-text="${id.id}">1</span>
+                                <div data-th-remove="tag" data-th-each="id: ${item.itemsIds}">
+                                    <br />
+                                    <span style="color: #505050;" data-th-text="${id.id}">1</span>
+                                </div>
                             </div>
                             <div style="color: #707070; font-weight: bold;" data-th-text="${'UAH ' + item.price}"></div>
                         </td>
