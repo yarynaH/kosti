@@ -191,8 +191,8 @@ function getorderCreatedMail(params) {
           ? true
           : false
     }),
-    subject: "Ваш заказ получен",
-    attachments: getTickets(params)
+    subject: "Ваш заказ получен"
+    //attachments: getTickets(params)
   };
 
   function getTickets(params) {
