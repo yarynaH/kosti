@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700;900&display=swap');
 
-@font-face {
-  font-family: "MyriadPro";
-  src: url('../fonts/MyriadPro-Regular.woff') format('woff'),
-      url('../fonts/MyriadPro-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 .kosticonnect {
   &-top {
     background-color: #443A97;
@@ -242,7 +234,7 @@
   }
 
   &-desc {
-    font-family: "Myriad Pro";
+    font-family: "Roboto";
     font-size: 14px;
     line-height: 1.4;
     color: #fff;
@@ -354,7 +346,7 @@
   }
 
   &-support {
-    font-family: "Myriad Pro";
+    font-family: "Roboto";
     font-size: 16px;
     line-height: 1.5;
     color: #fff;
@@ -433,7 +425,7 @@
   }
 
   &-ticket_desc-item {
-    font-family: "Myriad Pro";
+    font-family: "Roboto";
     font-size: 14px;
     line-height: 1.45;
     color: #11090F;
@@ -516,7 +508,7 @@
   }
 
   &-desc {
-    font-family: "Myriad Pro";
+    font-family: "Roboto";
     font-size: 16px;
     line-height: 1.5;
     color: #fff;
@@ -578,7 +570,7 @@
   }
 
   &-disc {
-    font-family: "Myriad Pro";
+    font-family: "Roboto";
     color: #11090F;
     font-size: 16px;
     line-height: 1.5;
