@@ -25,7 +25,7 @@ function runAsAdminInDefault(callback) {
     {
       repository: "com.enonic.cms.default",
       branch: "master",
-      principals: ["role:system.admin"]
+      principals: ["role:system.everyone"]
     },
     callback
   );
