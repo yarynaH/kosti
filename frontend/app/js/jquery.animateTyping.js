@@ -56,8 +56,15 @@
         $('head').append(`
            <style>
                .animate-typing[data-animate-index="${index}"]::after {
-                   content: '|';
+                   display: inline-block;
+                   content: '';
                    animation: animateCursor ${speed}ms infinite alternate cubic-bezier(.68,-0.55,.27,1.55);
+                   width: 29px;
+                   height: 48px;
+                   background: #EE1E5D;
+                   box-shadow: 0px 1px 8px rgba(238, 30, 93, 0.64);
+                   border-radius: 1px;
+                   margin-bottom: -5px;
                }
            </style>
        `);

@@ -45,6 +45,7 @@
   }
 
   &-button  {
+    display: inline-block;
     font-family: 'Raleway', sans-serif;
     font-weight: bold;
     font-size: 16px;
@@ -52,17 +53,32 @@
     padding: 16px 24px;
     color: #fff;
     text-transform: uppercase;
-    text-align: center;
+    transition: all ease-out 0.2s;
 
     &.primary {
       background: #EE1E5D;
       border: 0;
+
+      &:hover,
+      &:focus {
+        @include tablet-all {
+          background: darken(#EE1E5D, 20%);
+        }
+      }
     }
   
     &.secondary {
-      border: 1px solid #FFFFFF;
+      border: 1px solid #fff;
       border-radius: 1px;
       background: transparent;
+
+      &:hover,
+      &:focus {
+        @include tablet-all {
+          border-color: #EE1E5D;
+          color: #EE1E5D;
+        }
+      }
     }
   }
 
@@ -136,7 +152,7 @@
     bottom: 0;
     height: 100%;
     width: 100%;
-    padding: 20px 25px 30px;
+    padding: 20px 25px 48px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -154,7 +170,7 @@
     font-weight: bold;
     font-size: 40px;
     line-height: 1.2;
-    color: #FFFFFF;
+    color: #fff;
     width: 100%;
     text-transform: uppercase;
     margin-bottom: 46px;
@@ -162,6 +178,12 @@
     @include tablet-all {
       margin-top: 40px;
       font-size: 48px;
+    }
+
+    span {
+      @include mobile {
+        display: block;
+      }
     }
   }
 
@@ -223,7 +245,7 @@
     font-family: "Myriad Pro";
     font-size: 14px;
     line-height: 1.4;
-    color: #FFFFFF;
+    color: #fff;
     padding-top: 16px;
 
     &:after {
@@ -275,7 +297,7 @@
     font-weight: 900;
     font-size: 40px;
     line-height: 1.2;
-    color: #FFFFFF;
+    color: #fff;
     padding: 0 24px;
 
     @include tablet-all {
@@ -403,7 +425,7 @@
     font-weight: 900;
     font-size: 20px;
     line-height: 1.4;
-    color: #FFFFFF;
+    color: #fff;
     padding: 6px 8px;
     background: #1E1852;
     display: inline-block;
@@ -433,17 +455,6 @@
     }
   }
 
-  &-buy {
-    font-family: Raleway;
-    font-weight: 900;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #FFFFFF;
-    padding: 16px 24px;
-    background: #EE1E5D;
-    border: 0;
-  }
-
   &-ticket_desc {
     margin-bottom: 32px;
   }
@@ -462,7 +473,7 @@
     font-weight: 900;
     font-size: 48px;
     line-height: 1.2;
-    color: #FFFFFF;
+    color: #fff;
   }
 
   &-subtitle {
@@ -508,7 +519,7 @@
     font-family: "Myriad Pro";
     font-size: 16px;
     line-height: 1.5;
-    color: #FFFFFF;
+    color: #fff;
   }
 }
 
@@ -614,11 +625,17 @@
     background: #EE1E5D;
     border-radius: 8px;
     margin: 13px;
+    overflow: hidden;
 
     @include tablet-all {
       height: 67px;
       width: 67px;
       margin: 34px;
+    }
+
+    & img {
+      height: 100%;
+      object-fit: cover;
     }
   }
 }
@@ -668,7 +685,7 @@
     font-weight: 900;
     font-size: 48px;
     line-height: 48px;
-    color: #FFFFFF;
+    color: #fff;
     padding-bottom: 55px;
 
     @include tablet-all {
