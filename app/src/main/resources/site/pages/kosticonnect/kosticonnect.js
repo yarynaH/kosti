@@ -41,7 +41,7 @@ function handleReq(req) {
   var user = userLib.getCurrentUser();
 
   function renderView() {
-    var view = resolve("landingpage.html");
+    var view = resolve("kosticonnect.html");
     var model = createModel();
     var body = thymeleaf.render(view, model);
     var jquery = portal.assetUrl({ path: "js/jquery-2.2.0.min.js" });
@@ -53,7 +53,7 @@ function handleReq(req) {
       pageContributions: {
         bodyEnd: [
           "<script src='" + jquery + "'></script>",
-          "<script src='" + fileName + "'></script>",
+          //"<script src='" + fileName + "'></script>"
           "<script src='" + typeText + "'></script>"
         ]
       }
