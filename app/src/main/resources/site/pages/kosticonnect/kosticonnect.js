@@ -52,7 +52,6 @@ function handleReq(req) {
       contentType: "text/html",
       pageContributions: {
         bodyEnd: [
-          "<script src='" + jquery + "'></script>",
           "<script src='" + fileName + "'></script>",
           "<script src='" + typeText + "'></script>"
         ]
@@ -88,7 +87,7 @@ function handleReq(req) {
       ticketsUrl: sharedLib.getShopUrl({ type: "ticket" }),
       relatedLocales: kostiUtils.getRelatedLocales(content),
       timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
-      pageComponents: helpers.getPageComponents(req, "empty")
+      pageComponents: helpers.getPageComponents(req, "footerScripts")
     };
 
     return model;

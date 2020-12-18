@@ -28,10 +28,13 @@
                         </div>
                     </h2>
                     <div class="hero_banner-actions">
-                        <a href="" target="_blank" class="hero_banner-tickets kosticonnect-button primary">
+                        <a target="_blank" class="hero_banner-tickets kosticonnect-button primary js_scroll"
+                            data-direction="js_tickets-block">
                             БИЛЛЕТЫ
                         </a>
-                        <a href="" target="_blank" class="hero_banner-participate kosticonnect-button secondary">
+                        <a href="" target="_blank"
+                            class="hero_banner-participate kosticonnect-button secondary js_scroll"
+                            data-direction="js_attend-block">
                             участвовать
                         </a>
                     </div>
@@ -101,8 +104,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="shop_block js_tickets-block">
-                <h2 class="shop_block-title">
+            <div class="shop_block">
+                <h2 class="shop_block-title js_tickets-block">
                     НУ КАК, РЕШИЛИСЬ?
                 </h2>
                 <ul class="shop_block-list">
@@ -131,7 +134,8 @@
                                 Лайв музыкальные выступления
                             </li>
                         </ul>
-                        <a href="" target="_blank" class="shop_block-buy kosticonnect-button primary">
+                        <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
+                            data-itemid="f525ad6a-cea6-4869-b0c4-5788e5a8fec3">
                             Купить
                         </a>
                     </li>
@@ -160,7 +164,7 @@
                                 Участие в афтерпати
                             </li>
                         </ul>
-                        <a href="" target="_blank" class="shop_block-buy kosticonnect-button primary">
+                        <a target="_blank" class="shop_block-buy kosticonnect-button primary">
                             Купить
                         </a>
                     </li>
@@ -205,7 +209,7 @@
     </div>
     <div class="kosticonnect-mid">
         <div class="site_content">
-            <div class="attend">
+            <div class="attend js_attend-block">
                 <div class="attend-img_wrap">
                     <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/attend.jpg'})}"
                         alt="kosticonnect backstage img">
@@ -327,6 +331,7 @@
             </ul>
         </div>
     </div>
+    <div data-th-utext="${pageComponents.footer}" data-th-remove="tag"></div>
 </body>
 
 </html>
