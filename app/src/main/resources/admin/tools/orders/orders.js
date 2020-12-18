@@ -87,9 +87,11 @@ exports.get = function (req) {
   return {
     body: thymeleaf.render(view, {
       pageComponents: helpers.getPageComponents(req),
-      cart: contextLib.runAsAdminInDefault(function () {
-        return cartLib.getCart(params.id);
-      }),
+      cart: fixUrls(
+        contextLib.runAsAdminInDefault(function () {
+          return cartLib.getCart(params.id);
+        })
+      ),
       carts: carts,
       toolUrl: toolUrl,
       products: contentLib.query({
@@ -133,7 +135,7 @@ exports.post = function (req) {
       if (params.trackNum) {
         cartLib.setUserDetails(params.id, { trackNum: params.trackNum });
       }
-      var cart = cartLib.getCart(params.id);
+      var cart = fixUrls(cartLib.getCart(params.id));
       mailsLib.sendMail("sendShippedMail", cart.email, {
         cart: cart
       });
@@ -159,7 +161,7 @@ exports.post = function (req) {
       break;
     case "resendConfirmationMail":
       params.id = norseUtils.forceArray(params.id)[0];
-      var cart = cartLib.getCart(params.id);
+      var cart = fixUrls(cartLib.getCart(params.id));
       mailsLib.sendMail("orderCreated", cart.email, {
         cart: cart
       });
@@ -181,7 +183,7 @@ exports.post = function (req) {
     body: thymeleaf.render(view, {
       toolUrl: toolUrl,
       pageComponents: helpers.getPageComponents(req),
-      cart: cartLib.getCart(params.id),
+      cart: fixUrls(cartLib.getCart(params.id)),
       products: contentLib.query({
         start: 0,
         count: -1,
