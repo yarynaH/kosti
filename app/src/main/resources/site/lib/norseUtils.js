@@ -32,6 +32,7 @@ function uniqueArray(array) {
 function getMonthName(date) {
   var month = date.getMonth();
   var monthName;
+  log(month);
 
   switch (month) {
     case 0:
