@@ -177,41 +177,53 @@
 .hero_banner {
   position: relative;
   margin-bottom: 25px;
+  padding-left: 10px;
+  padding-bottom: 10px;
 
   @include mobile {
     margin: 0 -24px;
   }
 
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: calc(100% - 10px);
+    background: #B21E43;
+    width: 10px;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 10px;
+    background: #B21E43;
+    width: calc(100% - 10px);
+  }
+
   &-video_wrap {
+    position: relative;
+
+    &:after {
+      content: '';
+      background: rgba(0,0,0,0.3);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+    }
+
     video {
       width: 100%;
-      padding-left: 10px;
-      padding-bottom: 10px;
 
       @include mobile {
         min-height: 462px;
         object-fit: cover;
       }
-    }
-
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: calc(100% - 10px);
-      background: #B21E43;
-      width: 10px;
-    }
-
-    &:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 10px;
-      background: #B21E43;
-      width: calc(100% - 10px);
     }
   }
 
