@@ -795,6 +795,11 @@
       grid-row-gap: 67px;
     }
   }
+
+  &-item {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .participants {
@@ -805,38 +810,13 @@
   &-title {
     color: #11090F;
   }
-
-  // &-item {
-  //   height: 60px;
-  //   background: #EE1E5D;
-  //   border-radius: 8px;
-  //   overflow: hidden;
-
-  //   @include tablet-all {
-  //     height: 67px;
-  //   }
-
-  //   & img {
-  //     height: 100%;
-  //     object-fit: cover;
-  //   }
-  // }
 }
 
 .games {
   padding: 16px 0 0;
 
-  @include mobile {
-    // padding-top: 36px;
-  }
-
   &-title {
     color: #fff;
-  }
-
-  &-item {
-    display: flex;
-    align-items: center;
   }
 }
 
@@ -934,7 +914,6 @@
     }
   }
 }
-
 
 .site_content {
     margin: 0 auto;
