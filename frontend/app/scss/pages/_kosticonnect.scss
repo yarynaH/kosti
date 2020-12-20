@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .kosticonnect {
   &-top {
@@ -27,6 +28,13 @@
     }
   }
 
+  &-headline {
+
+    @include mobile-xs {
+      flex: 1 1 50%;
+    }
+  }
+
   &-where {
     display: flex;
     justify-content: space-between;
@@ -43,8 +51,19 @@
     }
   }
 
-  &-date {
+  &-left {
+    display: flex;
     margin-right: 10px;
+  }
+
+  &-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
+    width: 50px;
+    margin-right: 2px;
+    background: #EE205F;
   }
 
   &-button  {
@@ -119,6 +138,40 @@
       padding: 64px 0;
     }
   }
+} // END of .kosticonnect
+
+.fest_date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background: #ee205f;
+  height: 55px;
+  padding: 10px;
+  letter-spacing: 0.03em;
+
+  @include mobile-xs {
+    padding: 0;
+    min-width: 65px;
+  }
+
+  &-day {
+    font-size: 17.4415px;
+    line-height: 21px;
+
+    @include mobile-xs {
+      font-size: 16px;
+    }
+  }
+  
+  &-month {
+    font-size: 10.4649px;
+    line-height: 14px;
+  }
 }
 
 .hero_banner {
@@ -189,22 +242,25 @@
     color: #fff;
     width: 100%;
     text-transform: uppercase;
-    margin-bottom: 46px;
+    margin-bottom: 36px;
+
+    @include mobile-xs {
+      font-size: 30px;
+    }
 
     @include tablet-all {
       margin-top: 40px;
       font-size: 48px;
     }
-
-    span {
-      @include mobile {
-        display: block;
-      }
-    }
   }
 
   &-tickets {
     margin-right: 20px;
+    margin-top: 10px;
+  }
+
+  &-participate {
+    margin-top: 10px;
   }
 }
 
@@ -317,6 +373,10 @@
     color: #FFFFFF;
     position: relative;
 
+    @include mobile-xs {
+      font-size: 20px;
+    }
+
     // &:after {
     //   content: "";
     //   background: #F9A033;
@@ -356,6 +416,10 @@
     line-height: 1.2;
     color: #fff;
     padding: 0 24px;
+
+    @include mobile-xs {
+      font-size: 30px;
+    }
 
     @include tablet-all {
       font-size: 48px;
@@ -443,11 +507,11 @@
       width: 10px;
 
       .regular & {
-        background: #B21E43;
+        background: #443A97;
       }
 
       .turbo & {
-        background: #443A97;
+        background: #EE205F;
       }
     }
 
@@ -460,11 +524,11 @@
       width: calc(100% - 10px);
 
       .regular & {
-        background: #B21E43;
+        background: #443A97;
       }
 
       .turbo & {
-        background: #443A97;
+        background: #EE205F;
       }
     }
   }
@@ -514,16 +578,18 @@
   }
 
   &-ticket_desc {
-    margin-bottom: 32px;
+    margin-bottom: 22px;
   }
 
   &-actions {
     display: flex;
+    flex-wrap: wrap;
   }
 
   &-size_select {
     min-width: 85px;
     margin-right: 8px;
+    margin-top: 10px;
 
     .select {
       border: 1px solid #11090F;
@@ -535,6 +601,10 @@
         outline: 1px solid #11090f;
       }
     }
+  }
+
+  &-buy {
+    margin-top: 10px;
   }
 }
 
@@ -552,6 +622,11 @@
     font-size: 40px;
     line-height: 1.2;
     color: #fff;
+    
+
+    @include mobile-xs {
+      font-size: 30px;
+    }
 
     @include tablet-all {
       font-size: 48px;
@@ -565,6 +640,10 @@
     line-height: 1.35;
     color: #F9A033;
     padding-bottom: 24px;
+
+    @include mobile-xs {
+      font-size: 26px;
+    }
 
     &.mobile {
       @include tablet-all {
@@ -654,6 +733,10 @@
     color: #11090F;
     padding-bottom: 40px;
 
+    @include mobile-xs {
+      font-size: 30px;
+    }
+
     @include tablet-all {
       font-size: 48px;
     }
@@ -664,15 +747,21 @@
     color: #11090F;
     font-size: 16px;
     line-height: 1.5;
-    padding-bottom: 64px;
+    padding-bottom: 54px;
   }
 
+  
   &-masters {
     margin-right: 10px;
+    margin-top: 10px;
 
     @include tablet-all {
       margin-right: 18px;
     }
+  }
+
+  &-participants {
+    margin-top: 10px;
   }
 } //end of .attend
 
@@ -685,6 +774,10 @@
     line-height: 1.2;
     margin-bottom: 35px;
 
+    @include mobile-xs {
+      font-size: 30px;
+    }
+
     @include tablet-all {
       font-size: 48px;
       margin-bottom: 40px;
@@ -694,28 +787,12 @@
   &-list {
     display: grid;
     justify-content: space-between;
-    grid-template-columns: 60px 60px 60px 60px;
+    grid-template-columns: 18.5% 18.5% 18.5% 18.5%;
     grid-row-gap: 50px;
 
     @include tablet-all {
-      grid-template-columns: 67px 67px 67px 67px 67px 67px 67px 67px;
+      grid-template-columns: 12% 12% 12% 12% 12% 12%;
       grid-row-gap: 67px;
-    }
-  }
-
-  &-item {
-    height: 60px;
-    background: #EE1E5D;
-    border-radius: 8px;
-    overflow: hidden;
-
-    @include tablet-all {
-      height: 67px;
-    }
-
-    & img {
-      height: 100%;
-      object-fit: cover;
     }
   }
 }
@@ -728,6 +805,22 @@
   &-title {
     color: #11090F;
   }
+
+  // &-item {
+  //   height: 60px;
+  //   background: #EE1E5D;
+  //   border-radius: 8px;
+  //   overflow: hidden;
+
+  //   @include tablet-all {
+  //     height: 67px;
+  //   }
+
+  //   & img {
+  //     height: 100%;
+  //     object-fit: cover;
+  //   }
+  // }
 }
 
 .games {
@@ -740,6 +833,11 @@
   &-title {
     color: #fff;
   }
+
+  &-item {
+    display: flex;
+    align-items: center;
+  }
 }
 
 
@@ -751,6 +849,10 @@
     line-height: 1.3;
     color: #11090F;
     padding-bottom: 16px;
+
+    @include mobile-xs {
+      font-size: 20px;
+    }
   }
 
   &-text {
@@ -791,6 +893,10 @@
     line-height: 48px;
     color: #fff;
     padding-bottom: 55px;
+
+    @include mobile-xs {
+      font-size: 30px;
+    }
 
     @include tablet-all {
       font-size: 48px;
