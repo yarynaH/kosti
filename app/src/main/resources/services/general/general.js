@@ -8,6 +8,7 @@ const blogLib = require(libLocation + "blogLib");
 const homepageLib = require(libLocation + "homepageLib");
 const newsletterLib = require(libLocation + "newsletterLib");
 const monsterLib = require(libLocation + "monsterLib");
+const mailsLib = require(libLocation + "mailsLib");
 
 exports.get = function (req) {
   var params = req.params;
@@ -45,6 +46,12 @@ exports.get = function (req) {
       break;
     case "fixCR":
       monsterLib.fixCR();
+      break;
+    case "resendConfirmationMail":
+      var cart = cartLib.getCart(params.id);
+      mailsLib.sendMail("orderCreated", cart.email, {
+        cart: cart
+      });
       break;
   }
   return {

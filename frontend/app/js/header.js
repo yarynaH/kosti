@@ -5,6 +5,9 @@ function initHeaderFunctions() {
     $(".header .active").length > 0
       ? $(".header .active")
       : $(".header-logo a");
+  if (!activeEl.length > 0) {
+    return false;
+  }
   $(".active_element").css(
     "left",
     activeEl.offset().left - 3 + activeEl.width() / 2

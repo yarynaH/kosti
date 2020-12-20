@@ -108,17 +108,19 @@ function initSharedEvents() {
       );
     }
   );
-  $(".blog-list, .article-body").on("click", "a.social-link.twitter", function (
-    e
-  ) {
-    var data = $(this).data();
-    incrementShare(
-      data.articleid,
-      getCookieValue("cartId"),
-      "twitter",
-      data.itemtype
-    );
-  });
+  $(".blog-list, .article-body").on(
+    "click",
+    "a.social-link.twitter",
+    function (e) {
+      var data = $(this).data();
+      incrementShare(
+        data.articleid,
+        getCookieValue("cartId"),
+        "twitter",
+        data.itemtype
+      );
+    }
+  );
   $(".blog-list, .article-body").on("click", "a.social-link.vk", function (e) {
     var data = $(this).data();
     incrementShare(
@@ -424,10 +426,10 @@ function scrollToHash() {
   }
 }
 
-function scrollToItem(item) {
+function scrollToItem(item, landingPage) {
   $("html, body").animate(
     {
-      scrollTop: item.offset().top - 85
+      scrollTop: item.offset().top - (landingPage ? 0 : 85)
     },
     "slow"
   );

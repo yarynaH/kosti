@@ -74,10 +74,9 @@ function getShipping(country, weight) {
     return [
       {
         id: "digital",
-        title: "Цифровая доставка",
+        title: "Доставка",
         price: 0,
-        terms:
-          "Ваш заказ будет отправлен на Вашу електронную почту как только вы пройдете этап оплаты"
+        terms: ""
       }
     ];
   }

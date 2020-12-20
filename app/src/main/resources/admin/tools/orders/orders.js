@@ -35,7 +35,7 @@ exports.get = function (req) {
       cartLib.generateItemsIds(params.id);
       break;
     case "resendConfirmationMail":
-      var cart = cartLib.getCart(params.id);
+      var cart = fixUrls(cartLib.getCart(params.id));
       mailsLib.sendMail("orderCreated", cart.email, {
         cart: cart
       });
@@ -87,7 +87,11 @@ exports.get = function (req) {
   return {
     body: thymeleaf.render(view, {
       pageComponents: helpers.getPageComponents(req),
-      cart: cartLib.getCart(params.id),
+      cart: fixUrls(
+        contextLib.runAsAdminInDefault(function () {
+          return cartLib.getCart(params.id);
+        })
+      ),
       carts: carts,
       toolUrl: toolUrl,
       products: contentLib.query({
@@ -131,7 +135,7 @@ exports.post = function (req) {
       if (params.trackNum) {
         cartLib.setUserDetails(params.id, { trackNum: params.trackNum });
       }
-      var cart = cartLib.getCart(params.id);
+      var cart = fixUrls(cartLib.getCart(params.id));
       mailsLib.sendMail("sendShippedMail", cart.email, {
         cart: cart
       });
@@ -157,7 +161,7 @@ exports.post = function (req) {
       break;
     case "resendConfirmationMail":
       params.id = norseUtils.forceArray(params.id)[0];
-      var cart = cartLib.getCart(params.id);
+      var cart = fixUrls(cartLib.getCart(params.id));
       mailsLib.sendMail("orderCreated", cart.email, {
         cart: cart
       });
@@ -179,7 +183,7 @@ exports.post = function (req) {
     body: thymeleaf.render(view, {
       toolUrl: toolUrl,
       pageComponents: helpers.getPageComponents(req),
-      cart: cartLib.getCart(params.id),
+      cart: fixUrls(cartLib.getCart(params.id)),
       products: contentLib.query({
         start: 0,
         count: -1,
@@ -189,3 +193,14 @@ exports.post = function (req) {
     contentType: "text/html"
   };
 };
+
+function fixUrls(cart) {
+  let replace = adminLib.getToolUrl(app.name, "orders");
+  cart.items.forEach((item) => {
+    item.imageCart.url = item.imageCart.url.replace(replace, "");
+    item.imageCart.urlAbsolute = item.imageCart.url.replace(replace, "");
+    item.imageSummary.url = item.imageCart.url.replace(replace, "");
+    item.imageSummary.urlAbsolute = item.imageCart.url.replace(replace, "");
+  });
+  return cart;
+}
