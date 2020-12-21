@@ -20,29 +20,18 @@
                 вашего заказа в любой момент.
             </td>
         </tr>
-        <tr data-th-if="${specialText}">
-            <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;">
-                Сообщаем также, что всем нашим гостям из РФ мы предоставляем именные
-                приглашения, которые могут потребовать на границе. Кроме того, если у
-                работников пограничной службы возникнут к Вам дополнительные вопросы,
-                Вы можете дать ему номер организатора фестиваля. Будьте добры,
-                напишите нам на <a>info@kostirpg.com</a> письмо с пометкой
-                “Приглашение для гражданина РФ” и укажите в нем Ваши данные (ФИО,
-                номер загранпаспорта, срок его окончания).
-            </td>
-        </tr>
         <tr>
             <td style="padding: 0 0 10px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%"
                     style="border: 1px solid #dedede; border-bottom: 0;">
                     <tr data-th-each="item: ${cart.items}">
                         <td width="30%" style="padding: 20px 15px 20px 8%; border-bottom: 1px solid #dedede;">
-                            <img data-th-src="${item.imageCart.url}" alt="Product image" width="100px" />
+                            <img data-th-src="${item.imageCart.urlAbsolute}" alt="Product image" width="100px" />
                         </td>
                         <td width="70%"
                             style="padding: 20px 8% 20px 0; font-family: Roboto; font-size: 14px; line-height: 1.71; border-bottom: 1px solid #dedede;">
                             <div style="color: #505050;" data-th-text="${item.displayName}"></div>
-                            <div>
+                            <div data-th-if="${item.itemSize}">
                                 <span style="color: #707070; font-weight: bold;">Размер:</span>
                                 <span style="color: #505050;" data-th-text="${item.itemSize}">XS</span>
                             </div>
@@ -50,7 +39,16 @@
                                 <span style="color: #707070; font-weight: bold;">Количество:</span>
                                 <span style="color: #505050;" data-th-text="${item.amount}">1</span>
                             </div>
+                            <div>
+                                <span style="color: #707070; font-weight: bold;">Коды, которые позволят вам попасть на
+                                    дискорд сервер фестиваля в день фестиваля*:</span>
+                                <div data-th-remove="tag" data-th-each="id: ${item.itemsIds}">
+                                    <br />
+                                    <span style="color: #505050;" data-th-text="${id.id}">1</span>
+                                </div>
+                            </div>
                             <div style="color: #707070; font-weight: bold;" data-th-text="${'UAH ' + item.price}"></div>
+                            <div style="color: #707070;">*Ждите указание про кибер подключение</div>
                         </td>
                     </tr>
                 </table>

@@ -15,6 +15,10 @@ exports.post = function (req) {
   return generateCheckoutPage(req);
 };
 
+exports.get = function (req) {
+  return generateCheckoutPage(req);
+};
+
 function generateCheckoutPage(req) {
   var view = resolve("../components/processing.html");
   var cart = cartLib.getCart(req.cookies.cartId);
