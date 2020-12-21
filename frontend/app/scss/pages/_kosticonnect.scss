@@ -5,6 +5,7 @@
   &-top {
     background-color: #443A97;
     padding-top: 40px;
+    overflow: hidden;
   }
 
   &-header {
@@ -209,7 +210,7 @@
 
     &:after {
       content: '';
-      background: rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.4);
       position: absolute;
       left: 0;
       right: 0;
