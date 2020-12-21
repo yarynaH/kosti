@@ -35,6 +35,7 @@ function checkLiqpayOrderStatus() {
         contentType: "application/x-www-form-urlencoded"
       }).body
     );
+    norseUtils.log("cart status " + result.status);
     if (result && result.status && result.status === "success") {
       norseUtils.log("cart is paid");
       checkoutLib.checkoutCart(carts[i], "paid");
