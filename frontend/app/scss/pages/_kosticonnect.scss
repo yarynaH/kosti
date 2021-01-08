@@ -774,6 +774,15 @@
   }
 
   &-participants {
+    margin-right: 10px;
+    margin-top: 10px;
+
+    @include tablet-all {
+      margin-right: 18px;
+    }
+  }
+
+  &-media {
     margin-top: 10px;
   }
 } //end of .attend
