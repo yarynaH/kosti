@@ -39,7 +39,7 @@
                                 <span style="color: #707070; font-weight: bold;">Количество:</span>
                                 <span style="color: #505050;" data-th-text="${item.amount}">1</span>
                             </div>
-                            <div>
+                            <div data-th-if="${item.itemsIds}">
                                 <span style="color: #707070; font-weight: bold;">Коды, которые позволят вам попасть на
                                     дискорд сервер фестиваля в день фестиваля*:</span>
                                 <div data-th-remove="tag" data-th-each="id: ${item.itemsIds}">
