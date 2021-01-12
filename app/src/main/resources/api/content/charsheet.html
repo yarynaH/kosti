@@ -11,7 +11,7 @@
         <div class="overlay-diagonal overlay-diagonal_2"></div>
         <div class="overlay-diagonal overlay-diagonal_3"></div>
         <div class="overlay-diagonal overlay-diagonal_4"></div>
-        <div class="overlay-header" data-th-style="${'background-image:url(\'' + content.data.image} + '\')'">
+        <div class="overlay-header" data-th-style="'height: 151px; width: 100%; background-repeat: no-repeat; background-size: contain; background-position: top right; padding: 40px 40px 54px; position: relative; background-image: url(' + ${portal.assetUrl({'_path=/images/header-backg.png'})} + ')'">
             <h2 class="overlay-char_name">
                 <span style="text-transform: uppercase;" data-th-text="${content.displayName}"> </span>, <span class="overlay-char_race"
                     data-th-text="${content.data.race}" style="font-size: 18px; line-height: 1.2;"> </span>
@@ -21,6 +21,7 @@
                     data-th-text="${content.data.subClass}"> </span>), Уровень <span data-th-remove="tag"
                     data-th-text="${content.data.level}"> </span>
             </h3>
+            <span class="overlay-char_image" data-th-style="'background-image:url(' + ${content.data.image} + '); position: absolute; width: 100%; bottom: 0; right: 2px; background-size: contain; background-repeat: no-repeat; height: 147px;'"></span>
         </div>
 
         <div class="overlay-subheader">
