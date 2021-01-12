@@ -832,6 +832,10 @@
   &-title {
     color: #11090F;
   }
+
+  &-link:hover {
+    opacity: 0.8;
+  }
 }
 
 .games {
@@ -933,6 +937,54 @@
       @include mobile {
         width: 252px;
       }
+    }
+  }
+}
+
+.k_social {
+  padding-top: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &-title {
+    flex: 1 1 100%;
+    font-family: Raleway;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 48px;
+    color: #fff;
+    padding-bottom: 55px;
+
+    @include mobile-xs {
+      font-size: 30px;
+    }
+
+    @include tablet-all {
+      font-size: 48px;
+      padding-bottom: 40px;
+    }
+  }
+
+  .social-list {
+    width: 49%;
+  }
+
+  .social-link {
+    color: #fff;
+  }
+  
+  .about_us {
+    font-family: Roboto;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 49%;
+    text-align: right;
+
+    a {
+      color: #fff;
+      font-weight: bold;
     }
   }
 }
