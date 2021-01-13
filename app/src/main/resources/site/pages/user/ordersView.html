@@ -26,7 +26,7 @@
                     <div data-th-if="${product.itemsIds and product.productType == 'ticket' && order.status == 'paid'}"
                         class="cart-product_size" data-th-each="downloadable: ${product.itemsIds}">
                         <div><span>Номер билета: </span><span data-th-text="${downloadable.id}"></span></div>
-                        <a data-th-if="${product.ticketType != 'kostiConnect'}"
+                        <a data-th-if="${product.ticketType != 'kostiConnectTurbo' && product.ticketType != 'kostiConnectOnline'}"
                             data-th-href="${portal.serviceUrl({'_service=orders', 'id=' + downloadable.id, 'action=ticketPdf'})}">Скачать</a>
                     </div>
                 </div>
