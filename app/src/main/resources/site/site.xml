@@ -238,5 +238,8 @@
     <mapping controller="/api/content/discordBot.js">
       <pattern>/api/discordbot</pattern>
     </mapping>
+    <mapping controller="/api/content/image.js">
+      <pattern>/api/image</pattern>
+    </mapping>
   </mappings>
 </site>

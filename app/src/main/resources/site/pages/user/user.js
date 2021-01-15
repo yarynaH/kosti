@@ -35,9 +35,9 @@ function handleReq(req) {
       pageContributions: {
         bodyEnd: [
           "<script src='" + userPageScript + "'></script>",
-          "<script src='" + commentsScript + "'></script>",
-        ],
-      },
+          "<script src='" + commentsScript + "'></script>"
+        ]
+      }
     };
   }
 
@@ -76,7 +76,7 @@ function handleReq(req) {
       ),
       comments: commentsLib.getCommentsByUser(content._id, 0, 1, true),
       games: getGames(true),
-      orders: cartLib.getCartsByUser(content.data.email, content._id, true),
+      orders: cartLib.getCartsByUser(content.data.email, content._id, true)
     };
 
     var active = {};
@@ -95,7 +95,7 @@ function handleReq(req) {
       var currTitle = "comments";
       var userComments = commentsLib.getCommentsByUser(content._id).hits;
       var articles = thymeleaf.render(resolve("commentsView.html"), {
-        comments: userComments,
+        comments: userComments
       });
     } else if (up.action == "notifications" && currUserFlag) {
       totalArticles.curr = totalArticles.notifications;
@@ -112,18 +112,20 @@ function handleReq(req) {
       totalArticles.curr = games.total;
       active.games = "active";
       var currTitle = "games";
+      let days = formSharedLib.getDays();
       var articles = thymeleaf.render(resolve("gamesView.html"), {
         currUser: currUser,
         currUserFlag: currUserFlag,
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
-            days: formSharedLib.getDays(),
-          }),
+            days: days,
+            festival: formSharedLib.getFestivalByDays(days)
+          })
         }),
         playerForm: thymeleaf.render(
           resolve("games/player/playerComp.html"),
           {}
-        ),
+        )
       });
     } else if (up.action == "orders" && currUserFlag) {
       var orders = cartLib.getCartsByUser(content.data.email, content._id);
@@ -131,7 +133,7 @@ function handleReq(req) {
       active.orders = "active";
       var currTitle = "orders";
       var articles = thymeleaf.render(resolve("ordersView.html"), {
-        orders: orders.hits,
+        orders: orders.hits
       });
     } else {
       totalArticles.curr = totalArticles.articles;
@@ -147,7 +149,7 @@ function handleReq(req) {
     );
     if (currUserFlag) {
       var editUserModal = thymeleaf.render(resolve("userEditModal.html"), {
-        user: content,
+        user: content
       });
     }
 
@@ -166,7 +168,7 @@ function handleReq(req) {
       }),
       editUserModal: editUserModal,
       articlesView: articles,
-      pageComponents: helpers.getPageComponents(req, "footerBlog"),
+      pageComponents: helpers.getPageComponents(req, "footerBlog")
     };
 
     function getGames(countOnly) {
@@ -174,7 +176,7 @@ function handleReq(req) {
         start: 0,
         count: -1,
         query: "fulltext('data.*', '" + content._id + "', 'OR')",
-        contentTypes: [app.name + ":form"],
+        contentTypes: [app.name + ":form"]
       });
       if (countOnly) {
         return games.total;
@@ -186,7 +188,7 @@ function handleReq(req) {
         if (!result[i]) {
           result[i] = {
             title: tempGames[i].displayName,
-            games: [],
+            games: []
           };
         }
         var blocks = norseUtils.forceArray(tempGames[i].data.eventsBlock);
@@ -201,7 +203,7 @@ function handleReq(req) {
                   title: events[k].title,
                   time: blocks[j].time
                     ? moment(blocks[j].time).format("D.M.YYYY HH:mm")
-                    : null,
+                    : null
                 });
                 count++;
               }

@@ -25,6 +25,8 @@ exports.getItemsList = getItemsList;
 exports.getDays = getDays;
 exports.getLocations = getLocations;
 exports.getLocationSpace = getLocationSpace;
+exports.getFestivalByDay = getFestivalByDay;
+exports.getFestivalByDays = getFestivalByDays;
 
 function getView(viewType, id, params) {
   var model = {};
@@ -37,6 +39,7 @@ function getView(viewType, id, params) {
       break;
     case "scheduleComp":
       model.days = getDays(params);
+      model.festival = getFestivalByDays(model.days);
       break;
     case "addGameForm":
       model = getFormComponent(id);
@@ -66,21 +69,28 @@ function getFormComponent(id) {
     var location = util.content.getParent({ key: id });
     var block = beautifyGameBlock(location._id, contentLib.get({ key: id }));
   }
+  let day = beautifyDay(util.content.getParent({ key: location._id }));
   return {
     action: action,
     game: game,
     block: block,
     location: location,
-    day: beautifyDay(util.content.getParent({ key: location._id }))
+    virtualTables: getSelectOptions("virtualTable"),
+    gameSystems: getSelectOptions("gameSystem"),
+    themes: getSelectOptions("theme"),
+    festival: getFestivalByDay(day._id),
+    day: day
   };
 }
 
 function getLocationsGameBlocksModel(id) {
-  var locations = getLocations(id);
+  let locations = getLocations(id);
+  let festival = getFestivalByDay(id);
   locations[0].active = true;
   return {
     locations: thymeleaf.render(resolve(views["locationComp"]), {
-      locations: locations
+      locations: locations,
+      festival: festival
     }),
     gameBlocks: thymeleaf.render(resolve(views["gameBlocksComp"]), {
       blocks: getGameBlocks(locations[0]._id)
@@ -203,8 +213,10 @@ function beautifyDay(day, expanded) {
   day.monthName = norseUtils.getMonthName(dayDate);
   day.locations = getLocations(day._id);
   day.space = getDaySpace(day._id);
+  let festival = getFestivalByDay(day._id);
   day.available = thymeleaf.render(resolve(views["availableComp"]), {
-    games: day.games
+    games: day.games,
+    festival: festival
   });
   return day;
 }
@@ -276,4 +288,48 @@ function getDaySpace(dayId) {
     reserved: parseInt(space.reserved).toFixed()
   };
   return space;
+}
+
+function getFestivalByDay(id) {
+  let gamesFolder = util.content.getParent({ key: id });
+  if (gamesFolder) {
+    let festival = util.content.getParent({ key: gamesFolder._id });
+    if (festival && festival.data) {
+      festival.online = festival.data && festival.data.onlineFestival;
+      return festival;
+    }
+  }
+  return null;
+}
+
+function getFestivalByDays(arr) {
+  arr = norseUtils.forceArray(arr);
+  if (arr[0] && arr[0]._id) {
+    return getFestivalByDay(arr[0]._id);
+  } else if (arr[0] && typeof arr[0] === "string") {
+    return getFestivalByDay(arr[0]);
+  }
+}
+
+function getSelectOptions(inputName) {
+  let type = contentLib.getType(app.name + ":game");
+  let result = [];
+  type.form.forEach((f) => {
+    if (f.name === inputName) {
+      if (f.formItemType === "Input") {
+        f.config.option.forEach((o) => {
+          result.push(o["@value"]);
+        });
+      } else {
+        f.options.forEach((o) => {
+          if (o.name === "select") {
+            o.items[0].config.option.forEach((i) => {
+              result.push(i["@value"]);
+            });
+          }
+        });
+      }
+    }
+  });
+  return result;
 }

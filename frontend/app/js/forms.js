@@ -2,7 +2,7 @@ function appendStep(viewType, js_wrap, id) {
   showLoader();
   var data = {
     action: "getView",
-    viewType: viewType,
+    viewType: viewType
   };
   if (id) {
     data.id = id;
@@ -15,14 +15,14 @@ function appendStep(viewType, js_wrap, id) {
       $(js_wrap).html(data.html);
       hideLoader();
       $(js_wrap).slideDown("slow");
-    },
+    }
   });
 }
 
 function addNewGame(dataJson) {
   showLoader();
   var data = {
-    data: dataJson,
+    data: dataJson
   };
   $.ajax({
     url: "/_/service/com.myurchenko.kostirpg/formGM",
@@ -39,7 +39,7 @@ function addNewGame(dataJson) {
     },
     error: function (data) {
       showSnackBar(data.message, "error");
-    },
+    }
   });
 }
 
@@ -48,8 +48,8 @@ function removeGame(id) {
   var data = {
     data: JSON.stringify({
       action: "deleteGame",
-      id: id,
-    }),
+      id: id
+    })
   };
   $.ajax({
     url: "/_/service/com.myurchenko.kostirpg/formGM",
@@ -60,7 +60,7 @@ function removeGame(id) {
     },
     error: function () {
       showSnackBar("Some errror!", "error");
-    },
+    }
   });
 }
 function appendBlock(parent) {
@@ -99,7 +99,7 @@ function activateValidation(element) {
   $(element).validate({
     ignore: [],
     highlight: function (element, errorClass, validClass) {},
-    unhighlight: function (element, errorClass, validClass) {},
+    unhighlight: function (element, errorClass, validClass) {}
   });
 }
 
@@ -170,13 +170,16 @@ $(".js-my_games").on("click", ".js-my_games-step3-discard", function (e) {
   appendStep("scheduleComp", $(".js-my_games-wrapper"));
 });
 
-$(".js-my_games").on("change", ".js-my_games-system", function (e) {
-  var target = $(".js-my_games-system option:selected").val();
+$(".js-my_games").on("change", ".js-my_games-select-with-other", function (e) {
+  var target = $(this).find("option:selected").val();
 
+  var input = $(this).parent().parent().find("input");
   if (target == "other") {
-    $(".js-my_games-system-input").show();
+    input.prop("required", true);
+    input.show();
   } else {
-    $(".js-my_games-system-input").hide();
+    input.prop("required", false);
+    input.hide();
   }
 });
 
@@ -189,7 +192,7 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function (e) {
   }
 
   $(".js-my_games-form input").each(function () {
-    if ($(this).attr("name") == "systemInput") {
+    if ($(this).data().ignore == true) {
       return;
     }
 
@@ -221,7 +224,31 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function (e) {
     gameSystem["text"] = { system: "" };
     gameSystem["_selected"] = "select";
   }
+
+  var virtualTable = {};
+  if ($(".js-my_games-virtual-table").val() == "other") {
+    virtualTable["select"] = {
+      virtualTable: $(".js-my_games-virtual-table").val()
+    };
+    virtualTable["text"] = {
+      virtualTable: $(".js-my_games-virtual-table-input").val()
+    };
+    virtualTable["_selected"] = "text";
+  } else {
+    virtualTable["select"] = {
+      virtualTable: $(".js-my_games-virtual-table").val()
+    };
+    virtualTable["text"] = { virtualTable: "" };
+    virtualTable["_selected"] = "select";
+  }
+
   addNewGameData["gameSystem"] = gameSystem;
+  addNewGameData["virtualTable"] = virtualTable;
+  addNewGameData["theme"] = $(".js-my_games-theme").val();
+
+  addNewGameData["image"] = addNewGameData["image"]
+    ? addNewGameData["image"]
+    : null;
 
   addNewGameData[$(".js-my_games-form textarea").attr("name")] = $(
     ".js-my_games-form textarea"
@@ -230,22 +257,24 @@ $(".js-my_games").on("click", ".js-my_games-step3-save", function (e) {
   addNewGame(JSON.stringify(addNewGameData));
 });
 
-$(".js-my_games").on("click", ".js-my_games-available-short_info", function (
-  e
-) {
-  var parent = $(this).parent();
-  if (parent.hasClass("expanded")) {
-    parent.removeClass("expanded");
-    parent.find(".js-my_games-available-long_info").slideUp("slow");
-    return;
-  } else {
-    $(".js-my_games-available-item").removeClass("expanded");
-    $(".js-my_games-available-long_info").slideUp("slow");
-  }
+$(".js-my_games").on(
+  "click",
+  ".js-my_games-available-short_info",
+  function (e) {
+    var parent = $(this).parent();
+    if (parent.hasClass("expanded")) {
+      parent.removeClass("expanded");
+      parent.find(".js-my_games-available-long_info").slideUp("slow");
+      return;
+    } else {
+      $(".js-my_games-available-item").removeClass("expanded");
+      $(".js-my_games-available-long_info").slideUp("slow");
+    }
 
-  parent.addClass("expanded");
-  parent.find(".js-my_games-available-long_info").slideDown("slow");
-});
+    parent.addClass("expanded");
+    parent.find(".js-my_games-available-long_info").slideDown("slow");
+  }
+);
 
 $(".js-my_games").on("click", ".js-my_games-remove-game", function (e) {
   var id = $(".js-my_games-remove-game").data().id;
@@ -272,3 +301,28 @@ $(".js-my_games").on("click", ".js-my_games-find_hash", function (e) {
     $(this).find(".js-my_games-find_hash-answer").slideDown("slow");
   }
 });
+
+$(".js-my_games").on("change", ".js_image-upload", function (e) {
+  var file_data = $(this).prop("files")[0];
+  if (!validateImage(file_data)) {
+    showSnackBar("Картинки такого типа не поддерживаются.", "error");
+    return false;
+  }
+  var form_data = new FormData();
+  form_data.append("image", file_data);
+  $.ajax({
+    url: "/api/image",
+    data: form_data,
+    processData: false,
+    contentType: false,
+    type: "POST",
+    success: function (data) {
+      $(".js_image-id").val(data._id);
+    }
+  });
+});
+
+function validateImage(img) {
+  var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
+  return img && acceptedImageTypes.includes(img["type"]);
+}

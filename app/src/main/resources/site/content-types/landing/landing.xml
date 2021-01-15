@@ -53,5 +53,11 @@
         </input>
       </items>
     </item-set>
+    <input name="onlineFestival" type="CheckBox">
+      <label>Online festival</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
   </form>
 </content-type>
