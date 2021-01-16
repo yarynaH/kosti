@@ -1,12 +1,12 @@
-var norseUtils = require("norseUtils");
-var contentLib = require("/lib/xp/content");
-var portalLib = require("/lib/xp/portal");
-var nodeLib = require("/lib/xp/node");
-var contextLib = require("contextLib");
-var textEncoding = require("/lib/text-encoding");
-var moment = require("moment");
-var hashLib = require("hashLib");
-var sharedLib = require("sharedLib");
+const norseUtils = require("norseUtils");
+const contentLib = require("/lib/xp/content");
+const portalLib = require("/lib/xp/portal");
+const nodeLib = require("/lib/xp/node");
+const contextLib = require("contextLib");
+const textEncoding = require("/lib/text-encoding");
+const moment = require("moment");
+const hashLib = require("hashLib");
+const sharedLib = require("sharedLib");
 
 exports.addPromo = addPromo;
 exports.getCart = getCart;
@@ -155,7 +155,8 @@ function getCreatedCarts(params) {
   if (params.status) {
     query += " and status = '" + params.status + "'";
   } else {
-    query += " and status in ('failed', 'paid', 'pending', 'created')";
+    query +=
+      " and status in ('failed', 'paid', 'pending', 'created', 'shipped')";
   }
   if (params.country) {
     query += " and country = '" + params.country + "'";
@@ -168,16 +169,17 @@ function getCreatedCarts(params) {
       params.search +
       "\"', 'OR')";
   }
+  params.page = params.page ? parseInt(params.page) : 1;
   var carts = cartRepo.query({
-    start: 0,
-    count: -1,
+    start: (params.page - 1) * 10,
+    count: 30,
     query: query,
     sort: "_ts desc"
   });
   for (var i = 0; i < carts.hits.length; i++) {
     result.push(getCart(carts.hits[i].id));
   }
-  return result;
+  return { hits: result, total: carts.total };
 }
 
 function modifyCartWithParams(id, params) {
@@ -429,10 +431,12 @@ function getNextId() {
   var cartRepo = connectCartRepo();
   var result = cartRepo.query({
     start: 0,
-    count: 10,
+    count: 1,
     query: ""
   });
-  return (result.total + 1).toFixed();
+  return parseInt(
+    result.total + 1 + "" + new Date().getUTCMilliseconds()
+  ).toFixed();
 }
 
 function connectCartRepo() {
@@ -446,7 +450,7 @@ function createCart() {
   var cart = null;
   contextLib.runAsAdmin(function () {
     var cartRepo = connectCartRepo();
-    cart = cartRepo.create({});
+    cart = cartRepo.create({ userId: getNextId() });
   });
   return cart;
 }
@@ -466,7 +470,8 @@ function calculateCart(cart) {
     return {
       items: 0,
       shipping: 0,
-      total: 0
+      total: 0,
+      currency: "UAH"
     };
   }
   var items = norseUtils.forceArray(cart.items);
@@ -474,7 +479,8 @@ function calculateCart(cart) {
     return {
       items: 0,
       shipping: 0,
-      total: 0
+      total: 0,
+      currency: "UAH"
     };
   }
   var result = 0;

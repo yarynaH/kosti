@@ -122,9 +122,10 @@
       @include position(absolute, top 0 left 0px);
 
       content: "";
-      width: 32px;
-      height: 39px;
-      background-image: url("../images/smal-logo.png");
+      width: 36px;
+      height: 36px;
+      background-image: url("../images/logo_checkout.svg");
+      background-position: center;
     }
 
     &-two {

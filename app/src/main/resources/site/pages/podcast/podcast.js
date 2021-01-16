@@ -13,7 +13,7 @@ var contextLib = require(libLocation + "contextLib");
 var helpers = require(libLocation + "helpers");
 var moment = require(libLocation + "moment");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var content = portal.getContent();
   var podcasts = util.content.getChildren({ key: content._id });
   let episodes = [];
@@ -33,7 +33,8 @@ exports.get = function(req) {
   function beautifyEpisode(episode) {
     let type = episode.attachments[episode.data.audioFile].mimeType;
     let size = episode.attachments[episode.data.audioFile].size;
-    let date = moment(episode.publish.from).toString();
+    let DATE_RFC2822 = "ddd, DD MMM YYYY HH:mm:ss ZZ";
+    let date = moment(episode.publish.from).format(DATE_RFC2822);
     let fileUrl = portal.attachmentUrl({
       id: episode._id,
       type: "absolute",

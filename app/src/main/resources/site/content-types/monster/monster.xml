@@ -3,6 +3,38 @@
   <display-name>Monster</display-name>
   <super-type>base:structured</super-type>
   <form>
+    <input name="charSheet" type="ImageSelector">
+      <label>Char sheet</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="imageArt" type="ImageSelector">
+      <label>image art</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="class" type="TextLine">
+      <label>Class</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="subClass" type="TextLine">
+      <label>Subclass</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="level" type="Long">
+      <label>Level</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="race" type="TextLine">
+      <label>Race</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="otherDescription" type="HtmlArea">
+      <label>Other description</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="useImage" type="CheckBox">
+      <label>Use image char sheet</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="armorClass" type="Long">
       <label>Armor class</label>
       <occurrences minimum="0" maximum="1"/>
@@ -67,6 +99,26 @@
           <label>Name</label>
           <occurrences minimum="0" maximum="1"/>
         </input>
+        <input name="subName" type="TextLine">
+          <label>Subname</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="distance" type="TextLine">
+          <label>Distance</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="bonus" type="TextLine">
+          <label>Bonus</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="note" type="TextLine">
+          <label>note</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="damage" type="TextLine">
+          <label>Damage</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
         <input name="desc" type="TextArea">
           <label>Description</label>
           <occurrences minimum="0" maximum="1"/>
@@ -103,6 +155,20 @@
     </item-set>
     <item-set name="legendaryActions">
       <label>Legendary actions</label>
+      <occurrences minimum="0" maximum="0"/>
+      <items>
+        <input name="name" type="TextLine">
+          <label>Name</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="desc" type="TextArea">
+          <label>Description</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </item-set>
+    <item-set name="attunedItems">
+      <label>Attuned items</label>
       <occurrences minimum="0" maximum="0"/>
       <items>
         <input name="name" type="TextLine">
@@ -286,6 +352,10 @@
     </input>
     <input name="challengeRating" type="TextLine">
       <label>Challenge rating</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="cr" type="Double">
+      <label>Challenge rating new</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="alignmentOld" type="TextLine">

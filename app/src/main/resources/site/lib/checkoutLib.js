@@ -24,7 +24,7 @@ function checkoutCart(cart, status) {
     transactionDate: new Date(),
     price: cart.price
   });
-  contextLib.runAsAdmin(function() {
+  contextLib.runAsAdmin(function () {
     cartLib.savePrices(cart._id);
     cartLib.modifyInventory(cart.items);
     if (cart.promos) {
@@ -74,10 +74,9 @@ function getShipping(country, weight) {
     return [
       {
         id: "digital",
-        title: "Цифровая доставка",
+        title: "Доставка",
         price: 0,
-        terms:
-          "Ваш заказ будет отправлен на Вашу електронную почту как только вы пройдете этап оплаты"
+        terms: ""
       }
     ];
   }
@@ -126,18 +125,22 @@ function getShippingById(shipping, id) {
 
 function renderSuccessPage(req, cart, pendingPage) {
   if (!pendingPage) {
-    cart = contextLib.runAsAdmin(function() {
+    cart = contextLib.runAsAdmin(function () {
       return (cart = cartLib.generateItemsIds(cart._id));
     });
     mailsLib.sendMail("orderCreated", cart.email, {
       cart: cart
     });
   } else {
+    /*cart = contextLib.runAsAdmin(function () {
+      return (cart = cartLib.generateItemsIds(cart._id));
+    });*/
     mailsLib.sendMail(
       "pendingItem",
       ["maxskywalker94@gmail.com", "demura.vi@gmail.com"],
       {
-        id: cart._id
+        id: cart._id,
+        userId: cart.userId
       }
     );
   }
@@ -163,7 +166,7 @@ function checkIKResponse(params, model) {
       transactionDate: new Date(),
       price: model.cart.price
     });
-    contextLib.runAsAdmin(function() {
+    contextLib.runAsAdmin(function () {
       cartLib.savePrices(model.cart._id);
       cartLib.modifyInventory(model.cart.items);
       if (model.cart.promos) {
@@ -176,7 +179,7 @@ function checkIKResponse(params, model) {
     cartLib.modifyCartWithParams(model.cart._id, { status: "failed" });
   } else if (params.ik_inv_st == "waitAccept") {
     params.step = "pending";
-    contextLib.runAsAdmin(function() {
+    contextLib.runAsAdmin(function () {
       cartLib.modifyInventory(model.cart.items);
       cartLib.savePrices(model.cart._id);
       cartLib.modifyCartWithParams(model.cart._id, {

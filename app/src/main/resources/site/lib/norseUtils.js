@@ -36,62 +36,74 @@ function getMonthName(date) {
   switch (month) {
     case 0:
       monthName = i18n.localize({
-        key: "months.jan.date"
+        key: "months.jan.date",
+        locale: "ru"
       });
       break;
     case 1:
       monthName = i18n.localize({
-        key: "months.feb.date"
+        key: "months.feb.date",
+        locale: "ru"
       });
       break;
     case 2:
       monthName = i18n.localize({
-        key: "months.mar.date"
+        key: "months.mar.date",
+        locale: "ru"
       });
       break;
     case 3:
       monthName = i18n.localize({
-        key: "months.apr.date"
+        key: "months.apr.date",
+        locale: "ru"
       });
       break;
     case 4:
       monthName = i18n.localize({
-        key: "months.may.date"
+        key: "months.may.date",
+        locale: "ru"
       });
       break;
     case 5:
       monthName = i18n.localize({
-        key: "months.jun.date"
+        key: "months.jun.date",
+        locale: "ru"
       });
       break;
     case 6:
       monthName = i18n.localize({
-        key: "months.jul.date"
+        key: "months.jul.date",
+        locale: "ru"
       });
       break;
     case 7:
       monthName = i18n.localize({
-        key: "months.aug.date"
+        key: "months.aug.date",
+        locale: "ru"
       });
       break;
     case 8:
       monthName = i18n.localize({
-        key: "months.sep.date"
+        key: "months.sep.date",
+        locale: "ru"
       });
       break;
     case 9:
       monthName = i18n.localize({
-        key: "months.oct.date"
+        key: "months.oct.date",
+        locale: "ru"
       });
       break;
     case 10:
       monthName = i18n.localize({
-        key: "months.nov.date"
+        key: "months.nov.date",
+        locale: "ru"
       });
       break;
     case 11:
       monthName = i18n.localize({
-        key: "months.dec.date"
+        key: "months.dec.date",
+        locale: "ru"
       });
       break;
   }
@@ -479,13 +491,16 @@ exports.getTranslation = function () {
   }
 };
 
-function getImage(id, size, placeholderType, urlType) {
+function getImage(id, size, placeholderType, urlType, quality) {
   var result = false;
   if (!size || size == "") {
     size = "max(1366)";
   }
   if (typeof urlType == "undefined") {
     urlType = "server";
+  }
+  if (typeof quality == "undefined") {
+    quality = "75";
   }
   if (id && id !== "") {
     var image = contentLib.get({ key: id });
@@ -516,7 +531,7 @@ function getImage(id, size, placeholderType, urlType) {
           id: id,
           scale: size,
           type: urlType,
-          quality: "50"
+          quality: quality
         });
         var urlAbsolute = portal.imageUrl({
           id: id,

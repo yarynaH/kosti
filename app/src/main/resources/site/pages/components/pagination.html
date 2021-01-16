@@ -1,0 +1,40 @@
+<ul class="pagination">
+    <li class="pagination-item" data-th-if="${links.prev}">
+        <a href="#" class="pagination-link icon-arrow previous" data-th-href="${links.prev.link}"></a>
+    </li>
+    <li class="pagination-item" data-th-if="${links.first}">
+        <a href="#" class="pagination-link" data-th-href="${links.first.link}" data-th-text="${links.first.value}">1</a>
+    </li>
+    <li class="pagination-item" data-th-if="${links.second}">
+        <a href="#" class="pagination-link" data-th-href="${links.second.link}"
+            data-th-text="${links.second.value}">2</a>
+    </li>
+    <li class="pagination-item" data-th-if="${currentPage > 4}">
+        <span class="pagination-text dots">...</span>
+    </li>
+    <li class="pagination-item" data-th-if="${links.prev}">
+        <a href="#" class="pagination-link" data-th-href="${links.prev.link}"
+            data-th-text="${links.prev.value}">prev</a>
+    </li>
+    <li class="pagination-item">
+        <a href="#" class="pagination-link current" data-th-text="${currentPage}">current</a>
+    </li>
+    <li class="pagination-item" data-th-if="${links.next}">
+        <a href="#" class="pagination-link" data-th-href="${links.next.link}"
+            data-th-text="${links.next.value}">next</a>
+    </li>
+    <li class="pagination-item" data-th-if="${links.next2}">
+        <a href="#" class="pagination-link" data-th-href="${links.next2.link}"
+            data-th-text="${links.next2.value}">next2</a>
+    </li>
+    <li class="pagination-item" data-th-if="${(pagesCount-currentPage)>=4}">
+        <span href="#" class="pagination-text dots">...</span>
+    </li>
+    <li class="pagination-item" data-th-if="${links.last}">
+        <a href="#" class="pagination-link" data-th-href="${links.last.link}"
+            data-th-text="${links.last.value}">last</a>
+    </li>
+    <li class="pagination-item" data-th-if="${links.next}">
+        <a href="#" class="pagination-link icon-arrow next" data-th-href="${links.next.link}"></i></a>
+    </li>
+</ul>

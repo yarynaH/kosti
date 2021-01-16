@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+  <display-name>Randomizer</display-name>
+  <super-type>base:structured</super-type>
+  <form>
+    <input name="description" type="TextArea">
+      <label>Description</label>
+      <occurrences minimum="1" maximum="1"/> 
+    </input>
+    <item-set name="category"> 
+      <label>Item category</label> 
+      <occurrences minimum="1" maximum="0"/> 
+      <items>
+        <input name="item" type="TextArea">
+          <label>Item</label>
+          <occurrences minimum="1" maximum="0"/> 
+        </input>
+      </items>
+    </item-set>
+  </form>
+</content-type>

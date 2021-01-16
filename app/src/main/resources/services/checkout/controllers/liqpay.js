@@ -11,7 +11,11 @@ var cartLib = require(libLocation + "cartLib");
 var sharedLib = require(libLocation + "sharedLib");
 var checkoutLib = require(libLocation + "checkoutLib");
 
-exports.post = function(req) {
+exports.post = function (req) {
+  return generateCheckoutPage(req);
+};
+
+exports.get = function (req) {
   return generateCheckoutPage(req);
 };
 
@@ -33,6 +37,7 @@ function generateCheckoutPage(req) {
   if (result && result.status && result.status === "success") {
     checkoutLib.checkoutCart(cart, "paid");
     return checkoutLib.renderSuccessPage(req, cart, false);
+    /*
   } else if (
     result &&
     result.status &&
@@ -41,7 +46,9 @@ function generateCheckoutPage(req) {
       result.status === "try_again")
   ) {
     var status = "error";
+    */
   } else {
+    norseUtils.log(result);
     checkoutLib.checkoutCart(cart, "pending");
     return checkoutLib.renderSuccessPage(req, cart, true);
   }

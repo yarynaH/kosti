@@ -216,6 +216,10 @@
         @include mobile {
             margin-bottom: 30px;
         }
+
+        @include tablet-all {
+            display: none;
+        }
     }
 
     .fresher-btn,

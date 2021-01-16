@@ -271,6 +271,46 @@
     @include button-style(global light);
 }
 
+.size_chart {
+    &-link {
+        color: $color-primary21;
+        text-decoration: underline;
+
+        &:hover {
+            color: $color-primary36;
+            text-decoration: none;
+        }
+    }
+
+    &-content {
+        display: none;
+        padding: 20px 0;
+    }
+
+    &-table {
+        width: 100%;
+        border: 1px solid $color-primary25;
+        text-align: center;
+        margin-top: 20px;
+
+        td,
+        th {
+            border: 1px solid $color-primary25;
+            padding: 10px;
+        }
+
+        th,
+        td:first-child {
+            font-weight: 700;
+        }
+    }
+
+    &-img_wrap {
+        img {
+            margin: 0 auto;
+        }
+    }
+}
 
 @keyframes sonar {
     0% {

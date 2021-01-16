@@ -32,6 +32,7 @@ function handleReq(req) {
     var response = [];
     var site = portal.getSiteConfig();
     var slider = getSlider(content.data.slider);
+    up.getLocalPrice = true;
 
     var model = {
       presetFilters: up,

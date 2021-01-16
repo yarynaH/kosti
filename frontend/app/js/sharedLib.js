@@ -13,8 +13,15 @@ function validatePhone(phone) {
 }
 
 function setCookie(cartId) {
+  var today = new Date();
+  var expire = new Date();
+  expire.setTime(today.getTime() + 3600000 * 24 * 14);
   document.cookie =
-    "cartId=" + cartId + "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+    "cartId=" +
+    cartId +
+    "; path=/; expires=" +
+    expire.toGMTString() +
+    " GMT; SameSite=None; Secure;";
 }
 
 function deleteCookie(name) {
@@ -28,9 +35,15 @@ function showLogin(e) {
   $(".js_login-form").addClass("show");
 }
 
-function getCookieValue(a) {
+function getCookieValueOld(a) {
   var b = document.cookie.match("(^|;)\\s*" + a + "\\s*=\\s*([^;]+)");
   return b ? b.pop() : "";
+}
+
+function getCookieValue(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
 function makeAjaxCall(url, method, data, async) {

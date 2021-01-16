@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="kosticonnect-page landingPage">
+    <div class="kosticonnect-top">
+        <div class="site_content">
+            <div class="kosticonnect-header">
+                <div class="kosticonnect-short_info">
+                    <div class="kosticonnect-left">
+                        <div class="kosticonnect-logo">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
+                                alt="kosticonnect " />
+                        </div>
+                        <div class="fest_date">
+                            <span class="fest_date-day">25 - 28</span>
+                            <span class="fest_date-month">февраля</span>
+                        </div>
+                    </div>
+                    <div class="kosticonnect-headline">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                </div>
+                <div class="kosticonnect-where">
+                    <div class="kosticonnect-twitch">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/twitch-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-discord">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/discord-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-zoom">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/zoom-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                </div>
+            </div>
+            <div class="hero_banner">
+                <div class="hero_banner-video_wrap">
+                    <video autoplay muted loop class="hero_banner-video">
+                        <source data-th-src="${portal.assetUrl({'_path=images/kosticonnect/kosticonnect_video.webm'})}"
+                            type="video/mp4">
+                    </video>
+                </div>
+                <div class="hero_banner-content">
+                    <h2 class="hero_banner-title">
+                        <div class="animate-typing" data-animate-loop="true" data-type-speed="100" data-type-delay="100"
+                            data-remove-speed="50" data-remove-delay="1000" data-cursor-speed="200">
+                            лекции|игры|движ|презентации|новости|музыка|друзья|истории|фестиваль|снейксити</div>
+                        У ТЕБЯ ДОМА
+                    </h2>
+                    <div class="hero_banner-actions">
+                        <a target="_blank" class="hero_banner-tickets kosticonnect-button primary js_scroll"
+                            data-direction="js_tickets-block">
+                            БИЛЕТЫ
+                        </a>
+                        <a href="" target="_blank"
+                            class="hero_banner-participate kosticonnect-button secondary js_scroll"
+                            data-direction="js_attend-block">
+                            участвовать
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hightlights">
+                <ul class="hightlights-list">
+                    <li class="hightlights-item">
+                        <div class="hightlights-img_wrap">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/freeLeague.jpg'})}"
+                                alt="hightlight">
+                            <span class="hightlights-label">Free League</span>
+                        </div>
+                        <div class="hightlights-desc">
+                            Поболтаем с гейм-дизайнерами издательства Free League, авторами Alien RPG, Mutant Year Zero,
+                            Tales from the Loop и многих других игр.
+                        </div>
+                    </li>
+                    <li class="hightlights-item">
+                        <div class="hightlights-img_wrap">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/johanNohr.jpg'})}"
+                                alt="hightlight">
+                            <span class="hightlights-label">Johan Nohr</span>
+                        </div>
+                        <div class="hightlights-desc">
+                            Уютные разговоры о дизайне в настольных ролевых играх с Йоханном Нором, одним из авторов
+                            Mork Borg.
+                        </div>
+                    </li>
+                    <li class="hightlights-item">
+                        <div class="hightlights-img_wrap">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/cavalry.jpg'})}"
+                                alt="hightlight">
+                            <span class="hightlights-label">Кавалерия</span>
+                        </div>
+                        <div class="hightlights-desc">
+                            Обсудим здоровенных боевых роботов, далекое будущее и феодализм в настольной ролевой игре
+                            Кавалерия.
+                        </div>
+                    </li>
+                    <li class="hightlights-item">
+                        <div class="hightlights-img_wrap">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/oikumene.jpg'})}"
+                                alt="hightlight">
+                            <span class="hightlights-label">Oikoumene</span>
+                        </div>
+                        <div class="hightlights-desc">
+                            Узнаем, что нового у ребят, трудящихся над невероятно красивой игрой в жанре мифологической
+                            фантастики Oikoumene.
+                        </div>
+                    </li>
+                    <li class="hightlights-item">
+                        <div class="hightlights-img_wrap">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/hobbyworld.jpg'})}"
+                                alt="hightlight">
+                            <span class="hightlights-label">Hobby World</span>
+                        </div>
+                        <div class="hightlights-desc">
+                            Общение с издательством Hobby World, поговорим о планах на будущее и расспросим обо всем,
+                            что мы хотели знать.
+                        </div>
+                    </li>
+                    <li class="hightlights-item">
+                        <div class="hightlights-img_wrap">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/kosti_publ.jpg'})}"
+                                alt="hightlight">
+                            <span class="hightlights-label">Kosti RPG</span>
+                        </div>
+                        <div class="hightlights-desc">
+                            Презентация издательства Kosti RPG и первых проектов нашей уютной конторы! Расскажем о
+                            планах, идеях и целях!
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="fest_program">
+                <h2 class="fest_program-title">
+                    ПОЛНАЯ ПРОГРАММА ФЕСТИВАЛЯ БУДЕТ АНОНСИРОВАНА
+                </h2>
+            </div>
+            <div class="games">
+                <h2 class="games-title">МНОЖЕСТВО ИГР</h2>
+                <ul class="games-list">
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_dnd.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_fate.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_gurps.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_cp2020.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_coc.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_pbta.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_WFRP.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_blades.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_warhammer.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_dcc.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_savage.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                    <li class="games-item">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/w_vampire.png'})}"
+                            alt="kosticonnect backstage img">
+                    </li>
+                </ul>
+            </div>
+            <div class="shop_block">
+                <h2 class="shop_block-title js_tickets-block">
+                    НУ КАК, РЕШИЛИСЬ?
+                </h2>
+                <ul class="shop_block-list">
+                    <li class="shop_block-item regular" data-th-each="product: ${products}">
+                        <div class="shop_block-img_wrap">
+                            <img data-th-src="${product.image.url}" alt="regular ticket">
+                        </div>
+                        <h3 class="shop_block-subtitle" data-th-text="${product.displayName}">
+                        </h3>
+                        <span class="shop_block-price"
+                            data-th-text="${product.data.price.currency + ' ' + product.data.price.amount}">
+                        </span>
+                        <div data-th-remove="tag" data-th-utext="${product.data.description}"></div>
+                        <div class="shop_block-actions">
+                            <div class="shop_block-size_select select-field"
+                                data-th-if="${product.data.sizes and product.data.sizes.size > 0}">
+                                <select name="size" class=" select">
+                                    <option data-th-value="${size.title}" data-th-each="size: ${product.data.sizes}"
+                                        data-th-text="${size.title}">
+                                    </option>
+                                </select>
+                            </div>
+                            <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
+                                data-th-attr="data-itemid=${product._id}">
+                                Купить
+                            </a>
+                        </div>
+                    </li>
+                    <li class="shop_block-item shop_block-support">
+                        Подключайся к самой крутой настольной ролевой движухе этого года. Добро пожаловать в SnakeCity.
+                    </li>
+                </ul>
+                <div class="agenda">
+                    <h2 class="agenda-title">ЧТО ВНУТРИ?</h2>
+                    <ul class="agenda-list">
+                        <li class="agenda-item">
+                            <h3 class="agenda-subtitle">100+ <p>Онлайн игр</p>
+                            </h3>
+                            <p class="agenda-desc">Разнообразие систем и жанров, множество мастеров, выделенные каналы с
+                                качественной связью.</p>
+                        </li>
+                        <li class="agenda-item">
+                            <h3 class="agenda-subtitle desktop">10+ <p>Воркшопов</p>
+                            </h3>
+                            <h3 class="agenda-subtitle mobile">10+ Ворк-<p>шопов</p>
+                            </h3>
+                            <p class="agenda-desc">Участвуй в воркшопах с мастерами своего дела, которые делятся своими
+                                секретами.</p>
+                        </li>
+                        <li class="agenda-item">
+                            <h3 class="agenda-subtitle">20+ <p>Лекций</p>
+                            </h3>
+                            <p class="agenda-desc">Десятки лекций на самые разные темы от представителей хобби и
+                                индустрии, дизайнеров, авторов.</p>
+                        </li>
+                        <li class="agenda-item">
+                            <h3 class="agenda-subtitle">Экстра <p>Мерч</p>
+                            </h3>
+                            <p class="agenda-desc">Лимитированная серия, которая будет доступна только на территории
+                                фестиваля!</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kosticonnect-mid">
+        <div class="site_content">
+            <div class="attend js_attend-block">
+                <div class="attend-img_wrap">
+                    <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/attend.jpg'})}"
+                        alt="kosticonnect backstage img">
+                </div>
+                <div class="attend-content">
+                    <h2 class="attend-title">КАК ВПИСАТЬСЯ?</h2>
+                    <p class="attend-disc">Хотите поводить игры на фестивале? Показать уникальную игру, которую вы сами
+                        разрабатываете? Прочесть лекцию? Провести воркшоп? Презентовать свой продукт или бизнес? Мы
+                        всегда рады новым участникам!</p>
+                    <div class="attend-actions">
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUHAABktwfXK5Bk21ALbWcWUT91VZYgzVfwH3mAyGmc2vnXw/viewform"
+                            target="_blank" class="attend-masters kosticonnect-button primary">ВЕДУЩИЕ</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdBY6eZ-WusdUEnkhQkVRvDu_gl7GBRHNdcJijItbt1Z2UHHA/viewform"
+                            target="_blank" class="attend-participants kosticonnect-button primary">УЧАСТНИКИ</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdBY6eZ-WusdUEnkhQkVRvDu_gl7GBRHNdcJijItbt1Z2UHHA/viewform"
+                            target="_blank" class="attend-media kosticonnect-button primary hidden">СМИ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="kosticonnect-mid2">
+        <div class="site_content">
+            <div class="participants">
+                <h2 class="participants-title">КТО УЖЕ С НАМИ?</h2>
+                <ul class="participants-list">
+                    <li class="participants-item">
+                        <a href="https://frialigan.se/" title="Free League" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo1.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://goodman-games.com/" title="Goodman games" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo2.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://hobbygames.ru/" title="Hobby world" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo3.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://studio101.ru/" title="Studio 101" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo4.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://indigogames.ru/" title="Indigo games" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo5.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://www.mirf.ru/" title="Мир фантастики" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo6.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="http://eastern-lands.blogspot.com/2017/09/blog-post_26.html" title="Vostochniye Zemli"
+                            class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo7.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://vk.com/tea_paladin" title="Chayniy Paladin" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo8.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://vk.com/tupo_terrain" title="Tupo Terrain" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo9.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://vk.com/oikoumenerpg" title="Oikumene" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo10.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="kosticonnect-bot">
+        <div class="site_content hashtags">
+            <h2 class="hashtags-title">
+                ХЕШТЕГИ ФЕСТИВАЛЯ
+            </h2>
+            <ul class="hashtags-list">
+                <li class="hashtags-item hashtags-snakecity">
+                    <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/hashtagsnakecity.svg'})}"
+                        alt="regular ticket">
+                </li>
+                <li class="hashtags-item hashtags-kosticonnect">
+                    <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/hashtagkosticonnect.svg'})}"
+                        alt="regular ticket">
+                </li>
+            </ul>
+        </div>
+        <div class="site_content">
+            <div class="k_social social">
+                <h2 class="k_social-title">
+                    Мы в этих ваших сетях
+                </h2>
+                <div class="social-list social-list__sides_align">
+                    <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook"
+                        title="Facebook"></a>
+                    <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
+                    <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden"
+                        title="Twitter"></a>
+                    <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube"
+                        title="Youtube"></a>
+                    <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram"
+                        title="Instagram"></a>
+                    <a href="https://www.twitch.tv/vecherniyekosti" class="social-link twitch" title="Twitch"></a>
+                    <a href="https://discord.gg/VfDthGK" class="social-link discord" title="Discord"></a>
+                    <a href="https://t.me/vecherniyekosti" class="social-link telegram" title="Telegram"></a>
+                </div>
+                <div class="about_us">
+                    <h3 class="about_us-title">По любым вопросам обращайтесь:</h3>
+                    <p>Эл. почта: <a href="mailto:info@kostirpg.com">info@kostirpg.com</a></p>
+                    <p>Телефон: <a href="tel:+380662098750">+380662098750</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-th-utext="${pageComponents.footer}" data-th-remove="tag"></div>
+</body>
+
+</html>

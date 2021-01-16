@@ -1,3 +1,5 @@
+window.saved = false;
+
 $("#newArticleForm").validate({
   ignore: [],
   highlight: function (element, errorClass, validClass) {},
@@ -107,6 +109,7 @@ $("#newArticleForm").on("submit", function (e) {
     success: function (data) {
       hideLoader();
       if (!data.error && data.article && data.article._id) {
+        window.saved = true;
         window.location = "/article/status?id=" + data.article._id;
       } else {
         showSnackBar(data.message, "error");
@@ -252,13 +255,16 @@ function initEditor(id) {
     menubar: false,
     branding: false,
     statusbar: false,
+    content_css: customEditorStyles,
+    block_formats:
+      "Параграф=p;Оглавление 2=h2;Оглавление 3=h3;Оглавление 4=h4;Оглавление 5=h5;Преформатированный=pre",
     plugins: [
       "advlist autolink lists link charmap print preview anchor",
       "searchreplace visualblocks code fullscreen",
       "insertdatetime table paste help autoresize link"
     ],
     toolbar:
-      "formatselect | bold italic removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | link",
+      "formatselect | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | bullist numlist | subscript superscript | link",
     content_style: "pre{ white-space: normal; }"
   });
 }
@@ -489,3 +495,9 @@ function validateImage(img) {
   var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
   return img && acceptedImageTypes.includes(img["type"]);
 }
+
+$(window).bind("beforeunload", function () {
+  if (!window.saved) {
+    return "Не сохраненные изменения будут утеряны.";
+  }
+});

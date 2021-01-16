@@ -183,7 +183,7 @@
     @include tablet-all {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
+      // align-items: flex-end;
       padding-bottom: 70px;
     }
   }
@@ -330,6 +330,10 @@
       width: 24px;
       height: 22px;
       margin-right: 15px;
+
+      &:before {
+        content: none;
+      }
 
       svg>g {
         stroke: #3AA4E4;
@@ -604,6 +608,7 @@
         transform: translate(0, -50%);
         content: '';
         border: 1px solid #076795;
+        background: #076795;
         width: 10px;
         transition: all .2s ease 0s;
 

@@ -53,6 +53,7 @@
 
     &-scroll {
       max-height: 0;
+      height: 36px;
 
       .change-logo & {
         max-height: 60px;
@@ -61,6 +62,7 @@
 
     &-default {
       max-height: 60px;
+      height: 54px;
 
       .change-logo & {
         max-height: 0;

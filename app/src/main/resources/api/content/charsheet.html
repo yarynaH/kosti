@@ -1,0 +1,199 @@
+<head data-th-if="${nice}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" type="text/css" data-th-href="${portal.assetUrl({'_path=/css/twitch.css'})}" />
+</head>
+<div class="page-wrapper">
+    <div class="overlay-wrapper">
+        <div class="overlay-diagonal overlay-diagonal_1"></div>
+        <div class="overlay-diagonal overlay-diagonal_2"></div>
+        <div class="overlay-diagonal overlay-diagonal_3"></div>
+        <div class="overlay-diagonal overlay-diagonal_4"></div>
+        <div class="overlay-header" data-th-style="'height: 151px; width: 100%; background-repeat: no-repeat; background-size: contain; background-position: top right; padding: 40px 40px 54px; position: relative; background-image: url(' + ${portal.assetUrl({'_path=/images/header-backg.png', '_type=absolute'})} + ')'">
+            <h2 class="overlay-char_name">
+                <span style="text-transform: uppercase;" data-th-text="${content.displayName}"> </span>, <span class="overlay-char_race"
+                    data-th-text="${content.data.race}" style="font-size: 18px; line-height: 1.2;"> </span>
+            </h2>
+            <h3 class="overlay-char_class">
+                <span data-th-remove="tag" data-th-text="${content.data.class}"> </span> (<span data-th-remove="tag"
+                    data-th-text="${content.data.subClass}"> </span>), Уровень <span data-th-remove="tag"
+                    data-th-text="${content.data.level}"> </span>
+            </h3>
+            <span class="overlay-char_image" data-th-style="'background-image:url(' + ${content.data.image} + '); position: absolute; width: 100%; bottom: 0; right: 2px; background-size: contain; background-repeat: no-repeat; height: 147px;'"></span>
+        </div>
+
+        <div class="overlay-subheader">
+            <div class="overlay-life">
+                <span class="diamond-top"></span>
+                <div class="overlay-life_diagonal overlay-life_diagonal_1"></div>
+                <div class="overlay-life_diagonal overlay-life_diagonal_2"></div>
+                <div class="overlay-life_diagonal overlay-life_diagonal_3"></div>
+                <div class="overlay-life_diagonal overlay-life_diagonal_4"></div>
+                <span class="overlay-armor">
+                    <span class="value">
+                        <span data-th-remove="tag" data-th-text="${content.data.armorClass}"> </span>
+                    </span>
+                    <span class="label">
+                        КБ
+                    </span>
+                </span>
+                <span class="overlay-hitpoints">
+                    <span class="value">
+                        <span data-th-remove="tag" data-th-text="${content.data.hitPoints}"> </span>
+                    </span>
+                    <span class="label">
+                        ХП
+                    </span>
+                </span>
+                <span class="diamond-bot"></span>
+            </div>
+            <div class="overlay-stats">
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label" style="line-height: 24px;">
+                            СИЛ
+                        </span>
+                        <span class="value" data-th-text="${content.data.strMod}">
+                            0
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number" data-th-text="${content.data.strength}">
+                        11
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label" style="line-height: 24px;">
+                            ЛОВ
+                        </span>
+                        <span class="value" data-th-text="${content.data.dexMod}">
+                            -1
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number" data-th-text="${content.data.dexterity}">
+                        9
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label" style="line-height: 24px;">
+                            ТЕЛ
+                        </span>
+                        <span class="value" data-th-text="${content.data.conMod}">
+                            +5
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number" data-th-text="${content.data.constitution}">
+                        20
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label" style="line-height: 24px;">
+                            МУД
+                        </span>
+                        <span class="value" data-th-text="${content.data.wisMod}">
+                            0
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number" data-th-text="${content.data.wisdom}">
+                        11
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label" style="line-height: 24px;">
+                            ИНТ
+                        </span>
+                        <span class="value" data-th-text="${content.data.intMod}">
+                            0
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number" data-th-text="${content.data.intelligence}">
+                        11
+                    </div>
+                </div>
+                <div class="overlay-stats-item">
+                    <span class="diamond-top"></span>
+                    <div class="overlay-stats-mod">
+                        <span class="label" style="line-height: 24px;">
+                            ХАР
+                        </span>
+                        <span class="value" data-th-text="${content.data.chaMod}">
+                            0
+                        </span>
+                    </div>
+                    <div class="overlay-stats-number" data-th-text="${content.data.charisma}">
+                        11
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-attacks">
+            <h3 class="overlay-title">ОСНОВНЫЕ АТАКИ</h3>
+            <div class="attacks-table">
+                <div class="attacks-thead">
+                    <div class="attacks-col attacks-col-name">НАЗВАНИЕ</div>
+                    <div class="attacks-col attacks-col-range">ДИСТАНЦИЯ</div>
+                    <div class="attacks-col attacks-col-attack">АТК/СЛ</div>
+                    <div class="attacks-col attacks-col-damage">УРОН</div>
+                    <div class="attacks-col attacks-col-notes">ЗАМЕТКИ</div>
+                </div>
+                <div class="attacks-tbody">
+                    <div class="attacks-row" data-th-each="action: ${content.data.actions}">
+                        <div class="attacks-col attacks-col-name">
+                            <h4 class="attacks-weapon_name" data-th-text="${action.name}"></h4>
+                            <p class="attacks-weapon_type" data-th-text="${action.subName}">Оружие Ближнего Боя</p>
+                        </div>
+                        <div class="attacks-col attacks-col-range">
+                            <h4 class="attacks-weapon_name" data-th-text="${action.distance}">5 ФТ.</h4>
+                            <!--<p class="attacks-weapon_type" data-th-text="${action.distance}">Охват</p>-->
+                        </div>
+                        <div class="attacks-col attacks-col-attack">
+                            <span class="attacks-value" data-th-text="${action.bonus}">+9</span>
+                        </div>
+                        <div class="attacks-col attacks-col-damage">
+                            <span class="attacks-value" data-th-text="${action.damage}">1к6+7</span>
+                        </div>
+                        <div class="attacks-col attacks-col-notes">
+                            <span class="attacks-note" data-th-text="${action.note}">Легкое</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="overlay-footer">
+            <div class="footer-col_left">
+                <h3 class="overlay-title">ОСОБЫЕ ПРЕДМЕТЫ</h3>
+                <div class="custom_items">
+                    <div class="overlay-custom_diagonal overlay-custom_diagonal_1"></div>
+                    <div class="overlay-custom_diagonal overlay-custom_diagonal_2"></div>
+                    <div class="overlay-custom_diagonal overlay-custom_diagonal_3"></div>
+                    <div class="overlay-custom_diagonal overlay-custom_diagonal_4"></div>
+                    <div data-th-if="${content.data.attunedItems && content.data.attunedItems.size > 0}"
+                        data-th-each="item: ${content.data.attunedItems}">
+                        <h4 class="custom_items-name"><span data-th-remove="tag" data-th-text="${item.name}"> </span>
+                        </h4>
+                        <p class="custom_items-type"><span data-th-remove="tag" data-th-text="${item.desc}"> </span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-col_right">
+                <h3 class="overlay-title">ЗНАНИЯ И ЯЗЫКИ</h3>
+                <div class="additional_info" data-th-utext="${content.data.otherDescription}">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

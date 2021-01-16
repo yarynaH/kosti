@@ -260,15 +260,31 @@ function getArticleIntro(article) {
       }
     }
   }
+
   if (article.data.intro) {
-    return (
-      article.data.intro
-        .replace(/(<([^>]+)>)/gi, "")
-        .replace("&nbsp;", " ")
-        .substring(0, 250) + "..."
+    return decodeEntities(
+      article.data.intro.replace(/(<([^>]+)>)/gi, "").substring(0, 250) + "..."
     );
   } else {
     return "";
+  }
+  function decodeEntities(encodedString) {
+    var translate_re = /&(nbsp|amp|quot|lt|gt);/g;
+    var translate = {
+      nbsp: " ",
+      amp: "&",
+      quot: '"',
+      lt: "<",
+      gt: ">"
+    };
+    return encodedString
+      .replace(translate_re, function (match, entity) {
+        return translate[entity];
+      })
+      .replace(/&#(\d+);/gi, function (match, numStr) {
+        var num = parseInt(numStr, 10);
+        return String.fromCharCode(num);
+      });
   }
 }
 

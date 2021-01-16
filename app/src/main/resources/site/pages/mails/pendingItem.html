@@ -15,8 +15,7 @@
         </tr>
         <tr>
             <td style="font-size: 14px; font-family: Roboto; line-height: 1.71; color: #505050; padding: 0 0 25px;">
-                У нас новый заказ, который в статусе ожидания:
-                <a data-th-href="${orderUrl}" style="color: #0095f8;">заказ</a> .
+                У нас новый заказ №<span data-th-text="${userId}"></span>, который в статусе ожидания.
             </td>
         </tr>
         <div data-th-utext="${mailComponents.footer}" data-th-remove="tag"></div>

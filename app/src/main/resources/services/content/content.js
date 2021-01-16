@@ -59,7 +59,11 @@ exports.get = function (req) {
       break;
     case "bookmarks":
       var user = userLib.getCurrentUser();
-      var articlesObj = blogLib.getArticlesByIds(user.data.bookmarks, page);
+      if (user) {
+        var articlesObj = blogLib.getArticlesByIds(user.data.bookmarks, page);
+      } else {
+        var articlesObj = { total: 0, hits: [], count: 0 };
+      }
       var articlesView = blogLib.getArticlesView(articlesObj.hits);
       break;
     case "userArticles":
@@ -101,7 +105,6 @@ exports.get = function (req) {
     body: {
       articles: articlesView,
       hideButton: articlesObj.count < pageSize,
-      buttonText: helpers.getRandomString(),
       nextStart: articlesObj.nextStart,
       date: articlesObj.date ? articlesObj.date : null,
       newPage: articlesObj.newPage ? articlesObj.newPage : null

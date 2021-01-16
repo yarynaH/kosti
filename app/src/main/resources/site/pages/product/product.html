@@ -37,15 +37,15 @@
                             <span class="product_bage-text"
                                 data-th-text="${portal.localize({'_key=shop.title.new', '_locale=ru'})}"></span>
                         </div>
-                        <div class="pdp-main_image">
+                        <div data-th-if="${mainImage}" class="pdp-main_image">
                             <img itemprop="image" class="u-photo" data-th-src="${mainImage.url}"
                                 data-th-alt="${mainImage.alt}" />
                         </div>
                         <div class="pdp-image-list">
-                            <div class="pdp-image-item">
+                            <div data-th-if="${mainImage}" class="pdp-image-item">
                                 <img data-th-src="${mainImage.url}" data-th-alt="${mainImage.alt}" />
                             </div>
-                            <div data-th-each="image: ${images}" class="pdp-image-item">
+                            <div data-th-if="${image}" data-th-each="image: ${images}" class="pdp-image-item">
                                 <img data-th-src="${image.url}" data-th-alt="${image.alt}" />
                             </div>
                         </div>
@@ -101,10 +101,43 @@
                         <div class="pdp-description e-description" data-th-utext="${content.data.description}"
                             itemprop="description">
                         </div>
+                        <div class="size_chart" data-th-if="${content.data.showSizeGrid}">
+                            <a class="size_chart-link js_store-size_chart-link">
+                                Размерная сетка
+                            </a>
+                            <div class="size_chart-content js_store-size_chart-content">
+                                <div class="size_chart-img_wrap">
+                                    <img src="#" data-th-src="${portal.assetUrl({'_path=images/T_Shirt_Sizes.png'})}"
+                                        alt="Размерная сетка" />
+                                </div>
+                                <table class="size_chart-table">
+                                    <thead>
+                                        <th></th>
+                                        <th data-th-if="${size.asize and size.bsize}"
+                                            data-th-each="size: ${content.data.sizes}" data-th-text="${size.title}">
+                                        </th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>A</td>
+                                            <td data-th-if="${size.asize and size.bsize}"
+                                                data-th-each="size: ${content.data.sizes}" data-th-text="${size.asize}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>B</td>
+                                            <td data-th-if="${size.asize and size.bsize}"
+                                                data-th-each="size: ${content.data.sizes}" data-th-text="${size.bsize}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                         <div class="pdp-social social">
                             <h3 class="social-title"
                                 data-th-text="${portal.localize({'_key=shop.title.share', '_locale=ru'})}"></h3>
-                            <ul class="social-list">
+                            <ul data-th-if="${mainImage}" class="social-list">
                                 <li class="social-item">
                                     <a class="social-link facebook" data-th-attr="
                                         data-title=${content.displayName}, 
@@ -153,7 +186,7 @@
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
 
-<script type="text/javascript" data-th-inline="javascript">
+<script type="text/javascript" data-th-inline="javascript" data-th-if="${mainImage}">
     var pdpImageUrl = [[${mainImage.url}]];
 </script>
 

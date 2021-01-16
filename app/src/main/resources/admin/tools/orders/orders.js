@@ -17,7 +17,7 @@ var hashLib = require(libLocation + "hashLib");
 var mailsLib = require(libLocation + "mailsLib");
 var sharedLib = require(libLocation + "sharedLib");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var toolUrl = adminLib.getToolUrl(app.name, "orders");
   var params = req.params;
   var view = resolve("orders.html");
@@ -35,7 +35,7 @@ exports.get = function(req) {
       cartLib.generateItemsIds(params.id);
       break;
     case "resendConfirmationMail":
-      var cart = cartLib.getCart(params.id);
+      var cart = fixUrls(cartLib.getCart(params.id));
       mailsLib.sendMail("orderCreated", cart.email, {
         cart: cart
       });
@@ -54,9 +54,9 @@ exports.get = function(req) {
     case "emails":
       var carts = cartLib.getCreatedCarts();
       var result = [];
-      for (var i = 0; i < carts.length; i++) {
-        if (carts[i].status == "paid") {
-          result.push(carts[i]);
+      for (var i = 0; i < carts.hits.length; i++) {
+        if (carts.hits[i].status == "paid") {
+          result.push(carts.hits[i]);
         }
       }
       return {
@@ -70,7 +70,14 @@ exports.get = function(req) {
       return {
         body: thymeleaf.render(view, {
           pageComponents: helpers.getPageComponents(req),
-          carts: carts,
+          pagination: helpers.getPagination(
+            null,
+            carts.total,
+            30,
+            params.page ? parseInt(params.page) : 0,
+            req.params
+          ),
+          carts: carts.hits,
           params: req.params
         }),
         contentType: "text/html"
@@ -80,7 +87,11 @@ exports.get = function(req) {
   return {
     body: thymeleaf.render(view, {
       pageComponents: helpers.getPageComponents(req),
-      cart: cartLib.getCart(params.id),
+      cart: fixUrls(
+        contextLib.runAsAdminInDefault(function () {
+          return cartLib.getCart(params.id);
+        })
+      ),
       carts: carts,
       toolUrl: toolUrl,
       products: contentLib.query({
@@ -92,7 +103,7 @@ exports.get = function(req) {
     contentType: "text/html"
   };
 };
-exports.post = function(req) {
+exports.post = function (req) {
   var toolUrl = adminLib.getToolUrl(app.name, "orders");
   var params = req.params;
   var view = resolve("orders.html");
@@ -110,18 +121,21 @@ exports.post = function(req) {
       );
       break;
     case "regenerateIds":
+      params.id = norseUtils.forceArray(params.id)[0];
       cartLib.generateItemsIds(params.id);
       break;
     case "setStatus":
+      params.id = norseUtils.forceArray(params.id)[0];
       cartLib.setUserDetails(params.id, { status: params.status });
       break;
     case "details":
       break;
     case "sendShippedMail":
+      params.id = norseUtils.forceArray(params.id)[0];
       if (params.trackNum) {
         cartLib.setUserDetails(params.id, { trackNum: params.trackNum });
       }
-      var cart = cartLib.getCart(params.id);
+      var cart = fixUrls(cartLib.getCart(params.id));
       mailsLib.sendMail("sendShippedMail", cart.email, {
         cart: cart
       });
@@ -146,7 +160,8 @@ exports.post = function(req) {
       };
       break;
     case "resendConfirmationMail":
-      var cart = cartLib.getCart(params.id);
+      params.id = norseUtils.forceArray(params.id)[0];
+      var cart = fixUrls(cartLib.getCart(params.id));
       mailsLib.sendMail("orderCreated", cart.email, {
         cart: cart
       });
@@ -157,7 +172,7 @@ exports.post = function(req) {
       return {
         body: thymeleaf.render(view, {
           pageComponents: helpers.getPageComponents(req),
-          carts: carts,
+          carts: carts.hits,
           params: req.params
         }),
         contentType: "text/html"
@@ -168,7 +183,7 @@ exports.post = function(req) {
     body: thymeleaf.render(view, {
       toolUrl: toolUrl,
       pageComponents: helpers.getPageComponents(req),
-      cart: cartLib.getCart(params.id),
+      cart: fixUrls(cartLib.getCart(params.id)),
       products: contentLib.query({
         start: 0,
         count: -1,
@@ -178,3 +193,14 @@ exports.post = function(req) {
     contentType: "text/html"
   };
 };
+
+function fixUrls(cart) {
+  let replace = adminLib.getToolUrl(app.name, "orders");
+  cart.items.forEach((item) => {
+    item.imageCart.url = item.imageCart.url.replace(replace, "");
+    item.imageCart.urlAbsolute = item.imageCart.url.replace(replace, "");
+    item.imageSummary.url = item.imageCart.url.replace(replace, "");
+    item.imageSummary.urlAbsolute = item.imageCart.url.replace(replace, "");
+  });
+  return cart;
+}

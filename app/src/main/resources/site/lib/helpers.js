@@ -13,7 +13,6 @@ var i18nLib = require("/lib/xp/i18n");
 exports.fixPermissions = fixPermissions;
 exports.getPageComponents = getPageComponents;
 exports.getLoadMore = getLoadMore;
-exports.getRandomString = getRandomString;
 exports.getLoginRequest = getLoginRequest;
 
 function getPageComponents(req, footerType, activeEl, title) {
@@ -170,9 +169,6 @@ function getLoadMore(params) {
   if (params.articlesCount === null || params.articlesCount === undefined) {
     params.articlesCount = 11;
   }
-  if (!params.loadMoreText) {
-    params.loadMoreText = getRandomString();
-  }
   if (!params.noMoreTitle) {
     params.noMoreTitle = "articles";
   }
@@ -182,7 +178,6 @@ function getLoadMore(params) {
   return thymeleaf.render(resolve("../pages/components/blog/loadMore.html"), {
     articlesCount: params.articlesCount,
     noMoreTitle: params.noMoreTitle,
-    loadMoreText: params.loadMoreText,
     hideIfNone: params.hideIfNone,
     pageSize: params.pageSize
   });
@@ -210,16 +205,6 @@ function fixPermissions(repo, role) {
       }
     ],
     _inheritsPermissions: true
-  });
-}
-
-function getRandomString() {
-  var min = 1;
-  var max = 11;
-  //maximum not including
-  var randomNumber = Math.floor(Math.random() * (max - min)) + min;
-  return i18nLib.localize({
-    key: "blog.loadMoreText." + randomNumber
   });
 }
 
@@ -266,3 +251,99 @@ function getKeywords(content) {
     return keywords;
   }
 }
+
+exports.getPagination = function (
+  currentContent,
+  elementsCount,
+  pageSize,
+  currentPage,
+  pageParams
+) {
+  var pagesCount = Math.ceil(elementsCount / pageSize);
+  var pagination = null;
+  var breakPointLimit = 3;
+  if (!currentPage) {
+    var currentPage = 1;
+  }
+  currentPage = parseInt(currentPage);
+
+  if (typeof pageParams == "undefined") {
+    var pageParams = {};
+  }
+
+  if (pagesCount > 1) {
+    var model = {
+      pagesCount: pagesCount,
+      content: currentContent,
+      breakPointLimit: breakPointLimit,
+      links: {}
+    };
+    if (currentPage != 1 && currentPage >= breakPointLimit) {
+      model["links"]["first"] = {};
+      model["links"]["first"]["link"] = getPageParams(pageParams, 1);
+      model["links"]["first"]["value"] = 1;
+    }
+    if (currentPage == 4) {
+      model["links"]["second"] = {};
+      model["links"]["second"]["link"] = getPageParams(pageParams, 2);
+      model["links"]["second"]["value"] = 2;
+    }
+    if (currentPage > 1) {
+      var prevPage = (currentPage - 1).toFixed();
+      model["links"]["prev"] = {};
+      model["links"]["prev"]["link"] = getPageParams(pageParams, prevPage);
+      model["links"]["prev"]["value"] = prevPage;
+    }
+    if (pagesCount - currentPage > 0) {
+      var nextPage = (currentPage + 1).toFixed();
+      model["links"]["next"] = {};
+      model["links"]["next"]["link"] = getPageParams(pageParams, nextPage);
+      model["links"]["next"]["value"] = nextPage;
+    }
+    if (pagesCount - currentPage > 1) {
+      var next2Page = (currentPage + 2).toFixed();
+      model["links"]["next2"] = {};
+      model["links"]["next2"]["link"] = getPageParams(pageParams, next2Page);
+      model["links"]["next2"]["value"] = next2Page;
+    }
+    if (
+      currentPage < pagesCount &&
+      pagesCount - currentPage >= breakPointLimit
+    ) {
+      var lastPage = pagesCount.toFixed();
+      model["links"]["last"] = {};
+      model["links"]["last"]["link"] = getPageParams(pageParams, lastPage);
+      model["links"]["last"]["value"] = lastPage;
+    }
+
+    model["currentPage"] = currentPage.toFixed();
+
+    pagination = thymeleaf.render(
+      resolve("../pages/components/pagination.html"),
+      model
+    );
+  }
+
+  return pagination;
+
+  function mergeObjects(obj1, obj2) {
+    var obj3 = {};
+    for (var attrname in obj1) {
+      obj3[attrname] = obj1[attrname];
+    }
+    for (var attrname in obj2) {
+      obj3[attrname] = obj2[attrname];
+    }
+    return obj3;
+  }
+
+  function getPageParams(origParam, pageNum) {
+    var params = origParam;
+    if (pageNum == 1 && params["page"]) {
+      delete params["page"];
+    } else {
+      params = mergeObjects(params, { page: pageNum });
+    }
+    return portal.pageUrl({ id: currentContent, params: params });
+  }
+};

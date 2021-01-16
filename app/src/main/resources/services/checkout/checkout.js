@@ -14,11 +14,11 @@ var checkoutLib = require(libLocation + "checkoutLib");
 var userLib = require(libLocation + "userLib");
 var storeLib = require(libLocation + "storeLib");
 
-exports.get = function(req) {
+exports.get = function (req) {
   return generateCheckoutPage(req);
 };
 
-exports.post = function(req) {
+exports.post = function (req) {
   return generateCheckoutPage(req);
 };
 
