@@ -43,7 +43,10 @@ function handleReq(req) {
     var content = portal.getContent();
     let products = null;
     if (content.data.products) {
-      products = storeLib.getProductsByIds(content.data.products);
+      products = storeLib.getProductsByIds(
+        content.data.products,
+        req.remoteAddress
+      );
     }
 
     var model = {
