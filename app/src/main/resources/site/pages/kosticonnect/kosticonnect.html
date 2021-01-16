@@ -207,7 +207,7 @@
                         <span class="shop_block-price"
                             data-th-text="${product.data.price.currency + ' ' + product.data.price.amount}">
                         </span>
-                        <div data-th-remove="tag" data-th-utext="${product.data.description}"></div>
+                        <div class="shop_block-ticket_desc" data-th-utext="${product.data.description}"></div>
                         <div class="shop_block-actions">
                             <div class="shop_block-size_select select-field"
                                 data-th-if="${product.data.sizes and product.data.sizes.size > 0}">
