@@ -10,15 +10,17 @@
                 <div class="kosticonnect-short_info">
                     <div class="kosticonnect-left">
                         <div class="kosticonnect-logo">
-                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}" alt="kosticonnect " />
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
+                                alt="kosticonnect " />
                         </div>
                         <div class="fest_date">
-                            <span class="fest_date-day" >25 - 28</span>
+                            <span class="fest_date-day">25 - 28</span>
                             <span class="fest_date-month">февраля</span>
                         </div>
                     </div>
                     <div class="kosticonnect-headline">
-                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}" alt="kosticonnect " />
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
+                            alt="kosticonnect " />
                     </div>
                 </div>
                 <div class="kosticonnect-where">
@@ -45,10 +47,10 @@
                 </div>
                 <div class="hero_banner-content">
                     <h2 class="hero_banner-title">
-                        <div class="animate-typing" data-animate-loop="true" data-type-speed="100"
-                                data-type-delay="100" data-remove-speed="50" data-remove-delay="1000"
-                                data-cursor-speed="200">лекции|игры|движ|презентации|новости|музыка|друзья|истории|фестиваль|снейксити</div>
-                            У ТЕБЯ ДОМА
+                        <div class="animate-typing" data-animate-loop="true" data-type-speed="100" data-type-delay="100"
+                            data-remove-speed="50" data-remove-delay="1000" data-cursor-speed="200">
+                            лекции|игры|движ|презентации|новости|музыка|друзья|истории|фестиваль|снейксити</div>
+                        У ТЕБЯ ДОМА
                     </h2>
                     <div class="hero_banner-actions">
                         <a target="_blank" class="hero_banner-tickets kosticonnect-button primary js_scroll"
@@ -72,7 +74,8 @@
                             <span class="hightlights-label">Free League</span>
                         </div>
                         <div class="hightlights-desc">
-                            Поболтаем с гейм-дизайнерами издательства Free League, авторами Alien RPG, Mutant Year Zero, Tales from the Loop и многих других игр.
+                            Поболтаем с гейм-дизайнерами издательства Free League, авторами Alien RPG, Mutant Year Zero,
+                            Tales from the Loop и многих других игр.
                         </div>
                     </li>
                     <li class="hightlights-item">
@@ -82,7 +85,8 @@
                             <span class="hightlights-label">Johan Nohr</span>
                         </div>
                         <div class="hightlights-desc">
-                            Уютные разговоры о дизайне в настольных ролевых играх с Йоханном Нором, одним из авторов Mork Borg.
+                            Уютные разговоры о дизайне в настольных ролевых играх с Йоханном Нором, одним из авторов
+                            Mork Borg.
                         </div>
                     </li>
                     <li class="hightlights-item">
@@ -92,7 +96,8 @@
                             <span class="hightlights-label">Кавалерия</span>
                         </div>
                         <div class="hightlights-desc">
-                            Обсудим здоровенных боевых роботов, далекое будущее и феодализм в настольной ролевой игре Кавалерия.
+                            Обсудим здоровенных боевых роботов, далекое будущее и феодализм в настольной ролевой игре
+                            Кавалерия.
                         </div>
                     </li>
                     <li class="hightlights-item">
@@ -102,7 +107,8 @@
                             <span class="hightlights-label">Oikoumene</span>
                         </div>
                         <div class="hightlights-desc">
-                            Узнаем, что нового у ребят, трудящихся над невероятно красивой игрой в жанре мифологической фантастики Oikoumene.
+                            Узнаем, что нового у ребят, трудящихся над невероятно красивой игрой в жанре мифологической
+                            фантастики Oikoumene.
                         </div>
                     </li>
                     <li class="hightlights-item">
@@ -112,7 +118,8 @@
                             <span class="hightlights-label">Hobby World</span>
                         </div>
                         <div class="hightlights-desc">
-                            Общение с издательством Hobby World, поговорим о планах на будущее и расспросим обо всем, что мы хотели знать.
+                            Общение с издательством Hobby World, поговорим о планах на будущее и расспросим обо всем,
+                            что мы хотели знать.
                         </div>
                     </li>
                     <li class="hightlights-item">
@@ -122,7 +129,8 @@
                             <span class="hightlights-label">Kosti RPG</span>
                         </div>
                         <div class="hightlights-desc">
-                            Презентация издательства Kosti RPG и первых проектов нашей уютной конторы! Расскажем о планах, идеях и целях!
+                            Презентация издательства Kosti RPG и первых проектов нашей уютной конторы! Расскажем о
+                            планах, идеях и целях!
                         </div>
                     </li>
                 </ul>
@@ -190,88 +198,33 @@
                     НУ КАК, РЕШИЛИСЬ?
                 </h2>
                 <ul class="shop_block-list">
-                    <li class="shop_block-item regular">
+                    <li class="shop_block-item regular" data-th-each="product: ${products}">
                         <div class="shop_block-img_wrap">
-                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/regular.png'})}"
-                                alt="regular ticket">
+                            <img data-th-src="${product.image.url}" alt="regular ticket">
                         </div>
-                        <h3 class="shop_block-subtitle">
-                            Онлайн Билет
+                        <h3 class="shop_block-subtitle" data-th-text="${product.displayName}">
                         </h3>
-                        <span class="shop_block-price">
-                            UAH 150
+                        <span class="shop_block-price"
+                            data-th-text="${product.data.price.currency + ' ' + product.data.price.amount}">
                         </span>
-                        <ul class="shop_block-ticket_desc">
-                            <li class="shop_block-ticket_desc-item">
-                                Доступ к Discord-серверу фестиваля
-                            </li>
-                            <li class="shop_block-ticket_desc-item">
-                                Интервью, воркшопы и конференции
-                            </li>
-                            <li class="shop_block-ticket_desc-item">
-                                Онлайн-игры в рамках фестиваля
-                            </li>
-                            <li class="shop_block-ticket_desc-item">
-                                Доступ к скидкам, розыгрышам и движу
-                            </li>
-                        </ul>
+                        <div data-th-remove="tag" data-th-utext="${product.data.description}"></div>
                         <div class="shop_block-actions">
-                            <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
-                                data-itemid="cb1c7af5-283a-492e-ada7-b6ad32c22c2f">
-                                Купить
-                            </a>
-                        </div>
-                    </li>
-                    <li class="shop_block-item turbo">
-                        <div class="shop_block-img_wrap">
-                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/turbo.png'})}"
-                                alt="turbo ticket">
-                        </div>
-                        <h3 class="shop_block-subtitle">
-                            Турбо-Билет
-                        </h3>
-                        <span class="shop_block-price">
-                            UAH 1350
-                        </span>
-                        <ul class="shop_block-ticket_desc">
-                            <li class="shop_block-ticket_desc-item">
-                                Все, что входит в Онлайн-Билет
-                            </li>
-                            <li class="shop_block-ticket_desc-item">
-                                Эксклюзивный мерч-пак фестиваля (футболка, пин, плакат)
-                            </li>
-                            <li class="shop_block-ticket_desc-item">
-                                Участие в эксклюзивных играх
-                            </li>
-                            <li class="shop_block-ticket_desc-item">
-                                Участие в афтерпати
-                            </li>
-                        </ul>
-                        <div class="shop_block-actions">
-                            <div class="shop_block-size_select select-field">
+                            <div class="shop_block-size_select select-field"
+                                data-th-if="${product.data.sizes and product.data.sizes.size > 0}">
                                 <select name="size" class=" select">
-                                    <option value="S">S
-                                    </option>
-                                    <option value="M">M
-                                    </option>
-                                    <option value="L">L
-                                    </option>
-                                    <option value="XL">XL
-                                    </option>
-                                    <option value="XXL">XXL
-                                    </option>
-                                    <option value="XXXL">XXXL
+                                    <option data-th-value="${size.title}" data-th-each="size: ${product.data.sizes}"
+                                        data-th-text="${size.title}">
                                     </option>
                                 </select>
                             </div>
                             <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
-                                data-itemid="9cb3a53e-ee79-412e-b111-abc879bf1282">
+                                data-th-attr="data-itemid=${product._id}">
                                 Купить
                             </a>
                         </div>
                     </li>
                     <li class="shop_block-item shop_block-support">
-                        Подключайся к самой крутой настольной ролевой движухе этого года. Добро пожаловать в SnakeCity. 
+                        Подключайся к самой крутой настольной ролевой движухе этого года. Добро пожаловать в SnakeCity.
                     </li>
                 </ul>
                 <div class="agenda">
@@ -280,24 +233,28 @@
                         <li class="agenda-item">
                             <h3 class="agenda-subtitle">100+ <p>Онлайн игр</p>
                             </h3>
-                            <p class="agenda-desc">Разнообразие систем и жанров, множество мастеров, выделенные каналы с качественной связью.</p>
+                            <p class="agenda-desc">Разнообразие систем и жанров, множество мастеров, выделенные каналы с
+                                качественной связью.</p>
                         </li>
                         <li class="agenda-item">
                             <h3 class="agenda-subtitle desktop">10+ <p>Воркшопов</p>
                             </h3>
                             <h3 class="agenda-subtitle mobile">10+ Ворк-<p>шопов</p>
                             </h3>
-                            <p class="agenda-desc">Участвуй в воркшопах с мастерами своего дела, которые делятся своими секретами.</p>
+                            <p class="agenda-desc">Участвуй в воркшопах с мастерами своего дела, которые делятся своими
+                                секретами.</p>
                         </li>
                         <li class="agenda-item">
                             <h3 class="agenda-subtitle">20+ <p>Лекций</p>
                             </h3>
-                            <p class="agenda-desc">Десятки лекций на самые разные темы от представителей хобби и индустрии, дизайнеров, авторов.</p>
+                            <p class="agenda-desc">Десятки лекций на самые разные темы от представителей хобби и
+                                индустрии, дизайнеров, авторов.</p>
                         </li>
                         <li class="agenda-item">
                             <h3 class="agenda-subtitle">Экстра <p>Мерч</p>
                             </h3>
-                            <p class="agenda-desc">Лимитированная серия, которая будет доступна только на территории фестиваля!</p>
+                            <p class="agenda-desc">Лимитированная серия, которая будет доступна только на территории
+                                фестиваля!</p>
                         </li>
                     </ul>
                 </div>
@@ -313,11 +270,16 @@
                 </div>
                 <div class="attend-content">
                     <h2 class="attend-title">КАК ВПИСАТЬСЯ?</h2>
-                    <p class="attend-disc">Хотите поводить игры на фестивале? Показать уникальную игру, которую вы сами разрабатываете? Прочесть лекцию? Провести воркшоп? Презентовать свой продукт или бизнес? Мы всегда рады новым участникам!</p>
+                    <p class="attend-disc">Хотите поводить игры на фестивале? Показать уникальную игру, которую вы сами
+                        разрабатываете? Прочесть лекцию? Провести воркшоп? Презентовать свой продукт или бизнес? Мы
+                        всегда рады новым участникам!</p>
                     <div class="attend-actions">
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUHAABktwfXK5Bk21ALbWcWUT91VZYgzVfwH3mAyGmc2vnXw/viewform" target="_blank" class="attend-masters kosticonnect-button primary">ВЕДУЩИЕ</a>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdBY6eZ-WusdUEnkhQkVRvDu_gl7GBRHNdcJijItbt1Z2UHHA/viewform" target="_blank" class="attend-participants kosticonnect-button primary">УЧАСТНИКИ</a>
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdBY6eZ-WusdUEnkhQkVRvDu_gl7GBRHNdcJijItbt1Z2UHHA/viewform" target="_blank" class="attend-media kosticonnect-button primary hidden">СМИ</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUHAABktwfXK5Bk21ALbWcWUT91VZYgzVfwH3mAyGmc2vnXw/viewform"
+                            target="_blank" class="attend-masters kosticonnect-button primary">ВЕДУЩИЕ</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdBY6eZ-WusdUEnkhQkVRvDu_gl7GBRHNdcJijItbt1Z2UHHA/viewform"
+                            target="_blank" class="attend-participants kosticonnect-button primary">УЧАСТНИКИ</a>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdBY6eZ-WusdUEnkhQkVRvDu_gl7GBRHNdcJijItbt1Z2UHHA/viewform"
+                            target="_blank" class="attend-media kosticonnect-button primary hidden">СМИ</a>
                     </div>
                 </div>
             </div>
@@ -365,7 +327,8 @@
                         </a>
                     </li>
                     <li class="participants-item">
-                        <a href="http://eastern-lands.blogspot.com/2017/09/blog-post_26.html" title="Vostochniye Zemli" class="participants-link">
+                        <a href="http://eastern-lands.blogspot.com/2017/09/blog-post_26.html" title="Vostochniye Zemli"
+                            class="participants-link">
                             <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo7.png'})}"
                                 alt="kosticonnect backstage img">
                         </a>
@@ -414,13 +377,17 @@
                     Мы в этих ваших сетях
                 </h2>
                 <div class="social-list social-list__sides_align">
-                    <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook" title="Facebook"></a>
+                    <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook"
+                        title="Facebook"></a>
                     <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
-                    <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden" title="Twitter"></a>
-                    <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube" title="Youtube"></a>
-                    <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram" title="Instagram"></a>
+                    <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden"
+                        title="Twitter"></a>
+                    <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube"
+                        title="Youtube"></a>
+                    <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram"
+                        title="Instagram"></a>
                     <a href="https://www.twitch.tv/vecherniyekosti" class="social-link twitch" title="Twitch"></a>
-                    <a href="https://discord.gg/VfDthGK" class="social-link discord"  title="Discord"></a>
+                    <a href="https://discord.gg/VfDthGK" class="social-link discord" title="Discord"></a>
                     <a href="https://t.me/vecherniyekosti" class="social-link telegram" title="Telegram"></a>
                 </div>
                 <div class="about_us">

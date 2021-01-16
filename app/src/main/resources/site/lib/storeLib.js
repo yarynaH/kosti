@@ -1,20 +1,23 @@
-let contentLib = require("/lib/xp/content");
-let portal = require("/lib/xp/portal");
-let norseUtils = require("norseUtils");
-let sharedLib = require("sharedLib");
-let cartLib = require("cartLib");
-let hashLib = require("hashLib");
-let checkoutLib = require("checkoutLib");
-let thymeleaf = require("/lib/thymeleaf");
-var httpClientLib = require("/lib/http-client");
-var contextLib = require("contextLib");
-var mailsLib = require("mailsLib");
+const contentLib = require("/lib/xp/content");
+const portal = require("/lib/xp/portal");
+const norseUtils = require("norseUtils");
+const sharedLib = require("sharedLib");
+const cartLib = require("cartLib");
+const hashLib = require("hashLib");
+const checkoutLib = require("checkoutLib");
+const thymeleaf = require("/lib/thymeleaf");
+const httpClientLib = require("/lib/http-client");
+const contextLib = require("contextLib");
+const mailsLib = require("mailsLib");
+const ipLib = require("ipLib");
+const currencyLib = require("currencyLib");
 
 exports.getSoldTicketsAmount = getSoldTicketsAmount;
 exports.getPriceBlock = getPriceBlock;
 exports.checkLiqpayOrderStatus = checkLiqpayOrderStatus;
 exports.beautifyProduct = beautifyProduct;
 exports.getProducts = getProducts;
+exports.getProductsByIds = getProductsByIds;
 
 function checkLiqpayOrderStatus() {
   var carts = cartLib.getPendingLiqpayCarts();
@@ -50,17 +53,17 @@ function checkLiqpayOrderStatus() {
   }
 }
 
-function getPriceBlock(id) {
+function getPriceBlock(id, getLocalPrice) {
   let product = contentLib.get({ key: id });
-  let view = resolve("../pages/components/store/price.html");
-  let price = product.data.price;
-  let finalPrice = product.data.finalPrice;
-  return thymeleaf.render(view, {
+  product = currencyLib.getLocalPriceForProduct(product, getLocalPrice);
+  return thymeleaf.render(resolve("../pages/components/store/price.html"), {
     product: product,
     sale:
       product.data.price &&
+      product.data.price.amount &&
       product.data.finalPrice &&
-      product.data.price < product.data.finalPrice
+      product.data.finalPrice.amount &&
+      product.data.price.amount < product.data.finalPrice.amount
   });
 }
 
@@ -94,7 +97,19 @@ function countTickets(orderId, itemIds) {
   return result;
 }
 
-function beautifyProduct(product) {
+function getProductsByIds(ids) {
+  ids = norseUtils.forceArray(ids);
+  let products = [];
+  ids.forEach((id) => {
+    let product = contentLib.get({ key: id });
+    if (product) {
+      products.push(beautifyProduct(product));
+    }
+  });
+  return products;
+}
+
+function beautifyProduct(product, getLocalPrice) {
   product.urlAbsolute = portal.pageUrl({ id: product._id, type: "absolute" });
   product.brand = {
     name: "Вечерние Кости",
@@ -105,7 +120,8 @@ function beautifyProduct(product) {
   };
   product.image = getMainImage(product.data);
   product.url = portal.pageUrl({ id: product._id });
-  product.priceBlock = getPriceBlock(product._id);
+  product.priceBlock = getPriceBlock(product._id, getLocalPrice);
+  product = currencyLib.getLocalPriceForProduct(product, true);
   return product;
 
   function getMainImage(data) {
@@ -186,7 +202,7 @@ function getProducts(params) {
     products = products.hits.concat(outOfStockProducts.hits);
   }
   for (var i = 0; i < products.length; i++) {
-    products[i] = beautifyProduct(products[i]);
+    products[i] = beautifyProduct(products[i], params.getLocalPrice);
   }
   return products;
 
