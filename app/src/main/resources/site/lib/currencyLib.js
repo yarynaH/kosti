@@ -36,42 +36,44 @@ function getCurrencyRatio(currency) {
   return null;
 }
 
-function getLocalPriceForProduct(product, getLocalPrice) {
+function getLocalPriceForProduct(product, ip) {
   if (!product) return null;
   if (product.data.price)
-    product.data.price = convertCurrency(product.data.price, getLocalPrice);
+    product.data.price = convertCurrency({
+      price: product.data.price,
+      ip: ip
+    });
   if (product.data.finalPrice)
-    product.data.finalPrice = convertCurrency(
-      product.data.finalPrice,
-      getLocalPrice
-    );
+    product.data.finalPrice = convertCurrency({
+      price: product.data.finalPrice,
+      ip: ip
+    });
   return product;
 }
 
-function convertCurrency(price, getLocalPrice) {
-  if (!price) return null;
-  if (!getLocalPrice) {
-    return { amount: price, currency: "UAH" };
+function convertCurrency(params) {
+  if (!params.price) return null;
+  if (!params.ip) {
+    return { amount: params.price, currency: "UAH" };
   }
 
-  let ip = "178.140.1.234";
-
-  let locationInfo = cache.api.getOnly(ip);
+  let locationInfo = cache.api.getOnly(params.ip);
   if (!locationInfo) {
-    locationInfo = ipLib.getIpInfo(ip);
-    cache.api.put(ip, locationInfo);
+    locationInfo = ipLib.getIpInfo(params.ip);
+    cache.api.put(params.ip, locationInfo);
   }
-  if (!locationInfo) return { amount: price, currency: "UAH" };
+  if (!locationInfo) return { amount: params.price, currency: "UAH" };
 
   let currencyRate = cache.api.getOnly(locationInfo.currency);
   if (!currencyRate) {
     currencyRate = getCurrencyRatio(locationInfo.currency);
     cache.api.put(locationInfo.currency, currencyRate);
   }
-  if (!currencyRate) return { amount: price, currency: "UAH" };
+  if (!currencyRate) return { amount: params.price, currency: "UAH" };
   return {
     amount:
-      Math.round(parseInt(price) * parseFloat(currencyRate.rate) * 100) / 100,
+      Math.round(parseInt(params.price) * parseFloat(currencyRate.rate) * 100) /
+      100,
     currency: locationInfo.currency
   };
 }

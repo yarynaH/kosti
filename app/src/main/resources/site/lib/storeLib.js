@@ -53,9 +53,9 @@ function checkLiqpayOrderStatus() {
   }
 }
 
-function getPriceBlock(id, getLocalPrice) {
+function getPriceBlock(id, ip) {
   let product = contentLib.get({ key: id });
-  product = currencyLib.getLocalPriceForProduct(product, getLocalPrice);
+  product = currencyLib.getLocalPriceForProduct(product, ip);
   return thymeleaf.render(resolve("../pages/components/store/price.html"), {
     product: product,
     sale:
@@ -97,19 +97,19 @@ function countTickets(orderId, itemIds) {
   return result;
 }
 
-function getProductsByIds(ids) {
+function getProductsByIds(ids, ip) {
   ids = norseUtils.forceArray(ids);
   let products = [];
   ids.forEach((id) => {
     let product = contentLib.get({ key: id });
     if (product) {
-      products.push(beautifyProduct(product));
+      products.push(beautifyProduct(product, ip));
     }
   });
   return products;
 }
 
-function beautifyProduct(product, getLocalPrice) {
+function beautifyProduct(product, ip) {
   product.urlAbsolute = portal.pageUrl({ id: product._id, type: "absolute" });
   product.brand = {
     name: "Вечерние Кости",
@@ -120,8 +120,8 @@ function beautifyProduct(product, getLocalPrice) {
   };
   product.image = getMainImage(product.data);
   product.url = portal.pageUrl({ id: product._id });
-  product.priceBlock = getPriceBlock(product._id, getLocalPrice);
-  product = currencyLib.getLocalPriceForProduct(product, true);
+  product.priceBlock = getPriceBlock(product._id, ip);
+  product = currencyLib.getLocalPriceForProduct(product, ip);
   return product;
 
   function getMainImage(data) {
