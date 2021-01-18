@@ -943,9 +943,12 @@
 
 .k_social {
   padding-top: 64px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
+  @include tablet-all {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 
   &-title {
     flex: 1 1 100%;
@@ -954,7 +957,6 @@
     font-size: 40px;
     line-height: 48px;
     color: #fff;
-    padding-bottom: 55px;
 
     @include mobile-xs {
       font-size: 30px;
@@ -962,12 +964,16 @@
 
     @include tablet-all {
       font-size: 48px;
-      padding-bottom: 40px;
     }
   }
 
   .social-list {
-    width: 49%;
+    padding-top: 55px;
+
+    @include tablet-all {
+      width: 49%;
+      padding-top: 40px;
+    }
   }
 
   .social-link {
@@ -979,8 +985,13 @@
     color: #fff;
     font-size: 14px;
     line-height: 1.5;
-    width: 49%;
     text-align: right;
+    padding-top: 55px;
+
+    @include tablet-all {
+      width: 49%;
+      padding-top: 40px;
+    }
 
     a {
       color: #fff;
