@@ -705,8 +705,7 @@ function getDiscordData(id) {
       connectionTimeout: 2000000,
       readTimeout: 500000,
       headers: {
-        Authorization:
-          "Bot NjA1NDkzMjY4MzI2Nzc2ODUz.XT9TjA.pu2P2J4dG-vam2XiD1s2wBXdRjc"
+        Authorization: "Bot " + app.config.discordbottoken
       }
     });
     if (response.status === 200) {
