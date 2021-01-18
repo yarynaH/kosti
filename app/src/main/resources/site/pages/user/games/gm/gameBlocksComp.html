@@ -13,7 +13,10 @@
                         data-th-text="${block.duration.minutes+portal.localize({'_key=myGames.misc.time.m', '_locale=ru'})}"></span>
                 </span>
                 <span class="my_games-game_block-table_slot">
-                    <span data-th-text="${block.space.reserved + '/' + block.space.total}"></span>
+                    <span data-th-if="${festival && festival.online}"
+                        data-th-text="${portal.localize({'_key=myGames.games.total', '_locale=ru'}) + ': ' + block.space.reserved}"></span>
+                    <span data-th-unless="${festival && festival.online}"
+                        data-th-text="${block.space.reserved + '/' + block.space.total}"></span>
                 </span>
             </div>
             <div class="my_games-game_block-item-bottom">

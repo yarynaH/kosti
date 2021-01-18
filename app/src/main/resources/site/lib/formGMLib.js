@@ -1,13 +1,13 @@
-var norseUtils = require("norseUtils");
-var contentLib = require("/lib/xp/content");
-var portalLib = require("/lib/xp/portal");
-var nodeLib = require("/lib/xp/node");
-var contextLib = require("contextLib");
-var userLib = require("userLib");
-var formSharedLib = require("formSharedLib");
-var common = require("/lib/xp/common");
-var util = require("/lib/util");
-var i18nLib = require("/lib/xp/i18n");
+const norseUtils = require("norseUtils");
+const contentLib = require("/lib/xp/content");
+const portalLib = require("/lib/xp/portal");
+const nodeLib = require("/lib/xp/node");
+const contextLib = require("contextLib");
+const userLib = require("userLib");
+const formSharedLib = require("formSharedLib");
+const common = require("/lib/xp/common");
+const util = require("/lib/util");
+const i18nLib = require("/lib/xp/i18n");
 
 exports.modifyGame = modifyGame;
 exports.deleteGame = deleteGame;
@@ -116,6 +116,9 @@ function addGame(data) {
     delete data.displayName;
     delete data.blockId;
     var user = userLib.getCurrentUser();
+    if (!user.data.firstName) {
+      userLib.editUser({ firstName: data.masterName, id: user._id });
+    }
     data.user = user._id;
     var game = contentLib.create({
       name: common.sanitize(displayName),

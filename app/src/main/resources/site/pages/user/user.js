@@ -1,21 +1,28 @@
-var thymeleaf = require("/lib/thymeleaf");
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var valueLib = require("/lib/xp/value");
+const thymeleaf = require("/lib/thymeleaf");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
+const valueLib = require("/lib/xp/value");
 
-var libLocation = "../../lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var moment = require(libLocation + "moment");
-var votesLib = require(libLocation + "votesLib");
-var sharedLib = require(libLocation + "sharedLib");
-var blogLib = require(libLocation + "blogLib");
-var cartLib = require(libLocation + "cartLib");
-var userLib = require(libLocation + "userLib");
-var helpers = require(libLocation + "helpers");
-var pdfLib = require(libLocation + "pdfLib");
-var formSharedLib = require(libLocation + "formSharedLib");
-var commentsLib = require(libLocation + "commentsLib");
-var notificationLib = require(libLocation + "notificationLib");
+const libLocation = "../../lib/";
+const norseUtils = require(libLocation + "norseUtils");
+const moment = require(libLocation + "moment");
+const votesLib = require(libLocation + "votesLib");
+const sharedLib = require(libLocation + "sharedLib");
+const blogLib = require(libLocation + "blogLib");
+const cartLib = require(libLocation + "cartLib");
+const userLib = require(libLocation + "userLib");
+const helpers = require(libLocation + "helpers");
+const pdfLib = require(libLocation + "pdfLib");
+const formSharedLib = require(libLocation + "formSharedLib");
+const commentsLib = require(libLocation + "commentsLib");
+const notificationLib = require(libLocation + "notificationLib");
+const cacheLib = require(libLocation + "cacheLib");
+
+const cache = cacheLib.api.createGlobalCache({
+  name: "users",
+  size: 1000,
+  expire: 60 * 60 * 24
+});
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -49,6 +56,17 @@ function handleReq(req) {
       "block(140,140)",
       1
     );
+
+    let discord = null;
+    if (content && content.data && content.data.discord) {
+      discord = userLib.getDiscordData(content._id);
+      discord = cache.api.getOnly(content._id + "-discord");
+      if (!discord) {
+        discord = userLib.getDiscordData(content._id);
+        if (discord) cache.api.put(content._id + "-discord", discord);
+      }
+    }
+
     var currUser = userLib.getCurrentUser();
     content.data.bookmarks = norseUtils.forceArray(content.data.bookmarks);
     var userSystemObj = userLib.getSystemUser(content.data.email);
@@ -169,7 +187,8 @@ function handleReq(req) {
       editUserModal: editUserModal,
       articlesView: articles,
       pageComponents: helpers.getPageComponents(req, "footerBlog"),
-      action: up.action
+      action: up.action,
+      discord: discord
     };
 
     function getGames(countOnly) {

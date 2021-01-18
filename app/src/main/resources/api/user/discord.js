@@ -8,7 +8,9 @@ exports.get = function (req) {
   return {
     status: 301,
     headers: {
-      Location: portal.pageUrl({ path: portal.getSite()._path })
+      Location: req.params.redirect
+        ? "/" + req.params.redirect
+        : portal.pageUrl({ path: portal.getSite()._path })
     }
   };
 };

@@ -1,12 +1,19 @@
-var norseUtils = require("norseUtils");
-var contentLib = require("/lib/xp/content");
-var portalLib = require("/lib/xp/portal");
-var nodeLib = require("/lib/xp/node");
-var contextLib = require("contextLib");
-var userLib = require("userLib");
-var common = require("/lib/xp/common");
-var thymeleaf = require("/lib/thymeleaf");
-var util = require("/lib/util");
+const norseUtils = require("norseUtils");
+const contentLib = require("/lib/xp/content");
+const portalLib = require("/lib/xp/portal");
+const nodeLib = require("/lib/xp/node");
+const contextLib = require("contextLib");
+const userLib = require("userLib");
+const common = require("/lib/xp/common");
+const thymeleaf = require("/lib/thymeleaf");
+const util = require("/lib/util");
+const cacheLib = require("cacheLib");
+
+const cache = cacheLib.api.createGlobalCache({
+  name: "users",
+  size: 1000,
+  expire: 60 * 60 * 24
+});
 
 var baseUrl = "/site/pages/user/games/";
 
@@ -34,9 +41,12 @@ function getView(viewType, id, params) {
     case "locationAndGameBlockComp":
       model = getLocationsGameBlocksModel(id);
       break;
-    case "gameBlocksComp":
+    case "gameBlocksComp": {
+      let day = util.content.getParent({ key: id });
       model.blocks = getGameBlocks(id);
+      model.festival = getFestivalByDay(day._id);
       break;
+    }
     case "scheduleComp":
       model.days = getDays(params);
       model.festival = getFestivalByDays(model.days);
@@ -55,6 +65,16 @@ function getView(viewType, id, params) {
 
 function getFormComponent(id) {
   var content = contentLib.get({ key: id });
+  let user = userLib.getCurrentUser();
+  let discord = null;
+  if (user && user.data && user.data.discord) {
+    discord = userLib.getDiscordData(user._id);
+    discord = cache.api.getOnly(user._id + "-discord");
+    if (!discord) {
+      discord = userLib.getDiscordData(user._id);
+      if (discord) cache.api.put(user._id + "-discord", discord);
+    }
+  }
   if (content.type === app.name + ":game") {
     var game = beautifyGame(content);
     var location = contentLib.get({ key: game.data.location });
@@ -74,6 +94,7 @@ function getFormComponent(id) {
     action: action,
     game: game,
     block: block,
+    discord: discord,
     location: location,
     virtualTables: getSelectOptions("virtualTable"),
     gameSystems: getSelectOptions("gameSystem"),
@@ -93,8 +114,10 @@ function getLocationsGameBlocksModel(id) {
       festival: festival
     }),
     gameBlocks: thymeleaf.render(resolve(views["gameBlocksComp"]), {
-      blocks: getGameBlocks(locations[0]._id)
-    })
+      blocks: getGameBlocks(locations[0]._id),
+      festival: festival
+    }),
+    festival: festival
   };
 }
 

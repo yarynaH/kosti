@@ -30,6 +30,7 @@ exports.discordRegister = discordRegister;
 exports.fbRegister = fbRegister;
 exports.vkRegister = vkRegister;
 exports.addRole = addRole;
+exports.getDiscordData = getDiscordData;
 
 function addRole(roleId, userKey) {
   authLib.addMembers("role:" + roleId, [userKey]);
@@ -212,12 +213,12 @@ function vkRegister(code) {
   }
 }
 
-function discordRegister(code) {
+function discordRegister(code, redirect) {
   var site = portal.getSite();
   var data =
-    "redirect_uri=" +
+    "&redirect_uri=" +
     portal.pageUrl({ _path: site._path, type: "absolute" }) +
-    "user/auth/discord";
+    (redirect ? redirect : "");
   data += "&grant_type=authorization_code";
   data += "&scope=identify%20email";
   data += "&code=" + code;
@@ -256,7 +257,8 @@ function discordRegister(code) {
             response.id +
             "/" +
             response.avatar
-        : null
+        : null,
+      response.id ? { discord: response.id } : null
     );
   }
   return false;
@@ -315,13 +317,16 @@ function fbRegister(token, userId) {
   return false;
 }
 
-function register(name, mail, pass, tokenRegister, image) {
+function register(name, mail, pass, tokenRegister, image, otherData) {
   var site = portal.getSite();
   var displayName = name;
   var exist = contextLib.runAsAdmin(function () {
     return checkUserExists(name, mail);
   });
   if (exist.exist && exist.type === "mail" && tokenRegister) {
+    contextLib.runAsAdmin(function () {
+      if (otherData) updateUserSocial(mail, otherData);
+    });
     return login(mail, pass, tokenRegister);
   } else if (exist.exist && exist.type === "name" && tokenRegister) {
     var date = new Date();
@@ -352,6 +357,11 @@ function register(name, mail, pass, tokenRegister, image) {
     var responseStream = response.bodyStream;
     var userImg = contextLib.runAsAdmin(function () {
       createUserImageObj(responseStream, userObj);
+    });
+  }
+  if (otherData) {
+    contextLib.runAsAdmin(function () {
+      updateUserSocial(mail, otherData);
     });
   }
   if (!tokenRegister) {
@@ -651,4 +661,58 @@ function createUserImageObj(stream, user) {
     user.data.userImage = image._id;
     return user;
   }
+}
+
+function updateUserSocial(email, data) {
+  if (!email || !data) return null;
+  let user = contentLib.query({
+    query: "data.email = '" + email + "'",
+    contentTypes: [app.name + ":user"]
+  });
+  if (user.total !== 1) return null;
+  user = user.hits[0];
+  if (
+    data.discord ||
+    !user.data ||
+    !user.data.discord ||
+    user.discord.data !== data.discord
+  ) {
+    let userData = user.data;
+    userData.discord = data.discord;
+    user = contentLib.modify({
+      key: user._id,
+      editor: socialEditor
+    });
+    let publishResult = contentLib.publish({
+      keys: [user._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
+    function socialEditor(node) {
+      node.data = userData;
+      return node;
+    }
+  }
+}
+
+function getDiscordData(id) {
+  let user = contentLib.get({ key: id });
+  if (user && user.data && user.data.discord) {
+    let response = httpClientLib.request({
+      url: "https://discordapp.com/api/users/453903030786457600",
+      method: "GET",
+      connectionTimeout: 2000000,
+      readTimeout: 500000,
+      headers: {
+        Authorization:
+          "Bot NjA1NDkzMjY4MzI2Nzc2ODUz.XT9TjA.pu2P2J4dG-vam2XiD1s2wBXdRjc"
+      }
+    });
+    if (response.status === 200) {
+      response = JSON.parse(response.body);
+      if (response.id && response.username) return response;
+    }
+  }
+  return null;
 }

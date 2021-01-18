@@ -23,6 +23,10 @@
       <label>Phone</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="discord" type="TextLine">
+      <label>Discord</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="userImage" type="ImageSelector">
       <label>User image</label>
       <occurrences minimum="0" maximum="1"/>

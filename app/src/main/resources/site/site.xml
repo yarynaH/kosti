@@ -186,7 +186,7 @@
     <mapping controller="/services/checkout/controllers/liqpay.js" order="10">
       <pattern>/payment-processing</pattern>
     </mapping>
-    <mapping controller="/services/user/becomeGm.js">
+    <mapping controller="/api/user/becomeGm.js">
       <pattern>/become-gm</pattern>
     </mapping>
     <mapping controller="/services/monsterApi/monsterApi.js">
