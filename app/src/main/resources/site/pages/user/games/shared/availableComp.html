@@ -5,7 +5,7 @@
             <div class="my_games-short_info-left">
                 <div class="my_games-short_info-time"
                     data-th-text="${game.block.time.start + ' - ' + game.block.time.end}"></div>
-                <div class="my_games-short_info-location">
+                <div class="my_games-short_info-location" data-th-unless="${festival.online}">
                     <span data-th-text="${game.location + ', '}"></span>
                     <span
                         data-th-text="${portal.localize({'_key=myGames.misc.table', '_locale=ru'}) + ' ' + game.table}"></span>

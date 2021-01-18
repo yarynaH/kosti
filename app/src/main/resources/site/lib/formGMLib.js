@@ -33,11 +33,32 @@ function checkIfGameExists(data) {
   return false;
 }
 
+function checkIfMasterBookedThisBlock(data) {
+  var gameBlock = contentLib.get({ key: data.blockId });
+  var user = userLib.getCurrentUser();
+  var games = contentLib.query({
+    query:
+      "data.location = '" +
+      data.location +
+      "' and _parentPath = '/content" +
+      gameBlock._path +
+      "' and data.user = '" +
+      user._id +
+      "'",
+    start: 0,
+    count: 0
+  });
+  if (games.total > 0) {
+    return true;
+  }
+  return false;
+}
+
 function deleteGame(id) {
   contentLib.delete({
     key: id
   });
-  contextLib.runInDraft(function() {
+  contextLib.runInDraft(function () {
     contentLib.delete({
       key: id
     });
@@ -80,8 +101,16 @@ function addGame(data) {
       })
     };
   }
+  if (checkIfMasterBookedThisBlock(data)) {
+    return {
+      error: true,
+      message: i18nLib.localize({
+        key: "myGames.form.message.alreadyBooked"
+      })
+    };
+  }
   var day = util.content.getParent({ key: data.location });
-  var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
+  var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
     var parent = contentLib.get({ key: data.blockId });
     var displayName = data.displayName;
     delete data.displayName;
