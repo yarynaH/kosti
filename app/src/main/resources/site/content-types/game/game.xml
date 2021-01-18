@@ -78,22 +78,153 @@
               <label>Dropdown</label>
               <occurrences minimum="1" maximum="1"/>
               <config>
-                <option value="dnd">DnD</option>
-                <option value="gurps">GURPS</option>
-                <option value="dcc">DCC</option>
-                <option value="vtm">V:tM</option>
-                <option value="skeletons">Skeletons</option>
-                <option value="runequest">Runequest</option>
-                <option value="pathfinder">Pathfinder</option>
-                <option value="wfrp">WFRP</option>
-                <option value="cyberpunk2020">Cyberpunk 2020</option>
+                <option value="dnd5">Dungeons &amp; Dragons 5e</option>
+                <option value="vtm20">Vampire: The Masquerade V20 (Вапмирский Маскарад Классические правила)</option>
+                <option value="vtm5">Vampire: The Masquerade 5th Edition</option>
+                <option value="pathfinder1">Pathfinder 1e</option>
+                <option value="pathfinder2">Pathfinder 2e</option>
+                <option value="shadowrun">Shadowrun</option>
                 <option value="cyberpunkRed">Cyberpunk RED</option>
-                <option value="trailOfChtulhu">Trail Of Chtulhu</option>
-                <option value="callOfChtulhu">Call Of Chtulhu</option>
+                <option value="cyberpunk2020">Cyberpunk 2020</option>
+                <option value="wfrp">Warhammer Fantasy Role Play</option>
+                <option value="w40kwg">Warhammer 40k Wrath &amp; Glory</option>
+                <option value="coc">Call of Cthulhu (Зов Ктулху)</option>
+                <option value="coriolis">Coriolis (Кориолси)</option>
+                <option value="talesFromTheLoop">Tales from the Loop (Тайны Эхосферы)</option>
+                <option value="mutanYearZero">Mutan Year Zero (Мутанты - Точка Отчета)</option>
+                <option value="bladesInTheDark">Blades in the Dark (Клинки во Тьме)</option>
+                <option value="morkBorg">Mörk Borg</option>
+                <option value="shinobi">Шиноби</option>
+                <option value="fate">FATE</option>
+                <option value="trailOfCthulhu">Ктулху (Trail of Cthulhu)</option>
+                <option value="13Age">13th Age</option>
+                <option value="7Sea">7th Sea</option>
+                <option value="achtungCthulhu">Achtung! Cthulhu 2d20</option>
+                <option value="adventuresInTheMiddleEarth">Adventures in the Middle-Earth</option>
+                <option value="agon">Agon</option>
+                <option value="alasForTheAwfulSea">Alas for the Awful Sea</option>
+                <option value="aliceIsMissing">Alice is Missing</option>
+                <option value="alien">Alien RPG</option>
+                <option value="alteredCarbon">Altered Carbon</option>
+                <option value="apocalypseWorld">Apocalypse World</option>
+                <option value="astonishingSwordsmenSorcerersOfHyboria">Astonishing Swordsmen &amp; Sorcerers of Hyboria</option>
+                <option value="bandOfBlades">Band of Blades</option>
+                <option value="battleTech">Battle Tech RPG</option>
+                <option value="bigEyesSmallMouth">Big Eyes, Small Mouth</option>
+                <option value="blackVoid">Black Void</option>
+                <option value="brokenCompass">Broken Compass</option>
+                <option value="burntBryte">Burnt Bryte</option>
+                <option value="businessWizards">Business Wizards</option>
+                <option value="capers">Capers</option>
+                <option value="carbon2185">Carbon 2185</option>
+                <option value="chroniclesOfDarkness">Chronicles of Darkness</option>
+                <option value="cityOfMist">City of Mist</option>
+                <option value="conan">Conan</option>
+                <option value="cortex">Cortex RPG</option>
+                <option value="cwodChangeling">cWoD: Changeling: The Lost</option>
+                <option value="cwodGeist">cWoD: Geist: The Sin-Eaters</option>
+                <option value="cwodHunter">cWoD: Hunter: The Vigil</option>
+                <option value="cwodMage">cWoD: Mage: The Awakening</option>
+                <option value="cwodMummy">cWoD: Mummy: The Curse</option>
+                <option value="cwodPromethean">cWoD: Promethean: The Created</option>
+                <option value="cwodVampire">cWoD: Vampire: The Requiem</option>
+                <option value="cwodWerewolf">cWoD: Werewolf: The Forsaken</option>
+                <option value="cypherSystem">Cypher System</option>
+                <option value="deadlands">Deadlands</option>
+                <option value="degenesis">Degenesis</option>
                 <option value="deltaGreen">Delta Green</option>
+                <option value="dishonored">Dishonored</option>
+                <option value="dragonAge">Dragon Age</option>
+                <option value="dcc">Dungeon Crawl Classics (DCC)</option>
+                <option value="dungeonWorld">Dungeon World</option>
+                <option value="dnd1">Dungeons &amp; Dragons 1e</option>
+                <option value="dnd2">Dungeons &amp; Dragons 2e</option>
+                <option value="dnd3">Dungeons &amp; Dragons 3 /3.5e</option>
+                <option value="dnd4">Dungeons &amp; Dragons 4e</option>
+                <option value="dndbx">Dungeons &amp; Dragons B/x</option>
+                <option value="eclipsePhase">Eclipse Phase</option>
+                <option value="electricBastionland">Electric Bastionland</option>
+                <option value="ethos">Ethos Rpg</option>
+                <option value="exalted">Exalted</option>
+                <option value="fadingSun">Fading sun</option>
+                <option value="fiasco">Fiasco</option>
+                <option value="forbiddenLands">Forbidden Lands</option>
+                <option value="fraggedEmpire">Fragged Empire</option>
+                <option value="gammaWorld">Gamma World</option>
+                <option value="genesys">Genesys</option>
+                <option value="ghostbuster">Ghostbuster RPG</option>
+                <option value="godbound">Godbound</option>
+                <option value="gumshoe">Gumshoe</option>
+                <option value="gurps">GURPS</option>
+                <option value="honeyHeist">Honey Heist</option>
+                <option value="hope">HOPE</option>
+                <option value="infinity">Infinity</option>
+                <option value="ironsworn">Ironsworn</option>
+                <option value="johnCarter">John Carter</option>
+                <option value="judgeDredd">Judge Dredd</option>
+                <option value="kidsOnBikes">Kids on Bikes</option>
+                <option value="kidsOnBrooms">Kids on Brooms</option>
+                <option value="koboldsAteMyBaby">Kobolds Ate My Baby!</option>
+                <option value="kult">KULT</option>
+                <option value="labyrinthLord">Labyrinth Lord</option>
+                <option value="lancer">Lancer</option>
+                <option value="lotfp">Lamentations of the Flame Princess</option>
+                <option value="legendOfTheFiveRings4">Legend of the Five Rings 4th Edition</option>
+                <option value="legendOfTheFiveRings5">Legend of the Five Rings 5th Edition</option>
+                <option value="marverSuperHeroes">Marver Super Heroes</option>
+                <option value="mindjammer">Mindjammer</option>
                 <option value="mothership">Mothership</option>
-                <option value="koriolis">Koriolis</option>
-                <option value="mutants">Mutants</option>
+                <option value="mutantChronicles">Mutant Chronicles</option>
+                <option value="mutantСrawlClassics">Mutant Сrawl Classics</option>
+                <option value="mutantsAndMasterminds">Mutants and Masterminds (3e)</option>
+                <option value="mythras">Mythras</option>
+                <option value="nightsBlackAgents">Night's Black Agents</option>
+                <option value="neverland">Neverland</option>
+                <option value="numenera">Numenera</option>
+                <option value="odysseyOfTheDragonlords">Odyssey of the Dragonlords</option>
+                <option value="oldSchoolEssentials">Old School Essentials</option>
+                <option value="owodChangeling">oWoD: Changeling: The Dreaming</option>
+                <option value="owodDemon">oWoD: Demon: The Fallen</option>
+                <option value="owodHunter">oWoD: Hunter: The Reckoning</option>
+                <option value="owodMage">oWoD: Mage: The Ascension</option>
+                <option value="owodMummy">oWoD: Mummy: The Ressurection</option>
+                <option value="owodWerewolf">oWoD: Werewolf: The Apocalypse</option>
+                <option value="owodWraith">oWoD: Wraith: The Oblivion</option>
+                <option value="palladium">Palladium</option>
+                <option value="pbta">Powered by the Apocalypse RPG (ПБТА)</option>
+                <option value="rifts">Rifts</option>
+                <option value="runeQuest">Rune Quest</option>
+                <option value="rytuutama">Rytuutama</option>
+                <option value="savageWorld">Savage World</option>
+                <option value="saveKingdoms">Save Kingdoms</option>
+                <option value="shadowOfTheDemonLord">Shadow of the Demon Lord</option>
+                <option value="shadowRun">Shadow Run</option>
+                <option value="starFinders">Star Finders</option>
+                <option value="starTrek">Star Trek: The Next Generation RPG</option>
+                <option value="starWarsD6">Star Wars D6</option>
+                <option value="starWarsRoleplayingGame">Star Wars Roleplaying Game</option>
+                <option value="starWarsSagaEdition">Star Wars: Saga Edition</option>
+                <option value="starfinder">Starfinder</option>
+                <option value="starsWithoutNumber">Stars without Number</option>
+                <option value="swordsAndWizardry">Swords and Wizardry</option>
+                <option value="symbaroum">Symbaroum</option>
+                <option value="teensInSpace">Teens in Space</option>
+                <option value="theBlackHack">The Black Hack</option>
+                <option value="theBurningWheel">The Burning Wheel</option>
+                <option value="theDarkEye">The Dark Eye</option>
+                <option value="theFallOfDeltaGreen">The Fall of Delta Green</option>
+                <option value="theOneRing">The One Ring</option>
+                <option value="theSongIceFireRPG">The Song of Ice and Fire RPG</option>
+                <option value="torchbearer">Torchbearer</option>
+                <option value="witcher">The Witcher TTRPG (Ведьмак)</option>
+                <option value="torgEternity">Torg Eternity</option>
+                <option value="traveller">Traveller</option>
+                <option value="tunnelGoons">Tunnel Goons</option>
+                <option value="urbanShadows">Urban Shadows</option>
+                <option value="vaesen">Vaesen</option>
+                <option value="w40kr">Warhammer 40,000 Roleplay</option>
+                <option value="waos">Warhammer Age of Sigmar Soulbound</option>
+                <option value="zweihander">Zweihander</option>
                 <option value="other">Other</option>
               </config>
             </input>
@@ -110,5 +241,67 @@
         </option>
       </options>
     </option-set>
+    <option-set name="virtualTable">
+      <label>Virtual Table</label>
+      <occurrences minimum="1" maximum="1"/>
+      <options minimum="1" maximum="1">
+        <option name="select">
+          <label>Select</label>
+          <items>
+            <input name="virtualTable" type="ComboBox">
+              <label>Dropdown</label>
+              <occurrences minimum="1" maximum="1"/>
+              <config>
+                <option value="roll20">Roll20</option>
+                <option value="tabletopSimulator">Tabletop Simulator</option>
+                <option value="fantasyGrounds">Fantasy Grounds</option>
+                <option value="astralTabletop">Astral Tabletop</option>
+                <option value="arkenforege">Arkenforege</option>
+                <option value="foundry">Foundry VTT</option>
+                <option value="talespite">Talespite</option>
+                <option value="other">Other</option>
+              </config>
+            </input>
+          </items>
+        </option>
+        <option name="text">
+          <label>Text</label>
+          <items>
+            <input name="virtualTable" type="TextLine">
+              <label>Manual input</label>
+              <occurrences minimum="1" maximum="1"/>
+            </input>
+          </items>
+        </option>
+      </options>
+    </option-set>
+    <input name="theme" type="ComboBox">
+      <label>Theme</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="gothicHorror">Gothic Horror</option>
+        <option value="mystery">Mystery</option>
+        <option value="fantasy">Fantasy</option>
+        <option value="highFantasy">High Fantasy</option>
+        <option value="lowMagic">Low Magic</option>
+        <option value="sciFi">SciFi</option>
+        <option value="spaceOpera">Space Opera</option>
+        <option value="postApocalyptic">Post-Apocalyptic</option>
+        <option value="cyberpunk">Cyberpunk</option>
+        <option value="viking">Viking</option>
+        <option value="modern">Modern</option>
+        <option value="futuristic">Futuristic</option>
+        <option value="historical">Historical</option>
+        <option value="wacky">Wacky</option>
+        <option value="supernatural">Supernatural</option>
+        <option value="steampunk">Steampunk</option>
+      </config>
+    </input>
+    <input name="image" type="ImageSelector">
+      <label>Image</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+      </config>
+    </input>
   </form>
 </content-type>

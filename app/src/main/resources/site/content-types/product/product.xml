@@ -119,6 +119,8 @@
         <option value="legendaryTicket2020">Legendary 2020</option>
         <option value="regularTicket">Regular 2019</option>
         <option value="legendaryTicket">Legendary 2019</option>
+        <option value="kostiConnectTurbo">KostiConnect Turbo</option>
+        <option value="kostiConnectOnline">KostiConnect online</option>
       </config>
     </input>
     <input name="generateIds" type="Long">
