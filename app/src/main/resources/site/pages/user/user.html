@@ -106,7 +106,8 @@
                     </div>
                 </div>
                 <div class="user_page-blog blog-list-wrap">
-                    <div class="blog-list" data-page="1">
+                    <div class="blog-list" data-page="1"
+                        data-th-attr="data-nomorearticles=${action == 'games'} ? 'true' : 'false'">
                         <h3 class="user_page-title">
                             <span data-th-remove="tag"
                                 data-th-text="${totalArticles.curr != null ? totalArticles.curr : '0'}"></span>
@@ -123,7 +124,8 @@
                         </div>
                         <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
                     </div>
-                    <div data-th-utext="${loadMoreComponent}" data-th-remove="tag"></div>
+                    <div data-th-utext="${loadMoreComponent}" data-th-remove="tag" data-th-if="${action != 'games'}">
+                    </div>
                 </div>
             </div>
         </div>

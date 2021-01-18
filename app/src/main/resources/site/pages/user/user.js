@@ -168,7 +168,8 @@ function handleReq(req) {
       }),
       editUserModal: editUserModal,
       articlesView: articles,
-      pageComponents: helpers.getPageComponents(req, "footerBlog")
+      pageComponents: helpers.getPageComponents(req, "footerBlog"),
+      action: up.action
     };
 
     function getGames(countOnly) {
