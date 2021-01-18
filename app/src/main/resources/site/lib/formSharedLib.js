@@ -134,6 +134,9 @@ function getItemsList(filters) {
       query += "and _parentPath = '/content" + parent._path + "'";
     }
   }
+  if (filters.additionalQuery) {
+    query += filters.additionalQuery;
+  }
   return contentLib.query({
     query: query,
     start: 0,
@@ -143,7 +146,11 @@ function getItemsList(filters) {
 
 function getFestivals() {
   var site = portalLib.getSite();
-  return getItemsList({ type: "landing", parentId: site._id });
+  return getItemsList({
+    type: "landing",
+    parentId: site._id,
+    additionalQuery: " AND data.gameRegisterOpen = 'true'"
+  });
 }
 
 function getDays(params) {

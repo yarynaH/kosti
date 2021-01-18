@@ -59,5 +59,11 @@
         <alignment>right</alignment>
       </config>
     </input>
+    <input name="gameRegisterOpen" type="CheckBox">
+      <label>Game register open</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
   </form>
 </content-type>
