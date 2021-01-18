@@ -26,6 +26,13 @@
                 data-th-text="${portal.localize({'_key=myGames.form.name.caption', '_locale=ru'})}"></div>
         </div>
         <div class="form-group">
+            <label for="my_games_name"
+                data-th-text="${portal.localize({'_key=myGames.form.discord', '_locale=ru'})}"></label>
+            <input data-th-value="${discord.username + ':' + discord.discriminator}"
+                data-th-placeholder="${portal.localize({'_key=myGames.form.discord.placeholder', '_locale=ru'})}"
+                type="text" required id="my_games_name" data-ignore="true" disabled />
+        </div>
+        <div class="form-group">
             <label for="my_games_system"
                 data-th-text="${portal.localize({'_key=myGames.form.gameSystem', '_locale=ru'})}"></label>
             <div class="select-field">
@@ -147,8 +154,14 @@
                 data-th-text="${portal.localize({'_key=myGames.form.adventureLang.en', '_locale=ru'})}">
             </label>
         </div>
-        <div class="my_games-adventure_lang-list form-group">
-            <input type="file" class="js_image-upload" data-ignore="true">
+        <div class="my_games-adventure_img form-group">
+            <label class="my_games-adventure_img-label" for="game-img">
+                <span class="my_games-adventure_img-text">Добавить картинку</span>
+                <div class="my_games-adventure_img-img_wrap" hidden>
+                    <img src="https://picsum.photos/24/24/?random" alt="game picture">
+                </div>
+                <input type="file" id="game-img" class="js_image-upload" hidden data-ignore="true">
+            </label>
             <input type="hidden" class="js_image-id" name="image"
                 data-th-value="${game && game.data.image != null ? game.data.image : '' }">
         </div>

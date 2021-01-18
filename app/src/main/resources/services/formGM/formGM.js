@@ -1,13 +1,13 @@
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var thymeleaf = require("/lib/thymeleaf");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
+const thymeleaf = require("/lib/thymeleaf");
 
-var libLocation = "../../site/lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var formGMLib = require(libLocation + "formGMLib");
-var formSharedLib = require(libLocation + "formSharedLib");
+const libLocation = "../../site/lib/";
+const norseUtils = require(libLocation + "norseUtils");
+const formGMLib = require(libLocation + "formGMLib");
+const formSharedLib = require(libLocation + "formSharedLib");
 
-exports.post = function(req) {
+exports.post = function (req) {
   var result = {};
   var data = JSON.parse(req.params.data);
   var action = data.action;
@@ -58,7 +58,7 @@ exports.post = function(req) {
   };
 };
 
-exports.get = function(req) {
+exports.get = function (req) {
   var result = {};
   switch (req.params.action) {
     case "getView":

@@ -94,4 +94,28 @@
         display: none;
         margin-top: 15px;
     }
+
+    &-adventure_img {
+        &-label {
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        &-text {
+            @include plus-minus(24px, 2px, left 0);
+
+            position: relative;
+            padding: 10px 0 10px 34px;
+            flex: 0 0 auto;
+
+            &::before,
+            &::after {
+                background: #909090;
+                border-color: #909090;
+            }
+        }
+    }
 }
