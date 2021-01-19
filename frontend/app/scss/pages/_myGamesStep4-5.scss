@@ -53,6 +53,14 @@
         margin: 15px 0 5px;
     }
 
+    &-game_img {
+        margin: 15px 0 5px;
+
+        img {
+            width: 100%;
+        }
+    }
+
     &-long_info {
         display: none;
         padding: 0 16px 16px 18px;
