@@ -6,6 +6,16 @@ function initKosticonnetcScripts() {
   $(".js_ticket-buy").on("click", function (e) {
     addTocart(e, this);
   });
+
+  $(".js_faq-item h4").on("click", function() {
+    var parent = $(this).parent();
+    if (parent.hasClass("active")) {
+      parent.removeClass("active");
+    } else {
+      $(".js_faq-item.active").removeClass("active");
+      parent.addClass("active");
+    }
+  });
 }
 
 function addTocart(e, element) {
