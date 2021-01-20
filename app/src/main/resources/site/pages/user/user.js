@@ -59,7 +59,6 @@ function handleReq(req) {
 
     let discord = null;
     if (content && content.data && content.data.discord) {
-      discord = userLib.getDiscordData(content._id);
       discord = cache.api.getOnly(content._id + "-discord");
       if (!discord) {
         discord = userLib.getDiscordData(content._id);
