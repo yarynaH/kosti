@@ -13,7 +13,6 @@ exports.get = function (req) {
     userLib.discordRegister(req.params.code, "become-gm");
   }
   var user = userLib.getCurrentUser();
-  norseUtils.log(response);
   if (!user || !user.data || !user.data.discord) {
     return helpers.getLoginRequest({
       type: "kosticonnect",
