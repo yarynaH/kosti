@@ -107,7 +107,7 @@
             <textarea required
                 data-th-placeholder="${portal.localize({'_key=myGames.form.adventureDescription.placeholder', '_locale=ru'})}"
                 type="text" name="description" id="my_games_adventure_description"
-                data-th-text="${ game ? game.data.description : '' }"></textarea>
+                data-th-text="${ game ? game.data.description : '' }" minlength="100"></textarea>
             <div class="form-caption"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureDescription.caption', '_locale=ru'})}">
             </div>
