@@ -155,6 +155,28 @@
                 data-th-text="${portal.localize({'_key=myGames.form.adventureLang.en', '_locale=ru'})}">
             </label>
         </div>
+        <div class="form-group">
+            <h5 class="form-group-title" data-th-text="${portal.localize({'_key=myGames.form.pregens', '_locale=ru'})}">
+            </h5>
+
+            <input data-th-attr="checked=${game && game.data.pregens == 'master'}" required type="radio" name="pregens"
+                id="master" value="master" hidden>
+            <label for="master" class="my_games-adventure_lang-item active label-radio"
+                data-th-text="${portal.localize({'_key=myGames.form.pregens.master', '_locale=ru'})}">
+            </label>
+
+            <input data-th-attr="checked=${game && game.data.pregens == 'players'}" required type="radio" name="pregens"
+                id="players" value="players" hidden>
+            <label for="players" class="my_games-adventure_lang-item label-radio"
+                data-th-text="${portal.localize({'_key=myGames.form.pregens.players', '_locale=ru'})}">
+            </label>
+
+            <input data-th-attr="checked=${game && game.data.pregens == 'playersAndMaster'}" required type="radio"
+                name="pregens" id="playersAndMaster" value="playersAndMaster" hidden>
+            <label for="playersAndMaster" class="my_games-adventure_lang-item label-radio"
+                data-th-text="${portal.localize({'_key=myGames.form.pregens.playersAndMaster', '_locale=ru'})}">
+            </label>
+        </div>
         <div class="my_games-adventure_img form-group">
             <label class="my_games-adventure_img-label" for="game-img">
                 <span class="my_games-adventure_img-text js_game-image-label">Добавить картинку</span>
@@ -162,6 +184,8 @@
                     <img alt="game picture">
                 </div>
                 <input type="file" id="game-img" class="js_image-upload" hidden data-ignore="true">
+                <div class="form-caption"
+                    data-th-text="${portal.localize({'_key=myGames.form.image.caption', '_locale=ru'})}"></div>
             </label>
             <input type="hidden" class="js_image-id" name="image"
                 data-th-value="${game && game.data.image != null ? game.data.image : '' }">
@@ -180,6 +204,12 @@
                 hidden />
             <label for="kidsGame" class="label-checkbox"
                 data-th-text="${portal.localize({'_key=myGames.form.additional.forChildren', '_locale=ru'})}">
+            </label>
+
+            <input data-th-attr="checked=${game && game.data.beginnerFriendly}" type="checkbox" name="beginnerFriendly"
+                id="beginnerFriendly" hidden />
+            <label for="beginnerFriendly" class="label-checkbox"
+                data-th-text="${portal.localize({'_key=myGames.beginnerFriendly', '_locale=ru'})}">
             </label>
         </div>
         <div class="my_games-action-block">
