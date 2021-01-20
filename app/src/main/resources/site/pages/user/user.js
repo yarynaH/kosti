@@ -173,6 +173,7 @@ function handleReq(req) {
 
     var model = {
       content: content,
+      currUser: currUser,
       currUserFlag: currUserFlag,
       currTitle: currTitle,
       pluralArticlesString: pluralArticlesString,

@@ -33,7 +33,9 @@ exports.addRole = addRole;
 exports.getDiscordData = getDiscordData;
 
 function addRole(roleId, userKey) {
-  authLib.addMembers("role:" + roleId, [userKey]);
+  contextLib.runAsAdmin(function () {
+    authLib.addMembers("role:" + roleId, [userKey]);
+  });
 }
 
 function getCurrentUser() {
@@ -71,10 +73,12 @@ function beautifyUser(userObj, user) {
   );
   userObj.key = user.key;
   userObj.login = user.login;
-  userObj.roles = {
-    moderator: checkRole(["role:moderator", "role:system.admin"]),
-    gameMaster: checkRole(["role:gameMaster", "role:system.admin"])
-  };
+  contextLib.runAsAdmin(function () {
+    userObj.roles = {
+      moderator: checkRole(["role:moderator", "role:system.admin"]),
+      gameMaster: checkRole(["role:gameMaster", "role:system.admin"])
+    };
+  });
   userObj.notificationsCounter = notificationLib.getNotificationsForUser(
     userObj._id,
     null,
@@ -114,6 +118,7 @@ function editUser(data) {
 }
 
 function checkRole(roles) {
+  roles = norseUtils.forceArray(roles);
   for (var i = 0; i < roles.length; i++) {
     if (authLib.hasRole(roles[i])) {
       return true;
