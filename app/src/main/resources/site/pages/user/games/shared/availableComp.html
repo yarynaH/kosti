@@ -34,8 +34,8 @@
             </div>
         </div>
         <div class="my_games-long_info js-my_games-available-long_info">
-            <div class="my_games-game_img" >
-                <img src="https://picsum.photos/424/224/?random" alt="game picture">
+            <div class="my_games-game_img" data-th-if="${game.image}">
+                <img data-th-src="${game.image.url}" alt="game picture">
             </div>
             <div class="my_games-description" data-th-text="${game.data.description}">
             </div>
@@ -51,12 +51,7 @@
             <div class="my_games-text" data-th-if="${game.data.explicit or game.data.kidsGame}">
                 <span class="label"
                     data-th-text="${portal.localize({'_key=myGames.additionalInfo', '_locale=ru'})}"></span>
-                <span class="value">
-                    <span data-th-remove="tag" data-th-if="${game.data.explicit}"
-                        data-th-text="${portal.localize({'_key=myGames.form.additional.explicit', '_locale=ru'})}"></span>
-                    <span data-th-if="${game.data.explicit and game.data.kidsGame}">, </span>
-                    <span data-th-remove="tag" data-th-if="${game.data.kidsGame}"
-                        data-th-text="${portal.localize({'_key=myGames.form.additional.forChildren', '_locale=ru'})}"></span>
+                <span class="value" data-th-text="${game.additionalInfo}">
                 </span>
             </div>
             <div class="my_games-action-block">

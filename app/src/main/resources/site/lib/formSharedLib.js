@@ -8,6 +8,7 @@ const common = require("/lib/xp/common");
 const thymeleaf = require("/lib/thymeleaf");
 const util = require("/lib/util");
 const cacheLib = require("cacheLib");
+const i18nLib = require("/lib/xp/i18n");
 
 const cache = cacheLib.api.createGlobalCache({
   name: "users",
@@ -286,6 +287,27 @@ function beautifyGame(game) {
       localizable: false
     };
   }
+  let additionalInfo = [];
+  if (game.data.kidsGame)
+    additionalInfo.push(
+      i18nLib.localize({
+        key: "myGames.kidsGame"
+      })
+    );
+  if (game.data.explicit)
+    additionalInfo.push(
+      i18nLib.localize({
+        key: "myGames.explicit"
+      })
+    );
+  if (game.data.beginnerFriendly)
+    additionalInfo.push(
+      i18nLib.localize({
+        key: "myGames.beginnerFriendly"
+      })
+    );
+  game.additionalInfo = additionalInfo.join(", ");
+  if (game.data.image) game.image = norseUtils.getImage(game.data.image);
   return game;
 }
 
