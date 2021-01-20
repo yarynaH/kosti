@@ -96,6 +96,7 @@ function getFormComponent(id) {
     block: block,
     discord: discord,
     location: location,
+    user: user,
     virtualTables: getSelectOptions("virtualTable"),
     gameSystems: getSelectOptions("gameSystem"),
     themes: getSelectOptions("theme"),
