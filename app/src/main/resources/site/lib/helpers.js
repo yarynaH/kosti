@@ -352,7 +352,7 @@ function getDiscordUrl(redirect) {
   discordUrl +=
     "&redirect_uri=" +
     portal.pageUrl({ _path: site._path, type: "absolute" }) +
-    (redirect ? redirect : "");
+    (redirect ? redirect : "user/auth/discord");
   discordUrl += "&response_type=code";
   discordUrl += "&scope=email%20identify";
   return discordUrl;
