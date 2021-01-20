@@ -303,6 +303,7 @@ $(".js-my_games").on("click", ".js-my_games-find_hash", function (e) {
 });
 
 $(".js-my_games").on("change", ".js_image-upload", function (e) {
+  showLoader();
   var file_data = $(this).prop("files")[0];
   if (!validateImage(file_data)) {
     showSnackBar("Картинки такого типа не поддерживаются.", "error");
@@ -318,6 +319,12 @@ $(".js-my_games").on("change", ".js_image-upload", function (e) {
     type: "POST",
     success: function (data) {
       $(".js_image-id").val(data._id);
+      if (data.data && data.data.url) {
+        $(".js_game-image img").attr("src", data.data.url);
+        $(".js_game-image-label").addClass("hidden");
+        $(".js_game-image").removeClass("hidden");
+      }
+      hideLoader();
     }
   });
 });
