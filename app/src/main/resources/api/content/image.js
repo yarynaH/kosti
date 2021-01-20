@@ -36,6 +36,6 @@ function createImageObj() {
     targetBranch: "master",
     includeDependencies: false
   });
-  image.url = norseUtils.getImage(image._id);
+  image.data = norseUtils.getImage(image._id);
   return image;
 }
