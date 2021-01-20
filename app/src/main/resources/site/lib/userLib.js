@@ -705,7 +705,7 @@ function getDiscordData(id) {
   let user = contentLib.get({ key: id });
   if (user && user.data && user.data.discord) {
     let response = httpClientLib.request({
-      url: "https://discordapp.com/api/users/453903030786457600",
+      url: "https://discordapp.com/api/users/" + user.data.discord,
       method: "GET",
       connectionTimeout: 2000000,
       readTimeout: 500000,
