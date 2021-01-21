@@ -30,6 +30,7 @@
                 .create_article-add_main_img-icon:after,
                 .create_article-add_main_img-icon:before {
                     border-color: $color-primary1;
+                    background-color: $color-primary1;
                 }
             }
         }
@@ -61,8 +62,9 @@
                 transform: translate(0, -50%);
                 content: "";
                 border: 2px solid $color-primary7;
+                background-color: $color-primary7;
                 width: 24px;
-                transition: transition(border-color);
+                transition: transition(all);
             }
 
             &:before {
