@@ -34,7 +34,10 @@
             line-height: 20px;
             color: #999999;
             margin: 0;
-            flex: 0 0 33%;
+
+            @include desktop {
+                flex: 0 0 33%;
+            }
         }
 
         .form-group {
@@ -50,8 +53,12 @@
         input,
         .select-field,
         textarea {
-            flex: 0 0 64%;
-            min-width: 64%;
+            flex: 0 0 100%;
+
+            @include desktop {
+                flex: 0 0 64%;
+                min-width: 64%;
+            }
         }
 
         .form-group-title {
@@ -95,9 +102,20 @@
         margin-top: 15px;
     }
 
+    &-system-select {
+        .primary {
+            font-weight: bold;
+        }
+    }
+
     &-adventure_img {
         &-label {
             cursor: pointer;
+
+            &:hover .create_article-add_content {
+                opacity: 0.8;
+                transition: transition(opacity);
+            }
         }
 
         &-text {
@@ -122,6 +140,7 @@
         &-img_wrap {
             display: inline-block;
             position: relative;
+            margin-bottom: 15px;
 
             @include icon(add);
 
@@ -156,6 +175,15 @@
                     opacity: 1;
                 }
             }
+        } 
+
+        .create_article-add_content {
+            margin: 15px 0;
+        }
+
+        .form-caption {
+            flex: 0 0 100%;
+            text-transform: none;
         }
     }
 }

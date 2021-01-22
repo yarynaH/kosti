@@ -36,7 +36,7 @@
         <div class="form-group">
             <label for="my_games_system"
                 data-th-text="${portal.localize({'_key=myGames.form.gameSystem', '_locale=ru'})}"></label>
-            <div class="select-field">
+            <div class="my_games-system-select select-field">
                 <select required name="gameSystem" id="my_games_system"
                     class="select js-my_games-select-with-other js-my_games-system">
                     <option data-th-text="${portal.localize({'_key=myGames.form.gameSystem.choose', '_locale=ru'})}"
@@ -179,7 +179,14 @@
         </div>
         <div class="my_games-adventure_img form-group">
             <label class="my_games-adventure_img-label" for="game-img">
-                <span class="my_games-adventure_img-text js_game-image-label">Добавить картинку</span>
+                <!-- <span class="my_games-adventure_img-text js_game-image-label">Добавить картинку</span> -->
+                <div class="create_article-add_content js_game-image-label">
+                    <div class="create_article-add_content-inner">
+                        <div class="create_article-add_content-btn">
+                            <span class="create_article-add_content-icon">Добавить картинку</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="my_games-adventure_img-img_wrap js_game-image hidden">
                     <img alt="game picture">
                 </div>

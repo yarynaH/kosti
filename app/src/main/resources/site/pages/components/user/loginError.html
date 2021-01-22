@@ -7,16 +7,16 @@
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main">
-        <div class="confirmation-wrap">
+        <div class="general_info-wrap">
             <div class="site_width">
-                <h2 class="checkout-title"
+                <h2 class="general_info-title"
                     data-th-text="${portal.localize({'_key=global.error.login.required.heading.' + type, '_locale=ru'})}">
                 </h2>
-                <div class="confirmation-msg"
+                <div class="general_info-msg"
                     data-th-text="${portal.localize({'_key=global.error.login.required.description.' + type, '_locale=ru'})}">
                 </div>
                 <a data-th-if="${params.showDiscord}" data-th-href="${discordUrl}"
-                    class="button social_login-discord">Discord</a>
+                    class="button social_login-discord general_info-button">Discord</a>
             </div>
         </div>
     </main>

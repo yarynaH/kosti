@@ -1,0 +1,36 @@
+.general_info {
+    &-wrap {
+        padding-top: 75px;
+        text-align: center;
+    }
+
+    &-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: $color-primary17;
+        padding-bottom: 25px;
+        display: inline-block;
+        border-bottom: 1px solid $color-primary15;
+        margin-bottom: 50px;
+    }
+
+    &-msg {
+        color: $color-primary16;
+        margin-bottom: 50px;
+        line-height: 1.71;
+        width: 80%;
+        margin: 0 auto 50px;
+
+        @include tablet-all {
+            width: 43%;
+        }
+    }
+
+    &-button.button {
+        max-width: 35%;
+
+        &:hover {
+          box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
+        }
+    }
+}
