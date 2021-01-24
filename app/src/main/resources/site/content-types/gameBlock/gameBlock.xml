@@ -15,7 +15,7 @@
       <config>
         <timezone>true</timezone>
       </config>
-      <occurrences minimum="1" maximum="1"/>
+      <occurrences minimum="0" maximum="1"/>
     </input>
     <input name="description" type="HtmlArea">
       <label>Game block description</label>
@@ -33,6 +33,31 @@
         <option value="block">Block</option>
       </config>
       <default>one</default> 
+    </input>
+    <input name="system" type="ComboBox">
+      <label>Preselected system. For game blocks only</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="dnd5">Dungeons &amp; Dragons 5e</option>
+        <option value="vtm20">Vampire: The Masquerade V20 (Вапмирский Маскарад Классические правила)</option>
+        <option value="vtm5">Vampire: The Masquerade 5th Edition</option>
+        <option value="pathfinder1">Pathfinder 1e</option>
+        <option value="pathfinder2">Pathfinder 2e</option>
+        <option value="shadowrun">Shadowrun</option>
+        <option value="cyberpunkRed">Cyberpunk RED</option>
+        <option value="cyberpunk2020">Cyberpunk 2020</option>
+        <option value="wfrp">Warhammer Fantasy Role Play</option>
+        <option value="w40kwg">Warhammer 40k Wrath &amp; Glory</option>
+        <option value="coc">Call of Cthulhu (Зов Ктулху)</option>
+        <option value="coriolis">Coriolis (Кориолси)</option>
+        <option value="talesFromTheLoop">Tales from the Loop (Тайны Эхосферы)</option>
+        <option value="mutanYearZero">Mutan Year Zero (Мутанты - Точка Отчета)</option>
+        <option value="bladesInTheDark">Blades in the Dark (Клинки во Тьме)</option>
+        <option value="morkBorg">Mörk Borg</option>
+        <option value="shinobi">Шиноби</option>
+        <option value="fate">FATE</option>
+        <option value="trailOfCthulhu">Ктулху (Trail of Cthulhu)</option>
+      </config>
     </input>
   </form>
 </content-type>

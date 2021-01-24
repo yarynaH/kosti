@@ -4,16 +4,21 @@
             value="Фэнтези" hidden>
         <label data-th-for="${block._id}" class="my_games-game_block-item label-radio js-my_games-game_block-item">
             <div class="my_games-game_block-item-top">
-                <span class="my_games-game_block-time"
+                <span data-th-if="${block.time.end}" class="my_games-game_block-time"
                     data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
-                <span class="my_games-game_block-duration">
+                <span data-th-unless="${block.time.end}" class="my_games-game_block-time"
+                    data-th-text="${block.time.start}"></span>
+                <span data-th-if="${block.time.end}" class="my_games-game_block-duration">
                     <span data-th-if="${block.duration.hours > 0}"
                         data-th-text="${block.duration.hours+portal.localize({'_key=myGames.misc.time.h', '_locale=ru'})}"></span>
                     <span data-th-if="${block.duration.minutes > 0}"
                         data-th-text="${block.duration.minutes+portal.localize({'_key=myGames.misc.time.m', '_locale=ru'})}"></span>
                 </span>
                 <span class="my_games-game_block-table_slot">
-                    <span data-th-text="${block.space.reserved + '/' + block.space.total}"></span>
+                    <span data-th-if="${festival && festival.online}"
+                        data-th-text="${portal.localize({'_key=myGames.games.total', '_locale=ru'}) + ': ' + block.space.reserved}"></span>
+                    <span data-th-unless="${festival && festival.online}"
+                        data-th-text="${block.space.reserved + '/' + block.space.total}"></span>
                 </span>
             </div>
             <div class="my_games-game_block-item-bottom">

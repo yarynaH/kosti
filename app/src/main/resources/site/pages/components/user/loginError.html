@@ -6,14 +6,17 @@
 <body class="page-wrapper">
     <div data-th-remove="tag" data-th-utext="${pageComponents.loginRegisterModal}"></div>
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main" id="payment-success">
-        <div class="confirmation-wrap">
+    <main class="main">
+        <div class="general_info-wrap">
             <div class="site_width">
-                <h2 class="checkout-title"
-                    data-th-text="${portal.localize({'_key=global.error.login.required.heading', '_locale=ru'})}"></h2>
-                <div class="confirmation-msg"
-                    data-th-text="${portal.localize({'_key=global.error.login.required.description', '_locale=ru'})}">
+                <h2 class="general_info-title"
+                    data-th-text="${portal.localize({'_key=global.error.login.required.heading.' + type, '_locale=ru'})}">
+                </h2>
+                <div class="general_info-msg"
+                    data-th-text="${portal.localize({'_key=global.error.login.required.description.' + type, '_locale=ru'})}">
                 </div>
+                <a data-th-if="${params.showDiscord}" data-th-href="${discordUrl}"
+                    class="button social_login-discord general_info-button">Discord</a>
             </div>
         </div>
     </main>

@@ -1,13 +1,13 @@
-var norseUtils = require("norseUtils");
-var contentLib = require("/lib/xp/content");
-var portalLib = require("/lib/xp/portal");
-var nodeLib = require("/lib/xp/node");
-var contextLib = require("contextLib");
-var userLib = require("userLib");
-var formSharedLib = require("formSharedLib");
-var common = require("/lib/xp/common");
-var util = require("/lib/util");
-var i18nLib = require("/lib/xp/i18n");
+const norseUtils = require("norseUtils");
+const contentLib = require("/lib/xp/content");
+const portalLib = require("/lib/xp/portal");
+const nodeLib = require("/lib/xp/node");
+const contextLib = require("contextLib");
+const userLib = require("userLib");
+const formSharedLib = require("formSharedLib");
+const common = require("/lib/xp/common");
+const util = require("/lib/util");
+const i18nLib = require("/lib/xp/i18n");
 
 exports.modifyGame = modifyGame;
 exports.deleteGame = deleteGame;
@@ -33,11 +33,32 @@ function checkIfGameExists(data) {
   return false;
 }
 
+function checkIfMasterBookedThisBlock(data) {
+  var gameBlock = contentLib.get({ key: data.blockId });
+  var user = userLib.getCurrentUser();
+  var games = contentLib.query({
+    query:
+      "data.location = '" +
+      data.location +
+      "' and _parentPath = '/content" +
+      gameBlock._path +
+      "' and data.user = '" +
+      user._id +
+      "'",
+    start: 0,
+    count: 0
+  });
+  if (games.total > 0) {
+    return true;
+  }
+  return false;
+}
+
 function deleteGame(id) {
   contentLib.delete({
     key: id
   });
-  contextLib.runInDraft(function() {
+  contextLib.runInDraft(function () {
     contentLib.delete({
       key: id
     });
@@ -80,13 +101,24 @@ function addGame(data) {
       })
     };
   }
+  if (checkIfMasterBookedThisBlock(data)) {
+    return {
+      error: true,
+      message: i18nLib.localize({
+        key: "myGames.form.message.alreadyBooked"
+      })
+    };
+  }
   var day = util.content.getParent({ key: data.location });
-  var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function() {
+  var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
     var parent = contentLib.get({ key: data.blockId });
     var displayName = data.displayName;
     delete data.displayName;
     delete data.blockId;
     var user = userLib.getCurrentUser();
+    if (!user.data.firstName) {
+      userLib.editUser({ firstName: data.masterName, id: user._id });
+    }
     data.user = user._id;
     var game = contentLib.create({
       name: common.sanitize(displayName),

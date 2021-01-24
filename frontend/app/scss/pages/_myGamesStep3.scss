@@ -34,7 +34,10 @@
             line-height: 20px;
             color: #999999;
             margin: 0;
-            flex: 0 0 33%;
+
+            @include desktop {
+                flex: 0 0 33%;
+            }
         }
 
         .form-group {
@@ -50,8 +53,12 @@
         input,
         .select-field,
         textarea {
-            flex: 0 0 64%;
-            min-width: 64%;
+            flex: 0 0 100%;
+
+            @include desktop {
+                flex: 0 0 64%;
+                min-width: 64%;
+            }
         }
 
         .form-group-title {
@@ -93,5 +100,90 @@
     &-system-input {
         display: none;
         margin-top: 15px;
+    }
+
+    &-system-select {
+        .primary {
+            font-weight: bold;
+        }
+    }
+
+    &-adventure_img {
+        &-label {
+            cursor: pointer;
+
+            &:hover .create_article-add_content {
+                opacity: 0.8;
+                transition: transition(opacity);
+            }
+        }
+
+        &-text {
+            @include plus-minus(24px, 2px, left 0);
+
+            display: inline-block;
+            position: relative;
+            padding: 10px 0 10px 34px;
+            flex: 0 0 auto;
+
+            &::before,
+            &::after {
+                background: #909090;
+                border-color: #909090;
+            }
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        &-img_wrap {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 15px;
+
+            @include icon(add);
+
+            &:after {
+                @include position(absolute, top 0 left 0);
+
+                content: '';
+                height: 100%;
+                width: 100%;
+                background: black;
+                opacity: 0;
+                transition: transition(opacity);
+            }
+
+            &:before {
+                @include position(absolute, top 50% left 50%);
+
+                margin-left: -12px;
+                margin-top: -14px;
+                color: $color-primary1;
+                font-size: 24px;
+                z-index: 2;
+                opacity: 0;
+            }
+
+            &:hover {
+                &:after {
+                    opacity: 0.5;
+                }
+
+                &:before {
+                    opacity: 1;
+                }
+            }
+        } 
+
+        .create_article-add_content {
+            margin: 15px 0;
+        }
+
+        .form-caption {
+            flex: 0 0 100%;
+            text-transform: none;
+        }
     }
 }

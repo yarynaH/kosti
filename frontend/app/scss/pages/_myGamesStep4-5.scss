@@ -32,6 +32,7 @@
             border-right: 1px solid #ddd;
             padding-right: 25px;
             margin-right: 25px;
+            min-width: 25%;
         }
 
         &-name {
@@ -50,6 +51,14 @@
 
     &-description {
         margin: 15px 0 5px;
+    }
+
+    &-game_img {
+        margin: 15px 0 5px;
+
+        img {
+            width: 100%;
+        }
     }
 
     &-long_info {

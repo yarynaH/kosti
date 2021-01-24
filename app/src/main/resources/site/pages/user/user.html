@@ -84,8 +84,6 @@
                                     class="profile-action-link" data-th-classappend="${active.games}" data-type="games">
                                     <span data-th-text="${portal.localize({'_key=user.title.games', '_locale=ru'})}"
                                         data-th-remove="tag"></span>
-                                    <span class="value"
-                                        data-th-text="${totalArticles.games != null ? totalArticles.games : '0'}"></span>
                                 </a>
                             </li>
                             <li class="profile-action-item" data-th-if="${currUserFlag}">
@@ -106,8 +104,9 @@
                     </div>
                 </div>
                 <div class="user_page-blog blog-list-wrap">
-                    <div class="blog-list" data-page="1">
-                        <h3 class="user_page-title">
+                    <div class="blog-list" data-page="1"
+                        data-th-attr="data-nomorearticles=${action == 'games'} ? 'true' : 'false'">
+                        <h3 data-th-if="${action != 'games'}" class="user_page-title">
                             <span data-th-remove="tag"
                                 data-th-text="${totalArticles.curr != null ? totalArticles.curr : '0'}"></span>
                             <span data-th-remove="tag"
@@ -123,7 +122,8 @@
                         </div>
                         <div data-th-utext="${articlesView}" data-th-remove="tag"></div>
                     </div>
-                    <div data-th-utext="${loadMoreComponent}" data-th-remove="tag"></div>
+                    <div data-th-utext="${loadMoreComponent}" data-th-remove="tag" data-th-if="${action != 'games'}">
+                    </div>
                 </div>
             </div>
         </div>
