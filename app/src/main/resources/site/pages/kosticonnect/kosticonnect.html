@@ -47,10 +47,10 @@
                 </div>
                 <div class="hero_banner-content">
                     <h2 class="hero_banner-title kosticonnect-title">
-                        <div class="animate-typing" data-animate-loop="true" data-type-speed="100"
-                                data-type-delay="100" data-remove-speed="50" data-remove-delay="1000"
-                                data-cursor-speed="200">лекции|игры|движ|презентации|новости|музыка|друзья|истории|фестиваль|снейксити</div>
-                            У ТЕБЯ ДОМА
+                        <div class="animate-typing" data-animate-loop="true" data-type-speed="100" data-type-delay="100"
+                            data-remove-speed="50" data-remove-delay="1000" data-cursor-speed="200">
+                            лекции|игры|движ|презентации|новости|музыка|друзья|истории|фестиваль|снейксити</div>
+                        У ТЕБЯ ДОМА
                     </h2>
                     <div class="hero_banner-actions">
                         <a target="_blank" class="hero_banner-tickets kosticonnect-button primary js_scroll"
@@ -270,7 +270,9 @@
                 </div>
                 <div class="attend-content">
                     <h2 class="attend-title kosticonnect-title">КАК ВПИСАТЬСЯ?</h2>
-                    <p class="attend-disc">Хотите поводить игры на фестивале? Показать уникальную игру, которую вы сами разрабатываете? Прочесть лекцию? Провести воркшоп? Презентовать свой продукт или бизнес? Мы всегда рады новым участникам!</p>
+                    <p class="attend-disc">Хотите поводить игры на фестивале? Показать уникальную игру, которую вы сами
+                        разрабатываете? Прочесть лекцию? Провести воркшоп? Презентовать свой продукт или бизнес? Мы
+                        всегда рады новым участникам!</p>
                     <div class="attend-actions">
                         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfUHAABktwfXK5Bk21ALbWcWUT91VZYgzVfwH3mAyGmc2vnXw/viewform"
                             target="_blank" class="attend-masters kosticonnect-button primary">ВЕДУЩИЕ</a>
@@ -371,30 +373,16 @@
             </div>
         </div>
     </div>
-    <div class="k_faq">
+    <div class="k_faq" data-th-if="${content.data.faq}">
         <div class="site_content">
             <h2 class="k_faq-title kosticonnect-title">ОСТАЛИСЬ ВОПРОСЫ?</h2>
             <div class="k_faq-accordion">
-                <div class="k_faq-accordion-item js_faq-item">
-                <h4 class="k_faq-accordion-title">
-                    <span>Что значит онлайн фестиваль?</span>
-                    <span class="k_faq-accordion-icon"></span>
-                </h4>
-                <div class="k_faq-accordion-content">Ну вот это и значит, берешь значит свой интернет мать твою, заходишь по ссылкам и смотришь слушаешь и все вот это вот. Это как норм фестиваль только онлайн. Общение там, мать твою, слышал о таком? </div>
-                </div>
-                <div class="k_faq-accordion-item js_faq-item">
-                <h4 class="k_faq-accordion-title">
-                    <span>Что значит онлайн фестиваль?</span>
-                    <span class="k_faq-accordion-icon"></span>
-                </h4>
-                <div class="k_faq-accordion-content">Ну вот это и значит, берешь значит свой интернет мать твою, заходишь по ссылкам и смотришь слушаешь и все вот это вот. Это как норм фестиваль только онлайн. Общение там, мать твою, слышал о таком? </div>
-                </div>
-                <div class="k_faq-accordion-item js_faq-item">
-                <h4 class="k_faq-accordion-title">
-                    <span>Что значит онлайн фестиваль?</span>
-                    <span class="k_faq-accordion-icon"></span>
-                </h4>
-                <div class="k_faq-accordion-content">Ну вот это и значит, берешь значит свой интернет мать твою, заходишь по ссылкам и смотришь слушаешь и все вот это вот. Это как норм фестиваль только онлайн. Общение там, мать твою, слышал о таком? </div>
+                <div class="k_faq-accordion-item js_faq-item" data-th-each="faq: ${content.data.faq}">
+                    <h4 class="k_faq-accordion-title">
+                        <span data-th-text="${faq.question}"></span>
+                        <span class="k_faq-accordion-icon"></span>
+                    </h4>
+                    <div class="k_faq-accordion-content" data-th-utext="${faq.answer}"></div>
                 </div>
             </div>
         </div>
