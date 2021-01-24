@@ -9,10 +9,10 @@ var userLib = require(libLocation + "userLib");
 var helpers = require(libLocation + "helpers");
 
 exports.get = function (req) {
-  var user = userLib.getCurrentUser();
   if (req.params.code) {
     userLib.discordRegister(req.params.code, "become-gm");
   }
+  var user = userLib.getCurrentUser();
   if (!(user && user.data && user.data.discord)) {
     return helpers.getLoginRequest({
       type: "kosticonnect",

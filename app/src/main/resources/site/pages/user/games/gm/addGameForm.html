@@ -39,14 +39,21 @@
             <div class="my_games-system-select select-field">
                 <select required name="gameSystem" id="my_games_system"
                     class="select js-my_games-select-with-other js-my_games-system">
-                    <option data-th-text="${portal.localize({'_key=myGames.form.gameSystem.choose', '_locale=ru'})}"
-                        disabled="disabled" selected>
-                    </option>
-                    <option
-                        data-th-selected="${game && game.data.gameSystem && game.data.gameSystem.select.system == system}"
-                        data-th-each="system: ${gameSystems}" data-th-value="${system}"
-                        data-th-text="${portal.localize({'_key=myGames.gameSystem.' + system, '_locale=ru'})}">
-                    </option>
+                    <div data-th-unless="${block and block.data && block.data.system != null}" data-th-remove="tag">
+                        <option data-th-text="${portal.localize({'_key=myGames.form.gameSystem.choose', '_locale=ru'})}"
+                            disabled="disabled" selected>
+                        </option>
+                        <option data-th-classappend="${system.class}"
+                            data-th-selected="${game && game.data.gameSystem && game.data.gameSystem.select.system == system.name}"
+                            data-th-each="system: ${gameSystems}" data-th-value="${system.name}"
+                            data-th-text="${portal.localize({'_key=myGames.gameSystem.' + system.name, '_locale=ru'})}">
+                        </option>
+                    </div>
+                    <div data-th-if="${block and block.data && block.data.system != null}" data-th-remove="tag">
+                        <option selected data-th-value="${block.data.system}"
+                            data-th-text="${portal.localize({'_key=myGames.gameSystem.' + block.data.system, '_locale=ru'})}">
+                        </option>
+                    </div>
                 </select>
             </div>
             <input
@@ -65,9 +72,9 @@
                         disabled="disabled" selected>
                     </option>
                     <option
-                        data-th-selected="${game && game.data.virtualTable && game.data.virtualTable.select.virtualTable == table}"
-                        data-th-each="table: ${virtualTables}" data-th-value="${table}"
-                        data-th-text="${portal.localize({'_key=myGames.virtualTable.' + table, '_locale=ru'})}">
+                        data-th-selected="${game && game.data.virtualTable && game.data.virtualTable.select.virtualTable == table.name}"
+                        data-th-each="table: ${virtualTables}" data-th-value="${table.name}"
+                        data-th-text="${portal.localize({'_key=myGames.virtualTable.' + table.name, '_locale=ru'})}">
                     </option>
                 </select>
             </div>
@@ -85,9 +92,9 @@
                     <option data-th-text="${portal.localize({'_key=myGames.form.theme.choose', '_locale=ru'})}"
                         disabled="disabled" selected>
                     </option>
-                    <option data-th-selected="${game && game.data.theme == theme}" data-th-each="theme: ${themes}"
-                        data-th-value="${theme}"
-                        data-th-text="${portal.localize({'_key=myGames.theme.' + theme, '_locale=ru'})}">
+                    <option data-th-selected="${game && game.data.theme == theme.name}" data-th-each="theme: ${themes}"
+                        data-th-value="${theme.name}"
+                        data-th-text="${portal.localize({'_key=myGames.theme.' + theme.name, '_locale=ru'})}">
                     </option>
                 </select>
             </div>
