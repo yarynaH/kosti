@@ -371,13 +371,13 @@ function getSelectOptions(inputName) {
     if (f.name === inputName) {
       if (f.formItemType === "Input") {
         f.config.option.forEach((o) => {
-          result.push(o["@value"]);
+          result.push({ name: o["@value"], class: o["@class"] });
         });
       } else {
         f.options.forEach((o) => {
           if (o.name === "select") {
             o.items[0].config.option.forEach((i) => {
-              result.push(i["@value"]);
+              result.push({ name: i["@value"], class: i["@class"] });
             });
           }
         });
