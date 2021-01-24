@@ -1,15 +1,15 @@
-var thymeleaf = require("/lib/thymeleaf");
-var authLib = require("/lib/xp/auth");
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
+const thymeleaf = require("/lib/thymeleaf");
+const authLib = require("/lib/xp/auth");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
 
-var libLocation = "../../lib/";
-var cartLib = require(libLocation + "cartLib");
-var norseUtils = require(libLocation + "norseUtils");
-var helpers = require(libLocation + "helpers");
-var userLib = require(libLocation + "userLib");
-var sharedLib = require(libLocation + "sharedLib");
-var storeLib = require(libLocation + "storeLib");
+const libLocation = "../../lib/";
+const cartLib = require(libLocation + "cartLib");
+const norseUtils = require(libLocation + "norseUtils");
+const helpers = require(libLocation + "helpers");
+const userLib = require(libLocation + "userLib");
+const sharedLib = require(libLocation + "sharedLib");
+const storeLib = require(libLocation + "storeLib");
 
 exports.get = handleReq;
 exports.post = handleReq;
@@ -18,10 +18,10 @@ function handleReq(req) {
   var me = this;
 
   function renderView() {
-    var view = resolve("product.html");
-    var model = createModel();
-    var body = thymeleaf.render(view, model);
-    var fileName = portal.assetUrl({ path: "js/pdp.js" });
+    const view = resolve("product.html");
+    const model = createModel();
+    const body = thymeleaf.render(view, model);
+    const fileName = portal.assetUrl({ path: "js/pdp.js" });
     return {
       body: body,
       contentType: "text/html",
@@ -41,7 +41,7 @@ function handleReq(req) {
     var model = {
       content: content,
       app: app,
-      priceBlock: storeLib.getPriceBlock(content._id),
+      priceBlock: storeLib.getPriceBlock(content._id, req.remoteAddress),
       cart: cartLib.getCart(req.cookies.cartId),
       mainImage: getMainImage(content.data),
       images: getImages(content.data),

@@ -1,40 +1,19 @@
-var thymeleaf = require("/lib/thymeleaf");
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var i18nLib = require("/lib/xp/i18n");
+const thymeleaf = require("/lib/thymeleaf");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
+const i18nLib = require("/lib/xp/i18n");
 
-var libLocation = "../../lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var helpers = require(libLocation + "helpers");
-var userLib = require(libLocation + "userLib");
-var kostiUtils = require(libLocation + "kostiUtils");
-var newsletterLib = require(libLocation + "newsletterLib");
-var contextLib = require(libLocation + "contextLib");
-var storeLib = require(libLocation + "storeLib");
-var sharedLib = require(libLocation + "sharedLib");
+const libLocation = "../../lib/";
+const norseUtils = require(libLocation + "norseUtils");
+const helpers = require(libLocation + "helpers");
+const userLib = require(libLocation + "userLib");
+const kostiUtils = require(libLocation + "kostiUtils");
+const newsletterLib = require(libLocation + "newsletterLib");
+const contextLib = require(libLocation + "contextLib");
+const storeLib = require(libLocation + "storeLib");
+const sharedLib = require(libLocation + "sharedLib");
 
 exports.get = handleReq;
-exports.post = handlePost;
-
-function handlePost(req) {
-  if (req && req.params && req.params.email) {
-    var result = contextLib.runInDraftAsAdmin(function () {
-      return newsletterLib.addEmailToNewsletter(req.params.email);
-    });
-    if (result) {
-      return {
-        body: {
-          text: i18nLib.localize({
-            key: "kosticon2020.landing.thanks",
-            locale: req.params.lang
-          })
-        },
-        contentType: "application/json"
-      };
-    }
-  }
-  return false;
-}
 
 function handleReq(req) {
   var me = this;
@@ -62,31 +41,21 @@ function handleReq(req) {
   function createModel() {
     var up = req.params;
     var content = portal.getContent();
-    var ticketsSold = storeLib.getSoldTicketsAmount(content.data.products);
-    var progress = Math.min(
-      ((ticketsSold - parseInt(content.data.prevMilestone)) /
-        parseInt(content.data.milestone)) *
-        100,
-      100
-    );
-    if (content.data.program) {
-      var programUrl = portal.attachmentUrl({
-        name: content.data.program
-      });
-    } else {
-      var programUrl = null;
+    let products = null;
+    if (content.data.products) {
+      products = storeLib.getProductsByIds(
+        content.data.products,
+        req.remoteAddress
+      );
     }
 
     var model = {
+      products: products,
       content: content,
       faqArray: norseUtils.forceArray(content.data.faq),
-      progress: progress.toFixed(),
-      programUrl: programUrl,
       footerLinks: getFooterLinks(content),
       frontPageUrl: portal.pageUrl({ path: portal.getSite()._path }),
-      ticketsUrl: sharedLib.getShopUrl({ type: "ticket" }),
       relatedLocales: kostiUtils.getRelatedLocales(content),
-      timeRemaining: getRemainingTime("05/21/2020 06:00:00 PM"),
       pageComponents: helpers.getPageComponents(req, "footerScripts")
     };
 
@@ -108,30 +77,5 @@ function handleReq(req) {
     return result;
   }
 
-  function getRemainingTime(date) {
-    var days, hours, minutes, seconds;
-    date = new Date(date).getTime();
-    if (isNaN(date)) {
-      return;
-    }
-    var startDate = new Date();
-    startDate = startDate.getTime();
-    var timeRemaining = parseInt((date - startDate) / 1000);
-    if (timeRemaining >= 0) {
-      days = parseInt(timeRemaining / 86400);
-      timeRemaining = timeRemaining % 86400;
-      hours = parseInt(timeRemaining / 3600);
-      timeRemaining = timeRemaining % 3600;
-      minutes = parseInt(timeRemaining / 60);
-      timeRemaining = timeRemaining % 60;
-      seconds = parseInt(timeRemaining);
-      return {
-        days: parseInt(days, 10).toFixed(),
-        hours: ("0" + hours).slice(-2),
-        minutes: ("0" + minutes).slice(-2),
-        seconds: ("0" + seconds).slice(-2)
-      };
-    }
-  }
   return renderView();
 }

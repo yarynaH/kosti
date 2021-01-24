@@ -412,6 +412,7 @@
     }
 }
 
+//end of hightlights
 
 .shop_block {
     @include mobile {
@@ -793,7 +794,7 @@
     }
 
     &-link:hover {
-        opacity: 0.8;
+        // opacity: 0.8;
     }
 }
 

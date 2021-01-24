@@ -32,8 +32,7 @@ function addTocart(e, element) {
   }
   let call = makeAjaxCall(cartServiceUrl, "POST", data, true);
   call.done(function () {
-    let win = window.open("/cart", "_blank");
-    win.focus();
+    window.location.href = "/cart";
   });
 }
 

@@ -1,12 +1,12 @@
-var norseUtils = require("norseUtils");
-var contentLib = require("/lib/xp/content");
-var portalLib = require("/lib/xp/portal");
-var nodeLib = require("/lib/xp/node");
-var contextLib = require("contextLib");
-var textEncoding = require("/lib/text-encoding");
-var moment = require("moment");
-var hashLib = require("hashLib");
-var sharedLib = require("sharedLib");
+const norseUtils = require("norseUtils");
+const contentLib = require("/lib/xp/content");
+const portalLib = require("/lib/xp/portal");
+const nodeLib = require("/lib/xp/node");
+const contextLib = require("contextLib");
+const textEncoding = require("/lib/text-encoding");
+const moment = require("moment");
+const hashLib = require("hashLib");
+const sharedLib = require("sharedLib");
 
 exports.addPromo = addPromo;
 exports.getCart = getCart;
@@ -470,7 +470,8 @@ function calculateCart(cart) {
     return {
       items: 0,
       shipping: 0,
-      total: 0
+      total: 0,
+      currency: "UAH"
     };
   }
   var items = norseUtils.forceArray(cart.items);
@@ -478,7 +479,8 @@ function calculateCart(cart) {
     return {
       items: 0,
       shipping: 0,
-      total: 0
+      total: 0,
+      currency: "UAH"
     };
   }
   var result = 0;
