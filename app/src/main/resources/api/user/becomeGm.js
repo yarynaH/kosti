@@ -22,7 +22,7 @@ exports.get = function (req) {
   }
   userLib.addRole("gameMaster", user.key);
   return {
-    status: 301,
+    status: 302,
     headers: {
       Location: portal.pageUrl({
         path: user._path,
