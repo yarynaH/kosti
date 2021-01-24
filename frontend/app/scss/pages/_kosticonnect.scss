@@ -781,6 +781,7 @@
     &-item {
         display: flex;
         align-items: center;
+        justify-content: center;
     }
 }
 
@@ -1076,6 +1077,10 @@
 
     &-link {
         color: #F9A033;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
