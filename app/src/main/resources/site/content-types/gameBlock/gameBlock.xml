@@ -57,6 +57,7 @@
         <option value="shinobi">Шиноби</option>
         <option value="fate">FATE</option>
         <option value="trailOfCthulhu">Ктулху (Trail of Cthulhu)</option>
+        <option value="cavalry">Кавалерия</option>
       </config>
     </input>
   </form>
