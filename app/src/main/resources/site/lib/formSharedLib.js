@@ -67,9 +67,8 @@ function getView(viewType, id, params) {
 function getFormComponent(id) {
   var content = contentLib.get({ key: id });
   let user = userLib.getCurrentUser();
-  let discord = null;
+  let discord = {};
   if (user && user.data && user.data.discord) {
-    discord = userLib.getDiscordData(user._id);
     discord = cache.api.getOnly(user._id + "-discord");
     if (!discord) {
       discord = userLib.getDiscordData(user._id);
