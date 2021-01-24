@@ -133,6 +133,7 @@ function handleReq(req) {
       var articles = thymeleaf.render(resolve("gamesView.html"), {
         currUser: currUser,
         currUserFlag: currUserFlag,
+        festival: formSharedLib.getFestivalByDays(days),
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
             days: days,
