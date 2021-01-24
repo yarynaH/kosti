@@ -11,17 +11,17 @@
         <div class="overlay-diagonal overlay-diagonal_2"></div>
         <div class="overlay-diagonal overlay-diagonal_3"></div>
         <div class="overlay-diagonal overlay-diagonal_4"></div>
-        <div class="overlay-header">
+        <div class="overlay-header" data-th-style="'height: 151px; width: 100%; background-repeat: no-repeat; background-size: contain; background-position: top right; padding: 40px 40px 54px; position: relative; background-image: url(' + ${portal.assetUrl({'_path=/images/header-backg.png', '_type=absolute'})} + ')'">
             <h2 class="overlay-char_name">
-                <span class="overlay-char_name-span" data-th-text="${content.displayName}"> </span>, <span class="overlay-char_race"
-                    data-th-text="${content.data.race}"> </span>
+                <span style="text-transform: uppercase;" data-th-text="${content.displayName}"> </span>, <span class="overlay-char_race"
+                    data-th-text="${content.data.race}" style="font-size: 18px; line-height: 1.2;"> </span>
             </h2>
             <h3 class="overlay-char_class">
                 <span data-th-remove="tag" data-th-text="${content.data.class}"> </span> (<span data-th-remove="tag"
                     data-th-text="${content.data.subClass}"> </span>), Уровень <span data-th-remove="tag"
                     data-th-text="${content.data.level}"> </span>
             </h3>
-            <span class="overlay-char_image" data-th-style="${'background-image:url(\'' + content.data.image} + '\')'"></span>
+            <span class="overlay-char_image" data-th-style="'background-image:url(' + ${content.data.image} + '); position: absolute; width: 100%; bottom: 0; right: 2px; background-size: contain; background-repeat: no-repeat; height: 147px;'"></span>
         </div>
 
         <div class="overlay-subheader">
@@ -53,7 +53,7 @@
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             СИЛ
                         </span>
                         <span class="value" data-th-text="${content.data.strMod}">
@@ -67,7 +67,7 @@
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             ЛОВ
                         </span>
                         <span class="value" data-th-text="${content.data.dexMod}">
@@ -81,7 +81,7 @@
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             ТЕЛ
                         </span>
                         <span class="value" data-th-text="${content.data.conMod}">
@@ -95,7 +95,7 @@
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             МУД
                         </span>
                         <span class="value" data-th-text="${content.data.wisMod}">
@@ -109,7 +109,7 @@
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             ИНТ
                         </span>
                         <span class="value" data-th-text="${content.data.intMod}">
@@ -123,7 +123,7 @@
                 <div class="overlay-stats-item">
                     <span class="diamond-top"></span>
                     <div class="overlay-stats-mod">
-                        <span class="label">
+                        <span class="label" style="line-height: 24px;">
                             ХАР
                         </span>
                         <span class="value" data-th-text="${content.data.chaMod}">

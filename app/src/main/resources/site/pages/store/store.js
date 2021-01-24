@@ -32,6 +32,7 @@ function handleReq(req) {
     var response = [];
     var site = portal.getSiteConfig();
     var slider = getSlider(content.data.slider);
+    up.ip = req.remoteAddress;
 
     var model = {
       presetFilters: up,

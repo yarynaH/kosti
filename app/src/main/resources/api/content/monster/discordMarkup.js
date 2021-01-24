@@ -57,6 +57,10 @@ function createMarkup(monster) {
   var actionsLength = 0;
   var actionsString = "";
   actions.forEach((action) => {
+    if (actionsLength + action.length > 1900) {
+      reply.push(actionsString);
+      actionsString = "";
+    }
     actionsLength += action.length;
     actionsString += action;
   });

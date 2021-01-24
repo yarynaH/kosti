@@ -132,9 +132,9 @@ function renderSuccessPage(req, cart, pendingPage) {
       cart: cart
     });
   } else {
-    cart = contextLib.runAsAdmin(function () {
+    /*cart = contextLib.runAsAdmin(function () {
       return (cart = cartLib.generateItemsIds(cart._id));
-    });
+    });*/
     mailsLib.sendMail(
       "pendingItem",
       ["maxskywalker94@gmail.com", "demura.vi@gmail.com"],

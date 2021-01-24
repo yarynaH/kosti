@@ -1,17 +1,17 @@
-var contentLib = require("/lib/xp/content");
-var portal = require("/lib/xp/portal");
-var thymeleaf = require("/lib/thymeleaf");
-var norseUtils = require("norseUtils");
-var mailLib = require("/lib/xp/mail");
-var htmlExporter = require("/lib/openxp/html-exporter");
-var ioLib = require("/lib/xp/io");
-var qrLib = require("qrLib");
-var nodeLib = require("/lib/xp/node");
-var contextLib = require("contextLib");
-var sharedLib = require("sharedLib");
-var pdfLib = require("pdfLib");
+const contentLib = require("/lib/xp/content");
+const portal = require("/lib/xp/portal");
+const thymeleaf = require("/lib/thymeleaf");
+const norseUtils = require("norseUtils");
+const mailLib = require("/lib/xp/mail");
+const htmlExporter = require("/lib/openxp/html-exporter");
+const ioLib = require("/lib/xp/io");
+const qrLib = require("qrLib");
+const nodeLib = require("/lib/xp/node");
+const contextLib = require("contextLib");
+const sharedLib = require("sharedLib");
+const pdfLib = require("pdfLib");
 
-var mailsTemplates = {
+const mailsTemplates = {
   orderCreated: "../pages/mails/orderCreated.html",
   userActivation: "../pages/mails/userActivation.html",
   forgotPass: "../pages/mails/forgotPass.html",
@@ -22,11 +22,17 @@ var mailsTemplates = {
   legendaryTicket: "../pages/pdfs/legendaryTicket.html"
 };
 
-var components = {
+const components = {
   head: "../pages/mails/components/head.html",
   header: "../pages/mails/components/header.html",
   footer: "../pages/mails/components/footer.html"
 };
+
+const adminMails = [
+  "maxskywalker94@gmail.com",
+  "demura.vi@gmail.com",
+  "yarynaholod@gmail.com"
+];
 
 exports.sendMail = sendMail;
 exports.unsubscribe = unsubscribe;
@@ -99,10 +105,16 @@ function getSubscribersMailingList() {
   return validateEmailList(repo, emails);
 }
 
-function getCustomersMailingList() {
+function getCustomersMailingList(type) {
   var repo = sharedLib.connectRepo("cart");
   var result = [];
+  let query = "";
+  if (type && type === "kosticon2020") {
+    query =
+      "items.id in ('b711f633-a705-4f5e-aa2f-5bf818d5408c', '9ac319e6-2adf-4f96-a93f-df60e13762bf', 'b2020221-ce03-4b97-a90b-704692d14c80') and status = 'paid'";
+  }
   var emails = repo.query({
+    query: query,
     count: -1,
     filters: {
       boolean: {
@@ -135,7 +147,13 @@ function getNewsletter(params) {
   var subscribers = params.mailLists.subscribers
     ? getSubscribersMailingList()
     : [];
-  var mails = norseUtils.uniqueArray(customers.concat(subscribers));
+  var kosticon2020 = params.mailLists.kosticon2020
+    ? getCustomersMailingList("kosticon2020")
+    : [];
+  var admins = params.mailLists.admins ? adminMails : [];
+  var mails = norseUtils.uniqueArray(
+    customers.concat(subscribers, kosticon2020, admins)
+  );
   return {
     to: mails,
     subject: params.displayName,

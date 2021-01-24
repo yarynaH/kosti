@@ -110,6 +110,16 @@
     }
   }
 
+  .telegram {
+    @include icon(telegram);
+
+    color: $color-discord;
+
+    &:before {
+      font-size: rem(25);
+    }
+  }
+
   .copy_url {
     @include icon(copy);
 

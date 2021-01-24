@@ -13,10 +13,15 @@ function validatePhone(phone) {
 }
 
 function setCookie(cartId) {
+  var today = new Date();
+  var expire = new Date();
+  expire.setTime(today.getTime() + 3600000 * 24 * 14);
   document.cookie =
     "cartId=" +
     cartId +
-    "; path=/; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=None; Secure;";
+    "; path=/; expires=" +
+    expire.toGMTString() +
+    " GMT; SameSite=None; Secure;";
 }
 
 function deleteCookie(name) {
