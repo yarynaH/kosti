@@ -3,7 +3,9 @@
         class="my_games-available-item js-my_games-available-item">
         <div class="my_games-short_info js-my_games-available-short_info">
             <div class="my_games-short_info-left">
-                <div class="my_games-short_info-time"
+                <div data-th-unless="${game.block.time.end}" class="my_games-short_info-time"
+                    data-th-text="${game.block.time.start}"></div>
+                <div data-th-if="${game.block.time.end}" class="my_games-short_info-time"
                     data-th-text="${game.block.time.start + ' - ' + game.block.time.end}"></div>
                 <div class="my_games-short_info-location" data-th-unless="${festival.online}">
                     <span data-th-text="${game.location + ', '}"></span>
@@ -20,7 +22,7 @@
                     <span
                         data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></span>
                     <span data-th-text="${game.block.displayName}"></span>
-                    <span>
+                    <span data-th-if="${game.block.duration.hours or game.block.duration.minutes}">
                         (
                         <span data-th-if="${game.block.duration.hours > 0}"
                             data-th-text="${game.block.duration.hours+portal.localize({'_key=myGames.misc.time.h', '_locale=ru'})}">
