@@ -220,16 +220,21 @@ function getGameBlocks(locationId) {
 
 function beautifyGameBlock(locationId, block) {
   block.space = getLocationSpace(locationId, block._id);
-  var duration =
-    new Date(block.data.datetimeEnd) - new Date(block.data.datetime);
-  var hours = Math.floor(duration / 60 / 60 / 1000);
-  block.duration = {
-    hours: hours.toFixed(),
-    minutes: (Math.floor(duration / 60 / 1000) - hours * 60).toFixed()
-  };
+  block.duration = {};
+  if (block.data.datetimeEnd && block.data.datetime) {
+    var duration =
+      new Date(block.data.datetimeEnd) - new Date(block.data.datetime);
+    var hours = Math.floor(duration / 60 / 60 / 1000);
+    block.duration = {
+      hours: hours.toFixed(),
+      minutes: (Math.floor(duration / 60 / 1000) - hours * 60).toFixed()
+    };
+  }
   block.time = {
     start: norseUtils.getTime(new Date(block.data.datetime)),
-    end: norseUtils.getTime(new Date(block.data.datetimeEnd))
+    end: block.data.datetimeEnd
+      ? norseUtils.getTime(new Date(block.data.datetimeEnd))
+      : null
   };
   return block;
 }
