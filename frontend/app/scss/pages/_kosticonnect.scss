@@ -318,11 +318,11 @@
     }
 
     &-item {
-        flex: 1 1 50%;
+        flex: 0 1 50%;
         padding: 10px;
         
         @include tablet-all {
-            flex: 1 1 33%;
+            flex: 0 1 33%;
             padding: 16px;
         }
     }
@@ -421,7 +421,7 @@
     }
 
     @include tablet-all {
-        padding-top: 115px;
+        padding-top: 124px;
     }
 
     &-title {
@@ -793,13 +793,17 @@
         color: #11090F;
     }
 
-    &-link:hover {
-        // opacity: 0.8;
+    &-link {
+        transition: none;
+
+        :hover {
+            opacity: 0.8;
+        }
     }
 }
 
 .games {
-    padding: 16px 0 0;
+    padding: 48px 0 0;
 
     &-title {
         color: #fff;
@@ -973,6 +977,7 @@
     padding: 48px 0;
 
     @include desktop {
+        flex: 1 0 50%;
         padding: 64px 0;
     }
 
@@ -987,7 +992,7 @@
 
         & + & {
             @include mobile {
-                margin-top: 45px;
+                margin-top: 15px;
             }
 
             @include tablet-all {
@@ -1024,24 +1029,23 @@
     }
 
     &-title {
-        flex: 1 1 100%;
-        font-family: Raleway;
-        font-weight: 900;
-        font-size: 40px;
-        line-height: 48px;
-        color: #fff;
+        padding-bottom: 10px;
+    }
 
-        @include mobile-xs {
-            font-size: 30px;
-        }
-
-        @include tablet-all {
-            font-size: 48px;
+    .social-list {
+        @include mobile {
+            display: block;
         }
     }
 
     .social-link {
         color: #fff;
+        margin-top: 30px;
+
+        @include mobile {
+            display: inline-block;
+            width: 24%;
+        }
     }
 }
 
@@ -1050,7 +1054,6 @@
     font-size: 16px;
     line-height: 24px;
     font-weight: bold;
-    text-align: right;
     padding: 48px 0;
 
     @include tablet {
@@ -1059,6 +1062,7 @@
 
     @include tablet-all {
         padding: 64px 0;
+        text-align: right;
     }
 
     @include desktop {
