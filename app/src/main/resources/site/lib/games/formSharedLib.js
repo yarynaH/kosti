@@ -37,6 +37,9 @@ exports.getFestivalByDay = getFestivalByDay;
 exports.getFestivalByDays = getFestivalByDays;
 exports.getActiveFestival = getActiveFestival;
 exports.beautifyGameBlock = beautifyGameBlock;
+exports.getGameMisc = getGameMisc;
+exports.getFestivals = getFestivals;
+exports.beautifyDay = beautifyDay;
 
 function getView(viewType, id, params) {
   var model = {};
@@ -306,26 +309,7 @@ function beautifyGame(game) {
       localizable: false
     };
   }
-  let additionalInfo = [];
-  if (game.data.kidsGame)
-    additionalInfo.push(
-      i18nLib.localize({
-        key: "myGames.kidsGame"
-      })
-    );
-  if (game.data.explicit)
-    additionalInfo.push(
-      i18nLib.localize({
-        key: "myGames.explicit"
-      })
-    );
-  if (game.data.beginnerFriendly)
-    additionalInfo.push(
-      i18nLib.localize({
-        key: "myGames.beginnerFriendly"
-      })
-    );
-  game.additionalInfo = additionalInfo.join(", ");
+  game.additionalInfo = getGameMisc(game);
   if (game.data.image) game.image = norseUtils.getImage(game.data.image);
   return game;
 }
@@ -410,4 +394,27 @@ function getAllGamesByBlock(params) {
   let block = contentLib.get({ key: params.id });
   let games = getItemsList({ parentId: params.id, type: "game" });
   return games;
+}
+
+function getGameMisc(game) {
+  let additionalInfo = [];
+  if (game.data.kidsGame)
+    additionalInfo.push(
+      i18nLib.localize({
+        key: "myGames.kidsGame"
+      })
+    );
+  if (game.data.explicit)
+    additionalInfo.push(
+      i18nLib.localize({
+        key: "myGames.explicit"
+      })
+    );
+  if (game.data.beginnerFriendly)
+    additionalInfo.push(
+      i18nLib.localize({
+        key: "myGames.beginnerFriendly"
+      })
+    );
+  return additionalInfo.join(", ");
 }

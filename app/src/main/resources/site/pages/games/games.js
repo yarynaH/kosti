@@ -23,7 +23,12 @@ function handleReq(req) {
     let user = userLib.getCurrentUser();
     let content = portal.getContent();
     let festival = formSharedLib.getActiveFestival();
-    let days = formPlayerLib.getDays({ getBlocks: true });
+    let days = formPlayerLib.getDays({
+      getBlocks: true,
+      dayId: req.params.dayId,
+      system: req.params.system,
+      theme: req.params.theme
+    });
 
     var model = {
       content: content,
