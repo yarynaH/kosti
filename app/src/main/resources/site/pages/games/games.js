@@ -1,24 +1,18 @@
-var thymeleaf = require("/lib/thymeleaf");
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
+const thymeleaf = require("/lib/thymeleaf");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
 
-var libLocation = "../../lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var helpers = require(libLocation + "helpers");
-var moment = require(libLocation + "moment");
-var userLib = require(libLocation + "userLib");
-var formLib = require(libLocation + "formLib");
+const libLocation = "../../lib/";
+const norseUtils = require(libLocation + "norseUtils");
+const helpers = require(libLocation + "helpers");
+const userLib = require(libLocation + "userLib");
 
 exports.get = handleReq;
 
 function handleReq(req) {
-  var me = this;
-
   function renderView() {
-    var view = resolve("games.html");
-    var user = userLib.getCurrentUser();
     var model = createModel();
-    var body = thymeleaf.render(view, model);
+    var body = thymeleaf.render(resolve("games.html"), model);
     return {
       body: body,
       contentType: "text/html"
