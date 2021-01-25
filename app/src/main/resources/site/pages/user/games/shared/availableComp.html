@@ -50,7 +50,12 @@
                 <span class="value"
                     data-th-text="${portal.localize({'_key=myGames.form.adventureLang.' + game.data.language, '_locale=ru'})}"></span>
             </div>
-            <div class="my_games-text" data-th-if="${game.data.explicit or game.data.kidsGame}">
+            <div class="my_games-text">
+                <span class="label" data-th-text="${portal.localize({'_key=myGames.pregens', '_locale=ru'})}"></span>
+                <span class="value"
+                    data-th-text="${portal.localize({'_key=myGames.form.pregens.' + game.data.pregens, '_locale=ru'})}"></span>
+            </div>
+            <div class="my_games-text" data-th-if="${game.additionalInfo}">
                 <span class="label"
                     data-th-text="${portal.localize({'_key=myGames.additionalInfo', '_locale=ru'})}"></span>
                 <span class="value" data-th-text="${game.additionalInfo}">
