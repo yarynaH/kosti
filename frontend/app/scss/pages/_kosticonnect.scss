@@ -800,8 +800,12 @@
     &-link {
         transition: none;
 
-        :hover {
+        &:hover {
             opacity: 0.8;
+        }
+
+        img {
+            max-height: 80px;
         }
     }
 }
