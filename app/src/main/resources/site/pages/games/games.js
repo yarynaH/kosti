@@ -6,8 +6,8 @@ const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
 const userLib = require(libLocation + "userLib");
-const formSharedLib = require(libLocation + "formSharedLib");
-const formPlayerLib = require(libLocation + "formPlayerLib");
+const formSharedLib = require(libLocation + "games/formSharedLib");
+const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 exports.get = handleReq;
 
@@ -23,7 +23,7 @@ function handleReq(req) {
     let user = userLib.getCurrentUser();
     let content = portal.getContent();
     let festival = formSharedLib.getActiveFestival();
-    let days = formSharedLib.getDays({ getBlocks: true });
+    let days = formPlayerLib.getDays({ getBlocks: true });
 
     var model = {
       content: content,

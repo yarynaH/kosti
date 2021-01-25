@@ -1,13 +1,13 @@
-const norseUtils = require("norseUtils");
+const norseUtils = require("../norseUtils");
 const contentLib = require("/lib/xp/content");
 const portalLib = require("/lib/xp/portal");
 const nodeLib = require("/lib/xp/node");
-const contextLib = require("contextLib");
-const userLib = require("userLib");
+const contextLib = require("../contextLib");
+const userLib = require("../userLib");
 const common = require("/lib/xp/common");
 const thymeleaf = require("/lib/thymeleaf");
 const util = require("/lib/util");
-const cacheLib = require("cacheLib");
+const cacheLib = require("../cacheLib");
 const i18nLib = require("/lib/xp/i18n");
 
 const cache = cacheLib.api.createGlobalCache({
@@ -36,6 +36,7 @@ exports.getLocationSpace = getLocationSpace;
 exports.getFestivalByDay = getFestivalByDay;
 exports.getFestivalByDays = getFestivalByDays;
 exports.getActiveFestival = getActiveFestival;
+exports.beautifyGameBlock = beautifyGameBlock;
 
 function getView(viewType, id, params) {
   var model = {};
@@ -206,21 +207,8 @@ function getDays(params) {
   }).hits;
   for (var i = 0; i < days.length; i++) {
     days[i] = beautifyDay(days[i], params.expanded);
-    if (params.getBlocks) days[i].blocks = getGameBlocksByDay(days[i]._id);
   }
   return days;
-}
-
-function getGameBlocksByDay(dayId) {
-  let blocks = getItemsList({
-    parentId: dayId,
-    type: "gameBlock",
-    parentPathLike: true
-  });
-  blocks.forEach((block) => {
-    block = beautifyGameBlock(null, block);
-  });
-  return blocks;
 }
 
 function getLocations(dayId) {
@@ -304,7 +292,7 @@ function beautifyGame(game) {
   game.block = beautifyGameBlock(location._id, gameBlock);
   game.location = location.displayName;
   game.table = getGameTable(game._id, game.block);
-  game.seatsReserver = game.data.players
+  game.seatsReserved = game.data.players
     ? norseUtils.forceArray(game.data.players).length
     : 0;
   if (game.data.gameSystem[game.data.gameSystem._selected]) {

@@ -223,7 +223,7 @@ function discordRegister(code, redirect) {
   var data =
     "&redirect_uri=" +
     portal.pageUrl({ _path: site._path, type: "absolute" }) +
-    (redirect ? redirect : "");
+    (redirect ? redirect : "user/auth/discord");
   data += "&grant_type=authorization_code";
   data += "&scope=identify%20email";
   data += "&code=" + code;

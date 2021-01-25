@@ -4,9 +4,9 @@ var thymeleaf = require("/lib/thymeleaf");
 
 var libLocation = "../../site/lib/";
 var norseUtils = require(libLocation + "norseUtils");
-var formPlayerLib = require(libLocation + "formPlayerLib");
+var formPlayerLib = require(libLocation + "games/formPlayerLib");
 
-exports.get = function(req) {
+exports.get = function (req) {
   var result = {};
   switch (req.params.action) {
     case "getView":

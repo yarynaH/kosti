@@ -10,8 +10,19 @@
         <div data-th-each="day : ${days}">
             <h3 data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"></h3>
             <div data-th-each="block : ${day.blocks}">
-                <span data-th-if="${block.time.end}" data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
-                <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span>
+                <div>
+                    <span data-th-if="${block.time.end}"
+                        data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
+                    <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span>
+                </div>
+                <div data-th-each="game : ${block.games}">
+                    <hr>
+                    <div data-th-text="${game.seatsReserved + '/' + game.data.maxPlayers}"></div>
+                    <img data-th-if="${game.image}" data-th-src="${game.image.url}">
+                    <img data-th-unless="${game.image}" src="https://picsum.photos/300">
+                    <h3 data-th-text="${game.displayName}"></h3>
+                    <div data-th-utext="${game.data.description}"></div>
+                </div>
             </div>
         </div>
     </main>

@@ -4,8 +4,8 @@ const thymeleaf = require("/lib/thymeleaf");
 
 const libLocation = "../../site/lib/";
 const norseUtils = require(libLocation + "norseUtils");
-const formGMLib = require(libLocation + "formGMLib");
-const formSharedLib = require(libLocation + "formSharedLib");
+const formGMLib = require(libLocation + "games/formGMLib");
+const formSharedLib = require(libLocation + "games/formSharedLib");
 
 exports.post = function (req) {
   var result = {};
