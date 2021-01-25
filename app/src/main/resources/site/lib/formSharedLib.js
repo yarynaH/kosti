@@ -68,9 +68,8 @@ function getView(viewType, id, params) {
 function getFormComponent(id) {
   var content = contentLib.get({ key: id });
   let user = userLib.getCurrentUser();
-  let discord = null;
+  let discord = {};
   if (user && user.data && user.data.discord) {
-    discord = userLib.getDiscordData(user._id);
     discord = cache.api.getOnly(user._id + "-discord");
     if (!discord) {
       discord = userLib.getDiscordData(user._id);
@@ -166,7 +165,8 @@ function getItemsList(filters) {
   return contentLib.query({
     query: query,
     start: 0,
-    count: -1
+    count: -1,
+    sort: filters.sort ? filters.sort : "_score DESC"
   }).hits;
 }
 
@@ -201,7 +201,8 @@ function getDays(params) {
       "_parentPath LIKE '/content" +
       festivalPage._path +
       "*' AND data.blockType = 'day'",
-    contentTypes: [app.name + ":gameBlock"]
+    contentTypes: [app.name + ":gameBlock"],
+    sort: "data.datetime ASC"
   }).hits;
   for (var i = 0; i < days.length; i++) {
     days[i] = beautifyDay(days[i], params.expanded);
@@ -232,7 +233,8 @@ function getLocations(dayId) {
 function getGameBlocks(locationId) {
   var blocks = getItemsList({
     parentId: locationId,
-    type: "gameBlock"
+    type: "gameBlock",
+    sort: "data.datetime ASC"
   });
   for (var i = 0; i < blocks.length; i++) {
     blocks[i] = beautifyGameBlock(locationId, blocks[i]);

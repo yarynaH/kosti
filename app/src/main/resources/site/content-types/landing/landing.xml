@@ -18,15 +18,15 @@
       <items>
         <input name="prevMilestone" type="Long">
           <label>Tickets previous milestone</label>
-          <occurrences minimum="1" maximum="1"/>
+          <occurrences minimum="0" maximum="1"/>
         </input>
         <input name="milestone" type="Long">
           <label>Tickets milestone</label>
-          <occurrences minimum="1" maximum="1"/>
+          <occurrences minimum="0" maximum="1"/>
         </input>
         <input name="milestoneTitle" type="TextLine">
           <label>Tickets milestone title</label>
-          <occurrences minimum="1" maximum="1"/>
+          <occurrences minimum="0" maximum="1"/>
         </input>
         <input name="products" type="ContentSelector">
           <label>Products</label>
