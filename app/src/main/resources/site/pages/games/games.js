@@ -6,26 +6,30 @@ const libLocation = "../../lib/";
 const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
 const userLib = require(libLocation + "userLib");
+const formSharedLib = require(libLocation + "formSharedLib");
+const formPlayerLib = require(libLocation + "formPlayerLib");
 
 exports.get = handleReq;
 
 function handleReq(req) {
   function renderView() {
-    var model = createModel();
-    var body = thymeleaf.render(resolve("games.html"), model);
     return {
-      body: body,
+      body: thymeleaf.render(resolve("games.html"), createModel()),
       contentType: "text/html"
     };
   }
 
   function createModel() {
-    var user = userLib.getCurrentUser();
-    var content = portal.getContent();
+    let user = userLib.getCurrentUser();
+    let content = portal.getContent();
+    let festival = formSharedLib.getActiveFestival();
+    let days = formSharedLib.getDays({ getBlocks: true });
 
     var model = {
       content: content,
       user: user,
+      days: days,
+      festival: festival,
       pageComponents: helpers.getPageComponents(req)
     };
 

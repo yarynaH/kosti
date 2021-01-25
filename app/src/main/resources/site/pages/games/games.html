@@ -7,6 +7,13 @@
     <header class="header" data-th-utext="${pageComponents.header}"></header>
     <main class="main blog_width form game_reg-wrap">
         <h1 class="game_reg-title title-1 h-mt-35 h-mb-20" data-th-text="${content.displayName}"></h1>
+        <div data-th-each="day : ${days}">
+            <h3 data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"></h3>
+            <div data-th-each="block : ${day.blocks}">
+                <span data-th-if="${block.time.end}" data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
+                <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span>
+            </div>
+        </div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>

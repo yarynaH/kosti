@@ -35,6 +35,7 @@ exports.getLocations = getLocations;
 exports.getLocationSpace = getLocationSpace;
 exports.getFestivalByDay = getFestivalByDay;
 exports.getFestivalByDays = getFestivalByDays;
+exports.getActiveFestival = getActiveFestival;
 
 function getView(viewType, id, params) {
   var model = {};
@@ -169,6 +170,14 @@ function getItemsList(filters) {
   }).hits;
 }
 
+function getActiveFestival() {
+  let festivals = getFestivals();
+  if (festivals.length > 0) {
+    festivals[0].online = festivals[0].data && festivals[0].data.onlineFestival;
+    return festivals[0];
+  }
+}
+
 function getFestivals() {
   var site = portalLib.getSite();
   return getItemsList({
@@ -196,8 +205,21 @@ function getDays(params) {
   }).hits;
   for (var i = 0; i < days.length; i++) {
     days[i] = beautifyDay(days[i], params.expanded);
+    if (params.getBlocks) days[i].blocks = getGameBlocksByDay(days[i]._id);
   }
   return days;
+}
+
+function getGameBlocksByDay(dayId) {
+  let blocks = getItemsList({
+    parentId: dayId,
+    type: "gameBlock",
+    parentPathLike: true
+  });
+  blocks.forEach((block) => {
+    block = beautifyGameBlock(null, block);
+  });
+  return blocks;
 }
 
 function getLocations(dayId) {
@@ -219,7 +241,9 @@ function getGameBlocks(locationId) {
 }
 
 function beautifyGameBlock(locationId, block) {
-  block.space = getLocationSpace(locationId, block._id);
+  if (locationId) {
+    block.space = getLocationSpace(locationId, block._id);
+  }
   block.duration = {};
   if (block.data.datetimeEnd && block.data.datetime) {
     var duration =
@@ -390,4 +414,10 @@ function getSelectOptions(inputName) {
     }
   });
   return result;
+}
+
+function getAllGamesByBlock(params) {
+  let block = contentLib.get({ key: params.id });
+  let games = getItemsList({ parentId: params.id, type: "game" });
+  return games;
 }
