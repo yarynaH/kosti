@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="page-wrapper">
+    <header class="header" data-th-utext="${pageComponents.header}"></header>
+    <main class="main blog_width form game_reg-wrap">
+        <div class="similar_posts-title"
+            data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></div>
+        <h1 class="game_reg-title title-1 h-mt-35 h-mb-20" data-th-text="${game.displayName}"></h1>
+        <div data-th-utext="${game.data.description}"></div>
+        <div>
+            <span data-th-text="${game.block.dayName + ', '}"></span>
+            <span data-th-text="${game.block.date}"></span>
+            <span data-th-text="${game.block.monthName}"></span>
+            <span data-th-if="${game.block.time.end}"
+                data-th-text="${game.block.time.start + ' - ' + game.block.time.end}">
+            </span>
+        </div>
+        <div data-th-utext="${game.master.displayName}"></div>
+        <div data-th-unless="${game.block.time.end}" data-th-text="${game.block.time.start}"></div>
+        <div data-th-utext="${portal.localize({'_key=myGames.theme.' + game.data.theme, '_locale=ru'})}"></div>
+        <div data-th-utext="${game.additionalInfo}"></div>
+    </main>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

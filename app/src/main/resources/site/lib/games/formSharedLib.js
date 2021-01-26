@@ -247,6 +247,10 @@ function beautifyGameBlock(locationId, block) {
       minutes: (Math.floor(duration / 60 / 1000) - hours * 60).toFixed()
     };
   }
+  var blockDate = new Date(block.data.datetime);
+  block.date = blockDate.getDate().toFixed();
+  block.dayName = norseUtils.getDayName(blockDate);
+  block.monthName = norseUtils.getMonthName(blockDate);
   block.time = {
     start: norseUtils.getTime(new Date(block.data.datetime)),
     end: block.data.datetimeEnd

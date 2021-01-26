@@ -4,8 +4,10 @@ const portalLib = require("/lib/xp/portal");
 const userLib = require("../userLib");
 const formSharedLib = require("formSharedLib");
 const i18nLib = require("/lib/xp/i18n");
+const util = require("/lib/util");
 
 exports.getDays = getDays;
+exports.beautifyGame = beautifyGame;
 
 function getDays(params) {
   let days = [];
@@ -95,7 +97,13 @@ function beautifyGame(game) {
       localizable: false
     };
   }
+  game.block = formSharedLib.beautifyGameBlock(
+    null,
+    util.content.getParent({ key: game._id })
+  );
   game.additionalInfo = formSharedLib.getGameMisc(game);
+  game.url = portalLib.pageUrl({ id: game._id });
+  game.master = contentLib.get({ key: game.data.user });
   if (game.data.image) game.image = norseUtils.getImage(game.data.image);
   return game;
 }
