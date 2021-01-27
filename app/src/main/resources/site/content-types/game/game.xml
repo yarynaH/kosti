@@ -159,6 +159,7 @@
                 <option value="dndbx">Dungeons &amp; Dragons B/x</option>
                 <option value="eclipsePhase">Eclipse Phase</option>
                 <option value="electricBastionland">Electric Bastionland</option>
+                <option value="enoa">ЭНОА</option>
                 <option value="ethos">Ethos Rpg</option>
                 <option value="exalted">Exalted</option>
                 <option value="fadingSun">Fading sun</option>
@@ -232,6 +233,7 @@
                 <option value="theOneRing">The One Ring</option>
                 <option value="theSongIceFireRPG">The Song of Ice and Fire RPG</option>
                 <option value="torchbearer">Torchbearer</option>
+                <option value="skeletons">Чмошная Скелетная Пехота</option>
                 <option value="witcher">The Witcher TTRPG (Ведьмак)</option>
                 <option value="torgEternity">Torg Eternity</option>
                 <option value="traveller">Traveller</option>

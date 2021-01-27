@@ -14,7 +14,14 @@ function handleReq(req) {
   function renderView() {
     return {
       body: thymeleaf.render(resolve("game.html"), createModel()),
-      contentType: "text/html"
+      contentType: "text/html",
+      pageContributions: {
+        bodyEnd: [
+          "<script src='" +
+            portal.assetUrl({ path: "js/festivalGame.js" }) +
+            "'></script>"
+        ]
+      }
     };
   }
 
