@@ -103,7 +103,7 @@ function beautifyGame(game) {
   );
   game.additionalInfo = formSharedLib.getGameMisc(game);
   game.url = portalLib.pageUrl({ id: game._id });
-  game.master = contentLib.get({ key: game.data.user });
+  game.master = contentLib.get({ key: game.data.master });
   if (game.data.image) game.image = norseUtils.getImage(game.data.image);
   return game;
 }

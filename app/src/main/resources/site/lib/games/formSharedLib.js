@@ -149,8 +149,8 @@ function getLocationSpace(locationId, gameBlockId) {
 
 function getItemsList(filters) {
   var query = "type = '" + app.name + ":" + filters.type + "' ";
-  if (filters.user) {
-    query += "AND data.user = '" + filters.user + "'";
+  if (filters.master) {
+    query += "AND data.master = '" + filters.master + "'";
   }
   if (filters.location) {
     query += "AND data.location = '" + filters.location + "'";
@@ -282,7 +282,7 @@ function beautifyDay(day, expanded) {
 function getDaysByUser(parent) {
   var user = userLib.getCurrentUser();
   var games = getItemsList({
-    user: user._id,
+    master: user._id,
     parentId: parent,
     parentPathLike: true,
     type: "game"
