@@ -58,6 +58,7 @@
         <option value="fate">FATE</option>
         <option value="trailOfCthulhu">Ктулху (Trail of Cthulhu)</option>
         <option value="cavalry">Кавалерия</option>
+        <option value="enoa">ЭНОА</option>
       </config>
     </input>
   </form>
