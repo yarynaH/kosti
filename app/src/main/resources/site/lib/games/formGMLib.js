@@ -42,7 +42,7 @@ function checkIfMasterBookedThisBlock(data) {
       data.location +
       "' and _parentPath = '/content" +
       gameBlock._path +
-      "' and data.user = '" +
+      "' and data.master = '" +
       user._id +
       "'",
     start: 0,
@@ -67,7 +67,7 @@ function deleteGame(id) {
 
 function modifyGame(data) {
   var user = userLib.getCurrentUser();
-  data.user = user._id;
+  data.master = user._id;
   delete data.blockId;
   var game = contentLib.modify({
     key: data._id,
@@ -119,7 +119,7 @@ function addGame(data) {
     if (!user.data.firstName) {
       userLib.editUser({ firstName: data.masterName, id: user._id });
     }
-    data.user = user._id;
+    data.master = user._id;
     var game = contentLib.create({
       name: common.sanitize(displayName),
       parentPath: parent._path,

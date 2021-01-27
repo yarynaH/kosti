@@ -56,7 +56,7 @@
         <allowContentType>gamesLocation</allowContentType>
       </config>
     </input>
-    <input name="user" type="ContentSelector">
+    <input name="master" type="ContentSelector">
       <label>Master</label>
       <occurrences minimum="1" maximum="1"/>
       <config>
