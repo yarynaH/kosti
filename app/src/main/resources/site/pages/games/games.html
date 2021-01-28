@@ -3,26 +3,75 @@
 
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<body class="page-wrapper">
-    <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main blog_width form game_reg-wrap">
-        <h1 class="game_reg-title title-1 h-mt-35 h-mb-20" data-th-text="${content.displayName}"></h1>
-        <div data-th-each="day : ${days}">
-            <h3 data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"></h3>
-            <div data-th-each="block : ${day.blocks}">
-                <div>
-                    <span data-th-if="${block.time.end}"
-                        data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
-                    <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span>
+<body class="kosticonnect-page landingPage">
+    <header class="kosticonnect-header">
+        <div class="site_content">
+            <div class="kosticonnect-header_inner">
+                <div class="kosticonnect-short_info">
+                    <div class="kosticonnect-left">
+                        <div class="kosticonnect-logo">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
+                                alt="kosticonnect " />
+                        </div>
+                        <div class="fest_date">
+                            <span class="fest_date-day">25 - 28</span>
+                            <span class="fest_date-month">февраля</span>
+                        </div>
+                    </div>
+                    <div class="kosticonnect-headline">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
                 </div>
-                <div data-th-each="game : ${block.games}">
-                    <hr>
-                    <div data-th-text="${game.seatsReserved + '/' + game.data.maxPlayers}"></div>
-                    <img data-th-if="${game.image}" data-th-src="${game.image.url}">
-                    <img data-th-unless="${game.image}" src="https://picsum.photos/300">
-                    <h3 data-th-text="${game.displayName}"></h3>
-                    <div data-th-utext="${game.data.description}"></div>
-                    <a data-th-href="${game.url}">MOAR</a>
+                <div class="kosticonnect-where">
+                    <div class="kosticonnect-twitch">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/twitch-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-discord">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/discord-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-zoom">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/zoom-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                </div>
+            </div>
+            <div class="kosticonnect-header_insert">
+                <h2 class="kosticonnect-title" data-th-text="${content.displayName}">
+                </h2>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="kosticonnect-content k_games">
+            <div class="site_content">
+                <div class="k_games-day_block" data-th-each="day : ${days}">
+                    <h2 class="kosticonnect-title" data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"></h2>
+                    <div data-th-each="block : ${day.blocks}">
+                        <h3 class="k_games-time_title">
+                            <span data-th-if="${block.time.end}"
+                                data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
+                            <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span>
+                            <span>MSK</span>
+                        </h3>
+                        <ul class="k_games-list">
+                            <li class="k_games-item" data-th-each="game : ${block.games}">
+                                <span class="k_games-seats">
+                                    <span>места</span>
+                                    <span data-th-text="${game.seatsReserved + '/' + game.data.maxPlayers}"></span>
+                                </span>
+                                <div class="k_games-img_wrap">
+                                    <img data-th-if="${game.image}" data-th-src="${game.image.url}">
+                                    <img data-th-unless="${game.image}" src="https://picsum.photos/300">
+                                </div>
+                                <h3 class="k_games-game_name" data-th-text="${game.displayName}"></h3>
+                                <div class="k_games-game_desc" data-th-utext="${game.data.description}"></div>
+                                <a data-th-href="${game.url}">Узнать больше</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
