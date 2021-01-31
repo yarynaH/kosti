@@ -5,7 +5,7 @@
 
 <body class="page-wrapper">
     <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main blog_width form game_reg-wrap">
+    <main data-th-attr="data-id=${game._id}" class="main blog_width form game_reg-wrap js_game-id">
         <div class="similar_posts-title"
             data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></div>
         <h1 class="game_reg-title title-1 h-mt-35 h-mb-20" data-th-text="${game.displayName}"></h1>
@@ -22,6 +22,13 @@
         <div data-th-unless="${game.block.time.end}" data-th-text="${game.block.time.start}"></div>
         <div data-th-utext="${portal.localize({'_key=myGames.theme.' + game.data.theme, '_locale=ru'})}"></div>
         <div data-th-utext="${game.additionalInfo}"></div>
+        <div>
+            <input class="js_get-user-data" data-th-unless="${user and user.data and user.data.firstName}"
+                name="firstName" placeholder="firstName">
+            <input class="js_get-user-data" data-th-unless="${user and user.data and user.data.kosticonnect2021}"
+                name="ticket" placeholder="ticket">
+            <input data-th-unless="${user and user.data and user.data.discord}" name="discord" placeholder="discord">
+        </div>
         <div class="js_sign-up-for-game">записатся</div>
     </main>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
