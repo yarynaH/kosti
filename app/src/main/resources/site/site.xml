@@ -241,5 +241,8 @@
     <mapping controller="/api/content/image.js">
       <pattern>/api/image</pattern>
     </mapping>
+    <mapping controller="/api/festival/game.js">
+      <pattern>/api/festival/game</pattern>
+    </mapping>
   </mappings>
 </site>
