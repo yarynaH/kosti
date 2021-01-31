@@ -1,24 +1,21 @@
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
-var thymeleaf = require("/lib/thymeleaf");
-var httpClientLib = require("/lib/http-client");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
+const thymeleaf = require("/lib/thymeleaf");
+const httpClientLib = require("/lib/http-client");
 
-var libLocation = "../../site/lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var userLib = require(libLocation + "userLib");
-var helpers = require(libLocation + "helpers");
-var formPlayerLib = require(libLocation + "games/formPlayerLib");
+const libLocation = "../../site/lib/";
+const norseUtils = require(libLocation + "norseUtils");
+const userLib = require(libLocation + "userLib");
+const helpers = require(libLocation + "helpers");
 
-exports.post = function (req) {
+exports.get = function (req) {
+  if (req.params.code) {
+    userLib.discordRegister(req.params.code, "game-signup");
+  }
+  let user = userLib.getCurrentUser();
+  let cart = req.cookies.cartId;
   return {
-    /*body: formPlayerLib.checkTicket({
-      ticket: req.params.ticket,
-      cartId: req.cookies.cartId
-    }),*/
-    body: formPlayerLib.bookSpace({
-      cartId: req.cookies.cartId,
-      gameId: req.params.gameId
-    }),
-    contentType: "application/json"
+    body: thymeleaf.render(resolve("templates/discord.html.html"), {}),
+    contentType: "text/html"
   };
 };
