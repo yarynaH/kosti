@@ -18,10 +18,14 @@
     }
 
     &-header_insert {
-        padding-top: 32px;
+        padding: 24px 0 32px;
     
         @include tablet-all {
-            padding-top: 40px;
+            padding: 24px 0 64px;
+        }
+
+        .kosticonnect-title {
+            padding: 0;
         }
 
     }

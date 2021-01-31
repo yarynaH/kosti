@@ -101,7 +101,8 @@
                                     </span>
                                 </div>
                                 <h3 class="k_games-game_name" data-th-text="${game.displayName}"></h3>
-                                <h4 class="k_games-game_system">Alien RPG</h4>
+                                <h4 class="k_games-game_system" 
+                                data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></h4>
                                 <div class="k_games-game_desc" data-th-utext="${game.data.description}"></div>
                                 <div class="k_games-game_actions">
                                     <a class="k_games-link_more" data-th-href="${game.url}">Узнать больше</a>

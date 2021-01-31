@@ -12,6 +12,10 @@ function initKosticonnetcScripts() {
       success: function (data) {}
     });
   });
+
+  $(".js_sign-up-for-game").click(function(){
+    $(".js_sign-up-step-1").toggle("slow");
+});
 }
 
 $(document).ready(function () {
