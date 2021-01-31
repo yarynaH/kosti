@@ -89,8 +89,9 @@
                     <input class="js_get-user-data" data-th-unless="${user and user.data and user.data.kosticonnect2021}"
                         name="ticket" placeholder="Номер билета">
                 </div>
-                <div class="k_gdp-sign_up-step_2 js_sign-up-step-2">
-                    <input data-th-unless="${user and user.data and user.data.discord}" name="discord" placeholder="discord">
+                <div class="k_gdp-sign_up-step_2 js_sign-up-step-2" data-th-unless="${user and user.data and user.data.discord}">
+                    <label class="k_games-filters-label" for="k_games-system-select">Залогиньтесь через Дискорд:</label>
+                    <button class="k_gdp-discord" name="discord" placeholder="discord"></button>
                 </div>
                 <button class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
             </div>
