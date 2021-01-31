@@ -264,10 +264,32 @@
             display: none;
         }
 
+        &-step_2 {
+            margin-bottom: 24px;
+        }
+
         input {
             border: 1px solid #1e1852;
             border-radius: 0;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
+        }
+    }
+
+    &-discord {
+        @include button-style(global transparent discord);
+
+        width: auto;
+        padding: 10px 10px;
+        border-radius: 50%;
+        text-align: center;
+
+        &:before {
+            font-size: rem(22);
+            margin: 0;
+        }
+
+        &:hover {
+            background-color: #e9ebf3;
         }
     }
 }
