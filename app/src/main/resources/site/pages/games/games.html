@@ -3,26 +3,152 @@
 
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
-<body class="page-wrapper">
-    <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main blog_width form game_reg-wrap">
-        <h1 class="game_reg-title title-1 h-mt-35 h-mb-20" data-th-text="${content.displayName}"></h1>
-        <div data-th-each="day : ${days}">
-            <h3 data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"></h3>
-            <div data-th-each="block : ${day.blocks}">
-                <div>
-                    <span data-th-if="${block.time.end}"
-                        data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
-                    <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span>
+<body class="kosticonnect-page landingPage">
+    <header class="kosticonnect-header">
+        <div class="site_content">
+            <div class="kosticonnect-header_inner">
+                <div class="kosticonnect-short_info">
+                    <div class="kosticonnect-left">
+                        <div class="kosticonnect-logo">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
+                                alt="kosticonnect " />
+                        </div>
+                        <div class="fest_date">
+                            <span class="fest_date-day">25 - 28</span>
+                            <span class="fest_date-month">февраля</span>
+                        </div>
+                    </div>
+                    <div class="kosticonnect-headline">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
                 </div>
-                <div data-th-each="game : ${block.games}">
-                    <hr>
-                    <div data-th-text="${game.seatsReserved + '/' + game.data.maxPlayers}"></div>
-                    <img data-th-if="${game.image}" data-th-src="${game.image.url}">
-                    <img data-th-unless="${game.image}" src="https://picsum.photos/300">
-                    <h3 data-th-text="${game.displayName}"></h3>
-                    <div data-th-utext="${game.data.description}"></div>
-                    <a data-th-href="${game.url}">MOAR</a>
+                <div class="kosticonnect-where">
+                    <div class="kosticonnect-twitch">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/twitch-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-discord">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/discord-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-zoom">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/zoom-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                </div>
+            </div>
+            <div class="kosticonnect-header_insert">
+                <h2 class="kosticonnect-title" data-th-text="${content.displayName}">
+                </h2>
+            </div>
+        </div>
+    </header>
+    <main class="k_games-wrap">
+        <div class="kosticonnect-content k_games">
+            <div class="site_content">
+                <div class="k_games-filters">
+                    <div class="k_games-filters-item">
+                        <h5 class="k_games-filters-title">
+                            Фильтры
+                        </h5>
+                    </div>
+                    <div class="k_games-filters-item">
+                        <label class="k_games-filters-label" for="k_games-day-select">День</label>
+                        <div class="k_games-filters-select select-field">
+                            <select name="itemID" class="select" id="k_games-day-select">
+                                <option value="Все дни">Все дни</option>
+                                <option value="День 1">День 1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="k_games-filters-item">
+                        <label class="k_games-filters-label" for="k_games-theme-select">Темы</label>
+                        <div class="k_games-filters-select select-field">
+                            <select name="itemID" class="select" id="k_games-theme-select">
+                                <option value="Футуризм">Футуризм</option>
+                                <option value="Научная фантастика">Научная фантастика</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="k_games-filters-item">
+                        <label class="k_games-filters-label" for="k_games-system-select">Система</label>
+                        <div class="k_games-filters-select select-field">
+                            <select name="itemID" class="select" id="k_games-system-select">
+                                <option value="Cyberpunk RED">Cyberpunk RED</option>
+                                <option value="Pathfinder 2e">Pathfinder 2e</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="k_games-day_block" data-th-each="day : ${days}">
+                    <h2 class="kosticonnect-title" data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"></h2>
+                    <div class="k_games-time_block" data-th-each="block : ${day.blocks}">
+                        <h3 class="k_games-time_title">
+                            <span data-th-if="${block.time.end}"
+                                data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
+                            <span data-th-unless="${block.time.end}" data-th-text="${block.time.start}"></span>
+                            <span>MSK</span>
+                        </h3>
+                        <ul class="k_games-list">
+                            <li class="k_games-item" data-th-each="game : ${block.games}">
+                                <div class="k_games-img_wrap">
+                                    <img data-th-if="${game.image}" data-th-src="${game.image.url}">
+                                    <img data-th-unless="${game.image}" src="https://picsum.photos/300">
+                                    <span class="k_games-seats">
+                                        <span>места</span>
+                                        <span data-th-text="${game.seatsReserved + '/' + game.data.maxPlayers}"></span>
+                                    </span>
+                                </div>
+                                <h3 class="k_games-game_name" data-th-text="${game.displayName}"></h3>
+                                <h4 class="k_games-game_system" 
+                                data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></h4>
+                                <div class="k_games-game_desc" data-th-utext="${game.data.description}"></div>
+                                <div class="k_games-game_actions">
+                                    <a class="k_games-link_more" data-th-href="${game.url}">Узнать больше</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <ul class="k_games-pagination">
+                    <li class="k_games-pagination-item active">
+                        <a href="" class="k_games-pagination-link">1</a>
+                    </li>
+                    <li class="k_games-pagination-item">
+                        <a href="" class="k_games-pagination-link">2</a>
+                    </li>
+                    <li class="k_games-pagination-item">
+                        <span href="" class="k_games-pagination-text">...</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fest_contacts">
+            <div class="site_content">
+                <div class="k_social social">
+                    <h2 class="k_social-title kosticonnect-title">
+                        СОЦСЕТИ ФЕСТИВАЛЯ
+                    </h2>
+                    <div class="social-list social-list__sides_align">
+                        <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook"
+                            title="Facebook"></a>
+                        <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
+                        <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden"
+                            title="Twitter"></a>
+                        <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube"
+                            title="Youtube"></a>
+                        <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram"
+                            title="Instagram"></a>
+                        <a href="https://www.twitch.tv/vecherniyekosti" class="social-link twitch" title="Twitch"></a>
+                        <a href="https://discord.gg/VfDthGK" class="social-link discord" title="Discord"></a>
+                        <a href="https://t.me/vecherniyekosti" class="social-link telegram" title="Telegram"></a>
+                    </div>
+                </div>
+                <div class="about_us">
+                    <h3 class="about_us-title">ОБРАЩАЙТЕСЬ ПО ЛЮБЫМ ВОПРОСАМ:</h3>
+                    <p><a class="about_us-link" href="mailto:info@kostirpg.com">info@kostirpg.com</a></p>
+                    <p><a class="about_us-link" href="tel:+380662098750">+380662098750</a></p>
                 </div>
             </div>
         </div>

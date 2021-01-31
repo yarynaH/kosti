@@ -2,21 +2,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .kosticonnect {
-    &-top {
+    &-header {
         background-color: #443A97;
-        padding-top: 40px;
-        overflow: hidden;
     }
 
-    &-header {
-        padding-bottom: 32px;
-    
+    &-header_inner {
+        padding: 32px 0;
+
         @include tablet-all {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 40px;
+            padding: 40px 0;
         }
+    }
+
+    &-header_insert {
+        padding: 24px 0 32px;
+    
+        @include tablet-all {
+            padding: 24px 0 64px;
+        }
+
+        .kosticonnect-title {
+            padding: 0;
+        }
+
     }
 
     &-short_info {
@@ -133,6 +144,18 @@
                 }
             }
         }
+    }
+
+    &-content {
+        .kosticonnect-title {
+            color: #11090F;
+            padding: 24px 0;
+        }
+    }
+
+    &-top {
+        background-color: #443A97;
+        overflow: hidden;
     }
 
     &-mid {
@@ -381,7 +404,6 @@
 
     &-title {
         font-family: Raleway;
-        font-style: normal;
         font-weight: 900;
         font-size: 24px;
         line-height: 1.3;

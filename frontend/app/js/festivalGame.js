@@ -25,6 +25,10 @@ function updateUserData() {
     type: "POST",
     success: function (data) {}
   });
+
+  $(".js_sign-up-for-game").click(function(){
+    $(".js_sign-up-step-1").toggle("slow");
+});
 }
 
 function updateUserDiscord() {
