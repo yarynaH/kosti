@@ -8,6 +8,7 @@ const formSharedLib = require("formSharedLib");
 const common = require("/lib/xp/common");
 const util = require("/lib/util");
 const i18nLib = require("/lib/xp/i18n");
+const permissions = require("../permissions");
 
 exports.modifyGame = modifyGame;
 exports.deleteGame = deleteGame;
@@ -86,7 +87,7 @@ function modifyGame(data) {
     sourceBranch: "master",
     targetBranch: "draft"
   });
-  return result;
+  return game;
 }
 
 function addGame(data) {
@@ -135,6 +136,12 @@ function addGame(data) {
         })
       };
     }
+    contentLib.setPermissions({
+      key: game._id,
+      inheritPermissions: false,
+      overwriteChildPermissions: true,
+      permissions: permissions.full(user.key)
+    });
     var result = contentLib.publish({
       keys: [game._id],
       sourceBranch: "master",
