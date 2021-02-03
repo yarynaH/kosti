@@ -112,10 +112,11 @@
         <div class="form-group">
             <label for="my_games_adventure_description"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureDescription', '_locale=ru'})}"></label>
-            <textarea required
-                data-th-placeholder="${portal.localize({'_key=myGames.form.adventureDescription.placeholder', '_locale=ru'})}"
-                type="text" name="description" id="my_games_adventure_description"
-                data-th-text="${ game ? game.data.description : '' }" minlength="100"></textarea>
+            <div class="tiny-mce-wrapper">
+                <textarea required id="js_tiny-mce" type="text" name="description"
+                    data-th-text="${ game ? game.data.description : '' }" minlength="100"
+                    data-th-placeholder="${portal.localize({'_key=myGames.form.adventureDescription.placeholder', '_locale=ru'})}"></textarea>
+            </div>
             <div class="form-caption"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureDescription.caption', '_locale=ru'})}">
             </div>

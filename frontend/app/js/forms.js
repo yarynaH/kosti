@@ -15,6 +15,7 @@ function appendStep(viewType, js_wrap, id) {
       $(js_wrap).html(data.html);
       hideLoader();
       $(js_wrap).slideDown("slow");
+      initEditor("#js_tiny-mce");
     }
   });
 }
@@ -35,12 +36,20 @@ function addNewGame(dataJson) {
         showSnackBar(data.message, "success");
         $(".js-my_games-wrapper").html(data.html);
       }
+      destroyEditor();
       hideLoader();
     },
     error: function (data) {
       showSnackBar(data.message, "error");
     }
   });
+}
+
+function destroyEditor() {
+  tinymce.remove("js_tiny-mce");
+  if (tinymce.get("js_tiny-mce")) {
+    tinymce.get("js_tiny-mce").destroy();
+  }
 }
 
 function removeGame(id) {
@@ -55,9 +64,9 @@ function removeGame(id) {
     url: "/_/service/com.myurchenko.kostirpg/formGM",
     data: data,
     type: "POST",
-    success: function () {
+    success: function (data) {
       hideLoader();
-      showSnackBar("Game is deleted", "success");
+      showSnackBar(data.message, "success");
     },
     error: function () {
       hideLoader();
@@ -169,6 +178,7 @@ $(".js-my_games").on("click", ".js-my_games-step1-discard", function (e) {
 
 $(".js-my_games").on("click", ".js-my_games-step3-discard", function (e) {
   e.preventDefault();
+  destroyEditor();
   appendStep("scheduleComp", $(".js-my_games-wrapper"));
 });
 
@@ -334,4 +344,29 @@ $(".js-my_games").on("change", ".js_image-upload", function (e) {
 function validateImage(img) {
   var acceptedImageTypes = ["image/gif", "image/jpeg", "image/png"];
   return img && acceptedImageTypes.includes(img["type"]);
+}
+
+function initEditor(id) {
+  var editor = tinymce.init({
+    selector: id,
+    menubar: false,
+    branding: false,
+    statusbar: false,
+    content_css: customEditorStyles,
+    onchange_callback: "updateTextArea",
+    block_formats: "Параграф=p;Оглавление=h4",
+    plugins: [
+      "advlist autolink lists link charmap print preview anchor",
+      "searchreplace visualblocks code fullscreen",
+      "insertdatetime table paste help autoresize link"
+    ],
+    toolbar:
+      "formatselect | bold italic underline strikethrough removeformat | alignleft aligncenter alignright alignjustify | bullist numlist",
+    content_style: "pre{ white-space: normal; }",
+    setup: function (editor) {
+      editor.on("change keyup", function (e) {
+        $("#js_tiny-mce").val(this.getContent());
+      });
+    }
+  });
 }

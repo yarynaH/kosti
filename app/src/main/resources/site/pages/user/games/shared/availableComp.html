@@ -39,7 +39,7 @@
             <div class="my_games-game_img" data-th-if="${game.image}">
                 <img data-th-src="${game.image.url}" alt="game picture">
             </div>
-            <div class="my_games-description" data-th-text="${game.data.description}">
+            <div class="my_games-description" data-th-utext="${game.data.description}">
             </div>
             <div class="my_games-text">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.players', '_locale=ru'})}"></span>

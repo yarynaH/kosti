@@ -64,6 +64,12 @@ function deleteGame(id) {
       key: id
     });
   });
+  return {
+    error: false,
+    message: i18nLib.localize({
+      key: "myGames.form.message.deleted"
+    })
+  };
 }
 
 function modifyGame(data) {
@@ -85,9 +91,17 @@ function modifyGame(data) {
   var result = contentLib.publish({
     keys: [game._id],
     sourceBranch: "master",
-    targetBranch: "draft"
+    targetBranch: "draft",
+    includeDependencies: false
   });
-  return game;
+  var day = util.content.getParent({ key: data.location });
+  return {
+    error: false,
+    message: i18nLib.localize({
+      key: "myGames.form.message.modified"
+    }),
+    html: formSharedLib.getView("gmComp", null, { expanded: day._id })
+  };
 }
 
 function addGame(data) {
@@ -160,7 +174,7 @@ function addGame(data) {
   return {
     error: false,
     message: i18nLib.localize({
-      key: "myGames.form.message.success"
+      key: "myGames.form.message.created"
     }),
     html: formSharedLib.getView("gmComp", null, { expanded: day._id })
   };
