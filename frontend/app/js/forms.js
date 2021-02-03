@@ -56,9 +56,11 @@ function removeGame(id) {
     data: data,
     type: "POST",
     success: function () {
+      hideLoader();
       showSnackBar("Game is deleted", "success");
     },
     error: function () {
+      hideLoader();
       showSnackBar("Some errror!", "error");
     }
   });
