@@ -48,10 +48,18 @@ function handleReq(req) {
         req.remoteAddress
       );
     }
+    if (content.data.program) {
+      var programUrl = portal.attachmentUrl({
+        name: content.data.program
+      });
+    } else {
+      var programUrl = null;
+    }
 
     var model = {
       products: products,
       content: content,
+      programUrl: programUrl,
       faqArray: norseUtils.forceArray(content.data.faq),
       footerLinks: getFooterLinks(content),
       frontPageUrl: portal.pageUrl({ path: portal.getSite()._path }),
