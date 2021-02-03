@@ -1,6 +1,10 @@
 .my_games {
     &-step3 {
-        padding: 20px 40px 40px;
+        padding: 20px;
+
+        @include tablet-all {
+            padding: 20px 40px 40px;
+        }
     }
 
     &-link {
