@@ -49,6 +49,13 @@ function checkLiqpayOrderStatus() {
       mailsLib.sendMail("orderCreated", carts[i].email, {
         cart: carts[i]
       });
+    } else if (
+      result &&
+      result.status &&
+      (result.status === "failure" || result.status === "error")
+    ) {
+      norseUtils.log("updating status");
+      cartLib.modifyCartWithParams(carts[i]._id, { status: "failed" });
     }
   }
 }
