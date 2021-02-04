@@ -88,12 +88,16 @@ function modifyGame(data) {
     c.data = data;
     return c;
   }
-  var result = contentLib.publish({
-    keys: [game._id],
-    sourceBranch: "master",
-    targetBranch: "draft",
-    includeDependencies: false
+
+  contextLib.runAsAdminAsUser(user, function () {
+    contentLib.publish({
+      keys: [game._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
+
   var day = util.content.getParent({ key: data.location });
   return {
     error: false,
