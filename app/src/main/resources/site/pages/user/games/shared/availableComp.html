@@ -6,7 +6,7 @@
                 <div data-th-unless="${game.block.time.end}" class="my_games-short_info-time"
                     data-th-text="${game.block.time.start}"></div>
                 <div data-th-if="${game.block.time.end}" class="my_games-short_info-time"
-                    data-th-text="${game.block.time.start + ' - ' + game.block.time.end}"></div>
+                    data-th-text="${game.block.time.start + ' - ' + game.block.time.end + ' MSK'}"></div>
                 <div class="my_games-short_info-location" data-th-unless="${festival.online}">
                     <span data-th-text="${game.location + ', '}"></span>
                     <span
@@ -19,8 +19,9 @@
                     <span class="icon-arrow"></span>
                 </div>
                 <div class="my_games-short_info-desccription">
-                    <span
+                    <span data-th-if="${game.system.localizable}"
                         data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></span>
+                    <span data-th-unless="${game.system.localizable}" data-th-text="${game.system.text}"></span>
                     <span data-th-text="${game.block.displayName}"></span>
                     <span data-th-if="${game.block.duration.hours or game.block.duration.minutes}">
                         (

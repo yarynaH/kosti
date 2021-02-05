@@ -7,8 +7,9 @@
         <span class="icon-arrow"></span>
     </h1>
     <p class="my_games-caption">
-        <span data-th-if="${block.time.end}" data-th-text="${block.time.start + ' - ' + block.time.end + ', '}"></span>
-        <span data-th-unless="${block.time.end}" data-th-text="${block.time.start + ', '}"></span>
+        <span data-th-if="${block.time.end}"
+            data-th-text="${block.time.start + ' - ' + block.time.end + ' MSK, '}"></span>
+        <span data-th-unless="${block.time.end}" data-th-text="${block.time.start + ' MSK, '}"></span>
         <span data-th-text="${block.displayName + (festival.online ? '.' : ', ')}"></span>
         <span data-th-unless="${festival.online}" data-th-text="${location.displayName + '.'}"></span>
         <button class="my_games-link button js-my_games-step3-discard"

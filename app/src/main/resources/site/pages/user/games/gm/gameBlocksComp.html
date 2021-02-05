@@ -5,9 +5,9 @@
         <label data-th-for="${block._id}" class="my_games-game_block-item label-radio js-my_games-game_block-item">
             <div class="my_games-game_block-item-top">
                 <span data-th-if="${block.time.end}" class="my_games-game_block-time"
-                    data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
+                    data-th-text="${block.time.start + ' - ' + block.time.end + ' MSK'}"></span>
                 <span data-th-unless="${block.time.end}" class="my_games-game_block-time"
-                    data-th-text="${block.time.start}"></span>
+                    data-th-text="${block.time.start + ' MSK'}"></span>
                 <span data-th-if="${block.time.end}" class="my_games-game_block-duration">
                     <span data-th-if="${block.duration.hours > 0}"
                         data-th-text="${block.duration.hours+portal.localize({'_key=myGames.misc.time.h', '_locale=ru'})}"></span>
