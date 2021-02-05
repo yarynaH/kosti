@@ -50,7 +50,8 @@
         <div class="k_games-gdp site_content">
             <div class="k_gdp-left_col">
                 <h5 class="k_gdp-system_name"
-                data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></h5>
+                    data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}">
+                </h5>
                 <h1 class="k_gdp-title kosticonnect-title" data-th-text="${game.displayName}"></h1>
                 <div class="k_gdp-desc" data-th-utext="${game.data.description}"></div>
             </div>
@@ -61,7 +62,7 @@
                 </div>
                 <div class="k_gdp-info">
                     <div class="k_gdp-label">ВРЕМЯ</div>
-                    <div class="k_gdp-value" >
+                    <div class="k_gdp-value">
                         <span data-th-text="${game.block.dayName + ', '}"></span>
                         <span data-th-text="${game.block.date}"></span>
                         <span data-th-text="${game.block.monthName}"></span>
@@ -74,7 +75,8 @@
                     <div class="k_gdp-label">ТЕМА</div>
                     <div class="k_gdp-value">
                         <span data-th-unless="${game.block.time.end}" data-th-text="${game.block.time.start}"></span>
-                        <span data-th-utext="${portal.localize({'_key=myGames.theme.' + game.data.theme, '_locale=ru'})}"></span>
+                        <span
+                            data-th-utext="${portal.localize({'_key=myGames.theme.' + game.data.theme, '_locale=ru'})}"></span>
                     </div>
                 </div>
                 <div class="k_gdp-info">
@@ -83,15 +85,20 @@
                 </div>
             </div>
             <div class="k_gdp-sign_up">
-                <div class="k_gdp-sign_up-step_1 js_sign-up-step-1">
+                <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1"
+                    data-th-unless="${user and user.data and user.data.firstName and user.data.kosticonnect2021}">
                     <input class="js_get-user-data" data-th-unless="${user and user.data and user.data.firstName}"
                         name="firstName" placeholder="Ваше им'я">
-                    <input class="js_get-user-data" data-th-unless="${user and user.data and user.data.kosticonnect2021}"
-                        name="ticket" placeholder="Номер билета">
-                </div>
-                <div class="k_gdp-sign_up-step_2 js_sign-up-step-2" data-th-unless="${user and user.data and user.data.discord}">
+                    <input class="js_get-user-data"
+                        data-th-unless="${user and user.data and user.data.kosticonnect2021}" name="ticket"
+                        placeholder="Номер билета">
+                    <button type="submit" class="kosticonnect-button primary js_game-submit-user-data">ЗАПИСАТЬСЯ НА
+                        ИГРУ</button>
+                </form>
+                <div class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" data-th-if="${discordUrl}"
+                    style="display:none">
                     <label class="k_games-filters-label" for="k_games-system-select">Залогиньтесь через Дискорд:</label>
-                    <button class="k_gdp-discord" name="discord" placeholder="discord"></button>
+                    <a data-th-href="${discordUrl}" class="k_gdp-discord" name="discord" placeholder="discord"></a>
                 </div>
                 <button class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
             </div>

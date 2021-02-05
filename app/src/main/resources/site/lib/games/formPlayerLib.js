@@ -7,6 +7,7 @@ const i18nLib = require("/lib/xp/i18n");
 const util = require("/lib/util");
 const contextLib = require("../contextLib");
 const cartLib = require("../cartLib");
+const sharedLib = require("../sharedLib");
 
 exports.getDays = getDays;
 exports.beautifyGame = beautifyGame;
@@ -14,6 +15,7 @@ exports.gameSpaceAvailable = gameSpaceAvailable;
 exports.bookSpace = bookSpace;
 exports.checkTicket = checkTicket;
 exports.changeCartIdToPlayerId = changeCartIdToPlayerId;
+exports.signForGame = signForGame;
 
 function getDays(params) {
   let days = [];
@@ -170,17 +172,19 @@ function bookSpace(params) {
       game.data.players = players;
       game = updateEntity(game);
     }
-    let cart = cartLib.getCartById(params.cartId);
-    let cartRepo = connectCartRepo();
-    let result = cartRepo.modify({
-      key: params.cartId,
-      editor: editor
+    let cart = cartLib.getCart(params.cartId);
+    contextLib.runAsAdmin(function () {
+      let cartRepo = sharedLib.connectRepo("cart");
+      cartRepo.modify({
+        key: params.cartId,
+        editor: editor
+      });
+      function editor(node) {
+        node.firstName = params.firstName;
+        node.kosticonnect2021 = params.kosticonnect2021;
+        return node;
+      }
     });
-    function editor(node) {
-      node.firstName = params.firstName;
-      node.kosticonnect2021 = params.kosticonnect2021;
-      return node;
-    }
     return game;
   }
 }
@@ -212,10 +216,9 @@ function updateUser(params) {
 }
 
 function signForGame(params) {
-  if (!gameSpaceAvailable(params.gameId)) {
+  if (!params || !gameSpaceAvailable(params.gameId)) {
     return false;
   }
-  if (!params) params = {};
   let user = userLib.getCurrentUser();
   let game = contentLib.get({ key: params.gameId });
   let players = game.data.players;

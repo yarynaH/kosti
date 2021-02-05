@@ -29,11 +29,16 @@ function handleReq(req) {
     let user = userLib.getCurrentUser();
     let game = portal.getContent();
     game = formPlayerLib.beautifyGame(game);
+    let discordUrl = null;
+    if (!(user && user.data && user.data.discord)) {
+      discordUrl = helpers.getDiscordUrl("api/festival/discord");
+    }
 
     var model = {
       game: game,
       user: user,
-      pageComponents: helpers.getPageComponents(req)
+      discordUrl: discordUrl,
+      pageComponents: helpers.getPageComponents(req, "footerScripts")
     };
 
     return model;

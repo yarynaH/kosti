@@ -17,7 +17,7 @@ exports.post = function (req) {
     }),*/
     body: formPlayerLib.bookSpace({
       cartId: req.cookies.cartId,
-      ticket: req.params.ticket,
+      kosticonnect2021: req.params.ticket,
       firstName: req.params.firstName,
       gameId: req.params.gameId
     }),
