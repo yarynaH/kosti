@@ -14,7 +14,6 @@ exports.post = function (req) {
   delete data.action;
   switch (action) {
     case "addGame":
-      norseUtils.log(data);
       result = formGMLib.addGame(data);
       /*
         displayName: displayName and _name
@@ -30,7 +29,7 @@ exports.post = function (req) {
       */
       break;
     case "editGame":
-      formGMLib.modifyGame(data);
+      result = formGMLib.modifyGame(data);
       /*
         _id
         displayName: displayName and _name
@@ -44,7 +43,7 @@ exports.post = function (req) {
       */
       break;
     case "deleteGame":
-      formGMLib.deleteGame(data.id);
+      result = formGMLib.deleteGame(data.id);
       /*
         id
       */

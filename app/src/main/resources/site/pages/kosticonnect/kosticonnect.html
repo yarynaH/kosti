@@ -111,7 +111,8 @@
                             <span class="hightlights-label">Chris Perkins</span>
                         </div>
                         <div class="hightlights-desc">
-                            Побеседуем с Крисом Перкинсом, ведущим дизайнером D&D, автором "The Curse of Strahd", и просто МАСТЕРОМ подземелий.
+                            Побеседуем с Крисом Перкинсом, ведущим дизайнером D&D, автором "The Curse of Strahd", и
+                            просто МАСТЕРОМ подземелий.
                         </div>
                     </li>
                     <li class="hightlights-item">
@@ -138,11 +139,15 @@
                     </li>
                 </ul>
             </div>
-            <div class="fest_program">
+        </div>
+        <div data-th-if="${programUrl}" class="fest_program">
+            <div class="site_content">
                 <h2 class="fest_program-title">
-                    ПОЛНАЯ ПРОГРАММА ФЕСТИВАЛЯ БУДЕТ АНОНСИРОВАНА
+                    <a target="_blank" data-th-href="${programUrl}" class="link">СКАЧАТЬ</a> ПОЛНУЮ ПРОГРАММУ ФЕСТИВАЛЯ!
                 </h2>
             </div>
+        </div>
+        <div class="site_content">
             <div class="games">
                 <h2 class="games-title kosticonnect-title">МНОЖЕСТВО ИГР</h2>
                 <ul class="games-list">
@@ -294,6 +299,12 @@
                 <h2 class="participants-title kosticonnect-title">КТО УЖЕ С НАМИ?</h2>
                 <ul class="participants-list">
                     <li class="participants-item">
+                        <a href="https://dnd.wizards.com" title="Wizards of the Coast" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo13.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
                         <a href="https://frialigan.se/" title="Free League" class="participants-link">
                             <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo1.png'})}"
                                 alt="kosticonnect backstage img">
@@ -367,8 +378,35 @@
                         </a>
                     </li>
                     <li class="participants-item">
-                        <a href="https://dnd.wizards.com" title="Wizards of the Coast" class="participants-link">
-                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo13.png'})}"
+                        <a href="https://vk.com/cyberblask" title='Major Blaskowitz"' class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/blazk.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://goodman-games.com/" title='Goodman Games"' class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/goodmangames.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="kosticonnect-mid2">
+        <div class="site_content">
+            <div class="participants">
+                <h2 class="participants-title kosticonnect-title">ИНФО - ПАРТНЕРЫ:</h2>
+                <ul class="participants-list">
+                    <li class="participants-item">
+                        <a href="https://regnum.ru/" title="Regnum" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo14.png'})}"
+                                alt="kosticonnect backstage img">
+                        </a>
+                    </li>
+                    <li class="participants-item">
+                        <a href="https://comiccon.ua/" title="Comic Con" class="participants-link">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/logo15.png'})}"
                                 alt="kosticonnect backstage img">
                         </a>
                     </li>

@@ -7,8 +7,9 @@
         <span class="icon-arrow"></span>
     </h1>
     <p class="my_games-caption">
-        <span data-th-if="${block.time.end}" data-th-text="${block.time.start + ' - ' + block.time.end + ', '}"></span>
-        <span data-th-unless="${block.time.end}" data-th-text="${block.time.start + ', '}"></span>
+        <span data-th-if="${block.time.end}"
+            data-th-text="${block.time.start + ' - ' + block.time.end + ' MSK, '}"></span>
+        <span data-th-unless="${block.time.end}" data-th-text="${block.time.start + ' MSK, '}"></span>
         <span data-th-text="${block.displayName + (festival.online ? '.' : ', ')}"></span>
         <span data-th-unless="${festival.online}" data-th-text="${location.displayName + '.'}"></span>
         <button class="my_games-link button js-my_games-step3-discard"
@@ -112,10 +113,11 @@
         <div class="form-group">
             <label for="my_games_adventure_description"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureDescription', '_locale=ru'})}"></label>
-            <textarea required
-                data-th-placeholder="${portal.localize({'_key=myGames.form.adventureDescription.placeholder', '_locale=ru'})}"
-                type="text" name="description" id="my_games_adventure_description"
-                data-th-text="${ game ? game.data.description : '' }" minlength="100"></textarea>
+            <div class="tiny-mce-wrapper">
+                <textarea required id="js_tiny-mce" type="text" name="description"
+                    data-th-text="${ game ? game.data.description : '' }" minlength="100"
+                    data-th-placeholder="${portal.localize({'_key=myGames.form.adventureDescription.placeholder', '_locale=ru'})}"></textarea>
+            </div>
             <div class="form-caption"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureDescription.caption', '_locale=ru'})}">
             </div>
@@ -188,15 +190,16 @@
         <div class="my_games-adventure_img form-group">
             <label class="my_games-adventure_img-label" for="game-img">
                 <!-- <span class="my_games-adventure_img-text js_game-image-label">Добавить картинку</span> -->
-                <div class="create_article-add_content js_game-image-label">
+                <div class="create_article-add_content js_game-image-label" data-th-unless="${game and game.image}">
                     <div class="create_article-add_content-inner">
                         <div class="create_article-add_content-btn">
                             <span class="create_article-add_content-icon">Добавить картинку</span>
                         </div>
                     </div>
                 </div>
-                <div class="my_games-adventure_img-img_wrap js_game-image hidden">
-                    <img alt="game picture">
+                <div class="my_games-adventure_img-img_wrap js_game-image"
+                    data-th-classappend="${game and game.image} ? '' : 'hidden'">
+                    <img alt="game picture" data-th-src="${game and game.image ? game.image.url : ''}">
                 </div>
                 <input type="file" id="game-img" class="js_image-upload" hidden data-ignore="true">
                 <div class="form-caption"
