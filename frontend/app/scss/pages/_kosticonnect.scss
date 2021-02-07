@@ -505,6 +505,17 @@
                 margin-top: 24px;
             }
         }
+
+        &-inner {
+            .sold-out & {
+                mix-blend-mode: luminosity;
+                opacity: 0.25;
+            }
+        }
+
+        &.sold-out {
+            position: relative;
+        }
     }
 
     &-support {
@@ -634,11 +645,52 @@
                 border-color: #11090f;
                 outline: 1px solid #11090f;
             }
+
+            .sold-out & {
+                pointer-events: none;
+            }
         }
     }
 
     &-buy {
         margin-top: 10px;
+
+        .sold-out & {
+            pointer-events: none;
+        }
+    }
+
+    &-msg_wrap {
+        display: none;
+        position: absolute;
+        z-index: 2;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: 20%;
+        text-align: center;
+
+        @include desktop {
+            top: 27%;
+        }
+
+        .sold-out & {
+            display: block;
+        }
+    }
+
+    &-msg {
+        padding: 8px;
+        background: #EE205F;
+        font-family: Raleway;
+        font-weight: 900;
+        color: #FFFFFF;
+        font-size: 30px;
+        line-height: 28px;
+
+        @include desktop {
+            font-size: 40px;
+        }
     }
 }
 

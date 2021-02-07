@@ -203,28 +203,33 @@
                 </h2>
                 <ul class="shop_block-list">
                     <li class="shop_block-item regular" data-th-each="product: ${products}">
-                        <div class="shop_block-img_wrap">
-                            <img data-th-src="${product.image.url}" alt="regular ticket">
-                        </div>
-                        <h3 class="shop_block-subtitle" data-th-text="${product.displayName}">
-                        </h3>
-                        <span class="shop_block-price"
-                            data-th-text="${product.data.price.currency + ' ' + product.data.price.amount}">
-                        </span>
-                        <div class="shop_block-ticket_desc" data-th-utext="${product.data.description}"></div>
-                        <div class="shop_block-actions">
-                            <div class="shop_block-size_select select-field"
-                                data-th-if="${product.data.sizes and product.data.sizes.size > 0}">
-                                <select name="size" class=" select">
-                                    <option data-th-value="${size.title}" data-th-each="size: ${product.data.sizes}"
-                                        data-th-text="${size.title}">
-                                    </option>
-                                </select>
+                        <div class="shop_block-item-inner">
+                            <div class="shop_block-img_wrap">
+                                <img data-th-src="${product.image.url}" alt="regular ticket">
                             </div>
-                            <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
-                                data-th-attr="data-itemid=${product._id}">
-                                Купить
-                            </a>
+                            <h3 class="shop_block-subtitle" data-th-text="${product.displayName}">
+                            </h3>
+                            <span class="shop_block-price"
+                                data-th-text="${product.data.price.currency + ' ' + product.data.price.amount}">
+                            </span>
+                            <div class="shop_block-ticket_desc" data-th-utext="${product.data.description}"></div>
+                            <div class="shop_block-actions">
+                                <div class="shop_block-size_select select-field"
+                                    data-th-if="${product.data.sizes and product.data.sizes.size > 0}">
+                                    <select name="size" class=" select">
+                                        <option data-th-value="${size.title}" data-th-each="size: ${product.data.sizes}"
+                                            data-th-text="${size.title}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <a target="_blank" class="shop_block-buy kosticonnect-button primary js_ticket-buy"
+                                    data-th-attr="data-itemid=${product._id}">
+                                    Купить
+                                </a>
+                            </div>
+                        </div>
+                        <div class="shop_block-msg_wrap">
+                            <span class="shop_block-msg">SOLD OUT!</span>
                         </div>
                     </li>
                     <li class="shop_block-item shop_block-support">
