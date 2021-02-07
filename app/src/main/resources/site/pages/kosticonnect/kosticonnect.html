@@ -202,7 +202,9 @@
                     НУ КАК, РЕШИЛИСЬ?
                 </h2>
                 <ul class="shop_block-list">
-                    <li class="shop_block-item regular" data-th-each="product: ${products}">
+                    <li class="shop_block-item"
+                        data-th-classappend="${product.data.ticketType == 'kostiConnectOnline'} ? 'regular' : 'turbo sold-out'"
+                        data-th-each="product: ${products}">
                         <div class="shop_block-item-inner">
                             <div class="shop_block-img_wrap">
                                 <img data-th-src="${product.image.url}" alt="regular ticket">
