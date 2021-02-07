@@ -62,7 +62,8 @@ function convertCurrency(params) {
     locationInfo = ipLib.getIpInfo(params.ip);
     cache.api.put(params.ip, locationInfo);
   }
-  if (!locationInfo) return { amount: params.price, currency: "UAH" };
+  if (!locationInfo || locationInfo.currency === "BYR")
+    return { amount: params.price, currency: "UAH" };
 
   let currencyRate = cache.api.getOnly(locationInfo.currency);
   if (!currencyRate) {
