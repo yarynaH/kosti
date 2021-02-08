@@ -131,6 +131,7 @@ function addGame(data) {
   var day = util.content.getParent({ key: data.location });
   var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
     var parent = contentLib.get({ key: data.blockId });
+    let epiBlock = !!(parent.data.description && parent.data.title);
     var displayName = data.displayName;
     delete data.displayName;
     delete data.blockId;
@@ -140,7 +141,9 @@ function addGame(data) {
     }
     data.master = user._id;
     var game = contentLib.create({
-      name: common.sanitize(displayName),
+      name: common.sanitize(
+        displayName + epiBlock ? "-" + data.masterName : ""
+      ),
       parentPath: parent._path,
       displayName: displayName,
       contentType: app.name + ":game",
