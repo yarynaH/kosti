@@ -293,3 +293,81 @@
         }
     }
 }
+
+.custom_select {
+    position: relative;
+
+    &-list {
+        display: none;
+        position: absolute;
+        background: #fff;
+        border: 1px solid #000;
+        top: calc(100% - 2px);
+        left: 1px;
+        right: 1px;
+
+        .show & {
+            display: block;
+        }
+    }
+
+    &-placeholder {
+        display: block;
+        line-height: 2;
+    }
+
+    &-selected {
+        border: 1px solid #1e1852;
+        height: 56px;
+        padding: 14px 26px 14px 8px;
+        position: relative;
+        width: 100%;
+        text-align: left;
+        background: no-repeat;
+
+        &:after {
+            border: 4px solid transparent;
+            border-top-color: #ee205f;
+            border-bottom-width: 0;
+            border-top-width: 6px;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            content: "";
+            margin-top: -4px;
+            pointer-events: none;
+        }
+
+        &:focus {
+            outline: auto 1px;
+            box-shadow: 0 4px 16px 0 rgba($color-primary3, 0.5);
+        }
+    }
+    
+    &-selected_item {
+        background: #EE205F;
+        color: #fff;
+        padding: 4px;
+        display: inline-block;
+        cursor: pointer;
+        margin-right: 6px;
+
+        &:hover{
+            background-color: darken(#EE205F,20%);
+        }
+    }
+    
+
+    &-option {
+        color: #333;
+        padding: 0px 15px;
+        display: block;
+        width: 100%;
+        padding-bottom: 1px;
+
+        &:hover {
+            color: #fff;
+            background: #1e90ff;
+        }
+    }
+}

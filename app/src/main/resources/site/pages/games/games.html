@@ -64,11 +64,16 @@
                     </div>
                     <div class="k_games-filters-item">
                         <label class="k_games-filters-label" for="k_games-theme-select">Темы</label>
-                        <div class="k_games-filters-select select-field">
-                            <select name="itemID" class="select" id="k_games-theme-select">
-                                <option value="Футуризм">Футуризм</option>
-                                <option value="Научная фантастика">Научная фантастика</option>
-                            </select>
+                        <div class="js-custom_select custom_select">
+                            <button class="js-custom_select-button custom_select-selected">
+                                <span class="js-custom_select-placeholder custom_select-placeholder">Выберите тему</span>
+                                <!-- <span class="custom_select-selected_item">Все <i class="icon-delete"></i></span> -->
+                            </button>
+                            <ul class="custom_select-list">
+                                <li data-value="all" class="js-custom_select-option custom_select-option">Все</li>
+                                <li data-value="futuriszm" class="js-custom_select-option custom_select-option">Футуризм</li>
+                                <li data-value="nf" class="js-custom_select-option custom_select-option">Научная фантастика</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="k_games-filters-item">
