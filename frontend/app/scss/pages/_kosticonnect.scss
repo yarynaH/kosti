@@ -971,7 +971,7 @@
         z-index: 1;
         padding: 48px 24px;
 
-        @include tablet-all {
+        @include desktop {
             padding: 64px 59px;
         }
 
@@ -986,7 +986,7 @@
             z-index: 2;
             margin-left: -24px;
 
-            @include tablet-all {
+            @include desktop {
                 margin-left: -59px;
             }
         }
@@ -1197,7 +1197,7 @@
     width: 100%;
     padding: 0 24px;
 
-    @include tablet-all {
+    @include desktop {
         padding: 0 59px;
     }
 }

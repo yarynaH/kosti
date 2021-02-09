@@ -1,4 +1,11 @@
 function initGamesScripts() {
+  if ($(window).width() < 768) {
+    $(".js-k_games-filters-btn").on("click", function() {
+      $(this).toggleClass("open");
+      $(".js-k_games-filters-list").slideToggle( "slow");
+    });
+  }
+
   $(".js-custom_select-button").on("click", function() {
     $(this)
     .parent()
