@@ -17,13 +17,18 @@
     }
     
     &-list {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        @include tablet-all {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
     }
 
     &-item {
-        flex: 0 0 32%;
+        @include tablet-all {
+            flex: 0 0 32%;
+        }
+
         margin-bottom: 40px;
     }
 
