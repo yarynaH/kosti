@@ -17,6 +17,7 @@ exports.checkIKResponse = checkIKResponse;
 exports.getLiqpayData = getLiqpayData;
 exports.getLiqpayStatusData = getLiqpayStatusData;
 exports.checkoutCart = checkoutCart;
+exports.getCartDescription = getCartDescription;
 
 function checkoutCart(cart, status) {
   cartLib.modifyCartWithParams(cart._id, {
@@ -34,16 +35,7 @@ function checkoutCart(cart, status) {
 }
 
 function getLiqpayData(cart) {
-  var description = "";
-  for (var i = 0; i < cart.items.length; i++) {
-    description +=
-      cart.items[i].displayName +
-      (cart.items[i].itemSize ? " " + cart.items[i].itemSize : "") +
-      " x" +
-      cart.items[i].amount +
-      ", ";
-  }
-  description = description.substring(0, description.length - 2);
+  var description = getCartDescription(cart);
   return {
     public_key: app.config.liqpayPublicKey,
     version: "3",
@@ -58,6 +50,20 @@ function getLiqpayData(cart) {
     ),
     amount: cart.price.totalDiscount
   };
+}
+
+function getCartDescription() {
+  var description = "";
+  for (var i = 0; i < cart.items.length; i++) {
+    description +=
+      cart.items[i].displayName +
+      (cart.items[i].itemSize ? " " + cart.items[i].itemSize : "") +
+      " x" +
+      cart.items[i].amount +
+      ", ";
+  }
+  description = description.substring(0, description.length - 2);
+  return description;
 }
 
 function getLiqpayStatusData(cart) {
