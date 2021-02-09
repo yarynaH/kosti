@@ -100,7 +100,9 @@
                     <label class="k_games-filters-label" for="k_games-system-select">Залогиньтесь через Дискорд:</label>
                     <a data-th-href="${discordUrl}" class="k_gdp-discord" name="discord" placeholder="discord"></a>
                 </div>
-                <button class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
+                <div data-th-if="${gameSigned}">Вы уже записаны на эту игру</div>
+                <button data-th-unless="${gameSigned}"
+                    class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
             </div>
         </div>
         <div class="fest_contacts">

@@ -33,10 +33,19 @@ function handleReq(req) {
     if (!(user && user.data && user.data.discord)) {
       discordUrl = helpers.getDiscordUrl("api/festival/discord");
     }
+    if (!game.data.players) game.data.players = [];
+    game.data.players = norseUtils.forceArray(game.data.players);
+    let gameSigned =
+      user &&
+      game &&
+      game.data &&
+      game.data.players &&
+      game.data.players.indexOf(user._id) !== -1;
 
     var model = {
       game: game,
       user: user,
+      gameSigned: gameSigned,
       discordUrl: discordUrl,
       pageComponents: helpers.getPageComponents(req, "footerScripts")
     };
