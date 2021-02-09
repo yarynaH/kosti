@@ -8,6 +8,7 @@ const formSharedLib = require("formSharedLib");
 const common = require("/lib/xp/common");
 const util = require("/lib/util");
 const i18nLib = require("/lib/xp/i18n");
+const permissions = require("../permissions");
 
 exports.modifyGame = modifyGame;
 exports.deleteGame = deleteGame;
@@ -63,6 +64,12 @@ function deleteGame(id) {
       key: id
     });
   });
+  return {
+    error: false,
+    message: i18nLib.localize({
+      key: "myGames.form.message.deleted"
+    })
+  };
 }
 
 function modifyGame(data) {
@@ -81,12 +88,24 @@ function modifyGame(data) {
     c.data = data;
     return c;
   }
-  var result = contentLib.publish({
-    keys: [game._id],
-    sourceBranch: "master",
-    targetBranch: "draft"
+
+  contextLib.runAsAdminAsUser(user, function () {
+    contentLib.publish({
+      keys: [game._id],
+      sourceBranch: "master",
+      targetBranch: "draft",
+      includeDependencies: false
+    });
   });
-  return result;
+
+  var day = util.content.getParent({ key: data.location });
+  return {
+    error: false,
+    message: i18nLib.localize({
+      key: "myGames.form.message.modified"
+    }),
+    html: formSharedLib.getView("gmComp", null, { expanded: day._id })
+  };
 }
 
 function addGame(data) {
@@ -112,6 +131,7 @@ function addGame(data) {
   var day = util.content.getParent({ key: data.location });
   var game = contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
     var parent = contentLib.get({ key: data.blockId });
+    let epiBlock = !!(parent.data.description && parent.data.title);
     var displayName = data.displayName;
     delete data.displayName;
     delete data.blockId;
@@ -121,7 +141,9 @@ function addGame(data) {
     }
     data.master = user._id;
     var game = contentLib.create({
-      name: common.sanitize(displayName),
+      name: common.sanitize(
+        displayName + epiBlock ? "-" + data.masterName : ""
+      ),
       parentPath: parent._path,
       displayName: displayName,
       contentType: app.name + ":game",
@@ -135,6 +157,12 @@ function addGame(data) {
         })
       };
     }
+    contentLib.setPermissions({
+      key: game._id,
+      inheritPermissions: false,
+      overwriteChildPermissions: true,
+      permissions: permissions.full(user.key)
+    });
     var result = contentLib.publish({
       keys: [game._id],
       sourceBranch: "master",
@@ -153,7 +181,7 @@ function addGame(data) {
   return {
     error: false,
     message: i18nLib.localize({
-      key: "myGames.form.message.success"
+      key: "myGames.form.message.created"
     }),
     html: formSharedLib.getView("gmComp", null, { expanded: day._id })
   };

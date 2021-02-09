@@ -10,7 +10,8 @@ exports.full = function (user) {
         "READ_PERMISSIONS",
         "WRITE_PERMISSIONS",
         "DELETE"
-      ]
+      ],
+      deny: []
     },
     {
       principal: "role:system.everyone",

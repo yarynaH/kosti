@@ -257,6 +257,7 @@ function beautifyGameBlock(locationId, block) {
       ? norseUtils.getTime(new Date(block.data.datetimeEnd))
       : null
   };
+  block.epic = !!(block.data.description && block.data.title);
   return block;
 }
 
@@ -264,7 +265,11 @@ function beautifyDay(day, expanded) {
   if (expanded === day._id) {
     day.expanded = true;
   }
-  day.games = getDaysByUser(day._id);
+  let user = userLib.getCurrentUser();
+  day.games = getDaysByUser(
+    day._id,
+    user && user.roles && user.roles.moderator
+  );
   var dayDate = new Date(day.data.datetime);
   day.date = dayDate.getDate().toFixed();
   day.dayName = norseUtils.getDayName(dayDate);
@@ -279,14 +284,23 @@ function beautifyDay(day, expanded) {
   return day;
 }
 
-function getDaysByUser(parent) {
+function getDaysByUser(parent, admin) {
   var user = userLib.getCurrentUser();
-  var games = getItemsList({
-    master: user._id,
-    parentId: parent,
-    parentPathLike: true,
-    type: "game"
-  });
+  let games = null;
+  if (admin) {
+    games = getItemsList({
+      parentId: parent,
+      parentPathLike: true,
+      type: "game"
+    });
+  } else {
+    games = getItemsList({
+      master: user._id,
+      parentId: parent,
+      parentPathLike: true,
+      type: "game"
+    });
+  }
   for (var i = 0; i < games.length; i++) {
     games[i] = beautifyGame(games[i]);
   }

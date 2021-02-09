@@ -3,7 +3,11 @@
     background: $color-primary1;
 
     &-gm-header {
-        padding: 0 40px;
+        padding: 0 20px;
+
+        @include tablet-all {
+            padding: 0 40px;
+        }
     }
 
     &-player-block {
@@ -12,7 +16,11 @@
 
     &-event_name {
         &-list {
-            padding: 40px 40px 20px 40px;
+            padding: 30px 20px 20px 20px;
+
+            @include tablet-all {
+                padding: 40px 40px 20px 40px;
+            }
         }
 
         &-item {
@@ -61,11 +69,19 @@
         }
 
         &-header {
-            padding: 15px 40px;
+            padding: 15px 20px;
+
+            @include tablet-all {
+                padding: 15px 40px;
+            }
         }
 
         &-body {
-            padding: 0 40px;
+            padding: 0 20px;
+
+            @include tablet-all {
+                padding: 0 40px;
+            }
 
             .my_games-day_slot-title {
                 display: none;

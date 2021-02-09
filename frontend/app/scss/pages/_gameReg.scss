@@ -1,5 +1,5 @@
 .game_reg {
-    
+
     &-checkbox_list {
         display: flex;
         flex-wrap: wrap;
@@ -26,24 +26,24 @@
             padding-left: 30px;
         }
     }
-    
+
     &-info {
         margin-bottom: 5px;
         margin-left: 5px;
         cursor: pointer;
     }
-    
+
     &-subtitle {
         display: inline-flex;
         align-items: center;
         cursor: pointer;
     }
-    
+
     &-subtitle .icon-info {
         cursor: pointer;
         margin-left: 5px;
     }
-    
+
     &-info:before {
         font-size: 12px;
     }
