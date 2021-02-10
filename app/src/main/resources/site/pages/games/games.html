@@ -75,16 +75,20 @@
                             <label class="k_games-filters-label" for="k_games-theme-select">Темы</label>
                             <div class="js-custom_select custom_select">
                                 <button class="js-custom_select-button custom_select-selected">
-                                    <span class="js-custom_select-placeholder custom_select-placeholder">Выберите тему</span>
+                                    <span class="js-custom_select-placeholder custom_select-placeholder">Выберите
+                                        тему</span>
                                     <!-- <span class="custom_select-selected_item">Все <i class="icon-delete"></i></span> -->
                                 </button>
                                 <ul class="custom_select-list">
                                     <li data-value="all" class="js-custom_select-option custom_select-option">Все</li>
                                     <li data-value="aaa" class="js-custom_select-option custom_select-option">aaa</li>
                                     <li data-value="bbb" class="js-custom_select-option custom_select-option">bbb</li>
-                                    <li data-value="futuriszmb" class="js-custom_select-option custom_select-option">Футуриbbзм</li>
-                                    <li data-value="futuriszm" class="js-custom_select-option custom_select-option">Футуризм</li>
-                                    <li data-value="nf" class="js-custom_select-option custom_select-option">Научная фантастика</li>
+                                    <li data-value="futuriszmb" class="js-custom_select-option custom_select-option">
+                                        Футуриbbзм</li>
+                                    <li data-value="futuriszm" class="js-custom_select-option custom_select-option">
+                                        Футуризм</li>
+                                    <li data-value="nf" class="js-custom_select-option custom_select-option">Научная
+                                        фантастика</li>
                                 </ul>
                             </div>
                         </div>
@@ -100,8 +104,11 @@
                     </div>
                 </div>
                 <div class="k_games-day_block" data-th-each="day : ${days}">
-                    <h2 class="k_games-title kosticonnect-title" data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}"></h2>
-                    <div class="k_games-time_block" data-th-each="block : ${day.blocks}">
+                    <h2 class="k_games-title kosticonnect-title"
+                        data-th-text="${day.dayName + ' ' + day.date + ' ' + day.monthName + ' | ' + day.displayName}">
+                    </h2>
+                    <div class="k_games-time_block" data-th-each="block : ${day.blocks}"
+                        data-th-if="${block.games.size > 0}">
                         <h3 class="k_games-time_title">
                             <span data-th-if="${block.time.end}"
                                 data-th-text="${block.time.start + ' - ' + block.time.end}"></span>
@@ -119,8 +126,9 @@
                                     </span>
                                 </div>
                                 <h3 class="k_games-game_name" data-th-text="${game.displayName}"></h3>
-                                <h4 class="k_games-game_system" 
-                                data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></h4>
+                                <h4 class="k_games-game_system"
+                                    data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}">
+                                </h4>
                                 <div class="k_games-game_desc" data-th-utext="${game.data.description}"></div>
                                 <div class="k_games-game_actions">
                                     <a class="k_games-link_more" data-th-href="${game.url}">Узнать больше</a>
