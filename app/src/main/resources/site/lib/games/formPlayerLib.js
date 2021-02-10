@@ -164,6 +164,13 @@ function bookSpace(params) {
     user.data.kosticonnect2021
   ) {
     return signForGame({ gameId: params.gameId });
+  } else if (
+    (params.firstName || params.kosticonnect2021) &&
+    user &&
+    user.data.discord
+  ) {
+    user = updateUser(params);
+    return signForGame({ gameId: params.gameId });
   } else if ((params.firstName || params.kosticonnect2021) && user) {
     user = updateUser(params);
   } else if (params.firstName && params.kosticonnect2021) {
@@ -182,6 +189,8 @@ function bookSpace(params) {
       function editor(node) {
         node.firstName = params.firstName;
         node.kosticonnect2021 = params.kosticonnect2021;
+        node.updateGame = true;
+        node.gameId = params.gameId;
         return node;
       }
     });
