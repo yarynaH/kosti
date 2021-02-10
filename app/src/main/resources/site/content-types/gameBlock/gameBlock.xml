@@ -17,8 +17,12 @@
       </config>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="title" type="TextLine">
+      <label>Title for games' in block</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
     <input name="description" type="HtmlArea">
-      <label>Game block description</label>
+      <label>Description for games' in block</label>
       <config>
         <exclude>*</exclude>
         <include>AlignLeft AlignRight | Bold Italic</include>

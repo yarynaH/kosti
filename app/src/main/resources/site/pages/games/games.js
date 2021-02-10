@@ -13,9 +13,21 @@ exports.get = handleReq;
 
 function handleReq(req) {
   function renderView() {
+    var view = resolve("games.html");
+    var model = createModel();
+    var body = thymeleaf.render(view, model);
+    var jquery = portal.assetUrl({ path: "js/jquery-2.2.0.min.js" });
+    var typeText = portal.assetUrl({ path: "js/jquery.animateTyping.js" });
+    var fileName = portal.assetUrl({ path: "js/games.js" });
     return {
       body: thymeleaf.render(resolve("games.html"), createModel()),
-      contentType: "text/html"
+      contentType: "text/html",
+      pageContributions: {
+        bodyEnd: [
+          "<script src='" + fileName + "'></script>",
+          "<script src='" + typeText + "'></script>"
+        ]
+      }
     };
   }
 

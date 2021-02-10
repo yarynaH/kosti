@@ -289,7 +289,7 @@ $(".js-my_games").on(
 );
 
 $(".js-my_games").on("click", ".js-my_games-remove-game", function (e) {
-  var id = $(".js-my_games-remove-game").data().id;
+  var id = $(this).data().id;
   removeGame(id);
   $(".js-my_games-available-item[data-id=" + id + "]").remove();
 });

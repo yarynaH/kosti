@@ -64,7 +64,11 @@ function generateCheckoutPage(req) {
         });
         model.checkoutForm = thymeleaf.render(
           resolve("components/interkassaForm.html"),
-          { cart: model.cart, ik_id: model.ik_id }
+          {
+            cart: model.cart,
+            ik_id: model.ik_id,
+            description: checkoutLib.getCartDescription(model.cart)
+          }
         );
       }
       break;

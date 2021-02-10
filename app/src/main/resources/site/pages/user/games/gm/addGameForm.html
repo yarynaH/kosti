@@ -104,9 +104,9 @@
         <div class="form-group">
             <label for="my_games_adventure_name"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureName', '_locale=ru'})}"></label>
-            <input data-th-value="${ game ? game.displayName : '' }"
+            <input data-th-value="${game != null ? game.displayName : (block.epic ? block.data.title : '') }"
                 data-th-placeholder="${portal.localize({'_key=myGames.form.adventureName.placeholder', '_locale=ru'})}"
-                type="text" name="displayName" required id="my_games_adventure_name" />
+                type="text" name="displayName" required id="my_games_adventure_name" data-th-disabled="${block.epic}" />
             <div class="form-caption"
                 data-th-text="${portal.localize({'_key=myGames.form.adventureName.caption', '_locale=ru'})}"></div>
         </div>
@@ -115,7 +115,8 @@
                 data-th-text="${portal.localize({'_key=myGames.form.adventureDescription', '_locale=ru'})}"></label>
             <div class="tiny-mce-wrapper">
                 <textarea required id="js_tiny-mce" type="text" name="description"
-                    data-th-text="${ game ? game.data.description : '' }" minlength="100"
+                    data-th-text="${game ? game.data.description : block.epic ? block.data.description : '' }"
+                    minlength="100"
                     data-th-placeholder="${portal.localize({'_key=myGames.form.adventureDescription.placeholder', '_locale=ru'})}"></textarea>
             </div>
             <div class="form-caption"
