@@ -30,9 +30,11 @@ function updateUserData() {
     data: data,
     type: "POST",
     success: function (data) {
-      if ($(".js_game-sign-up-step-2").length > 0) {
-        $(".js_game-sign-up-step-1").hide("slow");
-        $(".js_game-sign-up-step-2").show("slow");
+      if (!data.error) {
+        if ($(".js_game-sign-up-step-2").length > 0) {
+          $(".js_game-sign-up-step-1").hide("slow");
+          $(".js_game-sign-up-step-2").show("slow");
+        }
       }
     }
   });

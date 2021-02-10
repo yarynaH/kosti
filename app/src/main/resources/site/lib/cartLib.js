@@ -90,7 +90,7 @@ function getCartByQr(qr) {
   var result = cartRepo.query({
     start: 0,
     count: 1,
-    query: "items.itemsIds.id=" + qr + ""
+    query: "items.itemsIds.id=" + qr
   });
   if (result.total > 0) {
     var cart = getCart(result.hits[0].id);
@@ -103,7 +103,7 @@ function getCartByQr(qr) {
           cart.currentTicketType = contentLib.get({
             key: cart.items[i]._id
           }).data.ticketType;
-          cart.currentQrStatus = cart.items[i].itemsIds[j].activated;
+          cart.qrActivated = cart.items[i].itemsIds[j].activated;
           cart.currentFriendlyId = cart.items[i].itemsIds[j].friendlyId;
         }
       }

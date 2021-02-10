@@ -126,20 +126,16 @@ function gameSpaceAvailable(id) {
 }
 
 function checkTicket(params) {
-  let cart = cartLib.getCartByQr(params.ticket);
+  let cart = cartLib.getCartByQr(params.kosticonnect2021);
   if (!cart) return false;
   let user = userLib.getCurrentUser();
-  let currCart = null;
   let userTicket =
-    user &&
-    user.data &&
-    user.data.kosticonnect2021 &&
-    user.data.kosticonnect2021
+    user && user.data && user.data.kosticonnect2021
       ? user.data.kosticonnect2021
       : null;
-  if (userTicket && user.data.kosticonnect2021 === params.ticket) {
+  if (userTicket && user.data.kosticonnect2021 === params.kosticonnect2021) {
     return true;
-  } else if (cart.currentFriendlyId && !cart.currentQrStatus === false) {
+  } else if (cart.currentFriendlyId && !cart.qrActivated) {
     return true;
   }
   return false;
@@ -156,6 +152,11 @@ function bookSpace(params) {
   }
   players = norseUtils.forceArray(players);
   let user = userLib.getCurrentUser();
+  if (params.kosticonnect2021) {
+    if (!checkTicket(params)) {
+      return { error: true };
+    }
+  }
   if (
     user &&
     user.data &&
@@ -204,9 +205,9 @@ function updateUser(params) {
   if (!(user && user.data)) return false;
 
   let updateUser = false;
-  if (params.ticket && !user.data.kosticonnect2021) {
-    if (checkTicket({ ticket: params.ticket })) {
-      user.data.ticket = params.ticket;
+  if (params.kosticonnect2021 && !user.data.kosticonnect2021) {
+    if (checkTicket({ kosticonnect2021: params.kosticonnect2021 })) {
+      user.data.kosticonnect2021 = params.kosticonnect2021;
       updateUser = true;
       //cartLib.markTicketUsed(params.ticket);
     } else {
