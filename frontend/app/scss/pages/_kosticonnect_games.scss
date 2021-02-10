@@ -346,8 +346,12 @@
     &-gdp {
         padding-top: 64px;
         padding-bottom: 64px;
-        display: flex;
-        flex-wrap: wrap;
+
+        @include tablet-all {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
     }
 }
 
@@ -362,10 +366,22 @@
     }
     &-left_col {
         flex: 0 1 65%;
+
+        @include mobile {
+            padding-bottom: 40px;
+        }
+
+        @include tablet-all {
+            padding-right: 25px;
+        }
     }
     
     &-title {
         color: #11090F;
+
+        @include tablet {
+            font-size: 40px;
+        }
     }
     
     &-desc {
@@ -398,7 +414,7 @@
         padding-bottom: 16px;
     }
 
-    &-img_wrap {
+    &-img_decor {
         position: relative;
         padding-left: 10px;
         padding-bottom: 10px;
@@ -422,6 +438,10 @@
             background: #B21E43;
             width: calc(100% - 10px);
         }
+    }
+
+    &-img_wrap {
+        @include aspect-ratio(256, 119, img);
     }
 
     &-sign_up {
