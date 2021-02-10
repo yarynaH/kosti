@@ -16,6 +16,8 @@ exports.bookSpace = bookSpace;
 exports.checkTicket = checkTicket;
 exports.changeCartIdToPlayerId = changeCartIdToPlayerId;
 exports.signForGame = signForGame;
+exports.updateUser = updateUser;
+exports.updateEntity = updateEntity;
 
 function getDays(params) {
   let days = [];
@@ -174,29 +176,47 @@ function bookSpace(params) {
     return signForGame({ gameId: params.gameId });
   } else if ((params.firstName || params.kosticonnect2021) && user) {
     user = updateUser(params);
+    saveDataToCart({
+      game: game,
+      firstName: user.data.firstName,
+      kosticonnect2021: user.data.kosticonnect2021,
+      players: players,
+      cartId: params.cartId
+    });
+    return game;
   } else if (params.firstName && params.kosticonnect2021) {
-    if (players.indexOf(params.cartId) === -1) {
-      players.push(params.cartId);
-      game.data.players = players;
-      game = updateEntity(game);
-    }
-    let cart = cartLib.getCart(params.cartId);
-    contextLib.runAsAdmin(function () {
-      let cartRepo = sharedLib.connectRepo("cart");
-      cartRepo.modify({
-        key: params.cartId,
-        editor: editor
-      });
-      function editor(node) {
-        node.firstName = params.firstName;
-        node.kosticonnect2021 = params.kosticonnect2021;
-        node.updateGame = true;
-        node.gameId = params.gameId;
-        return node;
-      }
+    saveDataToCart({
+      game: game,
+      firstName: params.firstName,
+      kosticonnect2021: params.kosticonnect2021,
+      players: players,
+      cartId: params.cartId
     });
     return game;
   }
+}
+
+function saveDataToCart(params) {
+  if (params.players.indexOf(params.cartId) === -1) {
+    params.players.push(params.cartId);
+    params.game.data.players = params.players;
+    params.game = updateEntity(params.game);
+  }
+  let cart = cartLib.getCart(params.cartId);
+  contextLib.runAsAdmin(function () {
+    let cartRepo = sharedLib.connectRepo("cart");
+    cartRepo.modify({
+      key: params.cartId,
+      editor: editor
+    });
+    function editor(node) {
+      node.firstName = params.firstName;
+      node.kosticonnect2021 = params.kosticonnect2021;
+      node.gameId = params.game._id;
+      return node;
+    }
+  });
+  return params.game;
 }
 
 function updateUser(params) {
