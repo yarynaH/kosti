@@ -18,6 +18,7 @@ exports.changeCartIdToPlayerId = changeCartIdToPlayerId;
 exports.signForGame = signForGame;
 exports.updateUser = updateUser;
 exports.updateEntity = updateEntity;
+exports.signOutOfGame = signOutOfGame;
 
 function getDays(params) {
   let days = [];
@@ -258,6 +259,26 @@ function signForGame(params) {
   players = norseUtils.forceArray(players);
   if (players.indexOf(user._id) === -1) {
     players.push(user._id);
+    game.data.players = players;
+    return updateEntity(game);
+  }
+  return game;
+}
+
+function signOutOfGame(params) {
+  if (!params) {
+    return false;
+  }
+  let user = userLib.getCurrentUser();
+  let game = contentLib.get({ key: params.gameId });
+  let players = game.data.players;
+  if (!players) {
+    players = [];
+  }
+  players = norseUtils.forceArray(players);
+  let index = players.indexOf(user._id);
+  if (index > -1) {
+    players.splice(index, 1);
     game.data.players = players;
     return updateEntity(game);
   }

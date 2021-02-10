@@ -247,6 +247,9 @@
     <mapping controller="/api/festival/signInForGame.js">
       <pattern>/api/festival/gamesignup</pattern>
     </mapping>
+    <mapping controller="/api/festival/signOutOfGame.js">
+      <pattern>/api/festival/gamesignout</pattern>
+    </mapping>
     <mapping controller="/api/festival/discord.js">
       <pattern>/api/festival/discord</pattern>
     </mapping>

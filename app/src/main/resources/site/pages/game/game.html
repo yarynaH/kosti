@@ -87,21 +87,21 @@
             <div class="k_gdp-sign_up">
                 <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1"
                     data-th-unless="${user and user.data and user.data.firstName and user.data.kosticonnect2021}">
-                    <input class="js_get-user-data" data-th-unless="${user and user.data and user.data.firstName}"
-                        name="firstName" placeholder="Ваше им'я">
-                    <input class="js_get-user-data"
-                        data-th-unless="${user and user.data and user.data.kosticonnect2021}" name="ticket"
-                        placeholder="Номер билета">
-                    <button type="submit" class="kosticonnect-button primary js_game-submit-user-data">ЗАПИСАТЬСЯ НА
-                        ИГРУ</button>
+                    <div data-th-unless="${user and user.data and user.data.firstName}">
+                        <input class="js_get-user-data" name="firstName" placeholder="Ваше им'я" required>
+                    </div>
+                    <div data-th-unless="${user and user.data and user.data.kosticonnect2021}"><input
+                            class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
+                    </div>
                 </form>
                 <div class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" data-th-if="${discordUrl}"
                     style="display:none">
                     <label class="k_games-filters-label" for="k_games-system-select">Залогиньтесь через Дискорд:</label>
                     <a data-th-href="${discordUrl}" class="k_gdp-discord" name="discord" placeholder="discord"></a>
                 </div>
-                <div data-th-if="${gameSigned}">Вы уже записаны на эту игру</div>
-                <button data-th-unless="${gameSigned}"
+                <button data-step="init" data-th-if="${gameSigned}"
+                    class="kosticonnect-button primary js_sign-out-of-game">ОТПИСАТЬСЯ ОТ ИГРЫ</button>
+                <button data-step="init" data-th-unless="${gameSigned}"
                     class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
             </div>
         </div>
