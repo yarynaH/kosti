@@ -59,8 +59,11 @@
     <main data-th-attr="data-id=${game._id}" class="k_games-wrap js_game-id">
         <div class="k_games-gdp site_content">
             <div class="k_gdp-left_col">
-                <h5 class="k_gdp-system_name"
+                <h5 data-th-if="${game.system.localizable}" class="k_gdp-system_name"
                     data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}">
+                </h5>
+                <h5 data-th-unless="${game.system.localizable}" class="k_gdp-system_name"
+                    data-th-text="${game.system.text}">
                 </h5>
                 <h1 class="k_gdp-title kosticonnect-title" data-th-text="${game.displayName}"></h1>
                 <div class="k_gdp-desc" data-th-utext="${game.data.description}"></div>

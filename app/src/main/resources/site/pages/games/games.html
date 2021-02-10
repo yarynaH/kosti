@@ -65,9 +65,9 @@
                         <div class="k_games-filters-item day">
                             <label class="k_games-filters-label" for="k_games-day-select">День</label>
                             <div class="k_games-filters-select select-field">
-                                <select name="itemID" class="select" id="k_games-day-select">
-                                    <option value="Все дни">Все дни</option>
-                                    <option value="День 1">День 1</option>
+                                <select name="day" class="select js_festival-filter-select" id="k_games-day-select">
+                                    <option data-th-each="day : ${days}" data-th-value="${day._id}"
+                                        data-th-text="${day.displayName}"></option>
                                 </select>
                             </div>
                         </div>
@@ -81,23 +81,22 @@
                                 </button>
                                 <ul class="custom_select-list">
                                     <li data-value="all" class="js-custom_select-option custom_select-option">Все</li>
-                                    <li data-value="aaa" class="js-custom_select-option custom_select-option">aaa</li>
-                                    <li data-value="bbb" class="js-custom_select-option custom_select-option">bbb</li>
-                                    <li data-value="futuriszmb" class="js-custom_select-option custom_select-option">
-                                        Футуриbbзм</li>
-                                    <li data-value="futuriszm" class="js-custom_select-option custom_select-option">
-                                        Футуризм</li>
-                                    <li data-value="nf" class="js-custom_select-option custom_select-option">Научная
-                                        фантастика</li>
+                                    <li data-th-each="theme : ${filters.themes}" data-th-attr="data-value=${theme}"
+                                        class="js-custom_select-option custom_select-option"
+                                        data-th-text="${portal.localize({'_key=myGames.theme.' + theme, '_locale=ru'})}">
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="k_games-filters-item system">
                             <label class="k_games-filters-label" for="k_games-system-select">Система</label>
                             <div class="k_games-filters-select select-field">
-                                <select name="itemID" class="select" id="k_games-system-select">
-                                    <option value="Cyberpunk RED">Cyberpunk RED</option>
-                                    <option value="Pathfinder 2e">Pathfinder 2e</option>
+                                <select name="system" class="select js_festival-filter-select"
+                                    id="k_games-system-select">
+                                    <option value="">Любая</option>
+                                    <option data-th-each="system : ${filters.system}" data-th-value="${system}"
+                                        data-th-text="${portal.localize({'_key=myGames.gameSystem.' + system, '_locale=ru'})}">
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -126,8 +125,11 @@
                                     </span>
                                 </div>
                                 <h3 class="k_games-game_name" data-th-text="${game.displayName}"></h3>
-                                <h4 class="k_games-game_system"
+                                <h4 class="k_games-game_system" data-th-if="${game.system.localizable}"
                                     data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}">
+                                </h4>
+                                <h4 data-th-unless="${game.system.localizable}" class="k_games-game_system"
+                                    data-th-text="${game.system.text}">
                                 </h4>
                                 <div class="k_games-game_desc" data-th-utext="${game.data.description}"></div>
                                 <div class="k_games-game_actions">
@@ -137,6 +139,7 @@
                         </ul>
                     </div>
                 </div>
+                <!--
                 <ul class="k_games-pagination">
                     <li class="k_games-pagination-item active">
                         <a href="" class="k_games-pagination-link">1</a>
@@ -148,6 +151,7 @@
                         <span href="" class="k_games-pagination-text">...</span>
                     </li>
                 </ul>
+                -->
             </div>
         </div>
         <div class="fest_contacts">

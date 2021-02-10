@@ -253,5 +253,8 @@
     <mapping controller="/api/festival/discord.js">
       <pattern>/api/festival/discord</pattern>
     </mapping>
+    <mapping controller="/api/festival/gamesList.js">
+      <pattern>/api/festival/games/list</pattern>
+    </mapping>
   </mappings>
 </site>
