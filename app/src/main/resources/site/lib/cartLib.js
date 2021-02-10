@@ -105,6 +105,8 @@ function getCartByQr(qr) {
           }).data.ticketType;
           cart.qrActivated = cart.items[i].itemsIds[j].activated;
           cart.currentFriendlyId = cart.items[i].itemsIds[j].friendlyId;
+          let product = contentLib.get({ key: cart.items[i]._id });
+          cart.legendary = product.data.ticketType === "kostiConnectTurbo";
         }
       }
     }

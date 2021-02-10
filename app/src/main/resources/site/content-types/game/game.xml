@@ -82,6 +82,12 @@
         <alignment>right</alignment>
       </config>
     </input>
+    <input name="exclusive" type="CheckBox">
+      <label>Exclusive game</label>
+      <config>
+        <alignment>right</alignment>
+      </config>
+    </input>
     <option-set name="gameSystem">
       <label>Game system</label>
       <occurrences minimum="1" maximum="1"/>

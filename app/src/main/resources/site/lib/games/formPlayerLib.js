@@ -146,7 +146,7 @@ function checkTicket(params) {
 
 function bookSpace(params) {
   if (!gameSpaceAvailable(params.gameId)) {
-    return false;
+    return { error: true, message: "Мест больше нет." };
   }
   let game = contentLib.get({ key: params.gameId });
   let players = game.data.players;
@@ -157,8 +157,17 @@ function bookSpace(params) {
   let user = userLib.getCurrentUser();
   if (params.kosticonnect2021) {
     if (!checkTicket(params)) {
-      return { error: true };
+      return {
+        error: true,
+        message: "Такой билет не существует, или уже активирован."
+      };
     }
+  }
+  if (!validateTicketGameAllowed(params.kosticonnect2021, game._id)) {
+    return {
+      error: true,
+      message: "Ваш билет не позволяет принять участие в этой игре."
+    };
   }
   if (
     user &&
@@ -232,7 +241,10 @@ function updateUser(params) {
       updateUser = true;
       //cartLib.markTicketUsed(params.ticket);
     } else {
-      return false;
+      return {
+        error: true,
+        message: "Такой билет не существует, или уже активирован."
+      };
     }
   }
   if (
@@ -248,10 +260,16 @@ function updateUser(params) {
 
 function signForGame(params) {
   if (!params || !gameSpaceAvailable(params.gameId)) {
-    return false;
+    return { error: true, message: "Мест больше нет." };
   }
   let user = userLib.getCurrentUser();
   let game = contentLib.get({ key: params.gameId });
+  if (!validateTicketGameAllowed(user.data.kosticonnect2021, game._id)) {
+    return {
+      error: true,
+      message: "Ваш билет не позволяет принять участие в этой игре."
+    };
+  }
   let players = game.data.players;
   if (!players) {
     players = [];
@@ -307,6 +325,14 @@ function changeCartIdToPlayerId(params) {
     updateEntity(game);
   }
   return true;
+}
+
+function validateTicketGameAllowed(ticketId, gameId) {
+  let game = contentLib.get({ key: gameId });
+  if (!game.data.exclusive) return true;
+  let cart = cartLib.getCartByQr(ticketId);
+  if (cart.legendary) return true;
+  return false;
 }
 
 function updateEntity(entity) {

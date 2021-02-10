@@ -4,6 +4,14 @@
 <head data-th-utext="${pageComponents.pagehead}"></head>
 
 <body class="kosticonnect-page landingPage">
+    <div class="modal js_loader">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <header class="kosticonnect-header">
         <div class="site_content">
             <div class="kosticonnect-header_inner">
@@ -136,6 +144,10 @@
             </div>
         </div>
     </main>
+    <div class="snackbar js_snackbar">
+        <div class="snackbar-text">Some msg</div>
+        <div class="snackbar-close icon-delete js_snackbar-close"></div>
+    </div>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
 </body>
 

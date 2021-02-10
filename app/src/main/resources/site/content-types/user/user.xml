@@ -27,7 +27,7 @@
       <label>Discord</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
-    <input name="kosticonnect2021" type="TextLine">
+    <input name="kosticonnect2021" type="Long">
       <label>Kosticonnect 2021</label>
       <occurrences minimum="0" maximum="1"/>
     </input>

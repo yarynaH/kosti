@@ -97,17 +97,16 @@ function signupForGame() {
     type: "POST",
     success: function (data) {
       hideLoader();
-      showSnackBar("Вы зарегистрированы.", "success");
+      if (data.error) {
+        showSnackBar(data.message, "error");
+      } else {
+        showSnackBar("Вы зарегистрированы.", "success");
+      }
     },
     error: function (data) {
       hideLoader();
-      showSnackBar("Произошла ошибка.", "error");
     }
   });
-}
-
-function updateUserDiscord() {
-  //show discord button
 }
 
 $(document).ready(function () {
