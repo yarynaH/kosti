@@ -39,9 +39,11 @@
                 </div>
             </div>
             <div class="kosticonnect-header_insert">
-                <div class="k_gdp-img_wrap">
-                    <img data-th-if="${game.image}" data-th-src="${game.image.url}">
-                    <img data-th-unless="${game.image}" src="https://picsum.photos/300">
+                <div class="k_gdp-img_decor">
+                    <div class="k_gdp-img_wrap">
+                        <img data-th-if="${game.image}" data-th-src="${game.image.url}">
+                        <img data-th-unless="${game.image}" src="https://picsum.photos/1200/600">
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,7 +58,7 @@
                 <div class="k_gdp-desc" data-th-utext="${game.data.description}"></div>
             </div>
             <div class="k_gdp-right_col">
-                <div>
+                <div class="k_gdp-info">
                     <div class="k_gdp-label">ВЕДУЩИЙ</div>
                     <div class="k_gdp-value" data-th-utext="${game.master.displayName}"></div>
                 </div>
