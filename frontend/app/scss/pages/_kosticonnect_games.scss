@@ -1,4 +1,6 @@
 .k_games {
+    padding-bottom: 64px;
+
     &-wrap {
         .fest_contacts {
             margin-top: 64px4;
@@ -32,17 +34,20 @@
     &-list {
         @include tablet-all {
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
+            margin: 0 -15px;
         }
     }
 
     &-item {
         @include tablet {
-            flex: 0 0 48%;
+            flex: 0 0 50%;
+            padding: 0 15px;
         }
+
         @include desktop {
-            flex: 0 0 32%;
+            flex: 0 0 33%;
+            padding: 0 15px;
         }
 
         margin-bottom: 40px;
@@ -61,6 +66,8 @@
     }
     
     &-img_wrap {
+        @include aspect-ratio(16, 9, img);
+
         position: relative;
         margin-bottom: 16px;
     }
