@@ -136,7 +136,6 @@ function checkTicket(params) {
   ) {
     return false;
   }
-  return false;
   let cart = cartLib.getCartByQr(params.kosticonnect2021);
   if (!cart) return false;
   let user = userLib.getCurrentUser();
