@@ -14,6 +14,7 @@ exports.fixPermissions = fixPermissions;
 exports.getPageComponents = getPageComponents;
 exports.getLoadMore = getLoadMore;
 exports.getLoginRequest = getLoginRequest;
+exports.getDiscordUrl = getDiscordUrl;
 
 function getPageComponents(req, footerType, activeEl, title) {
   var pageComponents = {};
@@ -351,7 +352,7 @@ function getDiscordUrl(redirect) {
   discordUrl += "client_id=605493268326776853";
   discordUrl +=
     "&redirect_uri=" +
-    portal.pageUrl({ _path: site._path, type: "absolute" }) +
+    portal.pageUrl({ path: site._path, type: "absolute" }) +
     (redirect ? redirect : "user/auth/discord");
   discordUrl += "&response_type=code";
   discordUrl += "&scope=email%20identify";

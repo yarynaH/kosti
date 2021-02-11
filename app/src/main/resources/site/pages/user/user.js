@@ -13,7 +13,7 @@ const cartLib = require(libLocation + "cartLib");
 const userLib = require(libLocation + "userLib");
 const helpers = require(libLocation + "helpers");
 const pdfLib = require(libLocation + "pdfLib");
-const formSharedLib = require(libLocation + "formSharedLib");
+const formSharedLib = require(libLocation + "games/formSharedLib");
 const commentsLib = require(libLocation + "commentsLib");
 const notificationLib = require(libLocation + "notificationLib");
 const cacheLib = require(libLocation + "cacheLib");
@@ -133,6 +133,7 @@ function handleReq(req) {
       var articles = thymeleaf.render(resolve("gamesView.html"), {
         currUser: currUser,
         currUserFlag: currUserFlag,
+        festival: formSharedLib.getFestivalByDays(days),
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
           days: thymeleaf.render(resolve("games/shared/scheduleComp.html"), {
             days: days,

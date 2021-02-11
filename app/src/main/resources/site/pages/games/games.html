@@ -1,19 +1,163 @@
 <!DOCTYPE html>
 <html>
-  <head data-th-utext="${pageComponents.pagehead}"></head>
 
-  <body class="page-wrapper">
-    <header class="header" data-th-utext="${pageComponents.header}"></header>
-    <main class="main blog_width form game_reg-wrap">
-      <h1
-        class="game_reg-title title-1 h-mt-35 h-mb-20"
-        data-th-text="${content.displayName}"
-      ></h1>
-      <h3
-        class="game_reg-desc h-mb-20"
-        data-th-utext="${content.data.description}"
-      ></h3>
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="kosticonnect-page landingPage">
+    <div class="modal js_loader">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <header class="kosticonnect-header">
+        <div class="site_content">
+            <div class="kosticonnect-header_inner">
+                <div class="kosticonnect-short_info">
+                    <div class="kosticonnect-left">
+                        <div class="kosticonnect-logo">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
+                                alt="kosticonnect " />
+                        </div>
+                        <div class="fest_date">
+                            <span class="fest_date-day">25 - 28</span>
+                            <span class="fest_date-month">февраля</span>
+                        </div>
+                    </div>
+                    <div class="kosticonnect-headline">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                </div>
+                <div class="kosticonnect-where">
+                    <div class="kosticonnect-twitch">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/twitch-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-discord">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/discord-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-zoom">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/zoom-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                </div>
+            </div>
+            <div class="kosticonnect-header_insert">
+                <h2 class="kosticonnect-title" data-th-text="${content.displayName}">
+                </h2>
+            </div>
+        </div>
+    </header>
+    <main class="k_games-wrap">
+        <div class="kosticonnect-content k_games">
+            <div class="site_content">
+                <div class="k_games-filters">
+                    <div class="k_games-filters-control">
+                        <h5 class="k_games-filters-title">
+                            <span>Фильтры</span>
+                            <button class='js-k_games-filters-btn k_games-filters-btn'>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </h5>
+                    </div>
+                    <div class="k_games-filters-list js-k_games-filters-list">
+                        <div class="k_games-filters-item day">
+                            <label class="k_games-filters-label" for="k_games-day-select">День</label>
+                            <div class="k_games-filters-select select-field">
+                                <select name="day" class="select js_festival-filter-select" id="k_games-day-select">
+                                    <option data-th-each="day : ${days}" data-th-value="${day._id}"
+                                        data-th-text="${day.displayName}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="k_games-filters-item theme">
+                            <label class="k_games-filters-label" for="k_games-theme-select">Темы</label>
+                            <div class="js-custom_select custom_select">
+                                <button class="js-custom_select-button custom_select-selected">
+                                    <span class="js-custom_select-placeholder custom_select-placeholder">Выберите
+                                        тему</span>
+                                </button>
+                                <ul class="custom_select-list">
+                                    <li data-th-each="theme : ${filters.themes}" data-th-attr="data-value=${theme}"
+                                        class="js-custom_select-option custom_select-option"
+                                        data-th-text="${portal.localize({'_key=myGames.theme.' + theme, '_locale=ru'})}">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="k_games-filters-item system">
+                            <label class="k_games-filters-label" for="k_games-system-select">Система</label>
+                            <div class="k_games-filters-select select-field">
+                                <select name="system" class="select js_festival-filter-select"
+                                    id="k_games-system-select">
+                                    <option value="">Любая</option>
+                                    <option data-th-each="system : ${filters.system}" data-th-value="${system}"
+                                        data-th-text="${portal.localize({'_key=myGames.gameSystem.' + system, '_locale=ru'})}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="js-k_games-wrapper" data-th-utext="${gamesView}"></div>
+                <!--
+                <ul class="k_games-pagination">
+                    <li class="k_games-pagination-item active">
+                        <a href="" class="k_games-pagination-link">1</a>
+                    </li>
+                    <li class="k_games-pagination-item">
+                        <a href="" class="k_games-pagination-link">2</a>
+                    </li>
+                    <li class="k_games-pagination-item">
+                        <span href="" class="k_games-pagination-text">...</span>
+                    </li>
+                </ul>
+                -->
+            </div>
+        </div>
+        <div class="fest_contacts">
+            <div class="site_content">
+                <div class="k_social social">
+                    <h2 class="k_social-title kosticonnect-title">
+                        СОЦСЕТИ ФЕСТИВАЛЯ
+                    </h2>
+                    <div class="social-list social-list__sides_align">
+                        <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook"
+                            title="Facebook"></a>
+                        <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
+                        <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden"
+                            title="Twitter"></a>
+                        <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube"
+                            title="Youtube"></a>
+                        <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram"
+                            title="Instagram"></a>
+                        <a href="https://www.twitch.tv/vecherniyekosti" class="social-link twitch" title="Twitch"></a>
+                        <a href="https://discord.gg/VfDthGK" class="social-link discord" title="Discord"></a>
+                        <a href="https://t.me/vecherniyekosti" class="social-link telegram" title="Telegram"></a>
+                    </div>
+                </div>
+                <div class="about_us">
+                    <h3 class="about_us-title">ОБРАЩАЙТЕСЬ ПО ЛЮБЫМ ВОПРОСАМ:</h3>
+                    <p><a class="about_us-link" href="mailto:info@kostirpg.com">info@kostirpg.com</a></p>
+                    <p><a class="about_us-link" href="tel:+380662098750">+380662098750</a></p>
+                </div>
+            </div>
+        </div>
     </main>
+    <div class="snackbar js_snackbar">
+        <div class="snackbar-text">Some msg</div>
+        <div class="snackbar-close icon-delete js_snackbar-close"></div>
+    </div>
     <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
-  </body>
+</body>
+
 </html>

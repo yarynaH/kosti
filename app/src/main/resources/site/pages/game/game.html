@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head data-th-utext="${pageComponents.pagehead}"></head>
+
+<body class="kosticonnect-page landingPage">
+    <div class="modal js_loader">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <header class="kosticonnect-header">
+        <div class="site_content">
+            <div class="kosticonnect-header_inner">
+                <div class="kosticonnect-short_info">
+                    <div class="kosticonnect-left">
+                        <div class="kosticonnect-logo">
+                            <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/snake-logo.svg'})}"
+                                alt="kosticonnect " />
+                        </div>
+                        <div class="fest_date">
+                            <span class="fest_date-day">25 - 28</span>
+                            <span class="fest_date-month">февраля</span>
+                        </div>
+                    </div>
+                    <div class="kosticonnect-headline">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/headline.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                </div>
+                <div class="kosticonnect-where">
+                    <div class="kosticonnect-twitch">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/twitch-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-discord">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/discord-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                    <div class="kosticonnect-zoom">
+                        <img data-th-src="${portal.assetUrl({'_path=images/kosticonnect/zoom-logo.svg'})}"
+                            alt="kosticonnect " />
+                    </div>
+                </div>
+            </div>
+            <div class="kosticonnect-header_insert">
+                <div class="k_gdp-img_decor">
+                    <div class="k_gdp-img_wrap">
+                        <img data-th-if="${game.image}" data-th-src="${game.image.url}">
+                        <img data-th-unless="${game.image}" src="https://picsum.photos/1200/600">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main data-th-attr="data-id=${game._id}" class="k_games-wrap js_game-id">
+        <div class="k_games-gdp site_content">
+            <div class="k_gdp-left_col">
+                <h5 data-th-if="${game.system.localizable}" class="k_gdp-system_name"
+                    data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}">
+                </h5>
+                <h5 data-th-unless="${game.system.localizable}" class="k_gdp-system_name"
+                    data-th-text="${game.system.text}">
+                </h5>
+                <h1 class="k_gdp-title kosticonnect-title" data-th-text="${game.displayName}"></h1>
+                <div class="k_gdp-desc" data-th-utext="${game.data.description}"></div>
+            </div>
+            <div class="k_gdp-right_col">
+                <div class="k_gdp-info">
+                    <div class="k_gdp-label">ВЕДУЩИЙ</div>
+                    <div class="k_gdp-value" data-th-utext="${game.master.displayName}"></div>
+                </div>
+                <div class="k_gdp-info">
+                    <div class="k_gdp-label">ВРЕМЯ</div>
+                    <div class="k_gdp-value">
+                        <span data-th-text="${game.block.dayName + ', '}"></span>
+                        <span data-th-text="${game.block.date}"></span>
+                        <span data-th-text="${game.block.monthName}"></span>
+                        <span data-th-if="${game.block.time.end}"
+                            data-th-text="${game.block.time.start + ' - ' + game.block.time.end}">
+                        </span>
+                    </div>
+                </div>
+                <div class="k_gdp-info">
+                    <div class="k_gdp-label">ТЕМА</div>
+                    <div class="k_gdp-value">
+                        <span data-th-unless="${game.block.time.end}" data-th-text="${game.block.time.start}"></span>
+                        <span
+                            data-th-utext="${portal.localize({'_key=myGames.theme.' + game.data.theme, '_locale=ru'})}"></span>
+                    </div>
+                </div>
+                <div class="k_gdp-info">
+                    <div class="k_gdp-label">ДОПОЛНИТЕЛЬНО</div>
+                    <div class="k_gdp-value" data-th-utext="${game.additionalInfo}"></div>
+                </div>
+            </div>
+            <div class="k_gdp-sign_up">
+                <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1"
+                    data-th-unless="${user and user.data and user.data.firstName and user.data.kosticonnect2021}">
+                    <div data-th-unless="${user and user.data and user.data.firstName}">
+                        <input class="js_get-user-data" name="firstName" placeholder="Ваше им'я" required>
+                    </div>
+                    <div data-th-unless="${user and user.data and user.data.kosticonnect2021}"><input
+                            class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
+                    </div>
+                </form>
+                <div class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" data-th-if="${discordUrl}"
+                    style="display:none">
+                    <label class="k_games-filters-label" for="k_games-system-select">Залогиньтесь через Дискорд:</label>
+                    <a data-th-href="${discordUrl}" class="k_gdp-discord" name="discord" placeholder="discord"></a>
+                </div>
+                <button data-step="init" data-th-if="${gameSigned}"
+                    class="kosticonnect-button primary js_sign-out-of-game">ОТПИСАТЬСЯ ОТ ИГРЫ</button>
+                <button data-step="init" data-th-unless="${gameSigned}"
+                    class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
+            </div>
+        </div>
+        <div class="fest_contacts">
+            <div class="site_content">
+                <div class="k_social social">
+                    <h2 class="k_social-title kosticonnect-title">
+                        СОЦСЕТИ ФЕСТИВАЛЯ
+                    </h2>
+                    <div class="social-list social-list__sides_align">
+                        <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook"
+                            title="Facebook"></a>
+                        <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
+                        <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden"
+                            title="Twitter"></a>
+                        <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube"
+                            title="Youtube"></a>
+                        <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram"
+                            title="Instagram"></a>
+                        <a href="https://www.twitch.tv/vecherniyekosti" class="social-link twitch" title="Twitch"></a>
+                        <a href="https://discord.gg/VfDthGK" class="social-link discord" title="Discord"></a>
+                        <a href="https://t.me/vecherniyekosti" class="social-link telegram" title="Telegram"></a>
+                    </div>
+                </div>
+                <div class="about_us">
+                    <h3 class="about_us-title">ОБРАЩАЙТЕСЬ ПО ЛЮБЫМ ВОПРОСАМ:</h3>
+                    <p><a class="about_us-link" href="mailto:info@kostirpg.com">info@kostirpg.com</a></p>
+                    <p><a class="about_us-link" href="tel:+380662098750">+380662098750</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="snackbar js_snackbar">
+        <div class="snackbar-text">Some msg</div>
+        <div class="snackbar-close icon-delete js_snackbar-close"></div>
+    </div>
+    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+</body>
+
+</html>

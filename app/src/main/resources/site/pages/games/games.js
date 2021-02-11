@@ -1,41 +1,81 @@
-var thymeleaf = require("/lib/thymeleaf");
-var portal = require("/lib/xp/portal");
-var contentLib = require("/lib/xp/content");
+const thymeleaf = require("/lib/thymeleaf");
+const portal = require("/lib/xp/portal");
+const contentLib = require("/lib/xp/content");
 
-var libLocation = "../../lib/";
-var norseUtils = require(libLocation + "norseUtils");
-var helpers = require(libLocation + "helpers");
-var moment = require(libLocation + "moment");
-var userLib = require(libLocation + "userLib");
-var formLib = require(libLocation + "formLib");
+const libLocation = "../../lib/";
+const norseUtils = require(libLocation + "norseUtils");
+const helpers = require(libLocation + "helpers");
+const userLib = require(libLocation + "userLib");
+const formSharedLib = require(libLocation + "games/formSharedLib");
+const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 exports.get = handleReq;
 
 function handleReq(req) {
-  var me = this;
-
   function renderView() {
     var view = resolve("games.html");
-    var user = userLib.getCurrentUser();
     var model = createModel();
     var body = thymeleaf.render(view, model);
     return {
-      body: body,
-      contentType: "text/html"
+      body: thymeleaf.render(resolve("games.html"), createModel()),
+      contentType: "text/html",
+      pageContributions: {
+        bodyEnd: [
+          "<script src='" +
+            portal.assetUrl({ path: "js/games.js" }) +
+            "'></script>",
+          "<script src='" +
+            portal.assetUrl({ path: "js/festivalGame.js" }) +
+            "'></script>"
+        ]
+      }
     };
   }
 
   function createModel() {
-    var user = userLib.getCurrentUser();
-    var content = portal.getContent();
+    let user = userLib.getCurrentUser();
+    let content = portal.getContent();
+    let festival = formSharedLib.getActiveFestival();
+    let days = formPlayerLib.getDays({
+      getBlocks: true,
+      dayId: req.params.dayId,
+      system: req.params.system,
+      theme: req.params.theme
+    });
 
     var model = {
       content: content,
       user: user,
-      pageComponents: helpers.getPageComponents(req)
+      days: formSharedLib.getDays({ skipBeautify: true }),
+      gamesView: thymeleaf.render(resolve("gamesBlock.html"), {
+        days: days
+      }),
+      festival: festival,
+      filters: getFilters(),
+      pageComponents: helpers.getPageComponents(req, "footerScripts")
     };
 
     return model;
+  }
+
+  function getFilters() {
+    let filters = { themes: [], system: [] };
+    let festival = formSharedLib.getActiveFestival();
+    let games = formSharedLib.getItemsList({
+      parentId: festival._id,
+      type: "game",
+      parentPathLike: true
+    });
+    games.forEach((game) => {
+      if (game.data.theme && filters.themes.indexOf(game.data.theme) === -1)
+        filters.themes.push(game.data.theme);
+      if (
+        game.data.gameSystem.select.system &&
+        filters.system.indexOf(game.data.gameSystem.select.system) === -1
+      )
+        filters.system.push(game.data.gameSystem.select.system);
+    });
+    return filters;
   }
 
   return renderView();

@@ -119,7 +119,7 @@ function getDayName(date) {
 }
 
 function getTime(date) {
-  return moment(date).format("HH:mm");
+  return moment(date).utcOffset("+0300").format("HH:mm");
 }
 
 function getFormattedDate(date) {

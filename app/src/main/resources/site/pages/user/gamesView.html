@@ -1,7 +1,11 @@
+<script src="https://cdn.tiny.cloud/1/bjocqei8sx4e4qom6muuy7eugbpc20u5bim7tu2zg8veawoj/tinymce/5/tinymce.min.js">
+</script>
+<script type="text/javascript" data-th-inline="javascript">
+    var customEditorStyles = [[${portal.assetUrl({'_path=/css/tinymce.css'})}]];
+</script>
 <div class="my_games js-my_games" data-th-if="${currUserFlag && currUser.roles.gameMaster}">
     <div class="my_games-event_name-list">
-        <div class="my_games-event_name-item active"
-            data-th-text="${portal.localize({'_key=myGames.kosticon2020', '_locale=ru'})}"></div>
+        <div class="my_games-event_name-item active" data-th-text="${festival.displayName}"></div>
     </div>
     <div class="js-my_games-wrapper">
         <div data-th-utext="${gameMasterForm}" data-th-remove="tag"></div>

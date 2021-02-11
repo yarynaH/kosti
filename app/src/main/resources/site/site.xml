@@ -244,5 +244,20 @@
     <mapping controller="/api/content/image.js">
       <pattern>/api/image</pattern>
     </mapping>
+    <mapping controller="/api/festival/updateUserData.js">
+      <pattern>/api/festival/userdata</pattern>
+    </mapping>
+    <mapping controller="/api/festival/signInForGame.js">
+      <pattern>/api/festival/gamesignup</pattern>
+    </mapping>
+    <mapping controller="/api/festival/signOutOfGame.js">
+      <pattern>/api/festival/gamesignout</pattern>
+    </mapping>
+    <mapping controller="/api/festival/discord.js">
+      <pattern>/api/festival/discord</pattern>
+    </mapping>
+    <mapping controller="/api/festival/gamesList.js">
+      <pattern>/api/festival/games/list</pattern>
+    </mapping>
   </mappings>
 </site>

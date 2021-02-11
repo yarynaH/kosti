@@ -1,6 +1,10 @@
 .my_games {
     &-step3 {
-        padding: 20px 40px 40px;
+        padding: 20px;
+
+        @include tablet-all {
+            padding: 20px 40px 40px;
+        }
     }
 
     &-link {
@@ -44,6 +48,15 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+
+            .tiny-mce-wrapper {
+                flex: 0 0 100%;
+
+                @include desktop {
+                    flex: 0 0 64%;
+                    min-width: 64%;
+                }
+            }
         }
 
         label {
@@ -175,7 +188,7 @@
                     opacity: 1;
                 }
             }
-        } 
+        }
 
         .create_article-add_content {
             margin: 15px 0;

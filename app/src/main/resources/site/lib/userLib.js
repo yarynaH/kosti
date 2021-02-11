@@ -73,12 +73,12 @@ function beautifyUser(userObj, user) {
   );
   userObj.key = user.key;
   userObj.login = user.login;
-  contextLib.runAsAdmin(function () {
-    userObj.roles = {
-      moderator: checkRole(["role:moderator", "role:system.admin"]),
-      gameMaster: checkRole(["role:gameMaster", "role:system.admin"])
-    };
-  });
+  //contextLib.runAsAdmin(function () {
+  userObj.roles = {
+    moderator: checkRole(["role:moderator", "role:system.admin"]),
+    gameMaster: checkRole(["role:gameMaster", "role:system.admin"])
+  };
+  //});
   userObj.notificationsCounter = notificationLib.getNotificationsForUser(
     userObj._id,
     null,
@@ -223,7 +223,7 @@ function discordRegister(code, redirect) {
   var data =
     "&redirect_uri=" +
     portal.pageUrl({ _path: site._path, type: "absolute" }) +
-    (redirect ? redirect : "");
+    (redirect ? redirect : "user/auth/discord");
   data += "&grant_type=authorization_code";
   data += "&scope=identify%20email";
   data += "&code=" + code;

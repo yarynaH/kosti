@@ -1,0 +1,564 @@
+.k_games {
+    padding-bottom: 64px;
+
+    &-wrap {
+        .fest_contacts {
+            margin-top: 64px4;
+        }
+    }
+
+    &-title {
+        @include mobile {
+            font-size: 24px;
+        }
+
+        @include tablet {
+            font-size: 32px;
+        }
+    }
+
+    &-time_title {
+        font-family: Raleway;
+        font-weight: 900;
+        font-size: 24px;
+        line-height: 1.3;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+        color: #443A97;
+        padding-bottom: 24px;
+
+        @include tablet-all {
+            font-size: 32px;
+        }
+    }
+    
+    &-list {
+        @include tablet-all {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+    }
+
+    &-item {
+        @include tablet {
+            flex: 0 0 50%;
+            padding: 0 15px;
+        }
+
+        @include desktop {
+            flex: 0 0 33%;
+            padding: 0 15px;
+        }
+
+        margin-bottom: 40px;
+    }
+
+    &-seats {
+        position: absolute;
+        padding: 8px;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1.8;
+        color: #FFFFFF;
+        bottom: 8px;
+        background: #EE205F;
+        text-transform: uppercase;
+    }
+    
+    &-img_wrap {
+        @include aspect-ratio(16, 9, img);
+
+        position: relative;
+        margin-bottom: 16px;
+    }
+    
+    &-game_name {
+        font-family: Raleway;
+        font-weight: 900;
+        font-size: 24px;
+        line-height: 1.35;
+        color: #11090F;
+    }
+    
+    &-game_desc {
+        /* font-family: Myriad Pro; */
+        font-size: 14px;
+        line-height: 1.45;
+        color: #11090F;
+        padding: 8px 0;
+    }
+    
+    &-link_more {
+        font-family: Raleway;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1.45;
+        color: #EE205F;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+    &-game_actions {
+        position: relative;
+    
+        &:after {
+            content: "";
+            height: 2px;
+            background: #F9A033;
+            display: block;
+            margin-top: 8px;
+            width: 64%;
+        }
+    }
+
+    &-game_system {
+        font-family: Raleway;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1.45;
+        color: #443A97;
+        padding-top: 8px;
+    }
+
+    &-pagination {
+        display: flex;
+    
+        &-link {
+            width: 58px;
+            height: 52px;
+            background: #EE205F;
+            border-radius: 1px;
+            text-align: center;
+            display: inline-block;
+            padding: 16px 5px;
+            font-family: Raleway;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 1.2;
+            color: #FFFFFF;
+        }
+        
+        &-item {
+            &.active .k_games-pagination-link,
+            &:hover .k_games-pagination-link {
+                background: #1E1852;
+            }
+
+            & + .k_games-pagination-item {
+                margin-left: 8px;
+            }
+        }
+        
+        &-text {
+            height: 52px;
+            border-radius: 1px;
+            text-align: center;
+            display: inline-block;
+            padding: 16px 8px;
+            color: #000;
+            font-family: Raleway;
+            font-weight: 900;
+            font-size: 16px;
+            line-height: 1.2;
+        }
+    }
+
+    &-filters {
+        padding: 40px 0 16px;
+
+        @include tablet-all {
+            padding: 40px 0;
+        }
+
+        @include desktop {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &-control {
+            @include tablet-mobile {
+                padding-bottom: 24px;
+            }
+
+            @include desktop {
+                margin-right: 62px;
+                min-width: 116px;
+            }
+        }
+
+        &-title {
+            font-family: Raleway;
+            font-weight: 900;
+            font-size: 24px;
+            line-height: 32px;
+            color: #11090f;
+
+            @include mobile {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &-btn {
+            @include button-style(reset);
+
+            width: 24px;
+            height: 20px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: .5s ease-in-out;
+            margin-left: 16px;
+
+            @include tablet-all {
+              display: none;
+            }
+
+            span {
+                display: block;
+                position: absolute;
+                height: 4px;
+                width: 50%;
+                background: #EE205F;
+                opacity: 1;
+                transform: rotate(0deg);
+                transition: .25s ease-in-out;
+            }
+        
+            span:nth-child(even) {
+                left: 50%;
+            }
+        
+            span:nth-child(odd) {
+                left:0px;
+            }
+        
+            span:nth-child(1),
+            span:nth-child(2) {
+                top: 0px;
+            }
+        
+            span:nth-child(3),
+            span:nth-child(4) {
+                top: 8px;
+            }
+        
+            span:nth-child(5),
+            span:nth-child(6) {
+                top: 16px;
+            }
+        
+            &.open span:nth-child(1),
+            &.open span:nth-child(6) {
+                transform: rotate(45deg);
+            }
+        
+            &.open span:nth-child(2),
+            &.open span:nth-child(5) {
+                transform: rotate(-45deg);
+            }
+        
+            &.open span:nth-child(1) {
+                left: 2px;
+                top: 3px;
+            }
+        
+            &.open span:nth-child(2) {
+                left: calc(50% - 2px);
+                top: 3px;
+            }
+        
+            &.open span:nth-child(3) {
+                left: -50%;
+                opacity: 0;
+            }
+        
+            &.open span:nth-child(4) {
+                left: 100%;
+                opacity: 0;
+            }
+        
+            &.open span:nth-child(5) {
+                left: 2px;
+                top: 9px;
+            }
+        
+            &.open span:nth-child(6) {
+                left: calc(50% - 2px);
+                top: 9px;
+            }
+        }
+
+        &-list {
+            @include mobile {
+                display: none;
+            }
+
+            @include tablet-all {
+                flex: 1 1 auto;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        &-item {
+            @include tablet-all {
+                flex: 1 1  auto;
+            }
+
+            & + & {
+                @include mobile {
+                    margin-top: 16px;
+                }
+            }
+
+            &.day,
+            &.system {
+                flex: 0 1 28%;
+            }
+
+            &.theme {
+                flex: 0 1 38%;
+            }
+        }
+
+        &-label {
+            font-family: Raleway;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 24px;
+            color: #11090F;
+            text-transform: none;
+        }
+
+        &-select {
+            select {
+                border: 1px solid #1E1852;
+                border-radius: 0;
+            }
+
+            &:after {
+                border-top-color: #EE205F;
+            }
+        }
+    }
+
+    &-gdp {
+        padding-top: 64px;
+        padding-bottom: 64px;
+
+        @include tablet-all {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+    }
+}
+
+.k_gdp {
+    &-system_name {
+        font-family: Raleway;
+        font-weight: 900;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #EE205F;
+        padding-bottom: 8px;
+    }
+    &-left_col {
+        flex: 0 1 65%;
+
+        @include mobile {
+            padding-bottom: 40px;
+        }
+
+        @include tablet-all {
+            padding-right: 25px;
+        }
+    }
+    
+    &-title {
+        color: #11090F;
+
+        @include tablet {
+            font-size: 40px;
+        }
+    }
+    
+    &-desc {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #11090F;
+    }
+    
+    &-right_col {
+        flex: 0 1 35%;
+    }
+
+    &-label {
+        font-family: Raleway;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #443A97;
+    }
+    
+    &-value {
+        font-family: Raleway;
+        font-weight: 900;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #11090F;
+    }
+    
+    &-info {
+        padding-bottom: 16px;
+    }
+
+    &-img_decor {
+        position: relative;
+        padding-left: 10px;
+        padding-bottom: 10px;
+    
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: calc(100% - 10px);
+            background: #B21E43;
+            width: 10px;
+        }
+    
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 10px;
+            background: #B21E43;
+            width: calc(100% - 10px);
+        }
+    }
+
+    &-img_wrap {
+        @include aspect-ratio(256, 119, img);
+    }
+
+    &-sign_up {
+        padding-top: 40px;
+        width: 65%;
+
+        &-step_1 {
+            display: none;
+        }
+
+        &-step_2 {
+            margin-bottom: 24px;
+        }
+
+        input {
+            border: 1px solid #1e1852;
+            border-radius: 0;
+            margin-bottom: 24px;
+        }
+    }
+
+    &-discord {
+        @include button-style(global transparent discord);
+
+        width: auto;
+        padding: 10px 10px;
+        border-radius: 50%;
+        text-align: center;
+
+        &:before {
+            font-size: rem(22);
+            margin: 0;
+        }
+
+        &:hover {
+            background-color: #e9ebf3;
+        }
+    }
+}
+
+.custom_select {
+    position: relative;
+
+    &-list {
+        display: none;
+        position: absolute;
+        background: #fff;
+        border: 1px solid #000;
+        top: calc(100% - 2px);
+        left: 1px;
+        right: 1px;
+
+        .show & {
+            display: block;
+        }
+    }
+
+    &-placeholder {
+        display: block;
+        line-height: 2;
+        padding-top: 8px;
+    }
+
+    &-selected {
+        border: 1px solid #1e1852;
+        min-height: 56px;
+        padding: 4px 26px 14px 8px;
+        position: relative;
+        width: 100%;
+        text-align: left;
+        background: no-repeat;
+
+        &:after {
+            border: 4px solid transparent;
+            border-top-color: #ee205f;
+            border-bottom-width: 0;
+            border-top-width: 6px;
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            content: "";
+            margin-top: -4px;
+            pointer-events: none;
+        }
+
+        &:focus {
+            outline: auto 1px;
+            box-shadow: 0 4px 16px 0 rgba($color-primary3, 0.5);
+        }
+    }
+    
+    &-selected_item {
+        background: #EE205F;
+        color: #fff;
+        padding: 4px;
+        display: inline-block;
+        cursor: pointer;
+        margin-right: 6px;
+        margin-top: 10px;
+
+        &:hover{
+            background-color: darken(#EE205F,20%);
+        }
+    }
+    
+
+    &-option {
+        color: #333;
+        padding: 0px 15px;
+        display: block;
+        width: 100%;
+        padding-bottom: 1px;
+
+        &:hover {
+            color: #fff;
+            background: #1e90ff;
+        }
+    }
+}

@@ -6,7 +6,7 @@
                 <div data-th-unless="${game.block.time.end}" class="my_games-short_info-time"
                     data-th-text="${game.block.time.start}"></div>
                 <div data-th-if="${game.block.time.end}" class="my_games-short_info-time"
-                    data-th-text="${game.block.time.start + ' - ' + game.block.time.end}"></div>
+                    data-th-text="${game.block.time.start + ' - ' + game.block.time.end + ' MSK'}"></div>
                 <div class="my_games-short_info-location" data-th-unless="${festival.online}">
                     <span data-th-text="${game.location + ', '}"></span>
                     <span
@@ -19,8 +19,9 @@
                     <span class="icon-arrow"></span>
                 </div>
                 <div class="my_games-short_info-desccription">
-                    <span
+                    <span data-th-if="${game.system.localizable}"
                         data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}"></span>
+                    <span data-th-unless="${game.system.localizable}" data-th-text="${game.system.text}"></span>
                     <span data-th-text="${game.block.displayName}"></span>
                     <span data-th-if="${game.block.duration.hours or game.block.duration.minutes}">
                         (
@@ -39,18 +40,23 @@
             <div class="my_games-game_img" data-th-if="${game.image}">
                 <img data-th-src="${game.image.url}" alt="game picture">
             </div>
-            <div class="my_games-description" data-th-text="${game.data.description}">
+            <div class="my_games-description" data-th-utext="${game.data.description}">
             </div>
             <div class="my_games-text">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.players', '_locale=ru'})}"></span>
-                <span class="value" data-th-text="${game.seatsReserver + '/' + game.data.maxPlayers}"></span>
+                <span class="value" data-th-text="${game.seatsReserved + '/' + game.data.maxPlayers}"></span>
             </div>
             <div class="my_games-text">
                 <span class="label" data-th-text="${portal.localize({'_key=myGames.language', '_locale=ru'})}"></span>
                 <span class="value"
                     data-th-text="${portal.localize({'_key=myGames.form.adventureLang.' + game.data.language, '_locale=ru'})}"></span>
             </div>
-            <div class="my_games-text" data-th-if="${game.data.explicit or game.data.kidsGame}">
+            <div class="my_games-text">
+                <span class="label" data-th-text="${portal.localize({'_key=myGames.pregens', '_locale=ru'})}"></span>
+                <span class="value"
+                    data-th-text="${portal.localize({'_key=myGames.form.pregens.' + game.data.pregens, '_locale=ru'})}"></span>
+            </div>
+            <div class="my_games-text" data-th-if="${game.additionalInfo}">
                 <span class="label"
                     data-th-text="${portal.localize({'_key=myGames.additionalInfo', '_locale=ru'})}"></span>
                 <span class="value" data-th-text="${game.additionalInfo}">
