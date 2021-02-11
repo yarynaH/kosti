@@ -183,7 +183,8 @@
             }
 
             @include desktop {
-                padding-right: 62px;
+                margin-right: 62px;
+                min-width: 116px;
             }
         }
 
