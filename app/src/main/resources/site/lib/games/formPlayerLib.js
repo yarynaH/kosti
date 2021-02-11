@@ -21,11 +21,12 @@ exports.updateEntity = updateEntity;
 exports.signOutOfGame = signOutOfGame;
 
 function getDays(params) {
+  if (!params) params = {};
   let days = [];
-  if (params.dayId) {
-    days = getDay(params.dayId);
+  if (params.day) {
+    days = getDay(params.day);
   } else {
-    days = formSharedLib.getDays();
+    days = formSharedLib.getFirstDay();
   }
   let gamesQuery = "";
   if (params.system) {

@@ -10,9 +10,19 @@ var helpers = require(libLocation + "helpers");
 var formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 exports.get = function (req) {
-  norseUtils.log(req.params);
+  if (req.params && req.params["theme[]"]) {
+    req.params.theme = req.params["theme[]"];
+    delete req.params["theme[]"];
+  }
   return {
-    body: {},
+    body: {
+      html: thymeleaf.render(
+        resolve("../../site/pages/games/gamesBlock.html"),
+        {
+          days: formPlayerLib.getDays(req.params)
+        }
+      )
+    },
     contentType: "application/json"
   };
 };

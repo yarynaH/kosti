@@ -79,6 +79,7 @@ function getFilteredGames() {
     type: "GET",
     success: function (data) {
       hideLoader();
+      $(".js-k_games-wrapper").html(data.html);
     },
     error: function (data) {
       hideLoader();
