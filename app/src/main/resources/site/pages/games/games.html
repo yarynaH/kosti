@@ -77,10 +77,8 @@
                                 <button class="js-custom_select-button custom_select-selected">
                                     <span class="js-custom_select-placeholder custom_select-placeholder">Выберите
                                         тему</span>
-                                    <!-- <span class="custom_select-selected_item">Все <i class="icon-delete"></i></span> -->
                                 </button>
                                 <ul class="custom_select-list">
-                                    <li data-value="all" class="js-custom_select-option custom_select-option">Все</li>
                                     <li data-th-each="theme : ${filters.themes}" data-th-attr="data-value=${theme}"
                                         class="js-custom_select-option custom_select-option"
                                         data-th-text="${portal.localize({'_key=myGames.theme.' + theme, '_locale=ru'})}">
