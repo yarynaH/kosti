@@ -151,6 +151,49 @@ function checkTicket(params) {
   return false;
 }
 
+function validateUser(game) {
+  let user = userLib.getCurrentUser();
+  if (!user) return { error: true, message: "Вам нужно войти." };
+  let kosticonnect2021 = user.data.kosticonnect2021;
+  let discord = user.data.discord;
+  let gameBlock = util.content.getParent({ key: game._id });
+  let games = contentLib.query({
+    start: 0,
+    count: -1,
+    query:
+      "data.players = '" +
+      user._id +
+      "' and _parentPath = '" +
+      gameBlock._path +
+      "'",
+    contentTypes: [app.name + "game"]
+  });
+  if (game.total > 0)
+    return {
+      error: true,
+      message: "Вы уже записаны на другую игру в этом блоке."
+    };
+  if (
+    !(
+      discord &&
+      (kosticonnect2021 || user.roles.gameMaster || user.roles.moderator)
+    )
+  )
+    return {
+      error: true,
+      message: "Вам нужен билет чтоб записатся."
+    };
+  if (!validateTicketGameAllowed(kosticonnect2021, game._id)) {
+    return {
+      error: true,
+      message: "Ваш билет не позволяет принять участие в этой игре."
+    };
+  }
+  return {
+    error: false
+  };
+}
+
 function bookSpace(params) {
   if (!gameSpaceAvailable(params.gameId)) {
     return { error: true, message: "Мест больше нет." };
@@ -283,11 +326,9 @@ function signForGame(params) {
   }
   let user = userLib.getCurrentUser();
   let game = contentLib.get({ key: params.gameId });
-  if (!validateTicketGameAllowed(user.data.kosticonnect2021, game._id)) {
-    return {
-      error: true,
-      message: "Ваш билет не позволяет принять участие в этой игре."
-    };
+  let userValid = validateUser(game);
+  if (userValid.error) {
+    return userValid;
   }
   let players = game.data.players;
   if (!players) {

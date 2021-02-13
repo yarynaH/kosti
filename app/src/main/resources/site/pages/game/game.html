@@ -99,7 +99,7 @@
             </div>
             <div class="k_gdp-sign_up">
                 <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1"
-                    data-th-unless="${user and user.data and user.data.firstName and user.data.kosticonnect2021}">
+                    data-th-unless="${user and user.data and (user.data.firstName or user.data.kosticonnect2021)}">
                     <div data-th-unless="${user and user.data and user.data.firstName}">
                         <input class="js_get-user-data" name="firstName" placeholder="Ваше им'я" required>
                     </div>
