@@ -57,6 +57,9 @@ exports.get = function (req) {
     case "fixgamesplayers":
       formPlayerLib.checkPlayersCartsBooking();
       break;
+    case "fixgamedate":
+      formPlayerLib.updateGameDate();
+      break;
   }
   return {
     body: "",

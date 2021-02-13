@@ -19,6 +19,7 @@ exports.updateUser = updateUser;
 exports.updateEntity = updateEntity;
 exports.signOutOfGame = signOutOfGame;
 exports.checkPlayersCartsBooking = checkPlayersCartsBooking;
+exports.updateGameDate = updateGameDate;
 
 function getDays(params) {
   if (!params) params = {};
@@ -441,4 +442,22 @@ function checkGamePlayers(game) {
   game.data.players = players;
   if (updateGame) return updateEntity(game);
   return game;
+}
+
+function updateGameDate() {
+  norseUtils.log("fixing game dates");
+  contextLib.runAsAdmin(function () {
+    let games = getListOfGames();
+    games.forEach((game) => {
+      fixGameDate(game);
+    });
+  });
+  norseUtils.log("finished");
+}
+
+function fixGameDate(game) {
+  if (game.data.datetime) return true;
+  let gameBlock = util.content.getParent({ key: game._id });
+  game.data.datetime = gameBlock.data.datetime;
+  updateEntity(game);
 }
