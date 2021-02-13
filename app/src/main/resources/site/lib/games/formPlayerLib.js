@@ -232,14 +232,20 @@ function bookSpace(params) {
     user.data.discord &&
     user.data.kosticonnect2021
   ) {
-    return signForGame({ gameId: params.gameId });
+    let signInResult = signForGame({ gameId: params.gameId });
+    if (!signInResult.error) {
+      return { error: false, message: "Вы записаны на игру." };
+    }
   } else if (
     (params.firstName || params.kosticonnect2021) &&
     user &&
     user.data.discord
   ) {
     user = updateUser(params);
-    return signForGame({ gameId: params.gameId });
+    let signInResult = signForGame({ gameId: params.gameId });
+    if (!signInResult.error) {
+      return { error: false, message: "Вы записаны на игру." };
+    }
   } else if ((params.firstName || params.kosticonnect2021) && user) {
     user = updateUser(params);
     saveDataToCart({
@@ -249,7 +255,7 @@ function bookSpace(params) {
       players: players,
       cartId: params.cartId
     });
-    return game;
+    return { error: false, message: false };
   } else if (params.firstName && params.kosticonnect2021) {
     saveDataToCart({
       game: game,
@@ -258,7 +264,7 @@ function bookSpace(params) {
       players: players,
       cartId: params.cartId
     });
-    return game;
+    return { error: false, message: false };
   }
 }
 
