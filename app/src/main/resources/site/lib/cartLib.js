@@ -125,28 +125,31 @@ function markTicketUsed(qr) {
       qr +
       "\"', 'OR') or ngram('items.itemsIds.id', '\"" +
       qr +
-      "\"', 'OR')"
+      "\"', 'OR') or items.itemsIds.id=" +
+      qr
   });
   if (result.total > 0) {
-    var result = cartRepo.modify({
+    cartRepo.modify({
       key: result.hits[0].id,
       editor: editor
     });
-  }
-  function editor(node) {
-    if (node.items) {
-      node.items = norseUtils.forceArray(node.items);
-      for (var i = 0; i < node.items.length; i++) {
-        node.items[i].itemsIds = norseUtils.forceArray(node.items[i].itemsIds);
-        for (var j = 0; j < node.items[i].itemsIds.length; j++) {
-          if (node.items[i].itemsIds[j].id == qr) {
-            node.items[i].itemsIds[j].activated = true;
-            return node;
+    function editor(node) {
+      if (node.items) {
+        node.items = norseUtils.forceArray(node.items);
+        for (var i = 0; i < node.items.length; i++) {
+          node.items[i].itemsIds = norseUtils.forceArray(
+            node.items[i].itemsIds
+          );
+          for (var j = 0; j < node.items[i].itemsIds.length; j++) {
+            if (node.items[i].itemsIds[j].id == qr) {
+              node.items[i].itemsIds[j].activated = true;
+              return node;
+            }
           }
         }
       }
+      return node;
     }
-    return node;
   }
 }
 

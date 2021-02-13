@@ -301,7 +301,9 @@ function updateUser(params) {
     if (checkTicket({ kosticonnect2021: params.kosticonnect2021 })) {
       user.data.kosticonnect2021 = params.kosticonnect2021;
       updateUser = true;
-      cartLib.markTicketUsed(params.kosticonnect2021);
+      contextLib.runAsAdminAsUser(user, function () {
+        cartLib.markTicketUsed(params.kosticonnect2021);
+      });
     } else {
       return {
         error: true,
@@ -391,10 +393,14 @@ function updateEntity(entity) {
 }
 
 function checkPlayersCartsBooking() {
-  let games = getListOfGames();
-  games.forEach((game) => {
-    checkGamePlayers(game);
+  norseUtils.log("fixing booking");
+  contextLib.runAsAdmin(function () {
+    let games = getListOfGames();
+    games.forEach((game) => {
+      checkGamePlayers(game);
+    });
   });
+  norseUtils.log("finished");
 }
 
 function getListOfGames() {
@@ -403,27 +409,29 @@ function getListOfGames() {
   let games = contentLib.query({
     start: 0,
     count: -1,
-    query: "data.date < dateTime('" + date.toISOString() + "')",
-    contentTypes: [app.name + "game"]
+    contentTypes: [app.name + ":game"]
   });
+  return games.hits;
 }
 
 function checkGamePlayers(game) {
-  if (game.data.players) return true;
-  game.data.players = norseUtils.forceArray(game.data.players);
-  if (game.players.length < 1) return true;
-  let updateGame = false;
+  if (!game.data.players) return true;
+  let players = norseUtils.forceArray(game.data.players);
+  if (players.length === 0) return true;
 
-  let players = game.data.players;
-  players.forEach((player) => {
-    let user = contentLib.get({ key: player });
+  let updateGame = false;
+  for (let i = 0; i < players.length; i++) {
+    let user = contentLib.get({ key: players[i] });
     if (!(user && user.type === app.name + ":user")) {
-      let index = players.indexOf(player);
+      let index = players.indexOf(players[i]);
       if (index > -1) {
+        norseUtils.log("found wrong player for game " + game._id);
         players.splice(index, 1);
+        updateGame = true;
+        i--;
       }
     }
-  });
+  }
   game.data.players = players;
   if (updateGame) return updateEntity(game);
   return game;
