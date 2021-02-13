@@ -56,7 +56,7 @@
             </div>
         </div>
     </header>
-    <main data-th-attr="data-id=${game._id}" class="k_games-wrap js_game-id">
+    <main data-th-attr="data-id=${game._id}" class="kosticonnect-wrap k_games-wrap js_game-id">
         <div class="k_games-gdp site_content">
             <div class="k_gdp-left_col">
                 <h5 data-th-if="${game.system.localizable}" class="k_gdp-system_name"
@@ -118,40 +118,40 @@
                     class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
             </div>
         </div>
-        <div class="fest_contacts">
-            <div class="site_content">
-                <div class="k_social social">
-                    <h2 class="k_social-title kosticonnect-title">
-                        СОЦСЕТИ ФЕСТИВАЛЯ
-                    </h2>
-                    <div class="social-list social-list__sides_align">
-                        <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook"
-                            title="Facebook"></a>
-                        <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
-                        <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden"
-                            title="Twitter"></a>
-                        <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube"
-                            title="Youtube"></a>
-                        <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram"
-                            title="Instagram"></a>
-                        <a href="https://www.twitch.tv/vecherniyekosti" class="social-link twitch" title="Twitch"></a>
-                        <a href="https://discord.gg/VfDthGK" class="social-link discord" title="Discord"></a>
-                        <a href="https://t.me/vecherniyekosti" class="social-link telegram" title="Telegram"></a>
-                    </div>
-                </div>
-                <div class="about_us">
-                    <h3 class="about_us-title">ОБРАЩАЙТЕСЬ ПО ЛЮБЫМ ВОПРОСАМ:</h3>
-                    <p><a class="about_us-link" href="mailto:info@kostirpg.com">info@kostirpg.com</a></p>
-                    <p><a class="about_us-link" href="tel:+380662098750">+380662098750</a></p>
+    </main>
+    <footer class="fest_contacts">
+        <div class="site_content">
+            <div class="k_social social">
+                <h2 class="k_social-title kosticonnect-title">
+                    СОЦСЕТИ ФЕСТИВАЛЯ
+                </h2>
+                <div class="social-list social-list__sides_align">
+                    <a href="https://www.facebook.com/vecherniyekosti" class="social-link facebook"
+                        title="Facebook"></a>
+                    <a href="https://vk.com/vecherniyekosti" class="social-link vk" title="VK"></a>
+                    <a href="https://twitter.com/vecherniyekosti" class="social-link twitter hidden"
+                        title="Twitter"></a>
+                    <a href="https://www.youtube.com/channel/UCETKVT-Uj-gAqdSTd2YNaMg" class="social-link youtube"
+                        title="Youtube"></a>
+                    <a href="https://www.instagram.com/vecherniye_kosti" class="social-link instagram"
+                        title="Instagram"></a>
+                    <a href="https://www.twitch.tv/vecherniyekosti" class="social-link twitch" title="Twitch"></a>
+                    <a href="https://discord.gg/VfDthGK" class="social-link discord" title="Discord"></a>
+                    <a href="https://t.me/vecherniyekosti" class="social-link telegram" title="Telegram"></a>
                 </div>
             </div>
+            <div class="about_us">
+                <h3 class="about_us-title">ОБРАЩАЙТЕСЬ ПО ЛЮБЫМ ВОПРОСАМ:</h3>
+                <p><a class="about_us-link" href="mailto:info@kostirpg.com">info@kostirpg.com</a></p>
+                <p><a class="about_us-link" href="tel:+380662098750">+380662098750</a></p>
+            </div>
         </div>
-    </main>
+    </footer>
     <div class="snackbar js_snackbar">
         <div class="snackbar-text">Some msg</div>
         <div class="snackbar-close icon-delete js_snackbar-close"></div>
     </div>
-    <footer class="footer" data-th-utext="${pageComponents.footer}"></footer>
+    <footer class="footer" data-th-remove="tag" data-th-utext="${pageComponents.footer}"></footer>
 </body>
 
 </html>
