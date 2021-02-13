@@ -230,7 +230,7 @@ function getDays(params) {
     contentTypes: [app.name + ":gameBlock"],
     sort: "data.datetime ASC"
   }).hits;
-  if (params.skipBeautify) {
+  if (!params.skipBeautify) {
     for (var i = 0; i < days.length; i++) {
       days[i] = beautifyDay(days[i], params.expanded);
     }
