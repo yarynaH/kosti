@@ -106,7 +106,11 @@
   &-search,
   &-notification,
   &-user {
-    @include tablet-all {
+    @include tablet {
+      padding-left: 26px;
+    }
+
+    @include desktop {
       padding-left: 65px;
     }
   }
@@ -194,12 +198,19 @@
   &-item {
     @include tablet-all {
       display: inline-block;
-      padding-left: 65px;
       vertical-align: middle;
 
       &:first-child {
         padding-left: 0;
       }
+    }
+
+    @include tablet {
+      padding-left: 45px;
+    }
+
+    @include desktop {
+      padding-left: 65px;
     }
   }
 
@@ -433,6 +444,10 @@
 .guest {
   &-btn {
     cursor: pointer;
+
+    @include tablet {
+      width: 86px;
+    }
 
     @include mobile {
       padding: 10px 25px;

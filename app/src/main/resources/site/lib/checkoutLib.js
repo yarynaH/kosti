@@ -52,7 +52,7 @@ function getLiqpayData(cart) {
   };
 }
 
-function getCartDescription() {
+function getCartDescription(cart) {
   var description = "";
   for (var i = 0; i < cart.items.length; i++) {
     description +=
