@@ -46,7 +46,10 @@ function handleReq(req) {
     var model = {
       content: content,
       user: user,
-      days: days,
+      days: formSharedLib.getDays({ skipBeautify: true }),
+      gamesView: thymeleaf.render(resolve("gamesBlock.html"), {
+        days: days
+      }),
       festival: festival,
       filters: getFilters(),
       pageComponents: helpers.getPageComponents(req, "footerScripts")

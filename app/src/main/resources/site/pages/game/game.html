@@ -92,14 +92,14 @@
                             data-th-utext="${portal.localize({'_key=myGames.theme.' + game.data.theme, '_locale=ru'})}"></span>
                     </div>
                 </div>
-                <div class="k_gdp-info">
+                <div class="k_gdp-info" data-th-if="${game.additionalInfo != ''}">
                     <div class="k_gdp-label">ДОПОЛНИТЕЛЬНО</div>
                     <div class="k_gdp-value" data-th-utext="${game.additionalInfo}"></div>
                 </div>
             </div>
             <div class="k_gdp-sign_up">
                 <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1"
-                    data-th-unless="${user and user.data and user.data.firstName and user.data.kosticonnect2021}">
+                    data-th-unless="${user and user.data and (user.data.firstName or user.data.kosticonnect2021)}">
                     <div data-th-unless="${user and user.data and user.data.firstName}">
                         <input class="js_get-user-data" name="firstName" placeholder="Ваше им'я" required>
                     </div>

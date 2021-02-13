@@ -30,6 +30,11 @@ function initKosticonnetcScripts() {
       $(this).data().step === "discord"
     ) {
       updateUserData();
+    } else if (
+      $(".js_game-sign-up-step-2").length === 0 &&
+      $(this).data().step === "discord"
+    ) {
+      updateUserData();
     } else {
       signupForGame();
     }

@@ -40,6 +40,7 @@ exports.beautifyGameBlock = beautifyGameBlock;
 exports.getGameMisc = getGameMisc;
 exports.getFestivals = getFestivals;
 exports.beautifyDay = beautifyDay;
+exports.getFirstDay = getFirstDay;
 
 function getView(viewType, id, params) {
   var model = {};
@@ -191,6 +192,27 @@ function getFestivals() {
   });
 }
 
+function getFirstDay() {
+  var festivals = getFestivals();
+  if (festivals && festivals[0]) {
+    var id = festivals[0]._id;
+  }
+  var festivalPage = contentLib.get({ key: id });
+  var days = contentLib.query({
+    query:
+      "_parentPath LIKE '/content" +
+      festivalPage._path +
+      "*' AND data.blockType = 'day'",
+    contentTypes: [app.name + ":gameBlock"],
+    sort: "data.datetime ASC",
+    count: 1
+  }).hits;
+  for (var i = 0; i < days.length; i++) {
+    days[i] = beautifyDay(days[i]);
+  }
+  return days;
+}
+
 function getDays(params) {
   if (!params) {
     var params = {};
@@ -208,8 +230,10 @@ function getDays(params) {
     contentTypes: [app.name + ":gameBlock"],
     sort: "data.datetime ASC"
   }).hits;
-  for (var i = 0; i < days.length; i++) {
-    days[i] = beautifyDay(days[i], params.expanded);
+  if (params.skipBeautify) {
+    for (var i = 0; i < days.length; i++) {
+      days[i] = beautifyDay(days[i], params.expanded);
+    }
   }
   return days;
 }

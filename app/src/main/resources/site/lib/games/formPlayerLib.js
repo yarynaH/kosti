@@ -14,18 +14,19 @@ exports.beautifyGame = beautifyGame;
 exports.gameSpaceAvailable = gameSpaceAvailable;
 exports.bookSpace = bookSpace;
 exports.checkTicket = checkTicket;
-exports.changeCartIdToPlayerId = changeCartIdToPlayerId;
 exports.signForGame = signForGame;
 exports.updateUser = updateUser;
 exports.updateEntity = updateEntity;
 exports.signOutOfGame = signOutOfGame;
+exports.checkPlayersCartsBooking = checkPlayersCartsBooking;
 
 function getDays(params) {
+  if (!params) params = {};
   let days = [];
-  if (params.dayId) {
-    days = getDay(params.dayId);
+  if (params.day) {
+    days = getDay(params.day);
   } else {
-    days = formSharedLib.getDays();
+    days = formSharedLib.getFirstDay();
   }
   let gamesQuery = "";
   if (params.system) {
@@ -129,6 +130,12 @@ function gameSpaceAvailable(id) {
 }
 
 function checkTicket(params) {
+  if (
+    !parseInt(params.kosticonnect2021) ||
+    parseInt(params.kosticonnect2021) === NaN
+  ) {
+    return false;
+  }
   let cart = cartLib.getCartByQr(params.kosticonnect2021);
   if (!cart) return false;
   let user = userLib.getCurrentUser();
@@ -144,6 +151,49 @@ function checkTicket(params) {
   return false;
 }
 
+function validateUser(game) {
+  let user = userLib.getCurrentUser();
+  if (!user) return { error: true, message: "Вам нужно войти." };
+  let kosticonnect2021 = user.data.kosticonnect2021;
+  let discord = user.data.discord;
+  let gameBlock = util.content.getParent({ key: game._id });
+  let games = contentLib.query({
+    start: 0,
+    count: -1,
+    query:
+      "data.players = '" +
+      user._id +
+      "' and _parentPath = '" +
+      gameBlock._path +
+      "'",
+    contentTypes: [app.name + "game"]
+  });
+  if (game.total > 0)
+    return {
+      error: true,
+      message: "Вы уже записаны на другую игру в этом блоке."
+    };
+  if (
+    !(
+      discord &&
+      (kosticonnect2021 || user.roles.gameMaster || user.roles.moderator)
+    )
+  )
+    return {
+      error: true,
+      message: "Вам нужен билет чтоб записатся."
+    };
+  if (!validateTicketGameAllowed(kosticonnect2021, game._id)) {
+    return {
+      error: true,
+      message: "Ваш билет не позволяет принять участие в этой игре."
+    };
+  }
+  return {
+    error: false
+  };
+}
+
 function bookSpace(params) {
   if (!gameSpaceAvailable(params.gameId)) {
     return { error: true, message: "Мест больше нет." };
@@ -156,6 +206,12 @@ function bookSpace(params) {
   players = norseUtils.forceArray(players);
   let user = userLib.getCurrentUser();
   if (params.kosticonnect2021) {
+    if (parseInt(params.kosticonnect2021) === NaN) {
+      return {
+        error: true,
+        message: "Не правильный номер билета."
+      };
+    }
     if (!checkTicket(params)) {
       return {
         error: true,
@@ -236,10 +292,18 @@ function updateUser(params) {
 
   let updateUser = false;
   if (params.kosticonnect2021 && !user.data.kosticonnect2021) {
+    if (parseInt(params.kosticonnect2021) === NaN) {
+      return {
+        error: true,
+        message: "Не правильный номер билета."
+      };
+    }
     if (checkTicket({ kosticonnect2021: params.kosticonnect2021 })) {
       user.data.kosticonnect2021 = params.kosticonnect2021;
       updateUser = true;
-      //cartLib.markTicketUsed(params.ticket);
+      contextLib.runAsAdminAsUser(user, function () {
+        cartLib.markTicketUsed(params.kosticonnect2021);
+      });
     } else {
       return {
         error: true,
@@ -264,11 +328,9 @@ function signForGame(params) {
   }
   let user = userLib.getCurrentUser();
   let game = contentLib.get({ key: params.gameId });
-  if (!validateTicketGameAllowed(user.data.kosticonnect2021, game._id)) {
-    return {
-      error: true,
-      message: "Ваш билет не позволяет принять участие в этой игре."
-    };
+  let userValid = validateUser(game);
+  if (userValid.error) {
+    return userValid;
   }
   let players = game.data.players;
   if (!players) {
@@ -303,30 +365,6 @@ function signOutOfGame(params) {
   return game;
 }
 
-function changeCartIdToPlayerId(params) {
-  if (!params) return false;
-  let user = userLib.getCurrentUser();
-  if (!user) return false;
-  let game = contentLib.query({
-    query: "data.players = '" + params.cartId + "'"
-  });
-  if (game.total > 0) game = game.hits[0];
-  game.data.players = norseUtils.forceArray(game.data.players);
-  if (game.data.players.indexOf(params.cart) !== -1) {
-    let cart = cartLib.getCartById(params.cartId);
-    user.data.firstName = cart.firstName;
-    user.data.kosticonnect2021 = cart.kosticonnect2021;
-    updateEntity(user);
-    for (let i = 0; i < game.data.players.length; i++) {
-      if (game.data.players[i] === params.cartId)
-        game.data.players[i] = user._id;
-      break;
-    }
-    updateEntity(game);
-  }
-  return true;
-}
-
 function validateTicketGameAllowed(ticketId, gameId) {
   let game = contentLib.get({ key: gameId });
   if (!game.data.exclusive) return true;
@@ -352,4 +390,49 @@ function updateEntity(entity) {
     });
     return entity;
   });
+}
+
+function checkPlayersCartsBooking() {
+  norseUtils.log("fixing booking");
+  contextLib.runAsAdmin(function () {
+    let games = getListOfGames();
+    games.forEach((game) => {
+      checkGamePlayers(game);
+    });
+  });
+  norseUtils.log("finished");
+}
+
+function getListOfGames() {
+  var date = new Date();
+  date.setTime(date.getTime() - 60 * 60 * 1000);
+  let games = contentLib.query({
+    start: 0,
+    count: -1,
+    contentTypes: [app.name + ":game"]
+  });
+  return games.hits;
+}
+
+function checkGamePlayers(game) {
+  if (!game.data.players) return true;
+  let players = norseUtils.forceArray(game.data.players);
+  if (players.length === 0) return true;
+
+  let updateGame = false;
+  for (let i = 0; i < players.length; i++) {
+    let user = contentLib.get({ key: players[i] });
+    if (!(user && user.type === app.name + ":user")) {
+      let index = players.indexOf(players[i]);
+      if (index > -1) {
+        norseUtils.log("found wrong player for game " + game._id);
+        players.splice(index, 1);
+        updateGame = true;
+        i--;
+      }
+    }
+  }
+  game.data.players = players;
+  if (updateGame) return updateEntity(game);
+  return game;
 }
