@@ -1,5 +1,6 @@
 <jobs>
   <job name="updateSchedule" cron="0 2 * * *"/>
   <job name="regenerateCache" cron="0 1 * * *"/>
-  <job name="checkLiqpayOrdersStatus" cron="*/10 * * * *"/>
+  <job name="checkLiqpayOrdersStatus" cron="*/15 * * * *"/>
+  <job name="checkGamesPlayers" cron="*/10 * * * *"/>
 </jobs>
