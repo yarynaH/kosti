@@ -110,6 +110,7 @@ function beautifyGame(game) {
     game = beautifyGameGeneralData(game);
     festivalCache.api.put(game._id, game);
   } else {
+    tempGame.data.players = game.data.players;
     game = tempGame;
   }
   game.seatsReserved = game.data.players
