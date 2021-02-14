@@ -11,15 +11,16 @@
         <ul class="k_games-list">
             <li class="k_games-item" data-th-each="game : ${block.games}">
                 <a class="k_games-item_link" data-th-href="${game.url}">
-                    <div class="k_games-img_wrap">
+                    <span class="k_games-img_wrap">
                         <img data-th-if="${game.image}" data-th-src="${game.image.url}">
                         <img data-th-unless="${game.image}" src="https://picsum.photos/300">
                         <span class="k_games-seats">
                             <span>места</span>
                             <span data-th-text="${game.seatsReserved + '/' + game.data.maxPlayers}"></span>
                         </span>
-                        <span class="k_games-exclusive_game"><i class="icon-rock"></i> Экслюзивная игра</span>
-                    </div>
+                        <span data-th-if="${game.data.exclusive}" class="k_games-exclusive_game"><i
+                                class="icon-rock"></i> Экслюзивная игра</span>
+                    </span>
                     <h3 class="k_games-game_name" data-th-text="${game.displayName}"></h3>
                     <h4 class="k_games-game_system" data-th-if="${game.system.localizable}"
                         data-th-text="${portal.localize({'_key=myGames.gameSystem.' + game.system.text, '_locale=ru'})}">
@@ -27,10 +28,10 @@
                     <h4 data-th-unless="${game.system.localizable}" class="k_games-game_system"
                         data-th-text="${game.system.text}">
                     </h4>
-                    <div class="k_games-game_desc" data-th-utext="${game.data.description}"></div>
-                    <div class="k_games-game_actions">
-                        <a class="k_games-link_more" data-th-href="${game.url}">Узнать больше</a>
-                    </div>
+                    <span class="k_games-game_desc" data-th-utext="${game.intro}"></span>
+                    <span class="k_games-game_actions">
+                        <span class="k_games-link_more" data-th-href="${game.url}">Узнать больше</span>
+                    </span>
                 </a>
             </li>
         </ul>

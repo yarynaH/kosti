@@ -70,6 +70,8 @@ function handleReq(req) {
       if (game.data.theme && filters.themes.indexOf(game.data.theme) === -1)
         filters.themes.push(game.data.theme);
       if (
+        game.data.gameSystem &&
+        game.data.gameSystem.select &&
         game.data.gameSystem.select.system &&
         filters.system.indexOf(game.data.gameSystem.select.system) === -1
       )

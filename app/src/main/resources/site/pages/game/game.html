@@ -51,7 +51,8 @@
                     <div class="k_gdp-img_wrap">
                         <img data-th-if="${game.image}" data-th-src="${game.image.url}">
                         <img data-th-unless="${game.image}" src="https://picsum.photos/1200/600">
-                        <span class="k_games-exclusive_game"><i class="icon-rock"></i> Экслюзивная игра</span>
+                        <span data-th-if="${game.data.exclusive}" class="k_games-exclusive_game"><i
+                                class="icon-rock"></i> Экслюзивная игра</span>
                     </div>
                 </div>
             </div>
@@ -110,7 +111,8 @@
                 </form>
                 <div class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" data-th-if="${discordUrl}"
                     style="display:none">
-                    <a data-th-href="${discordUrl}" class="button social_login-discord" name="discord" placeholder="discord"> Залогиньтесь через Дискорд</a>
+                    <a data-th-href="${discordUrl}" class="button social_login-discord" name="discord"
+                        placeholder="discord"> Залогиньтесь через Дискорд</a>
                 </div>
                 <div data-th-if="${gameSigned}">
                     <div>Вы уже записаны на эту игру.</div>

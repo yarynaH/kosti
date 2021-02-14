@@ -116,6 +116,9 @@ function beautifyGame(game) {
   );
   game.additionalInfo = formSharedLib.getGameMisc(game);
   game.url = portalLib.pageUrl({ id: game._id });
+  game.intro =
+    game.data.description.replace(/(<([^>]+)>)/gi, "").substring(0, 250) +
+    "...";
   game.master = contentLib.get({ key: game.data.master });
   if (game.data.image) game.image = norseUtils.getImage(game.data.image);
   return game;

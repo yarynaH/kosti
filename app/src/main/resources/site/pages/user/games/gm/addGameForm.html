@@ -46,7 +46,7 @@
                             disabled="disabled" selected>
                         </option>
                         <option data-th-classappend="${system.class}"
-                            data-th-selected="${game && game.data.gameSystem && game.data.gameSystem.select.system == system.name}"
+                            data-th-selected="${game && game.data.gameSystem && game.data.gameSystem.select && game.data.gameSystem.select.system == system.name}"
                             data-th-each="system: ${gameSystems}" data-th-value="${system.name}"
                             data-th-text="${portal.localize({'_key=myGames.gameSystem.' + system.name, '_locale=ru'})}">
                         </option>
