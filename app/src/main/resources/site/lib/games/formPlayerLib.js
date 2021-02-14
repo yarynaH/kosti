@@ -8,6 +8,7 @@ const util = require("/lib/util");
 const contextLib = require("../contextLib");
 const cartLib = require("../cartLib");
 const sharedLib = require("../sharedLib");
+const cacheLib = require("../cacheLib");
 
 exports.getDays = getDays;
 exports.beautifyGame = beautifyGame;
@@ -21,13 +22,19 @@ exports.signOutOfGame = signOutOfGame;
 exports.checkPlayersCartsBooking = checkPlayersCartsBooking;
 exports.updateGameDate = updateGameDate;
 
+const cache = cacheLib.api.createGlobalCache({
+  name: "festival",
+  size: 1000,
+  expire: 60 * 60 * 24
+});
+
 function getDays(params) {
   if (!params) params = {};
   let days = [];
   if (params.day) {
     days = getDay(params.day);
   } else {
-    days = formSharedLib.getFirstDay();
+    days = formSharedLib.getDays();
   }
   let gamesQuery = "";
   if (params.system) {
@@ -96,9 +103,14 @@ function getGameBlocksByDay(dayId) {
 }
 
 function beautifyGame(game) {
+  game = beautifyGameGeneralData(game);
   game.seatsReserved = game.data.players
     ? norseUtils.forceArray(game.data.players).length
     : 0;
+  return game;
+}
+
+function beautifyGameGeneralData(game) {
   if (game.data.gameSystem[game.data.gameSystem._selected]) {
     game.system = {
       text: game.data.gameSystem[game.data.gameSystem._selected].system,
