@@ -124,14 +124,14 @@
                     <a data-th-href="${discordUrl}" class="button social_login-discord" name="discord"
                         placeholder="discord"> Залогиньтесь через Дискорд</a>
                 </div>
-                <div data-th-if="${gameSigned}">
-                    <div>Вы уже записаны на эту игру.</div>
+                <div class="k_gdp-signed" data-th-if="${gameSigned}">
+                    <div class="k_games-time_title">Вы уже записаны на эту игру.</div>
                     <button data-step="init" class="kosticonnect-button primary js_sign-out-of-game">ОТПИСАТЬСЯ ОТ
                         ИГРЫ</button>
                 </div>
                 <button data-step="init" data-th-unless="${gameSigned}"
-                    class="kosticonnect-button primary js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
-                <a href="/kosticonnect/games/">Назад к списку</a>
+                    class="kosticonnect-button primary k_gdp-sign_up-btn js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
+                <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow" href="/kosticonnect/games/"><span> Назад к списку</span></a>
             </div>
         </div>
     </main>
