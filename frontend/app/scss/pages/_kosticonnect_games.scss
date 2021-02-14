@@ -57,7 +57,7 @@
     }
 
     &-item_link {
-        display: inline-block;
+        display: block;
         padding: 15px;
         transition: box-shadow ease-out 0.2s;
 
@@ -84,6 +84,11 @@
         position: relative;
         display: block;
         margin-bottom: 16px;
+
+        img {
+            object-fit: cover;
+            object-position: top;
+        }
     }
 
     &-exclusive_game {
@@ -483,6 +488,11 @@
 
     &-img_wrap {
         @include aspect-ratio(256, 119, img);
+
+        img {
+            object-fit: cover;
+            object-position: top;
+        }
     }
 
     &-sign_up {
