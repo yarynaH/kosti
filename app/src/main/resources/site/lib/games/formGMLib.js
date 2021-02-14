@@ -85,7 +85,9 @@ function modifyGame(data) {
     data.location = c.data.location;
     delete data.displayName;
     delete data._id;
+    var players = c.data.players;
     c.data = data;
+    c.data.players = players;
     return c;
   }
 
