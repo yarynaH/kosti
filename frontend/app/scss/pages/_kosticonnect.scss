@@ -120,11 +120,12 @@
 
         &.primary {
             background: #EE1E5D;
-            border: 0;
+            border: 1px solid #EE1E5D;
 
             &:hover {
                 @include tablet-all {
                     background: #C30941;
+                    border-color: #C30941;
                 }
             }
 
@@ -138,6 +139,21 @@
             &:active {
                 @include tablet-all {
                     background: #960330;
+                }
+            }
+        }
+
+        &.inverted {
+            border: 1px solid #EE1E5D;
+            border-radius: 1px;
+            background: transparent;
+            color: #EE1E5D;
+
+            &:hover,
+            &:focus {
+                @include tablet-all {
+                    color: #fff;
+                    background: #EE1E5D;
                 }
             }
         }

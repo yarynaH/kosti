@@ -498,10 +498,10 @@
     }
 
     &-sign_up {
-        padding-top: 40px;
+        padding-top: 25px;
 
         @include tablet-all {
-            width: 65%;
+            width: calc(65% - 25px);
         }
 
         &-step_1 {
@@ -520,6 +520,26 @@
             border: 1px solid #1e1852;
             border-radius: 0;
             margin-bottom: 24px;
+        }
+
+        &-btn {
+            @include tablet-all {
+                margin-right: 15px;
+            }
+        }
+    }
+
+    &-back {
+        .k_gdp-signed + & {
+            margin-top: 25px;
+        }
+        span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        &:before {
+            padding-right: 6px;
         }
     }
 }
