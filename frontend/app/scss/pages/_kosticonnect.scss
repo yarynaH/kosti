@@ -120,11 +120,12 @@
 
         &.primary {
             background: #EE1E5D;
-            border: 0;
+            border: 1px solid #EE1E5D;
 
             &:hover {
                 @include tablet-all {
                     background: #C30941;
+                    border-color: #C30941;
                 }
             }
 
@@ -138,6 +139,21 @@
             &:active {
                 @include tablet-all {
                     background: #960330;
+                }
+            }
+        }
+
+        &.inverted {
+            border: 1px solid #EE1E5D;
+            border-radius: 1px;
+            background: transparent;
+            color: #EE1E5D;
+
+            &:hover,
+            &:focus {
+                @include tablet-all {
+                    color: #fff;
+                    background: #EE1E5D;
                 }
             }
         }
@@ -476,11 +492,11 @@
 .shop_block {
     @include mobile {
         margin: 0 -24px;
-        padding-top: 70px;
+        padding-top: 30px;
     }
 
     @include tablet-all {
-        padding-top: 124px;
+        padding-top: 48px;
     }
 
     &-title {
