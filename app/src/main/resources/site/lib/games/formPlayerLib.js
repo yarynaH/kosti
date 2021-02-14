@@ -197,7 +197,6 @@ function validateUser(game) {
       "'",
     contentTypes: [app.name + ":game"]
   });
-  norseUtils.log(games);
   if (games.total > 0)
     return {
       error: true,
