@@ -483,9 +483,6 @@
         }
 
         &-step_2 {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
             margin-bottom: 24px;
 
             .button:hover {
@@ -499,24 +496,6 @@
             margin-bottom: 24px;
         }
     }
-
-    // &-discord {
-    //     @include button-style(global transparent discord);
-
-    //     width: auto;
-    //     padding: 10px 10px;
-    //     border-radius: 50%;
-    //     text-align: center;
-
-    //     &:before {
-    //         font-size: rem(22);
-    //         margin: 0;
-    //     }
-
-    //     &:hover {
-    //         background-color: #e9ebf3;
-    //     }
-    // }
 }
 
 .custom_select {
