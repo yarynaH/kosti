@@ -40,7 +40,7 @@ function handleReq(req) {
       game &&
       game.data &&
       game.data.players &&
-      game.data.players.indexOf(user._id) !== -1;
+      game.data.players.indexOf(user._id) > -1;
 
     var model = {
       game: game,
