@@ -492,11 +492,11 @@
 .shop_block {
     @include mobile {
         margin: 0 -24px;
-        padding-top: 70px;
+        padding-top: 30px;
     }
 
     @include tablet-all {
-        padding-top: 124px;
+        padding-top: 48px;
     }
 
     &-title {
