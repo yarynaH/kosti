@@ -526,6 +526,7 @@
 
 .custom_select {
     position: relative;
+    z-index: 1;
 
     &-list {
         display: none;
@@ -596,6 +597,7 @@
         display: block;
         width: 100%;
         padding-bottom: 1px;
+        cursor: default;
 
         &:hover {
             color: #fff;
