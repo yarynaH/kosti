@@ -95,6 +95,12 @@
                             data-th-utext="${portal.localize({'_key=myGames.theme.' + game.data.theme, '_locale=ru'})}"></span>
                     </div>
                 </div>
+                <div class="k_gdp-info">
+                    <div class="k_gdp-label">ЯЗЫК ПРОВЕДЕНИЯ</div>
+                    <div class="k_gdp-value"
+                        data-th-text="${portal.localize({'_key=myGames.form.adventureLang.' + game.data.language, '_locale=ru'})}">
+                    </div>
+                </div>
                 <div class="k_gdp-info" data-th-if="${game.additionalInfo != ''}">
                     <div class="k_gdp-label">ДОПОЛНИТЕЛЬНО</div>
                     <div class="k_gdp-value" data-th-utext="${game.additionalInfo}"></div>
