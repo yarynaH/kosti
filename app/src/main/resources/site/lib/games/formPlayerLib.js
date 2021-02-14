@@ -21,6 +21,7 @@ exports.updateEntity = updateEntity;
 exports.signOutOfGame = signOutOfGame;
 exports.checkPlayersCartsBooking = checkPlayersCartsBooking;
 exports.updateGameDate = updateGameDate;
+exports.getGamesByPlayer = getGamesByPlayer;
 
 const festivalCache = cacheLib.api.createGlobalCache({
   name: "festival",
@@ -178,6 +179,21 @@ function checkTicket(params) {
     return true;
   }
   return false;
+}
+
+function getGamesByPlayer() {
+  let user = userLib.getCurrentUser();
+  if (!user) return false;
+  let games = contentLib.query({
+    start: 0,
+    count: -1,
+    query: "data.players = '" + user._id + "'",
+    contentTypes: [app.name + ":game"]
+  }).hits;
+  games.forEach((game) => {
+    game.url = portalLib.pageUrl({ id: game._id });
+  });
+  return games;
 }
 
 function validateUser(game) {

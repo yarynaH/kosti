@@ -11,3 +11,13 @@
         <div data-th-utext="${gameMasterForm}" data-th-remove="tag"></div>
     </div>
 </div>
+<div class="user_page-comments">
+    <div class="comments-item">
+        <h3>Мои игры на KostiCONnect</h3>
+        <div data-th-each="game : ${userGames}" class="comments-header">
+            <div class="post-info">
+                <a data-th-href="${game.url}" data-th-text="${game.displayName}"></a>
+            </div>
+        </div>
+    </div>
+</div>

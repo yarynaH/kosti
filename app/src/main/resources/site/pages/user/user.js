@@ -17,6 +17,7 @@ const formSharedLib = require(libLocation + "games/formSharedLib");
 const commentsLib = require(libLocation + "commentsLib");
 const notificationLib = require(libLocation + "notificationLib");
 const cacheLib = require(libLocation + "cacheLib");
+const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 const cache = cacheLib.api.createGlobalCache({
   name: "users",
@@ -127,11 +128,13 @@ function handleReq(req) {
     } else if (up.action == "games" && currUserFlag) {
       var games = getGames();
       totalArticles.curr = games.total;
+      let userGames = formPlayerLib.getGamesByPlayer();
       active.games = "active";
       var currTitle = "games";
       let days = formSharedLib.getDays();
       var articles = thymeleaf.render(resolve("gamesView.html"), {
         currUser: currUser,
+        userGames: userGames,
         currUserFlag: currUserFlag,
         festival: formSharedLib.getFestivalByDays(days),
         gameMasterForm: thymeleaf.render(resolve("games/gm/gmComp.html"), {
