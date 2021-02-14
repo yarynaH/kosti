@@ -13,8 +13,10 @@
                 <a class="k_games-item_link" data-th-href="${game.url}">
                     <span class="k_games-img_wrap">
                         <img data-th-if="${game.image and !game.image.placeholder}" data-th-src="${game.image.url}">
-                        <img data-th-if="${(!game.image or game.image.placeholder) and game.system and game.system.text}"
+                        <img data-th-if="${(!game.image or game.image.placeholder) and game.system and game.system.localizable}"
                             data-th-src="${portal.assetUrl({'_path=images/gameSystems/' + game.system.text + '.jpg'})}">
+                        <img data-th-if="${(!game.image or game.image.placeholder) and game.system and !game.system.localizable}"
+                            data-th-src="${portal.assetUrl({'_path=images/gameSystems/default.jpg'})}">
                         <span class="k_games-seats">
                             <span>места</span>
                             <span data-th-text="${game.seatsReserved + '/' + game.data.maxPlayers}"></span>

@@ -51,8 +51,10 @@
                     <div class="k_gdp-img_wrap">
                         <img data-th-if="${game.bigImage and !game.bigImage.placeholder}"
                             data-th-src="${game.bigImage.url}">
-                        <img data-th-if="${(!game.image or game.image.placeholder) and game.system and game.system.text}"
+                        <img data-th-if="${(!game.bigImage or game.bigImage.placeholder) and game.system and game.system.localizable}"
                             data-th-src="${portal.assetUrl({'_path=images/gameSystems/' + game.system.text + '.jpg'})}">
+                        <img data-th-if="${(!game.bigImage or game.bigImage.placeholder) and game.system and !game.system.localizable}"
+                            data-th-src="${portal.assetUrl({'_path=images/gameSystems/default.jpg'})}">
                         <span data-th-if="${game.data.exclusive}" class="k_games-exclusive_game"><i
                                 class="icon-rock"></i> Экслюзивная игра</span>
                     </div>
