@@ -16,7 +16,7 @@
                 <span>/</span>
                 <span data-th-text="${day.space.total}"></span>
             </div>
-            <div class="my_games-table_slot js-my_games-table_slot" data-th-if="${festival.online}">
+            <div class="my_games-table_slot js-my_games-table_slot" data-th-if="${festival.online and day.space}">
                 <span data-th-text="${portal.localize({'_key=myGames.slots.registered', '_locale=ru'})}"></span>
                 <span data-th-text="${day.space.reserved}"></span>
             </div>

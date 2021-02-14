@@ -3,7 +3,7 @@
 
     &-wrap {
         .fest_contacts {
-            margin-top: 64px4;
+            margin-top: 64px;
         }
     }
 
@@ -32,25 +32,38 @@
     }
     
     &-list {
+        margin: -15px;
+
         @include tablet-all {
             display: flex;
             flex-wrap: wrap;
-            margin: 0 -15px;
         }
     }
 
     &-item {
+        margin-bottom: 35px;
+
         @include tablet {
             flex: 0 0 50%;
-            padding: 0 15px;
         }
 
         @include desktop {
             flex: 0 0 33%;
-            padding: 0 15px;
         }
 
-        margin-bottom: 40px;
+        &:hover {
+            box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
+        }
+    }
+
+    &-item_link {
+        display: inline-block;
+        padding: 15px;
+        transition: box-shadow ease-out 0.2s;
+
+        &:hover {
+            box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
+        }
     }
 
     &-seats {
@@ -69,9 +82,29 @@
         @include aspect-ratio(16, 9, img);
 
         position: relative;
+        display: block;
         margin-bottom: 16px;
     }
+
+    &-exclusive_game {
+        position: absolute;
+        color: #fff;
+        font-family: Raleway;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 1.5;
+        background: #F9A033;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        top: 8px;
+        left: 8px;
     
+        .icon-rock {
+            margin-right: 8px;
+        }
+    }
+
     &-game_name {
         font-family: Raleway;
         font-weight: 900;
@@ -80,12 +113,19 @@
         color: #11090F;
     }
     
-    &-game_desc {
-        /* font-family: Myriad Pro; */
+    &-game_desc_wrap {
+        display: block;
         font-size: 14px;
         line-height: 1.45;
         color: #11090F;
         padding: 8px 0;
+    }
+    
+    &-game_desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
     
     &-link_more {
@@ -447,7 +487,10 @@
 
     &-sign_up {
         padding-top: 40px;
-        width: 65%;
+
+        @include tablet-all {
+            width: 65%;
+        }
 
         &-step_1 {
             display: none;
@@ -455,30 +498,16 @@
 
         &-step_2 {
             margin-bottom: 24px;
+
+            .button:hover {
+                box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
+            }
         }
 
         input {
             border: 1px solid #1e1852;
             border-radius: 0;
             margin-bottom: 24px;
-        }
-    }
-
-    &-discord {
-        @include button-style(global transparent discord);
-
-        width: auto;
-        padding: 10px 10px;
-        border-radius: 50%;
-        text-align: center;
-
-        &:before {
-            font-size: rem(22);
-            margin: 0;
-        }
-
-        &:hover {
-            background-color: #e9ebf3;
         }
     }
 }

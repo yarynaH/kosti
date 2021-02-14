@@ -111,8 +111,12 @@
     }
 
     &-system-input {
-        display: none;
+        //display: none;
         margin-top: 15px;
+    }
+
+    &-hidden-input {
+        display: none;
     }
 
     &-system-select {

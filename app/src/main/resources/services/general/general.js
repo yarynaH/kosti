@@ -9,6 +9,7 @@ const homepageLib = require(libLocation + "homepageLib");
 const newsletterLib = require(libLocation + "newsletterLib");
 const monsterLib = require(libLocation + "monsterLib");
 const mailsLib = require(libLocation + "mailsLib");
+const formPlayerLib = require(libLocation + "games/formPlayerLib");
 
 exports.get = function (req) {
   var params = req.params;
@@ -52,6 +53,12 @@ exports.get = function (req) {
       mailsLib.sendMail("orderCreated", cart.email, {
         cart: cart
       });
+      break;
+    case "fixgamesplayers":
+      formPlayerLib.checkPlayersCartsBooking();
+      break;
+    case "fixgamedate":
+      formPlayerLib.updateGameDate();
       break;
   }
   return {

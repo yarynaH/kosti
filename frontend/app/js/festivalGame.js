@@ -30,6 +30,11 @@ function initKosticonnetcScripts() {
       $(this).data().step === "discord"
     ) {
       updateUserData();
+    } else if (
+      $(".js_game-sign-up-step-2").length === 0 &&
+      $(this).data().step === "discord"
+    ) {
+      updateUserData();
     } else {
       signupForGame();
     }
@@ -78,6 +83,9 @@ function updateUserData() {
           $(".js_game-sign-up-step-2").show("slow");
           $(".js_sign-up-for-game").hide();
         }
+        if (data.message) {
+          showSnackBar(data.message, "success");
+        }
       } else {
         showSnackBar(data.message, "error");
       }
@@ -100,7 +108,8 @@ function signupForGame() {
       if (data.error) {
         showSnackBar(data.message, "error");
       } else {
-        showSnackBar("Вы зарегистрированы.", "success");
+        if (data.message) showSnackBar(data.message, "success");
+        else showSnackBar("Вы зарегистрированы.", "success");
       }
     },
     error: function (data) {

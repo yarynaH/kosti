@@ -46,7 +46,7 @@
                             disabled="disabled" selected>
                         </option>
                         <option data-th-classappend="${system.class}"
-                            data-th-selected="${game && game.data.gameSystem && game.data.gameSystem.select.system == system.name}"
+                            data-th-selected="${game && game.data.gameSystem && game.data.gameSystem.select && game.data.gameSystem.select.system == system.name}"
                             data-th-each="system: ${gameSystems}" data-th-value="${system.name}"
                             data-th-text="${portal.localize({'_key=myGames.gameSystem.' + system.name, '_locale=ru'})}">
                         </option>
@@ -59,9 +59,10 @@
                 </select>
             </div>
             <input
-                data-th-value="${game && game.data.gameSystem && game.data.gameSystem.text && game.data.gameSystem.text.system == 'other'}"
+                data-th-value="${game && game.data.gameSystem.text && game.data.gameSystem.text.system != '' && game.data.gameSystem._selected == 'text' ? game.data.gameSystem.text.system : '' }"
                 data-th-placeholder="${portal.localize({'_key=myGames.form.gameSystem.placeholder', '_locale=ru'})}"
                 type="text" name="systemInput" id="my_games_system-input"
+                data-th-classappend="${game && game.data.gameSystem.text && game.data.gameSystem.text.system != '' && game.data.gameSystem._selected == 'text' ? '' : 'my_games-hidden-input'}"
                 class="js-my_games-system-input my_games-system-input" data-ignore="true" />
         </div>
         <div class="form-group">
@@ -81,9 +82,10 @@
                 </select>
             </div>
             <input
-                data-th-value="${game && game.data.virtualTable && game.data.virtualTable.text && game.data.virtualTable.text.virtualTable == 'other'}"
+                data-th-value="${game && game.data.virtualTable.text && game.data.virtualTable.text.virtualTable != '' && game.data.virtualTable._selected == 'text' ? game.data.virtualTable.text.virtualTable : ''}"
                 data-th-placeholder="${portal.localize({'_key=myGames.form.virtualTable.placeholder', '_locale=ru'})}"
                 type="text" name="tableInput" id="my_games_system-input"
+                data-th-classappend="${game && game.data.virtualTable.text && game.data.virtualTable.text.virtualTable != '' && game.data.virtualTable._selected == 'text' ? '' : 'my_games-hidden-input'}"
                 class="js-my_games-virtual-table-input my_games-system-input" data-ignore="true" />
         </div>
         <div class="form-group">

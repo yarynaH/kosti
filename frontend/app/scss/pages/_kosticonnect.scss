@@ -2,8 +2,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .kosticonnect {
+    &-page {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    &-wrap {
+        flex: 1 0 auto;
+    }
+
     &-header {
         background-color: #443A97;
+        flex: 0 0 auto;
     }
 
     &-header_inner {
@@ -1120,6 +1131,7 @@
 
 .fest_contacts {
     background-color: #443A97;
+    flex: 0 0 auto;
 
     .site_content {
         @include tablet-all {
