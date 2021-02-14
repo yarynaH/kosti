@@ -74,6 +74,7 @@
                             <label class="k_games-filters-label" for="k_games-day-select">День</label>
                             <div class="k_games-filters-select select-field">
                                 <select name="day" class="select js_festival-filter-select" id="k_games-day-select">
+                                    <option>Все дни</option>
                                     <option data-th-each="day : ${days}" data-th-value="${day._id}"
                                         data-th-text="${day.displayName}"></option>
                                 </select>

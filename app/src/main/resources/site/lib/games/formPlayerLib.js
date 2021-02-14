@@ -34,7 +34,7 @@ function getDays(params) {
   if (params.day) {
     days = getDay(params.day);
   } else {
-    days = formSharedLib.getFirstDay();
+    days = formSharedLib.getDays();
   }
   let gamesQuery = "";
   if (params.system) {
@@ -105,14 +105,15 @@ function getGameBlocksByDay(dayId) {
 }
 
 function beautifyGame(game) {
-  let tempGame = festivalCache.api.getOnly(game._id);
+  /*let tempGame = festivalCache.api.getOnly(game._id);
   if (!tempGame) {
     game = beautifyGameGeneralData(game);
     festivalCache.api.put(game._id, game);
   } else {
     tempGame.data.players = game.data.players;
     game = tempGame;
-  }
+  }*/
+  game = beautifyGameGeneralData(game);
   game.seatsReserved = game.data.players
     ? norseUtils.forceArray(game.data.players).length
     : 0;
@@ -141,7 +142,10 @@ function beautifyGameGeneralData(game) {
     game.data.description.replace(/(<([^>]+)>)/gi, "").substring(0, 250) +
     "...";
   game.master = contentLib.get({ key: game.data.master });
-  if (game.data.image) game.image = norseUtils.getImage(game.data.image);
+  if (game.data.image) {
+    game.image = norseUtils.getImage(game.data.image, "block(321, 181)");
+    game.bigImage = norseUtils.getImage(game.data.image, "width(1300)");
+  }
   return game;
 }
 
@@ -184,16 +188,17 @@ function validateUser(game) {
   let gameBlock = util.content.getParent({ key: game._id });
   let games = contentLib.query({
     start: 0,
-    count: -1,
+    count: 1,
     query:
       "data.players = '" +
       user._id +
-      "' and _parentPath = '" +
+      "' and _parentPath = '/content" +
       gameBlock._path +
       "'",
-    contentTypes: [app.name + "game"]
+    contentTypes: [app.name + ":game"]
   });
-  if (game.total > 0)
+  norseUtils.log(games);
+  if (games.total > 0)
     return {
       error: true,
       message: "Вы уже записаны на другую игру в этом блоке."
@@ -487,13 +492,14 @@ function fixGameDate(game) {
 }
 
 function beautifyGameBlock(locationId, block) {
-  let tempBlock = festivalCache.api.getOnly(block._id);
+  /*let tempBlock = festivalCache.api.getOnly(block._id);
   if (!tempBlock) {
     block = getBlockCache(block);
     festivalCache.api.put(block._id, block);
   } else {
     block = tempBlock;
-  }
+  }*/
+  block = getBlockCache(block);
   if (locationId) {
     block.space = getLocationSpace(locationId, block._id);
   }
