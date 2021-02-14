@@ -49,8 +49,9 @@
             <div class="kosticonnect-header_insert">
                 <div class="k_gdp-img_decor">
                     <div class="k_gdp-img_wrap">
-                        <img data-th-if="${game.image}" data-th-src="${game.image.url}">
-                        <img data-th-unless="${game.image}" src="https://picsum.photos/1200/600">
+                        <img data-th-if="${game.image and !game.image.placeholder}" data-th-src="${game.image.url}">
+                        <img data-th-if="${(!game.image or game.image.placeholder) and game.system and game.system.text}"
+                            data-th-src="${portal.assetUrl({'_path=images/gameSystems/' + game.system.text + '.jpg'})}">
                         <span data-th-if="${game.data.exclusive}" class="k_games-exclusive_game"><i
                                 class="icon-rock"></i> Экслюзивная игра</span>
                     </div>
