@@ -28,7 +28,9 @@
                     <h4 data-th-unless="${game.system.localizable}" class="k_games-game_system"
                         data-th-text="${game.system.text}">
                     </h4>
-                    <span class="k_games-game_desc" data-th-utext="${game.intro}"></span>
+                    <span class="k_games-game_desc_wrap">
+                        <span class="k_games-game_desc" data-th-utext="${game.intro}"></span>
+                    </span>
                     <span class="k_games-game_actions">
                         <span class="k_games-link_more" data-th-href="${game.url}">Узнать больше</span>
                     </span>
