@@ -473,14 +473,24 @@
 
     &-sign_up {
         padding-top: 40px;
-        width: 65%;
+
+        @include tablet-all {
+            width: 65%;
+        }
 
         &-step_1 {
             display: none;
         }
 
         &-step_2 {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
             margin-bottom: 24px;
+
+            .button:hover {
+                box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.2);
+            }
         }
 
         input {
@@ -490,23 +500,23 @@
         }
     }
 
-    &-discord {
-        @include button-style(global transparent discord);
+    // &-discord {
+    //     @include button-style(global transparent discord);
 
-        width: auto;
-        padding: 10px 10px;
-        border-radius: 50%;
-        text-align: center;
+    //     width: auto;
+    //     padding: 10px 10px;
+    //     border-radius: 50%;
+    //     text-align: center;
 
-        &:before {
-            font-size: rem(22);
-            margin: 0;
-        }
+    //     &:before {
+    //         font-size: rem(22);
+    //         margin: 0;
+    //     }
 
-        &:hover {
-            background-color: #e9ebf3;
-        }
-    }
+    //     &:hover {
+    //         background-color: #e9ebf3;
+    //     }
+    // }
 }
 
 .custom_select {

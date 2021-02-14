@@ -51,6 +51,7 @@
                     <div class="k_gdp-img_wrap">
                         <img data-th-if="${game.image}" data-th-src="${game.image.url}">
                         <img data-th-unless="${game.image}" src="https://picsum.photos/1200/600">
+                        <span class="k_games-exclusive_game"><i class="icon-rock"></i> Экслюзивная игра</span>
                     </div>
                 </div>
             </div>
@@ -109,8 +110,7 @@
                 </form>
                 <div class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" data-th-if="${discordUrl}"
                     style="display:none">
-                    <label class="k_games-filters-label" for="k_games-system-select">Залогиньтесь через Дискорд:</label>
-                    <a data-th-href="${discordUrl}" class="k_gdp-discord" name="discord" placeholder="discord"></a>
+                    <a data-th-href="${discordUrl}" class="button social_login-discord" name="discord" placeholder="discord"> Залогиньтесь через Дискорд</a>
                 </div>
                 <button data-step="init" data-th-if="${gameSigned}"
                     class="kosticonnect-button primary js_sign-out-of-game">ОТПИСАТЬСЯ ОТ ИГРЫ</button>
