@@ -7,11 +7,28 @@ const norseUtils = require(libLocation + "norseUtils");
 const helpers = require(libLocation + "helpers");
 const userLib = require(libLocation + "userLib");
 const formSharedLib = require(libLocation + "games/formSharedLib");
+const cacheLib = require(libLocation + "cacheLib");
 const formPlayerLib = require(libLocation + "games/formPlayerLib");
+
+const cache = cacheLib.api.createGlobalCache({
+  name: "festival",
+  size: 1000,
+  expire: 60 * 60 * 24
+});
 
 exports.get = handleReq;
 
 function handleReq(req) {
+  let user = userLib.getCurrentUser();
+  if (
+    user &&
+    user.roles &&
+    user.roles.moderator &&
+    req.params.cache === "clear"
+  ) {
+    cache.api.clear();
+  }
+
   function renderView() {
     var view = resolve("games.html");
     var model = createModel();
@@ -42,6 +59,11 @@ function handleReq(req) {
       system: req.params.system,
       theme: req.params.theme
     });
+    let filters = cache.api.getOnly("festival-filters");
+    if (!filters) {
+      filters = getFilters();
+      cache.api.put("festival-filters", filters);
+    }
 
     var model = {
       content: content,

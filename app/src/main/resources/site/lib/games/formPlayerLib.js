@@ -22,9 +22,9 @@ exports.signOutOfGame = signOutOfGame;
 exports.checkPlayersCartsBooking = checkPlayersCartsBooking;
 exports.updateGameDate = updateGameDate;
 
-const cache = cacheLib.api.createGlobalCache({
+const festivalCache = cacheLib.api.createGlobalCache({
   name: "festival",
-  size: 1000,
+  size: 10000,
   expire: 60 * 60 * 24
 });
 
@@ -34,7 +34,7 @@ function getDays(params) {
   if (params.day) {
     days = getDay(params.day);
   } else {
-    days = formSharedLib.getDays();
+    days = formSharedLib.getFirstDay();
   }
   let gamesQuery = "";
   if (params.system) {
@@ -54,9 +54,11 @@ function getDays(params) {
         type: "game",
         additionalQuery: gamesQuery
       });
-      block.games.forEach((game) => {
-        game = beautifyGame(game, { getBlock: false });
-      });
+      let games = block.games;
+      for (let i = 0; i < games.length; i++) {
+        games[i] = beautifyGame(games[i], { getBlock: false });
+      }
+      block.games = games;
     });
   });
   return days;
@@ -96,14 +98,20 @@ function getGameBlocksByDay(dayId) {
     parentPathLike: true,
     sort: "data.datetime ASC"
   });
-  blocks.forEach((block) => {
-    block = formSharedLib.beautifyGameBlock(null, block);
-  });
+  for (let i = 0; i < blocks.length; i++) {
+    blocks[i] = beautifyGameBlock(null, blocks[i]);
+  }
   return blocks;
 }
 
 function beautifyGame(game) {
-  game = beautifyGameGeneralData(game);
+  let tempGame = festivalCache.api.getOnly(game._id);
+  if (!tempGame) {
+    game = beautifyGameGeneralData(game);
+    festivalCache.api.put(game._id, game);
+  } else {
+    game = tempGame;
+  }
   game.seatsReserved = game.data.players
     ? norseUtils.forceArray(game.data.players).length
     : 0;
@@ -122,7 +130,7 @@ function beautifyGameGeneralData(game) {
       localizable: false
     };
   }
-  game.block = formSharedLib.beautifyGameBlock(
+  game.block = beautifyGameBlock(
     null,
     util.content.getParent({ key: game._id })
   );
@@ -475,4 +483,43 @@ function fixGameDate(game) {
   let gameBlock = util.content.getParent({ key: game._id });
   game.data.datetime = gameBlock.data.datetime;
   updateEntity(game);
+}
+
+function beautifyGameBlock(locationId, block) {
+  let tempBlock = festivalCache.api.getOnly(block._id);
+  if (!tempBlock) {
+    block = getBlockCache(block);
+    festivalCache.api.put(block._id, block);
+  } else {
+    block = tempBlock;
+  }
+  if (locationId) {
+    block.space = getLocationSpace(locationId, block._id);
+  }
+  return block;
+}
+
+function getBlockCache(block) {
+  block.duration = {};
+  if (block.data.datetimeEnd && block.data.datetime) {
+    var duration =
+      new Date(block.data.datetimeEnd) - new Date(block.data.datetime);
+    var hours = Math.floor(duration / 60 / 60 / 1000);
+    block.duration = {
+      hours: hours.toFixed(),
+      minutes: (Math.floor(duration / 60 / 1000) - hours * 60).toFixed()
+    };
+  }
+  var blockDate = new Date(block.data.datetime);
+  block.date = blockDate.getDate().toFixed();
+  block.dayName = norseUtils.getDayName(blockDate);
+  block.monthName = norseUtils.getMonthName(blockDate);
+  block.time = {
+    start: norseUtils.getTime(new Date(block.data.datetime)),
+    end: block.data.datetimeEnd
+      ? norseUtils.getTime(new Date(block.data.datetimeEnd))
+      : null
+  };
+  block.epic = !!(block.data.description && block.data.title);
+  return block;
 }

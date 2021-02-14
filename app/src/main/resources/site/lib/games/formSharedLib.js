@@ -15,6 +15,11 @@ const cache = cacheLib.api.createGlobalCache({
   size: 1000,
   expire: 60 * 60 * 24
 });
+const festivalCache = cacheLib.api.createGlobalCache({
+  name: "festival",
+  size: 10000,
+  expire: 60 * 60 * 24
+});
 
 var baseUrl = "/site/pages/user/games/";
 
@@ -170,7 +175,7 @@ function getItemsList(filters) {
   return contentLib.query({
     query: query,
     start: 0,
-    count: -1,
+    count: filters.count ? parseInt(filters.count) : -1,
     sort: filters.sort ? filters.sort : "_score DESC"
   }).hits;
 }
@@ -258,9 +263,14 @@ function getGameBlocks(locationId) {
 }
 
 function beautifyGameBlock(locationId, block) {
+  block = getBlockCache(block);
   if (locationId) {
     block.space = getLocationSpace(locationId, block._id);
   }
+  return block;
+}
+
+function getBlockCache(block) {
   block.duration = {};
   if (block.data.datetimeEnd && block.data.datetime) {
     var duration =
