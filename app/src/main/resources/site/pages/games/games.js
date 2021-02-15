@@ -65,7 +65,11 @@ function handleReq(req) {
       cache.api.put("festival-filters", filters);
     }
     let mygamesLink = null;
-    if (user) mygamesLink = portal.pageUrl({ id: user._id });
+    if (user)
+      mygamesLink = portal.pageUrl({
+        id: user._id,
+        params: { action: "games" }
+      });
 
     var model = {
       content: content,

@@ -264,6 +264,9 @@ function bookSpace(params) {
       };
     }
   }
+  if (user && user.data && user.data.kosticonnect2021) {
+    params.kosticonnect2021 = user.data.kosticonnect2021;
+  }
   if (!validateTicketGameAllowed(params.kosticonnect2021, game._id)) {
     return {
       error: true,
