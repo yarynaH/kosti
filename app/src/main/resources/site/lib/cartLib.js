@@ -99,7 +99,11 @@ function getCartByQr(qr) {
       cart.items = norseUtils.forceArray(cart.items);
       for (var j = 0; j < cart.items[i].itemsIds.length; j++) {
         cart.items[i].itemsIds = norseUtils.forceArray(cart.items[i].itemsIds);
-        if (cart.items[i].itemsIds[j].id == qr) {
+        if (
+          cart.items[i].itemsIds &&
+          cart.items[i].itemsIds[j] &&
+          cart.items[i].itemsIds[j].id == qr
+        ) {
           cart.currentTicketType = contentLib.get({
             key: cart.items[i]._id
           }).data.ticketType;
