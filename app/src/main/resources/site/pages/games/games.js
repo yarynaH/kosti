@@ -64,10 +64,13 @@ function handleReq(req) {
       filters = getFilters();
       cache.api.put("festival-filters", filters);
     }
+    let mygamesLink = null;
+    if (user) mygamesLink = portal.pageUrl({ id: user._id });
 
     var model = {
       content: content,
       user: user,
+      mygamesLink: mygamesLink,
       days: formSharedLib.getDays({ skipBeautify: true }),
       gamesView: thymeleaf.render(resolve("gamesBlock.html"), {
         days: days
