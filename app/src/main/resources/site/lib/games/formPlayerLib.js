@@ -35,7 +35,7 @@ function getDays(params) {
   if (params.day) {
     days = getDay(params.day);
   } else {
-    days = formSharedLib.getDays();
+    days = formSharedLib.getFirstDay();
   }
   let gamesQuery = "";
   if (params.system) {

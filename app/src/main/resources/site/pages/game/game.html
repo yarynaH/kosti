@@ -115,7 +115,7 @@
                         <input class="js_get-user-data" name="firstName" placeholder="Ваше им'я" required>
                     </div>
                     <div class="form-group"
-                        data-th-unless="${user and user.data and user.data.kosticonnect2021 or user.roles.gameMaster}">
+                        data-th-unless="${user and user.data and user.data.kosticonnect2021 or (user and user.roles.gameMaster)}">
                         <input class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
                     </div>
                     <div class="k_gdp-agreement form-group">
