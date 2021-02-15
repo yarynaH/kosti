@@ -422,6 +422,7 @@ function signOutOfGame(params) {
 function validateTicketGameAllowed(ticketId, gameId) {
   let game = contentLib.get({ key: gameId });
   if (!game.data.exclusive) return true;
+  if (!ticketId) return false;
   let cart = cartLib.getCartByQr(ticketId);
   if (cart.legendary) return true;
   return false;
