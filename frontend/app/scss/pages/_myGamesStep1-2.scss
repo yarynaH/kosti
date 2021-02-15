@@ -301,4 +301,38 @@
             display: none;
         }
     }
+
+    &-signed {
+        &-wrapper {
+            background-color: #fff;
+            padding: 40px 0;
+            box-shadow: 0 5px 15px 0 rgba($color-primary21, 0.05);
+        }
+        
+        &-list,
+        &-empty {
+            padding: 15px 20px 0;
+    
+            @include tablet-all {
+                padding: 15px 40px 0;
+            }
+        }
+
+        &-item + &-item {
+            margin-top: 15px;
+        }
+
+        &-link {
+            font-family: Raleway;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 1.45;
+            color: #443A97;
+            padding-top: 8px;
+
+            &:hover {
+                color: lighten(#443A97, 20)
+            }
+        }
+    }
 }
