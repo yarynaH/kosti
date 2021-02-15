@@ -11,13 +11,16 @@
         <div data-th-utext="${gameMasterForm}" data-th-remove="tag"></div>
     </div>
 </div>
-<div class="user_page-comments">
-    <div class="comments-item">
-        <h3>Мои игры на KostiCONnect</h3>
-        <div data-th-each="game : ${userGames}" class="comments-header">
-            <div class="post-info">
-                <a data-th-href="${game.url}" data-th-text="${game.displayName}"></a>
-            </div>
-        </div>
+<div class="my_games-signed-wrapper">
+    <div class="my_games-gm-header">
+        <h2 class="my_games-title">Мои игры на KostiCONnect</h2>
     </div>
+    <ul class="my_games-signed-list" data-th-if="${game}">
+        <li data-th-each="game : ${userGames}" class="my_games-signed-item">
+            <a class="my_games-signed-link" data-th-href="${game.url}" data-th-text="${game.displayName}">The Ballad of Buck Ravers></a>
+        </li>
+    </ul>
+    <h4 class="my_games-signed-empty" data-th-unless="${game}">
+        Игр пока нет
+    </h4>
 </div>
