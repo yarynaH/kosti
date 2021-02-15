@@ -542,6 +542,23 @@
             padding-right: 6px;
         }
     }
+
+    &-agreement {
+        margin-bottom: 25px;
+        .label-checkbox:hover:before, 
+        [type=checkbox]:checked+.label-checkbox:before {
+            border-color: #443a97;
+        }
+        .label-checkbox:after {
+            background: url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' fill='%23443a97' x='0px' y='0px' viewBox='0 0 31 31' style='enable-background:new 0 0 31 31;' xml:space='preserve'%3E%3Cpath class='st0' d='M23,2'/%3E%3Cpath class='st0' d='M7,2'/%3E%3Cg%3E%3Cg id='chevron-right'%3E%3Cpolygon points='31,7.9 27.4,4.3 12.1,19.6 3.5,11 0,14.6 12.2,26.7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
+            no-repeat center;
+        }
+
+        a {
+            color: #443a97;
+        }
+    }
+    
 }
 
 .custom_select {
