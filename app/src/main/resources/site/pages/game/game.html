@@ -114,12 +114,12 @@
                     <div class="form-group" data-th-unless="${user and user.data and user.data.firstName}">
                         <input class="js_get-user-data" name="firstName" placeholder="Ваше им'я" required>
                     </div>
-                    <div class="form-group" data-th-unless="${user and user.data and user.data.kosticonnect2021}"><input
-                            class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
+                    <div class="form-group"
+                        data-th-unless="${user and user.data and user.data.kosticonnect2021 or user.roles.gameMaster}">
+                        <input class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
                     </div>
                     <div class="k_gdp-agreement form-group">
-                        <input class="js_get-user-data" required type="checkbox" name="agreement" id="fest-agreement"
-                            hidden value="true" />
+                        <input required type="checkbox" name="agreement" id="fest-agreement" hidden />
                         <label for="fest-agreement" class="label-checkbox">Я прочитал и принимаю
                             <a href="/kosticonnect/pravila-kosticonnect" target="_blank">условия фестиваля</a></label>
                     </div>

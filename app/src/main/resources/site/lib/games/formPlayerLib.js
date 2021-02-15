@@ -275,7 +275,7 @@ function bookSpace(params) {
     user.data &&
     user.data.firstName &&
     user.data.discord &&
-    user.data.kosticonnect2021
+    (user.data.kosticonnect2021 || user.roles.gameMaster)
   ) {
     let signInResult = signForGame({ gameId: params.gameId });
     if (!signInResult.error) {
