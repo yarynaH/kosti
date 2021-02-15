@@ -110,13 +110,18 @@
                 </div>
             </div>
             <div class="k_gdp-sign_up">
-                <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1"
-                    data-th-unless="${user and user.data and (user.data.firstName or user.data.kosticonnect2021)}">
+                <form class="k_gdp-sign_up-step_1 js_game-sign-up-step-1">
                     <div data-th-unless="${user and user.data and user.data.firstName}">
                         <input class="js_get-user-data" name="firstName" placeholder="Ваше им'я" required>
                     </div>
                     <div data-th-unless="${user and user.data and user.data.kosticonnect2021}"><input
                             class="js_get-user-data" name="ticket" placeholder="Номер билета" required>
+                    </div>
+                    <div class="k_gdp-agreement form-group">
+                        <input class="js_get-user-data" required type="checkbox" name="agreement" id="fest-agreement"
+                            hidden value="true" />
+                        <label for="fest-agreement" class="label-checkbox">Я прочитал и принимаю
+                            <a href="/kosticonnect/pravila-kosticonnect" target="_blank">условия фестиваля</a></label>
                     </div>
                 </form>
                 <div class="k_gdp-sign_up-step_2 js_game-sign-up-step-2" data-th-if="${discordUrl}"
@@ -129,14 +134,11 @@
                     <button data-step="init" class="kosticonnect-button primary js_sign-out-of-game">ОТПИСАТЬСЯ ОТ
                         ИГРЫ</button>
                 </div>
-                <div class="k_gdp-agreement form-group">
-                    <input required type="checkbox" name="agreement" id="fest-agreement" hidden />
-                    <label for="fest-agreement" class="label-checkbox">Я прочитал и принимаю
-                        <a target="_blank">условия фестиваля</a></label>
-                </div>
                 <button data-step="init" data-th-unless="${gameSigned}"
-                    class="kosticonnect-button primary k_gdp-sign_up-btn js_sign-up-for-game">ЗАПИСАТЬСЯ НА ИГРУ</button>
-                <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow" href="/kosticonnect/games/"><span> Назад к списку</span></a>
+                    class="kosticonnect-button primary k_gdp-sign_up-btn js_sign-up-for-game">ЗАПИСАТЬСЯ НА
+                    ИГРУ</button>
+                <a class="kosticonnect-button inverted k_gdp-back icon-back-arrow" href="/kosticonnect/games/"><span>
+                        Назад к списку</span></a>
             </div>
         </div>
     </main>

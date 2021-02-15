@@ -8,6 +8,11 @@ function initKosticonnetcScripts() {
     highlight: function (element, errorClass, validClass) {},
     unhighlight: function (element, errorClass, validClass) {}
   });
+  $(".js_festival-agreement").validate({
+    ignore: [],
+    highlight: function (element, errorClass, validClass) {},
+    unhighlight: function (element, errorClass, validClass) {}
+  });
 
   $(".js_sign-out-of-game").on("click", function (e) {
     e.preventDefault();
@@ -65,6 +70,7 @@ function signOutOfGame() {
 
 function updateUserData() {
   if (!$(".js_game-sign-up-step-1").valid()) {
+    hideLoader();
     return false;
   }
   var data = { gameId: $(".js_game-id").data().id };
