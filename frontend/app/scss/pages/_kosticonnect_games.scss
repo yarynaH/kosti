@@ -500,7 +500,7 @@
     &-sign_up {
         padding-top: 25px;
 
-        @include tablet-all {
+        @include desktop {
             width: calc(65% - 25px);
         }
 
@@ -519,7 +519,7 @@
         input {
             border: 1px solid #1e1852;
             border-radius: 0;
-            margin-bottom: 24px;
+            margin-bottom: 10px;
         }
 
         &-btn {
@@ -529,9 +529,22 @@
         }
     }
 
+    &-signed {
+        margin-bottom: 25px;
+    }
+
+    &-actions{
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
     &-back {
-        .k_gdp-signed + & {
-            margin-top: 25px;
+        .k_gdp-sign_up-btn + & {
+            @include mobile {
+                margin-top: 25px;
+            }
         }
         span {
             display: inline-block;
@@ -540,6 +553,12 @@
 
         &:before {
             padding-right: 6px;
+        }
+    }
+
+    &-sign_out-btn {
+        @include mobile {
+            width: 100%;
         }
     }
 
