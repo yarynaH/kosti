@@ -362,6 +362,28 @@ function beautifyGame(game) {
     };
   }
   game.additionalInfo = getGameMisc(game);
+  game.players = [];
+  if (!game.data.players) game.data.players = [];
+  game.data.players = norseUtils.forceArray(game.data.players);
+  game.data.players.forEach((player) => {
+    let playerObj = contentLib.get({ key: player });
+    if (playerObj) {
+      let discord = null;
+      if (playerObj && playerObj.data && playerObj.data.discord) {
+        discord = cache.api.getOnly(playerObj._id + "-discord");
+        if (!discord) {
+          discord = userLib.getDiscordData(playerObj._id);
+          if (discord) cache.api.put(playerObj._id + "-discord", discord);
+        }
+      }
+      game.players.push(
+        playerObj.displayName +
+          " " +
+          (discord ? discord.username + ":" + discord.discriminator : "")
+      );
+    }
+  });
+  game.players = game.players.join(", ");
   if (game.data.image) game.image = norseUtils.getImage(game.data.image);
   return game;
 }
