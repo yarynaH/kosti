@@ -32,7 +32,7 @@
       </config>
     </input>
     <input name="pregens" type="ComboBox">
-      <label>Max players</label>
+      <label>Pregens</label>
       <occurrences minimum="1" maximum="1"/>
       <config>
         <option value="master">Master</option>
