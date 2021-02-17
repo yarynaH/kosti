@@ -107,6 +107,17 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="k_games-filters-item availability">
+                            <label class="k_games-filters-label" for="k_games-system-select">Наличие мест</label>
+                            <div class="k_games-filters-select select-field">
+                                <select name="system" class="select"
+                                    id="k_games-system-select">
+                                    <option value="">Все игры</option>
+                                    <option value="free">есть места</option>
+                                    <option value="full">нет мест</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="js-k_games-wrapper" data-th-utext="${gamesView}"></div>

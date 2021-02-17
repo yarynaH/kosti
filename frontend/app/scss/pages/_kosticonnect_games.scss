@@ -214,20 +214,8 @@
             padding: 40px 0;
         }
 
-        @include desktop {
-            display: flex;
-            justify-content: space-between;
-        }
-
         &-control {
-            @include tablet-mobile {
-                padding-bottom: 24px;
-            }
-
-            @include desktop {
-                margin-right: 62px;
-                min-width: 116px;
-            }
+            padding-bottom: 24px;
         }
 
         &-title {
@@ -346,22 +334,13 @@
 
         &-item {
             @include tablet-all {
-                flex: 1 1 auto;
+                flex: 0 1 24%;
             }
 
             &+& {
                 @include mobile {
                     margin-top: 16px;
                 }
-            }
-
-            &.day,
-            &.system {
-                flex: 0 1 28%;
-            }
-
-            &.theme {
-                flex: 0 1 38%;
             }
         }
 
